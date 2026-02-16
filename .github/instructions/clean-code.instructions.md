@@ -21,6 +21,43 @@ description: 'Clean code practices, code smells to avoid, and quality heuristics
 - Use pronounceable names: `generationTimestamp` not `genymdhms`
 - Boolean names: `isValid`, `hasPermission`, `canExecute`, `shouldRetry`
 
+## Refactoring — Naming & Renaming
+When suggesting or applying names during any refactoring (extract variable, extract method, extract parameter, extract field, extract constant, rename, introduce parameter object, etc.), always follow these principles:
+
+### General Principles
+- **Readable first:** names should read like natural language — `remainingAttempts` not `remAttempt`
+- **Concise but complete:** remove filler words, but never sacrifice clarity — `fetchUserProfile` not `doGetTheUserProfileData`
+- **Context-aware:** consider the surrounding class, method, and domain — inside `OrderService`, prefer `total` over `orderTotal`; inside a generic utility, prefer `orderTotal`
+- **Reveal intent, not implementation:** `activeCustomers` not `filteredList`; `isEligibleForDiscount` not `checkFlag`
+
+### Extract Variable
+- Name captures **what the value represents**, not how it's computed — `discountedPrice` not `priceMinusDiscount`
+- For boolean expressions, phrase as a readable condition — `final var hasExceededLimit = attempts > MAX_ATTEMPTS;`
+- For complex sub-expressions, use a name that summarizes the business meaning — `isPremiumMember` not `levelGreaterThan3`
+
+### Extract Method
+- Start with a **verb** describing the single action — `calculateShippingCost`, `validateEmailFormat`, `buildConfirmationMessage`
+- Name should make the call site read like a sentence — `if (isEligibleForRefund(order))` not `if (checkOrder(order))`
+- Avoid vague verbs: `process`, `handle`, `manage`, `do`, `perform` — be specific about **what** is processed
+
+### Extract / Rename Parameter
+- Name should describe the **role** of the value in that method — `retryDelayMillis` not `delay`, `maxResults` not `n`
+- Use domain language matching the method's Javadoc and context
+- For boolean parameters, phrase as a question or condition — `includeArchived`, `forceRefresh`
+
+### Extract Field
+- Name reflects the **state or dependency** the field represents — `emailNotifier` not `notifier` (if multiple notifiers exist), `connectionPool` not `pool`
+- Prefix or suffix with the role when a class holds multiple instances of the same type — `sourceDatabase`, `targetDatabase`
+
+### Extract Constant
+- Name captures the **business meaning**, not the literal value — `MAX_LOGIN_ATTEMPTS` not `THREE`, `DEFAULT_PAGE_SIZE` not `TEN`
+- Group related constants with a shared prefix — `TIMEOUT_CONNECTION_MILLIS`, `TIMEOUT_READ_MILLIS`
+
+### Rename (General)
+- When renaming, consider all usages and how the new name reads at each call site
+- Align the name with the **current purpose** — if a method's responsibility evolved, update its name to match
+- Keep names consistent with nearby code — if sibling methods use `find`, don't introduce `locate` or `fetch` for the same pattern
+
 ## Code Smells to Watch For
 - **Long Method** → Extract smaller methods with descriptive names
 - **Large Class** → Split by responsibility (SRP)
