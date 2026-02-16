@@ -290,6 +290,162 @@ Lock-Free Data Structures → CAS Operations
 
 ---
 
+## DevOps, CI/CD & Infrastructure
+
+### CI/CD Tools
+| Tool | Type | Best For | Docs |
+|---|---|---|---|
+| **GitHub Actions** | Cloud-native CI/CD | GitHub-hosted projects, full workflow automation | `https://docs.github.com/en/actions` |
+| **Jenkins** | Self-hosted CI/CD | Enterprise pipelines, extensive plugin ecosystem | `https://www.jenkins.io/doc/` |
+| **GitLab CI/CD** | Integrated CI/CD | GitLab-hosted projects, built-in registry & security | `https://docs.gitlab.com/ee/ci/` |
+| **CircleCI** | Cloud CI/CD | Fast builds, Docker-first, config-as-code | `https://circleci.com/docs/` |
+| **Travis CI** | Cloud CI/CD | Open-source projects, simple YAML config | `https://docs.travis-ci.com/` |
+| **Azure DevOps Pipelines** | Cloud CI/CD | Microsoft ecosystem, multi-stage pipelines | `https://learn.microsoft.com/en-us/azure/devops/pipelines/` |
+| **ArgoCD** | GitOps CD | Kubernetes-native continuous delivery | `https://argo-cd.readthedocs.io/` |
+| **Tekton** | Cloud-native CI/CD | Kubernetes-native pipeline resources | `https://tekton.dev/docs/` |
+
+### Containers & Orchestration
+| Tool | Purpose | Docs |
+|---|---|---|
+| **Docker** | Container runtime — package apps with dependencies | `https://docs.docker.com/` |
+| **Docker Compose** | Multi-container local environments | `https://docs.docker.com/compose/` |
+| **Kubernetes (K8s)** | Container orchestration — scheduling, scaling, self-healing | `https://kubernetes.io/docs/` |
+| **Helm** | K8s package manager — templated deployments | `https://helm.sh/docs/` |
+| **Podman** | Rootless container runtime (Docker alternative) | `https://podman.io/docs` |
+| **Containerd** | Industry-standard container runtime (powers Docker & K8s) | `https://containerd.io/docs/` |
+
+#### Docker Concepts Map
+```
+Dockerfile → Image → Container → Volume → Network →
+Docker Compose → Multi-stage Builds → Layer Caching →
+Registry (Docker Hub, GHCR, ECR) → Security Scanning
+```
+
+#### Kubernetes Concepts Map
+```
+Pod → ReplicaSet → Deployment → Service → Ingress →
+ConfigMap → Secret → PersistentVolume → StatefulSet →
+DaemonSet → Job/CronJob → HPA → Namespace →
+Helm Chart → Operator → CRD → Service Mesh (Istio/Linkerd)
+```
+
+### Infrastructure as Code (IaC)
+| Tool | Type | Docs |
+|---|---|---|
+| **Terraform** | Declarative IaC — cloud-agnostic provisioning | `https://developer.hashicorp.com/terraform/docs` |
+| **Ansible** | Configuration management — agentless, YAML playbooks | `https://docs.ansible.com/` |
+| **Pulumi** | IaC using real programming languages (TypeScript, Python, Go) | `https://www.pulumi.com/docs/` |
+| **CloudFormation** | AWS-native IaC — JSON/YAML templates | `https://docs.aws.amazon.com/cloudformation/` |
+| **Chef / Puppet** | Configuration management — agent-based | `https://docs.chef.io/` / `https://www.puppet.com/docs` |
+
+### Cloud Platforms
+| Platform | Docs | Key Services |
+|---|---|---|
+| **AWS** | `https://docs.aws.amazon.com/` | EC2, S3, RDS, Lambda, ECS/EKS, SQS, SNS, DynamoDB |
+| **Google Cloud (GCP)** | `https://cloud.google.com/docs` | Compute Engine, GKE, Cloud Run, BigQuery, Pub/Sub |
+| **Microsoft Azure** | `https://learn.microsoft.com/en-us/azure/` | VMs, AKS, App Service, Cosmos DB, Service Bus |
+| **DigitalOcean** | `https://docs.digitalocean.com/` | Droplets, K8s, App Platform — simpler, dev-friendly |
+| **Vercel / Netlify** | `https://vercel.com/docs` | Frontend/JAMstack deployment, serverless functions |
+
+### Monitoring & Observability
+| Tool | Purpose | Docs |
+|---|---|---|
+| **Prometheus** | Metrics collection & alerting (pull-based) | `https://prometheus.io/docs/` |
+| **Grafana** | Visualization dashboards (works with Prometheus, etc.) | `https://grafana.com/docs/` |
+| **ELK Stack** | Elasticsearch + Logstash + Kibana — log aggregation | `https://www.elastic.co/guide/` |
+| **Jaeger / Zipkin** | Distributed tracing | `https://www.jaegertracing.io/docs/` |
+| **Datadog** | Full-stack monitoring (commercial) | `https://docs.datadoghq.com/` |
+| **PagerDuty** | Incident management & on-call scheduling | `https://support.pagerduty.com/docs` |
+| **OpenTelemetry** | Vendor-neutral observability framework (traces, metrics, logs) | `https://opentelemetry.io/docs/` |
+
+#### Observability Pillars
+```
+Logs   — What happened? (text records of events)
+Metrics — How much? How fast? (numerical measurements over time)
+Traces  — How did a request flow through services? (distributed context)
+```
+
+### Version Control & Collaboration
+| Tool | Purpose | Docs |
+|---|---|---|
+| **Git** | Distributed version control | `https://git-scm.com/doc` |
+| **GitHub** | Hosting + collaboration + CI/CD + code review | `https://docs.github.com/` |
+| **GitLab** | Hosting + full DevOps platform | `https://docs.gitlab.com/` |
+| **Bitbucket** | Hosting + Jira integration | `https://support.atlassian.com/bitbucket-cloud/` |
+
+---
+
+## Frameworks & Tech Stacks
+
+### Backend Frameworks
+| Framework | Language | Type | Docs |
+|---|---|---|---|
+| **Spring Boot** | Java | Full-featured, enterprise | `https://docs.spring.io/spring-boot/docs/current/reference/html/` |
+| **Quarkus** | Java | Cloud-native, fast startup | `https://quarkus.io/guides/` |
+| **Micronaut** | Java | Lightweight, compile-time DI | `https://docs.micronaut.io/` |
+| **Django** | Python | Batteries-included, ORM, admin | `https://docs.djangoproject.com/` |
+| **FastAPI** | Python | Modern, async, type hints, OpenAPI | `https://fastapi.tiangolo.com/` |
+| **Flask** | Python | Minimal, flexible | `https://flask.palletsprojects.com/` |
+| **Express.js** | Node.js | Minimal, widely used | `https://expressjs.com/` |
+| **NestJS** | Node.js/TS | Structured, Angular-inspired | `https://docs.nestjs.com/` |
+| **Gin** | Go | Lightweight, high-perf | `https://gin-gonic.com/docs/` |
+| **Actix Web** | Rust | High-performance, actor-based | `https://actix.rs/docs/` |
+| **ASP.NET Core** | C# | Microsoft ecosystem, cross-platform | `https://learn.microsoft.com/en-us/aspnet/core/` |
+| **Ruby on Rails** | Ruby | Convention over configuration | `https://guides.rubyonrails.org/` |
+
+### Frontend Frameworks
+| Framework | Language | Docs |
+|---|---|---|
+| **React** | JavaScript/TSX | `https://react.dev/` |
+| **Vue.js** | JavaScript/SFC | `https://vuejs.org/guide/` |
+| **Angular** | TypeScript | `https://angular.dev/` |
+| **Svelte / SvelteKit** | JavaScript | `https://svelte.dev/docs/` |
+| **Next.js** | React/SSR | `https://nextjs.org/docs` |
+| **Nuxt** | Vue/SSR | `https://nuxt.com/docs` |
+
+### Databases
+| Database | Type | Best For | Docs |
+|---|---|---|---|
+| **PostgreSQL** | Relational | General purpose, advanced features | `https://www.postgresql.org/docs/` |
+| **MySQL** | Relational | Web apps, widely deployed | `https://dev.mysql.com/doc/` |
+| **MongoDB** | Document | Flexible schema, rapid prototyping | `https://www.mongodb.com/docs/` |
+| **Redis** | Key-Value / Cache | Caching, sessions, pub/sub | `https://redis.io/docs/` |
+| **Cassandra** | Wide-Column | Write-heavy, high availability | `https://cassandra.apache.org/doc/` |
+| **Neo4j** | Graph | Relationship-heavy data | `https://neo4j.com/docs/` |
+| **DynamoDB** | Key-Value (AWS) | Serverless, auto-scaling | `https://docs.aws.amazon.com/dynamodb/` |
+| **SQLite** | Embedded Relational | Local/embedded apps, testing | `https://www.sqlite.org/docs.html` |
+
+### Message Brokers & Queues
+| System | Type | Docs |
+|---|---|---|
+| **Apache Kafka** | Distributed event streaming | `https://kafka.apache.org/documentation/` |
+| **RabbitMQ** | Message broker (AMQP) | `https://www.rabbitmq.com/docs` |
+| **Apache Pulsar** | Multi-tenant messaging | `https://pulsar.apache.org/docs/` |
+| **AWS SQS / SNS** | Managed queue / pub-sub | `https://docs.aws.amazon.com/sqs/` |
+| **NATS** | Lightweight messaging | `https://docs.nats.io/` |
+
+### Build Tools
+| Tool | Language/Ecosystem | Docs |
+|---|---|---|
+| **Maven** | Java | `https://maven.apache.org/guides/` |
+| **Gradle** | Java/Kotlin/Android | `https://docs.gradle.org/` |
+| **npm / pnpm / yarn** | JavaScript/Node.js | `https://docs.npmjs.com/` |
+| **pip / Poetry** | Python | `https://pip.pypa.io/en/stable/` |
+| **Cargo** | Rust | `https://doc.rust-lang.org/cargo/` |
+| **CMake** | C/C++ | `https://cmake.org/documentation/` |
+| **Go modules** | Go | `https://go.dev/ref/mod` |
+
+### API Styles Comparison
+| Style | Protocol | Data Format | Best For |
+|---|---|---|---|
+| **REST** | HTTP | JSON | Standard CRUD APIs |
+| **GraphQL** | HTTP | JSON | Flexible client queries, reducing over-fetching |
+| **gRPC** | HTTP/2 | Protobuf (binary) | Microservices, low-latency, streaming |
+| **WebSocket** | TCP (upgraded HTTP) | Any | Real-time bidirectional (chat, live data) |
+| **SOAP** | HTTP/SMTP | XML | Legacy enterprise integrations |
+
+---
+
 ## Open-Source Projects to Study (Language-Agnostic Value)
 
 | Project | Language | What You'll Learn |

@@ -48,9 +48,18 @@ Your `.github/` folder contains everything Copilot uses to customize its behavio
 │   ├── debugger.agent.md                ← Root cause analyst
 │   ├── impact-analyzer.agent.md         ← Change impact assessor
 │   ├── learning-mentor.agent.md         ← Concept teacher
-│   └── code-reviewer.agent.md           ← Code quality reviewer
+│   ├── code-reviewer.agent.md           ← Code quality reviewer
+│   └── daily-assistant.agent.md         ← Daily life assistant (non-SE)
 │
 ├── prompts/                             ← Reusable slash commands
+│   ├── hub.prompt.md                    ← /hub (master navigation)
+│   ├── dsa.prompt.md                    ← /dsa (data structures & algorithms)
+│   ├── system-design.prompt.md          ← /system-design (HLD/LLD)
+│   ├── devops.prompt.md                 ← /devops (CI/CD, Docker, K8s)
+│   ├── language-guide.prompt.md         ← /language-guide (any language)
+│   ├── tech-stack.prompt.md             ← /tech-stack (frameworks, DBs)
+│   ├── sdlc.prompt.md                   ← /sdlc (phases & methodologies)
+│   ├── daily-assist.prompt.md           ← /daily-assist (finance, productivity)
 │   ├── design-review.prompt.md          ← /design-review
 │   ├── debug.prompt.md                  ← /debug
 │   ├── impact.prompt.md                 ← /impact
@@ -72,7 +81,8 @@ Your `.github/` folder contains everything Copilot uses to customize its behavio
 │   ├── design-patterns/SKILL.md         ← Pattern decision guide
 │   ├── java-debugging/SKILL.md          ← Exception diagnosis
 │   ├── java-learning-resources/SKILL.md ← Curated Java learning resource index
-│   └── software-engineering-resources/SKILL.md ← Comprehensive SE/CS resource index
+│   ├── software-engineering-resources/SKILL.md ← Comprehensive SE/CS resource index
+│   └── daily-assistant-resources/SKILL.md ← Daily life resources (finance, productivity)
 │
 └── docs/                                ← Documentation (you are here)
     ├── getting-started.md               ← This tutorial
@@ -273,6 +283,66 @@ Four prompts are designed for **learning from external resources** — documenta
 3. Enter topic: `sliding window` (or `design URL shortener`, etc.)
 4. Enter level: `mid-level`
 5. ✅ **Expected:** Pattern identification, template code, problem progression with LeetCode references, and interview strategy tips
+
+---
+
+## Step 10: Try the Domain-Specific Commands
+
+Eight specialized prompts provide **hierarchical navigation** across all learning domains.
+
+### Try /hub — Navigation Index
+
+1. Type: `/hub`
+2. Enter category: `se` (or `daily`, or leave blank for full index)
+3. ✅ **Expected:** A complete navigation tree showing all available commands organized by category
+
+### Try /dsa — Data Structures & Algorithms
+
+1. Type: `/dsa`
+2. Enter topic: `binary trees` (or `sliding window`, `dynamic programming`)
+3. Enter goal: `learn` (or `interview-prep`, `compare`)
+4. ✅ **Expected:** Hierarchical topic breakdown, explanation with complexities, pattern identification, and practice problems
+
+### Try /system-design — HLD/LLD
+
+1. Type: `/system-design`
+2. Enter level: `HLD` (or `LLD`)
+3. Enter topic: `design URL shortener` (or `class diagram for parking lot`)
+4. ✅ **Expected:** Structured design walkthrough with internal hierarchy — for HLD: requirements → estimation → architecture; for LLD: class design → API → schema
+
+### Try /devops — CI/CD, Docker, Cloud
+
+1. Type: `/devops`
+2. Enter topic: `Docker` (or `GitHub Actions`, `Kubernetes`, `Terraform`)
+3. Enter goal: `learn-concept` (or `setup-pipeline`, `compare-tools`)
+4. ✅ **Expected:** Concept explanation with architecture context, tool comparison, and practical setup guidance
+
+### Try /language-guide — Language Learning
+
+1. Type: `/language-guide`
+2. Enter language: `Rust` (or `Go`, `Python`, `C++`, `Java`)
+3. Enter level: `beginner`
+4. ✅ **Expected:** 6-level learning hierarchy from foundations to real-world, with a language quick-reference card
+
+### Try /tech-stack — Frameworks & Databases
+
+1. Type: `/tech-stack`
+2. Enter category: `backend` (or `frontend`, `database`, `messaging`)
+3. Enter goal: `compare Spring Boot vs FastAPI`
+4. ✅ **Expected:** Structured comparison table with trade-offs, use cases, and learning resources
+
+### Try /sdlc — SDLC Phases & Methodologies
+
+1. Type: `/sdlc`
+2. Enter focus: `testing` (or `deployment`, `agile vs waterfall`, `overview`)
+3. ✅ **Expected:** Phase-by-phase breakdown with activities, deliverables, and methodology comparison
+
+### Try /daily-assist — Daily Life Assistant
+
+1. Type: `/daily-assist`
+2. Enter category: `finance` (or `productivity`, `news`, `research`)
+3. Enter request: `explain SIP vs lumpsum investing` (or `create a weekly study plan`)
+4. ✅ **Expected:** Structured, actionable guidance with frameworks and tools
 
 ---
 

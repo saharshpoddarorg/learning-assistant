@@ -30,7 +30,7 @@
 | Action | How |
 |---|---|
 | **Switch persona** | Chat dropdown → select **Designer**, **Debugger**, **Impact-Analyzer**, or **Learning-Mentor** |
-| **Run a workflow** | Type `/design-review`, `/debug`, `/impact`, `/teach`, `/refactor`, `/explain`, `/composite`, `/context`, `/scope`, `/learn-concept`, `/learn-from-docs`, `/explore-project`, `/deep-dive`, `/reading-plan`, or `/interview-prep` in Chat |
+| **Run a workflow** | Type `/hub`, `/dsa`, `/system-design`, `/devops`, `/language-guide`, `/tech-stack`, `/sdlc`, `/daily-assist`, `/learn-concept`, `/learn-from-docs`, `/explore-project`, `/deep-dive`, `/reading-plan`, `/interview-prep`, `/design-review`, `/debug`, `/impact`, `/teach`, `/refactor`, `/explain`, `/composite`, `/context`, or `/scope` in Chat |
 | **Coding standards** | Automatic — open any `.java` file, instructions load via glob match |
 | **Extra knowledge** | Automatic — ask about building, patterns, or debugging and the matching skill loads |
 | **See everything** | [Documentation Map](#-documentation-map) · [File Reference](docs/file-reference.md) · [Getting Started Tutorial](docs/getting-started.md) |
@@ -96,10 +96,19 @@ GitHub Copilot in VS Code supports exactly **5 customization primitives**. Every
 │   ├── debugger.agent.md                   Systematic debugging
 │   ├── impact-analyzer.agent.md            Change impact analysis
 │   ├── learning-mentor.agent.md            Teaching & learning
-│   └── code-reviewer.agent.md             Read-only code review
+│   ├── code-reviewer.agent.md             Read-only code review
+│   └── daily-assistant.agent.md            Daily life assistant (non-SE)
 │
 ├── prompts/                             ← Slash commands (type /command)
 │   ├── 🎯 README.md                         Guide: how prompts work
+│   ├── hub.prompt.md                       /hub (master navigation index)
+│   ├── dsa.prompt.md                       /dsa (data structures & algorithms)
+│   ├── system-design.prompt.md             /system-design (HLD/LLD hierarchy)
+│   ├── devops.prompt.md                    /devops (CI/CD, Docker, K8s, cloud)
+│   ├── language-guide.prompt.md            /language-guide (language learning)
+│   ├── tech-stack.prompt.md                /tech-stack (frameworks, databases)
+│   ├── sdlc.prompt.md                      /sdlc (phases & methodologies)
+│   ├── daily-assist.prompt.md              /daily-assist (finance, productivity)
 │   ├── design-review.prompt.md             /design-review
 │   ├── debug.prompt.md                     /debug
 │   ├── impact.prompt.md                    /impact
@@ -122,7 +131,8 @@ GitHub Copilot in VS Code supports exactly **5 customization primitives**. Every
 │   ├── design-patterns/SKILL.md            OOP patterns & SOLID reference
 │   ├── java-debugging/SKILL.md             Exception patterns & debug techniques
 │   ├── java-learning-resources/SKILL.md    Curated Java learning resource index
-│   └── software-engineering-resources/SKILL.md  Comprehensive SE/CS resource index
+│   ├── software-engineering-resources/SKILL.md  Comprehensive SE/CS resource index
+│   └── daily-assistant-resources/SKILL.md  Daily assistant resources (finance, productivity, news)
 │
 └── docs/                                ← Documentation & tutorials
     ├── getting-started.md                  Step-by-step tutorial
@@ -156,6 +166,7 @@ This learning project includes working samples of each primitive, organized into
 | **Impact-Analyzer** | [`impact-analyzer.agent.md`](agents/impact-analyzer.agent.md) | Ripple effect analysis, dependency mapping, risk assessment |
 | **Learning-Mentor** | [`learning-mentor.agent.md`](agents/learning-mentor.agent.md) | Concept teaching with theory, analogies, and hands-on code |
 | **Code-Reviewer** | [`code-reviewer.agent.md`](agents/code-reviewer.agent.md) | Bug detection, style checks, best practices (read-only) |
+| **Daily-Assistant** | [`daily-assistant.agent.md`](agents/daily-assistant.agent.md) | Finance, productivity, news, daily life tasks |
 
 > 📖 **Deep dive:** [Agents Guide →](agents/README.md)
 
@@ -182,6 +193,14 @@ This learning project includes working samples of each primitive, organized into
 | `/reading-plan` | [`reading-plan.prompt.md`](prompts/reading-plan.prompt.md) | Structured reading/learning plan with resources |
 | `/learn-concept` | [`learn-concept.prompt.md`](prompts/learn-concept.prompt.md) | Learn any CS/SE concept (language-agnostic) |
 | `/interview-prep` | [`interview-prep.prompt.md`](prompts/interview-prep.prompt.md) | DSA patterns, system design, interview strategies |
+| `/hub` | [`hub.prompt.md`](prompts/hub.prompt.md) | Master navigation index — browse all commands |
+| `/dsa` | [`dsa.prompt.md`](prompts/dsa.prompt.md) | Data structures & algorithms with pattern hierarchy |
+| `/system-design` | [`system-design.prompt.md`](prompts/system-design.prompt.md) | Unified HLD/LLD with full internal hierarchy |
+| `/devops` | [`devops.prompt.md`](prompts/devops.prompt.md) | CI/CD, Docker, Kubernetes, cloud, IaC, monitoring |
+| `/language-guide` | [`language-guide.prompt.md`](prompts/language-guide.prompt.md) | Language-specific learning framework |
+| `/tech-stack` | [`tech-stack.prompt.md`](prompts/tech-stack.prompt.md) | Frameworks, libraries, databases — compare & learn |
+| `/sdlc` | [`sdlc.prompt.md`](prompts/sdlc.prompt.md) | SDLC phases, methodologies, engineering practices |
+| `/daily-assist` | [`daily-assist.prompt.md`](prompts/daily-assist.prompt.md) | Finance, productivity, news, daily life tasks |
 
 > 📖 **Deep dive:** [Prompts Guide →](prompts/README.md)
 
@@ -211,7 +230,8 @@ This learning project includes working samples of each primitive, organized into
 | `design-patterns` | [`skills/design-patterns/`](skills/design-patterns/SKILL.md) | Design patterns, SOLID, architecture questions |
 | `java-debugging` | [`skills/java-debugging/`](skills/java-debugging/SKILL.md) | Exception analysis, debugging techniques |
 | `java-learning-resources` | [`skills/java-learning-resources/`](skills/java-learning-resources/SKILL.md) | Java-specific learning resources, official docs, tutorials |
-| `software-engineering-resources` | [`skills/software-engineering-resources/`](skills/software-engineering-resources/SKILL.md) | Comprehensive SE/CS: DSA, system design, OS, networking, DBMS, testing, books |
+| `software-engineering-resources` | [`skills/software-engineering-resources/`](skills/software-engineering-resources/SKILL.md) | Comprehensive SE/CS: DSA, system design, OS, networking, DBMS, testing, DevOps, frameworks, books |
+| `daily-assistant-resources` | [`skills/daily-assistant-resources/`](skills/daily-assistant-resources/SKILL.md) | Finance basics, productivity methods, news sources, research tools |
 
 > 📖 **Deep dive:** [Skills Guide →](skills/README.md)
 
@@ -245,6 +265,14 @@ The agents support **handoff buttons** for seamless multi-step workflows:
            │
            └──→ Code-Reviewer
                 (review my code)
+
+  ┌──────────────────┐        ┌──────────────────┐
+  │ Daily-Assistant  │──────→ │  Learning-Mentor │
+  │ (daily tasks)    │        │  (learn deeper)  │
+  └────────┬─────────┘        └──────────────────┘
+           │
+           └──→ Agent
+                (implement)
 ```
 
 ---

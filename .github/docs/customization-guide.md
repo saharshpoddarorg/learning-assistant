@@ -111,6 +111,14 @@ Learning Mentor← Thinks in analogies, exercises, progression
 /reading-plan   → Structured reading/learning plan with resources
 /learn-concept  → Learn any CS/SE concept (language-agnostic)
 /interview-prep → DSA patterns, system design, interview strategies
+/hub          → Master navigation index — browse all commands
+/dsa          → Data structures & algorithms with pattern hierarchy
+/system-design→ Unified HLD/LLD with full internal hierarchy
+/devops       → CI/CD, Docker, Kubernetes, cloud, IaC, monitoring
+/language-guide→ Language-specific learning framework
+/tech-stack   → Frameworks, libraries, databases — compare & learn
+/sdlc         → SDLC phases, methodologies, engineering practices
+/daily-assist → Finance, productivity, news, daily life tasks
 ```
 
 **Role:** Define *what* to do — pre-built workflows you trigger with a command.  
@@ -126,7 +134,8 @@ java-build/                ← Activates for: compile, build, run
 design-patterns/           ← Activates for: Pattern decisions, SOLID
 java-debugging/            ← Activates for: Exceptions, stack traces
 java-learning-resources/   ← Activates for: Java learning, tutorials, docs
-software-engineering-resources/ ← Activates for: DSA, system design, OS, networking, DBMS, testing, SE books
+software-engineering-resources/ ← Activates for: DSA, system design, OS, networking, DBMS, testing, DevOps, frameworks
+daily-assistant-resources/  ← Activates for: Finance, productivity, news, daily planning
 ```
 
 **Role:** Provide *extra knowledge* — scripts, templates, domain expertise.  

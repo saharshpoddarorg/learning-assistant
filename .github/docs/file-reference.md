@@ -24,9 +24,18 @@
 │   ├── debugger.agent.md                🤖 Loaded when agent selected
 │   ├── impact-analyzer.agent.md         🤖 Loaded when agent selected
 │   ├── learning-mentor.agent.md         🤖 Loaded when agent selected
-│   └── code-reviewer.agent.md           🤖 Loaded when agent selected
+│   ├── code-reviewer.agent.md           🤖 Loaded when agent selected
+│   └── daily-assistant.agent.md         🤖 Loaded when agent selected
 │
 ├── prompts/
+│   ├── hub.prompt.md                    🤖 Loaded when /hub invoked
+│   ├── dsa.prompt.md                    🤖 Loaded when /dsa invoked
+│   ├── system-design.prompt.md          🤖 Loaded when /system-design invoked
+│   ├── devops.prompt.md                 🤖 Loaded when /devops invoked
+│   ├── language-guide.prompt.md         🤖 Loaded when /language-guide invoked
+│   ├── tech-stack.prompt.md             🤖 Loaded when /tech-stack invoked
+│   ├── sdlc.prompt.md                   🤖 Loaded when /sdlc invoked
+│   ├── daily-assist.prompt.md           🤖 Loaded when /daily-assist invoked
 │   ├── design-review.prompt.md          🤖 Loaded when /design-review invoked
 │   ├── debug.prompt.md                  🤖 Loaded when /debug invoked
 │   ├── impact.prompt.md                 🤖 Loaded when /impact invoked
@@ -48,7 +57,8 @@
 │   ├── design-patterns/SKILL.md        🤖 Auto-loaded when topic matches
 │   ├── java-debugging/SKILL.md         🤖 Auto-loaded when topic matches
 │   ├── java-learning-resources/SKILL.md 🤖 Auto-loaded when topic matches
-│   └── software-engineering-resources/SKILL.md 🤖 Auto-loaded when topic matches
+│   ├── software-engineering-resources/SKILL.md 🤖 Auto-loaded when topic matches
+│   └── daily-assistant-resources/SKILL.md 🤖 Auto-loaded when topic matches
 │
 │  ┌─────────────────────────────────────────────────────────┐
 │  │  👤 FILES FOR DEVELOPERS (documentation & learning)    │
