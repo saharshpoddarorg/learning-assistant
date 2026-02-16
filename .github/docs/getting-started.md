@@ -48,9 +48,21 @@ Your `.github/` folder contains everything Copilot uses to customize its behavio
 │   ├── debugger.agent.md                ← Root cause analyst
 │   ├── impact-analyzer.agent.md         ← Change impact assessor
 │   ├── learning-mentor.agent.md         ← Concept teacher
-│   └── code-reviewer.agent.md           ← Code quality reviewer
+│   ├── code-reviewer.agent.md           ← Code quality reviewer
+│   ├── daily-assistant.agent.md            ← Daily life assistant (non-SE)
+│   └── Thinking-Beast-Mode.agent.md        ← Deep research agent (autonomous)
 │
 ├── prompts/                             ← Reusable slash commands
+│   ├── hub.prompt.md                    ← /hub (master navigation)
+│   ├── dsa.prompt.md                    ← /dsa (data structures & algorithms)
+│   ├── system-design.prompt.md          ← /system-design (HLD/LLD)
+│   ├── devops.prompt.md                 ← /devops (CI/CD, Docker, K8s)
+│   ├── language-guide.prompt.md         ← /language-guide (any language)
+│   ├── tech-stack.prompt.md             ← /tech-stack (frameworks, DBs)
+│   ├── sdlc.prompt.md                   ← /sdlc (phases & methodologies)
+│   ├── daily-assist.prompt.md           ← /daily-assist (finance, productivity)
+│   ├── career-roles.prompt.md           ← /career-roles (job roles, pay)
+│   ├── multi-session.prompt.md          ← /multi-session (cross-session state)
 │   ├── design-review.prompt.md          ← /design-review
 │   ├── debug.prompt.md                  ← /debug
 │   ├── impact.prompt.md                 ← /impact
@@ -59,17 +71,29 @@ Your `.github/` folder contains everything Copilot uses to customize its behavio
 │   ├── explain.prompt.md                ← /explain
 │   ├── composite.prompt.md              ← /composite (combine modes)
 │   ├── context.prompt.md                ← /context (continue/fresh)
-│   └── scope.prompt.md                  ← /scope (generic/specific)
+│   ├── scope.prompt.md                  ← /scope (generic/specific)
+│   ├── learn-from-docs.prompt.md        ← /learn-from-docs (official docs)
+│   ├── explore-project.prompt.md        ← /explore-project (OSS study)
+│   ├── deep-dive.prompt.md              ← /deep-dive (concept mastery)
+│   ├── reading-plan.prompt.md           ← /reading-plan (study plan)
+│   ├── learn-concept.prompt.md          ← /learn-concept (any CS/SE concept)
+│   └── interview-prep.prompt.md         ← /interview-prep (DSA/system design)
 │
 ├── skills/                              ← Auto-loaded tool kits
 │   ├── java-build/SKILL.md              ← Compile & run help
 │   ├── design-patterns/SKILL.md         ← Pattern decision guide
-│   └── java-debugging/SKILL.md          ← Exception diagnosis
+│   ├── java-debugging/SKILL.md          ← Exception diagnosis
+│   ├── java-learning-resources/SKILL.md ← Curated Java learning resource index
+│   ├── software-engineering-resources/SKILL.md ← Comprehensive SE/CS resource index (DSA, system design, DevOps, Git, industry, trends)
+│   ├── daily-assistant-resources/SKILL.md ← Daily life resources (finance, productivity)
+│   └── career-resources/SKILL.md    ← Career data (roles, skills, pay)
 │
 └── docs/                                ← Documentation (you are here)
     ├── getting-started.md               ← This tutorial
     ├── customization-guide.md           ← Architecture deep-dive
-    └── file-reference.md                ← Who reads what (🤖 vs 👤)
+    ├── file-reference.md                ← Who reads what (🤖 vs 👤)
+    ├── navigation-index.md              ← Master index of all commands & files
+    └── slash-commands.md                ← Developer slash command reference
 ```
 
 > 💡 **Important distinction:** Not all files in `.github/` are read by Copilot. Files like `README.md` and `docs/*.md` are for **you** (the developer). Files like `*.agent.md`, `*.prompt.md`, `*.instructions.md`, and `SKILL.md` are read by **Copilot** (the AI). See [File Reference](file-reference.md) for the complete breakdown.
@@ -218,7 +242,132 @@ Three special prompts control **how** Copilot works, not just what it works on.
 
 ---
 
-## Step 8: Create Your Own
+## Step 8: Try the Learning Prompts
+
+Four prompts are designed for **learning from external resources** — documentation, open-source projects, and structured study.
+
+### Try /learn-from-docs
+
+1. Type: `/learn-from-docs`
+2. Enter concept: `sealed classes`
+3. ✅ **Expected:** Explanation grounded in official Oracle/JEP documentation, with simplified translations of formal language, practical code examples, and links to the original docs
+
+### Try /explore-project
+
+1. Type: `/explore-project`
+2. Enter project: `Guava`
+3. Enter focus: `API design`
+4. ✅ **Expected:** Architecture walkthrough, design patterns identified with specific class references, coding practices to learn from, and files to read first
+
+### Try /deep-dive
+
+1. Type: `/deep-dive`
+2. Enter concept: `generics`
+3. Enter level: `intermediate`
+4. ✅ **Expected:** Multi-layered explanation starting from your level, progressing through official docs, real-world patterns, edge cases, and a practice exercise
+
+### Try /reading-plan
+
+1. Type: `/reading-plan`
+2. Enter topic: `design patterns`
+3. Enter time: `30 min/day for 2 weeks`
+4. Enter level: `beginner`
+5. ✅ **Expected:** A phased learning roadmap with a day-by-day schedule, curated resources (official docs, tutorials, books, OSS projects), and practice checkpoints
+
+### Try /learn-concept
+
+1. Type: `/learn-concept`
+2. Enter concept: `CAP theorem` (or any CS/SE concept like `deadlocks`, `B-trees`, `TCP handshake`)
+3. Enter domain: `system design` (or leave blank for auto-detect)
+4. Enter level: `beginner`
+5. ✅ **Expected:** Language-agnostic explanation with analogy, visual representation, real-world systems, connections, and a hands-on exercise
+
+### Try /interview-prep
+
+1. Type: `/interview-prep`
+2. Enter type: `DSA` (or `system-design-HLD`, `system-design-LLD`)
+3. Enter topic: `sliding window` (or `design URL shortener`, etc.)
+4. Enter level: `mid-level`
+5. ✅ **Expected:** Pattern identification, template code, problem progression with LeetCode references, and interview strategy tips
+
+---
+
+## Step 10: Try the Domain-Specific Commands
+
+Eight specialized prompts provide **hierarchical navigation** across all learning domains.
+
+### Try /hub — Navigation Index
+
+1. Type: `/hub`
+2. Enter category: `se` (or `daily`, or leave blank for full index)
+3. ✅ **Expected:** A complete navigation tree showing all available commands organized by category
+
+### Try /dsa — Data Structures & Algorithms
+
+1. Type: `/dsa`
+2. Enter topic: `binary trees` (or `sliding window`, `dynamic programming`)
+3. Enter goal: `learn` (or `interview-prep`, `compare`)
+4. ✅ **Expected:** Hierarchical topic breakdown, explanation with complexities, pattern identification, and practice problems
+
+### Try /system-design — HLD/LLD
+
+1. Type: `/system-design`
+2. Enter level: `HLD` (or `LLD`)
+3. Enter topic: `design URL shortener` (or `class diagram for parking lot`)
+4. ✅ **Expected:** Structured design walkthrough with internal hierarchy — for HLD: requirements → estimation → architecture; for LLD: class design → API → schema
+
+### Try /devops — CI/CD, Docker, Cloud
+
+1. Type: `/devops`
+2. Enter topic: `Docker` (or `GitHub Actions`, `Kubernetes`, `Terraform`)
+3. Enter goal: `learn-concept` (or `setup-pipeline`, `compare-tools`)
+4. ✅ **Expected:** Concept explanation with architecture context, tool comparison, and practical setup guidance
+
+### Try /language-guide — Language Learning
+
+1. Type: `/language-guide`
+2. Enter language: `Rust` (or `Go`, `Python`, `C++`, `Java`)
+3. Enter level: `beginner`
+4. ✅ **Expected:** 6-level learning hierarchy from foundations to real-world, with a language quick-reference card
+
+### Try /tech-stack — Frameworks & Databases
+
+1. Type: `/tech-stack`
+2. Enter category: `backend` (or `frontend`, `database`, `messaging`)
+3. Enter goal: `compare Spring Boot vs FastAPI`
+4. ✅ **Expected:** Structured comparison table with trade-offs, use cases, and learning resources
+
+### Try /sdlc — SDLC Phases & Methodologies
+
+1. Type: `/sdlc`
+2. Enter focus: `testing` (or `deployment`, `agile vs waterfall`, `overview`)
+3. ✅ **Expected:** Phase-by-phase breakdown with activities, deliverables, and methodology comparison
+
+### Try /daily-assist — Daily Life Assistant
+
+1. Type: `/daily-assist`
+2. Enter category: `finance` (or `productivity`, `news`, `research`)
+3. Enter request: `explain SIP vs lumpsum investing` (or `create a weekly study plan`)
+4. ✅ **Expected:** Structured, actionable guidance with frameworks and tools
+
+### Try /career-roles — Tech Career Exploration
+
+1. Type: `/career-roles`
+2. Enter role: `MLE` (or `SDE`, `DevOps`, `Software Architect`, `Tech Lead`)
+3. Enter goal: `overview` (or `skills`, `pay`, `compare`, `roadmap`)
+4. Enter level: `mid`
+5. ✅ **Expected:** Full role profile with skills matrix, pay ranges, synonymous titles, and career roadmap
+
+### Try /multi-session — Cross-Session State
+
+1. Type: `/multi-session`
+2. Enter action: `save-state`
+3. Enter task: describe your current work
+4. ✅ **Expected:** A session state file or handoff summary that you can paste into a new chat to resume work
+
+---
+
+## Step 9: Create Your Own
 
 Now that you've tried everything, create your own customization! Pick one:
 
@@ -355,6 +504,6 @@ Test it: Select **Explainer** from the agent dropdown → ask about any concept
 
 <p align="center">
 
-[← Back to main guide](../README.md) · [Customization Guide](customization-guide.md) · [File Reference](file-reference.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md) · [Instructions](../instructions/README.md)
+[← Back to main guide](../README.md) · [Customization Guide](customization-guide.md) · [File Reference](file-reference.md) · [Slash Commands](slash-commands.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md) · [Instructions](../instructions/README.md)
 
 </p>

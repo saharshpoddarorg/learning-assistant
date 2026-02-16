@@ -48,6 +48,8 @@ When you switch away from the agent, Copilot reverts to its default behavior.
 | [**Impact-Analyzer**](impact-analyzer.agent.md) | Ripple effect analysis, risk assessment | search, codebase, usages, problems | Designer, Code-Reviewer |
 | [**Learning-Mentor**](learning-mentor.agent.md) | Concept teaching with analogies & exercises | search, codebase, usages, fetch | Agent, Code-Reviewer |
 | [**Code-Reviewer**](code-reviewer.agent.md) | Bug detection, style checks (read-only) | search, codebase, usages | — |
+| [**Daily-Assistant**](daily-assistant.agent.md) | Finance, productivity, news, daily life | search, fetch | Learning-Mentor, Agent |
+| [**Thinking-Beast-Mode**](Thinking-Beast-Mode.agent.md) | Deep research agent — autonomous, thorough, web-fetching | search, codebase, editFiles, fetch, terminal | — |
 
 ---
 

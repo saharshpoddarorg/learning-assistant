@@ -105,6 +105,22 @@ Learning Mentor← Thinks in analogies, exercises, progression
 /composite      → Combines multiple modes into a unified analysis
 /context        → Continues prior conversation or starts fresh
 /scope          → Sets generic-learning vs code-specific scope
+/learn-from-docs→ Learn concepts via official documentation
+/explore-project→ Learn by studying open-source projects
+/deep-dive      → Multi-layered progressive concept exploration
+/reading-plan   → Structured reading/learning plan with resources
+/learn-concept  → Learn any CS/SE concept (language-agnostic)
+/interview-prep → DSA patterns, system design, interview strategies
+/hub          → Master navigation index — browse all commands
+/dsa          → Data structures & algorithms with pattern hierarchy
+/system-design→ Unified HLD/LLD with full internal hierarchy
+/devops       → CI/CD, Docker, Kubernetes, cloud, IaC, monitoring
+/language-guide→ Language-specific learning framework
+/tech-stack   → Frameworks, libraries, databases — compare & learn
+/sdlc         → SDLC phases, methodologies, engineering practices
+/daily-assist → Finance, productivity, news, daily life tasks
+/career-roles → Job roles, skills, pay, career roadmaps
+/multi-session → Manage state across multiple chat sessions
 ```
 
 **Role:** Define *what* to do — pre-built workflows you trigger with a command.  
@@ -116,9 +132,13 @@ Learning Mentor← Thinks in analogies, exercises, progression
 ### 4. Skills — The Toolkits
 
 ```
-java-build/        ← Activates for: compile, build, run
-design-patterns/   ← Activates for: Pattern decisions, SOLID
-java-debugging/    ← Activates for: Exceptions, stack traces
+java-build/                ← Activates for: compile, build, run
+design-patterns/           ← Activates for: Pattern decisions, SOLID
+java-debugging/            ← Activates for: Exceptions, stack traces
+java-learning-resources/   ← Activates for: Java learning, tutorials, docs
+software-engineering-resources/ ← Activates for: DSA, system design, OS, networking, DBMS, testing, DevOps, build tools, Git, security, industry concepts, tech trends
+daily-assistant-resources/  ← Activates for: Finance, productivity, news, daily planning
+career-resources/           ← Activates for: Job roles, salaries, career paths, skills
 ```
 
 **Role:** Provide *extra knowledge* — scripts, templates, domain expertise.  
@@ -199,6 +219,14 @@ Designer ──handoff──▶ Impact Analyzer ──handoff──▶ Code Revi
    ▼                       ▼                           ▼
 Design                 Ripple-effect              Code quality
 recommendations        analysis                   feedback
+
+Learning-Mentor ──handoff──▶ Agent (practice) ──handoff──▶ Code-Reviewer (verify)
+
+Daily-Assistant ──handoff──▶ Learning-Mentor (learn deeper)
+                                │
+                                └──▶ Agent (implement)
+
+Thinking-Beast-Mode: Autonomous (no handoffs — fully self-contained deep research)
 ```
 
 ---
@@ -354,6 +382,7 @@ These files are **never loaded by Copilot**. They exist as reference material fo
 | `getting-started.md` | `docs/` | Hands-on tutorial |
 | `customization-guide.md` | `docs/` | Architecture deep-dive (this file) |
 | `file-reference.md` | `docs/` | Complete breakdown of who reads what |
+| `slash-commands.md` | `docs/` | All 25 slash commands: aliases, inputs, composition |
 
 **How to write them:**
 - Write as **explanation for humans**: clear prose, examples, links
@@ -461,6 +490,6 @@ These files are **never loaded by Copilot**. They exist as reference material fo
 
 <p align="center">
 
-[← Back to main guide](../README.md) · [Getting Started](getting-started.md) · [File Reference](file-reference.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md) · [Instructions](../instructions/README.md)
+[← Back to main guide](../README.md) · [Getting Started](getting-started.md) · [File Reference](file-reference.md) · [Slash Commands](slash-commands.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md) · [Instructions](../instructions/README.md)
 
 </p>

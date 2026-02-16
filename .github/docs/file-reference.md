@@ -24,9 +24,21 @@
 │   ├── debugger.agent.md                🤖 Loaded when agent selected
 │   ├── impact-analyzer.agent.md         🤖 Loaded when agent selected
 │   ├── learning-mentor.agent.md         🤖 Loaded when agent selected
-│   └── code-reviewer.agent.md           🤖 Loaded when agent selected
+│   ├── code-reviewer.agent.md           🤖 Loaded when agent selected
+│   ├── daily-assistant.agent.md         🤖 Loaded when agent selected
+│   └── Thinking-Beast-Mode.agent.md     🤖 Loaded when agent selected
 │
 ├── prompts/
+│   ├── hub.prompt.md                    🤖 Loaded when /hub invoked
+│   ├── dsa.prompt.md                    🤖 Loaded when /dsa invoked
+│   ├── system-design.prompt.md          🤖 Loaded when /system-design invoked
+│   ├── devops.prompt.md                 🤖 Loaded when /devops invoked
+│   ├── language-guide.prompt.md         🤖 Loaded when /language-guide invoked
+│   ├── tech-stack.prompt.md             🤖 Loaded when /tech-stack invoked
+│   ├── sdlc.prompt.md                   🤖 Loaded when /sdlc invoked
+│   ├── daily-assist.prompt.md           🤖 Loaded when /daily-assist invoked
+│   ├── career-roles.prompt.md           🤖 Loaded when /career-roles invoked
+│   ├── multi-session.prompt.md          🤖 Loaded when /multi-session invoked
 │   ├── design-review.prompt.md          🤖 Loaded when /design-review invoked
 │   ├── debug.prompt.md                  🤖 Loaded when /debug invoked
 │   ├── impact.prompt.md                 🤖 Loaded when /impact invoked
@@ -35,16 +47,28 @@
 │   ├── explain.prompt.md               🤖 Loaded when /explain invoked
 │   ├── composite.prompt.md             🤖 Loaded when /composite invoked
 │   ├── context.prompt.md               🤖 Loaded when /context invoked
-│   └── scope.prompt.md                 🤖 Loaded when /scope invoked
+│   ├── scope.prompt.md                 🤖 Loaded when /scope invoked
+│   ├── learn-from-docs.prompt.md       🤖 Loaded when /learn-from-docs invoked
+│   ├── explore-project.prompt.md       🤖 Loaded when /explore-project invoked
+│   ├── deep-dive.prompt.md             🤖 Loaded when /deep-dive invoked
+│   ├── reading-plan.prompt.md          🤖 Loaded when /reading-plan invoked
+│   ├── learn-concept.prompt.md         🤖 Loaded when /learn-concept invoked
+│   └── interview-prep.prompt.md        🤖 Loaded when /interview-prep invoked
 │
 ├── skills/
 │   ├── java-build/SKILL.md             🤖 Auto-loaded when topic matches
 │   ├── design-patterns/SKILL.md        🤖 Auto-loaded when topic matches
-│   └── java-debugging/SKILL.md         🤖 Auto-loaded when topic matches
+│   ├── java-debugging/SKILL.md         🤖 Auto-loaded when topic matches
+│   ├── java-learning-resources/SKILL.md 🤖 Auto-loaded when topic matches
+│   ├── software-engineering-resources/SKILL.md 🤖 Auto-loaded (DSA, system design, DevOps, Git, build tools, security, industry, trends)
+│   ├── daily-assistant-resources/SKILL.md 🤖 Auto-loaded when topic matches
+│   └── career-resources/SKILL.md    🤖 Auto-loaded when topic matches
 │
 │  ┌─────────────────────────────────────────────────────────┐
 │  │  👤 FILES FOR DEVELOPERS (documentation & learning)    │
 │  └─────────────────────────────────────────────────────────┘
+│
+├── README.md (root)                         👤 Project overview — what this repo is, quick start
 │
 ├── README.md                            👤 Project overview & navigation hub
 │
@@ -63,7 +87,9 @@
 └── docs/
     ├── getting-started.md               👤 Hands-on tutorial (~30 min)
     ├── customization-guide.md           👤 Architecture deep-dive
-    └── file-reference.md               👤 This file — who reads what
+    ├── file-reference.md               👤 This file — who reads what
+    ├── navigation-index.md             👤 Master index of all commands & files
+    └── slash-commands.md               👤 Developer slash command reference
 ```
 
 ---
@@ -94,7 +120,8 @@ These files are **documentation for humans**. Copilot does NOT read these to sha
 
 | File | Location | Purpose | When to Read |
 |---|---|---|---|
-| **Main README** | `.github/README.md` | Overview of the entire system, navigation hub | First — start here |
+| **Root README** | `README.md` (project root) | What this repo is, quick start, learning domains | First — if you're new to the project |
+| **Main README** | `.github/README.md` | Overview of the Copilot customization system, navigation hub | Start here for Copilot customization |
 | **Instructions README** | `.github/instructions/README.md` | How instructions work, glob patterns, examples | When creating/editing instructions |
 | **Agents README** | `.github/agents/README.md` | How agents work, tools, handoffs, examples | When creating/editing agents |
 | **Prompts README** | `.github/prompts/README.md` | How prompts work, variables, slash commands | When creating/editing prompts |
@@ -102,6 +129,7 @@ These files are **documentation for humans**. Copilot does NOT read these to sha
 | **Getting Started** | `.github/docs/getting-started.md` | Step-by-step hands-on tutorial | Second — try everything |
 | **Customization Guide** | `.github/docs/customization-guide.md` | Architecture, how primitives connect | When you want the big picture |
 | **File Reference** | `.github/docs/file-reference.md` | This file — which files are for whom | When confused about a file's purpose |
+| **Slash Commands Ref** | `.github/docs/slash-commands.md` | All 25 slash commands with aliases, inputs, composition | When looking up a specific command |
 
 #### Key rules for developer files:
 - **Content is explanation for humans** — write clearly, use examples, add links
@@ -157,6 +185,6 @@ A: Files alongside `SKILL.md` (like `.sh` scripts, `.java` templates) are 🤖 C
 
 <p align="center">
 
-[← Back to main guide](../README.md) · [Getting Started](getting-started.md) · [Customization Guide](customization-guide.md) · [Instructions](../instructions/README.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md)
+[← Back to main guide](../README.md) · [Getting Started](getting-started.md) · [Customization Guide](customization-guide.md) · [Slash Commands](slash-commands.md) · [Instructions](../instructions/README.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md)
 
 </p>

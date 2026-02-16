@@ -57,6 +57,22 @@ Result:      Structured explanation of Main.java
 | `/composite` | [`composite.prompt.md`](composite.prompt.md) | Agent | Combine multiple modes in one session |
 | `/context` | [`context.prompt.md`](context.prompt.md) | Agent | Continue prior conversation or start fresh |
 | `/scope` | [`scope.prompt.md`](scope.prompt.md) | Agent | Generic learning vs code/domain-specific |
+| `/learn-from-docs` | [`learn-from-docs.prompt.md`](learn-from-docs.prompt.md) | Learning-Mentor | Learn concepts via official documentation |
+| `/explore-project` | [`explore-project.prompt.md`](explore-project.prompt.md) | Learning-Mentor | Learn by studying open-source projects |
+| `/deep-dive` | [`deep-dive.prompt.md`](deep-dive.prompt.md) | Learning-Mentor | Multi-layered progressive concept exploration |
+| `/reading-plan` | [`reading-plan.prompt.md`](reading-plan.prompt.md) | Learning-Mentor | Structured reading/learning plan with resources |
+| `/learn-concept` | [`learn-concept.prompt.md`](learn-concept.prompt.md) | Learning-Mentor | Learn any CS/SE concept (language-agnostic) |
+| `/interview-prep` | [`interview-prep.prompt.md`](interview-prep.prompt.md) | Learning-Mentor | DSA patterns, system design, interview strategies |
+| `/hub` | [`hub.prompt.md`](hub.prompt.md) | Learning-Mentor | Master navigation index — browse all commands |
+| `/dsa` | [`dsa.prompt.md`](dsa.prompt.md) | Learning-Mentor | Data structures & algorithms with pattern hierarchy |
+| `/system-design` | [`system-design.prompt.md`](system-design.prompt.md) | Learning-Mentor | Unified HLD/LLD with full internal hierarchy |
+| `/devops` | [`devops.prompt.md`](devops.prompt.md) | Learning-Mentor | CI/CD, Docker, Kubernetes, cloud, IaC, monitoring |
+| `/language-guide` | [`language-guide.prompt.md`](language-guide.prompt.md) | Learning-Mentor | Language-specific learning framework |
+| `/tech-stack` | [`tech-stack.prompt.md`](tech-stack.prompt.md) | Learning-Mentor | Frameworks, libraries, databases — compare & learn |
+| `/sdlc` | [`sdlc.prompt.md`](sdlc.prompt.md) | Learning-Mentor | SDLC phases, methodologies, practices |
+| `/daily-assist` | [`daily-assist.prompt.md`](daily-assist.prompt.md) | Daily-Assistant | Finance, productivity, news, daily life tasks |
+| `/career-roles` | [`career-roles.prompt.md`](career-roles.prompt.md) | Learning-Mentor | Job roles, skills, pay, career roadmaps |
+| `/multi-session` | [`multi-session.prompt.md`](multi-session.prompt.md) | Agent | Manage state across multiple chat sessions |
 
 ---
 
@@ -343,6 +359,10 @@ Create a test file with tests for ALL public methods, including:
 | `/composite` | Combine multiple analysis modes in one pass |
 | `/context` | Continue from a prior conversation or start clean |
 | `/scope` | Set generic-learning vs code-specific scope |
+| `/learn-from-docs` | Learn a concept through official documentation |
+| `/explore-project` | Study an open-source project's patterns & architecture |
+| `/deep-dive` | Progressive multi-layer concept deep-dive |
+| `/reading-plan` | Generate a structured study plan with curated resources |
 
 ---
 
