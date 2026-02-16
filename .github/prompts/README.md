@@ -18,6 +18,8 @@
 - [How to Create a Prompt](#-how-to-create-a-prompt-file)
 - [Tips](#-tips)
 - [Prompt Ideas](#-prompt-ideas)
+- [Meta-Prompts: Composite, Context & Scope](#-meta-prompts-composite-context--scope)
+- [File Audience Note](#-file-audience-note)
 - [Experiments to Try](#-experiments-to-try)
 
 ---
@@ -52,6 +54,9 @@ Result:      Structured explanation of Main.java
 | `/teach` | [`teach.prompt.md`](teach.prompt.md) | Learning-Mentor | Learn concepts from code |
 | `/refactor` | [`refactor.prompt.md`](refactor.prompt.md) | Designer | Identify refactoring opportunities |
 | `/explain` | [`explain.prompt.md`](explain.prompt.md) | Ask | Beginner-friendly file explanation |
+| `/composite` | [`composite.prompt.md`](composite.prompt.md) | Agent | Combine multiple modes in one session |
+| `/context` | [`context.prompt.md`](context.prompt.md) | Agent | Continue prior conversation or start fresh |
+| `/scope` | [`scope.prompt.md`](scope.prompt.md) | Agent | Generic learning vs code/domain-specific |
 
 ---
 
@@ -335,6 +340,43 @@ Create a test file with tests for ALL public methods, including:
 | `/pattern` | Identify design patterns in current file |
 | `/debug` | Analyze a bug and suggest fixes |
 | `/convert` | Modernize to Java 21+ features |
+| `/composite` | Combine multiple analysis modes in one pass |
+| `/context` | Continue from a prior conversation or start clean |
+| `/scope` | Set generic-learning vs code-specific scope |
+
+---
+
+## 🔀 Meta-Prompts: Composite, Context & Scope
+
+Three special prompts let you **control how Copilot works**, not just what it works on:
+
+| Prompt | Purpose | When to Use |
+|---|---|---|
+| `/composite` | Combine 2+ modes (e.g., refactor + design-review + impact) into a single unified analysis | You want a holistic view without running separate prompts |
+| `/context` | Continue from a previous conversation or start fresh | You're resuming work from yesterday, or want a clean-slate re-analysis |
+| `/scope` | Choose generic learning (concepts, theory) vs code-specific work | You want to learn about sealed classes in general vs. apply them to your codebase |
+
+### How They Compose
+
+These meta-prompts can be **chained mentally** — for example:
+- `/scope` → `specific` + `/composite` → `refactor, design-review` = domain-specific combined refactoring + design review
+- `/context` → `continue` + `/scope` → `generic` = resume a prior learning conversation
+- `/composite` → `refactor, impact, teach` = refactor with impact analysis, explained for learning
+
+---
+
+## 📌 File Audience Note
+
+This folder contains two types of files:
+
+| File | Audience | Purpose |
+|---|---|---|
+| `*.prompt.md` | 🤖 **Copilot** | Slash command templates — loaded into AI context when invoked |
+| `README.md` | 👤 **Developer** | This guide — Copilot does not read it |
+
+When you edit a `.prompt.md` file, you change what Copilot does when you type `/command`. When you edit this README, nothing changes in Copilot — it's documentation for you.
+
+> 📖 **Full breakdown:** [File Reference →](../docs/file-reference.md)
 
 ---
 
@@ -350,6 +392,6 @@ Create a test file with tests for ALL public methods, including:
 
 <p align="center">
 
-[← Back to main guide](../README.md) · [Instructions](../instructions/README.md) · [Agents](../agents/README.md) · [Skills](../skills/README.md) · [Getting Started](../docs/getting-started.md) · [Customization Guide](../docs/customization-guide.md)
+[← Back to main guide](../README.md) · [Instructions](../instructions/README.md) · [Agents](../agents/README.md) · [Skills](../skills/README.md) · [File Reference](../docs/file-reference.md) · [Getting Started](../docs/getting-started.md) · [Customization Guide](../docs/customization-guide.md)
 
 </p>

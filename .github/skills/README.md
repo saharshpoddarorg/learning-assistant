@@ -279,6 +279,22 @@ The description is **critical** — it determines when the skill gets loaded:
 
 ---
 
+## 📌 File Audience Note
+
+Each skill folder contains:
+
+| File | Audience | Purpose |
+|---|---|---|
+| `SKILL.md` | 🤖 **Copilot** | Skill definition + instructions — auto-loaded when your question matches the description |
+| Resource files (`.sh`, `.java`, `.md`) | 🤖 **Copilot** | Supporting resources the AI can read and use |
+| `README.md` (skills root) | 👤 **Developer** | This guide — Copilot does not read it |
+
+When you edit a `SKILL.md`, you change the knowledge Copilot has access to. When you edit this README, nothing changes in Copilot.
+
+> 📖 **Full breakdown:** [File Reference →](../docs/file-reference.md)
+
+---
+
 ## 🧪 Experiments to Try
 
 1. **Create `java-build` skill** → ask *"How do I compile Main.java?"* → does it use your skill?
@@ -291,6 +307,6 @@ The description is **critical** — it determines when the skill gets loaded:
 
 <p align="center">
 
-[← Back to main guide](../README.md) · [Instructions](../instructions/README.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [Getting Started](../docs/getting-started.md) · [Customization Guide](../docs/customization-guide.md)
+[← Back to main guide](../README.md) · [Instructions](../instructions/README.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [File Reference](../docs/file-reference.md) · [Getting Started](../docs/getting-started.md) · [Customization Guide](../docs/customization-guide.md)
 
 </p>

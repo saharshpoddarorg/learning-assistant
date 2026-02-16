@@ -30,10 +30,10 @@
 | Action | How |
 |---|---|
 | **Switch persona** | Chat dropdown → select **Designer**, **Debugger**, **Impact-Analyzer**, or **Learning-Mentor** |
-| **Run a workflow** | Type `/design-review`, `/debug`, `/impact`, `/teach`, `/refactor`, or `/explain` in Chat |
+| **Run a workflow** | Type `/design-review`, `/debug`, `/impact`, `/teach`, `/refactor`, `/explain`, `/composite`, `/context`, or `/scope` in Chat |
 | **Coding standards** | Automatic — open any `.java` file, instructions load via glob match |
 | **Extra knowledge** | Automatic — ask about building, patterns, or debugging and the matching skill loads |
-| **See everything** | [Documentation Map](#-documentation-map) · [Getting Started Tutorial](docs/getting-started.md) |
+| **See everything** | [Documentation Map](#-documentation-map) · [File Reference](docs/file-reference.md) · [Getting Started Tutorial](docs/getting-started.md) |
 
 ---
 
@@ -105,7 +105,10 @@ GitHub Copilot in VS Code supports exactly **5 customization primitives**. Every
 │   ├── impact.prompt.md                    /impact
 │   ├── teach.prompt.md                     /teach
 │   ├── refactor.prompt.md                  /refactor
-│   └── explain.prompt.md                   /explain
+│   ├── explain.prompt.md                   /explain
+│   ├── composite.prompt.md                 /composite (combine modes)
+│   ├── context.prompt.md                   /context (continue/fresh)
+│   └── scope.prompt.md                     /scope (generic/specific)
 │
 ├── skills/                              ← Agent skills (auto by task match)
 │   ├── 🛠️ README.md                         Guide: how skills work
@@ -115,7 +118,8 @@ GitHub Copilot in VS Code supports exactly **5 customization primitives**. Every
 │
 └── docs/                                ← Documentation & tutorials
     ├── getting-started.md                  Step-by-step tutorial
-    └── customization-guide.md              Architecture deep-dive
+    ├── customization-guide.md              Architecture deep-dive
+    └── file-reference.md                   Who reads what (Copilot vs developer)
 ```
 
 ### What's NOT Official
@@ -161,6 +165,9 @@ This learning project includes working samples of each primitive, organized into
 | `/teach` | [`teach.prompt.md`](prompts/teach.prompt.md) | Learn concepts from current file's code |
 | `/refactor` | [`refactor.prompt.md`](prompts/refactor.prompt.md) | Identify and apply refactoring opportunities |
 | `/explain` | [`explain.prompt.md`](prompts/explain.prompt.md) | Beginner-friendly file explanation |
+| `/composite` | [`composite.prompt.md`](prompts/composite.prompt.md) | Combine multiple modes in one session |
+| `/context` | [`context.prompt.md`](prompts/context.prompt.md) | Continue prior conversation or start fresh |
+| `/scope` | [`scope.prompt.md`](prompts/scope.prompt.md) | Generic learning vs code/domain-specific |
 
 > 📖 **Deep dive:** [Prompts Guide →](prompts/README.md)
 
@@ -282,8 +289,11 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 ├─── Guides by Primitive
 │    ├── instructions/README.md ·········· Glob patterns, conditional rules
 │    ├── agents/README.md ················ Personas, tools, handoffs
-│    ├── prompts/README.md ··············· Slash commands, variables
+│    ├── prompts/README.md ··············· Slash commands, variables, meta-prompts
 │    └── skills/README.md ················ Skill folders, progressive loading
+│
+├─── Reference
+│    └── docs/file-reference.md ·········· Who reads what (🤖 Copilot vs 👤 developer)
 │
 └─── Tutorials & Deep Dives
      ├── docs/getting-started.md ········· Hands-on: verify setup, try each primitive
@@ -294,10 +304,34 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 |---|---|---|
 | [Getting Started →](docs/getting-started.md) | Verify setup, try each primitive hands-on | ~30 min |
 | [Customization Guide →](docs/customization-guide.md) | Architecture, how primitives connect, extending | ~20 min |
+| [File Reference →](docs/file-reference.md) | Which files Copilot reads vs. developer docs | ~5 min |
 | [Instructions Guide →](instructions/README.md) | Glob patterns, conditional rules, examples | ~15 min |
 | [Agents Guide →](agents/README.md) | Custom personas, tools, handoffs, examples | ~15 min |
-| [Prompts Guide →](prompts/README.md) | Slash commands, variables, task templates | ~15 min |
+| [Prompts Guide →](prompts/README.md) | Slash commands, variables, meta-prompts | ~15 min |
 | [Skills Guide →](skills/README.md) | Skill folders, scripts, progressive loading | ~15 min |
+
+---
+
+## 🔍 File Audience — Copilot vs Developer
+
+Not every file in `.github/` is read by Copilot. Understanding who reads what prevents confusion:
+
+| Icon | Audience | These files... |
+|---|---|---|
+| 🤖 | **Copilot (AI)** | Directly shape Copilot's behavior — instructions, agents, prompts, skills |
+| 👤 | **Developer (you)** | Documentation, guides, tutorials — Copilot ignores them |
+
+| File Type | Audience | How to Identify |
+|---|---|---|
+| `copilot-instructions.md` | 🤖 | Always loaded into AI context |
+| `*.instructions.md` | 🤖 | Has `applyTo:` frontmatter |
+| `*.agent.md` | 🤖 | Has `tools:` / `handoffs:` frontmatter |
+| `*.prompt.md` | 🤖 | Slash command template |
+| `SKILL.md` | 🤖 | Skill definition + resources |
+| `README.md` (any folder) | 👤 | Guide for developers |
+| `docs/*.md` | 👤 | Tutorials and deep-dives |
+
+> 📖 **Full details:** [File Reference →](docs/file-reference.md) — complete breakdown of every file, when it loads, and what happens when you edit it.
 
 ---
 
@@ -335,6 +369,6 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 
 <p align="center">
 
-**Navigation:** [Getting Started →](docs/getting-started.md) · [Customization Guide →](docs/customization-guide.md) · [Instructions](instructions/README.md) · [Agents](agents/README.md) · [Prompts](prompts/README.md) · [Skills](skills/README.md)
+**Navigation:** [Getting Started →](docs/getting-started.md) · [Customization Guide →](docs/customization-guide.md) · [File Reference →](docs/file-reference.md) · [Instructions](instructions/README.md) · [Agents](agents/README.md) · [Prompts](prompts/README.md) · [Skills](skills/README.md)
 
 </p>
