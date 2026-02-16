@@ -84,7 +84,7 @@ Your `.github/` folder contains everything Copilot uses to customize its behavio
 │   ├── design-patterns/SKILL.md         ← Pattern decision guide
 │   ├── java-debugging/SKILL.md          ← Exception diagnosis
 │   ├── java-learning-resources/SKILL.md ← Curated Java learning resource index
-│   ├── software-engineering-resources/SKILL.md ← Comprehensive SE/CS resource index
+│   ├── software-engineering-resources/SKILL.md ← Comprehensive SE/CS resource index (DSA, system design, DevOps, Git, industry, trends)
 │   ├── daily-assistant-resources/SKILL.md ← Daily life resources (finance, productivity)
 │   └── career-resources/SKILL.md    ← Career data (roles, skills, pay)
 │

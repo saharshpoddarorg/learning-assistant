@@ -60,13 +60,15 @@
 │   ├── design-patterns/SKILL.md        🤖 Auto-loaded when topic matches
 │   ├── java-debugging/SKILL.md         🤖 Auto-loaded when topic matches
 │   ├── java-learning-resources/SKILL.md 🤖 Auto-loaded when topic matches
-│   ├── software-engineering-resources/SKILL.md 🤖 Auto-loaded when topic matches
+│   ├── software-engineering-resources/SKILL.md 🤖 Auto-loaded (DSA, system design, DevOps, Git, build tools, security, industry, trends)
 │   ├── daily-assistant-resources/SKILL.md 🤖 Auto-loaded when topic matches
 │   └── career-resources/SKILL.md    🤖 Auto-loaded when topic matches
 │
 │  ┌─────────────────────────────────────────────────────────┐
 │  │  👤 FILES FOR DEVELOPERS (documentation & learning)    │
 │  └─────────────────────────────────────────────────────────┘
+│
+├── README.md (root)                         👤 Project overview — what this repo is, quick start
 │
 ├── README.md                            👤 Project overview & navigation hub
 │
@@ -118,7 +120,8 @@ These files are **documentation for humans**. Copilot does NOT read these to sha
 
 | File | Location | Purpose | When to Read |
 |---|---|---|---|
-| **Main README** | `.github/README.md` | Overview of the entire system, navigation hub | First — start here |
+| **Root README** | `README.md` (project root) | What this repo is, quick start, learning domains | First — if you're new to the project |
+| **Main README** | `.github/README.md` | Overview of the Copilot customization system, navigation hub | Start here for Copilot customization |
 | **Instructions README** | `.github/instructions/README.md` | How instructions work, glob patterns, examples | When creating/editing instructions |
 | **Agents README** | `.github/agents/README.md` | How agents work, tools, handoffs, examples | When creating/editing agents |
 | **Prompts README** | `.github/prompts/README.md` | How prompts work, variables, slash commands | When creating/editing prompts |

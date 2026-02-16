@@ -61,7 +61,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 10 | `/teach` | Learning | Learn concepts from current file | Learning-Mentor |
 | 11 | `/dsa` | Domain | Data structures & algorithms | Learning-Mentor |
 | 12 | `/system-design` | Domain | HLD/LLD system design | Learning-Mentor |
-| 13 | `/devops` | Domain | CI/CD, Docker, K8s, cloud, IaC | Learning-Mentor |
+| 13 | `/devops` | Domain | CI/CD, Docker, K8s, cloud, IaC, Git, build tools | Learning-Mentor |
 | 14 | `/language-guide` | Domain | Language-specific learning path | Learning-Mentor |
 | 15 | `/tech-stack` | Domain | Frameworks, databases — compare & learn | Learning-Mentor |
 | 16 | `/sdlc` | Domain | SDLC phases, methodologies, practices | Learning-Mentor |
@@ -209,7 +209,9 @@ Inputs:   topic, depth
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
 Example:  /devops → Docker → detailed
-Topics:   CI/CD, containers, Kubernetes, cloud, IaC, monitoring
+Topics:   CI/CD, containers, Kubernetes, cloud, IaC, monitoring,
+          build tools (Maven/Gradle/Ant), Git commands & branching strategies,
+          deployment strategies, GitOps, feature flags
 ```
 
 #### `/language-guide` — Language Learning
@@ -235,7 +237,9 @@ Inputs:   topic, depth
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
 Example:  /sdlc → testing → TDD
-Topics:   Agile, Scrum, Kanban, XP, test pyramid, CI/CD practices
+Topics:   Agile, Scrum, Kanban, XP, SAFe, test pyramid, CI/CD practices,
+          E2E phases (planning, design, dev, testing, deployment, monitoring, maintenance),
+          frontend/UI/UX aspects, backend aspects, database aspects
 ```
 
 #### `/explore-project` — Open Source Study
@@ -372,7 +376,9 @@ Some commands serve as aliases or shorthand for common workflows:
 | `/hub se` | All software engineering commands |
 | `/hub dsa` | DSA commands branch |
 | `/hub system-design` | System design branch |
-| `/hub devops` | DevOps branch |
+| `/hub devops` | DevOps branch (includes Git, build tools) |
+| `/hub industry` | Industry concepts: rate limiting, circuit breakers, event-driven |
+| `/hub trends` | Tech trends: AI coding, transformers, Wasm, platform eng |
 | `/hub daily` | Daily assistant branch |
 | `/hub career` | Career commands branch |
 | `/hub quality` | Code quality commands |

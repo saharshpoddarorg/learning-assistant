@@ -55,10 +55,41 @@ You are the **navigation hub** for all available assistants and learning command
 │    ├── DevOps & Tooling (/hub devops)
 │    │   └── /devops ················ CI/CD, Docker, Kubernetes, cloud, IaC
 │    │       ├── ci-cd ·············· Jenkins, GitHub Actions, GitLab CI
+│    │       │   ├── pipeline-anatomy · Stages, gates, approvals
+│    │       │   ├── deployment ····· Blue-green, canary, rolling, feature flags
+│    │       │   └── gitops ········· ArgoCD, Flux, declarative infra
 │    │       ├── containers ········· Docker, Kubernetes, Docker Compose
+│    │       │   ├── docker ········· Commands, Dockerfile, multi-stage builds
+│    │       │   └── kubernetes ····· kubectl, pods, services, deployments, HPA
+│    │       ├── build-tools ········ Maven, Gradle, Ant, Bazel
+│    │       │   ├── maven ·········· Lifecycle, POM, dependency scopes
+│    │       │   └── gradle ········· Build phases, Groovy/Kotlin DSL
+│    │       ├── git ················ Commands, branching, strategies, internals
+│    │       │   ├── daily-workflow ·· add, commit, push, pull, fetch
+│    │       │   ├── branching ······ Git Flow, GitHub Flow, Trunk-Based
+│    │       │   └── recovery ······· reset, revert, reflog, cherry-pick
 │    │       ├── cloud ·············· AWS, GCP, Azure fundamentals
 │    │       ├── iac ················ Terraform, Ansible, CloudFormation
 │    │       └── monitoring ········· Prometheus, Grafana, ELK, logging
+│    │
+│    ├── Industry Concepts & Real-World Systems (/hub industry)
+│    │   ├── /learn-concept rate-limiting · Token bucket, sliding window, Netflix/Stripe
+│    │   ├── /learn-concept circuit-breaker · Hystrix, Resilience4j, state machine
+│    │   ├── /learn-concept event-driven · Kafka, CQRS, event sourcing, Uber/LinkedIn
+│    │   ├── /learn-concept microservices-patterns · Saga, outbox, strangler fig, BFF
+│    │   ├── /learn-concept twelve-factor · 12 principles for modern SaaS
+│    │   ├── /learn-concept observability · Metrics, logs, traces, SLI/SLO/SLA
+│    │   ├── /learn-concept security ····· OWASP, zero trust, supply chain, secrets
+│    │   └── /explore-project ··········· Study Netflix, Uber, Spotify OSS projects
+│    │
+│    ├── Tech Trends & Emerging Tech (/hub trends)
+│    │   ├── /learn-concept ai-coding ···· Copilot, Cursor, agentic AI, vibe coding
+│    │   ├── /learn-concept transformers · Attention, BERT, GPT, LLM evolution
+│    │   ├── /learn-concept platform-eng · IDPs, Backstage, developer experience
+│    │   ├── /learn-concept wasm ·········  WebAssembly, WASI, edge computing
+│    │   ├── /learn-concept ebpf ········· Linux kernel programmability, Cilium
+│    │   ├── /learn-concept vector-db ···· Embeddings, Pinecone, pgvector, RAG
+│    │   └── /learn-concept rust ········· Memory safety, adoption, ecosystem
 │    │
 │    ├── Languages (/hub language)
 │    │   └── /language-guide ········ Language-specific learning
@@ -184,12 +215,16 @@ Quick Commands:
   Domain-Specific:
     /dsa              → Data structures & algorithms
     /system-design    → System design (HLD/LLD)
-    /devops           → CI/CD, Docker, K8s, cloud
+    /devops           → CI/CD, Docker, K8s, cloud, Git, build tools
     /language-guide   → Language-specific learning
     /tech-stack       → Frameworks & tech comparison
     /sdlc             → Development lifecycle & methods
     /interview-prep   → Interview preparation
     /career-roles     → Job roles, skills, pay, career paths
+
+  Industry & Trends (via /learn-concept or /hub):
+    /hub industry     → Real-world systems: rate limiting, circuit breakers, event-driven
+    /hub trends       → Tech trends: AI coding, transformers, Wasm, platform eng
 
   Code Quality & Analysis:
     /design-review    → SOLID/GRASP design review

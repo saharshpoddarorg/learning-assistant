@@ -43,10 +43,10 @@
 |---|---|---|---|
 | `/dsa` | Data structures & algorithms | Learning-Mentor | `/dsa` → `binary trees` |
 | `/system-design` | HLD/LLD system design | Learning-Mentor | `/system-design` → `HLD` → `URL shortener` |
-| `/devops` | CI/CD, Docker, K8s, cloud, IaC | Learning-Mentor | `/devops` → `Docker` |
+| `/devops` | CI/CD, Docker, K8s, cloud, IaC, Git, build tools | Learning-Mentor | `/devops` → `Docker` |
 | `/language-guide` | Language-specific learning path | Learning-Mentor | `/language-guide` → `Rust` |
 | `/tech-stack` | Frameworks, databases, compare tools | Learning-Mentor | `/tech-stack` → `compare Spring vs FastAPI` |
-| `/sdlc` | SDLC phases & methodologies | Learning-Mentor | `/sdlc` → `testing` |
+| `/sdlc` | SDLC phases, methodologies, E2E lifecycle | Learning-Mentor | `/sdlc` → `testing` |
 | `/interview-prep` | Interview preparation | Learning-Mentor | `/interview-prep` → `DSA` → `sliding window` |
 
 ### Career
@@ -103,6 +103,8 @@
 
 ```
 .github/
+│
+├── (root) README.md                    👤 Project overview, quick start, learning domains
 │
 ├── copilot-instructions.md          🤖 Project-wide rules (always loaded)
 │
@@ -192,8 +194,12 @@
 | **Practice DSA / LeetCode** | `/dsa` | Prompt |
 | **Prepare for system design interviews** | `/system-design` | Prompt |
 | **Learn Docker / K8s / CI-CD** | `/devops` | Prompt |
+| **Learn Git commands & branching** | `/devops` → `Git` | Prompt |
+| **Learn Maven / Gradle build tools** | `/devops` → `build tools` | Prompt |
 | **Compare frameworks** | `/tech-stack` | Prompt |
 | **Understand SDLC phases** | `/sdlc` | Prompt |
+| **Learn industry patterns (rate limiter, circuit breaker)** | `/hub industry` or `/learn-concept` → topic | Prompt |
+| **Learn tech trends (AI, Wasm, platform eng)** | `/hub trends` or `/learn-concept` → topic | Prompt |
 | **Explore a job role / salary** | `/career-roles` | Prompt |
 | **Prepare for coding interviews** | `/interview-prep` | Prompt |
 | **Review my code's design** | `/design-review` | Prompt |

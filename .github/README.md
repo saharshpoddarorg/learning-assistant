@@ -203,7 +203,7 @@ This learning project includes working samples of each primitive, organized into
 | `/hub` | [`hub.prompt.md`](prompts/hub.prompt.md) | Master navigation index — browse all commands |
 | `/dsa` | [`dsa.prompt.md`](prompts/dsa.prompt.md) | Data structures & algorithms with pattern hierarchy |
 | `/system-design` | [`system-design.prompt.md`](prompts/system-design.prompt.md) | Unified HLD/LLD with full internal hierarchy |
-| `/devops` | [`devops.prompt.md`](prompts/devops.prompt.md) | CI/CD, Docker, Kubernetes, cloud, IaC, monitoring |
+| `/devops` | [`devops.prompt.md`](prompts/devops.prompt.md) | CI/CD, Docker, Kubernetes, cloud, IaC, Git, build tools, monitoring |
 | `/language-guide` | [`language-guide.prompt.md`](prompts/language-guide.prompt.md) | Language-specific learning framework |
 | `/tech-stack` | [`tech-stack.prompt.md`](prompts/tech-stack.prompt.md) | Frameworks, libraries, databases — compare & learn |
 | `/sdlc` | [`sdlc.prompt.md`](prompts/sdlc.prompt.md) | SDLC phases, methodologies, engineering practices |
