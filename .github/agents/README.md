@@ -300,6 +300,21 @@ As detailed as needed — 20 lines for simple roles, 200+ for complex specialist
 
 ---
 
+## 📌 File Audience Note
+
+This folder contains two types of files:
+
+| File | Audience | Purpose |
+|---|---|---|
+| `*.agent.md` | 🤖 **Copilot** | Agent persona definitions — loaded when you select the agent from the dropdown |
+| `README.md` | 👤 **Developer** | This guide — Copilot does not read it |
+
+When you edit an `.agent.md` file, you change Copilot's persona and behavior. When you edit this README, nothing changes in Copilot — it's documentation for you.
+
+> 📖 **Full breakdown:** [File Reference →](../docs/file-reference.md)
+
+---
+
 ## 🧪 Experiments to Try
 
 1. **Create a "No-Code" agent** — set `tools: []` and see what happens (it can only chat, no tools)
@@ -311,6 +326,6 @@ As detailed as needed — 20 lines for simple roles, 200+ for complex specialist
 
 <p align="center">
 
-[← Back to main guide](../README.md) · [Instructions](../instructions/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md) · [Getting Started](../docs/getting-started.md) · [Customization Guide](../docs/customization-guide.md)
+[← Back to main guide](../README.md) · [Instructions](../instructions/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md) · [File Reference](../docs/file-reference.md) · [Getting Started](../docs/getting-started.md) · [Customization Guide](../docs/customization-guide.md)
 
 </p>

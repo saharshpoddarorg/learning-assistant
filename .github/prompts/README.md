@@ -18,6 +18,8 @@
 - [How to Create a Prompt](#-how-to-create-a-prompt-file)
 - [Tips](#-tips)
 - [Prompt Ideas](#-prompt-ideas)
+- [Meta-Prompts: Composite, Context & Scope](#-meta-prompts-composite-context--scope)
+- [File Audience Note](#-file-audience-note)
 - [Experiments to Try](#-experiments-to-try)
 
 ---
@@ -363,6 +365,21 @@ These meta-prompts can be **chained mentally** — for example:
 
 ---
 
+## 📌 File Audience Note
+
+This folder contains two types of files:
+
+| File | Audience | Purpose |
+|---|---|---|
+| `*.prompt.md` | 🤖 **Copilot** | Slash command templates — loaded into AI context when invoked |
+| `README.md` | 👤 **Developer** | This guide — Copilot does not read it |
+
+When you edit a `.prompt.md` file, you change what Copilot does when you type `/command`. When you edit this README, nothing changes in Copilot — it's documentation for you.
+
+> 📖 **Full breakdown:** [File Reference →](../docs/file-reference.md)
+
+---
+
 ## 🧪 Experiments to Try
 
 1. Create `/explain` and run it on `Main.java` — does the output make sense?
@@ -375,6 +392,6 @@ These meta-prompts can be **chained mentally** — for example:
 
 <p align="center">
 
-[← Back to main guide](../README.md) · [Instructions](../instructions/README.md) · [Agents](../agents/README.md) · [Skills](../skills/README.md) · [Getting Started](../docs/getting-started.md) · [Customization Guide](../docs/customization-guide.md)
+[← Back to main guide](../README.md) · [Instructions](../instructions/README.md) · [Agents](../agents/README.md) · [Skills](../skills/README.md) · [File Reference](../docs/file-reference.md) · [Getting Started](../docs/getting-started.md) · [Customization Guide](../docs/customization-guide.md)
 
 </p>

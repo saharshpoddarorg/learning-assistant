@@ -20,6 +20,7 @@
   - [Adding a New Skill](#adding-a-new-skill)
   - [Adding a New Prompt](#adding-a-new-prompt)
   - [Adding a New Instruction](#adding-a-new-instruction)
+- [File Audience — Copilot vs Developer](#-file-audience--copilot-vs-developer)
 - [Real-World Workflow Examples](#-real-world-workflow-examples)
 - [Tips & Best Practices](#-tips--best-practices)
 - [Further Reading](#-further-reading)
@@ -101,11 +102,16 @@ Learning Mentor← Thinks in analogies, exercises, progression
 /impact         → Runs impact analysis with Impact Analyzer agent
 /refactor       → Runs refactoring suggestions with Designer agent
 /explain        → Runs file explanation with default Ask agent
+/composite      → Combines multiple modes into a unified analysis
+/context        → Continues prior conversation or starts fresh
+/scope          → Sets generic-learning vs code-specific scope
 ```
 
 **Role:** Define *what* to do — pre-built workflows you trigger with a command.  
 **Activation:** Manual — type `/command` in Chat.  
 **Docs:** [Prompts Guide](../prompts/README.md)
+
+> 💡 **Meta-prompts** (`/composite`, `/context`, `/scope`) are special — they control *how* Copilot works rather than *what* it works on. They can be combined with each other and with task prompts for powerful workflows. See [Meta-Prompts](../prompts/README.md#-meta-prompts-composite-context--scope) for details.
 
 ### 4. Skills — The Toolkits
 
@@ -316,6 +322,59 @@ applyTo: "glob/pattern/**/*.ext"
 
 ---
 
+## 🔍 File Audience — Copilot vs Developer
+
+A common point of confusion: not every file in `.github/` is read by Copilot. Understanding the distinction is critical when extending the system.
+
+### 🤖 Files Copilot Reads (affect AI behavior)
+
+These files are **loaded into the AI context** and directly shape how Copilot responds:
+
+| Type | Extension/Name | When Loaded | Purpose |
+|---|---|---|---|
+| Project instructions | `copilot-instructions.md` | Every request | Project-wide rules |
+| Path-scoped instructions | `*.instructions.md` | When `applyTo` glob matches | File-type-specific rules |
+| Agents | `*.agent.md` | When selected in dropdown | Persona, expertise, tools |
+| Prompts | `*.prompt.md` | When `/command` invoked | Task workflow template |
+| Skills | `SKILL.md` | When question matches description | Extra knowledge & tools |
+
+**How to write them:**
+- Write as **directives to an AI**: "Use X", "Never do Y", "When asked to Z..."
+- Keep focused — shorter instructions get better compliance
+- YAML frontmatter controls activation (`applyTo`, `tools`, `description`, etc.)
+- Changes take effect **immediately** on the next Copilot interaction
+
+### 👤 Files for Developers (documentation only)
+
+These files are **never loaded by Copilot**. They exist as reference material for you:
+
+| File | Location | Purpose |
+|---|---|---|
+| `README.md` | Every subfolder | Guide explaining that folder's primitive |
+| `getting-started.md` | `docs/` | Hands-on tutorial |
+| `customization-guide.md` | `docs/` | Architecture deep-dive (this file) |
+| `file-reference.md` | `docs/` | Complete breakdown of who reads what |
+
+**How to write them:**
+- Write as **explanation for humans**: clear prose, examples, links
+- Editing these does NOT change Copilot's behavior
+- Keep them in sync — update when you add new agents/prompts/skills
+
+### Quick Test: "Is this file for Copilot?"
+
+| Clue | Audience |
+|---|---|
+| Has `applyTo:`, `tools:`, `handoffs:`, or `description:` in YAML frontmatter | 🤖 Copilot |
+| Extension is `.instructions.md`, `.agent.md`, `.prompt.md` | 🤖 Copilot |
+| Named `SKILL.md` (uppercase) | 🤖 Copilot |
+| Named `README.md` | 👤 Developer |
+| Lives in `docs/` folder | 👤 Developer |
+| Contains "Table of Contents", "Experiments to Try" | 👤 Developer |
+
+> 📖 **Full reference:** [File Reference →](file-reference.md)
+
+---
+
 ## 🎯 Real-World Workflow Examples
 
 <details>
@@ -402,6 +461,6 @@ applyTo: "glob/pattern/**/*.ext"
 
 <p align="center">
 
-[← Back to main guide](../README.md) · [Getting Started](getting-started.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md) · [Instructions](../instructions/README.md)
+[← Back to main guide](../README.md) · [Getting Started](getting-started.md) · [File Reference](file-reference.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md) · [Instructions](../instructions/README.md)
 
 </p>

@@ -56,7 +56,10 @@ Your `.github/` folder contains everything Copilot uses to customize its behavio
 │   ├── impact.prompt.md                 ← /impact
 │   ├── teach.prompt.md                  ← /teach
 │   ├── refactor.prompt.md               ← /refactor
-│   └── explain.prompt.md                ← /explain
+│   ├── explain.prompt.md                ← /explain
+│   ├── composite.prompt.md              ← /composite (combine modes)
+│   ├── context.prompt.md                ← /context (continue/fresh)
+│   └── scope.prompt.md                  ← /scope (generic/specific)
 │
 ├── skills/                              ← Auto-loaded tool kits
 │   ├── java-build/SKILL.md              ← Compile & run help
@@ -65,8 +68,11 @@ Your `.github/` folder contains everything Copilot uses to customize its behavio
 │
 └── docs/                                ← Documentation (you are here)
     ├── getting-started.md               ← This tutorial
-    └── customization-guide.md           ← Architecture deep-dive
+    ├── customization-guide.md           ← Architecture deep-dive
+    └── file-reference.md                ← Who reads what (🤖 vs 👤)
 ```
+
+> 💡 **Important distinction:** Not all files in `.github/` are read by Copilot. Files like `README.md` and `docs/*.md` are for **you** (the developer). Files like `*.agent.md`, `*.prompt.md`, `*.instructions.md`, and `SKILL.md` are read by **Copilot** (the AI). See [File Reference](file-reference.md) for the complete breakdown.
 
 **Quick mental model:**
 
@@ -155,6 +161,9 @@ Prompts are reusable workflows you invoke with `/command`.
 | `/impact` | Analyze impact of a proposed change |
 | `/refactor` | Suggest refactoring for current file |
 | `/explain` | Explain the current file's purpose |
+| `/composite` | Combine multiple modes in one session |
+| `/context` | Continue prior conversation or start fresh |
+| `/scope` | Generic learning vs code/domain-specific |
 
 ---
 
@@ -179,7 +188,37 @@ Skills load automatically based on your question topic.
 
 ---
 
-## Step 7: Create Your Own
+## Step 7: Try the Meta-Prompts
+
+Three special prompts control **how** Copilot works, not just what it works on.
+
+### Try /composite — Combine Modes
+
+1. Open `src/Main.java`
+2. Type: `/composite`
+3. When prompted for modes, enter: `refactor, design-review`
+4. ✅ **Expected:** A unified report combining refactoring suggestions AND design review findings, deduplicated and prioritized
+
+### Try /context — Continue or Start Fresh
+
+1. After the composite analysis above, type: `/context`
+2. Enter `continue` for context mode
+3. Summarize: "We just did a composite refactor + design review of Main.java"
+4. Enter a follow-up task: "Now implement the top-priority refactoring"
+5. ✅ **Expected:** Copilot acknowledges the prior analysis and builds on it without re-analyzing
+
+### Try /scope — Generic vs Specific
+
+1. Type: `/scope`
+2. Enter `generic`
+3. Enter topic: "What is the Strategy pattern?"
+4. ✅ **Expected:** A conceptual explanation with standalone examples, NOT referencing your project code
+5. Now try again with `specific` and topic: "Apply the Strategy pattern here"
+6. ✅ **Expected:** Concrete suggestions anchored to your actual codebase
+
+---
+
+## Step 8: Create Your Own
 
 Now that you've tried everything, create your own customization! Pick one:
 
@@ -305,6 +344,7 @@ Test it: Select **Explainer** from the agent dropdown → ask about any concept
 | Your Goal | Where to Go |
 |---|---|
 | Understand how everything connects | [Customization Guide](customization-guide.md) |
+| See which files Copilot reads vs developer docs | [File Reference](file-reference.md) |
 | Learn about agents in depth | [Agents Guide](../agents/README.md) |
 | Learn about prompts in depth | [Prompts Guide](../prompts/README.md) |
 | Learn about skills in depth | [Skills Guide](../skills/README.md) |
@@ -315,6 +355,6 @@ Test it: Select **Explainer** from the agent dropdown → ask about any concept
 
 <p align="center">
 
-[← Back to main guide](../README.md) · [Customization Guide](customization-guide.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md) · [Instructions](../instructions/README.md)
+[← Back to main guide](../README.md) · [Customization Guide](customization-guide.md) · [File Reference](file-reference.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md) · [Instructions](../instructions/README.md)
 
 </p>

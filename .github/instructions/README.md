@@ -244,6 +244,21 @@ Examples:
 
 ---
 
+## 📌 File Audience Note
+
+This folder contains two types of files:
+
+| File | Audience | Purpose |
+|---|---|---|
+| `*.instructions.md` | 🤖 **Copilot** | Coding standards — auto-loaded when editing files matching the `applyTo` glob |
+| `README.md` | 👤 **Developer** | This guide — Copilot does not read it |
+
+When you edit an `.instructions.md` file, you change the coding rules Copilot follows. When you edit this README, nothing changes in Copilot — it's documentation for you.
+
+> 📖 **Full breakdown:** [File Reference →](../docs/file-reference.md)
+
+---
+
 ## 🧪 Experiments to Try
 
 1. **Create a test instruction** → `testing.instructions.md` with `applyTo: "**/*Test.java"` → ask Copilot to write a test → does it follow your conventions?
@@ -255,6 +270,6 @@ Examples:
 
 <p align="center">
 
-[← Back to main guide](../README.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md) · [Getting Started](../docs/getting-started.md) · [Customization Guide](../docs/customization-guide.md)
+[← Back to main guide](../README.md) · [Agents](../agents/README.md) · [Prompts](../prompts/README.md) · [Skills](../skills/README.md) · [File Reference](../docs/file-reference.md) · [Getting Started](../docs/getting-started.md) · [Customization Guide](../docs/customization-guide.md)
 
 </p>
