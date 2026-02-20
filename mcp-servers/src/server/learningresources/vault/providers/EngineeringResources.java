@@ -2,6 +2,7 @@ package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
 import server.learningresources.model.ContentFreshness;
+import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LearningResource;
 import server.learningresources.model.ResourceCategory;
@@ -37,7 +38,7 @@ public final class EngineeringResources implements ResourceProvider {
                         "Alexander Shvets",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.EVERGREEN,
-                        false, true, now
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 ),
 
                 new LearningResource(
@@ -55,7 +56,7 @@ public final class EngineeringResources implements ResourceProvider {
                         "Community (Wojtek Lukaszuk)",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.EVERGREEN,
-                        false, true, now
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 ),
 
                 new LearningResource(
@@ -74,7 +75,7 @@ public final class EngineeringResources implements ResourceProvider {
                         "Adam Wiggins / Heroku",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.EVERGREEN,
-                        false, true, now
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 ),
 
                 new LearningResource(
@@ -94,7 +95,7 @@ public final class EngineeringResources implements ResourceProvider {
                         "Donne Martin",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.PERIODICALLY_UPDATED,
-                        false, true, now
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 ),
 
                 new LearningResource(
@@ -113,7 +114,7 @@ public final class EngineeringResources implements ResourceProvider {
                         "Martin Fowler",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        false, true, now
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 )
         );
     }

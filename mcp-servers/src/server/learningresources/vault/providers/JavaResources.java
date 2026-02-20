@@ -2,6 +2,7 @@ package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
 import server.learningresources.model.ContentFreshness;
+import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LearningResource;
 import server.learningresources.model.ResourceCategory;
@@ -43,7 +44,7 @@ public final class JavaResources implements ResourceProvider {
                         "Oracle / dev.java",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.JAVA_CENTRIC, now
                 ),
 
                 new LearningResource(
@@ -60,7 +61,7 @@ public final class JavaResources implements ResourceProvider {
                         "Oracle",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.JAVA_CENTRIC, now
                 ),
 
                 new LearningResource(
@@ -78,7 +79,7 @@ public final class JavaResources implements ResourceProvider {
                         "Oracle",
                         DifficultyLevel.EXPERT,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.JAVA_CENTRIC, now
                 ),
 
                 new LearningResource(
@@ -97,7 +98,7 @@ public final class JavaResources implements ResourceProvider {
                         "Oracle Java Team",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.JAVA_CENTRIC, now
                 ),
 
                 new LearningResource(
@@ -114,7 +115,7 @@ public final class JavaResources implements ResourceProvider {
                         "Oracle",
                         DifficultyLevel.EXPERT,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.JAVA_CENTRIC, now
                 ),
 
                 new LearningResource(
@@ -131,7 +132,7 @@ public final class JavaResources implements ResourceProvider {
                         "OpenJDK Community",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.JAVA_CENTRIC, now
                 ),
 
                 // ─── Community Resources ────────────────────────────────────
@@ -152,7 +153,7 @@ public final class JavaResources implements ResourceProvider {
                         "Baeldung / Eugen Paraschiv",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        false, true, now
+                        false, true, LanguageApplicability.JAVA_CENTRIC, now
                 ),
 
                 new LearningResource(
@@ -170,7 +171,7 @@ public final class JavaResources implements ResourceProvider {
                         "Jakob Jenkov",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.PERIODICALLY_UPDATED,
-                        false, true, now
+                        false, true, LanguageApplicability.JAVA_CENTRIC, now
                 ),
 
                 // ─── Books ──────────────────────────────────────────────────
@@ -191,7 +192,7 @@ public final class JavaResources implements ResourceProvider {
                         "Joshua Bloch",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.EVERGREEN,
-                        false, false, now
+                        false, false, LanguageApplicability.JAVA_CENTRIC, now
                 ),
 
                 new LearningResource(
@@ -210,7 +211,7 @@ public final class JavaResources implements ResourceProvider {
                         "Brian Goetz et al.",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.EVERGREEN,
-                        false, false, now
+                        false, false, LanguageApplicability.JAVA_CENTRIC, now
                 ),
 
                 // ─── Open Source Projects ───────────────────────────────────
@@ -229,7 +230,7 @@ public final class JavaResources implements ResourceProvider {
                         "VMware / Broadcom",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.JAVA_CENTRIC, now
                 ),
 
                 new LearningResource(
@@ -247,7 +248,7 @@ public final class JavaResources implements ResourceProvider {
                         "Google",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.JAVA_CENTRIC, now
                 ),
 
                 new LearningResource(
@@ -264,7 +265,7 @@ public final class JavaResources implements ResourceProvider {
                         "JUnit Team",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.JAVA_CENTRIC, now
                 )
         );
     }

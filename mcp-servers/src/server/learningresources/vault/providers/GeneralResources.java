@@ -2,6 +2,7 @@ package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
 import server.learningresources.model.ContentFreshness;
+import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LearningResource;
 import server.learningresources.model.ResourceCategory;
@@ -37,7 +38,7 @@ public final class GeneralResources implements ResourceProvider {
                         "Kent C. Dodds",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.EVERGREEN,
-                        false, true, now
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 ),
 
                 new LearningResource(
@@ -55,7 +56,7 @@ public final class GeneralResources implements ResourceProvider {
                         "Kamran Ahmed / roadmap.sh",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        false, true, now
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 ),
 
                 new LearningResource(
@@ -73,7 +74,7 @@ public final class GeneralResources implements ResourceProvider {
                         "Ebook Foundation / Community",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        false, true, now
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 ),
 
                 new LearningResource(
@@ -94,7 +95,7 @@ public final class GeneralResources implements ResourceProvider {
                         "Bradfield School of Computer Science",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.EVERGREEN,
-                        false, true, now
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 )
         );
     }

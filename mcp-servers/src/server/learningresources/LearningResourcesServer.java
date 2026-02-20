@@ -22,12 +22,14 @@ import java.util.logging.Logger;
  *
  * <p><strong>Capabilities:</strong>
  * <ul>
- *   <li>Search a curated vault of 30+ famous learning resources</li>
+ *   <li>Search a curated vault of 48+ famous learning resources</li>
+ *   <li>Smart discovery with intent classification (specific, vague, exploratory)</li>
  *   <li>Browse resources by category (Java, Python, web, DevOps, etc.)</li>
  *   <li>Scrape and summarize any URL — tutorials, docs, articles</li>
  *   <li>Read full content from URLs with metadata (word count, reading time)</li>
  *   <li>Estimate content difficulty (beginner / intermediate / advanced)</li>
- *   <li>Add custom resources to the vault at runtime</li>
+ *   <li>Add custom resources to the vault — manually or via smart URL scraping</li>
+ *   <li>Export results as Markdown (PDF/Word planned)</li>
  * </ul>
  *
  * <p><strong>Transport:</strong> STDIO (reads JSON-RPC from stdin, writes to stdout).
@@ -102,14 +104,17 @@ public class LearningResourcesServer {
      * @return a map of tool name to description
      */
     public Map<String, String> getToolDefinitions() {
-        return Map.of(
-                "search_resources", "Search the curated vault of learning resources by text, category, type, or difficulty",
-                "browse_vault", "Browse the resource vault by category or type",
-                "get_resource", "Get detailed information about a specific resource by ID",
-                "list_categories", "List all available resource categories with counts",
-                "scrape_url", "Scrape a URL and return a summary with metadata (word count, reading time, difficulty)",
-                "read_url", "Scrape a URL and return the full extracted text content",
-                "add_resource", "Add a custom learning resource to the vault"
+        return Map.ofEntries(
+                Map.entry("search_resources", "Search the curated vault of learning resources by text, category, type, or difficulty"),
+                Map.entry("browse_vault", "Browse the resource vault by category or type"),
+                Map.entry("get_resource", "Get detailed information about a specific resource by ID"),
+                Map.entry("list_categories", "List all available resource categories with counts"),
+                Map.entry("discover_resources", "Smart discovery — classifies intent and finds relevant resources with scoring"),
+                Map.entry("scrape_url", "Scrape a URL and return a summary with metadata (word count, reading time, difficulty)"),
+                Map.entry("read_url", "Scrape a URL and return the full extracted text content"),
+                Map.entry("add_resource", "Add a custom learning resource to the vault"),
+                Map.entry("add_resource_from_url", "Scrape a URL, auto-extract metadata, and add as a resource"),
+                Map.entry("export_results", "Export discovery/search results as Markdown (PDF/Word planned)")
         );
     }
 

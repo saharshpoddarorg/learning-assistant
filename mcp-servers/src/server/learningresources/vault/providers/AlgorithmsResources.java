@@ -2,6 +2,7 @@ package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
 import server.learningresources.model.ContentFreshness;
+import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LearningResource;
 import server.learningresources.model.ResourceCategory;
@@ -37,7 +38,7 @@ public final class AlgorithmsResources implements ResourceProvider {
                         "Steven Halim",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        false, true, now
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 ),
 
                 new LearningResource(
@@ -56,7 +57,7 @@ public final class AlgorithmsResources implements ResourceProvider {
                         "Eric Rowell",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.EVERGREEN,
-                        false, true, now
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 ),
 
                 new LearningResource(
@@ -76,7 +77,7 @@ public final class AlgorithmsResources implements ResourceProvider {
                         "CP-Algorithms Contributors",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        false, true, now
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 )
         );
     }

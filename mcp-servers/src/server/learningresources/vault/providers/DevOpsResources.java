@@ -2,6 +2,7 @@ package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
 import server.learningresources.model.ContentFreshness;
+import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LearningResource;
 import server.learningresources.model.ResourceCategory;
@@ -38,7 +39,7 @@ public final class DevOpsResources implements ResourceProvider {
                         "Docker Inc.",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
                 ),
 
                 new LearningResource(
@@ -57,7 +58,7 @@ public final class DevOpsResources implements ResourceProvider {
                         "CNCF / Kubernetes Community",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
                 ),
 
                 new LearningResource(
@@ -75,7 +76,7 @@ public final class DevOpsResources implements ResourceProvider {
                         "Scott Chacon & Ben Straub",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.EVERGREEN,
-                        true, true, now
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
                 ),
 
                 new LearningResource(
@@ -94,7 +95,7 @@ public final class DevOpsResources implements ResourceProvider {
                         "GitHub",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
                 ),
 
                 new LearningResource(
@@ -113,7 +114,7 @@ public final class DevOpsResources implements ResourceProvider {
                         "GitHub",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
                 ),
 
                 new LearningResource(
@@ -131,7 +132,7 @@ public final class DevOpsResources implements ResourceProvider {
                         "Gradle Inc.",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
                 )
         );
     }

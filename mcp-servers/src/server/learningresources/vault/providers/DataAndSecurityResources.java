@@ -2,6 +2,7 @@ package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
 import server.learningresources.model.ContentFreshness;
+import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LearningResource;
 import server.learningresources.model.ResourceCategory;
@@ -38,7 +39,7 @@ public final class DataAndSecurityResources implements ResourceProvider {
                         "Markus Winand",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.EVERGREEN,
-                        false, true, now
+                        false, true, LanguageApplicability.MULTI_LANGUAGE, now
                 ),
 
                 new LearningResource(
@@ -56,7 +57,7 @@ public final class DataAndSecurityResources implements ResourceProvider {
                         "OWASP Foundation",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.PERIODICALLY_UPDATED,
-                        true, true, now
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
                 ),
 
                 new LearningResource(
@@ -74,7 +75,7 @@ public final class DataAndSecurityResources implements ResourceProvider {
                         "PostgreSQL Global Development Group",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
                 ),
 
                 new LearningResource(
@@ -93,7 +94,7 @@ public final class DataAndSecurityResources implements ResourceProvider {
                         "OWASP Foundation",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
                 )
         );
     }

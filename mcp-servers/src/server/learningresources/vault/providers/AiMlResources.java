@@ -2,6 +2,7 @@ package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
 import server.learningresources.model.ContentFreshness;
+import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LearningResource;
 import server.learningresources.model.ResourceCategory;
@@ -36,7 +37,7 @@ public final class AiMlResources implements ResourceProvider {
                         "Jeremy Howard & Rachel Thomas",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        false, true, now
+                        false, true, LanguageApplicability.MULTI_LANGUAGE, now
                 ),
 
                 new LearningResource(
@@ -54,7 +55,7 @@ public final class AiMlResources implements ResourceProvider {
                         "DAIR.AI",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        false, true, now
+                        false, true, LanguageApplicability.MULTI_LANGUAGE, now
                 ),
 
                 new LearningResource(
@@ -72,7 +73,7 @@ public final class AiMlResources implements ResourceProvider {
                         "OpenAI",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
                 )
         );
     }

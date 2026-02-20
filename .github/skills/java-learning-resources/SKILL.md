@@ -12,7 +12,7 @@ description: >
 
 # Java & IDE Learning Resources — Master Index
 
-> **Runtime vault:** Many resources listed here are also available in the **Learning Resources MCP server vault** (`/resources` command). Use `/resources search java` for keyword search, or `/resources browse` for the full categorized library. The vault provides programmatic access via 7 MCP tools (search, browse, scrape, recommend, add, details). This SKILL provides deeper, scraped reference content for offline use.
+> **Runtime vault:** Many resources listed here are also available in the **Learning Resources MCP server vault** (`/resources` command). Use `/resources search java` for keyword search, `/resources browse` for the full categorized library, or `/resources discover` for smart AI-powered discovery. The vault provides programmatic access via **10 MCP tools** (search, browse, discover, scrape, summarize, add, add-from-url, export, details, categories). Resources are enriched with 7 classification dimensions: type, category, concept area, difficulty, freshness, language applicability, and official status. This SKILL provides deeper, scraped reference content for offline use.
 
 ## Repository Structure
 

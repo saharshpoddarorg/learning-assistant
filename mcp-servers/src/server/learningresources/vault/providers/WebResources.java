@@ -2,6 +2,7 @@ package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
 import server.learningresources.model.ContentFreshness;
+import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LearningResource;
 import server.learningresources.model.ResourceCategory;
@@ -37,7 +38,7 @@ public final class WebResources implements ResourceProvider {
                         "Mozilla",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.WEB_SPECIFIC, now
                 ),
 
                 new LearningResource(
@@ -56,7 +57,7 @@ public final class WebResources implements ResourceProvider {
                         "Ilya Kantor",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        false, true, now
+                        false, true, LanguageApplicability.WEB_SPECIFIC, now
                 ),
 
                 new LearningResource(
@@ -73,7 +74,7 @@ public final class WebResources implements ResourceProvider {
                         "Microsoft",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.WEB_SPECIFIC, now
                 ),
 
                 new LearningResource(
@@ -90,7 +91,7 @@ public final class WebResources implements ResourceProvider {
                         "W3C",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.WEB_SPECIFIC, now
                 ),
 
                 new LearningResource(
@@ -108,7 +109,7 @@ public final class WebResources implements ResourceProvider {
                         "Google Chrome Team",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, now
+                        true, true, LanguageApplicability.WEB_SPECIFIC, now
                 )
         );
     }

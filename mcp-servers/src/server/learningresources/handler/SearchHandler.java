@@ -175,6 +175,7 @@ public class SearchHandler {
                 .append("Type:        ").append(resource.type().getDisplayName()).append("\n")
                 .append("Difficulty:  ").append(resource.difficulty()).append("\n")
                 .append("Freshness:   ").append(resource.freshness()).append("\n")
+                .append("Language:    ").append(resource.languageApplicability().getDisplayName()).append("\n")
                 .append("Author:      ").append(resource.author().isEmpty() ? "(unknown)" : resource.author()).append("\n")
                 .append("Free:        ").append(resource.isFree() ? "Yes" : "No").append("\n")
                 .append("Categories:  ").append(resource.categories().stream()

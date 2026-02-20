@@ -33,9 +33,10 @@ import java.util.Objects;
  * @param author        author or organization name (empty string if unknown)
  * @param difficulty    type-safe difficulty level
  * @param freshness     content maintenance/freshness status
- * @param isOfficial    whether this is an official/authoritative source
- * @param isFree        whether the resource is freely accessible
- * @param addedAt       when this resource was added to the vault
+ * @param isOfficial             whether this is an official/authoritative source
+ * @param isFree                 whether the resource is freely accessible
+ * @param languageApplicability  how the resource relates to programming languages
+ * @param addedAt                when this resource was added to the vault
  */
 public record LearningResource(
         String id,
@@ -51,6 +52,7 @@ public record LearningResource(
         ContentFreshness freshness,
         boolean isOfficial,
         boolean isFree,
+        LanguageApplicability languageApplicability,
         Instant addedAt
 ) {
 
@@ -69,6 +71,7 @@ public record LearningResource(
         Objects.requireNonNull(author, "Author must not be null (use empty string)");
         Objects.requireNonNull(difficulty, "Difficulty must not be null");
         Objects.requireNonNull(freshness, "Freshness must not be null");
+        Objects.requireNonNull(languageApplicability, "Language applicability must not be null");
         Objects.requireNonNull(addedAt, "AddedAt timestamp must not be null");
 
         if (id.isBlank()) {
