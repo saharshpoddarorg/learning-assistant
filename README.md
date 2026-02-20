@@ -107,6 +107,14 @@ learning-assistant/
 ├── src/                             ← Code sandbox
 │   └── Main.java                        Java entry point (expandable to any language)
 │
+├── mcp-servers/                     ← MCP Server configuration module
+│   ├── README.md                        Module docs, setup guide, architecture
+│   ├── .vscode/                         IDE settings (portable — copy to other projects)
+│   ├── user-config/
+│   │   ├── mcp-config.example.properties    Full reference template (~280 lines)
+│   │   └── mcp-config.properties            Your active config (gitignored)
+│   └── src/                             Java config system (records, loader, validator)
+│
 └── .github/                         ← AI customization + knowledge base
     ├── copilot-instructions.md          Project-wide coding rules
     ├── instructions/                    Auto-loaded coding standards (Java, clean code)
@@ -167,6 +175,29 @@ learning-assistant/
 ```
 
 </details>
+
+---
+
+## MCP Servers Module
+
+The `mcp-servers/` directory contains a **Java-based configuration system** for Model Context Protocol (MCP) servers — the protocol that lets AI assistants connect to external tools and data sources.
+
+**What it manages:**
+- API keys and secrets (GitHub, OpenAI, Slack, databases)
+- Location preferences (timezone, locale, cloud region)
+- User preferences (theme, log level, retries, timeouts)
+- Browser isolation (dedicated profile to prevent MCP servers from hijacking personal tabs)
+- Server definitions (stdio, SSE, streamable-http transports)
+- Named profiles (development, production, testing) with config merging
+- Environment variable overrides (`MCP_*` prefix)
+
+**Quick start:**
+```bash
+cp mcp-servers/user-config/mcp-config.example.properties mcp-servers/user-config/mcp-config.properties
+# Replace <<<PLACEHOLDER>>> values (search for "<<<")
+```
+
+See the [MCP Servers README](mcp-servers/README.md) for the full setup guide, architecture docs, and how to add new servers.
 
 ---
 
@@ -266,6 +297,7 @@ For the full architecture, see the [Customization Guide](.github/docs/customizat
 | [Slash Commands](.github/docs/slash-commands.md) | All 25 commands — inputs, aliases, composition | ~5 min |
 | [Navigation Index](.github/docs/navigation-index.md) | Master lookup — commands, agents, skills, files | ~5 min |
 | [File Reference](.github/docs/file-reference.md) | Which files Copilot reads vs. developer docs | ~5 min |
+| [MCP Servers Guide](mcp-servers/README.md) | Config architecture, setup, adding servers, browser isolation | ~10 min |
 | [Copilot README](.github/README.md) | Deep dive into all 5 Copilot primitives | ~10 min |
 
 ---
@@ -280,6 +312,7 @@ The architecture is designed to grow. Add your own:
 | New slash command | Create `*.prompt.md` in `.github/prompts/` | [Prompts Guide](.github/prompts/README.md) |
 | New knowledge pack | Create `<name>/SKILL.md` in `.github/skills/` | [Skills Guide](.github/skills/README.md) |
 | New coding rules | Create `*.instructions.md` in `.github/instructions/` | [Instructions Guide](.github/instructions/README.md) |
+| New MCP server | Add `server.{name}.*` block in `mcp-servers/user-config/mcp-config.properties` | [MCP Servers Guide](mcp-servers/README.md) |
 | New code experiments | Add files in `src/` in any language | Just start coding |
 
 Contributions, ideas, and forks are welcome. If you build something interesting on top of this structure, open an issue — I'd love to hear about it.

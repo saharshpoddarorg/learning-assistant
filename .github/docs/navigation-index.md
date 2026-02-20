@@ -96,6 +96,7 @@
 | `software-engineering-resources` | DSA, system design, OS, DevOps, Git, build tools, security, industry, trends | Comprehensive SE/CS resources |
 | `daily-assistant-resources` | Finance, productivity, news | Daily life resources |
 | `career-resources` | Job roles, salaries, career | Career data and roadmaps |
+| `mcp-development` | MCP servers, config, protocol | MCP server setup & development |
 
 ---
 
@@ -177,6 +178,16 @@
     ├── file-reference.md            👤 Who reads what (🤖 vs 👤)
     ├── navigation-index.md          👤 This file — master index
     └── slash-commands.md            👤 Developer slash command reference
+
+mcp-servers/                             ← MCP Server Configuration Module
+├── README.md                        👤 Config guide, architecture, setup
+├── .vscode/                         👤 IDE settings (portable — copy to other projects)
+├── user-config/
+│   ├── mcp-config.example.properties 👤 Full reference template (committed)
+│   └── mcp-config.properties        👤 Active config (GITIGNORED)
+└── src/
+    ├── Main.java                    👤 Entry point — loads & prints config
+    └── config/                      👤 Java records, loader, validator, facade
 ```
 
 **Legend:** 🤖 = Copilot reads this file | 👤 = Developer documentation only
@@ -215,6 +226,10 @@
 | **Save progress before ending** | `/multi-session` → `save-state` | Prompt |
 | **Combine multiple analyses** | `/composite` | Prompt |
 | **Ask Copilot as a specialist** | Select agent from dropdown | Agent |
+| **Configure MCP servers** | See [mcp-servers/README.md](../../mcp-servers/README.md) | Config |
+| **Add a new MCP server** | Add `server.{name}.*` block in `user-config/mcp-config.properties` | Config |
+| **Set up browser isolation** | See [Browser Isolation](../../mcp-servers/README.md#browser-isolation) | Config |
+| **Manage API keys for MCP** | Set `apiKeys.*` or `MCP_APIKEYS_*` env var | Config |
 
 ---
 

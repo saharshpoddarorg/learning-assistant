@@ -3,6 +3,20 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .kotlin
+.idea/
+*.iws
+*.ipr
+
+### IntelliJ Plugins & Extensions ###
+.idea/**/git_toolbox_blame.xml
+.idea/**/git_toolbox_prj.xml
+.idea/**/gitToolBox.xml
+.idea/**/sonarlint/
+.idea/**/codeStyles/
+.idea/**/inspectionProfiles/
+.idea/**/shelf/
+.idea/**/usage.statistics.xml
+.idea/**/statistic.xml
 
 ### Eclipse ###
 .apt_generated
@@ -24,7 +38,18 @@ bin/
 /.nb-gradle/
 
 ### VS Code ###
+# Root .vscode is ignored (personal settings)
 .vscode/
+# But mcp-servers/.vscode IS committed (portable config for other projects)
+!mcp-servers/.vscode/
+
+### Java Build Artifacts ###
+*.class
+*.jar
+*.war
+*.ear
+target/
+build/
 
 ### MCP Server Artifacts ###
 mcp-servers/*/node_modules/
@@ -33,6 +58,29 @@ mcp-servers/*/.venv/
 mcp-servers/*/target/
 mcp-servers/*/__pycache__/
 mcp-servers/*/*.egg-info/
+mcp-servers/out/
 
-### Mac OS ###
+### MCP Config — never commit real API keys ###
+mcp-servers/user-config/mcp-config.properties
+!mcp-servers/user-config/mcp-config.example.properties
+
+### OS Generated ###
 .DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+ehthumbs_vista.db
+
+### Logs & Temp ###
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+
+### Environment & Secrets ###
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
