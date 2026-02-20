@@ -48,6 +48,7 @@
 | `/tech-stack` | Frameworks, databases, compare tools | Learning-Mentor | `/tech-stack` → `compare Spring vs FastAPI` |
 | `/sdlc` | SDLC phases, methodologies, E2E lifecycle | Learning-Mentor | `/sdlc` → `testing` |
 | `/interview-prep` | Interview preparation | Learning-Mentor | `/interview-prep` → `DSA` → `sliding window` |
+| `/resources` | Search, browse & scrape learning resources | Learning-Mentor | `/resources` → `search` → `java concurrency` |
 
 ### Career
 | Command | Purpose | Agent | Quick Example |
@@ -96,6 +97,7 @@
 | `software-engineering-resources` | DSA, system design, OS, DevOps, Git, build tools, security, industry, trends | Comprehensive SE/CS resources |
 | `daily-assistant-resources` | Finance, productivity, news | Daily life resources |
 | `career-resources` | Job roles, salaries, career | Career data and roadmaps |
+| `mcp-development` | MCP servers, config, protocol | MCP server setup & development |
 
 ---
 
@@ -149,6 +151,7 @@
 │   ├── sdlc.prompt.md               🤖 /sdlc — lifecycle & methods
 │   ├── interview-prep.prompt.md     🤖 /interview-prep — interviews
 │   ├── career-roles.prompt.md       🤖 /career-roles — job roles & pay
+│   ├── resources.prompt.md          🤖 /resources — learning resource vault
 │   │
 │   │── [Code Quality]
 │   ├── design-review.prompt.md      🤖 /design-review — SOLID review
@@ -177,6 +180,16 @@
     ├── file-reference.md            👤 Who reads what (🤖 vs 👤)
     ├── navigation-index.md          👤 This file — master index
     └── slash-commands.md            👤 Developer slash command reference
+
+mcp-servers/                             ← MCP Server Configuration Module
+├── README.md                        👤 Config guide, architecture, setup
+├── .vscode/                         👤 IDE settings (portable — copy to other projects)
+├── user-config/
+│   ├── mcp-config.example.properties 👤 Full reference template (committed)
+│   └── mcp-config.properties        👤 Active config (GITIGNORED)
+└── src/
+    ├── Main.java                    👤 Entry point — loads & prints config
+    └── config/                      👤 Java records, loader, validator, facade
 ```
 
 **Legend:** 🤖 = Copilot reads this file | 👤 = Developer documentation only
@@ -196,6 +209,9 @@
 | **Learn Docker / K8s / CI-CD** | `/devops` | Prompt |
 | **Learn Git commands & branching** | `/devops` → `Git` | Prompt |
 | **Learn Maven / Gradle build tools** | `/devops` → `build tools` | Prompt |
+| **Search curated learning resources** | `/resources` → `search` | Prompt |
+| **Browse resource library by category** | `/resources` → `browse` | Prompt |
+| **Scrape & analyze a tutorial URL** | `/resources` → `scrape` → URL | Prompt |
 | **Compare frameworks** | `/tech-stack` | Prompt |
 | **Understand SDLC phases** | `/sdlc` | Prompt |
 | **Learn industry patterns (rate limiter, circuit breaker)** | `/hub industry` or `/learn-concept` → topic | Prompt |
@@ -215,6 +231,10 @@
 | **Save progress before ending** | `/multi-session` → `save-state` | Prompt |
 | **Combine multiple analyses** | `/composite` | Prompt |
 | **Ask Copilot as a specialist** | Select agent from dropdown | Agent |
+| **Configure MCP servers** | See [mcp-servers/README.md](../../mcp-servers/README.md) | Config |
+| **Add a new MCP server** | Add `server.{name}.*` block in `user-config/mcp-config.properties` | Config |
+| **Set up browser isolation** | See [Browser Isolation](../../mcp-servers/README.md#browser-isolation) | Config |
+| **Manage API keys for MCP** | Set `apiKeys.*` or `MCP_APIKEYS_*` env var | Config |
 
 ---
 

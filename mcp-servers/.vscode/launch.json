@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Run MCP Config Loader",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "mcp-servers",
+            "cwd": "${workspaceFolder}/mcp-servers",
+            "console": "integratedTerminal",
+            "env": {
+                // Uncomment and set environment variables for secrets:
+                // "MCP_APIKEYS_GITHUB": "ghp_your_token_here",
+                // "MCP_APIKEYS_OPENAI": "sk-proj-your_key_here"
+            }
+        },
+        {
+            "type": "java",
+            "name": "Run MCP Config (Debug Logging)",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "mcp-servers",
+            "cwd": "${workspaceFolder}/mcp-servers",
+            "console": "integratedTerminal",
+            "vmArgs": "-Djava.util.logging.level=FINE",
+            "env": {}
+        }
+    ]
+}

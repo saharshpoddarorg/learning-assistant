@@ -30,7 +30,7 @@
 | Action | How |
 |---|---|
 | **Switch persona** | Chat dropdown → select **Designer**, **Debugger**, **Impact-Analyzer**, **Learning-Mentor**, **Daily-Assistant**, or **Thinking-Beast-Mode** |
-| **Run a workflow** | Type `/hub`, `/dsa`, `/system-design`, `/devops`, `/language-guide`, `/tech-stack`, `/sdlc`, `/career-roles`, `/daily-assist`, `/multi-session`, `/learn-concept`, `/learn-from-docs`, `/explore-project`, `/deep-dive`, `/reading-plan`, `/interview-prep`, `/design-review`, `/debug`, `/impact`, `/teach`, `/refactor`, `/explain`, `/composite`, `/context`, or `/scope` in Chat |
+| **Run a workflow** | Type `/hub`, `/dsa`, `/system-design`, `/devops`, `/mcp`, `/resources`, `/language-guide`, `/tech-stack`, `/sdlc`, `/career-roles`, `/daily-assist`, `/multi-session`, `/learn-concept`, `/learn-from-docs`, `/explore-project`, `/deep-dive`, `/reading-plan`, `/interview-prep`, `/design-review`, `/debug`, `/impact`, `/teach`, `/refactor`, `/explain`, `/composite`, `/context`, or `/scope` in Chat |
 | **Coding standards** | Automatic — open any `.java` file, instructions load via glob match |
 | **Extra knowledge** | Automatic — ask about building, patterns, or debugging and the matching skill loads |
 | **See everything** | [Navigation Index](docs/navigation-index.md) · [Slash Commands](docs/slash-commands.md) · [Documentation Map](#-documentation-map) · [File Reference](docs/file-reference.md) · [Getting Started Tutorial](docs/getting-started.md) |
@@ -126,7 +126,9 @@ GitHub Copilot in VS Code supports exactly **5 customization primitives**. Every
 │   ├── deep-dive.prompt.md                 /deep-dive (concept mastery)
 │   ├── reading-plan.prompt.md              /reading-plan (study plan)
 │   ├── learn-concept.prompt.md             /learn-concept (any CS/SE concept)
-│   └── interview-prep.prompt.md            /interview-prep (DSA/system design)
+│   ├── interview-prep.prompt.md            /interview-prep (DSA/system design)
+│   ├── resources.prompt.md                 /resources (learning resource vault)
+│   └── mcp.prompt.md                       /mcp (MCP servers, agents, API integration)
 │
 ├── skills/                              ← Agent skills (auto by task match)
 │   ├── 🛠️ README.md                         Guide: how skills work
@@ -136,7 +138,8 @@ GitHub Copilot in VS Code supports exactly **5 customization primitives**. Every
 │   ├── java-learning-resources/SKILL.md    Curated Java learning resource index
 │   ├── software-engineering-resources/SKILL.md  Comprehensive SE/CS resource index
 │   ├── daily-assistant-resources/SKILL.md  Daily assistant resources (finance, productivity, news)
-│   └── career-resources/SKILL.md           Career data (roles, skills, pay, roadmaps)
+│   ├── career-resources/SKILL.md           Career data (roles, skills, pay, roadmaps)
+│   └── mcp-development/SKILL.md            MCP: build servers, configure agents, project structure
 │
 └── docs/                                ← Documentation & tutorials
     ├── getting-started.md                  Step-by-step tutorial
@@ -210,6 +213,7 @@ This learning project includes working samples of each primitive, organized into
 | `/daily-assist` | [`daily-assist.prompt.md`](prompts/daily-assist.prompt.md) | Finance, productivity, news, daily life tasks |
 | `/career-roles` | [`career-roles.prompt.md`](prompts/career-roles.prompt.md) | Job roles, skills, pay ranges, career roadmaps |
 | `/multi-session` | [`multi-session.prompt.md`](prompts/multi-session.prompt.md) | Manage state across multiple chat sessions |
+| `/resources` | [`resources.prompt.md`](prompts/resources.prompt.md) | Search, browse & scrape 30+ curated learning resources |
 
 > 📖 **Deep dive:** [Prompts Guide →](prompts/README.md)
 
@@ -352,7 +356,7 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 ├─── Reference
 │    ├── docs/file-reference.md ·········· Who reads what (🤖 Copilot vs 👤 developer)
 │    ├── docs/navigation-index.md ········ Master index: all commands, files, workflows
-│    └── docs/slash-commands.md ·········· All 25 slash commands: aliases, inputs, composition
+│    └── docs/slash-commands.md ········· All 26 slash commands: aliases, inputs, composition
 │
 └─── Tutorials & Deep Dives
      ├── docs/getting-started.md ········· Hands-on: verify setup, try each primitive

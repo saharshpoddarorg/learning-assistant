@@ -12,6 +12,8 @@ description: >
 
 # Java & IDE Learning Resources — Master Index
 
+> **Runtime vault:** Many resources listed here are also available in the **Learning Resources MCP server vault** (`/resources` command). Use `/resources search java` for keyword search, or `/resources browse` for the full categorized library. The vault provides programmatic access via 7 MCP tools (search, browse, scrape, recommend, add, details). This SKILL provides deeper, scraped reference content for offline use.
+
 ## Repository Structure
 
 ```

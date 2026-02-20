@@ -45,7 +45,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (25 commands)
+### Quick Lookup (26 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -73,7 +73,8 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 22 | `/debug` | Code Quality | Systematic bug investigation | Debugger |
 | 23 | `/impact` | Code Quality | Change impact & ripple effect analysis | Impact-Analyzer |
 | 24 | `/explore-project` | Domain | Learn from open-source project architecture | Learning-Mentor |
-| 25 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
+| 25 | `/resources` | Domain | Search, browse & scrape curated learning resources | Learning-Mentor |
+| 26 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
 
 ---
 
@@ -251,6 +252,20 @@ Example:  /explore-project → Redis → event loop architecture
 Output:   Repository overview → architecture map → key patterns → lessons
 ```
 
+#### `/resources` — Learning Resource Vault
+```
+Inputs:   action (search/browse/scrape/recommend/add/details), topic/URL, filters (optional)
+Agent:    Learning-Mentor
+Tools:    codebase, fetch
+Example:  /resources → search → java concurrency
+Actions:  search (keyword/tag), browse (by category), scrape (any URL),
+          recommend (topic-based), add (new resource), details (deep-dive)
+Vault:    30+ curated resources across Java, Python, Web, AI/ML, DevOps,
+          algorithms, engineering, databases, security, and more
+MCP:      Backed by 7 MCP tools: search_resources, browse_vault, get_resource,
+          list_categories, scrape_url, read_url, add_resource
+```
+
 ---
 
 ### Code Quality & Analysis
@@ -380,6 +395,7 @@ Some commands serve as aliases or shorthand for common workflows:
 | `/hub industry` | Industry concepts: rate limiting, circuit breakers, event-driven |
 | `/hub trends` | Tech trends: AI coding, transformers, Wasm, platform eng |
 | `/hub daily` | Daily assistant branch |
+| `/hub resources` | Resources branch: search, browse, scrape, recommend |
 | `/hub career` | Career commands branch |
 | `/hub quality` | Code quality commands |
 | `/hub debug` | Debugging commands |

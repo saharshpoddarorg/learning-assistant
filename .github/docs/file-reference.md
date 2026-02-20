@@ -53,7 +53,9 @@
 │   ├── deep-dive.prompt.md             🤖 Loaded when /deep-dive invoked
 │   ├── reading-plan.prompt.md          🤖 Loaded when /reading-plan invoked
 │   ├── learn-concept.prompt.md         🤖 Loaded when /learn-concept invoked
-│   └── interview-prep.prompt.md        🤖 Loaded when /interview-prep invoked
+│   ├── learn-concept.prompt.md         🤖 Loaded when /learn-concept invoked
+│   ├── interview-prep.prompt.md        🤖 Loaded when /interview-prep invoked
+│   └── resources.prompt.md             🤖 Loaded when /resources invoked
 │
 ├── skills/
 │   ├── java-build/SKILL.md             🤖 Auto-loaded when topic matches
@@ -90,6 +92,45 @@
     ├── file-reference.md               👤 This file — who reads what
     ├── navigation-index.md             👤 Master index of all commands & files
     └── slash-commands.md               👤 Developer slash command reference
+
+mcp-servers/                              ← MCP Server Configuration Module
+│
+├── README.md                            👤 Module overview, config guide, architecture
+│
+├── .vscode/
+│   ├── settings.json                    👤 IDE settings (portable — copy to other projects)
+│   ├── launch.json                      👤 Run/debug launch configurations
+│   └── extensions.json                  👤 Recommended VS Code extensions
+│
+├── user-config/                          ⚙️ DEVELOPER-CONFIGURABLE
+│   ├── mcp-config.example.properties    👤 Full reference template (committed, ~280 lines)
+│   └── mcp-config.properties            👤 Active config (GITIGNORED — your secrets live here)
+│
+└── src/
+    ├── Main.java                        👤 Entry point — loads & prints config summary
+    └── config/
+        ├── ConfigManager.java           👤 Facade: load → merge → parse → validate → resolve
+        ├── model/
+        │   ├── McpConfiguration.java    👤 Root config record
+        │   ├── ApiKeyStore.java         👤 Service → API key map
+        │   ├── LocationPreferences.java 👤 Timezone, locale, region
+        │   ├── UserPreferences.java     👤 Theme, log level, retries, timeouts
+        │   ├── BrowserPreferences.java  👤 Browser isolation (executable, profile, headless)
+        │   ├── ServerDefinition.java    👤 Per-server config (transport, command, URL)
+        │   ├── ProfileDefinition.java   👤 Named override sets (dev, prod, testing)
+        │   ├── TransportType.java       👤 Enum: STDIO, SSE, STREAMABLE_HTTP
+        │   └── package-info.java        👤 Package-level Javadoc
+        ├── loader/
+        │   ├── ConfigSource.java        👤 Interface for pluggable config sources
+        │   ├── PropertiesConfigSource.java  👤 Loads from .properties files
+        │   ├── EnvironmentConfigSource.java 👤 Loads MCP_* environment variables
+        │   └── ConfigParser.java        👤 Flat properties → structured records
+        ├── validation/
+        │   ├── ConfigValidator.java     👤 Validates servers, profiles, transports
+        │   └── ValidationResult.java    👤 Error list with reporting
+        └── exception/
+            ├── ConfigLoadException.java     👤 File not found / unreadable
+            └── ConfigValidationException.java 👤 Invalid config values
 ```
 
 ---
@@ -129,7 +170,9 @@ These files are **documentation for humans**. Copilot does NOT read these to sha
 | **Getting Started** | `.github/docs/getting-started.md` | Step-by-step hands-on tutorial | Second — try everything |
 | **Customization Guide** | `.github/docs/customization-guide.md` | Architecture, how primitives connect | When you want the big picture |
 | **File Reference** | `.github/docs/file-reference.md` | This file — which files are for whom | When confused about a file's purpose |
-| **Slash Commands Ref** | `.github/docs/slash-commands.md` | All 25 slash commands with aliases, inputs, composition | When looking up a specific command |
+| **Slash Commands Ref** | `.github/docs/slash-commands.md` | All 26 slash commands with aliases, inputs, composition | When looking up a specific command |
+| **MCP Servers README** | `mcp-servers/README.md` | Config architecture, setup guide, server definitions, browser isolation | When configuring or adding MCP servers |
+| **MCP Config Template** | `mcp-servers/user-config/mcp-config.example.properties` | Full property reference with documented placeholders (~280 lines) | When setting up MCP config for the first time |
 
 #### Key rules for developer files:
 - **Content is explanation for humans** — write clearly, use examples, add links

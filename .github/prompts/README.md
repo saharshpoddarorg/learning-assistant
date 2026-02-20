@@ -73,6 +73,7 @@ Result:      Structured explanation of Main.java
 | `/daily-assist` | [`daily-assist.prompt.md`](daily-assist.prompt.md) | Daily-Assistant | Finance, productivity, news, daily life tasks |
 | `/career-roles` | [`career-roles.prompt.md`](career-roles.prompt.md) | Learning-Mentor | Job roles, skills, pay, career roadmaps |
 | `/multi-session` | [`multi-session.prompt.md`](multi-session.prompt.md) | Agent | Manage state across multiple chat sessions |
+| `/resources` | [`resources.prompt.md`](resources.prompt.md) | Learning-Mentor | Search, browse & scrape curated learning resources |
 
 ---
 
