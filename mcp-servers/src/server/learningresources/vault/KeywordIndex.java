@@ -210,9 +210,9 @@ public final class KeywordIndex {
         map.put("kubernetes", ResourceCategory.DEVOPS);
         map.put("security", ResourceCategory.SECURITY);
         map.put("owasp", ResourceCategory.SECURITY);
-        map.put("data", ResourceCategory.DATA);
-        map.put("database", ResourceCategory.DATA);
-        map.put("sql", ResourceCategory.DATA);
+        map.put("data", ResourceCategory.DATABASE);
+        map.put("database", ResourceCategory.DATABASE);
+        map.put("sql", ResourceCategory.DATABASE);
         map.put("ai", ResourceCategory.AI_ML);
         map.put("ml", ResourceCategory.AI_ML);
         map.put("machine learning", ResourceCategory.AI_ML);

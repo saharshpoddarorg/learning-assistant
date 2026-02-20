@@ -130,7 +130,7 @@ public record ResourceQuery(
      *
      * @return a query returning only official/authoritative resources
      */
-    public static ResourceQuery officialOnly() {
+    public static ResourceQuery officialResourcesOnly() {
         return new ResourceQuery("", null, List.of(), null, null, null,
                 null, true, List.of(), false, DEFAULT_MAX_RESULTS);
     }

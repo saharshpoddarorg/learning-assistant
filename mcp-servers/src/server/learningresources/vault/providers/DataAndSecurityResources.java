@@ -32,7 +32,7 @@ public final class DataAndSecurityResources implements ResourceProvider {
                                 + "and database-specific advice for Oracle, PostgreSQL, MySQL, "
                                 + "and SQL Server.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.DATA, ResourceCategory.SOFTWARE_ENGINEERING),
+                        List.of(ResourceCategory.DATABASE, ResourceCategory.SOFTWARE_ENGINEERING),
                         List.of(ConceptArea.DATABASES, ConceptArea.COMPLEXITY_ANALYSIS),
                         List.of("sql", "indexing", "performance", "b-tree", "query-optimization",
                                 "postgresql", "mysql"),
@@ -68,7 +68,7 @@ public final class DataAndSecurityResources implements ResourceProvider {
                                 + "performance tuning, replication, extensions, JSON/JSONB, "
                                 + "full-text search, and PL/pgSQL.",
                         ResourceType.API_REFERENCE,
-                        List.of(ResourceCategory.DATA),
+                        List.of(ResourceCategory.DATABASE),
                         List.of(ConceptArea.DATABASES, ConceptArea.API_DESIGN),
                         List.of("official", "postgresql", "sql", "database", "replication",
                                 "json", "full-text-search"),

@@ -86,7 +86,7 @@ public final class GeneralResources implements ResourceProvider {
                                 + "algorithms, math, OS, networking, databases, languages, and "
                                 + "distributed systems.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.COMPUTER_SCIENCE, ResourceCategory.SOFTWARE_ENGINEERING),
+                        List.of(ResourceCategory.GENERAL, ResourceCategory.SOFTWARE_ENGINEERING),
                         List.of(ConceptArea.GETTING_STARTED, ConceptArea.ALGORITHMS,
                                 ConceptArea.OPERATING_SYSTEMS, ConceptArea.NETWORKING,
                                 ConceptArea.DATABASES, ConceptArea.DISTRIBUTED_SYSTEMS),

@@ -86,7 +86,7 @@ public final class EngineeringResources implements ResourceProvider {
                                 + "architecture. Covers scalability, load balancing, caching, "
                                 + "databases, async processing, CDNs, and microservices.",
                         ResourceType.REPOSITORY,
-                        List.of(ResourceCategory.SOFTWARE_ENGINEERING, ResourceCategory.COMPUTER_SCIENCE),
+                        List.of(ResourceCategory.SOFTWARE_ENGINEERING, ResourceCategory.GENERAL),
                         List.of(ConceptArea.SYSTEM_DESIGN, ConceptArea.DISTRIBUTED_SYSTEMS,
                                 ConceptArea.DATABASES, ConceptArea.NETWORKING,
                                 ConceptArea.INTERVIEW_PREP),

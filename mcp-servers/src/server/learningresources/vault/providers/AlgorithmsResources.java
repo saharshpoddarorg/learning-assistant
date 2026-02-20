@@ -31,7 +31,7 @@ public final class AlgorithmsResources implements ResourceProvider {
                                 + "algorithms. Excellent for building intuition about how "
                                 + "algorithms work step by step.",
                         ResourceType.INTERACTIVE,
-                        List.of(ResourceCategory.ALGORITHMS, ResourceCategory.COMPUTER_SCIENCE),
+                        List.of(ResourceCategory.ALGORITHMS, ResourceCategory.GENERAL),
                         List.of(ConceptArea.ALGORITHMS, ConceptArea.DATA_STRUCTURES),
                         List.of("visualization", "sorting", "searching", "graph", "tree",
                                 "interactive"),
@@ -49,7 +49,7 @@ public final class AlgorithmsResources implements ResourceProvider {
                                 + "and data structures. Includes comparison charts and a clear "
                                 + "complexity table for sorting algorithms.",
                         ResourceType.CHEAT_SHEET,
-                        List.of(ResourceCategory.ALGORITHMS, ResourceCategory.COMPUTER_SCIENCE),
+                        List.of(ResourceCategory.ALGORITHMS, ResourceCategory.GENERAL),
                         List.of(ConceptArea.COMPLEXITY_ANALYSIS, ConceptArea.ALGORITHMS,
                                 ConceptArea.DATA_STRUCTURES),
                         List.of("big-o", "complexity", "time-complexity", "space-complexity",
@@ -69,7 +69,7 @@ public final class AlgorithmsResources implements ResourceProvider {
                                 + "and implementations in C++. Covers graph theory, number theory, "
                                 + "geometry, strings, and more.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.ALGORITHMS, ResourceCategory.COMPUTER_SCIENCE),
+                        List.of(ResourceCategory.ALGORITHMS, ResourceCategory.GENERAL),
                         List.of(ConceptArea.ALGORITHMS, ConceptArea.DATA_STRUCTURES,
                                 ConceptArea.COMPLEXITY_ANALYSIS),
                         List.of("competitive-programming", "graph-theory", "number-theory",
