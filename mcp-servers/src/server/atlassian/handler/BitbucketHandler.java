@@ -29,7 +29,6 @@ import java.util.logging.Logger;
 public class BitbucketHandler {
 
     private static final Logger LOGGER = Logger.getLogger(BitbucketHandler.class.getName());
-    private static final int DEFAULT_MAX_RESULTS = 25;
 
     private final BitbucketClient bitbucketClient;
 
@@ -220,16 +219,10 @@ public class BitbucketHandler {
 
     /**
      * Parses maxResults from arguments with a safe default.
+     * Delegated to {@link HandlerUtils#parseMaxResults(String)}.
      */
     private int parseMaxResults(final String value) {
-        if (value == null || value.isBlank()) {
-            return DEFAULT_MAX_RESULTS;
-        }
-        try {
-            return Integer.parseInt(value);
-        } catch (NumberFormatException ignored) {
-            return DEFAULT_MAX_RESULTS;
-        }
+        return HandlerUtils.parseMaxResults(value);
     }
 
     /**
@@ -479,18 +472,17 @@ public class BitbucketHandler {
 
     /**
      * Escapes a string for safe JSON embedding.
+     * Delegated to {@link HandlerUtils#escapeJson(String)}.
      */
     private String escapeJson(final String text) {
-        if (text == null) return "";
-        return text.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n");
+        return HandlerUtils.escapeJson(text);
     }
 
     /**
      * Truncates text to a maximum length with ellipsis.
+     * Delegated to {@link HandlerUtils#truncate(String, int)}.
      */
     private String truncate(final String text, final int maxLength) {
-        if (text == null) return "";
-        if (text.length() <= maxLength) return text;
-        return text.substring(0, maxLength - 3) + "...";
+        return HandlerUtils.truncate(text, maxLength);
     }
 }

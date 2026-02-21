@@ -100,6 +100,22 @@ $env:MCP_APIKEYS_GITHUB = "ghp_your_actual_token_here"
 |---------|-----------|-------------------|
 | **GitHub** | `ghp_xxxxxxxxxxxx` | [github.com/settings/tokens](https://github.com/settings/tokens) |
 | **OpenAI** | `sk-proj-xxxxxxxxxxxx` | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
+| **Atlassian (Jira/Confluence)** | Email + API Token | [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens) |
+| **Bitbucket** | Personal Access Token (PAT) | Bitbucket → Settings → App passwords / Personal tokens |
+
+**Atlassian-specific config** (in `mcp-config.local.properties`):
+
+```properties
+# Jira + Confluence (Atlassian Cloud)
+atlassian.email=you@company.com
+atlassian.token=your_api_token_here
+atlassian.jira.url=https://your-org.atlassian.net
+atlassian.confluence.url=https://your-org.atlassian.net
+
+# Bitbucket Cloud
+atlassian.bitbucket.url=https://api.bitbucket.org
+atlassian.bitbucket.token=your_pat_here
+```
 
 ---
 
@@ -122,10 +138,35 @@ Override via `browser.dataDir` in config or `MCP_BROWSER_DATADIR` env var.
 
 ## Build & Run
 
-```bash
+Use the included build scripts — they auto-detect the JDK and compile all source files to `out/`:
+
+```powershell
+# Windows PowerShell
 cd mcp-servers
-javac -d out src/Main.java src/config/**/*.java
+.\build.ps1          # compile everything
+.\build.ps1 -Clean   # clean out/ then compile
+```
+
+```bash
+# Linux / macOS / Git Bash
+cd mcp-servers
+./build.sh           # compile everything
+./build.sh --clean   # clean out/ then compile
+```
+
+**After building, run a specific server:**
+
+```bash
+# Config loader (validates mcp-config.properties)
 java -cp out Main
+
+# Learning Resources MCP Server
+java -cp out server.learningresources.LearningResourcesServer --demo
+
+# Atlassian MCP Server (Jira + Confluence + Bitbucket — 27 tools)
+java -cp out server.atlassian.AtlassianServer --list-tools   # list all 27 tools
+java -cp out server.atlassian.AtlassianServer --demo         # demo mode (no credentials)
+java -cp out server.atlassian.AtlassianServer                # production STDIO mode
 ```
 
 Or press `F5` in VS Code → select **"Run MCP Config Loader"**.

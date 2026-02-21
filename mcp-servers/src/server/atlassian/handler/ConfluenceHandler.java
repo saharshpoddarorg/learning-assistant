@@ -29,7 +29,6 @@ import java.util.logging.Logger;
 public class ConfluenceHandler {
 
     private static final Logger LOGGER = Logger.getLogger(ConfluenceHandler.class.getName());
-    private static final int DEFAULT_MAX_RESULTS = 25;
 
     private final ConfluenceClient confluenceClient;
 
@@ -211,14 +210,10 @@ public class ConfluenceHandler {
 
     /**
      * Escapes special characters for JSON string values.
+     * Delegated to {@link HandlerUtils#escapeJson(String)}.
      */
     private String escapeJson(final String text) {
-        if (text == null) return "";
-        return text.replace("\\", "\\\\")
-                .replace("\"", "\\\"")
-                .replace("\n", "\\n")
-                .replace("\r", "\\r")
-                .replace("\t", "\\t");
+        return HandlerUtils.escapeJson(text);
     }
 
     /**
@@ -234,7 +229,7 @@ public class ConfluenceHandler {
                     "Missing required argument: 'pageId'");
         }
 
-        final int maxResults = parseMaxResults(arguments.get("maxResults"));
+        final int maxResults = HandlerUtils.parseMaxResults(arguments.get("maxResults"));
 
         try {
             final var response = confluenceClient.getPageChildren(pageId, maxResults);
@@ -365,11 +360,10 @@ public class ConfluenceHandler {
 
     /**
      * Truncates text to a maximum length with ellipsis.
+     * Delegated to {@link HandlerUtils#truncate(String, int)}.
      */
     private String truncate(final String text, final int maxLength) {
-        if (text == null) return "";
-        if (text.length() <= maxLength) return text;
-        return text.substring(0, maxLength - 3) + "...";
+        return HandlerUtils.truncate(text, maxLength);
     }
 
     /**
@@ -418,16 +412,10 @@ public class ConfluenceHandler {
 
     /**
      * Parses maxResults from arguments with a safe default.
+     * Delegated to {@link HandlerUtils#parseMaxResults(String)}.
      */
     private int parseMaxResults(final String value) {
-        if (value == null || value.isBlank()) {
-            return DEFAULT_MAX_RESULTS;
-        }
-        try {
-            return Integer.parseInt(value);
-        } catch (NumberFormatException ignored) {
-            return DEFAULT_MAX_RESULTS;
-        }
+        return HandlerUtils.parseMaxResults(value);
     }
 
     /**

@@ -45,7 +45,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (26 commands)
+### Quick Lookup (30 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -65,16 +65,20 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 14 | `/language-guide` | Domain | Language-specific learning path | Learning-Mentor |
 | 15 | `/tech-stack` | Domain | Frameworks, databases — compare & learn | Learning-Mentor |
 | 16 | `/sdlc` | Domain | SDLC phases, methodologies, practices | Learning-Mentor |
-| 17 | `/interview-prep` | Career | Interview preparation (DSA, system design, behavioral) | Learning-Mentor |
-| 18 | `/career-roles` | Career | Job roles, skills, pay ranges, roadmaps | Learning-Mentor |
-| 19 | `/design-review` | Code Quality | SOLID/GRASP design review of current file | Designer |
-| 20 | `/refactor` | Code Quality | Identify and apply refactoring opportunities | Designer |
-| 21 | `/explain` | Code Quality | Beginner-friendly file explanation | Ask |
-| 22 | `/debug` | Code Quality | Systematic bug investigation | Debugger |
-| 23 | `/impact` | Code Quality | Change impact & ripple effect analysis | Impact-Analyzer |
-| 24 | `/explore-project` | Domain | Learn from open-source project architecture | Learning-Mentor |
-| 25 | `/resources` | Domain | Search, browse & scrape curated learning resources | Learning-Mentor |
-| 26 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
+| 17 | `/mcp` | Domain | Learn & build MCP (Model Context Protocol) servers | Learning-Mentor |
+| 18 | `/interview-prep` | Career | Interview preparation (DSA, system design, behavioral) | Learning-Mentor |
+| 19 | `/career-roles` | Career | Job roles, skills, pay ranges, roadmaps | Learning-Mentor |
+| 20 | `/design-review` | Code Quality | SOLID/GRASP design review of current file | Designer |
+| 21 | `/refactor` | Code Quality | Identify and apply refactoring opportunities | Designer |
+| 22 | `/explain` | Code Quality | Beginner-friendly file explanation | Ask |
+| 23 | `/debug` | Code Quality | Systematic bug investigation | Debugger |
+| 24 | `/impact` | Code Quality | Change impact & ripple effect analysis | Impact-Analyzer |
+| 25 | `/explore-project` | Domain | Learn from open-source project architecture | Learning-Mentor |
+| 26 | `/resources` | Domain | Search, browse & scrape curated learning resources | Learning-Mentor |
+| 27 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
+| 28 | `/brain-new` | Brain Workspace | Create a new knowledge note (inbox or notes tier) | Copilot |
+| 29 | `/brain-publish` | Brain Workspace | Publish a note to archive/ with tagging and git commit | Copilot |
+| 30 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
 
 ---
 
@@ -358,6 +362,66 @@ Agent:    Daily-Assistant
 Tools:    search, fetch
 Example:  /daily-assist → finance → budget tracking
 Topics:   Budget, investments, habit tracking, time mgmt, tech news, web research
+```
+
+---
+
+### Brain Workspace
+
+Commands for managing the `brain/` personal knowledge workspace — three-tier note system (inbox → notes → archive).
+
+#### `/brain-new` — Create a Note
+```
+Inputs:   topic (what to capture), tier (inbox/notes), project (e.g., mcp-servers, java, general)
+Agent:    Copilot
+Tools:    editFiles, codebase
+Use:      Create a new markdown note with proper frontmatter in inbox/ or notes/
+Example:  /brain-new → "Java generics cheatsheet" → notes → java
+Output:   YYYY-MM-DD_<slug>.md created with kind, tags, status frontmatter
+File:     brain/inbox/ or brain/notes/ (never creates archive/ entries directly)
+Tip:      Use /brain-publish to promote to archive/ and commit
+```
+
+#### `/brain-publish` — Publish a Note
+```
+Inputs:   file (relative to brain/, e.g. inbox/2026-02-21_draft.md), project bucket
+Agent:    Copilot
+Tools:    editFiles, codebase, runCommands
+Use:      Promote a note from inbox/ or notes/ to archive/ → tag it → git commit
+Example:  /brain-publish → inbox/2026-02-21_draft.md → mcp-servers
+Output:   Note moved to brain/archive/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md, committed
+Tip:      Tags are enriched automatically from filename and content
+```
+
+#### `/brain-search` — Search Notes
+```
+Inputs:   query (free text), filters: tag, project, kind, date (YYYY-MM), tier
+Agent:    Copilot
+Tools:    codebase, search
+Use:      Find notes by tag, project, kind, date range, or full-text across all tiers
+Example:  /brain-search → "generics" → tag=java → tier=archive
+Output:   Matching notes with frontmatter summary and file paths
+Kinds:    note | decision | session | resource | snippet | ref
+Tiers:    inbox | notes | archive | all (default)
+```
+
+#### `/mcp` — Learn & Build MCP Servers
+```
+Inputs:   topic (overview/build-server/configure-agent/types-of-mcp/api-integration/
+                  agent-patterns/protocol-spec/troubleshoot/real-world-examples),
+          goal (learn-concept/build-my-own-mcp/configure-vscode/agent-architecture/
+                compare-approaches/interview-prep),
+          level (beginner/know-the-basics/intermediate/advanced),
+          language (typescript/python/java/go/csharp/any)
+Agent:    Learning-Mentor
+Tools:    codebase, fetch
+Use:      Comprehensive MCP (Model Context Protocol) guide — from protocol basics to building
+          your own server, combining with REST/GraphQL APIs, multi-agent patterns, security, deployment
+Example:  /mcp → build-server → java → intermediate
+Output:   Protocol architecture → primitives (tools/resources/prompts) → full server code →
+          transport configuration → testing with MCP Inspector → deployment
+Skill:    Backed by mcp-development/SKILL.md (1,980 lines of reference material)
+Local:    Project MCP servers live in mcp-servers/ — see mcp-servers/README.md
 ```
 
 ---

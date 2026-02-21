@@ -30,7 +30,7 @@
 | Action | How |
 |---|---|
 | **Switch persona** | Chat dropdown → select **Designer**, **Debugger**, **Impact-Analyzer**, **Learning-Mentor**, **Daily-Assistant**, or **Thinking-Beast-Mode** |
-| **Run a workflow** | Type `/hub`, `/dsa`, `/system-design`, `/devops`, `/mcp`, `/resources`, `/language-guide`, `/tech-stack`, `/sdlc`, `/career-roles`, `/daily-assist`, `/multi-session`, `/learn-concept`, `/learn-from-docs`, `/explore-project`, `/deep-dive`, `/reading-plan`, `/interview-prep`, `/design-review`, `/debug`, `/impact`, `/teach`, `/refactor`, `/explain`, `/composite`, `/context`, or `/scope` in Chat |
+| **Run a workflow** | Type `/hub`, `/dsa`, `/system-design`, `/devops`, `/mcp`, `/resources`, `/language-guide`, `/tech-stack`, `/sdlc`, `/career-roles`, `/daily-assist`, `/multi-session`, `/learn-concept`, `/learn-from-docs`, `/explore-project`, `/deep-dive`, `/reading-plan`, `/interview-prep`, `/design-review`, `/debug`, `/impact`, `/teach`, `/refactor`, `/explain`, `/composite`, `/context`, `/scope`, `/brain-new`, `/brain-publish`, or `/brain-search` in Chat |
 | **Coding standards** | Automatic — open any `.java` file, instructions load via glob match |
 | **Extra knowledge** | Automatic — ask about building, patterns, or debugging and the matching skill loads |
 | **See everything** | [Navigation Index](docs/navigation-index.md) · [Slash Commands](docs/slash-commands.md) · [Documentation Map](#-documentation-map) · [File Reference](docs/file-reference.md) · [Getting Started Tutorial](docs/getting-started.md) |
@@ -214,6 +214,10 @@ This learning project includes working samples of each primitive, organized into
 | `/career-roles` | [`career-roles.prompt.md`](prompts/career-roles.prompt.md) | Job roles, skills, pay ranges, career roadmaps |
 | `/multi-session` | [`multi-session.prompt.md`](prompts/multi-session.prompt.md) | Manage state across multiple chat sessions |
 | `/resources` | [`resources.prompt.md`](prompts/resources.prompt.md) | Search, browse, discover & export 47+ curated learning resources |
+| `/mcp` | [`mcp.prompt.md`](prompts/mcp.prompt.md) | Learn & build MCP servers, configure agents, protocol deep-dive |
+| `/brain-new` | [`brain-new.prompt.md`](prompts/brain-new.prompt.md) | Create a knowledge note in inbox/ or notes/ tier |
+| `/brain-publish` | [`brain-publish.prompt.md`](prompts/brain-publish.prompt.md) | Publish a note to archive/ with tagging and git commit |
+| `/brain-search` | [`brain-search.prompt.md`](prompts/brain-search.prompt.md) | Search notes by tag, project, kind, date, or full text |
 
 > 📖 **Deep dive:** [Prompts Guide →](prompts/README.md)
 
@@ -246,6 +250,7 @@ This learning project includes working samples of each primitive, organized into
 | `software-engineering-resources` | [`skills/software-engineering-resources/`](skills/software-engineering-resources/SKILL.md) | Comprehensive SE/CS: DSA, system design, OS, networking, DBMS, testing, DevOps, build tools, Git, security, industry concepts, tech trends, frameworks, books |
 | `daily-assistant-resources` | [`skills/daily-assistant-resources/`](skills/daily-assistant-resources/SKILL.md) | Finance basics, productivity methods, news sources, research tools |
 | `career-resources` | [`skills/career-resources/`](skills/career-resources/SKILL.md) | Tech career roles, skills matrices, compensation data, roadmaps |
+| `mcp-development` | [`skills/mcp-development/`](skills/mcp-development/SKILL.md) | MCP protocol, building servers (Java/TypeScript/Python), agent patterns, deployment |
 
 > 📖 **Deep dive:** [Skills Guide →](skills/README.md)
 
@@ -356,7 +361,7 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 ├─── Reference
 │    ├── docs/file-reference.md ·········· Who reads what (🤖 Copilot vs 👤 developer)
 │    ├── docs/navigation-index.md ········ Master index: all commands, files, workflows
-│    └── docs/slash-commands.md ········· All 26 slash commands: aliases, inputs, composition
+│    └── docs/slash-commands.md ········· All 30 slash commands: aliases, inputs, composition
 │
 └─── Tutorials & Deep Dives
      ├── docs/getting-started.md ········· Hands-on: verify setup, try each primitive
@@ -369,7 +374,7 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 | [Customization Guide →](docs/customization-guide.md) | Architecture, how primitives connect, extending | ~20 min |
 | [File Reference →](docs/file-reference.md) | Which files Copilot reads vs. developer docs | ~5 min |
 | [Navigation Index →](docs/navigation-index.md) | Master lookup: all commands, agents, skills, file map | ~5 min |
-| [Slash Commands →](docs/slash-commands.md) | All 25 commands: details, aliases, inputs, composition | ~5 min |
+| [Slash Commands →](docs/slash-commands.md) | All 30 commands: details, aliases, inputs, composition | ~5 min |
 | [Instructions Guide →](instructions/README.md) | Glob patterns, conditional rules, examples | ~15 min |
 | [Agents Guide →](agents/README.md) | Custom personas, tools, handoffs, examples | ~15 min |
 | [Prompts Guide →](prompts/README.md) | Slash commands, variables, meta-prompts | ~15 min |

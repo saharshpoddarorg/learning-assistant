@@ -118,9 +118,13 @@ Learning Mentor← Thinks in analogies, exercises, progression
 /language-guide→ Language-specific learning framework
 /tech-stack   → Frameworks, libraries, databases — compare & learn
 /sdlc         → SDLC phases, methodologies, engineering practices
+/mcp          → MCP server architecture, building servers, agent patterns
 /daily-assist → Finance, productivity, news, daily life tasks
 /career-roles → Job roles, skills, pay, career roadmaps
 /multi-session → Manage state across multiple chat sessions
+/brain-new    → Create knowledge notes (inbox/notes tier)
+/brain-publish → Publish notes to archive/ and commit
+/brain-search → Search notes by tag, project, kind, date, or text
 ```
 
 **Role:** Define *what* to do — pre-built workflows you trigger with a command.  
@@ -139,6 +143,7 @@ java-learning-resources/   ← Activates for: Java learning, tutorials, docs
 software-engineering-resources/ ← Activates for: DSA, system design, OS, networking, DBMS, testing, DevOps, build tools, Git, security, industry concepts, tech trends
 daily-assistant-resources/  ← Activates for: Finance, productivity, news, daily planning
 career-resources/           ← Activates for: Job roles, salaries, career paths, skills
+mcp-development/            ← Activates for: MCP servers, protocol, tools, agent architecture, building MCP
 ```
 
 **Role:** Provide *extra knowledge* — scripts, templates, domain expertise.  
@@ -382,7 +387,7 @@ These files are **never loaded by Copilot**. They exist as reference material fo
 | `getting-started.md` | `docs/` | Hands-on tutorial |
 | `customization-guide.md` | `docs/` | Architecture deep-dive (this file) |
 | `file-reference.md` | `docs/` | Complete breakdown of who reads what |
-| `slash-commands.md` | `docs/` | All 25 slash commands: aliases, inputs, composition |
+| `slash-commands.md` | `docs/` | All 30 slash commands: aliases, inputs, composition |
 
 **How to write them:**
 - Write as **explanation for humans**: clear prose, examples, links

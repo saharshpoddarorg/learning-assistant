@@ -47,6 +47,7 @@
 | `/language-guide` | Language-specific learning path | Learning-Mentor | `/language-guide` → `Rust` |
 | `/tech-stack` | Frameworks, databases, compare tools | Learning-Mentor | `/tech-stack` → `compare Spring vs FastAPI` |
 | `/sdlc` | SDLC phases, methodologies, E2E lifecycle | Learning-Mentor | `/sdlc` → `testing` |
+| `/mcp` | Learn & build MCP (Model Context Protocol) servers | Learning-Mentor | `/mcp` → `build-server` → `java` |
 | `/interview-prep` | Interview preparation | Learning-Mentor | `/interview-prep` → `DSA` → `sliding window` |
 | `/resources` | Search, browse & scrape learning resources | Learning-Mentor | `/resources` → `search` → `java concurrency` |
 
@@ -69,6 +70,13 @@
 | Command | Purpose | Agent | Quick Example |
 |---|---|---|---|
 | `/daily-assist` | Finance, productivity, news, research | Daily-Assistant | `/daily-assist` → `finance` |
+
+### Brain Workspace
+| Command | Purpose | Agent | Quick Example |
+|---|---|---|---|
+| `/brain-new` | Create a new knowledge note (inbox or notes tier) | Copilot | `/brain-new` → `"generics cheatsheet"` → `notes` |
+| `/brain-publish` | Publish note to archive/ with tagging and git commit | Copilot | `/brain-publish` → `inbox/2026-02-21_draft.md` |
+| `/brain-search` | Search notes by tag, project, kind, date, or text | Copilot | `/brain-search` → `"sse transport"` → `tier=archive` |
 
 ---
 
@@ -97,7 +105,7 @@
 | `software-engineering-resources` | DSA, system design, OS, DevOps, Git, build tools, security, industry, trends | Comprehensive SE/CS resources |
 | `daily-assistant-resources` | Finance, productivity, news | Daily life resources |
 | `career-resources` | Job roles, salaries, career | Career data and roadmaps |
-| `mcp-development` | MCP servers, config, protocol | MCP server setup & development |
+| `mcp-development` | MCP servers, protocol, tools, agents | MCP server setup, architecture & dev guide (1,980 lines) |
 
 ---
 
@@ -149,6 +157,7 @@
 │   ├── language-guide.prompt.md     🤖 /language-guide — any language
 │   ├── tech-stack.prompt.md         🤖 /tech-stack — frameworks, DBs
 │   ├── sdlc.prompt.md               🤖 /sdlc — lifecycle & methods
+│   ├── mcp.prompt.md                🤖 /mcp — MCP protocol & server development
 │   ├── interview-prep.prompt.md     🤖 /interview-prep — interviews
 │   ├── career-roles.prompt.md       🤖 /career-roles — job roles & pay
 │   ├── resources.prompt.md          🤖 /resources — learning resource vault
@@ -164,6 +173,11 @@
 │   │── [Daily Life]
 │   └── daily-assist.prompt.md       🤖 /daily-assist — daily tasks
 │
+│   │── [Brain Workspace]
+│   ├── brain-new.prompt.md          🤖 /brain-new — create inbox/notes note
+│   ├── brain-publish.prompt.md      🤖 /brain-publish — publish to archive & commit
+│   └── brain-search.prompt.md       🤖 /brain-search — search across tiers
+│
 ├── skills/
 │   ├── README.md                    👤 How skills work
 │   ├── java-build/SKILL.md          🤖 Compile & run
@@ -172,7 +186,8 @@
 │   ├── java-learning-resources/SKILL.md  🤖 Java resources
 │   ├── software-engineering-resources/SKILL.md  🤖 SE/CS resources
 │   ├── daily-assistant-resources/SKILL.md  🤖 Daily life resources
-│   └── career-resources/SKILL.md    🤖 Career data
+│   ├── career-resources/SKILL.md    🤖 Career data
+│   └── mcp-development/SKILL.md     🤖 MCP protocol & server development (1,980 lines)
 │
 └── docs/
     ├── getting-started.md           👤 Hands-on tutorial
@@ -182,14 +197,41 @@
     └── slash-commands.md            👤 Developer slash command reference
 
 mcp-servers/                             ← MCP Server Configuration Module
-├── README.md                        👤 Config guide, architecture, setup
+├── README.md                        👤 Config guide, architecture, full server list, Quick Start
+├── SETUP.md                         👤 Step-by-step developer setup walkthrough
+├── build.ps1 / build.sh             👤 Build scripts (auto-detect javac, compile to out/)
 ├── .vscode/                         👤 IDE settings (portable — copy to other projects)
 ├── user-config/
 │   ├── mcp-config.example.properties 👤 Full reference template (committed)
 │   └── mcp-config.properties        👤 Active config (GITIGNORED)
+├── scripts/                         👤 Automation (setup, browser isolation, auth, utils)
 └── src/
     ├── Main.java                    👤 Entry point — loads & prints config
-    └── config/                      👤 Java records, loader, validator, facade
+    ├── config/                      👤 Java records, loader, validator, facade
+    └── server/
+        ├── learningresources/       🌐 Learning Resources Server (10 tools)
+        │   ├── LearningResourcesServer.java  ← STDIO entry point
+        │   ├── README.md            👤 Server docs
+        │   ├── model/               ← Domain models
+        │   ├── scraper/             ← Web scraping (HttpClient)
+        │   ├── content/             ← Summarizer, reader, readability scorer
+        │   ├── vault/               ← Built-in resource library (47+ resources)
+        │   └── handler/             ← 10 tool handlers
+        └── atlassian/               🌐 Atlassian Server — Jira + Confluence + Bitbucket (27 tools)
+            ├── AtlassianServer.java ← STDIO entry point; JSON-RPC 2.0 dispatcher
+            ├── README.md            👤 Server docs (all 27 tools, config, architecture)
+            ├── config/              ← AtlassianConfigLoader, AtlassianServerConfig
+            ├── model/               ← Domain models (jira/, confluence/, bitbucket/)
+            ├── client/              ← REST API clients (Jira v3, Confluence v2, Bitbucket 2.0)
+            ├── handler/             ← 27 tools across 5 handler files
+            │   ├── ToolHandler.java           ← Central router (all 27 tools)
+            │   ├── JiraHandler.java           ← 11 Jira tools
+            │   ├── ConfluenceHandler.java     ← 7 Confluence tools
+            │   ├── BitbucketHandler.java      ← 8 Bitbucket tools
+            │   ├── UnifiedSearchHandler.java  ← Cross-product search
+            │   └── HandlerUtils.java          ← Shared: escapeJson, truncate, parseMaxResults
+            ├── formatter/           ← Legacy formatter stubs
+            └── util/                ← JsonExtractor (lightweight JSON parsing, no deps)
 ```
 
 **Legend:** 🤖 = Copilot reads this file | 👤 = Developer documentation only
@@ -235,6 +277,11 @@ mcp-servers/                             ← MCP Server Configuration Module
 | **Add a new MCP server** | Add `server.{name}.*` block in `user-config/mcp-config.properties` | Config |
 | **Set up browser isolation** | See [Browser Isolation](../../mcp-servers/README.md#browser-isolation) | Config |
 | **Manage API keys for MCP** | Set `apiKeys.*` or `MCP_APIKEYS_*` env var | Config |
+| **Create a knowledge note** | `/brain-new` | Brain |
+| **Publish a note to the repo** | `/brain-publish` | Brain |
+| **Search my notes** | `/brain-search` | Brain |
+| **Use brain from the terminal** | `.\brain\scripts\brain.ps1 <command>` | Script |
+| **Use brain short aliases** | `. .\brain\scripts\brain-module.psm1` then `brain <command>` | Script |
 
 ---
 

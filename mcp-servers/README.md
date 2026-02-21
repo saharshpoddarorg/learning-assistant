@@ -48,6 +48,7 @@ This module provides a **Java-based configuration system** and **MCP server impl
 | Server | Description | Docs |
 |--------|-------------|------|
 | **Learning Resources** | Web scraper + curated vault of 47+ learning resources. Smart discovery, multi-format export, scrape, summarize, search, and browse tutorials, docs, blogs, and more. | [README](src/server/learningresources/README.md) |
+| **Atlassian** | Unified gateway to Jira, Confluence, and Bitbucket. 27 tools: issue management, sprint tracking, documentation, code collaboration, and cross-product unified search. JSON-RPC 2.0 over STDIO. | [README](src/server/atlassian/README.md) |
 
 ---
 
@@ -75,6 +76,10 @@ cd mcp-servers
 # 4. Try the Learning Resources server:
 java -cp out server.learningresources.LearningResourcesServer --demo
 java -cp out server.learningresources.LearningResourcesServer --list-tools
+
+# 5. Try the Atlassian MCP server (configure credentials first — see src/server/atlassian/README.md):
+java -cp out server.atlassian.AtlassianServer --list-tools
+java -cp out server.atlassian.AtlassianServer --demo
 ```
 
 ---
@@ -159,6 +164,22 @@ mcp-servers/
 │               ├── ScrapeHandler.java    ← Scrape → summarize → format
 │               ├── ExportHandler.java    ← Markdown/PDF/Word export + OutputFormat
 │               └── UrlResourceHandler.java ← Smart add-from-URL
+│
+│       └── atlassian/                    ← Atlassian MCP Server (Jira + Confluence + Bitbucket)
+│           ├── AtlassianServer.java          ← STDIO entry point; JSON-RPC 2.0 dispatcher
+│           ├── README.md                     ← Server documentation (all 27 tools)
+│           ├── config/                        ← Config loader & validation
+│           ├── model/                         ← Domain models (jira/, confluence/, bitbucket/)
+│           ├── client/                        ← REST API clients (Jira v3, Confluence v2, Bitbucket 2.0)
+│           ├── handler/                       ← Tool dispatch (27 tools across 4 handlers)
+│           │   ├── ToolHandler.java           ← Central router for all 27 tools
+│           │   ├── JiraHandler.java           ← 11 Jira tools + markdown formatters
+│           │   ├── ConfluenceHandler.java     ← 7 Confluence tools + markdown formatters
+│           │   ├── BitbucketHandler.java      ← 8 Bitbucket tools + markdown formatters
+│           │   ├── UnifiedSearchHandler.java  ← Cross-product unified search
+│           │   └── HandlerUtils.java          ← Shared: escapeJson, truncate, parseMaxResults
+│           ├── formatter/                     ← Legacy formatter stubs (superseded by handler formatters)
+│           └── util/                          ← JsonExtractor — lightweight JSON parsing (no external deps)
 │
 ├── scripts/                              ← 🔧 Automation scripts
 │   ├── setup.sh / setup.ps1             ← Setup wizard (run this first!)
