@@ -173,6 +173,7 @@ These files are **documentation for humans**. Copilot does NOT read these to sha
 | **Skills README** | `.github/skills/README.md` | How skills work, progressive loading, structure | When creating/editing skills |
 | **Getting Started** | `.github/docs/getting-started.md` | Step-by-step hands-on tutorial | Second — try everything |
 | **Customization Guide** | `.github/docs/customization-guide.md` | Architecture, how primitives connect | When you want the big picture |
+| **MCP Server Setup** ← **START HERE** | `.github/docs/mcp-server-setup.md` | **Complete newbie guide**: what MCP is, prerequisites, build, credentials, verify, copy to other projects | When setting up MCP servers for the first time |
 | **File Reference** | `.github/docs/file-reference.md` | This file — which files are for whom | When confused about a file's purpose |
 | **Slash Commands Ref** | `.github/docs/slash-commands.md` | All 30 slash commands with aliases, inputs, composition | When looking up a specific command |
 | **MCP Servers README** | `mcp-servers/README.md` | Config architecture, setup guide, server definitions, browser isolation | When configuring or adding MCP servers |

@@ -142,6 +142,7 @@ GitHub Copilot in VS Code supports exactly **5 customization primitives**. Every
 │   └── mcp-development/SKILL.md            MCP: build servers, configure agents, project structure
 │
 └── docs/                                ← Documentation & tutorials
+    ├── mcp-server-setup.md                 Newbie MCP guide: install, build, credentials, use, copy to other projects
     ├── getting-started.md                  Step-by-step tutorial
     ├── customization-guide.md              Architecture deep-dive
     ├── file-reference.md                   Who reads what (Copilot vs developer)
@@ -365,13 +366,15 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 │
 └─── Tutorials & Deep Dives
      ├── docs/getting-started.md ········· Hands-on: verify setup, try each primitive
-     └── docs/customization-guide.md ····· Theory: how primitives connect & extend
+     ├── docs/customization-guide.md ····· Theory: how primitives connect & extend
+     └── docs/mcp-server-setup.md ········ MCP from scratch: install, build, secrets, use, copy
 ```
 
 | Guide | What You'll Learn | Time |
 |---|---|---|
 | [Getting Started →](docs/getting-started.md) | Verify setup, try each primitive hands-on | ~30 min |
 | [Customization Guide →](docs/customization-guide.md) | Architecture, how primitives connect, extending | ~20 min |
+| [**MCP Server Setup →**](docs/mcp-server-setup.md) | **Complete newbie guide**: install, build, credentials, verify, copy to other projects | ~10 min |
 | [File Reference →](docs/file-reference.md) | Which files Copilot reads vs. developer docs | ~5 min |
 | [Navigation Index →](docs/navigation-index.md) | Master lookup: all commands, agents, skills, file map | ~5 min |
 | [Slash Commands →](docs/slash-commands.md) | All 30 commands: details, aliases, inputs, composition | ~5 min |

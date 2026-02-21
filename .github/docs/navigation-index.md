@@ -192,6 +192,7 @@
 └── docs/
     ├── getting-started.md           👤 Hands-on tutorial
     ├── customization-guide.md       👤 Architecture deep-dive
+    ├── mcp-server-setup.md          👤 Complete MCP setup guide (newbie-friendly, install → verify → copy to other project)
     ├── file-reference.md            👤 Who reads what (🤖 vs 👤)
     ├── navigation-index.md          👤 This file — master index
     └── slash-commands.md            👤 Developer slash command reference

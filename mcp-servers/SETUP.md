@@ -1,8 +1,25 @@
 # Developer Setup Guide — MCP Servers
 
+> **First time?** Read the full newbie walkthrough first: [`.github/docs/mcp-server-setup.md`](../.github/docs/mcp-server-setup.md)  
+> It explains what MCP is, prerequisites, credentials, and how to use in another project.
+
 > **Time:** ~5 minutes  
-> **Goal:** Get the MCP config system running with minimal effort.  
+> **Goal:** Get the MCP servers running and connected to GitHub Copilot.  
 > **Prerequisite:** JDK 21+ ([Adoptium](https://adoptium.net/) or [Azul Zulu](https://www.azul.com/downloads/))
+
+---
+
+## The Key File: `.vscode/mcp.json`
+
+The file that connects MCP servers to VS Code/Copilot is **`.vscode/mcp.json`** in the repo root.
+It already exists in this repo — you only need to:
+
+1. **Build** the Java servers (compile Java source → `out/`)
+2. **Fill in credentials** in the `.local.properties` files (gitignored)
+3. **Set `"disabled": false`** for the servers you want in `.vscode/mcp.json`
+4. **Reload VS Code** (`Ctrl+Shift+P` → "Reload Window")
+
+See [`.vscode/mcp.json`](../.vscode/mcp.json) — it has inline comments explaining every entry.
 
 ---
 

@@ -1,0 +1,109 @@
+{
+  // ==========================================================================
+  // VS Code MCP Server Registry — learning-assistant workspace
+  // ==========================================================================
+  // This file tells GitHub Copilot (and any MCP-capable VS Code extension)
+  // which MCP servers are available in this workspace.
+  //
+  // HOW TO USE:
+  //   1. Build the Java servers first:
+  //        Terminal → Run Task → "mcp-servers: build"
+  //      (or: cd mcp-servers && .\build.ps1 in PowerShell)
+  //
+  //   2. Set your credentials — see docs/mcp-server-setup.md for the full guide.
+  //      Required secrets go in the companion properties files (gitignored):
+  //        mcp-servers/user-config/mcp-config.local.properties
+  //        mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties
+  //
+  //   3. Open GitHub Copilot Chat → Agent mode (@workspace) → the MCP tools
+  //      appear automatically once servers start.
+  //
+  // PREREQUISITES:
+  //   - JDK 21+  — https://adoptium.net/  (for the Java servers)
+  //   - Node.js  — https://nodejs.org/    (for the GitHub + Filesystem servers)
+  //   - java must be on your system PATH
+  //     Windows: open System Properties → Environment Variables → append JDK bin dir to Path
+  //
+  // FIRST-TIME SETUP:
+  //   See .github/docs/mcp-server-setup.md for a complete step-by-step guide.
+  // ==========================================================================
+
+  // --------------------------------------------------------------------------
+  // Secrets prompts — VS Code will ask once and cache the answer securely.
+  // Values are NEVER stored in this file.
+  // --------------------------------------------------------------------------
+  "inputs": [
+    {
+      "id": "github-token",
+      "type": "promptString",
+      "description": "GitHub Personal Access Token (starts with ghp_). Generate at: https://github.com/settings/tokens",
+      "password": true
+    }
+  ],
+
+  // --------------------------------------------------------------------------
+  // MCP servers
+  // --------------------------------------------------------------------------
+  "servers": {
+
+    // ── Learning Resources ────────────────────────────────────────────────────
+    // Curated vault of 47+ learning resources (Java, Spring, Docker, MDN, etc.)
+    // Tools: search, browse, scrape, summarize, export, discover
+    // No credentials required — works out of the box.
+    // REQUIREMENT: Run "mcp-servers: build" task first.
+    "learning-resources": {
+      "type": "stdio",
+      "command": "java",
+      "args": ["-cp", "out", "server.learningresources.LearningResourcesServer"],
+      "cwd": "${workspaceFolder}/mcp-servers"
+    },
+
+    // ── Atlassian (Jira + Confluence + Bitbucket) ─────────────────────────────
+    // 27 tools: create/search issues, update pages, list PRs, unified search, etc.
+    // REQUIREMENT: Run "mcp-servers: build" task first.
+    // CREDENTIALS: Fill in mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties
+    //   (copy from atlassian-config.local.example.properties — see mcp-server-setup.md §4)
+    // DISABLED by default — uncomment "disabled": false once credentials are set.
+    "atlassian": {
+      "type": "stdio",
+      "command": "java",
+      "args": ["-cp", "out", "server.atlassian.AtlassianServer"],
+      "cwd": "${workspaceFolder}/mcp-servers",
+      "env": {
+        "ATLASSIAN_CONFIG_DIR": "${workspaceFolder}/mcp-servers/user-config/servers/atlassian"
+      },
+      "disabled": true
+    },
+
+    // ── GitHub ────────────────────────────────────────────────────────────────
+    // Community server: repo search, issues, PRs, code search, file contents.
+    // REQUIREMENT: Node.js + npm installed (https://nodejs.org/)
+    // CREDENTIALS: VS Code will prompt once for your GitHub PAT (see input above).
+    //   Generate token at: https://github.com/settings/tokens
+    //   Scopes needed: repo (or public_repo for public repos only)
+    // DISABLED by default — uncomment "disabled": false once you have a token.
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_TOKEN": "${input:github-token}"
+      },
+      "disabled": true
+    },
+
+    // ── Filesystem ────────────────────────────────────────────────────────────
+    // Access files and directories inside this workspace.
+    // REQUIREMENT: Node.js + npm installed (https://nodejs.org/)
+    // No credentials required.
+    // The last arg is the directory Copilot is allowed to read/write.
+    // DISABLED by default — enable when you want Copilot to read local files.
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${workspaceFolder}"],
+      "disabled": true
+    }
+
+  }
+}

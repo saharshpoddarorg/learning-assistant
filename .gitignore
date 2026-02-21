@@ -45,9 +45,11 @@ bin/
 # =============================================================================
 # IDE — VS Code
 # =============================================================================
-# Root .vscode is ignored (personal settings) except tasks.json (project utility)
+# Root .vscode is ignored (personal settings) except project-level files below.
 .vscode/*
 !.vscode/tasks.json
+# mcp.json is a project-level MCP server registry (no secrets — uses VS Code inputs for credentials)
+!.vscode/mcp.json
 # But mcp-servers/.vscode IS committed (portable config for copying to other projects)
 !mcp-servers/.vscode/
 
