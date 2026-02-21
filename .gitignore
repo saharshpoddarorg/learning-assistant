@@ -45,8 +45,9 @@ bin/
 # =============================================================================
 # IDE — VS Code
 # =============================================================================
-# Root .vscode is ignored (personal settings)
-.vscode/
+# Root .vscode is ignored (personal settings) except tasks.json (project utility)
+.vscode/*
+!.vscode/tasks.json
 # But mcp-servers/.vscode IS committed (portable config for copying to other projects)
 !mcp-servers/.vscode/
 

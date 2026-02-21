@@ -1,0 +1,115 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "ai: new note",
+            "type": "shell",
+            "command": ".\\ai\\scripts\\ai.ps1 new",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai\\scripts\\ai.ps1 new" },
+            "linux":   { "command": "bash ./ai/scripts/ai.sh new" },
+            "osx":     { "command": "bash ./ai/scripts/ai.sh new" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": []
+        },
+        {
+            "label": "ai: new note (local tier)",
+            "type": "shell",
+            "command": ".\\ai\\scripts\\ai.ps1 new --tier local",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai\\scripts\\ai.ps1 new --tier local" },
+            "linux":   { "command": "bash ./ai/scripts/ai.sh new --tier local" },
+            "osx":     { "command": "bash ./ai/scripts/ai.sh new --tier local" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": []
+        },
+        {
+            "label": "ai: save note to repo",
+            "type": "shell",
+            "command": ".\\ai\\scripts\\ai.ps1 save",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai\\scripts\\ai.ps1 save" },
+            "linux":   { "command": "bash ./ai/scripts/ai.sh save" },
+            "osx":     { "command": "bash ./ai/scripts/ai.sh save" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": []
+        },
+        {
+            "label": "ai: search notes",
+            "type": "shell",
+            "command": ".\\ai\\scripts\\ai.ps1 search",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai\\scripts\\ai.ps1 search" },
+            "linux":   { "command": "bash ./ai/scripts/ai.sh search" },
+            "osx":     { "command": "bash ./ai/scripts/ai.sh search" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": []
+        },
+        {
+            "label": "ai: list notes",
+            "type": "shell",
+            "command": ".\\ai\\scripts\\ai.ps1 list",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai\\scripts\\ai.ps1 list" },
+            "linux":   { "command": "bash ./ai/scripts/ai.sh list" },
+            "osx":     { "command": "bash ./ai/scripts/ai.sh list" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": []
+        },
+        {
+            "label": "ai: list saved notes",
+            "type": "shell",
+            "command": ".\\ai\\scripts\\ai.ps1 list --tier saved",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai\\scripts\\ai.ps1 list --tier saved" },
+            "linux":   { "command": "bash ./ai/scripts/ai.sh list --tier saved" },
+            "osx":     { "command": "bash ./ai/scripts/ai.sh list --tier saved" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": []
+        },
+        {
+            "label": "ai: status",
+            "type": "shell",
+            "command": ".\\ai\\scripts\\ai.ps1 status",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai\\scripts\\ai.ps1 status" },
+            "linux":   { "command": "bash ./ai/scripts/ai.sh status" },
+            "osx":     { "command": "bash ./ai/scripts/ai.sh status" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": []
+        },
+        {
+            "label": "ai: clear scratch (preview)",
+            "type": "shell",
+            "command": ".\\ai\\scripts\\ai.ps1 clear",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai\\scripts\\ai.ps1 clear" },
+            "linux":   { "command": "bash ./ai/scripts/ai.sh clear" },
+            "osx":     { "command": "bash ./ai/scripts/ai.sh clear" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": []
+        },
+        {
+            "label": "ai: clear scratch (force)",
+            "type": "shell",
+            "command": ".\\ai\\scripts\\ai.ps1 clear --force",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai\\scripts\\ai.ps1 clear --force" },
+            "linux":   { "command": "bash ./ai/scripts/ai.sh clear --force" },
+            "osx":     { "command": "bash ./ai/scripts/ai.sh clear --force" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": []
+        },
+        {
+            "label": "ai: help",
+            "type": "shell",
+            "command": ".\\ai\\scripts\\ai.ps1 help",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai\\scripts\\ai.ps1 help" },
+            "linux":   { "command": "bash ./ai/scripts/ai.sh help" },
+            "osx":     { "command": "bash ./ai/scripts/ai.sh help" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": []
+        }
+    ]
+}

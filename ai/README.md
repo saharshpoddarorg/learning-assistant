@@ -1,6 +1,6 @@
-# ai/ -- AI-Generated Content
+# ai/ -- AI-Generated Content Workspace
 
-A local workspace for content produced by AI agents, Copilot, custom prompts,
+A structured workspace for content produced by AI agents, Copilot, custom prompts,
 and MCP servers during development and learning sessions.
 
 ---
@@ -12,49 +12,91 @@ ai/
   scratch/   DISCARD   session scratchpad -- clear when done       [gitignored]
   local/     KEEP      survives sessions, stays on this machine    [gitignored]
   saved/     PUSH      committed to the repo, permanent reference  [tracked]
-  scripts/   TOOLS     utilities for managing content              [tracked]
+  scripts/   TOOLS     one dispatcher + module + aliases + VS Code tasks
 ```
 
 The three words map to what you would actually say out loud:
-- **"This is scratch work"** -> drop it in `scratch/`
-- **"I want to keep this"** -> move it to `local/`
-- **"This should go to the repo"** -> promote it to `saved/` and commit
-
-### When to use each tier
-
-| Tier | Use when... | Gitignored? |
-|------|------------|-------------|
-| `scratch/` | Working through a problem, rough drafts, mid-session context | Yes |
-| `local/` | It was useful, you may come back to it, but not repo-worthy yet | Yes |
-| `saved/` | Worth having on another machine, or a permanent decision record | No |
+- **"This is scratch work"** --> drop it in `scratch/`
+- **"I want to keep this"** --> move it to `local/`
+- **"This should go to the repo"** --> `ai save` promotes it to `saved/` and commits
 
 ---
 
-## No Enforced Subfolders
+## Getting Started (30 seconds)
 
-Files go directly into `scratch/`, `local/`, or `saved/`. There are no required
-topic subfolders -- previously prescribed folders like `decisions/`, `changelogs/`
-were arbitrary and did not match how you actually think about content.
+```powershell
+# Windows -- load aliases for this terminal session
+. .\ai\scripts\ai-module.psm1
 
-**Organise by your own mental model -- add subdirs only when you feel the need:**
-- By project:  `local/mcp-servers/`, `local/learning-assistant/`
-- By subject:  `local/java/`, `local/spring/`, `local/docker/`
-- By time:     flat files with date prefix, sort naturally
-- Mix freely -- there are no wrong choices here
+# Then:
+ai-status                            # see what is in each tier
+ai-new                               # create a note (interactive)
+ai-save scratch\draft.md             # save to repo (asks for project, tags, commits)
+ai-search java --tag generics        # search across all tiers
+ai-list --tier saved                 # list committed notes
+ai-clear                             # preview scratch contents
+ai-clear --force                     # delete scratch without prompt
+```
+
+```bash
+# Bash -- load aliases for this terminal session
+source ./ai/scripts/.ai-aliases.sh
+
+# Same commands, same flags:
+ai-status
+ai-new --tier local --project mcp-servers
+ai-save scratch/draft.md --project java
+ai-search --kind decision --tier saved
+```
+
+### VS Code Tasks
+
+`Ctrl+Shift+P` → **Tasks: Run Task** → pick any `ai:` task
+
+### Copilot Slash Commands
+
+In Copilot Chat (agent mode), use `/ai-new`, `/ai-save`, `/ai-search`
 
 ---
 
-## File Template
+## saved/ Hierarchy
 
-Start every file with this frontmatter so content is searchable and filterable
-by future tooling (scripts, Obsidian vault import, search engine, etc.):
+Committed notes are organised by **project bucket** + **month**. This is
+created automatically at save time -- you never create folders manually.
+
+```
+saved/
+  README.md
+  <project>/
+    <YYYY-MM>/
+      YYYY-MM-DD_slug.md
+  mcp-servers/
+    2026-02/
+      2026-02-21_sse-transport-decision.md
+  java/
+    2026-02/
+      2026-02-18_generics-cheatsheet.md
+  general/
+    2026-01/
+      2026-01-15_git-rebase-notes.md
+```
+
+When you run `ai save`, it asks which project bucket to use (default: `general`).
+
+---
+
+## Frontmatter
+
+Every note uses this template for search, filtering, and future tooling:
 
 ```markdown
 ---
 date: YYYY-MM-DD
-type: concept | q-and-a | decision | changelog | review | resource | other
+kind: note | decision | session | resource | snippet | ref
+project: mcp-servers | java | general | <your-project>
 tags: [tag1, tag2, tag3]
-project: mcp-servers | general | learning-assistant | <your-project>
+status: draft | final | archived
+source: copilot | manual | mcp
 ---
 
 # Title
@@ -62,65 +104,44 @@ project: mcp-servers | general | learning-assistant | <your-project>
 Content here.
 ```
 
-The four frontmatter fields are the baseline. Add any additional fields that
-help you (e.g. `source: copilot`, `status: draft`, `related: other-file.md`).
+### `kind` values
 
----
+| kind | Use for |
+|------|---------|
+| `note` | General notes, explanations, thoughts |
+| `decision` | Architectural or design choices (ADR format) |
+| `session` | Log of what happened in a work/learning session |
+| `resource` | Links, references, reading material |
+| `snippet` | Code or command reference |
+| `ref` | Quick-reference card or cheatsheet |
 
-## Moving Files Between Tiers
-
-Use the scripts in `ai/scripts/` or move files manually:
-
-### Using scripts (recommended)
-
-```powershell
-# Windows PowerShell -- run from repo root
-.\ai\scripts\promote.ps1 scratch\draft.md local            # scratch -> local
-.\ai\scripts\promote.ps1 local\note.md saved               # local -> saved (also git-adds)
-.\ai\scripts\promote.ps1 scratch\draft.md local java       # put in local/java/ subdir
-.\ai\scripts\clear-scratch.ps1                             # preview scratch contents
-.\ai\scripts\clear-scratch.ps1 -Confirm                    # clear with confirmation prompt
-.\ai\scripts\clear-scratch.ps1 -Force                      # clear immediately, no prompt
-```
-
-```bash
-# Bash -- run from repo root
-./ai/scripts/promote.sh scratch/draft.md local             # scratch -> local
-./ai/scripts/promote.sh local/note.md saved                # local -> saved (also git-adds)
-./ai/scripts/promote.sh scratch/draft.md local java        # put in local/java/ subdir
-./ai/scripts/clear-scratch.sh                              # preview scratch contents
-./ai/scripts/clear-scratch.sh --confirm                    # clear with confirmation
-./ai/scripts/clear-scratch.sh --force                      # clear immediately
-```
-
-### Manually
-
-```powershell
-# scratch -> local
-Move-Item ai\scratch\draft.md ai\local\
-
-# local -> saved, then commit
-Move-Item ai\local\note.md ai\saved\
-git add ai/saved/note.md
-git commit -m "Save: <topic>"
-```
+The `save` command auto-suggests tags from your existing frontmatter + filename
+keywords. You confirm or adjust before committing.
 
 ---
 
 ## Naming Convention
 
 ```
-YYYY-MM-DD_topic-slug.md           <- date-prefixed (most files, sorts cleanly)
-topic-slug.md                      <- timeless reference docs
-YYYY-MM-DD_project_topic-slug.md   <- when project context matters in the name
+YYYY-MM-DD_topic-slug.md           <- date-prefixed (most files)
+YYYY-MM-DD_project_topic.md        <- when project in name is helpful
+topic-slug.md                      <- timeless reference docs (no date)
 ```
 
 ---
 
-## Quick Reference
+## Full Command Reference
+
+See [`ai/scripts/README.md`](scripts/README.md) for the complete dispatcher
+reference, PowerShell module, bash aliases, VS Code tasks, and Copilot prompts.
+
+---
+
+## Quick Lifecycle
 
 ```
-New session starts  ->  use scratch/ freely, no organisation needed
-Session ends        ->  worth keeping? yes -> local/   no -> clear scratch
-Later, needs repo   ->  promote to saved/ + git commit
+Session starts  -> use scratch/ freely, no structure needed
+During session  -> ai-new creates a note with frontmatter ready
+Session ends    -> ai-status shows what is in each tier
+Worth keeping?  -> yes: ai-save <file>  |  no: ai-clear
 ```

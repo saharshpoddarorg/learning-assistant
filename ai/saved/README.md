@@ -3,61 +3,91 @@
 **Tracked by git. Pushed to the repo. Permanent.**
 
 Content here is a real record -- something you would want available from
-another machine, or something you want in your portfolio / history.
-
-Think carefully before committing here; prefer `local/` if you are unsure.
+another machine, or something worth having in the project history.
 
 ---
 
-## Typical content
+## Hierarchy
 
-- Architecture decisions and their rationale
-- Concept explanations you worked through and want to keep
-- Session changelogs / retrospectives you want to remember
-- Polished Q&A notes, "things I learned today" summaries
-- Resources and references you want searchable across machines
-- Code review observations worth keeping long-term
-
----
-
-## Organise how you think
-
-No required subdirectory structure. Add folders only when you feel the need:
+Notes are organised by **project bucket** then **month**. Created automatically
+by `ai save` -- you never create folders manually.
 
 ```
 saved/
-  2025-06-10_mcp-sse-architecture.md   <- flat, date-prefixed
-  java/
-    generics-cheatsheet.md             <- by subject
+  <project>/
+    <YYYY-MM>/
+      YYYY-MM-DD_slug.md
   mcp-servers/
-    2025-05-20_auth-design.md          <- by project
+    2026-02/
+      2026-02-21_sse-transport-decision.md
+  java/
+    2026-02/
+      2026-02-18_generics-cheatsheet.md
+  general/
+    2026-01/
+      2026-01-15_git-rebase-notes.md
 ```
+
+Project names are free-form strings you provide at save time.
+Common ones: `mcp-servers`, `java`, `learning-assistant`, `general`.
 
 ---
 
-## File template
+## Saving a Note
+
+```powershell
+# Interactive (asks for project, confirms tags, commits)
+.\ai\scripts\ai.ps1 save ai\scratch\draft.md
+
+# With options
+.\ai\scripts\ai.ps1 save ai\scratch\draft.md --project mcp-servers --commit
+```
+
+The save workflow:
+1. Shows current frontmatter
+2. Asks which project bucket
+3. Suggests tags (from existing frontmatter + filename keywords)
+4. You confirm or adjust
+5. Updates frontmatter, moves file to `saved/<project>/<YYYY-MM>/`
+6. Runs `git add` + `git commit`
+
+---
+
+## Frontmatter Template
 
 ```markdown
 ---
 date: YYYY-MM-DD
-type: concept | q-and-a | decision | changelog | review | resource | other
-tags: [tag1, tag2]
-project: mcp-servers | general | learning-assistant | <your-project>
+kind: note | decision | session | resource | snippet | ref
+project: <project-bucket>
+tags: [tag1, tag2, tag3]
+status: draft | final | archived
+source: copilot | manual | mcp
 ---
 
 # Title
-
-Content here.
 ```
 
 ---
 
-## Commit message template
+## Commit Message Format
 
 ```
-Save: <topic>
+Save: <topic-slug> [tag1, tag2, tag3]
 
-Brief description of what this captures and why it is worth keeping.
+Project: <project>  Kind: <kind>  Status: final
 
 -- created by gpt
+```
+
+---
+
+## Search Saved Notes
+
+```powershell
+.\ai\scripts\ai.ps1 list --tier saved
+.\ai\scripts\ai.ps1 list --tier saved --project mcp-servers
+.\ai\scripts\ai.ps1 search generics --tier saved
+.\ai\scripts\ai.ps1 search --kind decision --tier saved
+.\ai\scripts\ai.ps1 search --date 2026-02 --tier saved
 ```
