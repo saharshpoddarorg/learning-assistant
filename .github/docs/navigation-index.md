@@ -182,14 +182,41 @@
     └── slash-commands.md            👤 Developer slash command reference
 
 mcp-servers/                             ← MCP Server Configuration Module
-├── README.md                        👤 Config guide, architecture, setup
+├── README.md                        👤 Config guide, architecture, full server list, Quick Start
+├── SETUP.md                         👤 Step-by-step developer setup walkthrough
+├── build.ps1 / build.sh             👤 Build scripts (auto-detect javac, compile to out/)
 ├── .vscode/                         👤 IDE settings (portable — copy to other projects)
 ├── user-config/
 │   ├── mcp-config.example.properties 👤 Full reference template (committed)
 │   └── mcp-config.properties        👤 Active config (GITIGNORED)
+├── scripts/                         👤 Automation (setup, browser isolation, auth, utils)
 └── src/
     ├── Main.java                    👤 Entry point — loads & prints config
-    └── config/                      👤 Java records, loader, validator, facade
+    ├── config/                      👤 Java records, loader, validator, facade
+    └── server/
+        ├── learningresources/       🌐 Learning Resources Server (10 tools)
+        │   ├── LearningResourcesServer.java  ← STDIO entry point
+        │   ├── README.md            👤 Server docs
+        │   ├── model/               ← Domain models
+        │   ├── scraper/             ← Web scraping (HttpClient)
+        │   ├── content/             ← Summarizer, reader, readability scorer
+        │   ├── vault/               ← Built-in resource library (47+ resources)
+        │   └── handler/             ← 10 tool handlers
+        └── atlassian/               🌐 Atlassian Server — Jira + Confluence + Bitbucket (27 tools)
+            ├── AtlassianServer.java ← STDIO entry point; JSON-RPC 2.0 dispatcher
+            ├── README.md            👤 Server docs (all 27 tools, config, architecture)
+            ├── config/              ← AtlassianConfigLoader, AtlassianServerConfig
+            ├── model/               ← Domain models (jira/, confluence/, bitbucket/)
+            ├── client/              ← REST API clients (Jira v3, Confluence v2, Bitbucket 2.0)
+            ├── handler/             ← 27 tools across 5 handler files
+            │   ├── ToolHandler.java           ← Central router (all 27 tools)
+            │   ├── JiraHandler.java           ← 11 Jira tools
+            │   ├── ConfluenceHandler.java     ← 7 Confluence tools
+            │   ├── BitbucketHandler.java      ← 8 Bitbucket tools
+            │   ├── UnifiedSearchHandler.java  ← Cross-product search
+            │   └── HandlerUtils.java          ← Shared: escapeJson, truncate, parseMaxResults
+            ├── formatter/           ← Legacy formatter stubs
+            └── util/                ← JsonExtractor (lightweight JSON parsing, no deps)
 ```
 
 **Legend:** 🤖 = Copilot reads this file | 👤 = Developer documentation only

@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * <p>Routes Jira tool invocations to the appropriate {@link JiraClient}
  * method and formats the results for MCP response.
  *
- * <p><strong>Registered Tools:</strong>
+ * <p><strong>Registered Tools (11):</strong>
  * <ul>
  *   <li>{@code jira_search_issues} — search issues by JQL or free text</li>
  *   <li>{@code jira_get_issue} — get full details of a specific issue</li>
@@ -27,12 +27,15 @@ import java.util.logging.Logger;
  *   <li>{@code jira_transition_issue} — move an issue to a new status</li>
  *   <li>{@code jira_list_projects} — list accessible projects</li>
  *   <li>{@code jira_get_sprint} — get active sprint for a board</li>
+ *   <li>{@code jira_add_comment} — add a comment to an issue</li>
+ *   <li>{@code jira_get_comments} — list comments on an issue</li>
+ *   <li>{@code jira_assign_issue} — assign or unassign an issue</li>
+ *   <li>{@code jira_get_sprint_issues} — get all issues in a sprint</li>
  * </ul>
  */
 public class JiraHandler {
 
     private static final Logger LOGGER = Logger.getLogger(JiraHandler.class.getName());
-    private static final int DEFAULT_MAX_RESULTS = 25;
 
     private final JiraClient jiraClient;
 
@@ -58,7 +61,7 @@ public class JiraHandler {
                     "Missing required argument: 'query'");
         }
 
-        final int maxResults = parseMaxResults(arguments.get("maxResults"));
+        final int maxResults = HandlerUtils.parseMaxResults(arguments.get("maxResults"));
 
         // Auto-detect: if it looks like raw JQL, use as-is; otherwise wrap in text search
         final var jql = looksLikeJql(query)
@@ -279,7 +282,7 @@ public class JiraHandler {
                     "Missing required argument: 'issueKey'");
         }
 
-        final int maxResults = parseMaxResults(arguments.get("maxResults"));
+        final int maxResults = HandlerUtils.parseMaxResults(arguments.get("maxResults"));
 
         try {
             final var response = jiraClient.getComments(issueKey, maxResults);
@@ -336,7 +339,7 @@ public class JiraHandler {
 
         try {
             final int boardId = Integer.parseInt(boardIdStr);
-            final int maxResults = parseMaxResults(arguments.get("maxResults"));
+            final int maxResults = HandlerUtils.parseMaxResults(arguments.get("maxResults"));
             final var response = jiraClient.getSprintIssues(boardId, maxResults);
             return ToolResponse.success(AtlassianProduct.JIRA, "jira_get_sprint_issues",
                     formatIssueListFromJson(response));
@@ -415,7 +418,7 @@ public class JiraHandler {
         for (final var issue : issues) {
             final var k = JsonExtractor.stringOrDefault(issue, "key", "?");
             final var f = JsonExtractor.block(issue, "fields").orElse("{}");
-            final var sum    = truncate(JsonExtractor.stringOrDefault(f, "summary", ""), 50);
+            final var sum    = HandlerUtils.truncate(JsonExtractor.stringOrDefault(f, "summary", ""), 50);
             final var stat   = JsonExtractor.navigate(f, "status", "name").orElse("-");
             final var type   = JsonExtractor.navigate(f, "issuetype", "name").orElse("-");
             final var assign = JsonExtractor.isNull(f, "assignee") ? "-"
@@ -458,11 +461,10 @@ public class JiraHandler {
 
     /**
      * Truncates text to a maximum length with ellipsis.
+     * Delegated to {@link HandlerUtils#truncate(String, int)}.
      */
     private String truncate(final String text, final int maxLength) {
-        if (text == null) return "";
-        if (text.length() <= maxLength) return text;
-        return text.substring(0, maxLength - 3) + "...";
+        return HandlerUtils.truncate(text, maxLength);
     }
 
     /**
@@ -544,27 +546,17 @@ public class JiraHandler {
 
     /**
      * Escapes special characters for JSON string values.
+     * Delegated to {@link HandlerUtils#escapeJson(String)}.
      */
     private String escapeJson(final String text) {
-        if (text == null) return "";
-        return text.replace("\\", "\\\\")
-                .replace("\"", "\\\"")
-                .replace("\n", "\\n")
-                .replace("\r", "\\r")
-                .replace("\t", "\\t");
+        return HandlerUtils.escapeJson(text);
     }
 
     /**
      * Parses maxResults from arguments with a safe default.
+     * Delegated to {@link HandlerUtils#parseMaxResults(String)}.
      */
     private int parseMaxResults(final String value) {
-        if (value == null || value.isBlank()) {
-            return DEFAULT_MAX_RESULTS;
-        }
-        try {
-            return Integer.parseInt(value);
-        } catch (NumberFormatException ignored) {
-            return DEFAULT_MAX_RESULTS;
-        }
+        return HandlerUtils.parseMaxResults(value);
     }
 }
