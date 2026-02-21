@@ -1,5 +1,7 @@
 # 🗺️ Navigation Index — Developer Quick Reference
 
+> 🟢 **New here?** → Start at **[START-HERE.md](START-HERE.md)** — it tells you what to read based on experience level.
+
 > **Audience:** 👤 Developer  
 > **Purpose:** Master index of ALL files, slash commands, agents, and skills — with quick lookup by need.  
 > **When to use:** When you're not sure which command or file does what you need.
@@ -192,6 +194,7 @@
 └── docs/
     ├── getting-started.md           👤 Hands-on tutorial
     ├── customization-guide.md       👤 Architecture deep-dive
+    ├── mcp-server-setup.md          👤 Complete MCP setup guide (newbie-friendly, install → verify → copy to other project)
     ├── file-reference.md            👤 Who reads what (🤖 vs 👤)
     ├── navigation-index.md          👤 This file — master index
     └── slash-commands.md            👤 Developer slash command reference

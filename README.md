@@ -1,5 +1,7 @@
 # Learning Assistant
 
+> **New to this repo?** → Start at [**.github/docs/START-HERE.md**](.github/docs/START-HERE.md) — it tells you exactly what to read based on your experience level.
+
 > **Learn anything. Experiment freely. Grow continuously.**  
 > An open-source, AI-enhanced learning workspace that turns curiosity into structured knowledge.
 
@@ -104,24 +106,32 @@ Browse the skill files directly — they're well-structured Markdown:
 learning-assistant/
 │
 ├── README.md                        ← You are here
+├── .vscode/
+│   ├── mcp.json                         MCP server registry — tells VS Code/Copilot which servers to run
+│   └── tasks.json                       Build tasks (Ctrl+Shift+B → "mcp-servers: build")
+│
 ├── src/                             ← Code sandbox
 │   └── Main.java                        Java entry point (expandable to any language)
 │
 ├── mcp-servers/                     ← MCP Server configuration + implementations
 │   ├── README.md                        Module docs, setup guide, architecture
-│   ├── .vscode/                         IDE settings (portable — copy to other projects)
+│   ├── SETUP.md                         Step-by-step setup guide
+│   ├── build.ps1 / build.sh             Build scripts — auto-detect JDK, compile → out/
+│   ├── .vscode/
+│   │   ├── mcp.json.example             Portable MCP config template (copy to other projects)
+│   │   ├── settings.json                Java project settings (portable)
+│   │   ├── launch.json                  F5 launch configs for each server
+│   │   └── extensions.json              Recommended extensions
 │   ├── user-config/
-│   │   ├── mcp-config.example.properties    Full reference template (~280 lines)
-│   │   └── mcp-config.properties            Your active config (gitignored)
+│   │   ├── mcp-config.properties            Base config — safe defaults, no secrets (committed)
+│   │   ├── mcp-config.local.properties      YOUR secrets — gitignored, never committed
+│   │   ├── mcp-config.local.example.properties  Template for local config
+│   │   └── servers/atlassian/               Atlassian-specific config (same pattern)
 │   └── src/
 │       ├── config/                      Java config system (records, loader, validator)
 │       └── server/
-│           └── learningresources/       Learning Resources MCP Server (47+ built-in resources)
-│               ├── model/               Domain models (LearningResource, ContentSummary, ...)
-│               ├── scraper/             Web scraping via Java HttpClient
-│               ├── content/             Summarization, readability scoring, formatting
-│               ├── vault/               Curated resource library with search
-│               └── handler/             10 MCP tools (search, browse, discover, scrape, export, ...)
+│           ├── learningresources/       Learning Resources MCP Server (47+ built-in resources)
+│           └── atlassian/               Atlassian MCP Server (27 tools: Jira, Confluence, Bitbucket)
 │
 └── .github/                         ← AI customization + knowledge base
     ├── copilot-instructions.md          Project-wide coding rules
@@ -180,6 +190,11 @@ learning-assistant/
 │   └── mcp-development/                 MCP protocol & server development (1,980 lines)
 │
 └── docs/
+    ├── START-HERE.md                    ← NEW HERE? Start here — picks your reading path by experience
+    ├── phase-guide.md                   8-phase zero-to-operational guide (🟢🟡🔴 tiered)
+    ├── mcp-server-setup.md              Complete newbie MCP guide: install, build, credentials, use
+    ├── export-guide.md                  Copy features to another project
+    ├── copilot-workflow.md              Chat patterns, queuing instructions, token limits
     ├── getting-started.md               Step-by-step tutorial (~30 min)
     ├── customization-guide.md           Architecture deep-dive
     ├── slash-commands.md                All 30 commands reference
@@ -332,15 +347,20 @@ For the full architecture, see the [Customization Guide](.github/docs/customizat
 
 ## Documentation
 
-| Doc | Purpose | Time |
-|---|---|---|
-| [Getting Started](.github/docs/getting-started.md) | Hands-on tutorial — try every feature | ~30 min |
-| [Customization Guide](.github/docs/customization-guide.md) | How the 5 primitives connect | ~20 min |
-| [Slash Commands](.github/docs/slash-commands.md) | All 30 commands — inputs, aliases, composition | ~5 min |
-| [Navigation Index](.github/docs/navigation-index.md) | Master lookup — commands, agents, skills, files | ~5 min |
-| [File Reference](.github/docs/file-reference.md) | Which files Copilot reads vs. developer docs | ~5 min |
-| [MCP Servers Guide](mcp-servers/README.md) | Config architecture, setup, adding servers, browser isolation | ~10 min |
-| [Copilot README](.github/README.md) | Deep dive into all 5 Copilot primitives | ~10 min |
+| Doc | Purpose | Audience | Time |
+|---|---|---|---|
+| [**START HERE →**](.github/docs/START-HERE.md) | **Pick your reading path based on experience** | 🟢🟡🔴 All | ~2 min |
+| [Phase Guide](.github/docs/phase-guide.md) | Step-by-step: orient, build, configure, use, export | 🟢🟡🔴 All | ~20 min |
+| [Getting Started](.github/docs/getting-started.md) | Hands-on tutorial — try every feature | 🟢🟡 | ~30 min |
+| [MCP Server Setup](.github/docs/mcp-server-setup.md) | Complete newbie guide: install, credentials, verify, copy | 🟢🟡 | ~10 min |
+| [Copilot Workflow](.github/docs/copilot-workflow.md) | Chat patterns, queuing instructions, token limits | 🟢🟡🔴 | ~10 min |
+| [Export Guide](.github/docs/export-guide.md) | Copy features to another project | 🟡🔴 | ~10 min |
+| [Customization Guide](.github/docs/customization-guide.md) | How the 5 primitives connect | 🟡🔴 | ~20 min |
+| [Slash Commands](.github/docs/slash-commands.md) | All 30 commands — inputs, aliases, composition | 🔴 | ~5 min |
+| [Navigation Index](.github/docs/navigation-index.md) | Master lookup — commands, agents, skills, files | 🔴 | ~5 min |
+| [File Reference](.github/docs/file-reference.md) | Which files Copilot reads vs. developer docs | 🟡🔴 | ~5 min |
+| [MCP Servers Deep Dive](mcp-servers/README.md) | Config architecture, Java sources, adding servers, browser isolation | 🟡🔴 | ~10 min |
+| [Copilot README](.github/README.md) | Deep dive into all 5 Copilot primitives | 🟡🔴 | ~10 min |
 
 ---
 

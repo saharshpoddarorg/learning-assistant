@@ -1,6 +1,33 @@
 {
     "version": "2.0.0",
     "tasks": [
+        // ── MCP Servers: Build ───────────────────────────────────────────────
+        {
+            "label": "mcp-servers: build",
+            "type": "shell",
+            "command": ".\\mcp-servers\\build.ps1",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\build.ps1" },
+            "linux":   { "command": "bash ./mcp-servers/build.sh" },
+            "osx":     { "command": "bash ./mcp-servers/build.sh" },
+            "group": { "kind": "build", "isDefault": true },
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": ["$javac"],
+            "detail": "Compile all MCP server Java sources → mcp-servers/out/"
+        },
+        {
+            "label": "mcp-servers: build (clean)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\build.ps1 -Clean",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\build.ps1 -Clean" },
+            "linux":   { "command": "bash ./mcp-servers/build.sh --clean" },
+            "osx":     { "command": "bash ./mcp-servers/build.sh --clean" },
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": ["$javac"],
+            "detail": "Delete mcp-servers/out/ then recompile everything from scratch"
+        },
+
+        // ── Brain Workspace ──────────────────────────────────────────────────
         {
             "label": "brain: new note",
             "type": "shell",

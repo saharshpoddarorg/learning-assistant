@@ -4,6 +4,14 @@
 > **Goal:** Understand the customization system and try every primitive hands-on.  
 > **Prerequisites:** VS Code with GitHub Copilot extension installed.
 
+| Audience | Recommendation |
+|---|---|
+| 🟢 **Newbie** | Follow every step in order — don’t skip |
+| 🟡 **Amateur** | Do Steps 1–4, skim Steps 5–7 |
+| 🔴 **Pro** | Jump to [Step 7: Create Your Own](#step-7-create-your-own) or [Customization Guide](customization-guide.md) |
+
+> **Not sure where to start?** See [START-HERE.md](START-HERE.md) first.
+
 ---
 
 ## 📑 Table of Contents

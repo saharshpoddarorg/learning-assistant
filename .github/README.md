@@ -25,6 +25,16 @@
 
 ---
 
+## 🚦 New Here? Pick Your Path
+
+| Experience | Read these docs (in order) |
+|---|---|
+| 🟢 **Newbie** — never used Copilot customization | [START HERE](.github/docs/START-HERE.md) → [Phase Guide](docs/phase-guide.md) → [Getting Started](docs/getting-started.md) |
+| 🟡 **Amateur** — used Copilot, new to MCP/agents | [START HERE](docs/START-HERE.md) → [MCP Server Setup](docs/mcp-server-setup.md) → [Navigation Index](docs/navigation-index.md) |
+| 🔴 **Pro** — knows the primitives, setting up fast | [File Reference](docs/file-reference.md) → [Slash Commands](docs/slash-commands.md) → [Customization Guide](docs/customization-guide.md) |
+
+---
+
 ## ⚡ At a Glance
 
 | Action | How |
@@ -142,6 +152,7 @@ GitHub Copilot in VS Code supports exactly **5 customization primitives**. Every
 │   └── mcp-development/SKILL.md            MCP: build servers, configure agents, project structure
 │
 └── docs/                                ← Documentation & tutorials
+    ├── mcp-server-setup.md                 Newbie MCP guide: install, build, credentials, use, copy to other projects
     ├── getting-started.md                  Step-by-step tutorial
     ├── customization-guide.md              Architecture deep-dive
     ├── file-reference.md                   Who reads what (Copilot vs developer)
@@ -352,6 +363,10 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 ```
 📖 YOU ARE HERE
 │
+├─── Entry Points (read one based on experience: 🟢🟡🔴)
+│    ├── docs/START-HERE.md ·············· 🟢🟡🔴 Which docs to read, based on your experience level
+│    └── docs/phase-guide.md ············· 🟢🟡🔴 Phase-by-phase zero-to-operational guide
+│
 ├─── Guides by Primitive
 │    ├── instructions/README.md ·········· Glob patterns, conditional rules
 │    ├── agents/README.md ················ Personas, tools, handoffs
@@ -363,22 +378,30 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 │    ├── docs/navigation-index.md ········ Master index: all commands, files, workflows
 │    └── docs/slash-commands.md ········· All 30 slash commands: aliases, inputs, composition
 │
-└─── Tutorials & Deep Dives
+└─── Tutorials, Deep Dives & Workflows
      ├── docs/getting-started.md ········· Hands-on: verify setup, try each primitive
-     └── docs/customization-guide.md ····· Theory: how primitives connect & extend
+     ├── docs/customization-guide.md ····· Theory: how primitives connect & extend
+     ├── docs/mcp-server-setup.md ········ MCP from scratch: install, build, secrets, use, copy
+     ├── docs/export-guide.md ············ Copy features to another project (portable setup)
+     └── docs/copilot-workflow.md ········ Copilot chat patterns, queuing, multi-session
 ```
 
-| Guide | What You'll Learn | Time |
-|---|---|---|
-| [Getting Started →](docs/getting-started.md) | Verify setup, try each primitive hands-on | ~30 min |
-| [Customization Guide →](docs/customization-guide.md) | Architecture, how primitives connect, extending | ~20 min |
-| [File Reference →](docs/file-reference.md) | Which files Copilot reads vs. developer docs | ~5 min |
-| [Navigation Index →](docs/navigation-index.md) | Master lookup: all commands, agents, skills, file map | ~5 min |
-| [Slash Commands →](docs/slash-commands.md) | All 30 commands: details, aliases, inputs, composition | ~5 min |
-| [Instructions Guide →](instructions/README.md) | Glob patterns, conditional rules, examples | ~15 min |
-| [Agents Guide →](agents/README.md) | Custom personas, tools, handoffs, examples | ~15 min |
-| [Prompts Guide →](prompts/README.md) | Slash commands, variables, meta-prompts | ~15 min |
-| [Skills Guide →](skills/README.md) | Skill folders, scripts, progressive loading | ~15 min |
+| Guide | What You'll Learn | Audience | Time |
+|---|---|---|---|
+| [**START HERE →**](docs/START-HERE.md) | **Which docs to read based on your experience** | 🟢🟡🔴 All | ~2 min |
+| [Phase Guide →](docs/phase-guide.md) | Step-by-step: orient, build, configure, use, export | 🟢🟡🔴 All | ~20 min |
+| [Getting Started →](docs/getting-started.md) | Verify setup, try each primitive hands-on | 🟢🟡 | ~30 min |
+| [MCP Server Setup →](docs/mcp-server-setup.md) | Install, build, credentials, verify, copy to other projects | 🟢🟡 | ~10 min |
+| [Copilot Workflow →](docs/copilot-workflow.md) | Chat patterns, queuing instructions, token limits | 🟢🟡🔴 All | ~10 min |
+| [Export Guide →](docs/export-guide.md) | Copy customization + MCP servers to your own projects | 🟡🔴 | ~10 min |
+| [Customization Guide →](docs/customization-guide.md) | Architecture, how primitives connect, extending | 🟡🔴 | ~20 min |
+| [File Reference →](docs/file-reference.md) | Which files Copilot reads vs. developer docs | 🟡🔴 | ~5 min |
+| [Navigation Index →](docs/navigation-index.md) | Master lookup: all commands, agents, skills, file map | 🔴 | ~5 min |
+| [Slash Commands →](docs/slash-commands.md) | All 30 commands: details, aliases, inputs, composition | 🔴 | ~5 min |
+| [Instructions Guide →](instructions/README.md) | Glob patterns, conditional rules, examples | 🟡🔴 | ~15 min |
+| [Agents Guide →](agents/README.md) | Custom personas, tools, handoffs, examples | 🟡🔴 | ~15 min |
+| [Prompts Guide →](prompts/README.md) | Slash commands, variables, meta-prompts | 🟡🔴 | ~15 min |
+| [Skills Guide →](skills/README.md) | Skill folders, scripts, progressive loading | 🟡🔴 | ~15 min |
 
 ---
 
