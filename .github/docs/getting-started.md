@@ -77,7 +77,11 @@ Your `.github/` folder contains everything Copilot uses to customize its behavio
 │   ├── deep-dive.prompt.md              ← /deep-dive (concept mastery)
 │   ├── reading-plan.prompt.md           ← /reading-plan (study plan)
 │   ├── learn-concept.prompt.md          ← /learn-concept (any CS/SE concept)
-│   └── interview-prep.prompt.md         ← /interview-prep (DSA/system design)
+│   ├── interview-prep.prompt.md         ← /interview-prep (DSA/system design)
+│   ├── mcp.prompt.md                    ← /mcp (MCP protocol & server development)
+│   ├── brain-new.prompt.md              ← /brain-new (create inbox/notes note)
+│   ├── brain-publish.prompt.md          ← /brain-publish (publish & commit to archive)
+│   └── brain-search.prompt.md           ← /brain-search (search across tiers)
 │
 ├── skills/                              ← Auto-loaded tool kits
 │   ├── java-build/SKILL.md              ← Compile & run help
@@ -86,7 +90,8 @@ Your `.github/` folder contains everything Copilot uses to customize its behavio
 │   ├── java-learning-resources/SKILL.md ← Curated Java learning resource index
 │   ├── software-engineering-resources/SKILL.md ← Comprehensive SE/CS resource index (DSA, system design, DevOps, Git, industry, trends)
 │   ├── daily-assistant-resources/SKILL.md ← Daily life resources (finance, productivity)
-│   └── career-resources/SKILL.md    ← Career data (roles, skills, pay)
+│   ├── career-resources/SKILL.md        ← Career data (roles, skills, pay)
+│   └── mcp-development/SKILL.md         ← MCP protocol, server building, agent patterns (1,980 lines)
 │
 └── docs/                                ← Documentation (you are here)
     ├── getting-started.md               ← This tutorial

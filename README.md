@@ -50,7 +50,7 @@ Hand-curated, continuously expanded reference material covering:
 
 If you use **VS Code + GitHub Copilot**, the repo transforms Chat into a personalized tutor:
 
-- **25 slash commands** — type `/dsa`, `/system-design`, `/devops`, `/learn-concept`, or `/hub` to navigate
+- **30 slash commands** — type `/dsa`, `/system-design`, `/devops`, `/learn-concept`, `/mcp`, or `/hub` to navigate
 - **7 specialist agents** — Learning Mentor, Designer, Debugger, Impact Analyzer, Code Reviewer, Daily Assistant, and a deep-research "Thinking Beast Mode"
 - **8 auto-loaded skill packs** — Copilot automatically gains domain knowledge when you ask relevant questions
 
@@ -127,7 +127,7 @@ learning-assistant/
     ├── copilot-instructions.md          Project-wide coding rules
     ├── instructions/                    Auto-loaded coding standards (Java, clean code)
     ├── agents/                          7 specialist AI personas
-    ├── prompts/                         25 slash commands (type /command in Chat)
+    ├── prompts/                         30 slash commands (type /command in Chat)
     ├── skills/                          8 auto-loaded knowledge packs
     │   └── software-engineering-resources/SKILL.md  ← The main knowledge base
     └── docs/                            Developer documentation & tutorials
@@ -154,15 +154,19 @@ learning-assistant/
 │   ├── daily-assistant.agent.md        Finance, productivity, news
 │   └── Thinking-Beast-Mode.agent.md    Autonomous deep research
 │
-├── prompts/                             25 slash commands including:
+├── prompts/                             30 slash commands including:
 │   ├── hub.prompt.md                    /hub — master navigation index
 │   ├── learn-concept.prompt.md          /learn-concept — any CS/SE concept
 │   ├── dsa.prompt.md                    /dsa — data structures & algorithms
 │   ├── system-design.prompt.md          /system-design — HLD/LLD
 │   ├── devops.prompt.md                 /devops — CI/CD, Docker, K8s, Git
+│   ├── mcp.prompt.md                    /mcp — MCP protocol & server development
 │   ├── interview-prep.prompt.md         /interview-prep — technical interviews
 │   ├── career-roles.prompt.md           /career-roles — roles, pay, roadmaps
-│   └── ...and 18 more
+│   ├── brain-new.prompt.md              /brain-new — create knowledge note
+│   ├── brain-publish.prompt.md          /brain-publish — publish to archive & commit
+│   ├── brain-search.prompt.md           /brain-search — search across note tiers
+│   └── ...and 19 more
 │
 ├── skills/
 │   ├── software-engineering-resources/  2,400+ lines: DSA, system design, DevOps,
@@ -172,12 +176,13 @@ learning-assistant/
 │   ├── daily-assistant-resources/       Finance, productivity, news
 │   ├── java-build/                      Compile & run help
 │   ├── design-patterns/                 SOLID & GoF patterns reference
-│   └── java-debugging/                  Exception diagnosis
+│   ├── java-debugging/                  Exception diagnosis
+│   └── mcp-development/                 MCP protocol & server development (1,980 lines)
 │
 └── docs/
     ├── getting-started.md               Step-by-step tutorial (~30 min)
     ├── customization-guide.md           Architecture deep-dive
-    ├── slash-commands.md                All 25 commands reference
+    ├── slash-commands.md                All 30 commands reference
     ├── navigation-index.md              Master file & command index
     └── file-reference.md               Copilot vs developer file guide
 ```
@@ -331,7 +336,7 @@ For the full architecture, see the [Customization Guide](.github/docs/customizat
 |---|---|---|
 | [Getting Started](.github/docs/getting-started.md) | Hands-on tutorial — try every feature | ~30 min |
 | [Customization Guide](.github/docs/customization-guide.md) | How the 5 primitives connect | ~20 min |
-| [Slash Commands](.github/docs/slash-commands.md) | All 25 commands — inputs, aliases, composition | ~5 min |
+| [Slash Commands](.github/docs/slash-commands.md) | All 30 commands — inputs, aliases, composition | ~5 min |
 | [Navigation Index](.github/docs/navigation-index.md) | Master lookup — commands, agents, skills, files | ~5 min |
 | [File Reference](.github/docs/file-reference.md) | Which files Copilot reads vs. developer docs | ~5 min |
 | [MCP Servers Guide](mcp-servers/README.md) | Config architecture, setup, adding servers, browser isolation | ~10 min |
