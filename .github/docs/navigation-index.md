@@ -1,5 +1,7 @@
 # 🗺️ Navigation Index — Developer Quick Reference
 
+> 🟢 **New here?** → Start at **[START-HERE.md](START-HERE.md)** — it tells you what to read based on experience level.
+
 > **Audience:** 👤 Developer  
 > **Purpose:** Master index of ALL files, slash commands, agents, and skills — with quick lookup by need.  
 > **When to use:** When you're not sure which command or file does what you need.

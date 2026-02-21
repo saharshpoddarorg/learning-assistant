@@ -2,7 +2,13 @@
 
 > **Audience:** You've read the [Getting Started](getting-started.md) tutorial and want to understand how everything fits together.  
 > **Goal:** See the big picture, learn the architecture, and know how to extend the system.
+| Audience | Recommendation |
+|---|---|
+| 🟢 **Newbie** | Read this after [Getting Started](getting-started.md) — skip the "Extending" sections for now |
+| 🟡 **Amateur** | Read the [Big Picture](#-the-big-picture) and [How Primitives Work Together](#-how-the-primitives-work-together) sections |
+| 🔴 **Pro** | Jump to [Extending the System](#-how-to-extend-the-system) directly |
 
+> **Want a phase-by-phase guide instead?** See [phase-guide.md](phase-guide.md).
 ---
 
 ## 📑 Table of Contents

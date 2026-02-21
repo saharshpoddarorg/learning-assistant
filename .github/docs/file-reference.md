@@ -174,6 +174,10 @@ These files are **documentation for humans**. Copilot does NOT read these to sha
 | **Getting Started** | `.github/docs/getting-started.md` | Step-by-step hands-on tutorial | Second — try everything |
 | **Customization Guide** | `.github/docs/customization-guide.md` | Architecture, how primitives connect | When you want the big picture |
 | **MCP Server Setup** ← **START HERE** | `.github/docs/mcp-server-setup.md` | **Complete newbie guide**: what MCP is, prerequisites, build, credentials, verify, copy to other projects | When setting up MCP servers for the first time |
+| **START HERE** | `.github/docs/START-HERE.md` | Single entry point — picks your reading path by experience level (🟢🟡🔴) | First time opening this repo |
+| **Phase Guide** | `.github/docs/phase-guide.md` | 8-phase zero-to-operational guide with audience-tiered sections | When you want a step-by-step onboarding |
+| **Export Guide** | `.github/docs/export-guide.md` | Copy Copilot customization, MCP servers, and brain workspace to another project | When porting this setup to your own project |
+| **Copilot Workflow** | `.github/docs/copilot-workflow.md` | Copilot chat patterns, queuing instructions, multi-session, token limits | When working on complex multi-step tasks |
 | **File Reference** | `.github/docs/file-reference.md` | This file — which files are for whom | When confused about a file's purpose |
 | **Slash Commands Ref** | `.github/docs/slash-commands.md` | All 30 slash commands with aliases, inputs, composition | When looking up a specific command |
 | **MCP Servers README** | `mcp-servers/README.md` | Config architecture, setup guide, server definitions, browser isolation | When configuring or adding MCP servers |

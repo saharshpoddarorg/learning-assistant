@@ -1,5 +1,7 @@
 # Learning Assistant
 
+> **New to this repo?** → Start at [**.github/docs/START-HERE.md**](.github/docs/START-HERE.md) — it tells you exactly what to read based on your experience level.
+
 > **Learn anything. Experiment freely. Grow continuously.**  
 > An open-source, AI-enhanced learning workspace that turns curiosity into structured knowledge.
 
@@ -188,7 +190,11 @@ learning-assistant/
 │   └── mcp-development/                 MCP protocol & server development (1,980 lines)
 │
 └── docs/
-    ├── mcp-server-setup.md              ← NEWBIE GUIDE: what MCP is, install, build, credentials, use
+    ├── START-HERE.md                    ← NEW HERE? Start here — picks your reading path by experience
+    ├── phase-guide.md                   8-phase zero-to-operational guide (🟢🟡🔴 tiered)
+    ├── mcp-server-setup.md              Complete newbie MCP guide: install, build, credentials, use
+    ├── export-guide.md                  Copy features to another project
+    ├── copilot-workflow.md              Chat patterns, queuing instructions, token limits
     ├── getting-started.md               Step-by-step tutorial (~30 min)
     ├── customization-guide.md           Architecture deep-dive
     ├── slash-commands.md                All 30 commands reference
@@ -341,16 +347,20 @@ For the full architecture, see the [Customization Guide](.github/docs/customizat
 
 ## Documentation
 
-| Doc | Purpose | Time |
-|---|---|---|
-| [Getting Started](.github/docs/getting-started.md) | Hands-on tutorial — try every feature | ~30 min |
-| [Customization Guide](.github/docs/customization-guide.md) | How the 5 primitives connect | ~20 min |
-| [Slash Commands](.github/docs/slash-commands.md) | All 30 commands — inputs, aliases, composition | ~5 min |
-| [Navigation Index](.github/docs/navigation-index.md) | Master lookup — commands, agents, skills, files | ~5 min |
-| [File Reference](.github/docs/file-reference.md) | Which files Copilot reads vs. developer docs | ~5 min |
-| [**MCP Server Setup ← START HERE**](.github/docs/mcp-server-setup.md) | Complete newbie guide: what MCP is, install, credentials, verify, copy to another project | ~10 min |
-| [MCP Servers Deep Dive](mcp-servers/README.md) | Config architecture, Java sources, adding servers, browser isolation | ~10 min |
-| [Copilot README](.github/README.md) | Deep dive into all 5 Copilot primitives | ~10 min |
+| Doc | Purpose | Audience | Time |
+|---|---|---|---|
+| [**START HERE →**](.github/docs/START-HERE.md) | **Pick your reading path based on experience** | 🟢🟡🔴 All | ~2 min |
+| [Phase Guide](.github/docs/phase-guide.md) | Step-by-step: orient, build, configure, use, export | 🟢🟡🔴 All | ~20 min |
+| [Getting Started](.github/docs/getting-started.md) | Hands-on tutorial — try every feature | 🟢🟡 | ~30 min |
+| [MCP Server Setup](.github/docs/mcp-server-setup.md) | Complete newbie guide: install, credentials, verify, copy | 🟢🟡 | ~10 min |
+| [Copilot Workflow](.github/docs/copilot-workflow.md) | Chat patterns, queuing instructions, token limits | 🟢🟡🔴 | ~10 min |
+| [Export Guide](.github/docs/export-guide.md) | Copy features to another project | 🟡🔴 | ~10 min |
+| [Customization Guide](.github/docs/customization-guide.md) | How the 5 primitives connect | 🟡🔴 | ~20 min |
+| [Slash Commands](.github/docs/slash-commands.md) | All 30 commands — inputs, aliases, composition | 🔴 | ~5 min |
+| [Navigation Index](.github/docs/navigation-index.md) | Master lookup — commands, agents, skills, files | 🔴 | ~5 min |
+| [File Reference](.github/docs/file-reference.md) | Which files Copilot reads vs. developer docs | 🟡🔴 | ~5 min |
+| [MCP Servers Deep Dive](mcp-servers/README.md) | Config architecture, Java sources, adding servers, browser isolation | 🟡🔴 | ~10 min |
+| [Copilot README](.github/README.md) | Deep dive into all 5 Copilot primitives | 🟡🔴 | ~10 min |
 
 ---
 
