@@ -105,13 +105,14 @@ mcp-servers/user-config/servers/**/*.local.properties
 mcp-servers/build.env.local
 
 # =============================================================================
-# Notes Directory -- Local AI Session Outputs (never committed)
+# AI-Generated Content (ai/ directory)
 # =============================================================================
-# notes/ is a local-only directory for AI-generated session files, concept
-# notes, Q&As, session changelogs, and decisions. It is entirely gitignored.
-# All content here is for local reference only.
+# ai/scratch/  -- session-scoped throwaway (never committed)
+# ai/local/    -- local persistent between sessions (never committed)
+# ai/saved/    -- curated, committed to the repo (NOT listed here)
 
-notes/
+ai/scratch/
+ai/local/
 
 # =============================================================================
 # OS Generated Files
