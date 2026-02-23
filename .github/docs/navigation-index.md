@@ -202,6 +202,8 @@
     ├── mcp-servers-architecture.md  👤 MCP protocol internals, server lifecycle, tool dispatch, config system
     ├── mcp-how-it-works.md          👤 How MCP works behind-the-scenes (JSON-RPC, STDIO, session lifecycle, how LLM invokes tools)
     ├── mcp-implementations.md       👤 MCP in Java vs JavaScript/TypeScript — side-by-side code comparison
+    ├── mcp-ecosystem.md             👤 Combining servers, LLM APIs (OpenAI/Anthropic/Gemini), LangChain, LlamaIndex, agents, multi-language
+    ├── local-setup-guide.md         👤 What's gitignored + how to set it up — config files, secrets, 3-tier onboarding (🟢/🟡/🔴)
     ├── versioning-guide.md          👤 Server versioning strategy (McpServer interface, registry, package-per-version pattern)
     ├── search-engine.md             👤 Search engine developer guide (🟢 Newbie / 🟡 Amateur / 🔴 Pro)
     └── search-engine-algorithms.md  👤 BM25, TextMatchScorer, FuzzyMatcher, QueryClassifier deep-dive
@@ -288,6 +290,11 @@
 | **Manage API keys for MCP** | Set `apiKeys.*` or `MCP_APIKEYS_*` env var | Config |
 | **Understand how MCP protocol works internally** | [mcp-how-it-works.md](mcp-how-it-works.md) | Doc |
 | **Compare MCP in Java vs JavaScript** | [mcp-implementations.md](mcp-implementations.md) | Doc |
+| **Combine multiple MCP servers / use LangChain + LLM APIs + agents** | [mcp-ecosystem.md](mcp-ecosystem.md) | Doc |
+| **Set up local config files, create .local.properties, manage secrets** | [local-setup-guide.md](local-setup-guide.md) | Doc |
+| **Onboard a new developer (what to create first)** | [local-setup-guide.md](local-setup-guide.md) — Tier 1 | Doc |
+| **Configure Atlassian Cloud / Data Center credentials** | [local-setup-guide.md](local-setup-guide.md) — Tier 2 | Doc |
+| **Run multiple Atlassian instances or CI/CD secrets** | [local-setup-guide.md](local-setup-guide.md) — Tier 3 | Doc |
 | **Understand how to version MCP servers** | [versioning-guide.md](versioning-guide.md) | Doc |
 | **Understand the search engine (newbie)** | [search-engine.md](search-engine.md) — Newbie tier | Doc |
 | **Add keywords to search vocabulary** | [search-engine.md](search-engine.md) — Amateur tier | Doc |
