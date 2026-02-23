@@ -50,6 +50,12 @@ This module provides a **Java-based configuration system** and **MCP server impl
 | **Learning Resources** | Web scraper + curated vault of 47+ learning resources. Smart discovery, multi-format export, scrape, summarize, search, and browse tutorials, docs, blogs, and more. | [README](src/server/learningresources/README.md) |
 | **Atlassian** | Unified gateway to Jira, Confluence, and Bitbucket. 27 tools: issue management, sprint tracking, documentation, code collaboration, and cross-product unified search. JSON-RPC 2.0 over STDIO. | [README](src/server/atlassian/README.md) |
 
+### Shared Modules
+
+| Module | Description | Docs |
+|--------|-------------|------|
+| **`search`** | Pluggable, generic search engine used by all MCP servers. Domain-agnostic pipeline: index → classify → filter → score → rank. Wire up a `ConfigurableSearchEngine<T>` in minutes. | [README](src/search/README.md) · [Dev Guide](../.github/docs/search-engine.md) |
+
 ---
 
 ## Quick Start
@@ -128,6 +134,17 @@ mcp-servers/
 │   │   └── exception/                    ← Config-specific exceptions
 │   │       ├── ConfigLoadException.java
 │   │       └── ConfigValidationException.java
+│   │
+│   ├── search/                           ← 🔍 Generic pluggable search engine (shared module)
+│   │   ├── core/                         ← SearchEngine<T>, SearchContext, SearchResult<T>
+│   │   ├── classify/                     ← SearchMode, QueryClassifier, KeywordQueryClassifier
+│   │   ├── algorithm/                    ← ScoringStrategy, CompositeScorer, TextMatchScorer
+│   │   ├── filter/                       ← SearchFilter<T>, FilterChain
+│   │   ├── rank/                         ← RankingStrategy<T>, ScoreRanker
+│   │   ├── index/                        ← SearchIndex<T>, InMemoryIndex, KeywordRegistry
+│   │   ├── config/                       ← SearchEngineConfig<T> (wires all components)
+│   │   ├── engine/                       ← ConfigurableSearchEngine<T> (5-phase pipeline)
+│   │   └── README.md                     ← Module technical reference
 │   │
 │   └── server/                           ← 🌐 MCP Server implementations
 │       └── learningresources/            ← Learning Resources Server (first MCP server!)

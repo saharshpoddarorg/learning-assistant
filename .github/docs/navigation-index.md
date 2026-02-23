@@ -197,13 +197,14 @@
     ├── mcp-server-setup.md          👤 Complete MCP setup guide (newbie-friendly, install → verify → copy to other project)
     ├── file-reference.md            👤 Who reads what (🤖 vs 👤)
     ├── navigation-index.md          👤 This file — master index
-    └── slash-commands.md            👤 Developer slash command reference
-
-mcp-servers/                             ← MCP Server Configuration Module
-├── README.md                        👤 Config guide, architecture, full server list, Quick Start
-├── SETUP.md                         👤 Step-by-step developer setup walkthrough
-├── build.ps1 / build.sh             👤 Build scripts (auto-detect javac, compile to out/)
-├── .vscode/                         👤 IDE settings (portable — copy to other projects)
+    ├── slash-commands.md            👤 Developer slash command reference
+    ├── architecture-overview.md     👤 Module architecture, design patterns, industry standards (merged search-engine design)
+    ├── mcp-servers-architecture.md  👤 MCP protocol internals, server lifecycle, tool dispatch, config system
+    ├── mcp-how-it-works.md          👤 How MCP works behind-the-scenes (JSON-RPC, STDIO, session lifecycle, how LLM invokes tools)
+    ├── mcp-implementations.md       👤 MCP in Java vs JavaScript/TypeScript — side-by-side code comparison
+    ├── versioning-guide.md          👤 Server versioning strategy (McpServer interface, registry, package-per-version pattern)
+    ├── search-engine.md             👤 Search engine developer guide (🟢 Newbie / 🟡 Amateur / 🔴 Pro)
+    └── search-engine-algorithms.md  👤 BM25, TextMatchScorer, FuzzyMatcher, QueryClassifier deep-dive
 ├── user-config/
 │   ├── mcp-config.example.properties 👤 Full reference template (committed)
 │   └── mcp-config.properties        👤 Active config (GITIGNORED)
@@ -211,7 +212,12 @@ mcp-servers/                             ← MCP Server Configuration Module
 └── src/
     ├── Main.java                    👤 Entry point — loads & prints config
     ├── config/                      👤 Java records, loader, validator, facade
+    ├── [search-engine module]          🔍 Self-contained; both contracts AND implementations in one module
+    │   ├── search.api.*             ← 12 interface/contract files (SearchEngine, SearchResult…)
+    │   └── search.engine.*          ← 14 implementation files (ConfigurableSearchEngine…)
     └── server/
+        ├── McpServer.java           ← Common contract for all MCP server implementations
+        ├── McpServerRegistry.java   ← Active-server registry; supports version swap
         ├── learningresources/       🌐 Learning Resources Server (10 tools)
         │   ├── LearningResourcesServer.java  ← STDIO entry point
         │   ├── README.md            👤 Server docs
@@ -280,6 +286,14 @@ mcp-servers/                             ← MCP Server Configuration Module
 | **Add a new MCP server** | Add `server.{name}.*` block in `user-config/mcp-config.properties` | Config |
 | **Set up browser isolation** | See [Browser Isolation](../../mcp-servers/README.md#browser-isolation) | Config |
 | **Manage API keys for MCP** | Set `apiKeys.*` or `MCP_APIKEYS_*` env var | Config |
+| **Understand how MCP protocol works internally** | [mcp-how-it-works.md](mcp-how-it-works.md) | Doc |
+| **Compare MCP in Java vs JavaScript** | [mcp-implementations.md](mcp-implementations.md) | Doc |
+| **Understand how to version MCP servers** | [versioning-guide.md](versioning-guide.md) | Doc |
+| **Understand the search engine (newbie)** | [search-engine.md](search-engine.md) — Newbie tier | Doc |
+| **Add keywords to search vocabulary** | [search-engine.md](search-engine.md) — Amateur tier | Doc |
+| **Tune scoring constants** | [search-engine.md](search-engine.md) — Amateur tier | Doc |
+| **Build a custom search engine for a new server** | [search-engine.md](search-engine.md) — Pro tier | Doc |
+| **Full search module API reference** | [mcp-servers/src/search/README.md](../../mcp-servers/src/search/README.md) | Doc |
 | **Create a knowledge note** | `/brain-new` | Brain |
 | **Publish a note to the repo** | `/brain-publish` | Brain |
 | **Search my notes** | `/brain-search` | Brain |

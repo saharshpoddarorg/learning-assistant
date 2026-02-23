@@ -40,9 +40,19 @@
  *       └── {@link server.atlassian.formatter.PullRequestFormatter}       — Bitbucket PR → text
  * </pre>
  *
- * <p>This server exposes 17 MCP tools across three Atlassian products,
+ * <p>This server exposes 27 MCP tools across three Atlassian products,
  * connected via a shared REST client with Basic or Bearer auth.
  *
+ * <h2>Versioning</h2>
+ * <p>This package ({@code server.atlassian}) represents <strong>v1</strong> — the current
+ * stable implementation. When a v2 implementation becomes available it will live in
+ * {@code server.atlassian.v2} and implement {@link server.McpServer} with the same
+ * server name {@code "atlassian"} so the {@link server.McpServerRegistry} can
+ * automatically adopt it.
+ *
+ * <p>See {@code .github/docs/versioning-guide.md} for the full versioning strategy.
+ *
  * @see server.atlassian.AtlassianServer
+ * @see server.McpServer
  */
 package server.atlassian;

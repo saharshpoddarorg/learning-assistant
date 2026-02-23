@@ -1,13 +1,21 @@
 <#
 .SYNOPSIS
-    Compile all MCP server Java sources.
+    Compile the search-engine module (self-contained search library).
 
 .DESCRIPTION
-    Resolves javac automatically in this order:
-      1. build.env.local file (machine-specific overrides, gitignored)
-      2. JAVA_HOME environment variable
-      3. VS Code redhat.java extension bundled JDK
-      4. javac on PATH
+    Compiles all sources under src/ in a single pass:
+      - search.api.*    -- contracts (interfaces, records, enums, functional types)
+      - search.engine.* -- algorithm implementations (BM25, TextMatch, pipeline, etc.)
+
+    Both packages live in the same src/ tree. Zero external dependencies.
+
+    Build hierarchy:
+        search-engine  (this)   ← self-contained; search.api.* + search.engine.*
+            ↑
+        mcp-servers             ← depends on search-engine; adds domain engines
+
+    For a full build that includes mcp-servers, run:
+        cd ../mcp-servers && .\build.ps1
 
 .PARAMETER OutDir
     Output directory for compiled .class files. Default: out
@@ -18,7 +26,6 @@
 .EXAMPLE
     .\build.ps1
     .\build.ps1 -Clean
-    .\build.ps1 -OutDir build/classes
 #>
 [CmdletBinding()]
 param(
@@ -32,12 +39,10 @@ $ErrorActionPreference = 'Stop'
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $ScriptDir
 
-# Load build.env.local if present (machine-specific paths, gitignored).
-# Values here OVERRIDE existing environment variables -- this file is the
-# local-authoritative config for paths like JAVA_HOME.
-$EnvLocal = Join-Path $ScriptDir 'build.env.local'
-if (Test-Path $EnvLocal) {
-    Get-Content $EnvLocal | ForEach-Object {
+# Re-use JAVA_HOME resolution from the sibling mcp-servers module.
+$MpcBuildEnv = Join-Path $ScriptDir '..\mcp-servers\build.env.local'
+if (Test-Path $MpcBuildEnv) {
+    Get-Content $MpcBuildEnv | ForEach-Object {
         if ($_ -match '^\s*([^#=]+?)\s*=\s*(.+?)\s*$') {
             Set-Item "env:$($Matches[1])" $Matches[2]
         }
@@ -48,9 +53,7 @@ function Find-Javac {
     if ($env:JAVA_HOME) {
         $candidate = Join-Path $env:JAVA_HOME 'bin\javac.exe'
         if (Test-Path $candidate) { return $candidate }
-        Write-Host "  JAVA_HOME='$env:JAVA_HOME' has no javac (JRE only). Trying fallbacks..." -ForegroundColor Yellow
     }
-
     $vsCodeExt = Join-Path $env:USERPROFILE '.vscode\extensions'
     if (Test-Path $vsCodeExt) {
         $jdkDirs = Get-ChildItem $vsCodeExt -Filter 'redhat.java-*' -Directory | Sort-Object Name -Descending
@@ -62,31 +65,21 @@ function Find-Javac {
             }
         }
     }
-
     $onPath = Get-Command javac -ErrorAction SilentlyContinue
     if ($onPath) { return $onPath.Source }
     return $null
 }
 
 Write-Host ""
-Write-Host "Locating javac..." -ForegroundColor Cyan
+Write-Host "=== search-engine standalone build ===" -ForegroundColor Cyan
 $Javac = Find-Javac
-
 if (-not $Javac) {
-    Write-Host "ERROR: javac not found." -ForegroundColor Red
-    Write-Host "Install a JDK 17+ and set JAVA_HOME, or install the VS Code Java Extension Pack:" -ForegroundColor Red
-    Write-Host "  https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack" -ForegroundColor Red
+    Write-Host "ERROR: javac not found. Set JAVA_HOME or install the VS Code Java Extension Pack." -ForegroundColor Red
     exit 1
 }
 
-Write-Host "  javac  : $Javac" -ForegroundColor Cyan
 $VersionLine = (& $Javac -version 2>&1) -join ' '
-Write-Host "  version: $VersionLine" -ForegroundColor Cyan
-
-$JavaExe = Join-Path (Split-Path $Javac -Parent) 'java.exe'
-if (Test-Path $JavaExe) {
-    Write-Host "  java   : $JavaExe" -ForegroundColor DarkGray
-}
+Write-Host "  javac  : $Javac  ($VersionLine)" -ForegroundColor Cyan
 Write-Host ""
 
 if ($Clean -and (Test-Path $OutDir)) {
@@ -95,17 +88,10 @@ if ($Clean -and (Test-Path $OutDir)) {
 }
 New-Item -ItemType Directory -Path $OutDir -Force | Out-Null
 
-# Include sources from the search-engine module:
-#   search.api.*    (contracts — interfaces, records, enums)
-#   search.engine.* (algorithm implementations)
-$SearchEngineDir = Join-Path $ScriptDir '..\search-engine\src'
-
-$Sources = @(
-    Get-ChildItem -Path 'src' -Recurse -Filter '*.java'
-    if (Test-Path $SearchEngineDir) {
-        Get-ChildItem -Path $SearchEngineDir -Recurse -Filter '*.java' -ErrorAction SilentlyContinue
-    }
-) | Select-Object -ExpandProperty FullName | Where-Object { $_ }
+# search-engine is self-contained: search.api.* (contracts) and search.engine.* (impls)
+# live in the same src/ tree — no external search-api dependency needed.
+$Sources = Get-ChildItem -Path 'src' -Recurse -Filter '*.java' |
+           Select-Object -ExpandProperty FullName
 
 if (-not $Sources) {
     Write-Host "ERROR: No .java files found under src/" -ForegroundColor Red
@@ -115,7 +101,6 @@ if (-not $Sources) {
 Write-Host "Compiling $($Sources.Count) source files  ->  $OutDir/" -ForegroundColor Cyan
 
 $SourceList = [System.IO.Path]::GetTempFileName()
-# WriteAllLines uses UTF-8 without BOM -- required so javac reads the first filename cleanly
 [System.IO.File]::WriteAllLines($SourceList, $Sources)
 
 $ExitCode = 0
