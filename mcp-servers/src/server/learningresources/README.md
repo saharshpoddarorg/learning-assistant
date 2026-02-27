@@ -68,7 +68,7 @@ java -cp out server.learningresources.LearningResourcesServer
 **search_resources:**
 - `query` — free-text search (searches title, description, tags, author)
 - `category` — filter: java, python, javascript, web, database, devops, cloud, algorithms, software-engineering, testing, security, ai-ml, tools, systems, general
-- `type` — filter: documentation, tutorial, blog, article, video, book, interactive, api-reference, cheat-sheet, repository
+- `type` — filter: documentation, tutorial, blog, article, video, playlist, video-course, book, interactive, course, api-reference, cheat-sheet, repository
 - `concept` — filter by concept area (see ConceptArea enum below)
 - `difficulty` / `max_difficulty` — filter by difficulty range: beginner, intermediate, advanced, expert
 - `freshness` — filter: evergreen, actively-maintained, periodic, archived
@@ -232,9 +232,12 @@ Content format classification.
 | `TUTORIAL` | tutorial | Step-by-step guides |
 | `BLOG` | blog | Blog posts, articles |
 | `ARTICLE` | article | Technical articles |
-| `VIDEO` | video | YouTube, courses |
+| `VIDEO` | video | YouTube clips, talks, screencasts |
+| `PLAYLIST` | playlist | YouTube playlists, 3Blue1Brown series, ordered video collections |
+| `VIDEO_COURSE` | video-course | MIT OCW, fast.ai, Coursera video lectures |
 | `BOOK` | book | Physical/digital books |
 | `INTERACTIVE` | interactive | VisuAlgo, playgrounds |
+| `COURSE` | course | Structured courses (text/mixed, no video emphasis) |
 | `API_REFERENCE` | api-reference | Javadoc, API specs |
 | `CHEAT_SHEET` | cheat-sheet | Quick references |
 | `REPOSITORY` | repository | GitHub repos, examples |

@@ -203,13 +203,26 @@ You are the **navigation hub** for all available assistants and learning command
 │            └── bootstrap ·········· One-command new-Mac setup script
 │
 ├─── DIGITAL NOTE-TAKING & PKM (/hub notetaking)
-│    └── /digital-notetaking ··········· PKM methods, tools, migration & JDK upgrade
-│        ├── methods ················· PARA, CODE, Zettelkasten, GTD
-│        ├── tools ··················· Notion, Obsidian, Logseq, OneNote, Google Docs
-│        ├── developer-pkm ·········· ADRs, learning journals, snippet vaults
-│        ├── migration ············· Notion→Obsidian, Logseq→Obsidian, OneNote→Notion
-│        ├── todos ··················· PARA-based task management, Todoist integration
-│        └── jdk-upgrade ············ SDKMAN!, Temurin, JDK 25 LTS migration
+│    ├── /digital-notetaking ··········· PKM methods, tools, migration & JDK upgrade
+│    │   ├── methods ················· PARA, CODE (Capture/Organize/Distill/Express), Zettelkasten, GTD
+│    │   ├── tools ··················· Notion, Obsidian, Logseq, OneNote, Google Docs
+│    │   ├── developer-pkm ·········· ADRs, learning journals, snippet vaults
+│    │   ├── migration ············· Notion→Obsidian, Logseq→Obsidian, OneNote→Notion
+│    │   ├── todos ··················· PARA-based task management, Todoist integration
+│    │   └── jdk-upgrade ············ SDKMAN!, Temurin, JDK 25 LTS migration
+│    ├── Docs (brain/digitalnotetaking/)
+│    │   ├── START-HERE ·············· 4-path onboarding for getting started fast
+│    │   ├── code-method ············· CODE workflow: Capture, Organize, Distill, Express
+│    │   ├── para-method ············· PARA structure for developer notes
+│    │   ├── tools-comparison ········ Notion vs Obsidian vs Logseq vs OneNote
+│    │   ├── templates ··············· 8 ready-made note templates (ADR, session, snippet...)
+│    │   ├── migration-guide ········· Step-by-step tool migration guides
+│    │   └── ai-brain-integration ···· Linking AI sessions → brain workspace → PKM
+│    └── Brain Workspace commands
+│        ├── /brain-new ·············· Create a structured note in inbox/ or notes/
+│        ├── /brain-publish ·········· Promote a note to archive/ + git commit
+│        ├── /brain-search ··········· Search across inbox, notes, archive by tag/kind/date
+│        └── /brain-capture-session ·· Convert current AI session into a session note
 │
 │    └── /daily-assist ·············· Non-SE daily productivity
 │        ├── finance ················ Budget tracking, investment basics, expense analysis
@@ -221,6 +234,11 @@ You are the **navigation hub** for all available assistants and learning command
 │    ├── /composite ················· Combine multiple modes in one session
 │    ├── /context ··················· Continue prior conversation or start fresh
 │    ├── /scope ····················· Generic learning vs code-specific
+│    ├── /steer ····················· View or switch steering mode (default: completeness)
+│    │   ├── view ··················· Show active mode + all available modes
+│    │   ├── switch ················· Switch to beast / learning / design / debug / focused
+│    │   ├── explain ················ Explain what a mode does
+│    │   └── default ················ Confirm completeness mode is active
 │    └── /multi-session ············· Manage state across chat sessions
 │        ├── save-state ············· Save progress + MCP state to session file
 │        ├── resume ················· Resume from checkpoint, verify MCP servers
@@ -265,6 +283,7 @@ Quick Commands:
     /composite        → Combine multiple modes in one session
     /context          → Continue prior conversation or start fresh
     /scope            → Generic learning vs code-specific
+    /steer            → View or switch steering mode (default: completeness)
     /multi-session    → Save/resume state across chat sessions (incl. MCP state)
 
   Learning & Concepts:
@@ -283,7 +302,7 @@ Quick Commands:
     /mac-dev          → macOS dev environment: Homebrew, JDK, npm, IDEs, Docker, dotfiles
     /digital-notetaking → PKM systems (PARA/CODE/Zettelkasten), tools (Notion/Obsidian/Logseq), migration, JDK upgrade
     /mcp              → MCP: build servers, configure agents, API integration
-    /resources        → Search, discover & export 68+ curated learning resources
+    /resources        → Search, discover & export 95+ curated learning resources
     /language-guide   → Language-specific learning
     /tech-stack       → Frameworks & tech comparison
     /sdlc             → Development lifecycle & methods
@@ -306,6 +325,12 @@ Quick Commands:
 
   Daily Life:
     /daily-assist     → Finance, productivity, news
+
+  Brain Workspace:
+    /brain-new               → Create a note in inbox/ or notes/
+    /brain-publish           → Promote note to archive/ + git commit
+    /brain-search            → Search by tag, project, kind, date
+    /brain-capture-session   → Convert current AI session into a structured note
 
   Agents (select from dropdown):
     @Learning-Mentor      @Designer          @Debugger

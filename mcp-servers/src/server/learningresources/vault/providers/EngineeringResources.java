@@ -115,6 +115,29 @@ public final class EngineeringResources implements ResourceProvider {
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.ACTIVELY_MAINTAINED,
                         false, true, LanguageApplicability.UNIVERSAL, now
+                ),
+
+                new LearningResource(
+                        "3b1b-linear-algebra",
+                        "3Blue1Brown — Essence of Linear Algebra (Video Series)",
+                        "https://www.3blue1brown.com/topics/linear-algebra",
+                        "Grant Sanderson's 16-video animated series on linear algebra. "
+                                + "Covers vectors, linear transformations, matrix multiplication, "
+                                + "determinants, eigenvectors and eigenvalues, and abstract vector "
+                                + "spaces — all through geometric intuition rather than formula "
+                                + "memorization. Essential prerequisite for ML/deep learning and "
+                                + "a gold-standard example of visual mathematical teaching.",
+                        ResourceType.PLAYLIST,
+                        List.of(ResourceCategory.SOFTWARE_ENGINEERING,
+                                ResourceCategory.AI_ML),
+                        List.of(ConceptArea.MATHEMATICS, ConceptArea.MACHINE_LEARNING),
+                        List.of("3blue1brown", "linear-algebra", "vectors", "matrices",
+                                "eigenvalues", "eigenvectors", "determinants", "transformations",
+                                "math", "visualizations", "grant-sanderson", "ml-prerequisites"),
+                        "Grant Sanderson (3Blue1Brown)",
+                        DifficultyLevel.BEGINNER,
+                        ContentFreshness.EVERGREEN,
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 )
         );
     }

@@ -219,12 +219,30 @@ java --version     # should show 25
 | Building a Second Brain (BASB) | Newbie | https://www.buildingasecondbrain.com/ |
 | PARA Method — Forte Labs | Newbie | https://fortelabs.com/blog/para/ |
 | CODE Method — 4 Levels of PKM | Intermediate | https://fortelabs.com/blog/the-4-levels-of-personal-knowledge-management/ |
+| Progressive Summarization | Intermediate | https://fortelabs.com/blog/progressive-summarization-a-practical-technique-for-designing-discoverable-notes/ |
 | Zettelkasten Introduction | Intermediate | https://zettelkasten.de/introduction/ |
+| Getting Things Done (GTD) | Newbie | https://gettingthingsdone.com/what-is-gtd/ |
 | Obsidian Documentation | Newbie | https://help.obsidian.md/ |
+| Obsidian Community Plugins | Intermediate | https://obsidian.md/plugins |
 | Notion Help Center | Newbie | https://www.notion.so/help |
 | Logseq Documentation | Newbie | https://docs.logseq.com/ |
+| Foam — VS Code PKM | Newbie | https://foambubble.github.io/foam/ |
 | PKM for Software Engineers | Intermediate | https://fortelabs.com/blog/how-to-take-smart-notes-for-software-engineers/ |
 | Notion → Obsidian Migration | Intermediate | https://help.obsidian.md/import/notion |
+| Todoist + PARA Guide | Newbie | https://app.todoist.com/app/getting-started |
 | SDKMAN! — JDK Version Manager | Beginner | https://sdkman.io/ |
 | Eclipse Temurin (Adoptium) | Beginner | https://adoptium.net/ |
 | JDK 25 Release Notes | Intermediate | https://openjdk.org/projects/jdk/25/ |
+
+---
+
+## Related Docs in This Repo
+
+| Guide | What it covers |
+|---|---|
+| [brain/digitalnotetaking/START-HERE.md](../../../brain/digitalnotetaking/START-HERE.md) | Pick a tool, set up PARA, capture your first note |
+| [brain/digitalnotetaking/tools-comparison.md](../../../brain/digitalnotetaking/tools-comparison.md) | Notion vs Obsidian vs Logseq vs OneNote — decision guide |
+| [brain/digitalnotetaking/para-method.md](../../../brain/digitalnotetaking/para-method.md) | PARA method applied to every tool |
+| [brain/digitalnotetaking/templates.md](../../../brain/digitalnotetaking/templates.md) | ADR, daily log, snippet vault, resource, debug, meeting templates |
+| [brain/digitalnotetaking/migration-guide.md](../../../brain/digitalnotetaking/migration-guide.md) | Notion→Obsidian, OneNote→Notion, Logseq→Obsidian, Any→Markdown |
+| [brain/ai-brain/README.md](../../../brain/ai-brain/README.md) | Live ai-brain workspace (inbox, notes, archive, scripts) |

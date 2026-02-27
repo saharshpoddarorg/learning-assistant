@@ -30,6 +30,7 @@
 | `/context` | Continue prior conversation or start fresh | Agent | `/context` → `continue` |
 | `/scope` | Set generic vs code-specific scope | Agent | `/scope` → `generic` |
 | `/multi-session` | Manage state across chat sessions | Agent | `/multi-session` → `save-state` |
+| `/steer` | View or switch the active steering mode | Copilot | `/steer` → `view` |
 
 ### Learning & Concepts
 | Command | Purpose | Agent | Quick Example |
@@ -79,6 +80,7 @@
 | `/brain-new` | Create a new knowledge note (inbox or notes tier) | Copilot | `/brain-new` → `"generics cheatsheet"` → `notes` |
 | `/brain-publish` | Publish note to archive/ with tagging and git commit | Copilot | `/brain-publish` → `inbox/2026-02-21_draft.md` |
 | `/brain-search` | Search notes by tag, project, kind, date, or text | Copilot | `/brain-search` → `"sse transport"` → `tier=archive` |
+| `/brain-capture-session` | Convert current AI session into a structured session note | Copilot | `/brain-capture-session` → `topic` → `full` |
 
 ---
 
@@ -108,6 +110,8 @@
 | `daily-assistant-resources` | Finance, productivity, news | Daily life resources |
 | `career-resources` | Job roles, salaries, career | Career data and roadmaps |
 | `mcp-development` | MCP servers, protocol, tools, agents | MCP server setup, architecture & dev guide (1,980 lines) |
+| `digital-notetaking` | PKM, PARA, Obsidian, Notion, Logseq, Zettelkasten, second brain, note-taking | Tool comparison, note templates (ADR, sprint log, snippet), migration guides, JDK commands |
+| `mac-dev` | Homebrew, JDK on Mac, nvm, Docker Desktop, zsh, dotfiles | macOS dev environment cheatsheets — install, configure, automate |
 
 ---
 
@@ -123,7 +127,9 @@
 ├── instructions/
 │   ├── README.md                    👤 How instructions work
 │   ├── java.instructions.md         🤖 Java coding standards
-│   └── clean-code.instructions.md   🤖 Clean code practices
+│   ├── clean-code.instructions.md   🤖 Clean code practices
+│   ├── change-completeness.instructions.md  🤖 Completeness checklist — DEFAULT steering mode (applyTo: **)
+│   └── steering-modes.instructions.md  🤖 All steering modes — completeness | beast | learning | design | debug | focused
 │
 ├── agents/
 │   ├── README.md                    👤 How agents work
@@ -144,6 +150,7 @@
 │   ├── context.prompt.md            🤖 /context — continue/fresh
 │   ├── scope.prompt.md              🤖 /scope — generic/specific
 │   ├── multi-session.prompt.md      🤖 /multi-session — cross-session state
+│   ├── steer.prompt.md              🤖 /steer — view or switch steering mode (default: completeness)
 │   │
 │   │── [Learning & Concepts]
 │   ├── learn-concept.prompt.md      🤖 /learn-concept — any concept
@@ -163,6 +170,10 @@
 │   ├── interview-prep.prompt.md     🤖 /interview-prep — interviews
 │   ├── career-roles.prompt.md       🤖 /career-roles — job roles & pay
 │   ├── resources.prompt.md          🤖 /resources — learning resource vault
+│   ├── git-vcs.prompt.md            🤖 /git-vcs — Git workflows, branching, conventions
+│   ├── build-tools.prompt.md        🤖 /build-tools — Maven, Gradle, Make, Bazel, npm
+│   ├── mac-dev.prompt.md            🤖 /mac-dev — macOS dev environment
+│   ├── digital-notetaking.prompt.md 🤖 /digital-notetaking — PKM, tools, Obsidian, Notion, PARA
 │   │
 │   │── [Code Quality]
 │   ├── design-review.prompt.md      🤖 /design-review — SOLID review
@@ -178,7 +189,8 @@
 │   │── [Brain Workspace]
 │   ├── brain-new.prompt.md          🤖 /brain-new — create inbox/notes note
 │   ├── brain-publish.prompt.md      🤖 /brain-publish — publish to archive & commit
-│   └── brain-search.prompt.md       🤖 /brain-search — search across tiers
+│   ├── brain-search.prompt.md       🤖 /brain-search — search across tiers
+│   └── brain-capture-session.prompt.md  🤖 /brain-capture-session — convert AI session to session note
 │
 ├── skills/
 │   ├── README.md                    👤 How skills work
@@ -189,6 +201,8 @@
 │   ├── software-engineering-resources/SKILL.md  🤖 SE/CS resources
 │   ├── daily-assistant-resources/SKILL.md  🤖 Daily life resources
 │   ├── career-resources/SKILL.md    🤖 Career data
+│   ├── digital-notetaking/SKILL.md  🤖 PKM methods, tool cheatsheets, note templates, JDK commands
+│   ├── mac-dev/SKILL.md             🤖 Homebrew, JDK, npm, Docker, shell, dotfiles cheatsheets
 │   └── mcp-development/SKILL.md     🤖 MCP protocol & server development (1,980 lines)
 │
 └── docs/
@@ -207,45 +221,34 @@
     ├── versioning-guide.md          👤 Server versioning strategy (McpServer interface, registry, package-per-version pattern)
     ├── search-engine.md             👤 Search engine developer guide (🟢 Newbie / 🟡 Amateur / 🔴 Pro)
     └── search-engine-algorithms.md  👤 BM25, TextMatchScorer, FuzzyMatcher, QueryClassifier deep-dive
-├── user-config/
-│   ├── mcp-config.example.properties 👤 Full reference template (committed)
-│   └── mcp-config.properties        👤 Active config (GITIGNORED)
-├── scripts/                         👤 Automation (setup, browser isolation, auth, utils)
+
+brain/
+│
+├── README.md                        👤 Brain module overview — note workspace + PKM guide library
+│
+├── digitalnotetaking/               👤 PKM guide library for developers
+│   ├── README.md                    👤 Module overview + Copilot integration guide
+│   ├── START-HERE.md                👤 Onboarding: pick a tool, set up PARA, capture first note
+│   ├── tools-comparison.md          👤 Notion vs Obsidian vs Logseq vs OneNote — decision guide
+│   ├── para-method.md               👤 PARA method applied to devs (Obsidian, Notion, Logseq, ai-brain)
+│   ├── code-method.md               👤 CODE method guide — Capture, Organize, Distill (Progressive Summarization), Express
+│   ├── ai-brain-integration.md      👤 Linking AI sessions to PKM — session lifecycle, Obsidian/Notion/Logseq, /brain-capture-session
+│   ├── templates.md                 👤 Note templates: ADR, daily log, snippet, resource, debug, meeting
+│   └── migration-guide.md           👤 Step-by-step migration: Notion→Obsidian, OneNote→Notion, etc.
+│
+├── ai-brain/
+│   ├── README.md                    👤 Live workspace guide — 3 tiers, scripts, frontmatter schema
+│   ├── inbox/                       🔒 Gitignored — quick capture (drop anything here)
+│   ├── notes/                       🔒 Gitignored — curated notes (stays on this machine)
+│   ├── archive/                     ✅ Git-tracked — published notes, permanent reference
+│   └── scripts/                     👤 brain.ps1 / brain.sh CLI + brain-module.psm1 aliases
+│
 └── src/
-    ├── Main.java                    👤 Entry point — loads & prints config
-    ├── config/                      👤 Java records, loader, validator, facade
-    ├── [search-engine module]          🔍 Self-contained; both contracts AND implementations in one module
-    │   ├── search.api.*             ← 12 interface/contract files (SearchEngine, SearchResult…)
-    │   └── search.engine.*          ← 14 implementation files (ConfigurableSearchEngine…)
-    └── server/
-        ├── McpServer.java           ← Common contract for all MCP server implementations
-        ├── McpServerRegistry.java   ← Active-server registry; supports version swap
-        ├── learningresources/       🌐 Learning Resources Server (10 tools)
-        │   ├── LearningResourcesServer.java  ← STDIO entry point
-        │   ├── README.md            👤 Server docs
-        │   ├── model/               ← Domain models
-        │   ├── scraper/             ← Web scraping (HttpClient)
-        │   ├── content/             ← Summarizer, reader, readability scorer
-        │   ├── vault/               ← Built-in resource library (47+ resources)
-        │   └── handler/             ← 10 tool handlers
-        └── atlassian/               🌐 Atlassian Server — Jira + Confluence + Bitbucket (27 tools)
-            ├── AtlassianServer.java ← STDIO entry point; JSON-RPC 2.0 dispatcher
-            ├── README.md            👤 Server docs (all 27 tools, config, architecture)
-            ├── config/              ← AtlassianConfigLoader, AtlassianServerConfig
-            ├── model/               ← Domain models (jira/, confluence/, bitbucket/)
-            ├── client/              ← REST API clients (Jira v3, Confluence v2, Bitbucket 2.0)
-            ├── handler/             ← 27 tools across 5 handler files
-            │   ├── ToolHandler.java           ← Central router (all 27 tools)
-            │   ├── JiraHandler.java           ← 11 Jira tools
-            │   ├── ConfluenceHandler.java     ← 7 Confluence tools
-            │   ├── BitbucketHandler.java      ← 8 Bitbucket tools
-            │   ├── UnifiedSearchHandler.java  ← Cross-product search
-            │   └── HandlerUtils.java          ← Shared: escapeJson, truncate, parseMaxResults
-            ├── formatter/           ← Legacy formatter stubs
-            └── util/                ← JsonExtractor (lightweight JSON parsing, no deps)
+    ├── Main.java                    👤 Entry point
+    └── digitalnotetaking/           🤖 Java package: NoteKind, NoteStatus, NoteMetadata, NoteTemplate
 ```
 
-**Legend:** 🤖 = Copilot reads this file | 👤 = Developer documentation only
+**Legend:** 🤖 = Copilot reads this file | 👤 = Developer documentation only | 🔒 = Gitignored | ✅ = Git-tracked
 
 ---
 
@@ -306,6 +309,19 @@
 | **Search my notes** | `/brain-search` | Brain |
 | **Use brain from the terminal** | `.\brain\scripts\brain.ps1 <command>` | Script |
 | **Use brain short aliases** | `. .\brain\scripts\brain-module.psm1` then `brain <command>` | Script |
+| **Learn PKM methods (PARA, CODE, Zettelkasten)** | `/digital-notetaking` → `para-method` | Prompt |
+| **Set up Obsidian / Notion / Logseq** | `/digital-notetaking` → tool → level | Prompt |
+| **Migrate between note-taking tools** | `/digital-notetaking` → `migration` | Prompt |
+| **Browse note templates (ADR, daily log, snippet)** | [brain/digitalnotetaking/templates.md](../../brain/digitalnotetaking/templates.md) | Doc |
+| **Compare Notion vs Obsidian vs Logseq** | [brain/digitalnotetaking/tools-comparison.md](../../brain/digitalnotetaking/tools-comparison.md) | Doc |
+| **Understand PARA method for devs** | [brain/digitalnotetaking/para-method.md](../../brain/digitalnotetaking/para-method.md) | Doc |
+| **Understand CODE method (Capture/Organize/Distill/Express)** | [brain/digitalnotetaking/code-method.md](../../brain/digitalnotetaking/code-method.md) | Doc |
+| **Link AI sessions to your PKM / note workspace** | [brain/digitalnotetaking/ai-brain-integration.md](../../brain/digitalnotetaking/ai-brain-integration.md) | Doc |
+| **Capture current AI session as a structured note** | `/brain-capture-session` | Brain |
+| **New to PKM? Start here** | [brain/digitalnotetaking/START-HERE.md](../../brain/digitalnotetaking/START-HERE.md) | Doc |
+| **View or switch Copilot steering mode** | `/steer` | Meta |
+| **See all steering modes and which is active** | `/steer` → `view` | Meta |
+| **Switch to deep-research mode** | `/steer` → `switch` → `beast` | Meta |
 
 ---
 

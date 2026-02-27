@@ -29,7 +29,7 @@ public final class AiMlResources implements ResourceProvider {
                         "Free courses teaching deep learning with a top-down, code-first "
                                 + "approach. Covers image classification, NLP, tabular data, "
                                 + "and collaborative filtering using PyTorch and the fastai library.",
-                        ResourceType.COURSE,
+                        ResourceType.VIDEO_COURSE,
                         List.of(ResourceCategory.AI_ML),
                         List.of(ConceptArea.MACHINE_LEARNING, ConceptArea.GETTING_STARTED),
                         List.of("deep-learning", "pytorch", "nlp", "image-classification",
@@ -74,6 +74,29 @@ public final class AiMlResources implements ResourceProvider {
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
                         true, true, LanguageApplicability.MULTI_LANGUAGE, now
+                ),
+
+                new LearningResource(
+                        "3b1b-neural-networks",
+                        "3Blue1Brown — Neural Networks (Video Series)",
+                        "https://www.3blue1brown.com/topics/neural-networks",
+                        "Grant Sanderson's beautifully animated video series on neural networks "
+                                + "and deep learning. Covers: what a neural network is, gradient "
+                                + "descent, backpropagation, and — in later episodes — transformers, "
+                                + "attention mechanisms, LLMs, and diffusion models. Uses visual "
+                                + "intuition instead of dense math. Ideal starting point before "
+                                + "diving into fast.ai or a full ML course.",
+                        ResourceType.PLAYLIST,
+                        List.of(ResourceCategory.AI_ML),
+                        List.of(ConceptArea.MACHINE_LEARNING, ConceptArea.DEEP_LEARNING),
+                        List.of("3blue1brown", "neural-networks", "deep-learning",
+                                "gradient-descent", "backpropagation", "transformers",
+                                "attention", "llm", "visualizations", "intuition",
+                                "beginner", "grant-sanderson"),
+                        "Grant Sanderson (3Blue1Brown)",
+                        DifficultyLevel.BEGINNER,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 )
         );
     }

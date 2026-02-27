@@ -48,8 +48,11 @@ Custom instructions are **path-scoped coding standards**. They tell Copilot *how
 |---|---|---|
 | [`java.instructions.md`](java.instructions.md) | `**/*.java` | Java naming, structure, Javadoc, error handling |
 | [`clean-code.instructions.md`](clean-code.instructions.md) | `**/*.java` | Code smells, SOLID hints, refactoring cues |
+| [`change-completeness.instructions.md`](change-completeness.instructions.md) | `**` | Iterative completeness — never add in isolation; cross-file ripple checklist |
+| [`steering-modes.instructions.md`](steering-modes.instructions.md) | `**` | Defines all available steering modes; establishes `completeness` as DEFAULT |
 
-> Both files apply to `**/*.java` — they **stack together** when you edit any `.java` file.
+> `java.instructions.md` and `clean-code.instructions.md` apply to `**/*.java` — they **stack together** when you edit any `.java` file.
+> `change-completeness.instructions.md` and `steering-modes.instructions.md` apply to `**` — they are always active.
 
 ---
 

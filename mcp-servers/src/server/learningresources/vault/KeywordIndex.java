@@ -71,6 +71,28 @@ public final class KeywordIndex {
         map.put("collections", ConceptArea.DATA_STRUCTURES);
         map.put("list", ConceptArea.DATA_STRUCTURES);
         map.put("map", ConceptArea.DATA_STRUCTURES);
+        map.put("tree", ConceptArea.DATA_STRUCTURES);
+        map.put("trees", ConceptArea.DATA_STRUCTURES);
+        map.put("graph", ConceptArea.DATA_STRUCTURES);
+        map.put("graphs", ConceptArea.DATA_STRUCTURES);
+        map.put("heap", ConceptArea.DATA_STRUCTURES);
+        map.put("trie", ConceptArea.DATA_STRUCTURES);
+        map.put("stack", ConceptArea.DATA_STRUCTURES);
+        map.put("queue", ConceptArea.DATA_STRUCTURES);
+        map.put("deque", ConceptArea.DATA_STRUCTURES);
+        map.put("linked list", ConceptArea.DATA_STRUCTURES);
+        map.put("linked-list", ConceptArea.DATA_STRUCTURES);
+        map.put("hash table", ConceptArea.DATA_STRUCTURES);
+        map.put("hashmap", ConceptArea.DATA_STRUCTURES);
+        map.put("bst", ConceptArea.DATA_STRUCTURES);
+        map.put("binary search tree", ConceptArea.DATA_STRUCTURES);
+        map.put("avl", ConceptArea.DATA_STRUCTURES);
+        map.put("avl tree", ConceptArea.DATA_STRUCTURES);
+        map.put("red-black tree", ConceptArea.DATA_STRUCTURES);
+        map.put("union-find", ConceptArea.DATA_STRUCTURES);
+        map.put("disjoint set", ConceptArea.DATA_STRUCTURES);
+        map.put("neetcode", ConceptArea.DATA_STRUCTURES);
+        map.put("java collections", ConceptArea.DATA_STRUCTURES);
         map.put("algorithms", ConceptArea.ALGORITHMS);
         map.put("sorting", ConceptArea.ALGORITHMS);
         map.put("searching", ConceptArea.ALGORITHMS);
@@ -209,13 +231,51 @@ public final class KeywordIndex {
         map.put("roam", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("pkm", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("second brain", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("second-brain", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("para method", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("para", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("code method", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("zettelkasten", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("tiago forte", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("knowledge management", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("digital notes", ConceptArea.KNOWLEDGE_MANAGEMENT);
-
+        map.put("gtd", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("getting things done", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("david allen", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("basb", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("progressive summarization", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("progressive-summarization", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("foam", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("adr", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("architecture decision record", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("daily notes", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("daily journal", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("obsidian plugins", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("dataview", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("templater", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("migration", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("todoist", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        // Playlist / video series
+        map.put("playlist", ConceptArea.GETTING_STARTED);
+        map.put("video series", ConceptArea.GETTING_STARTED);
+        map.put("youtube playlist", ConceptArea.GETTING_STARTED);
+        // CS50
+        map.put("cs50", ConceptArea.GETTING_STARTED);
+        map.put("harvard cs", ConceptArea.GETTING_STARTED);
+        // 3Blue1Brown
+        map.put("3blue1brown", ConceptArea.DEEP_LEARNING);
+        map.put("3b1b", ConceptArea.DEEP_LEARNING);
+        map.put("linear algebra", ConceptArea.MATHEMATICS);
+        map.put("calculus", ConceptArea.MATHEMATICS);
+        map.put("statistics", ConceptArea.MATHEMATICS);
+        map.put("probability", ConceptArea.MATHEMATICS);
+        map.put("discrete math", ConceptArea.MATHEMATICS);
+        map.put("neural network", ConceptArea.DEEP_LEARNING);
+        map.put("neural networks", ConceptArea.DEEP_LEARNING);
+        map.put("deep learning", ConceptArea.DEEP_LEARNING);
+        map.put("gradient descent", ConceptArea.DEEP_LEARNING);
+        map.put("backpropagation", ConceptArea.DEEP_LEARNING);
+        map.put("transformers", ConceptArea.DEEP_LEARNING);
         return Map.copyOf(map);
     }
 
@@ -271,6 +331,17 @@ public final class KeywordIndex {
         map.put("deep learning", ResourceCategory.AI_ML);
         map.put("algorithm", ResourceCategory.ALGORITHMS);
         map.put("algorithms", ResourceCategory.ALGORITHMS);
+        map.put("data structures", ResourceCategory.ALGORITHMS);
+        map.put("data-structures", ResourceCategory.ALGORITHMS);
+        map.put("ds", ResourceCategory.ALGORITHMS);
+        map.put("dsa", ResourceCategory.ALGORITHMS);
+        map.put("linked list", ResourceCategory.ALGORITHMS);
+        map.put("trees", ResourceCategory.ALGORITHMS);
+        map.put("graphs", ResourceCategory.ALGORITHMS);
+        map.put("heaps", ResourceCategory.ALGORITHMS);
+        map.put("trie", ResourceCategory.ALGORITHMS);
+        map.put("hash table", ResourceCategory.ALGORITHMS);
+        map.put("neetcode", ResourceCategory.ALGORITHMS);
         map.put("testing", ResourceCategory.TESTING);
         map.put("junit", ResourceCategory.TESTING);
         map.put("engineering", ResourceCategory.SOFTWARE_ENGINEERING);
@@ -281,6 +352,22 @@ public final class KeywordIndex {
         map.put("pkm", ResourceCategory.PRODUCTIVITY);
         map.put("note-taking", ResourceCategory.PRODUCTIVITY);
         map.put("productivity", ResourceCategory.PRODUCTIVITY);
+        map.put("gtd", ResourceCategory.PRODUCTIVITY);
+        map.put("para", ResourceCategory.PRODUCTIVITY);
+        map.put("second-brain", ResourceCategory.PRODUCTIVITY);
+        map.put("todoist", ResourceCategory.PRODUCTIVITY);
+        map.put("foam", ResourceCategory.PRODUCTIVITY);
+        map.put("zettelkasten", ResourceCategory.PRODUCTIVITY);
+        // CS50 / Harvard
+        map.put("cs50", ResourceCategory.GENERAL);
+        map.put("harvard", ResourceCategory.GENERAL);
+        // Playlist / video series
+        map.put("playlist", ResourceCategory.GENERAL);
+        map.put("video series", ResourceCategory.GENERAL);
+        // 3Blue1Brown / math
+        map.put("3blue1brown", ResourceCategory.AI_ML);
+        map.put("3b1b", ResourceCategory.AI_ML);
+        map.put("linear algebra", ResourceCategory.AI_ML);
         return Map.copyOf(map);
     }
 

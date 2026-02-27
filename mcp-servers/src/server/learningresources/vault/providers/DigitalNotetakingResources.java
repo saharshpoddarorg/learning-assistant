@@ -285,6 +285,101 @@ public final class DigitalNotetakingResources implements ResourceProvider {
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.ACTIVELY_MAINTAINED,
                         false, true, LanguageApplicability.UNIVERSAL, now
+                ),
+
+                // ─── Progressive Summarization & Advanced Processing ───────────
+
+                new LearningResource(
+                        "progressive-summarization",
+                        "Progressive Summarization — Forte Labs",
+                        "https://fortelabs.com/blog/progressive-summarization-a-practical-technique-for-designing-discoverable-notes/",
+                        "Tiago Forte's landmark technique for making notes discoverable over "
+                                + "time. The four-layer model: Layer 1 (raw capture), Layer 2 "
+                                + "(bold the best passages), Layer 3 (highlight within bold), "
+                                + "Layer 4 (executive summary in your own words). Prevents the "
+                                + "'perfect notes syndrome' and ensures every note gets more "
+                                + "valuable each time you return to it. Essential companion to PARA.",
+                        ResourceType.BLOG,
+                        List.of(ResourceCategory.PRODUCTIVITY, ResourceCategory.GENERAL),
+                        List.of(ConceptArea.KNOWLEDGE_MANAGEMENT),
+                        List.of("progressive-summarization", "pkm", "tiago-forte", "distill",
+                                "summarization", "note-processing", "second-brain", "code-method"),
+                        "Forte Labs",
+                        DifficultyLevel.INTERMEDIATE,
+                        ContentFreshness.EVERGREEN,
+                        false, true, LanguageApplicability.UNIVERSAL, now
+                ),
+
+                // ─── Tools — Developer-Specific ───────────────────────────────
+
+                new LearningResource(
+                        "obsidian-community-plugins",
+                        "Obsidian Community Plugins Directory",
+                        "https://obsidian.md/plugins",
+                        "The official directory of 1000+ community plugins for Obsidian. "
+                                + "Essential plugins for developers: Dataview (query your vault "
+                                + "like a database), Templater (dynamic templates with JS/date "
+                                + "logic), Git (auto-commit your vault to GitHub), Excalidraw "
+                                + "(architecture diagrams in notes), Spaced Repetition (flashcard "
+                                + "review), QuickAdd (capture from command palette), and Calendar "
+                                + "(navigate daily notes). Searchable and filterable by category.",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.PRODUCTIVITY, ResourceCategory.TOOLS),
+                        List.of(ConceptArea.KNOWLEDGE_MANAGEMENT, ConceptArea.GETTING_STARTED),
+                        List.of("obsidian", "plugins", "dataview", "templater", "git-sync",
+                                "excalidraw", "community-plugins", "obsidian-git", "spaced-repetition",
+                                "quickadd", "note-taking", "pkm", "developer-tools"),
+                        "Obsidian.md Community",
+                        DifficultyLevel.INTERMEDIATE,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        true, true, LanguageApplicability.UNIVERSAL, now
+                ),
+
+                new LearningResource(
+                        "foam-vscode-pkm",
+                        "Foam — VS Code Personal Knowledge Management",
+                        "https://foambubble.github.io/foam/",
+                        "Foam is a free, open-source, VS Code-based alternative to Roam "
+                                + "Research / Obsidian. Built on Markdown files with backlinks, "
+                                + "graph visualisation, daily notes, Wikilinks, and tag support — "
+                                + "all directly inside VS Code. Perfect for developers who want "
+                                + "their notes in the same tool as their code. Supports GitHub "
+                                + "Pages publishing for a public knowledge garden.",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.PRODUCTIVITY, ResourceCategory.TOOLS),
+                        List.of(ConceptArea.KNOWLEDGE_MANAGEMENT, ConceptArea.GETTING_STARTED),
+                        List.of("foam", "vscode", "vs-code", "pkm", "markdown", "backlinks",
+                                "knowledge-graph", "wikilinks", "open-source", "developer-notes",
+                                "daily-notes", "note-taking", "roam-alternative", "obsidian-alternative"),
+                        "Foam Community / Riccardo Ferretti",
+                        DifficultyLevel.BEGINNER,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        true, true, LanguageApplicability.UNIVERSAL, now
+                ),
+
+                // ─── Productivity Methods ──────────────────────────────────────
+
+                new LearningResource(
+                        "getting-things-done",
+                        "Getting Things Done (GTD) — David Allen",
+                        "https://gettingthingsdone.com/what-is-gtd/",
+                        "David Allen's original productivity framework — the precursor and "
+                                + "complement to PARA. GTD's five steps: Capture (collect "
+                                + "everything), Clarify (what is it?), Organise (file it), "
+                                + "Reflect (review weekly), Engage (do). The GTD 'next action' "
+                                + "concept maps directly onto PARA Projects. Essential reading "
+                                + "for developers managing multiple responsibilities. Free "
+                                + "overview on the official site.",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.PRODUCTIVITY, ResourceCategory.GENERAL),
+                        List.of(ConceptArea.KNOWLEDGE_MANAGEMENT, ConceptArea.CAREER_DEVELOPMENT),
+                        List.of("gtd", "getting-things-done", "david-allen", "productivity",
+                                "next-action", "inbox-zero", "task-management", "workflow",
+                                "capture", "clarify", "organise", "review"),
+                        "David Allen Company",
+                        DifficultyLevel.BEGINNER,
+                        ContentFreshness.EVERGREEN,
+                        false, true, LanguageApplicability.UNIVERSAL, now
                 )
         );
     }
