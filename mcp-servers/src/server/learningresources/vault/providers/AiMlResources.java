@@ -88,7 +88,7 @@ public final class AiMlResources implements ResourceProvider {
                                 + "diving into fast.ai or a full ML course.",
                         ResourceType.PLAYLIST,
                         List.of(ResourceCategory.AI_ML),
-                        List.of(ConceptArea.MACHINE_LEARNING, ConceptArea.LLM_AND_PROMPTING),
+                        List.of(ConceptArea.MACHINE_LEARNING, ConceptArea.DEEP_LEARNING),
                         List.of("3blue1brown", "neural-networks", "deep-learning",
                                 "gradient-descent", "backpropagation", "transformers",
                                 "attention", "llm", "visualizations", "intuition",

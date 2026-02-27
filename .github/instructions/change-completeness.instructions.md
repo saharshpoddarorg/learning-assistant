@@ -35,6 +35,11 @@ When adding or expanding a `ResourceProvider` class (e.g., `VcsResources.java`, 
 - [ ] **Register in `BuiltInResources.java`** — add `new YourProvider()` to `PROVIDERS` and add `import`
 - [ ] **Enum check** — verify `ConceptArea` and `ResourceCategory` have the values you need;
   if not, add them (and update all enum-related tests/indexes)
+  - **Semantic correctness is mandatory** — read each enum value's Javadoc before assigning it;
+    do NOT choose an enum simply because it sounds close. If no existing value fits the concept,
+    create a new one rather than misusing an existing one.
+  - Example anti-patterns: using `LLM_AND_PROMPTING` for a series about neural-network math;
+    using `ALGORITHMS` for linear algebra / mathematical foundations.
 - [ ] **`KeywordIndex.java`** — add keyword → ConceptArea and keyword → ResourceCategory mappings
   for every new concept or technology introduced
 - [ ] **Skill file** — create or update `.github/skills/<domain>/SKILL.md` with:

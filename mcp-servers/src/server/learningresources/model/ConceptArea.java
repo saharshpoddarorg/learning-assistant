@@ -46,6 +46,9 @@ public enum ConceptArea {
     /** Algorithms: sorting, searching, dynamic programming, greedy, backtracking. */
     ALGORITHMS("algorithms", ConceptDomain.CORE_CS),
 
+    /** Mathematical foundations: linear algebra, calculus, probability, discrete math, statistics. */
+    MATHEMATICS("mathematics", ConceptDomain.CORE_CS),
+
     /** Big-O analysis, time/space complexity, benchmarking, optimization. */
     COMPLEXITY_ANALYSIS("complexity-analysis", ConceptDomain.CORE_CS),
 
@@ -116,8 +119,11 @@ public enum ConceptArea {
 
     // ─── AI & Data ──────────────────────────────────────────────────
 
-    /** Machine learning: neural networks, training, inference, models. */
+    /** Machine learning: supervised/unsupervised learning, models, training, inference. */
     MACHINE_LEARNING("machine-learning", ConceptDomain.AI_DATA),
+
+    /** Deep learning: neural networks (CNNs, RNNs, transformers), backpropagation, gradient descent. */
+    DEEP_LEARNING("deep-learning", ConceptDomain.AI_DATA),
 
     /** LLMs, prompt engineering, RAG, fine-tuning, AI agents. */
     LLM_AND_PROMPTING("llm-and-prompting", ConceptDomain.AI_DATA),

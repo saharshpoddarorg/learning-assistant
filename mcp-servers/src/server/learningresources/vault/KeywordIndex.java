@@ -263,14 +263,19 @@ public final class KeywordIndex {
         map.put("cs50", ConceptArea.GETTING_STARTED);
         map.put("harvard cs", ConceptArea.GETTING_STARTED);
         // 3Blue1Brown
-        map.put("3blue1brown", ConceptArea.MACHINE_LEARNING);
-        map.put("3b1b", ConceptArea.MACHINE_LEARNING);
-        map.put("linear algebra", ConceptArea.ALGORITHMS);
-        map.put("neural network", ConceptArea.MACHINE_LEARNING);
-        map.put("neural networks", ConceptArea.MACHINE_LEARNING);
-        map.put("gradient descent", ConceptArea.MACHINE_LEARNING);
-        map.put("backpropagation", ConceptArea.MACHINE_LEARNING);
-        map.put("transformers", ConceptArea.MACHINE_LEARNING);
+        map.put("3blue1brown", ConceptArea.DEEP_LEARNING);
+        map.put("3b1b", ConceptArea.DEEP_LEARNING);
+        map.put("linear algebra", ConceptArea.MATHEMATICS);
+        map.put("calculus", ConceptArea.MATHEMATICS);
+        map.put("statistics", ConceptArea.MATHEMATICS);
+        map.put("probability", ConceptArea.MATHEMATICS);
+        map.put("discrete math", ConceptArea.MATHEMATICS);
+        map.put("neural network", ConceptArea.DEEP_LEARNING);
+        map.put("neural networks", ConceptArea.DEEP_LEARNING);
+        map.put("deep learning", ConceptArea.DEEP_LEARNING);
+        map.put("gradient descent", ConceptArea.DEEP_LEARNING);
+        map.put("backpropagation", ConceptArea.DEEP_LEARNING);
+        map.put("transformers", ConceptArea.DEEP_LEARNING);
         return Map.copyOf(map);
     }
 

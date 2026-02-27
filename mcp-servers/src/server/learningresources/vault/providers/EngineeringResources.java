@@ -130,7 +130,7 @@ public final class EngineeringResources implements ResourceProvider {
                         ResourceType.PLAYLIST,
                         List.of(ResourceCategory.SOFTWARE_ENGINEERING,
                                 ResourceCategory.AI_ML),
-                        List.of(ConceptArea.MACHINE_LEARNING, ConceptArea.ALGORITHMS),
+                        List.of(ConceptArea.MATHEMATICS, ConceptArea.MACHINE_LEARNING),
                         List.of("3blue1brown", "linear-algebra", "vectors", "matrices",
                                 "eigenvalues", "eigenvectors", "determinants", "transformations",
                                 "math", "visualizations", "grant-sanderson", "ml-prerequisites"),
