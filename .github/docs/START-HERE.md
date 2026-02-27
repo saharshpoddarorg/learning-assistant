@@ -45,6 +45,15 @@ You don't know what MCP is, haven't customized Copilot before, and just want thi
 4. Open Copilot Chat (`Ctrl+Alt+I`) → switch to **Agent** mode
 5. Type `/hub` → see all 30 slash commands
 
+**Manage MCP servers after setup:**
+```
+Terminal → Run Task → "mcp-servers: status"   ← see what's running
+Terminal → Run Task → "mcp-servers: start (learning-resources)"
+Terminal → Run Task → "mcp-servers: stop (all)"
+Terminal → Run Task → "mcp-servers: restart (atlassian)"
+Terminal → Run Task → "mcp-servers: reset (all)"   ← nuclear reset: stop+clean+rebuild+start
+```
+
 ---
 
 ### 🟡 AMATEUR — "I know VS Code and GitHub but haven't used MCP or Copilot customization"
@@ -131,6 +140,13 @@ You ask Copilot a question
 | Switch Copilot persona | Chat mode dropdown → select agent name | [Agents Guide](../agents/README.md) |
 | Build MCP servers | `Ctrl+Shift+B` → `mcp-servers: build` | [MCP Setup](mcp-server-setup.md) |
 | Enable a server | Edit `.vscode/mcp.json` → `"disabled": false` | [mcp.json](../../.vscode/mcp.json) |
+| See server status | `Terminal → Run Task` → `mcp-servers: status` | [scripts/README](../../mcp-servers/scripts/README.md) |
+| Start a server | `Terminal → Run Task` → `mcp-servers: start (learning-resources)` | [server.ps1](../../mcp-servers/scripts/server.ps1) |
+| Stop all servers | `Terminal → Run Task` → `mcp-servers: stop (all)` | [server.sh](../../mcp-servers/scripts/server.sh) |
+| Restart / reset a server | `Terminal → Run Task` → `mcp-servers: restart` or `mcp-servers: reset` | [SETUP.md](../../mcp-servers/SETUP.md) |
+| Tail a server log | `Terminal → Run Task` → `mcp-servers: logs (learning-resources)` | [scripts/README](../../mcp-servers/scripts/README.md) |
+| Run demo mode | `Terminal → Run Task` → `mcp-servers: demo (learning-resources)` | [server.ps1](../../mcp-servers/scripts/server.ps1) |
+| List all MCP tools | `Terminal → Run Task` → `mcp-servers: list-tools (atlassian)` | [server.sh](../../mcp-servers/scripts/server.sh) |
 | Create a knowledge note | `/brain-new` in Chat | [Brain README](../../brain/README.md) |
 | Add Copilot rules to another project | [Export Guide §1](export-guide.md#1-copilot-customization-github) | [Export Guide](export-guide.md) |
 | Not lose work when chaining instructions | [Copilot Workflow](copilot-workflow.md) | [Workflow Tips](copilot-workflow.md) |

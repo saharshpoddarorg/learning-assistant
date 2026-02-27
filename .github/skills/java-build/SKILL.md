@@ -63,3 +63,78 @@ javac --version
 ```
 
 Both should show 21 or higher.
+
+---
+
+## Maven (pom.xml projects)
+
+### Common Maven Commands
+```sh
+mvn compile                      # compile source code
+mvn test                         # compile + run tests
+mvn package                      # compile + test + build JAR/WAR
+mvn install                      # package + install to local ~/.m2 repo
+mvn clean                        # delete target/ directory
+mvn clean install                # clean then full build (most common)
+mvn clean install -DskipTests    # skip tests for faster build
+mvn dependency:tree              # show full dependency tree
+mvn dependency:resolve           # download all dependencies
+```
+
+### Maven Lifecycle Order
+```
+validate -> compile -> test -> package -> verify -> install -> deploy
+```
+
+### Run a Main Class via Maven
+```sh
+mvn exec:java -Dexec.mainClass="com.example.Main"
+```
+
+---
+
+## Gradle (build.gradle / build.gradle.kts projects)
+
+### Common Gradle Commands
+```sh
+./gradlew build                  # compile + test + assemble
+./gradlew clean build            # clean then full build
+./gradlew test                   # run tests only
+./gradlew run                    # run the application
+./gradlew dependencies           # show dependency tree
+./gradlew tasks                  # list all available tasks
+./gradlew build -x test          # skip tests
+```
+
+### Kotlin DSL skeleton
+```kotlin
+plugins { application }
+group = "com.example"
+version = "1.0.0"
+repositories { mavenCentral() }
+dependencies {
+    testImplementation(kotlin("test"))
+}
+application { mainClass.set("com.example.Main") }
+```
+
+---
+
+## 3-Tier Build Learning Path
+
+### Newbie — Manual javac
+1. `javac src/Main.java` and `java -cp src Main`
+2. Understand classpath: where Java looks for `.class` files
+3. Fix the 7 common compilation errors above
+
+### Amateur — Maven or Gradle for real projects
+1. Maven: `mvn clean install`, `mvn test`, `mvn dependency:tree`
+2. Or Gradle: `./gradlew build`, `./gradlew dependencies`
+3. Understand lifecycle phases and plugin binding
+4. Resources: [Maven Getting Started](https://maven.apache.org/guides/getting-started/), [Gradle User Guide](https://docs.gradle.org/current/userguide/userguide.html)
+
+### Pro — Multi-module, CI/CD, advanced tooling
+1. Multi-module builds: parent POM / settings.gradle.kts
+2. Kotlin DSL for type-safe Gradle builds
+3. Version catalogs, BOM imports, dependency locking
+4. Resources: [Maven POM Reference](https://maven.apache.org/pom.html), [Gradle Multi-Project Builds](https://docs.gradle.org/current/userguide/multi_project_builds.html)

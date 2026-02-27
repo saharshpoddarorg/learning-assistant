@@ -45,7 +45,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (30 commands)
+### Quick Lookup (32 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -79,6 +79,8 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 28 | `/brain-new` | Brain Workspace | Create a new knowledge note (inbox or notes tier) | Copilot |
 | 29 | `/brain-publish` | Brain Workspace | Publish a note to archive/ with tagging and git commit | Copilot |
 | 30 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
+| 31 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
+| 32 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
 
 ---
 
@@ -269,13 +271,45 @@ Example:  /resources → search → java concurrency
 Actions:  search (keyword/tag), browse (by category), scrape (any URL),
           recommend (topic-based), add (new resource), details (deep-dive),
           discover (3 modes: specific/vague/exploratory), export (md/pdf/word)
-Vault:    47+ curated resources across Java, Python, Web, AI/ML, DevOps,
-          algorithms, engineering, databases, security, and more
+Vault:    68+ curated resources across Java, Python, Web, AI/ML, DevOps,
+          Git/VCS, build tools, algorithms, engineering, databases, security, and more
 MCP:      Backed by 10 MCP tools: search_resources, browse_vault, get_resource,
           list_categories, discover_resources, scrape_url, read_url, add_resource,
           add_resource_from_url, export_results
 Enums:    SearchMode (specific/vague/exploratory), ConceptDomain (8 domains),
           ConceptArea (33 concepts), DifficultyLevel, LanguageApplicability
+```
+
+#### `/git-vcs` — Git & Version Control
+```
+Inputs:   topic, goal, level (newbie/amateur/pro)
+Agent:    Learning-Mentor
+Tools:    codebase, fetch
+Example:  /git-vcs → rebase → understand-internals → pro
+          /git-vcs → conventional-commits → learn-concept → amateur
+Topics:   Git commands, branching, merging, rebasing, stash, cherry-pick,
+          GitFlow, GitHub Flow, trunk-based development,
+          conventional commits, semantic versioning, hooks, git internals
+Levels:   newbie (commands) → amateur (workflows/conventions) → pro (internals/automation)
+Resources: Learn Git Branching, Atlassian Git Tutorials, Pro Git Ch.10,
+           Conventional Commits, GitFlow, Trunk-Based Development
+```
+
+#### `/build-tools` — Build Automation
+```
+Inputs:   tool (maven/gradle/make/bazel/npm), topic, level (newbie/amateur/pro)
+Agent:    Learning-Mentor
+Tools:    codebase, fetch
+Example:  /build-tools → maven → dependency-management → amateur
+          /build-tools → gradle → kotlin-dsl → pro
+Tools covered: Maven (lifecycle, POM, BOM, multi-module),
+               Gradle (Kotlin DSL, version catalog, multi-project),
+               Make (Makefiles, targets, variables),
+               Bazel (Starlark, BUILD files, remote execution),
+               npm/yarn/pnpm (package.json, workspaces, scripts)
+Levels:   newbie (first build) → amateur (day-to-day) → pro (multi-module/CI/advanced)
+Resources: Maven Getting Started, Maven POM Reference, Gradle User Guide,
+           Gradle Kotlin DSL, Bazel Docs, Makefile Tutorial, npm Docs
 ```
 
 ---

@@ -1,6 +1,7 @@
 # Learning Assistant
 
-> **New to this repo?** → Start at [**.github/docs/START-HERE.md**](.github/docs/START-HERE.md) — it tells you exactly what to read based on your experience level.
+> **New to this repo?** → Start at [**.github/docs/START-HERE.md**](.github/docs/START-HERE.md) — it tells you exactly what to read based on your experience level.  
+> **Want everything in one place?** → [**USAGE.md**](USAGE.md) — comprehensive guide covering all features, all levels, all commands.
 
 > **Learn anything. Experiment freely. Grow continuously.**  
 > An open-source, AI-enhanced learning workspace that turns curiosity into structured knowledge.
@@ -349,6 +350,7 @@ For the full architecture, see the [Customization Guide](.github/docs/customizat
 
 | Doc | Purpose | Audience | Time |
 |---|---|---|---|
+| [**USAGE.md →**](USAGE.md) | **All-in-one guide: setup, Copilot, MCP servers, search engine, learning paths** | 🟢🟡🔴 All | ~45 min |
 | [**START HERE →**](.github/docs/START-HERE.md) | **Pick your reading path based on experience** | 🟢🟡🔴 All | ~2 min |
 | [Phase Guide](.github/docs/phase-guide.md) | Step-by-step: orient, build, configure, use, export | 🟢🟡🔴 All | ~20 min |
 | [Getting Started](.github/docs/getting-started.md) | Hands-on tutorial — try every feature | 🟢🟡 | ~30 min |

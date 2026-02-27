@@ -9,6 +9,7 @@
 
 - [How Copilot Chat Actually Works](#how-copilot-chat-actually-works)
 - [The Queue Question — Reading This First](#the-queue-question--reading-this-first)
+- [Steering — Ensuring Request Completion Order](#steering--ensuring-request-completion-order)
 - [Pattern 1: Front-Load Everything](#pattern-1-front-load-everything-newbie-recommended)
 - [Pattern 2: Multi-Turn Task Lists](#pattern-2-multi-turn-task-lists)
 - [Pattern 3: /multi-session — Save and Resume](#pattern-3-multi-session--save-and-resume)
@@ -70,6 +71,163 @@ Copilot STOPS. It is now WAITING for your next message.
 | You are worried Copilot will miss a task | Use Pattern 2 (task lists) — Copilot tracks checkboxes |
 
 The fundamental model: **Copilot is a powerful assistant, not a parallel background agent.** You remain in control of the work order. The strategies below let you direct it efficiently.
+
+---
+
+## Steering — Ensuring Request Completion Order
+
+> 🟢🟡🔴 **All levels:** This is the most common Copilot Chat pain point. Read this before sending complex multi-request messages.
+
+**The problem:** You send a request. Copilot responds (or is mid-response). You send another request. Copilot can then:
+- Abandon the first request mid-way
+- Mix work from both requests in one response
+- Silently skip parts of the first request entirely
+
+**The solution:** Use explicit completion gates, sequential ordering phrases, and confirmation questions embedded directly in your messages — and optionally, persist those rules in the instruction files that Copilot reads on every message.
+
+### What Is Steering?
+
+**Steering** is the practice of injecting control phrases and questions into your messages so Copilot finishes one task completely before picking up the next. It simulates a queue because Copilot has no built-in queue.
+
+The primary tool for steering is your **message text**. There is no UI queue, no background job list, no settings panel. You steer through words — and through the instruction files that run on every message automatically.
+
+### The Files That Control Copilot Behavior
+
+These are the MD files that shape how Copilot processes your requests. Edit them to make steering rules permanent across all sessions:
+
+| File | What it does | How to use it for steering |
+|------|-------------|----------------------------|
+| [`.github/copilot-instructions.md`](../copilot-instructions.md) | **Always-on rules** — injected into every Copilot message automatically, no action needed | Add completion enforcement rules here — they apply to every chat, always |
+| [`.github/instructions/java.instructions.md`](../instructions/java.instructions.md) | Java-specific rules, auto-applied to all `*.java` file edits | Add rules like "Do not move to the next file until the current file compiles" |
+| [`.github/instructions/clean-code.instructions.md`](../instructions/clean-code.instructions.md) | Clean code rules applied to all files | Add ordering rules like "Complete and confirm one change before suggesting the next" |
+| [`.github/prompts/`](../prompts/) | One `.prompt.md` per slash command — defines its behavior | Embed step-gate instructions in each prompt so commands self-sequence |
+| [`.github/agents/`](../agents/) | One `.agent.md` per AI persona | Make agents announce completion after every step |
+
+**Add permanent steering rules to `.github/copilot-instructions.md`:**
+
+Open [`.github/copilot-instructions.md`](../copilot-instructions.md) and append this block. It applies to every Copilot conversation automatically:
+
+```markdown
+## Task Execution Rules
+- When given multiple tasks, do them ONE AT A TIME in the order listed.
+- After each task, explicitly state: "✓ Task [N] complete: [one-line description]"
+- Do NOT start the next task until you have stated the current task's completion.
+- If you encounter a blocker on any task, state it explicitly and WAIT for my instruction before continuing.
+- Never silently skip a task. If something cannot be done, say so immediately.
+```
+
+### Completion Gates — Exact Phrases That Work
+
+These are the specific context questions and phrases you embed in your messages to force Copilot to stop and confirm before proceeding to the next item:
+
+#### Gate 1 — Explicit stop marker
+```
+Do TASK A completely.
+— STOP —
+Only AFTER you confirm Task A is done, begin TASK B.
+```
+
+#### Gate 2 — Required confirmation question
+```
+After completing TASK A, ask me: "Task A is done. Ready for Task B?"
+Wait for my reply before continuing to Task B.
+```
+
+#### Gate 3 — Numbered checklist with live completion display
+```
+Here are 3 tasks. Do them in order.
+After each one, show the updated checklist with [x] before continuing.
+
+- [ ] 1. Refactor ConfigManager.java — extract loadFromFile()
+- [ ] 2. Update ConfigParser.java — call the new method
+- [ ] 3. Add a unit test for loadFromFile()
+
+Do NOT move to the next task until you show me the updated list.
+```
+
+#### Gate 4 — The HOLD pattern (for new requests added after work started)
+When you think of a new request AFTER Copilot has already started or just responded:
+```
+HOLD. Before picking up anything new:
+1. Confirm you fully completed [brief description of the earlier request].
+2. List every file you changed in that earlier request.
+
+Once confirmed, I will give you the new task.
+```
+
+#### Gate 5 — Complete-or-abort checkpoint
+```
+After finishing Task 1:
+- If it is complete → say so explicitly, then move to Task 2.
+- If anything is incomplete → list exactly what is missing and ASK ME before proceeding.
+Do not silently skip or partially complete anything.
+```
+
+### How to Queue a New Request Without Disrupting In-Progress Work
+
+**Wrong way** — interrupts the earlier request:
+```
+[Copilot is mid-response on Task A]
+You: "Also, can you do Task B while you're at it?"
+```
+This risks Copilot mixing both tasks, or abandoning Task A entirely.
+
+**Right way — wait, then send a sequenced follow-up:**
+```
+Step 1: Let Copilot finish its current response completely. Do not type.
+Step 2: Read the response and confirm Task A is done.
+Step 3: Send a new message:
+
+"Good — Task A is confirmed complete.
+
+Before starting anything new:
+[address any follow-up from Task A if needed]
+
+Next task: [Task B description]
+Start Task B only after confirming Task A."
+```
+
+**Right way — prepend a completion audit question:**
+```
+"Before starting Task B, answer these:
+1. Did you fully complete [specific expected output of Task A]?
+2. Are all files from Task A written / saved?
+
+→ If yes to both: proceed with Task B.
+→ If no: finish Task A first, then confirm."
+```
+
+### Detecting When Earlier Work Was Abandoned
+
+Copilot sometimes silently skips parts of your instructions. Watch for these signals and the questions to ask:
+
+| Signal in Copilot's response | What it likely means | What to ask |
+|------------------------------|---------------------|-------------|
+| "I'll handle that in the next step" | Task was deferred, not done | "Do it now, fully, before responding about anything else." |
+| Code shown in chat but no files written | Only Ask mode was used, not Agent | Switch to Agent mode, or: "Apply this code directly to the file." |
+| Very short response to a multi-part request | Parts were skipped | "You were asked to do N things. List all N with their status: done / skipped / in progress." |
+| "Here's a summary..." with no actual code or diff shown | Work may be incomplete | "Show me the actual file contents and the diff." |
+| Copilot says "Done" but files look unchanged | Agent tool may have failed silently | "Confirm: did you actually write to the file system? Open the file and show me its current contents." |
+| Next task started without mentioning the previous | First task was silently abandoned | "Stop. What is the status of [Task A]? List every file changed for it before continuing." |
+
+### Injecting Steering Context Mid-Session
+
+If you are deep into a long session and lose confidence in ordering, use the **audit-and-continue** pattern:
+
+```
+Pause. Before continuing:
+
+1. List every file you have modified in this session so far.
+2. For every task from my original request, show its status:
+   ✓ done  /  ↻ in progress  /  ✗ not started
+3. Confirm what the NEXT task is.
+
+Then resume.
+```
+
+This resets the risk of drift mid-session and gives you a full accountability checkpoint.
+
+> 🟡 **Tip:** If you send this and Copilot's status list disagrees with what you see in git (`git diff --name-only`), trust git. Files in the response but not in the diff were likely described but not written.
 
 ---
 

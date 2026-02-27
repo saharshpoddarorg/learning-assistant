@@ -76,28 +76,157 @@ learning-assistant/
 
 ## Commit Guidelines
 
-### Commit Messages
-- Write **meaningful, descriptive** commit messages that summarize WHAT changed and WHY
-- Use imperative mood: "Add smart discovery engine" not "Added smart discovery engine"
-- First line: concise summary (≤ 72 characters)
-- Optional body: explain context, motivation, or notable changes (wrap at 72 chars)
-- Always **append author attribution** at the end of the commit message:
-  - For AI-generated code: `— created by gpt`
-  - For AI-assisted code with human edits: `— assisted by gpt`
-  - For human-only code: no suffix needed
+> This project follows [Conventional Commits](https://www.conventionalcommits.org/) (v1.0.0).
+> Every commit must be a clean, self-contained logical unit.
 
-### Commit Scope
-- Commit related changes together — one logical unit per commit
-- Don't mix unrelated changes (e.g., a bug fix + a new feature) in one commit
+### Commit Message Format
+
+```
+<type>(<scope>): <subject>          ← subject: ≤ 50 chars (hard limit 72)
+<blank line>
+<body>                               ← wrap at 72 chars; explain WHY, not WHAT
+<blank line>
+<footer(s)>                          ← BREAKING CHANGE, closes #N, attribution
+```
+
+**The subject line is mandatory. Body and footers are optional but strongly encouraged**
+for non-trivial changes.
+
+### Type Reference
+
+| Type | When to use |
+|------|-------------|
+| `feat` | New feature or capability visible to users / callers |
+| `fix` | Bug fix — corrects incorrect behaviour |
+| `refactor` | Code restructuring with no behaviour change (split, rename, extract) |
+| `docs` | Documentation only (README, Javadoc, prompt/skill files, comments) |
+| `style` | Formatting, whitespace, import ordering — no logic change |
+| `test` | Adding or updating tests |
+| `chore` | Build scripts, CI config, dependency bumps, tooling |
+| `perf` | Performance improvement |
+| `ci` | CI/CD pipeline changes |
+| `revert` | Reverts a previous commit (reference original SHA in body) |
+
+### Subject Line Rules
+
+- **Imperative mood**: "Add", "Fix", "Remove" — not "Added", "Fixed", "Removes"
+- **≤ 50 characters** (soft target); **72-character hard limit**
+- **No period** at the end
+- **Capital first letter** after the colon
+- **Scope is optional** but helps when the change touches one module: `feat(vault): …`
+
+### Body Rules
+
+- Separate from subject with a **blank line**
+- Wrap lines at **72 characters**
+- Explain **WHY** this change was made (motivation, context, trade-offs)
+- Explain **WHAT** changed if it isn't obvious from the subject
+- Use bullet points (`-`) for lists of changes
+
+### Footers
+
+```
+BREAKING CHANGE: <description>   ← required if API/interface changes
+Closes #<issue-number>           ← auto-closes linked GitHub issue
+Co-authored-by: name <email>     ← for pair/mob contributions
+— created by gpt                 ← AI attribution (see below)
+```
+
+**Breaking changes** can also be marked with `!` after the type:
+`refactor!(vault): rename ResourceVault to LearningVault`
+
+### Atomic Commit Principle
+
+- **One logical change per commit** — reviewers should be able to understand, revert, or
+  cherry-pick any commit in isolation
+- Don't mix a bug fix with a new feature in one commit
+- Don't mix code changes with formatting/whitespace changes
+- When a change spans many files, it can still be one commit — if it implements a single idea
 - Stage and review before committing: `git diff --staged`
 
-### Examples
-```
-feat: Add ResourceDiscovery smart search with relevance scoring
+### Author Attribution
 
-Implements three-mode discovery engine (specific, vague, exploratory)
-with keyword-to-concept inference, relevance scoring across 7 dimensions,
-and "did you mean?" suggestions for empty results.
+Always append as the last footer line:
+
+| Who wrote it | Suffix |
+|---|---|
+| AI-generated code | `— created by gpt` |
+| Human-edited AI output | `— assisted by gpt` |
+| Human only | *(no suffix)* |
+
+### Do ✅ / Don't ❌
+
+**Do:**
+```
+feat(vault): Add VcsResources provider with 9 curated resources
+
+Git foundations, branching strategies (GitFlow, GitHub Flow, TBD),
+Conventional Commits, SemVer, and git internals in a dedicated
+provider — keeping VCS concerns separate from build tooling.
 
 — created by gpt
 ```
+
+```
+fix(config): Null-check API key before making HTTP request
+
+Without the guard, a missing key caused a NullPointerException
+deep in the HTTP client rather than a clear ConfigValidationException
+at startup. Added Objects.requireNonNull with an explicit message.
+
+— assisted by gpt
+```
+
+```
+refactor(vault): Split GitAndBuildResources into VcsResources + BuildToolsResources
+
+VCS (version control workflows) and build automation (Maven, Gradle,
+Make) belong to different conceptual domains and have different
+audiences. Keeping them in one provider violated single-responsibility
+and made the vault harder to extend incrementally.
+
+- VcsResources: 9 resources — git foundations, branching, conventions
+- BuildToolsResources: 11 resources — Maven (5), Gradle (3), Make/Bazel/npm
+- BuiltInResources: imports sorted; PROVIDERS updated
+
+— created by gpt
+```
+
+**Don't:**
+```
+# ❌ vague subject
+update stuff
+
+# ❌ past tense
+fixed the bug in config loader
+
+# ❌ mixing unrelated changes
+feat: Add VcsResources; also fix typo in README and reformat imports
+
+# ❌ subject too long (> 72 chars)
+feat(learningresources): Add a comprehensive vault of resources about version control systems and git
+
+# ❌ missing type prefix
+Add new provider class for VCS resources
+```
+
+### Examples with Breaking Changes
+
+```
+feat(api)!: Replace List<String> tags with Set<String> in LearningResource
+
+Using Set enforces uniqueness at the model level and improves
+look-up performance from O(n) to O(1). Callers that relied on
+tag insertion order must update accordingly.
+
+BREAKING CHANGE: LearningResource.tags() now returns Set<String>
+instead of List<String>. Existing providers that use List.of(...)
+must be updated to Set.of(...).
+
+— created by gpt
+```
+
+### Reference
+
+- Specification: [conventionalcommits.org](https://www.conventionalcommits.org/en/v1.0.0/)
+- Related: [Semantic Versioning](https://semver.org/) — patch/minor/major maps to fix/feat/BREAKING CHANGE
