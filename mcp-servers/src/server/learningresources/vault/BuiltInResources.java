@@ -6,6 +6,7 @@ import server.learningresources.vault.providers.AlgorithmsResources;
 import server.learningresources.vault.providers.DataAndSecurityResources;
 import server.learningresources.vault.providers.DevOpsResources;
 import server.learningresources.vault.providers.EngineeringResources;
+import server.learningresources.vault.providers.GitAndBuildResources;
 import server.learningresources.vault.providers.GeneralResources;
 import server.learningresources.vault.providers.JavaResources;
 import server.learningresources.vault.providers.PythonResources;
@@ -42,6 +43,7 @@ public final class BuiltInResources {
             new AlgorithmsResources(),
             new EngineeringResources(),
             new DevOpsResources(),
+            new GitAndBuildResources(),
             new DataAndSecurityResources(),
             new AiMlResources(),
             new GeneralResources()
