@@ -130,7 +130,7 @@ Broad technology domains for grouping resources.
 | `GENERAL` | general | Cross-cutting or general topics |
 
 ### ConceptArea
-Fine-grained CS/SE concept areas for precise resource matching (33 values). Each concept belongs to a {@link ConceptDomain}.
+Fine-grained CS/SE concept areas for precise resource matching (36 values). Each concept belongs to a {@link ConceptDomain}.
 
 | Value | Display Name | Domain | Example Topics |
 |-------|-------------|--------|----------------|
@@ -310,7 +310,7 @@ server/learningresources/
 │   ├── LearningResource.java       ← Core 15-field resource record
 │   ├── ResourceType.java           ← Enum: documentation, tutorial, blog, ...
 │   ├── ResourceCategory.java       ← Enum: java, python, web, devops, ...
-│   ├── ConceptArea.java            ← Enum: 33 CS/SE concept areas (grouped by domain)
+│   ├── ConceptArea.java            ← Enum: 36 CS/SE concept areas (grouped by domain)
 │   ├── ConceptDomain.java          ← Enum: 8 high-level knowledge domains
 │   ├── SearchMode.java             ← Enum: specific / vague / exploratory intent
 │   ├── DifficultyLevel.java        ← Enum: beginner → expert with ordinal ranges

@@ -56,12 +56,12 @@ A **super-charged VS Code workspace** that combines three things:
 │     DSA, system design, DevOps, Git, design patterns, industry practices,  │
 │     career planning, tech trends 2025–26, and more.                        │
 │                                                                             │
-│  2. AI TUTOR — GitHub Copilot customized with 30 slash commands,           │
-│     7 AI agents, 8 knowledge packs, and project-wide coding rules.         │
+│  2. AI TUTOR — GitHub Copilot customized with 36 slash commands,           │
+│     7 AI agents, 11 knowledge packs, and project-wide coding rules.        │
 │     Ask questions, get lessons, explore concepts, practice code.           │
 │                                                                             │
 │  3. MCP TOOLS — Java servers that give Copilot real-world superpowers:     │
-│     search 47+ curated learning resources, scrape web pages, browse        │
+│     search ~100+ curated learning resources, scrape web pages, browse      │
 │     your Jira/Confluence, query GitHub repos — all from Chat.              │
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -172,7 +172,7 @@ cd mcp-servers && ./build.sh    # Linux/Mac
 1. `Ctrl+Alt+I` or `Ctrl+Shift+I` → opens Copilot Chat
 2. Switch to **Agent** mode (dropdown at top of chat panel)
 3. Type: `/hub`  
-   You should see a list of all 30 slash commands → setup is working.
+   You should see a list of all 36 slash commands → setup is working.
 
 ### Step 10 — Verify MCP Tools Are Available
 
@@ -189,7 +189,7 @@ You should see tools like `search_resources`, `browse_vault`, `discover_resource
 > This is what separates this repo from a simple code editor. Copilot is transformed from a
 > generic assistant into a specialized learning tutor, code reviewer, architect, and debugger.
 
-### 4.1 Slash Commands (30 commands)
+### 4.1 Slash Commands (36 commands)
 
 **How to use:**
 1. Open Copilot Chat (`Ctrl+Alt+I`)
@@ -200,7 +200,7 @@ You should see tools like `search_resources`, `browse_vault`, `discover_resource
 
 | Command | What it does | Example input |
 |---------|-------------|--------------|
-| `/hub` | Browse all 30 commands by category | (no input needed) |
+| `/hub` | Browse all 36 commands by category | (no input needed) |
 | `/learn-concept` | Learn any CS/SE concept from scratch | `binary search`, `TCP handshake`, `dependency injection` |
 | `/deep-dive` | Multi-layered exploration with analogies + code + quiz | `event-driven architecture` |
 | `/learn-from-docs` | Learn via official documentation links | `React hooks`, `Spring Boot` |
@@ -523,7 +523,7 @@ Open `.vscode/launch.json` — select from:
 
 > The first built-in MCP server. No credentials needed. Works out of the box after build.
 
-Built-in: **47+ curated learning resources** across Java, Web, DevOps, Cloud, AI/ML, System Design, and more.
+Built-in: **~100+ curated learning resources** across Java, Web, DevOps, Cloud, AI/ML, System Design, and more.
 
 **Available tools — ask Copilot to use them:**
 
@@ -743,7 +743,7 @@ User query
 │ TypeScorer:        resource type weight                                     │
 │ DifficultyScorer:  proximity to requested level                            │
 │ RecencyScorer:     newer resources get slight boost                        │
-│ ConceptScorer:     ConceptArea overlap (33 concepts across 8 domains)      │
+│ ConceptScorer:     ConceptArea overlap (36 concepts across 8 domains)      │
 │ LanguageScorer:    language applicability match                            │
 │ PopularityScorer:  based on vault usage / add count                        │
 └─────────────────────────────────┬───────────────────────────────────────────┘
@@ -1125,7 +1125,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `instructions/clean-code.instructions.md` | Clean code rules — applied to all files |
 | `instructions/build.instructions.md` | Build tool conventions — applied to `*.gradle` |
 | `agents/*.agent.md` | 7 AI personas (select from Chat dropdown) |
-| `prompts/*.prompt.md` | 30 slash commands (type `/command` in Chat) |
+| `prompts/*.prompt.md` | 36 slash commands (type `/command` in Chat) |
 | `skills/*/SKILL.md` | Knowledge packs (auto-load by topic match) |
 
 ### MCP Server Files
@@ -1161,7 +1161,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `.github/docs/phase-guide.md` | Step-by-step phases 0–7 |
 | `.github/docs/getting-started.md` | 30-min hands-on tutorial |
 | `.github/docs/mcp-server-setup.md` | MCP server setup (complete) |
-| `.github/docs/slash-commands.md` | All 30 commands reference |
+| `.github/docs/slash-commands.md` | All 36 commands reference |
 | `.github/docs/customization-guide.md` | How the 5 Copilot primitives connect |
 | `.github/docs/export-guide.md` | Copy to another project |
 | `.github/docs/copilot-workflow.md` | Chat patterns and best practices |
@@ -1300,7 +1300,7 @@ See [`.github/docs/export-guide.md`](.github/docs/export-guide.md) for a detaile
 COPILOT CHAT SHORTCUTS
 ──────────────────────
 Ctrl+Alt+I or Ctrl+Shift+I   Open Copilot Chat
-/hub                          Browse all 30 commands
+/hub                          Browse all 36 commands
 /learn-concept <topic>        Learn anything from scratch
 /dsa <structure/algorithm>    Deep DSA lesson
 /system-design <system>       Design a system

@@ -131,15 +131,15 @@ learning-assistant/
 │   └── src/
 │       ├── config/                      Java config system (records, loader, validator)
 │       └── server/
-│           ├── learningresources/       Learning Resources MCP Server (47+ built-in resources)
+│           ├── learningresources/       Learning Resources MCP Server (~100+ built-in resources)
 │           └── atlassian/               Atlassian MCP Server (27 tools: Jira, Confluence, Bitbucket)
 │
 └── .github/                         ← AI customization + knowledge base
     ├── copilot-instructions.md          Project-wide coding rules
     ├── instructions/                    Auto-loaded coding standards (Java, clean code)
     ├── agents/                          7 specialist AI personas
-    ├── prompts/                         30 slash commands (type /command in Chat)
-    ├── skills/                          8 auto-loaded knowledge packs
+    ├── prompts/                         36 slash commands (type /command in Chat)
+    ├── skills/                          11 auto-loaded knowledge packs
     │   └── software-engineering-resources/SKILL.md  ← The main knowledge base
     └── docs/                            Developer documentation & tutorials
 ```
@@ -165,7 +165,7 @@ learning-assistant/
 │   ├── daily-assistant.agent.md        Finance, productivity, news
 │   └── Thinking-Beast-Mode.agent.md    Autonomous deep research
 │
-├── prompts/                             30 slash commands including:
+├── prompts/                             36 slash commands including:
 │   ├── hub.prompt.md                    /hub — master navigation index
 │   ├── learn-concept.prompt.md          /learn-concept — any CS/SE concept
 │   ├── dsa.prompt.md                    /dsa — data structures & algorithms
@@ -198,7 +198,7 @@ learning-assistant/
     ├── copilot-workflow.md              Chat patterns, queuing instructions, token limits
     ├── getting-started.md               Step-by-step tutorial (~30 min)
     ├── customization-guide.md           Architecture deep-dive
-    ├── slash-commands.md                All 30 commands reference
+    ├── slash-commands.md                All 36 commands reference
     ├── navigation-index.md              Master file & command index
     └── file-reference.md               Copilot vs developer file guide
 ```
@@ -213,7 +213,7 @@ The `mcp-servers/` directory contains a **Java-based configuration system** and 
 
 ### Learning Resources Server (NEW)
 
-The first built-in MCP server — a **web scraper + curated resource vault** with 47+ hand-picked learning resources:
+The first built-in MCP server — a **web scraper + curated resource vault** with ~100+ hand-picked learning resources:
 
 | Tool | Description |
 |------|-------------|
@@ -358,7 +358,7 @@ For the full architecture, see the [Customization Guide](.github/docs/customizat
 | [Copilot Workflow](.github/docs/copilot-workflow.md) | Chat patterns, queuing instructions, token limits | 🟢🟡🔴 | ~10 min |
 | [Export Guide](.github/docs/export-guide.md) | Copy features to another project | 🟡🔴 | ~10 min |
 | [Customization Guide](.github/docs/customization-guide.md) | How the 5 primitives connect | 🟡🔴 | ~20 min |
-| [Slash Commands](.github/docs/slash-commands.md) | All 30 commands — inputs, aliases, composition | 🔴 | ~5 min |
+| [Slash Commands](.github/docs/slash-commands.md) | All 36 commands — inputs, aliases, composition | 🔴 | ~5 min |
 | [Navigation Index](.github/docs/navigation-index.md) | Master lookup — commands, agents, skills, files | 🔴 | ~5 min |
 | [File Reference](.github/docs/file-reference.md) | Which files Copilot reads vs. developer docs | 🟡🔴 | ~5 min |
 | [MCP Servers Deep Dive](mcp-servers/README.md) | Config architecture, Java sources, adding servers, browser isolation | 🟡🔴 | ~10 min |

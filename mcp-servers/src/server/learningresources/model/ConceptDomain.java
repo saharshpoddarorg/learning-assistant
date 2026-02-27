@@ -3,7 +3,7 @@ package server.learningresources.model;
 /**
  * High-level knowledge domains that group related {@link ConceptArea} values.
  *
- * <p>While {@code ConceptArea} provides fine-grained classification (33 values),
+ * <p>While {@code ConceptArea} provides fine-grained classification (36 values),
  * {@code ConceptDomain} arranges them into 8 broad domains — enabling domain-level
  * browsing, filtering, and curriculum design.
  *

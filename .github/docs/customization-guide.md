@@ -393,7 +393,7 @@ These files are **never loaded by Copilot**. They exist as reference material fo
 | `getting-started.md` | `docs/` | Hands-on tutorial |
 | `customization-guide.md` | `docs/` | Architecture deep-dive (this file) |
 | `file-reference.md` | `docs/` | Complete breakdown of who reads what |
-| `slash-commands.md` | `docs/` | All 30 slash commands: aliases, inputs, composition |
+| `slash-commands.md` | `docs/` | All 36 slash commands: aliases, inputs, composition |
 
 **How to write them:**
 - Write as **explanation for humans**: clear prose, examples, links

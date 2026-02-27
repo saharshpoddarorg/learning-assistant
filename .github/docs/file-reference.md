@@ -179,7 +179,7 @@ These files are **documentation for humans**. Copilot does NOT read these to sha
 | **Export Guide** | `.github/docs/export-guide.md` | Copy Copilot customization, MCP servers, and brain workspace to another project | When porting this setup to your own project |
 | **Copilot Workflow** | `.github/docs/copilot-workflow.md` | Copilot chat patterns, queuing instructions, multi-session, token limits | When working on complex multi-step tasks |
 | **File Reference** | `.github/docs/file-reference.md` | This file — which files are for whom | When confused about a file's purpose |
-| **Slash Commands Ref** | `.github/docs/slash-commands.md` | All 30 slash commands with aliases, inputs, composition | When looking up a specific command |
+| **Slash Commands Ref** | `.github/docs/slash-commands.md` | All 36 slash commands with aliases, inputs, composition | When looking up a specific command |
 | **MCP Servers README** | `mcp-servers/README.md` | Config architecture, setup guide, server definitions, browser isolation | When configuring or adding MCP servers |
 | **MCP Config Template** | `mcp-servers/user-config/mcp-config.example.properties` | Full property reference with documented placeholders (~280 lines) | When setting up MCP config for the first time |
 

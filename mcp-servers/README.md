@@ -496,7 +496,7 @@ LearningResourcesServer                     ← Learning Resources Server
 │   └── KeywordIndex        ~130 keyword-to-enum mappings
 ├── Model records &amp; enums:
 │   ├── LearningResource    15-field record (title, url, type, concepts, ...)
-│   ├── ConceptArea         33 CS/SE concepts grouped by ConceptDomain (8 domains)
+│   ├── ConceptArea         36 CS/SE concepts grouped by ConceptDomain (8 domains)
 │   ├── SearchMode          specific | vague | exploratory
 │   ├── DifficultyLevel     beginner | intermediate | advanced | expert
 │   ├── LanguageApplicability  universal | multi-language | java-centric | ...

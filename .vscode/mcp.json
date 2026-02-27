@@ -47,7 +47,7 @@
   "servers": {
 
     // ── Learning Resources ────────────────────────────────────────────────────
-    // Curated vault of 47+ learning resources (Java, Spring, Docker, MDN, etc.)
+    // Curated vault of ~100+ learning resources (Java, Spring, Docker, MDN, etc.)
     // Tools: search, browse, scrape, summarize, export, discover
     // No credentials required — works out of the box.
     // REQUIREMENT: Run "mcp-servers: build" task first.

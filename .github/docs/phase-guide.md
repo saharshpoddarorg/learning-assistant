@@ -135,7 +135,7 @@ The moment you open this folder in VS Code with Copilot installed:
 |---|---|
 | **Project rules** | Ask Copilot to write a Java method — it uses `Logger`, proper naming, Javadoc |
 | **Specialist agents** | Copilot Chat → mode dropdown → see Designer, Debugger, Learning-Mentor, etc. |
-| **30 slash commands** | Copilot Chat → type `/` → see all commands in picker |
+| **36 slash commands** | Copilot Chat → type `/` → see all commands in picker |
 | **Auto-loaded skills** | Ask Copilot "explain binary search" → it loads the skill automatically |
 
 ### 2.1 — Verify it works: Try a slash command
@@ -143,7 +143,7 @@ The moment you open this folder in VS Code with Copilot installed:
 1. Open Copilot Chat: `Ctrl+Alt+I`
 2. Make sure mode is **"Agent"** (dropdown at top of chat, not "Ask" or "Edit")
 3. Type `/hub` → press Enter
-4. Copilot shows all 30 commands organized by category
+4. Copilot shows all 36 commands organized by category
 
 > **If `/hub` doesn't appear in the dropdown:** The `.github/prompts/` folder isn't being read. Check that you opened the repo root folder, not a subfolder.
 
@@ -169,14 +169,14 @@ The moment you open this folder in VS Code with Copilot installed:
 │   ├── code-reviewer.agent.md
 │   ├── daily-assistant.agent.md
 │   └── Thinking-Beast-Mode.agent.md
-├── prompts/                       ← 30 slash commands
-│   └── [30 *.prompt.md files]
-└── skills/                        ← 8 knowledge packs
+├── prompts/                       ← 36 slash commands
+│   └── [36 *.prompt.md files]
+└── skills/                        ← 11 knowledge packs
     ├── software-engineering-resources/
     ├── java-learning-resources/
     ├── java-build/
     ├── mcp-development/
-    └── [4 more...]
+    └── [7 more...]
 ```
 
 ### 2.4 — How to customize further
