@@ -10,6 +10,9 @@
 ```
 learning-assistant/
 ├── .github/              ← Copilot customization files (you're learning this!)
+├── mac-os/               ← macOS dev environment learning module
+│   └── docs/             ← Homebrew, JDK, npm, IDEs, Docker, dotfiles guides
+├── mcp-servers/          ← MCP servers (Java)
 ├── src/
 │   └── Main.java         ← Entry point
 └── .gitignore

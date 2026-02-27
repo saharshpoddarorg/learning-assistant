@@ -172,6 +172,36 @@ You are the **navigation hub** for all available assistants and learning command
 │            ├── roadmap ············ Career transition plan
 │            └── interview-prep ····· Role-specific interview guide
 │
+├─── MACOS DEV ENVIRONMENT (/hub mac)
+│    └── /mac-dev ··················· macOS development environment setup
+│        ├── homebrew ··············· Install Homebrew, formulae, casks, taps, Brewfile
+│        │   ├── install ············ Installing Homebrew + post-setup PATH
+│        │   ├── casks ·············· GUI apps: IDEs, Docker, Postman via brew cask
+│        │   └── brewfile ··········· Reproduce environment: dump, install, cleanup
+│        ├── jdk ··················· Open-source JDK installations on macOS
+│        │   ├── temurin ············ Eclipse Temurin (recommended)
+│        │   ├── corretto ··········· Amazon Corretto
+│        │   ├── zulu ··············· Azul Zulu
+│        │   ├── graalvm ············ GraalVM (native image)
+│        │   ├── jenv ··············· Per-project JDK switching (.java-version)
+│        │   └── sdkman ············· SDKMAN — manage all JVM SDKs
+│        ├── npm-nvm ··············· Node.js version management + npm commands
+│        │   ├── nvm ················ Install + use multiple Node.js versions
+│        │   └── npm ················ install, ci, run scripts, audit, publish
+│        ├── ide ··················· IDE installation via Homebrew Cask
+│        │   ├── intellij ··········· IntelliJ IDEA (Community / Ultimate)
+│        │   ├── vscode ············· VS Code + Java Extension Pack
+│        │   └── others ············· PyCharm, WebStorm, DataGrip, Android Studio
+│        ├── docker ················ Docker Desktop — install, commands, Compose
+│        ├── shell ················· zsh config, aliases, PATH, plugins, prompt
+│        │   ├── aliases ············ Git, Java, Docker, npm, brew shortcuts
+│        │   ├── path ··············· Homebrew, Go, Cargo, nvm PATH management
+│        │   └── plugins ············ zsh-autosuggestions, Starship, oh-my-zsh
+│        └── dotfiles ·············· Reproducible environment automation
+│            ├── structure ·········· ~/dotfiles/ with .zshrc, .gitconfig, Brewfile
+│            ├── symlinks ··········· ln -sf strategy
+│            └── bootstrap ·········· One-command new-Mac setup script
+│
 ├─── DAILY ASSISTANT (/hub daily)
 │    └── /daily-assist ·············· Non-SE daily productivity
 │        ├── finance ················ Budget tracking, investment basics, expense analysis
@@ -242,6 +272,7 @@ Quick Commands:
     /devops           → CI/CD, Docker, K8s, cloud, IaC, monitoring
     /git-vcs          → Git workflows, branching strategies, commit conventions, semver
     /build-tools      → Build automation: Maven, Gradle, Make, Bazel, npm
+    /mac-dev          → macOS dev environment: Homebrew, JDK, npm, IDEs, Docker, dotfiles
     /mcp              → MCP: build servers, configure agents, API integration
     /resources        → Search, discover & export 68+ curated learning resources
     /language-guide   → Language-specific learning
@@ -254,6 +285,7 @@ Quick Commands:
     /hub industry     → Real-world systems: rate limiting, circuit breakers, event-driven
     /hub trends       → Tech trends: AI coding, transformers, Wasm, platform eng
     /hub mcp          → MCP: build MCP servers, agent architecture, tool integration
+    /hub mac          → macOS dev: Homebrew, JDK, npm/nvm, IDEs, Docker, shell, dotfiles
 
   Code Quality & Analysis:
     /design-review    → SOLID/GRASP design review

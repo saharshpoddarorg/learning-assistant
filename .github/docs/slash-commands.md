@@ -45,7 +45,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (32 commands)
+### Quick Lookup (33 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -81,6 +81,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 30 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
 | 31 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
 | 32 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
+| 33 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
 
 ---
 
@@ -312,6 +313,29 @@ Resources: Maven Getting Started, Maven POM Reference, Gradle User Guide,
            Gradle Kotlin DSL, Bazel Docs, Makefile Tutorial, npm Docs
 ```
 
+#### `/mac-dev` — macOS Development Environment
+```
+Inputs:   topic (homebrew/npm/nvm/jdk/ide/docker/shell/aliases/dotfiles/brewfile/bootstrap),
+          area (install/commands/switch-versions/configure/automate/troubleshoot),
+          level (newbie/amateur/pro)
+Agent:    Learning-Mentor
+Tools:    codebase, fetch
+Example:  /mac-dev → homebrew → install → newbie
+          /mac-dev → jdk → switch-versions → amateur
+          /mac-dev → dotfiles → bootstrap → pro
+Topics:   Homebrew (formulae, casks, taps, Brewfile),
+          JDK (Temurin, Corretto, Zulu, GraalVM, jenv, SDKMAN),
+          npm/nvm (multi-version Node.js, global tools, package.json scripts),
+          IDEs (IntelliJ IDEA, VS Code, PyCharm via Homebrew cask),
+          Docker Desktop (install, compose, dev services),
+          Shell/zsh (.zshrc, aliases, PATH, plugins, Starship, oh-my-zsh),
+          Dotfiles (Git-tracked config, symlinks, bootstrap.sh)
+Levels:   newbie (install & first use) → amateur (structure & configure) → pro (automate)
+Docs:     mac-os/docs/ — START-HERE, homebrew-guide, jdk-setup, npm-on-mac,
+          dev-tools-guide, mac-dev-environment
+Skill:    Backed by mac-dev/SKILL.md (Homebrew, JDK, npm, Docker cheatsheets)
+```
+
 ---
 
 ### Code Quality & Analysis
@@ -507,6 +531,7 @@ Some commands serve as aliases or shorthand for common workflows:
 | `/hub debug` | Debugging commands |
 | `/hub cs` | CS fundamentals branch |
 | `/hub language` | Language learning branch |
+| `/hub mac` | macOS dev environment branch (Homebrew, JDK, npm, IDEs, Docker) |
 
 ---
 
