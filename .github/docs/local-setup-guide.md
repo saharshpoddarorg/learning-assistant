@@ -85,7 +85,7 @@ learning-assistant/
 │               └── atlassian-config.local.properties       ❌ GITIGNORED — YOUR credentials
 │                   └── template: atlassian-config.local.example.properties (✅ committed)
 │
-├── brain/
+├── ai-brain/
 │   ├── inbox/                          ❌ GITIGNORED — session-scoped scratch notes
 │   └── notes/                          ❌ GITIGNORED — local persistent notes (never committed)
 │
@@ -584,9 +584,9 @@ atlassian-config.local.example.properties         ✅ Yes       ❌ No        Te
 build.env.local                                   ❌ No        ✅ Maybe     Your JAVA_HOME
 build.env.example                                 ✅ Yes       ❌ No        Template
 mcp-servers/out/                                  ❌ No        ✅ Auto      Compiled classes
-brain/inbox/                                      ❌ No        Optional     Session scratch notes
-brain/notes/                                      ❌ No        Optional     Persistent local notes
-brain/archive/                                    ✅ Yes       ❌ No        Curated published notes
+ai-brain/inbox/                                      ❌ No        Optional     Session scratch notes
+ai-brain/notes/                                      ❌ No        Optional     Persistent local notes
+ai-brain/archive/                                    ✅ Yes       ❌ No        Curated published notes
 .idea/                                            ❌ No        ✅ Auto (IDE) IntelliJ workspace
 ```
 

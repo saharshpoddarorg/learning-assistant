@@ -10,7 +10,7 @@
         Import-Module E:\path\to\repo\brain\scripts\brain-module.psm1
 
     Or to load only for this repo session (in a shell init script):
-        . .\brain\scripts\brain-module.psm1
+        . .\ai-brain\scripts\brain-module.psm1
 
 .EXPORTED FUNCTIONS
     brain         Full dispatcher (same as brain.ps1 directly)

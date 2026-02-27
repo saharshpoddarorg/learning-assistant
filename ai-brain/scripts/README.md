@@ -1,6 +1,6 @@
-# brain/scripts/ -- Workspace Utility Scripts
+# ai-brain/scripts/ -- Workspace Utility Scripts
 
-All scripts here manage the `brain/` content directory. Use them from the repo root.
+All scripts here manage the `ai-brain/` content directory. Use them from the repo root.
 
 ---
 
@@ -10,10 +10,10 @@ Everything goes through one entry point:
 
 ```powershell
 # Windows PowerShell
-.\brain\scripts\brain.ps1 <command> [options]
+.\ai-brain\scripts\brain.ps1 <command> [options]
 
 # Bash (Linux / macOS / Git Bash)
-./brain/scripts/brain.sh <command> [options]
+./ai-brain/scripts/brain.sh <command> [options]
 ```
 
 ### Commands
@@ -50,33 +50,33 @@ Everything goes through one entry point:
 
 ```powershell
 # Create a new inbox note interactively
-.\brain\scripts\brain.ps1 new
+.\ai-brain\scripts\brain.ps1 new
 
 # Create in notes tier for a specific project, non-interactively
-.\brain\scripts\brain.ps1 new --tier inbox --project mcp-servers --title "SSE transport notes" --kind note
+.\ai-brain\scripts\brain.ps1 new --tier inbox --project mcp-servers --title "SSE transport notes" --kind note
 
 # Search across all tiers
-.\brain\scripts\brain.ps1 search java
-.\brain\scripts\brain.ps1 search --tag generics --project java
-.\brain\scripts\brain.ps1 search --kind decision --tier archive
+.\ai-brain\scripts\brain.ps1 search java
+.\ai-brain\scripts\brain.ps1 search --tag generics --project java
+.\ai-brain\scripts\brain.ps1 search --kind decision --tier archive
 
 # Publish a note to the repo (interactive: prompts for project, confirms tags, commits)
-.\brain\scripts\brain.ps1 publish brain\inbox\2026-02-21_draft.md
-.\brain\scripts\brain.ps1 publish brain\inbox\2026-02-21_draft.md --project mcp-servers --commit
+.\ai-brain\scripts\brain.ps1 publish ai-brain\inbox\2026-02-21_draft.md
+.\ai-brain\scripts\brain.ps1 publish ai-brain\inbox\2026-02-21_draft.md --project mcp-servers --commit
 
 # Move between tiers
-.\brain\scripts\brain.ps1 move brain\inbox\draft.md --tier notes
+.\ai-brain\scripts\brain.ps1 move ai-brain\inbox\draft.md --tier notes
 
 # List notes
-.\brain\scripts\brain.ps1 list
-.\brain\scripts\brain.ps1 list --tier archive --project mcp-servers
+.\ai-brain\scripts\brain.ps1 list
+.\ai-brain\scripts\brain.ps1 list --tier archive --project mcp-servers
 
 # Status overview
-.\brain\scripts\brain.ps1 status
+.\ai-brain\scripts\brain.ps1 status
 
 # Clear inbox
-.\brain\scripts\brain.ps1 clear           # preview only
-.\brain\scripts\brain.ps1 clear --force   # delete without prompt
+.\ai-brain\scripts\brain.ps1 clear           # preview only
+.\ai-brain\scripts\brain.ps1 clear --force   # delete without prompt
 ```
 
 ---
@@ -87,21 +87,21 @@ Dot-source or import to get `brain`, `brain-new`, `brain-publish`, `brain-move`,
 
 ```powershell
 # One-time in this terminal session
-. .\brain\scripts\brain-module.psm1
+. .\ai-brain\scripts\brain-module.psm1
 
 # Then use short names
 brain status
 brain-new --project mcp-servers --title "Transport decisions"
 brain-search --tag generics
-brain-publish brain\inbox\draft.md --project java
-brain-move brain\inbox\draft.md --tier notes
+brain-publish ai-brain\inbox\draft.md --project java
+brain-move ai-brain\inbox\draft.md --tier notes
 brain-clear
 ```
 
 **To make aliases permanent**, add to your `$PROFILE`:
 
 ```powershell
-Import-Module E:\path\to\repo\brain\scripts\brain-module.psm1
+Import-Module E:\path\to\repo\ai-brain\scripts\brain-module.psm1
 ```
 
 ---
@@ -110,21 +110,21 @@ Import-Module E:\path\to\repo\brain\scripts\brain-module.psm1
 
 ```bash
 # One-time in this terminal session
-source ./brain/scripts/.brain-aliases.sh
+source ./ai-brain/scripts/.brain-aliases.sh
 
 # Then use short names
 brain status
 brain-new --project mcp-servers
 brain-search --tag generics
-brain-publish brain/inbox/draft.md --project java
-brain-move brain/inbox/draft.md --tier notes
+brain-publish ai-brain/inbox/draft.md --project java
+brain-move ai-brain/inbox/draft.md --tier notes
 brain-clear --force
 ```
 
 **To make aliases permanent**, add to `~/.bashrc` or `~/.zshrc`:
 
 ```bash
-source /path/to/repo/brain/scripts/.brain-aliases.sh
+source /path/to/repo/ai-brain/scripts/.brain-aliases.sh
 ```
 
 ---

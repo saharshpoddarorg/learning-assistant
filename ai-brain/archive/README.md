@@ -1,4 +1,4 @@
-# brain/archive/ -- Published Reference
+# ai-brain/archive/ -- Published Reference
 
 **Tracked by git. Pushed to the repo. Permanent.**
 
@@ -37,10 +37,10 @@ Common ones: `mcp-servers`, `java`, `learning-assistant`, `general`.
 
 ```powershell
 # Interactive (asks for project, confirms tags, commits)
-.\brain\scripts\brain.ps1 publish brain\inbox\draft.md
+.\ai-brain\scripts\brain.ps1 publish ai-brain\inbox\draft.md
 
 # With options
-.\brain\scripts\brain.ps1 publish brain\inbox\draft.md --project mcp-servers --commit
+.\ai-brain\scripts\brain.ps1 publish ai-brain\inbox\draft.md --project mcp-servers --commit
 ```
 
 The publish workflow:
@@ -85,9 +85,9 @@ Project: <project>  Kind: <kind>  Status: final
 ## Search Archive Notes
 
 ```powershell
-.\brain\scripts\brain.ps1 list --tier archive
-.\brain\scripts\brain.ps1 list --tier archive --project mcp-servers
-.\brain\scripts\brain.ps1 search generics --tier archive
-.\brain\scripts\brain.ps1 search --kind decision --tier archive
-.\brain\scripts\brain.ps1 search --date 2026-02 --tier archive
+.\ai-brain\scripts\brain.ps1 list --tier archive
+.\ai-brain\scripts\brain.ps1 list --tier archive --project mcp-servers
+.\ai-brain\scripts\brain.ps1 search generics --tier archive
+.\ai-brain\scripts\brain.ps1 search --kind decision --tier archive
+.\ai-brain\scripts\brain.ps1 search --date 2026-02 --tier archive
 ```

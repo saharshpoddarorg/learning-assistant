@@ -2,13 +2,13 @@
 # .brain-aliases.sh -- Bash aliases for the brain/ workspace dispatcher
 #
 # Source this file in your shell to get short brain commands:
-#   source ./brain/scripts/.brain-aliases.sh
+#   source ./ai-brain/scripts/.brain-aliases.sh
 #
 # To load automatically, add to ~/.bashrc or ~/.zshrc:
-#   source /path/to/repo/brain/scripts/.brain-aliases.sh
+#   source /path/to/repo/ai-brain/scripts/.brain-aliases.sh
 #
 # Available aliases:
-#   brain         Full dispatcher  (same as ./brain/scripts/brain.sh directly)
+#   brain         Full dispatcher  (same as ./ai-brain/scripts/brain.sh directly)
 #   brain-new        Create a new note
 #   brain-publish       Promote to archive/ with tagging and git commit
 #   brain-search     Search notes by frontmatter or full text

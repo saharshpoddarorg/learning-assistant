@@ -116,8 +116,8 @@ mcp-servers/build.env.local
 # brain/notes/   -- local persistent between sessions (never committed)
 # brain/archive/ -- curated, committed to the repo (NOT listed here)
 
-brain/inbox/
-brain/notes/
+ai-brain/inbox/
+ai-brain/notes/
 
 # =============================================================================
 # OS Generated Files

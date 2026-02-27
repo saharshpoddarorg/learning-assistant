@@ -829,7 +829,7 @@ public class LanguageFilter<T extends LearningResource> implements SearchFilter<
 > Your personal note-taking system. Three tiers: inbox → notes → archive.
 
 ```
-brain/
+ai-brain/
 ├── inbox/    ← Draft notes (rough ideas, quick captures)
 ├── notes/    ← Active knowledge (refined, searchable)
 └── archive/  ← Published, tagged reference material
@@ -860,16 +860,16 @@ brain/
 
 **Via terminal:**
 ```powershell
-.\brain\scripts\brain.ps1 new
-.\brain\scripts\brain.ps1 new --tier notes
-.\brain\scripts\brain.ps1 publish
-.\brain\scripts\brain.ps1 search "binary tree"
-.\brain\scripts\brain.ps1 list
-.\brain\scripts\brain.ps1 status
+.\ai-brain\scripts\brain.ps1 new
+.\ai-brain\scripts\brain.ps1 new --tier notes
+.\ai-brain\scripts\brain.ps1 publish
+.\ai-brain\scripts\brain.ps1 search "binary tree"
+.\ai-brain\scripts\brain.ps1 list
+.\ai-brain\scripts\brain.ps1 status
 ```
 ```bash
-./brain/scripts/brain.sh new
-./brain/scripts/brain.sh search "binary tree"
+./ai-brain/scripts/brain.sh new
+./ai-brain/scripts/brain.sh search "binary tree"
 ```
 
 **The learning workflow:**
@@ -1171,7 +1171,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `mcp-servers/README.md` | MCP module deep dive |
 | `mcp-servers/SETUP.md` | Step-by-step setup (quick) |
 | `mcp-servers/scripts/README.md` | Scripts framework documentation |
-| `brain/README.md` | Brain workspace guide |
+| `ai-brain/README.md` | Brain workspace guide |
 
 ---
 

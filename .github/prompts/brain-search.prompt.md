@@ -1,7 +1,7 @@
 ```prompt
 ---
 name: brain-search
-description: 'Search brain/ workspace notes by tags, project, kind, date, or full text — across inbox, notes, and archive tiers'
+description: 'Search ai-brain/ workspace notes by tags, project, kind, date, or full text — across inbox, notes, and archive tiers'
 agent: copilot
 tools: ['codebase', 'search']
 ---
@@ -50,9 +50,9 @@ notes    2026-02-20_java-generics.md                 note       java           j
 
 To run this from the terminal instead:
 ```powershell
-.\brain\scripts\brain.ps1 search <query> --tag <tag> --project <project> --kind <kind> --date <YYYY-MM> --tier <tier>
+.\ai-brain\scripts\brain.ps1 search <query> --tag <tag> --project <project> --kind <kind> --date <YYYY-MM> --tier <tier>
 ```
 ```bash
-./brain/scripts/brain.sh search <query> --tag <tag> --project <project> --kind <kind>
+./ai-brain/scripts/brain.sh search <query> --tag <tag> --project <project> --kind <kind>
 ```
 ```

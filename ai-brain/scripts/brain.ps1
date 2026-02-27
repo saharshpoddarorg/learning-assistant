@@ -3,7 +3,7 @@
     brain -- personal knowledge workspace dispatcher.
 
 .DESCRIPTION
-    Manages the brain/ directory: create notes, promote between tiers, save to repo,
+    Manages the ai-brain/ directory: create notes, promote between tiers, save to repo,
     search by frontmatter tags, list contents, and clear scratch.
 
     Run from any location -- all paths resolve relative to the repo root.
@@ -19,14 +19,14 @@
     help      Show this help
 
 .EXAMPLE
-    .\brain\scripts\brain.ps1 new
-    .\brain\scripts\brain.ps1 new --tier inbox --project mcp-servers --title "SSE transport notes"
-    .\brain\scripts\brain.ps1 publish brain\inbox\draft.md --project mcp-servers
-    .\brain\scripts\brain.ps1 search java --tag generics
-    .\brain\scripts\brain.ps1 search --project mcp-servers --kind decision
-    .\brain\scripts\brain.ps1 list --tier archive --project mcp-servers
-    .\brain\scripts\brain.ps1 clear --force
-    .\brain\scripts\brain.ps1 status
+    .\ai-brain\scripts\brain.ps1 new
+    .\ai-brain\scripts\brain.ps1 new --tier inbox --project mcp-servers --title "SSE transport notes"
+    .\ai-brain\scripts\brain.ps1 publish ai-brain\inbox\draft.md --project mcp-servers
+    .\ai-brain\scripts\brain.ps1 search java --tag generics
+    .\ai-brain\scripts\brain.ps1 search --project mcp-servers --kind decision
+    .\ai-brain\scripts\brain.ps1 list --tier archive --project mcp-servers
+    .\ai-brain\scripts\brain.ps1 clear --force
+    .\ai-brain\scripts\brain.ps1 status
 #>
 
 [CmdletBinding(PositionalBinding = $false)]
@@ -55,7 +55,7 @@ $ErrorActionPreference = "Stop"
 # ── Resolve repo root ──────────────────────────────────────────────────────────
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $RepoRoot  = Split-Path -Parent (Split-Path -Parent $ScriptDir)
-$BrainRoot    = Join-Path $RepoRoot "brain"
+$BrainRoot    = Join-Path $RepoRoot "ai-brain"
 
 # ── Valid values ───────────────────────────────────────────────────────────────
 $ValidKinds   = @("note", "decision", "session", "resource", "snippet", "ref")
@@ -178,7 +178,7 @@ function Invoke-Help {
     Write-Host "brain -- personal knowledge workspace" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "USAGE" -ForegroundColor Yellow
-    Write-Host "  .\brain\scripts\brain.ps1 <command> [options]"
+    Write-Host "  .\ai-brain\scripts\brain.ps1 <command> [options]"
     Write-Host ""
     Write-Host "COMMANDS" -ForegroundColor Yellow
     $cmds = @(
@@ -213,13 +213,13 @@ function Invoke-Help {
     }
     Write-Host ""
     Write-Host "EXAMPLES" -ForegroundColor Yellow
-    Write-Host "  .\brain\scripts\brain.ps1 new"
-    Write-Host "  .\brain\scripts\brain.ps1 new --tier inbox --project mcp-servers --title `"SSE transport`""
-    Write-Host "  .\brain\scripts\brain.ps1 publish brain\inbox\draft.md --project mcp-servers"
-    Write-Host "  .\brain\scripts\brain.ps1 search java --tag generics --tier archive"
-    Write-Host "  .\brain\scripts\brain.ps1 list --tier archive --project mcp-servers"
-    Write-Host "  .\brain\scripts\brain.ps1 clear --force"
-    Write-Host "  .\brain\scripts\brain.ps1 status"
+    Write-Host "  .\ai-brain\scripts\brain.ps1 new"
+    Write-Host "  .\ai-brain\scripts\brain.ps1 new --tier inbox --project mcp-servers --title `"SSE transport`""
+    Write-Host "  .\ai-brain\scripts\brain.ps1 publish ai-brain\inbox\draft.md --project mcp-servers"
+    Write-Host "  .\ai-brain\scripts\brain.ps1 search java --tag generics --tier archive"
+    Write-Host "  .\ai-brain\scripts\brain.ps1 list --tier archive --project mcp-servers"
+    Write-Host "  .\ai-brain\scripts\brain.ps1 clear --force"
+    Write-Host "  .\ai-brain\scripts\brain.ps1 status"
     Write-Host ""
     Write-Host "ALIASES  (after dot-sourcing brain-module.psm1)" -ForegroundColor Yellow
     Write-Host "  brain, brain-new, brain-publish, brain-move, brain-search, brain-list, brain-clear, brain-status"
@@ -275,7 +275,7 @@ source: copilot
     if (-not (Test-Path $destDir)) { New-Item -ItemType Directory -Path $destDir | Out-Null }
     Set-Content $destPath -Value $template -Encoding UTF8
 
-    Write-Ok "Created: brain/$tier/$filename"
+    Write-Ok "Created: ai-brain/$tier/$filename"
 
     if (-not $NoEdit) {
         $open = if ($Force) { $true } else { Prompt-Confirm "Open in editor?" $true }
@@ -290,7 +290,7 @@ function Invoke-Publish {
 
     $sourcePath = $Arg1
     if (-not $sourcePath) {
-        $sourcePath = Prompt-Input "Source file (relative to brain/ or absolute)"
+        $sourcePath = Prompt-Input "Source file (relative to ai-brain/ or absolute)"
     }
 
     # Resolve path
@@ -381,7 +381,7 @@ function Invoke-Publish {
     Write-Ok "Moved: brain/archive/$project/$yearMonth/$filename"
 
     # Git operations
-    $gitRelPath = "brain/archive/$project/$yearMonth/$filename" -replace '\\', '/'
+    $gitRelPath = "ai-brain/archive/$project/$yearMonth/$filename" -replace '\\', '/'
 
     Push-Location $RepoRoot
     try {
@@ -440,7 +440,7 @@ function Invoke-Move {
     if ($targetTier -eq "archive") {
         Push-Location $RepoRoot
         try {
-            $gitPath = "brain/$aiRelDest" -replace '\\', '/'
+            $gitPath = "ai-brain/$aiRelDest" -replace '\\', '/'
             git add $gitPath 2>&1 | Out-Null
             Write-Ok "Staged: $gitPath"
             Write-Info "Run 'git commit' when ready."
@@ -619,7 +619,7 @@ function Invoke-Status {
     Write-Host ""
     Push-Location $RepoRoot
     try {
-        $staged = git diff --cached --name-only -- "brain/" 2>&1
+        $staged = git diff --cached --name-only -- "ai-brain/" 2>&1
         if ($staged) {
             Write-Host "  Staged (ready to commit):" -ForegroundColor Yellow
             $staged | ForEach-Object { Write-Host "    $_" -ForegroundColor Yellow }

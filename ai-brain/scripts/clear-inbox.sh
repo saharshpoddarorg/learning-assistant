@@ -2,9 +2,9 @@
 # clear-inbox.sh -- Clear files from brain/inbox/ (preserves README.md)
 #
 # Usage:
-#   ./brain/scripts/clear-inbox.sh              Preview only -- lists files, no delete
-#   ./brain/scripts/clear-inbox.sh --confirm    List then prompt before deleting
-#   ./brain/scripts/clear-inbox.sh --force      Delete without prompting
+#   ./ai-brain/scripts/clear-inbox.sh              Preview only -- lists files, no delete
+#   ./ai-brain/scripts/clear-inbox.sh --confirm    List then prompt before deleting
+#   ./ai-brain/scripts/clear-inbox.sh --force      Delete without prompting
 #
 # Run from any location -- resolves path relative to this script's directory.
 
@@ -12,7 +12,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-INBOX_DIR="$REPO_ROOT/brain/inbox"
+INBOX_DIR="$REPO_ROOT/ai-brain/inbox"
 
 MODE="preview"
 for arg in "$@"; do
@@ -43,7 +43,7 @@ if [[ ${#FILES[@]} -eq 0 ]]; then
 fi
 
 echo ""
-echo "Files in brain/inbox/:"
+echo "Files in ai-brain/inbox/:"
 for f in "${FILES[@]}"; do
     echo "  ${f#"$INBOX_DIR/"}"
 done
