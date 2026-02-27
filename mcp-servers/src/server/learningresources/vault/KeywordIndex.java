@@ -255,7 +255,22 @@ public final class KeywordIndex {
         map.put("templater", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("migration", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("todoist", ConceptArea.KNOWLEDGE_MANAGEMENT);
-
+        // Playlist / video series
+        map.put("playlist", ConceptArea.GETTING_STARTED);
+        map.put("video series", ConceptArea.GETTING_STARTED);
+        map.put("youtube playlist", ConceptArea.GETTING_STARTED);
+        // CS50
+        map.put("cs50", ConceptArea.GETTING_STARTED);
+        map.put("harvard cs", ConceptArea.GETTING_STARTED);
+        // 3Blue1Brown
+        map.put("3blue1brown", ConceptArea.MACHINE_LEARNING);
+        map.put("3b1b", ConceptArea.MACHINE_LEARNING);
+        map.put("linear algebra", ConceptArea.ALGORITHMS);
+        map.put("neural network", ConceptArea.MACHINE_LEARNING);
+        map.put("neural networks", ConceptArea.MACHINE_LEARNING);
+        map.put("gradient descent", ConceptArea.MACHINE_LEARNING);
+        map.put("backpropagation", ConceptArea.MACHINE_LEARNING);
+        map.put("transformers", ConceptArea.MACHINE_LEARNING);
         return Map.copyOf(map);
     }
 
@@ -338,6 +353,16 @@ public final class KeywordIndex {
         map.put("todoist", ResourceCategory.PRODUCTIVITY);
         map.put("foam", ResourceCategory.PRODUCTIVITY);
         map.put("zettelkasten", ResourceCategory.PRODUCTIVITY);
+        // CS50 / Harvard
+        map.put("cs50", ResourceCategory.GENERAL);
+        map.put("harvard", ResourceCategory.GENERAL);
+        // Playlist / video series
+        map.put("playlist", ResourceCategory.GENERAL);
+        map.put("video series", ResourceCategory.GENERAL);
+        // 3Blue1Brown / math
+        map.put("3blue1brown", ResourceCategory.AI_ML);
+        map.put("3b1b", ResourceCategory.AI_ML);
+        map.put("linear algebra", ResourceCategory.AI_ML);
         return Map.copyOf(map);
     }
 

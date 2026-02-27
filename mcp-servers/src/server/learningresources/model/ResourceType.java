@@ -23,6 +23,15 @@ public enum ResourceType {
     /** Video content — standalone talks, screencasts, or short clips (e.g., YouTube). */
     VIDEO("video"),
 
+    /**
+     * Ordered video series / playlist without a full course structure.
+     *
+     * <p>Use for YouTube playlists, 3Blue1Brown topic series, and other curated
+     * video sequences that lack formal assessments (no problem sets, no exams).
+     * Contrast with {@link #VIDEO_COURSE} which has a structured syllabus and graded work.
+     */
+    PLAYLIST("playlist"),
+
     /** Full video lecture course with a structured syllabus (e.g., MIT OCW, fast.ai). */
     VIDEO_COURSE("video-course"),
 
@@ -74,7 +83,7 @@ public enum ResourceType {
         }
         throw new IllegalArgumentException("Unknown resource type: '" + value
                 + "'. Valid values: documentation, tutorial, blog, article, video, "
-                + "video-course, book, interactive, course, api-reference, "
-                + "cheat-sheet, repository");
+                + "playlist, video-course, book, interactive, course, "
+                + "api-reference, cheat-sheet, repository");
     }
 }

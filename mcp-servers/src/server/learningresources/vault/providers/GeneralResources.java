@@ -96,6 +96,30 @@ public final class GeneralResources implements ResourceProvider {
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.EVERGREEN,
                         false, true, LanguageApplicability.UNIVERSAL, now
+                ),
+
+                new LearningResource(
+                        "cs50x",
+                        "CS50x — Harvard's Introduction to Computer Science",
+                        "https://cs50.harvard.edu/x/2026/",
+                        "Harvard University's renowned introduction to the intellectual enterprises "
+                                + "of computer science. Eleven weeks of lectures, problem sets, and "
+                                + "sections covering C, Python, SQL, HTML, CSS, JavaScript, and "
+                                + "algorithms. Free via OpenCourseWare; verified certificate available "
+                                + "via edX. Suitable for complete beginners — two thirds of enrolled "
+                                + "students have never programmed before.",
+                        ResourceType.VIDEO_COURSE,
+                        List.of(ResourceCategory.GENERAL, ResourceCategory.ALGORITHMS,
+                                ResourceCategory.SOFTWARE_ENGINEERING),
+                        List.of(ConceptArea.GETTING_STARTED, ConceptArea.ALGORITHMS,
+                                ConceptArea.DATA_STRUCTURES, ConceptArea.LANGUAGE_BASICS),
+                        List.of("cs50", "harvard", "computer-science", "beginner", "c",
+                                "python", "sql", "algorithms", "data-structures", "free-course",
+                                "david-malan", "opencourseware", "edx"),
+                        "David J. Malan, Harvard University",
+                        DifficultyLevel.BEGINNER,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        true, true, LanguageApplicability.UNIVERSAL, now
                 )
         );
     }

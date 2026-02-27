@@ -291,7 +291,7 @@ Example:  /resources → search → java concurrency
 Actions:  search (keyword/tag), browse (by category), scrape (any URL),
           recommend (topic-based), add (new resource), details (deep-dive),
           discover (3 modes: specific/vague/exploratory), export (md/pdf/word)
-Vault:    95+ curated resources across Java, Python, Web, AI/ML, DevOps,
+Vault:    ~100+ curated resources across Java, Python, Web, AI/ML, DevOps,
           Git/VCS, build tools, algorithms & data structures (8 DS-specific
           resources: Java Collections, OpenDSA, VisuAlgo, Neetcode, MIT 6.006,
           GeeksforGeeks, Python DS docs, Algorithm Design Manual),

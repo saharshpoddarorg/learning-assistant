@@ -79,18 +79,24 @@ public final class UrlResourceHandler {
             Map.entry("aws.amazon.com", "Amazon Web Services")
     );
 
-    /** URL patterns → ResourceType inference. */
-    private static final Map<String, ResourceType> URL_TYPE_HINTS = Map.of(
-            "/docs/", ResourceType.DOCUMENTATION,
-            "/tutorial", ResourceType.TUTORIAL,
-            "/guide", ResourceType.TUTORIAL,
-            "/blog", ResourceType.BLOG,
-            "/api/", ResourceType.API_REFERENCE,
-            "/reference", ResourceType.API_REFERENCE,
-            "/book", ResourceType.BOOK,
-            "/video", ResourceType.VIDEO,
-            "/course", ResourceType.VIDEO_COURSE,
-            "github.com", ResourceType.REPOSITORY
+    /**
+     * URL patterns → ResourceType inference.
+     *
+     * <p>Uses {@link Map#ofEntries} (no upper-bound on entry count, unlike {@link Map#of}).
+     * Patterns are matched via {@code containsIgnoreCase} on the full URL string.
+     */
+    private static final Map<String, ResourceType> URL_TYPE_HINTS = Map.ofEntries(
+            Map.entry("/docs/", ResourceType.DOCUMENTATION),
+            Map.entry("/tutorial", ResourceType.TUTORIAL),
+            Map.entry("/guide", ResourceType.TUTORIAL),
+            Map.entry("/blog", ResourceType.BLOG),
+            Map.entry("/api/", ResourceType.API_REFERENCE),
+            Map.entry("/reference", ResourceType.API_REFERENCE),
+            Map.entry("/book", ResourceType.BOOK),
+            Map.entry("/video", ResourceType.VIDEO),
+            Map.entry("playlist", ResourceType.PLAYLIST),
+            Map.entry("/course", ResourceType.VIDEO_COURSE),
+            Map.entry("github.com", ResourceType.REPOSITORY)
     );
 
     private final WebScraper scraper;
