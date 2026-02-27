@@ -1,4 +1,4 @@
-# brain/ -- Personal Knowledge Workspace
+# ai-brain/ -- Personal Knowledge Workspace
 
 A structured workspace for notes, decisions, and references created during
 development and learning sessions -- with Copilot, MCP servers, or manually.
@@ -8,7 +8,7 @@ development and learning sessions -- with Copilot, MCP servers, or manually.
 ## Three Tiers
 
 ```
-brain/
+ai-brain/
   inbox/     TEMP      quick capture -- clear when session ends     [gitignored]
   notes/     KEEP      curated notes that stay on this machine      [gitignored]
   archive/   PUBLISH   committed to the repo, permanent reference   [tracked]
@@ -26,29 +26,29 @@ The three words match what you would actually say:
 
 ```powershell
 # Windows -- load aliases for this terminal session
-. .\brain\scripts\brain-module.psm1
+. .\brain\ai-brain\scripts\brain-module.psm1
 
 # Then:
 brain status                              # see what is in each tier
 brain new                                 # create a note (interactive)
-brain publish brain\inbox\draft.md        # publish to repo (asks project, tags, commits)
+brain publish brain\ai-brain\inbox\draft.md        # publish to repo (asks project, tags, commits)
 brain search java --tag generics          # search across all tiers
 brain list --tier archive                 # list committed notes
 brain clear                               # preview inbox contents
 brain clear --force                       # delete inbox without prompt
-brain move brain\inbox\draft.md --tier notes   # move to notes
+brain move brain\ai-brain\inbox\draft.md --tier notes   # move to notes
 ```
 
 ```bash
 # Bash -- load aliases for this terminal session
-source ./brain/scripts/.brain-aliases.sh
+source ./brain/ai-brain/scripts/.brain-aliases.sh
 
 # Same commands, same flags:
 brain status
 brain new --tier inbox --project mcp-servers
-brain publish brain/inbox/draft.md --project java
+brain publish brain/ai-brain/inbox/draft.md --project java
 brain search --kind decision --tier archive
-brain move brain/inbox/draft.md --tier notes
+brain move brain/ai-brain/inbox/draft.md --tier notes
 ```
 
 ### VS Code Tasks
@@ -134,7 +134,7 @@ topic-slug.md                      <- timeless reference docs (no date)
 
 ## Full Command Reference
 
-See [`brain/scripts/README.md`](scripts/README.md) for the complete dispatcher
+See [`brain/ai-brain/scripts/README.md`](scripts/README.md) for the complete dispatcher
 reference, PowerShell module, bash aliases, VS Code tasks, and Copilot prompts.
 
 ---

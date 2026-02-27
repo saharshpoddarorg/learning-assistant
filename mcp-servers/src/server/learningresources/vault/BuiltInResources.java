@@ -6,6 +6,7 @@ import server.learningresources.vault.providers.AlgorithmsResources;
 import server.learningresources.vault.providers.BuildToolsResources;
 import server.learningresources.vault.providers.DataAndSecurityResources;
 import server.learningresources.vault.providers.DevOpsResources;
+import server.learningresources.vault.providers.DigitalNotetakingResources;
 import server.learningresources.vault.providers.EngineeringResources;
 import server.learningresources.vault.providers.GeneralResources;
 import server.learningresources.vault.providers.JavaResources;
@@ -48,6 +49,7 @@ public final class BuiltInResources {
             new BuildToolsResources(),
             new DataAndSecurityResources(),
             new AiMlResources(),
+            new DigitalNotetakingResources(),
             new GeneralResources()
     );
 

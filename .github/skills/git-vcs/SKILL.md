@@ -127,7 +127,7 @@ Format: `<type>(<optional scope>): <description>`
 |------------|------------------------------------------|
 | `feat`     | A new feature                            |
 | `fix`      | A bug fix                                |
-| `docs`     | Documentation only changes              |
+| `docs`     | Documentation only changes               |
 | `style`    | Formatting, whitespace (no logic change) |
 | `refactor` | Code restructured (not feat/fix)         |
 | `test`     | Adding or fixing tests                   |

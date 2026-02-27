@@ -45,7 +45,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (32 commands)
+### Quick Lookup (34 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -81,6 +81,8 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 30 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
 | 31 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
 | 32 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
+| 33 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
+| 34 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
 
 ---
 
@@ -271,13 +273,14 @@ Example:  /resources → search → java concurrency
 Actions:  search (keyword/tag), browse (by category), scrape (any URL),
           recommend (topic-based), add (new resource), details (deep-dive),
           discover (3 modes: specific/vague/exploratory), export (md/pdf/word)
-Vault:    68+ curated resources across Java, Python, Web, AI/ML, DevOps,
-          Git/VCS, build tools, algorithms, engineering, databases, security, and more
+Vault:    80+ curated resources across Java, Python, Web, AI/ML, DevOps,
+          Git/VCS, build tools, algorithms, engineering, databases, security,
+          digital note-taking & PKM, and more
 MCP:      Backed by 10 MCP tools: search_resources, browse_vault, get_resource,
           list_categories, discover_resources, scrape_url, read_url, add_resource,
           add_resource_from_url, export_results
 Enums:    SearchMode (specific/vague/exploratory), ConceptDomain (8 domains),
-          ConceptArea (33 concepts), DifficultyLevel, LanguageApplicability
+          ConceptArea (34 concepts), DifficultyLevel, LanguageApplicability
 ```
 
 #### `/git-vcs` — Git & Version Control
@@ -310,6 +313,53 @@ Tools covered: Maven (lifecycle, POM, BOM, multi-module),
 Levels:   newbie (first build) → amateur (day-to-day) → pro (multi-module/CI/advanced)
 Resources: Maven Getting Started, Maven POM Reference, Gradle User Guide,
            Gradle Kotlin DSL, Bazel Docs, Makefile Tutorial, npm Docs
+```
+
+#### `/mac-dev` — macOS Development Environment
+```
+Inputs:   topic (homebrew/npm/nvm/jdk/ide/docker/shell/aliases/dotfiles/brewfile/bootstrap),
+          area (install/commands/switch-versions/configure/automate/troubleshoot),
+          level (newbie/amateur/pro)
+Agent:    Learning-Mentor
+Tools:    codebase, fetch
+Example:  /mac-dev → homebrew → install → newbie
+          /mac-dev → jdk → switch-versions → amateur
+          /mac-dev → dotfiles → bootstrap → pro
+Topics:   Homebrew (formulae, casks, taps, Brewfile),
+          JDK (Temurin, Corretto, Zulu, GraalVM, jenv, SDKMAN),
+          npm/nvm (multi-version Node.js, global tools, package.json scripts),
+          IDEs (IntelliJ IDEA, VS Code, PyCharm via Homebrew cask),
+          Docker Desktop (install, compose, dev services),
+          Shell/zsh (.zshrc, aliases, PATH, plugins, Starship, oh-my-zsh),
+          Dotfiles (Git-tracked config, symlinks, bootstrap.sh)
+Levels:   newbie (install & first use) → amateur (structure & configure) → pro (automate)
+Docs:     mac-os/docs/ — START-HERE, homebrew-guide, jdk-setup, npm-on-mac,
+          dev-tools-guide, mac-dev-environment
+Skill:    Backed by mac-dev/SKILL.md (Homebrew, JDK, npm, Docker cheatsheets)
+```
+
+#### `/digital-notetaking` — Digital Note-Taking, PKM & JDK Upgrade
+```
+Inputs:   topic (notion/obsidian/logseq/onenote/para-method/code-method/zettelkasten/
+                 migration/jdk-upgrade/sdkman/temurin/todo-management),
+          tool  (notion/obsidian/logseq/onenote/google-docs/any),
+          level (newbie/intermediate/advanced),
+          os    (windows/macos/linux/cross-platform)
+Agent:    Learning-Mentor
+Tools:    codebase, fetch
+Example:  /digital-notetaking → para-method → obsidian → intermediate → windows
+          /digital-notetaking → migration → notion-to-obsidian → advanced
+          /digital-notetaking → jdk-upgrade → sdkman → beginner → macos
+Topics:   Methodologies: PARA (Projects, Areas, Resources, Archives),
+          CODE (Capture, Organize, Distill, Express), Zettelkasten,
+          Tools: Notion (cloud, cross-platform), Obsidian (local-first, Markdown),
+                 Logseq (open-source), Microsoft OneNote, Google Docs/Keep
+          Developer PKM: ADRs, learning journals, code snippet vaults
+          Migration: Notion→Obsidian, Logseq→Obsidian, OneNote→Notion
+          Todo management: PARA actions, Todoist integration
+          JDK upgrade: SDKMAN!, Eclipse Temurin, JDK 25 LTS migration from JDK 21
+Platforms: Windows, macOS (see /mac-dev), Linux, iOS, Android
+Skill:    Backed by digital-notetaking/SKILL.md (tool comparison, templates, JDK commands)
 ```
 
 ---
@@ -402,7 +452,7 @@ Topics:   Budget, investments, habit tracking, time mgmt, tech news, web researc
 
 ### Brain Workspace
 
-Commands for managing the `brain/` personal knowledge workspace — three-tier note system (inbox → notes → archive).
+Commands for managing the `brain/ai-brain/` personal knowledge workspace — three-tier note system (inbox → notes → archive).
 
 #### `/brain-new` — Create a Note
 ```
@@ -412,18 +462,18 @@ Tools:    editFiles, codebase
 Use:      Create a new markdown note with proper frontmatter in inbox/ or notes/
 Example:  /brain-new → "Java generics cheatsheet" → notes → java
 Output:   YYYY-MM-DD_<slug>.md created with kind, tags, status frontmatter
-File:     brain/inbox/ or brain/notes/ (never creates archive/ entries directly)
+File:     brain/ai-brain/inbox/ or brain/ai-brain/notes/ (never creates archive/ entries directly)
 Tip:      Use /brain-publish to promote to archive/ and commit
 ```
 
 #### `/brain-publish` — Publish a Note
 ```
-Inputs:   file (relative to brain/, e.g. inbox/2026-02-21_draft.md), project bucket
+Inputs:   file (relative to brain/ai-brain/, e.g. inbox/2026-02-21_draft.md), project bucket
 Agent:    Copilot
 Tools:    editFiles, codebase, runCommands
 Use:      Promote a note from inbox/ or notes/ to archive/ → tag it → git commit
 Example:  /brain-publish → inbox/2026-02-21_draft.md → mcp-servers
-Output:   Note moved to brain/archive/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md, committed
+Output:   Note moved to brain/ai-brain/archive/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md, committed
 Tip:      Tags are enriched automatically from filename and content
 ```
 
@@ -507,6 +557,7 @@ Some commands serve as aliases or shorthand for common workflows:
 | `/hub debug` | Debugging commands |
 | `/hub cs` | CS fundamentals branch |
 | `/hub language` | Language learning branch |
+| `/hub mac` | macOS dev environment branch (Homebrew, JDK, npm, IDEs, Docker) |
 
 ---
 

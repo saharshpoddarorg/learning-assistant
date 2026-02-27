@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # brain -- personal knowledge workspace dispatcher
 #
-# Usage: ./brain/scripts/brain.sh <command> [options]
+# Usage: ./brain/ai-brain/scripts/brain.sh <command> [options]
 #
 # Commands:
 #   new       Create a new note with frontmatter template
@@ -26,19 +26,19 @@
 #   --no-edit  don't open editor after creating note
 #
 # Examples:
-#   ./brain/scripts/brain.sh new
-#   ./brain/scripts/brain.sh new --tier inbox --project mcp-servers --title "SSE transport"
-#   ./brain/scripts/brain.sh publish brain/inbox/draft.md --project mcp-servers
-#   ./brain/scripts/brain.sh search java --tag generics
-#   ./brain/scripts/brain.sh list --tier archive --project mcp-servers
-#   ./brain/scripts/brain.sh clear --force
-#   ./brain/scripts/brain.sh status
+#   ./brain/ai-brain/scripts/brain.sh new
+#   ./brain/ai-brain/scripts/brain.sh new --tier inbox --project mcp-servers --title "SSE transport"
+#   ./brain/ai-brain/scripts/brain.sh publish brain/ai-brain/inbox/draft.md --project mcp-servers
+#   ./brain/ai-brain/scripts/brain.sh search java --tag generics
+#   ./brain/ai-brain/scripts/brain.sh list --tier archive --project mcp-servers
+#   ./brain/ai-brain/scripts/brain.sh clear --force
+#   ./brain/ai-brain/scripts/brain.sh status
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-BRAIN_ROOT="$REPO_ROOT/brain"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+BRAIN_ROOT="$REPO_ROOT/brain/ai-brain"
 
 VALID_KINDS=("note" "decision" "session" "resource" "snippet" "ref")
 VALID_TIERS=("inbox" "notes" "archive")
@@ -158,7 +158,7 @@ cmd_help() {
     echo -e "${CYAN}brain -- personal knowledge workspace${RESET}"
     echo
     echo -e "${YELLOW}USAGE${RESET}"
-    echo "  ./brain/scripts/brain.sh <command> [options]"
+    echo "  ./brain/ai-brain/scripts/brain.sh <command> [options]"
     echo
     echo -e "${YELLOW}COMMANDS${RESET}"
     printf "  %-10s %s\n" \
@@ -185,13 +185,13 @@ cmd_help() {
         "--no-edit" "don't open editor after creating note"
     echo
     echo -e "${YELLOW}EXAMPLES${RESET}"
-    echo "  ./brain/scripts/brain.sh new"
-    echo "  ./brain/scripts/brain.sh new --tier inbox --project mcp-servers --title \"SSE transport\""
-    echo "  ./brain/scripts/brain.sh publish brain/inbox/draft.md --project mcp-servers"
-    echo "  ./brain/scripts/brain.sh search java --tag generics --tier archive"
-    echo "  ./brain/scripts/brain.sh list --tier archive --project mcp-servers"
-    echo "  ./brain/scripts/brain.sh clear --force"
-    echo "  ./brain/scripts/brain.sh status"
+    echo "  ./brain/ai-brain/scripts/brain.sh new"
+    echo "  ./brain/ai-brain/scripts/brain.sh new --tier inbox --project mcp-servers --title \"SSE transport\""
+    echo "  ./brain/ai-brain/scripts/brain.sh publish brain/ai-brain/inbox/draft.md --project mcp-servers"
+    echo "  ./brain/ai-brain/scripts/brain.sh search java --tag generics --tier archive"
+    echo "  ./brain/ai-brain/scripts/brain.sh list --tier archive --project mcp-servers"
+    echo "  ./brain/ai-brain/scripts/brain.sh clear --force"
+    echo "  ./brain/ai-brain/scripts/brain.sh status"
     echo
     echo -e "${YELLOW}ALIASES  (after sourcing .brain-aliases.sh)${RESET}"
     echo "  brain, brain-new, brain-publish, brain-move, brain-search, brain-list, brain-clear, brain-status"
@@ -249,7 +249,7 @@ source: copilot
 <!-- Notes here -->
 EOF
 
-    ok "Created: brain/$tier/$filename"
+    ok "Created: brain/ai-brain/$tier/$filename"
 
     if [[ "$OPT_NO_EDIT" != "true" ]]; then
         local do_open=true
@@ -264,7 +264,7 @@ cmd_publish() {
     header "Save note to repo"
 
     local source_path="$ARG1"
-    [[ -z "$source_path" ]] && source_path="$(prompt_input "Source file (relative to brain/ or absolute)")"
+    [[ -z "$source_path" ]] && source_path="$(prompt_input "Source file (relative to brain/ai-brain/ or absolute)")"
     source_path="$(resolve_source "$source_path")"
 
     echo
@@ -324,7 +324,7 @@ cmd_publish() {
     local filename; filename="$(basename "$source_path")"
     local dest_dir="$BRAIN_ROOT/archive/$project/$year_month"
     local dest_path="$dest_dir/$filename"
-    local git_rel="brain/archive/$project/$year_month/$filename"
+    local git_rel="brain/ai-brain/archive/$project/$year_month/$filename"
 
     echo
     echo -e "  ${CYAN}Destination: $git_rel${RESET}"
@@ -360,7 +360,7 @@ cmd_publish() {
         prompt_confirm "Destination exists. Overwrite?" false || { warn "Cancelled."; return; }
     fi
     mv "$source_path" "$dest_path"
-    ok "Moved: brain/archive/$project/$year_month/$filename"
+    ok "Moved: brain/ai-brain/archive/$project/$year_month/$filename"
 
     # Git
     cd "$REPO_ROOT"
@@ -390,7 +390,7 @@ cmd_move() {
     header "Promote file between tiers"
 
     local source_path="$ARG1"
-    [[ -z "$source_path" ]] && source_path="$(prompt_input "Source (relative to brain/)")"
+    [[ -z "$source_path" ]] && source_path="$(prompt_input "Source (relative to brain/ai-brain/)")"
     source_path="$(resolve_source "$source_path")"
 
     local target_tier="${OPT_TIER:-}"
@@ -410,11 +410,11 @@ cmd_move() {
     fi
 
     mv "$source_path" "$dest_path"
-    ok "Moved: brain/$target_tier/$subdir${subdir:+/}$filename"
+    ok "Moved: brain/ai-brain/$target_tier/$subdir${subdir:+/}$filename"
 
     if [[ "$target_tier" == "archive" ]]; then
         cd "$REPO_ROOT"
-        local git_rel="brain/$target_tier/${subdir:+$subdir/}$filename"
+        local git_rel="brain/ai-brain/$target_tier/${subdir:+$subdir/}$filename"
         git add "$git_rel" 2>/dev/null
         ok "Staged: $git_rel"
         info "Run 'git commit' when ready."
@@ -533,7 +533,7 @@ cmd_clear() {
 # ── Command: status ────────────────────────────────────────────────────────────
 
 cmd_status() {
-    header "brain/ workspace status"
+    header "brain/ai-brain/ workspace status"
 
     for tier in inbox notes archive; do
         local dir="$BRAIN_ROOT/$tier"
@@ -553,7 +553,7 @@ cmd_status() {
     done
 
     echo
-    local staged; staged="$(git -C "$REPO_ROOT" diff --cached --name-only -- brain/ 2>/dev/null || true)"
+    local staged; staged="$(git -C "$REPO_ROOT" diff --cached --name-only -- brain/ai-brain/ 2>/dev/null || true)"
     if [[ -n "$staged" ]]; then
         echo -e "  ${YELLOW}Staged (ready to commit):${RESET}"
         echo "$staged" | while read -r f; do echo -e "    ${YELLOW}$f${RESET}"; done

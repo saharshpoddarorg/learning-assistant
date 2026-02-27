@@ -86,8 +86,9 @@ learning-assistant/
 │                   └── template: atlassian-config.local.example.properties (✅ committed)
 │
 ├── brain/
-│   ├── inbox/                          ❌ GITIGNORED — session-scoped scratch notes
-│   └── notes/                          ❌ GITIGNORED — local persistent notes (never committed)
+│   └── ai-brain/
+│       ├── inbox/                      ❌ GITIGNORED — session-scoped scratch notes
+│       └── notes/                      ❌ GITIGNORED — local persistent notes (never committed)
 │
 └── .env, .env.*                        ❌ GITIGNORED — raw env files (never commit)
 ```
@@ -154,8 +155,8 @@ cd mcp-servers
 
 Expected output:
 ```
-Compiling 147 source files  ->  out/
-BUILD SUCCESS -- compiled 147 files
+Compiling 150 source files  ->  out/
+BUILD SUCCESS -- compiled 150 files
 ```
 
 ### Step 3 — Run (Learning Resources server — no credentials needed)
@@ -584,9 +585,9 @@ atlassian-config.local.example.properties         ✅ Yes       ❌ No        Te
 build.env.local                                   ❌ No        ✅ Maybe     Your JAVA_HOME
 build.env.example                                 ✅ Yes       ❌ No        Template
 mcp-servers/out/                                  ❌ No        ✅ Auto      Compiled classes
-brain/inbox/                                      ❌ No        Optional     Session scratch notes
-brain/notes/                                      ❌ No        Optional     Persistent local notes
-brain/archive/                                    ✅ Yes       ❌ No        Curated published notes
+brain/ai-brain/inbox/                             ❌ No        Optional     Session scratch notes
+brain/ai-brain/notes/                             ❌ No        Optional     Persistent local notes
+brain/ai-brain/archive/                           ✅ Yes       ❌ No        Curated published notes
 .idea/                                            ❌ No        ✅ Auto (IDE) IntelliJ workspace
 ```
 

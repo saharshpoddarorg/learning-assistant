@@ -15,15 +15,15 @@
     Delete files immediately with no confirmation.
 
 .EXAMPLE
-    .\brain\scripts\clear-inbox.ps1
+    .\.vscode\clear-inbox.ps1
     Preview only -- lists files but does not delete.
 
 .EXAMPLE
-    .\brain\scripts\clear-inbox.ps1 -Confirm
+    .\brain\ai-brain\scripts\clear-inbox.ps1 -Confirm
     List files and ask before deleting.
 
 .EXAMPLE
-    .\brain\scripts\clear-inbox.ps1 -Force
+    .\brain\ai-brain\scripts\clear-inbox.ps1 -Force
     Delete without prompting.
 #>
 [CmdletBinding()]
@@ -32,8 +32,8 @@ param(
     [switch]$Force
 )
 
-$repoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
-$inboxDir = Join-Path $repoRoot "brain\inbox"
+$repoRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $PSScriptRoot))
+$inboxDir = Join-Path $repoRoot "brain\ai-brain\inbox"
 
 if (-not (Test-Path $inboxDir)) {
     Write-Host "inbox/ does not exist: $inboxDir" -ForegroundColor Yellow
@@ -49,7 +49,7 @@ if ($files.Count -eq 0) {
 }
 
 Write-Host ""
-Write-Host "Files in brain/inbox/:" -ForegroundColor Cyan
+Write-Host "Files in brain/ai-brain/inbox/:" -ForegroundColor Cyan
 $files | ForEach-Object {
     $relative = $_.FullName.Substring($inboxDir.Length + 1)
     Write-Host "  $relative" -ForegroundColor White

@@ -267,6 +267,91 @@ public final class JavaResources implements ResourceProvider {
                         ContentFreshness.ACTIVELY_MAINTAINED,
                         true, true, LanguageApplicability.JAVA_CENTRIC, now
                 )
+,
+                // ─── JDK Upgrade & Version Management ──────────────────────────
+
+                new LearningResource(
+                        "jdk25-release-notes",
+                        "JDK 25 Release Notes (OpenJDK)",
+                        "https://openjdk.org/projects/jdk/25/",
+                        "Official OpenJDK project page for JDK 25 (LTS, September 2025). Lists "
+                                + "all JEPs (JDK Enhancement Proposals) included in the release: "
+                                + "Project Loom completions, Valhalla value types, Amber pattern "
+                                + "matching enhancements, Panama foreign function/memory API finalization, "
+                                + "and more. The go-to reference before upgrading from JDK 21 or earlier.",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.JAVA),
+                        List.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.GETTING_STARTED),
+                        List.of("jdk25", "java25", "release-notes", "jep", "lts", "upgrade",
+                                "openjdk", "new-features", "migration"),
+                        "OpenJDK / Oracle",
+                        DifficultyLevel.INTERMEDIATE,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        true, true, LanguageApplicability.JAVA_CENTRIC, now
+                ),
+
+                new LearningResource(
+                        "jdk25-migration-guide",
+                        "JDK 25 Migration Guide",
+                        "https://docs.oracle.com/en/java/javase/25/migrate/",
+                        "Oracle's official guide for migrating applications to JDK 25. Covers "
+                                + "incompatibilities, deprecated APIs to remove, module system changes, "
+                                + "strong encapsulation updates, and performance improvements. "
+                                + "Step-by-step upgrade path from JDK 21 (previous LTS) including "
+                                + "jdeps analysis and multi-release JAR creation.",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.JAVA),
+                        List.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.BUILD_TOOLS),
+                        List.of("jdk25", "migration", "upgrade", "java25", "jdk21-to-25",
+                                "incompatibilities", "modules", "deprecated-apis"),
+                        "Oracle",
+                        DifficultyLevel.INTERMEDIATE,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        true, true, LanguageApplicability.JAVA_CENTRIC, now
+                ),
+
+                new LearningResource(
+                        "sdkman-jdk-manager",
+                        "SDKMAN! — JDK Version Manager",
+                        "https://sdkman.io/",
+                        "The de-facto tool for managing multiple JDK distributions on Linux, "
+                                + "macOS, and Windows (Git Bash / WSL). Install and switch between "
+                                + "OpenJDK, Eclipse Temurin, GraalVM, Corretto, and Zulu with one "
+                                + "command: 'sdk install java 25-tem'. Supports .sdkmanrc for "
+                                + "per-project JDK pinning — ideal for teams maintaining multiple "
+                                + "Java versions across different microservices.",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.JAVA, ResourceCategory.TOOLS),
+                        List.of(ConceptArea.GETTING_STARTED, ConceptArea.BUILD_TOOLS,
+                                ConceptArea.LANGUAGE_FEATURES),
+                        List.of("sdkman", "jdk", "version-manager", "java-versions", "temurin",
+                                "graalvm", "corretto", "zulu", "linux", "macos", "wsl", "upgrade"),
+                        "SDKMAN! Community",
+                        DifficultyLevel.BEGINNER,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        false, true, LanguageApplicability.JAVA_CENTRIC, now
+                ),
+
+                new LearningResource(
+                        "eclipse-temurin",
+                        "Eclipse Temurin — Open-Source JDK Builds (Adoptium)",
+                        "https://adoptium.net/",
+                        "Adoptium's Eclipse Temurin provides production-ready, open-source JDK "
+                                + "builds for every major version (8, 11, 17, 21, 25). Download "
+                                + "installers for Windows, macOS, Linux, or use via SDKMAN! / Docker "
+                                + "images. Backed by Microsoft, IBM, Google, and Red Hat. The "
+                                + "recommended open-source alternative to Oracle JDK.",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.JAVA, ResourceCategory.TOOLS),
+                        List.of(ConceptArea.GETTING_STARTED, ConceptArea.LANGUAGE_FEATURES),
+                        List.of("temurin", "adoptium", "open-source-jdk", "jdk-download",
+                                "jdk25", "jdk21", "production-ready", "windows", "macos", "linux",
+                                "docker", "openjdk"),
+                        "Eclipse Foundation / Adoptium",
+                        DifficultyLevel.BEGINNER,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        true, true, LanguageApplicability.JAVA_CENTRIC, now
+                )
         );
     }
 }

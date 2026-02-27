@@ -7,10 +7,10 @@
     short alias functions for the brain dispatcher.
 
     To load automatically, add to your $PROFILE:
-        Import-Module E:\path\to\repo\brain\scripts\brain-module.psm1
+        Import-Module E:\path\to\repo\brain\ai-brain\scripts\brain-module.psm1
 
     Or to load only for this repo session (in a shell init script):
-        . .\brain\scripts\brain-module.psm1
+        . .\brain\ai-brain\scripts\brain-module.psm1
 
 .EXPORTED FUNCTIONS
     brain         Full dispatcher (same as brain.ps1 directly)

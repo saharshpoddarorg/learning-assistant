@@ -17,7 +17,7 @@ package server.learningresources.model;
  *   <tr><td>DEVOPS_TOOLING</td><td>CI_CD, CONTAINERS, VERSION_CONTROL, BUILD_TOOLS, INFRASTRUCTURE, OBSERVABILITY</td></tr>
  *   <tr><td>SECURITY</td><td>WEB_SECURITY, CRYPTOGRAPHY</td></tr>
  *   <tr><td>AI_DATA</td><td>MACHINE_LEARNING, LLM_AND_PROMPTING</td></tr>
- *   <tr><td>CAREER_META</td><td>INTERVIEW_PREP, CAREER_DEVELOPMENT, GETTING_STARTED</td></tr>
+ *   <tr><td>CAREER_META</td><td>INTERVIEW_PREP, CAREER_DEVELOPMENT, GETTING_STARTED, KNOWLEDGE_MANAGEMENT</td></tr>
  * </table>
  *
  * @see ConceptArea#getDomain()

@@ -35,6 +35,7 @@
    - [Learning Paths by Topic](#91-learning-paths-by-topic)
    - [Daily Learning Workflow](#92-daily-learning-workflow)
    - [Building Real Skills](#93-building-real-skills)
+   - [Mac Dev Module — macOS Environment](#94-mac-dev-module--macos-environment)
 10. [All VS Code Tasks Quick Reference](#10-all-vs-code-tasks-quick-reference)
 11. [All Files Quick Reference](#11-all-files-quick-reference)
 12. [Extending & Adding Your Own Features](#12-extending--adding-your-own-features)
@@ -828,7 +829,7 @@ public class LanguageFilter<T extends LearningResource> implements SearchFilter<
 > Your personal note-taking system. Three tiers: inbox → notes → archive.
 
 ```
-brain/
+brain/ai-brain/
 ├── inbox/    ← Draft notes (rough ideas, quick captures)
 ├── notes/    ← Active knowledge (refined, searchable)
 └── archive/  ← Published, tagged reference material
@@ -859,16 +860,16 @@ brain/
 
 **Via terminal:**
 ```powershell
-.\brain\scripts\brain.ps1 new
-.\brain\scripts\brain.ps1 new --tier notes
-.\brain\scripts\brain.ps1 publish
-.\brain\scripts\brain.ps1 search "binary tree"
-.\brain\scripts\brain.ps1 list
-.\brain\scripts\brain.ps1 status
+.\brain\ai-brain\scripts\brain.ps1 new
+.\brain\ai-brain\scripts\brain.ps1 new --tier notes
+.\brain\ai-brain\scripts\brain.ps1 publish
+.\brain\ai-brain\scripts\brain.ps1 search "binary tree"
+.\brain\ai-brain\scripts\brain.ps1 list
+.\brain\ai-brain\scripts\brain.ps1 status
 ```
 ```bash
-./brain/scripts/brain.sh new
-./brain/scripts/brain.sh search "binary tree"
+./brain/ai-brain/scripts/brain.sh new
+./brain/ai-brain/scripts/brain.sh search "binary tree"
 ```
 
 **The learning workflow:**
@@ -1029,6 +1030,45 @@ For MCP servers specifically:
 
 ---
 
+### 9.4 Mac Dev Module — macOS Environment
+
+> **Location:** `mac-os/` · **Entry point:** `mac-os/docs/START-HERE.md`  
+> **Slash command:** `/mac-dev` · **Hub:** `/hub mac`
+
+An incremental, iterative learning module for setting up a professional macOS development environment.  
+Follow it at your own pace — each guide is self-contained and 3-tier aware.
+
+**Learning Path:**
+
+| Tier | What You'll Do | Guides |
+|---|---|---|
+| 🟢 Newbie | Install Homebrew, JDK, VS Code — have Java running | [START-HERE](../mac-os/docs/START-HERE.md) → [Homebrew](../mac-os/docs/homebrew-guide.md) → [JDK Setup](../mac-os/docs/jdk-setup.md) |
+| 🟡 Amateur | Add Docker, IntelliJ, nvm, shell aliases | [Dev Tools](../mac-os/docs/dev-tools-guide.md) → [npm on Mac](../mac-os/docs/npm-on-mac.md) → [Environment](../mac-os/docs/mac-dev-environment.md) |
+| 🔴 Pro | Brewfile, dotfiles, bootstrap script, jenv | [Full Environment](../mac-os/docs/mac-dev-environment.md) → [Homebrew §Brewfile](../mac-os/docs/homebrew-guide.md) → [JDK §jenv](../mac-os/docs/jdk-setup.md) |
+
+**Quick install in 3 commands:**
+```zsh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install --cask temurin visual-studio-code iterm2
+java --version && code --version
+```
+
+**Interactive guide (in Copilot Chat):**
+```
+/mac-dev → homebrew → install → newbie
+/mac-dev → jdk → temurin → newbie
+/mac-dev → docker → install → amateur
+/mac-dev → dotfiles → bootstrap → pro
+```
+
+**Java environment checker** (compile and run from repo root):
+```zsh
+javac mac-os/src/development/MacEnvChecker.java -d mac-os/out
+java -cp mac-os/out MacEnvChecker
+```
+
+---
+
 ## 10. All VS Code Tasks Quick Reference
 
 Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all tasks):
@@ -1131,7 +1171,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `mcp-servers/README.md` | MCP module deep dive |
 | `mcp-servers/SETUP.md` | Step-by-step setup (quick) |
 | `mcp-servers/scripts/README.md` | Scripts framework documentation |
-| `brain/README.md` | Brain workspace guide |
+| `brain/ai-brain/README.md` | Brain workspace guide |
 
 ---
 

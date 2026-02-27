@@ -221,7 +221,7 @@ cd mcp-servers
 
 Expected output:
 ```
-BUILD SUCCESS -- compiled 116 files
+BUILD SUCCESS -- compiled 150 files
 ```
 
 > **"javac not found"?** Java isn't on PATH. See [Phase 1.3](#13--jdk-21-java-for-mcp-servers).
@@ -480,6 +480,7 @@ Copilot enriches the note with tags, updates frontmatter, and commits it.
 - [ ] Updated the relevant README (agents/README.md, prompts/README.md, etc.)
 - [ ] Added to [navigation-index.md](navigation-index.md) if it's a new command/agent
 - [ ] Added to [slash-commands.md](slash-commands.md) if it's a new prompt
+- [ ] **Build passes** — run `cd mcp-servers && .\build.ps1` and verify `BUILD SUCCESS` before committing
 - [ ] Committed with a meaningful message (see commit guidelines in [copilot-instructions.md](../copilot-instructions.md))
 
 ---

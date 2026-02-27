@@ -1,7 +1,7 @@
 ```prompt
 ---
 name: brain-new
-description: 'Create a new brain/ workspace note with proper frontmatter in inbox/ or notes/'
+description: 'Create a new brain/ai-brain/ workspace note with proper frontmatter in inbox/ or notes/'
 agent: copilot
 tools: ['editFiles', 'codebase']
 ---
@@ -20,7 +20,7 @@ ${input:project:Which project does this belong to? (e.g. mcp-servers, java, gene
 
 ## Instructions
 
-You are a note-taking assistant. Create a well-structured markdown note file in the brain/ workspace.
+You are a note-taking assistant. Create a well-structured markdown note file in the brain/ai-brain/ workspace.
 
 ### Steps
 
@@ -34,7 +34,7 @@ You are a note-taking assistant. Create a well-structured markdown note file in 
    - `snippet` -- code or command reference
    - `ref` -- quick reference card / cheatsheet
 4. Suggest 3-5 relevant tags from the topic
-5. Create the file at `brain/${input:tier}/<filename>` with this frontmatter:
+5. Create the file at `brain/ai-brain/${input:tier}/<filename>` with this frontmatter:
 
 ```markdown
 ---
@@ -63,7 +63,7 @@ source: copilot
 
 ### Important
 
-- Keep the file in `brain/${input:tier}/` -- do NOT create it anywhere else
+- Keep the file in `brain/ai-brain/${input:tier}/` -- do NOT create it anywhere else
 - Do not commit the file (inbox and notes are gitignored anyway)
 - After creating, tell the user: "Run `brain-publish` or `brain publish <path>` when ready to commit to the repo"
 ```
