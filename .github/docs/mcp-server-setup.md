@@ -123,7 +123,7 @@ cd mcp-servers
 
 You should see output ending with:
 ```
-BUILD SUCCESS -- compiled 116 files
+BUILD SUCCESS -- compiled 150 files
 ```
 
 > **If you see javac not found:** Java is not on your PATH. See §3a above and restart your terminal.

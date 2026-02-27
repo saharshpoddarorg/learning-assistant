@@ -2,8 +2,8 @@ package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
 import server.learningresources.model.ContentFreshness;
-import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.DifficultyLevel;
+import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.LearningResource;
 import server.learningresources.model.ResourceCategory;
 import server.learningresources.model.ResourceType;

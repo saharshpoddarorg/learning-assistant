@@ -67,6 +67,7 @@ When creating `.github/prompts/<name>.prompt.md`:
 - [ ] **`slash-commands.md`** — add to Quick Lookup table + Command Details section
 - [ ] **`hub.prompt.md`** — add to the category tree if it's a new domain
 - [ ] **TOC in `slash-commands.md`** — add anchor if a new category heading was added
+- [ ] **Build and verify** — `.\mcp-servers\build.ps1` must succeed with 0 errors
 
 ---
 
@@ -79,6 +80,7 @@ When creating `.github/skills/<name>/SKILL.md`:
 - [ ] **3-tier content** — newbie / amateur / pro sections with appropriate depth
 - [ ] **Command cheatsheet** — copy-pasteable, tested commands
 - [ ] **Learning path** — link to vault resources per tier
+- [ ] **Build and verify** — `.\mcp-servers\build.ps1` must succeed with 0 errors
 
 ---
 
@@ -92,7 +94,7 @@ When adding an MCP tool handler (e.g., a new `handle_*` case):
 - [ ] **`slash-commands.md`** — update `/resources` (or relevant command) MCP tools list
 - [ ] **`mcp-servers/README.md`** — update tools table
 - [ ] **`USAGE.md`** — add or update relevant section
-- [ ] **Build and verify** — `.\mcp-servers\build.ps1` must succeed
+- [ ] **Build and verify** — `.\mcp-servers\build.ps1` must succeed with 0 errors
 
 ---
 
@@ -104,6 +106,7 @@ When adding to `ConceptArea`, `ResourceCategory`, `DifficultyLevel`, etc.:
 - [ ] **`KeywordIndex.java`** — add at least 3 synonymous keyword mappings
 - [ ] **At least one resource** using the new value so it's exercised
 - [ ] **All existing providers** — check if any resources should retroactively use the new value
+- [ ] **Build and verify** — `.\mcp-servers\build.ps1` must succeed with 0 errors
 
 ---
 

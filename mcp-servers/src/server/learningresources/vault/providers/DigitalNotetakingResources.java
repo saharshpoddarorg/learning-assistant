@@ -37,7 +37,7 @@ import java.util.List;
  * @see GeneralResources
  * @see EngineeringResources
  */
-public final class DigitalNoteakingResources implements ResourceProvider {
+public final class DigitalNotetakingResources implements ResourceProvider {
 
     @Override
     public List<LearningResource> resources() {
