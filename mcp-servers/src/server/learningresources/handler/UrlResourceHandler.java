@@ -89,6 +89,7 @@ public final class UrlResourceHandler {
             "/reference", ResourceType.API_REFERENCE,
             "/book", ResourceType.BOOK,
             "/video", ResourceType.VIDEO,
+            "/course", ResourceType.VIDEO_COURSE,
             "github.com", ResourceType.REPOSITORY
     );
 

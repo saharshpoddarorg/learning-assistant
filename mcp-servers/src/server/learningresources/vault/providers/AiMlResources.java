@@ -29,7 +29,7 @@ public final class AiMlResources implements ResourceProvider {
                         "Free courses teaching deep learning with a top-down, code-first "
                                 + "approach. Covers image classification, NLP, tabular data, "
                                 + "and collaborative filtering using PyTorch and the fastai library.",
-                        ResourceType.COURSE,
+                        ResourceType.VIDEO_COURSE,
                         List.of(ResourceCategory.AI_ML),
                         List.of(ConceptArea.MACHINE_LEARNING, ConceptArea.GETTING_STARTED),
                         List.of("deep-learning", "pytorch", "nlp", "image-classification",

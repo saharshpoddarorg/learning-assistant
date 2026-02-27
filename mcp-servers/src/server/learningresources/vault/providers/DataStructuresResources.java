@@ -144,7 +144,7 @@ public final class DataStructuresResources implements ResourceProvider {
                                 + "(AVL, binary heaps), graphs (BFS, DFS, shortest paths, MST), "
                                 + "and dynamic programming. Includes lecture notes, problem sets, "
                                 + "exams with solutions — all freely available.",
-                        ResourceType.COURSE,
+                        ResourceType.VIDEO_COURSE,
                         List.of(ResourceCategory.ALGORITHMS, ResourceCategory.GENERAL),
                         List.of(ConceptArea.DATA_STRUCTURES, ConceptArea.ALGORITHMS,
                                 ConceptArea.COMPLEXITY_ANALYSIS),

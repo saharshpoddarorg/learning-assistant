@@ -20,8 +20,11 @@ public enum ResourceType {
     /** In-depth technical articles (e.g., Baeldung, InfoQ). */
     ARTICLE("article"),
 
-    /** Video content — talks, courses, screencasts (e.g., YouTube, Pluralsight). */
+    /** Video content — standalone talks, screencasts, or short clips (e.g., YouTube). */
     VIDEO("video"),
+
+    /** Full video lecture course with a structured syllabus (e.g., MIT OCW, fast.ai). */
+    VIDEO_COURSE("video-course"),
 
     /** Published books or book chapters available online. */
     BOOK("book"),
@@ -70,7 +73,8 @@ public enum ResourceType {
             }
         }
         throw new IllegalArgumentException("Unknown resource type: '" + value
-                + "'. Valid values: documentation, tutorial, blog, article, video, book, "
-                + "interactive, course, api-reference, cheat-sheet, repository");
+                + "'. Valid values: documentation, tutorial, blog, article, video, "
+                + "video-course, book, interactive, course, api-reference, "
+                + "cheat-sheet, repository");
     }
 }
