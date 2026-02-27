@@ -131,7 +131,10 @@ public enum ConceptArea {
     CAREER_DEVELOPMENT("career-development", ConceptDomain.CAREER_META),
 
     /** Getting started: environment setup, first project, "hello world". */
-    GETTING_STARTED("getting-started", ConceptDomain.CAREER_META);
+    GETTING_STARTED("getting-started", ConceptDomain.CAREER_META),
+
+    /** Personal knowledge management: digital note-taking, CODE method, PARA method, PKM tools. */
+    KNOWLEDGE_MANAGEMENT("knowledge-management", ConceptDomain.CAREER_META);
 
     private final String displayName;
     private final ConceptDomain domain;

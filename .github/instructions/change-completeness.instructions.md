@@ -24,14 +24,14 @@ applyTo: "**"
 
 ### A — Adding New Learning Resources (vault providers)
 
-When adding or expanding a `ResourceProvider` class (e.g., `GitAndBuildResources.java`):
+When adding or expanding a `ResourceProvider` class (e.g., `VcsResources.java`, `BuildToolsResources.java`):
 
 - [ ] **New provider class** in `mcp-servers/src/server/learningresources/vault/providers/`
   - Implements `ResourceProvider`, returns `List<LearningResource>`
   - Each resource: all required fields (id, title, url, description, type, categories,
     conceptAreas, tags, author, difficulty, freshness, isOfficial, isFree, languageApplicability, addedAt)
   - IDs are unique, lowercase, hyphenated
-  - No duplicate URLs with existing providers (check `DevOpsResources.java`, `JavaResources.java`, etc.)
+  - No duplicate URLs with existing providers (check `VcsResources.java`, `BuildToolsResources.java`, `DevOpsResources.java`, `JavaResources.java`, etc.)
 - [ ] **Register in `BuiltInResources.java`** — add `new YourProvider()` to `PROVIDERS` and add `import`
 - [ ] **Enum check** — verify `ConceptArea` and `ResourceCategory` have the values you need;
   if not, add them (and update all enum-related tests/indexes)
@@ -153,7 +153,8 @@ Run this for EVERY category of change:
 | `mcp-servers/src/.../model/ConceptArea.java` | UPDATE if new concept needed |
 | `mcp-servers/src/.../model/ResourceCategory.java` | UPDATE if new category needed |
 | `.github/skills/<domain>/SKILL.md` | CREATE or UPDATE |
-| `.github/skills/java-build/SKILL.md` | UPDATE if build tools changed |
+| `.github/skills/java-build/SKILL.md` | UPDATE if build tools or JDK changed |
+| `.github/skills/digital-notetaking/SKILL.md` | UPDATE if PKM/note-taking content changed |
 | `.github/prompts/<domain>.prompt.md` | CREATE — slash command |
 | `.github/prompts/hub.prompt.md` | UPDATE — category tree |
 | `.github/docs/slash-commands.md` | UPDATE — table + details |
@@ -173,8 +174,9 @@ Run this for EVERY category of change:
 # Clean build (from scratch)
 .\mcp-servers\build.ps1 -Clean
 
-# Verify key classes compiled
-Test-Path mcp-servers\out\server\learningresources\vault\providers\GitAndBuildResources.class
+# Verify key classes compiled (examples — adjust to your new provider)
+Test-Path mcp-servers\out\server\learningresources\vault\providers\VcsResources.class
+Test-Path mcp-servers\out\server\learningresources\vault\providers\BuildToolsResources.class
 ```
 
 If the build fails:

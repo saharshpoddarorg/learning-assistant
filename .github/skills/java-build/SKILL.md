@@ -120,6 +120,48 @@ application { mainClass.set("com.example.Main") }
 
 ---
 
+## JDK Version Management
+
+### Check Current Java Version
+```sh
+java --version
+javac --version
+```
+
+### Install SDKMAN! (Linux / macOS / WSL on Windows)
+```bash
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+```
+
+### Manage JDK with SDKMAN!
+```bash
+sdk list java                    # list available distributions
+sdk install java 25-tem          # install JDK 25 (Eclipse Temurin LTS)
+sdk install java 21.0.7-tem      # install JDK 21 (previous LTS)
+sdk use java 25-tem              # switch in current shell only
+sdk default java 25-tem          # set as global default
+sdk env init                     # create .sdkmanrc for per-project JDK
+sdk env                          # apply .sdkmanrc in current shell
+```
+
+### Windows (without WSL)
+```powershell
+# Download JDK 25 from adoptium.net, then set JAVA_HOME:
+$env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-25"
+$env:PATH = "$env:JAVA_HOME\bin;" + $env:PATH
+java --version     # verify
+```
+
+### JDK 25 Key Facts
+- **Type:** LTS (Long-Term Support) — September 2025 release
+- **Notable JEPs:** Finalized Project Loom virtual threads, Valhalla value classes (preview),
+  Panama foreign function API stable, Amber pattern matching improvements
+- **Migration:** Oracle Migration Guide → https://docs.oracle.com/en/java/javase/25/migrate/
+- **Open-source builds:** Eclipse Temurin (recommended), Corretto, Zulu, GraalVM
+
+---
+
 ## 3-Tier Build Learning Path
 
 ### Newbie — Manual javac

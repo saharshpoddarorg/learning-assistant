@@ -47,6 +47,9 @@ public enum ResourceCategory {
     /** Git, IDE, developer tools, productivity. */
     TOOLS("tools"),
 
+    /** Productivity apps, note-taking tools, task managers, personal knowledge management. */
+    PRODUCTIVITY("productivity"),
+
     /** Operating systems, networking, systems programming. */
     SYSTEMS("systems"),
 

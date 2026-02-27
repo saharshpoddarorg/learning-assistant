@@ -47,7 +47,7 @@ This module provides a **Java-based configuration system** and **MCP server impl
 
 | Server | Description | Docs |
 |--------|-------------|------|
-| **Learning Resources** | Web scraper + curated vault of 68+ learning resources. Smart discovery, multi-format export, scrape, summarize, search, and browse tutorials, docs, blogs, and more. | [README](src/server/learningresources/README.md) |
+| **Learning Resources** | Web scraper + curated vault of 80+ learning resources. Smart discovery, multi-format export, scrape, summarize, search, and browse tutorials, docs, blogs, and more. | [README](src/server/learningresources/README.md) |
 | **Atlassian** | Unified gateway to Jira, Confluence, and Bitbucket. 27 tools: issue management, sprint tracking, documentation, code collaboration, and cross-product unified search. JSON-RPC 2.0 over STDIO. | [README](src/server/atlassian/README.md) |
 
 ### Shared Modules

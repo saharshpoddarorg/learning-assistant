@@ -202,7 +202,15 @@ You are the **navigation hub** for all available assistants and learning command
 │            ├── symlinks ··········· ln -sf strategy
 │            └── bootstrap ·········· One-command new-Mac setup script
 │
-├─── DAILY ASSISTANT (/hub daily)
+├─── DIGITAL NOTE-TAKING & PKM (/hub notetaking)
+│    └── /digital-notetaking ··········· PKM methods, tools, migration & JDK upgrade
+│        ├── methods ················· PARA, CODE, Zettelkasten, GTD
+│        ├── tools ··················· Notion, Obsidian, Logseq, OneNote, Google Docs
+│        ├── developer-pkm ·········· ADRs, learning journals, snippet vaults
+│        ├── migration ············· Notion→Obsidian, Logseq→Obsidian, OneNote→Notion
+│        ├── todos ··················· PARA-based task management, Todoist integration
+│        └── jdk-upgrade ············ SDKMAN!, Temurin, JDK 25 LTS migration
+│
 │    └── /daily-assist ·············· Non-SE daily productivity
 │        ├── finance ················ Budget tracking, investment basics, expense analysis
 │        ├── productivity ··········· Planning, time management, habit tracking
@@ -273,6 +281,7 @@ Quick Commands:
     /git-vcs          → Git workflows, branching strategies, commit conventions, semver
     /build-tools      → Build automation: Maven, Gradle, Make, Bazel, npm
     /mac-dev          → macOS dev environment: Homebrew, JDK, npm, IDEs, Docker, dotfiles
+    /digital-notetaking → PKM systems (PARA/CODE/Zettelkasten), tools (Notion/Obsidian/Logseq), migration, JDK upgrade
     /mcp              → MCP: build servers, configure agents, API integration
     /resources        → Search, discover & export 68+ curated learning resources
     /language-guide   → Language-specific learning

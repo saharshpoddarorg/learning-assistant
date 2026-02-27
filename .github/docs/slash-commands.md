@@ -45,7 +45,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (33 commands)
+### Quick Lookup (34 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -82,6 +82,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 31 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
 | 32 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
 | 33 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
+| 34 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
 
 ---
 
@@ -272,13 +273,14 @@ Example:  /resources → search → java concurrency
 Actions:  search (keyword/tag), browse (by category), scrape (any URL),
           recommend (topic-based), add (new resource), details (deep-dive),
           discover (3 modes: specific/vague/exploratory), export (md/pdf/word)
-Vault:    68+ curated resources across Java, Python, Web, AI/ML, DevOps,
-          Git/VCS, build tools, algorithms, engineering, databases, security, and more
+Vault:    80+ curated resources across Java, Python, Web, AI/ML, DevOps,
+          Git/VCS, build tools, algorithms, engineering, databases, security,
+          digital note-taking & PKM, and more
 MCP:      Backed by 10 MCP tools: search_resources, browse_vault, get_resource,
           list_categories, discover_resources, scrape_url, read_url, add_resource,
           add_resource_from_url, export_results
 Enums:    SearchMode (specific/vague/exploratory), ConceptDomain (8 domains),
-          ConceptArea (33 concepts), DifficultyLevel, LanguageApplicability
+          ConceptArea (34 concepts), DifficultyLevel, LanguageApplicability
 ```
 
 #### `/git-vcs` — Git & Version Control
@@ -334,6 +336,30 @@ Levels:   newbie (install & first use) → amateur (structure & configure) → p
 Docs:     mac-os/docs/ — START-HERE, homebrew-guide, jdk-setup, npm-on-mac,
           dev-tools-guide, mac-dev-environment
 Skill:    Backed by mac-dev/SKILL.md (Homebrew, JDK, npm, Docker cheatsheets)
+```
+
+#### `/digital-notetaking` — Digital Note-Taking, PKM & JDK Upgrade
+```
+Inputs:   topic (notion/obsidian/logseq/onenote/para-method/code-method/zettelkasten/
+                 migration/jdk-upgrade/sdkman/temurin/todo-management),
+          tool  (notion/obsidian/logseq/onenote/google-docs/any),
+          level (newbie/intermediate/advanced),
+          os    (windows/macos/linux/cross-platform)
+Agent:    Learning-Mentor
+Tools:    codebase, fetch
+Example:  /digital-notetaking → para-method → obsidian → intermediate → windows
+          /digital-notetaking → migration → notion-to-obsidian → advanced
+          /digital-notetaking → jdk-upgrade → sdkman → beginner → macos
+Topics:   Methodologies: PARA (Projects, Areas, Resources, Archives),
+          CODE (Capture, Organize, Distill, Express), Zettelkasten,
+          Tools: Notion (cloud, cross-platform), Obsidian (local-first, Markdown),
+                 Logseq (open-source), Microsoft OneNote, Google Docs/Keep
+          Developer PKM: ADRs, learning journals, code snippet vaults
+          Migration: Notion→Obsidian, Logseq→Obsidian, OneNote→Notion
+          Todo management: PARA actions, Todoist integration
+          JDK upgrade: SDKMAN!, Eclipse Temurin, JDK 25 LTS migration from JDK 21
+Platforms: Windows, macOS (see /mac-dev), Linux, iOS, Android
+Skill:    Backed by digital-notetaking/SKILL.md (tool comparison, templates, JDK commands)
 ```
 
 ---

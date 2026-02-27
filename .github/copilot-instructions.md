@@ -2,7 +2,7 @@
 
 ## Overview
 - **Project:** Learning Assistant — a simple Java project for learning Copilot customization
-- **Language:** Java 21+
+- **Language:** Java 21+ (JDK 25 LTS available — use SDKMAN! or Eclipse Temurin for version management)
 - **Build:** Manual compilation (no build tool yet)
 - **Purpose:** Hands-on experimentation with GitHub Copilot's customization features
 
@@ -10,6 +10,9 @@
 ```
 learning-assistant/
 ├── .github/              ← Copilot customization files (you're learning this!)
+├── brain/                ← Brain Java module
+│   ├── src/              ← Java entry point + digitalnotetaking package
+│   └── ai-brain/         ← Personal knowledge workspace (inbox, notes, archive)
 ├── mac-os/               ← macOS dev environment learning module
 │   └── docs/             ← Homebrew, JDK, npm, IDEs, Docker, dotfiles guides
 ├── mcp-servers/          ← MCP servers (Java)
@@ -17,6 +20,24 @@ learning-assistant/
 │   └── Main.java         ← Entry point
 └── .gitignore
 ```
+
+## OS-Specific Skill Routing
+
+When the user asks about environment setup, tooling, or shell commands, use the
+skill file appropriate for their OS. Infer OS from context clues (terminal commands,
+path separators, tool names) or ask if unclear.
+
+| OS | Skill to activate | Notes |
+|---|---|---|
+| **macOS** | `mac-dev` | Homebrew, zsh, Finder paths, macOS JDK install |
+| **Windows** | `java-build` | PowerShell commands, `\` paths, `javac` on PATH |
+| **Linux** | `java-build` | Bash commands, apt/dnf, SDKMAN! for JDK |
+| **Any** | `digital-notetaking` | Cross-platform: Notion, Obsidian, Logseq |
+| **Any** | `java-build` | JDK version management via SDKMAN! / Temurin |
+
+**Key rule:** Never give a macOS-only command (e.g., `brew install`) without noting
+it is macOS-specific, and always provide the Windows/Linux equivalent or reference
+the correct skill file.
 
 ## Coding Conventions
 

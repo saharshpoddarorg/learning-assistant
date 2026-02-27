@@ -198,6 +198,24 @@ public final class KeywordIndex {
         map.put("beginner", ConceptArea.GETTING_STARTED);
         map.put("hello world", ConceptArea.GETTING_STARTED);
 
+        // Knowledge management & digital note-taking
+        map.put("note-taking", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("notetaking", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("notes", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("notion", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("obsidian", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("onenote", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("logseq", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("roam", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("pkm", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("second brain", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("para method", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("code method", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("zettelkasten", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("tiago forte", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("knowledge management", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("digital notes", ConceptArea.KNOWLEDGE_MANAGEMENT);
+
         return Map.copyOf(map);
     }
 
@@ -256,6 +274,13 @@ public final class KeywordIndex {
         map.put("testing", ResourceCategory.TESTING);
         map.put("junit", ResourceCategory.TESTING);
         map.put("engineering", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("notion", ResourceCategory.PRODUCTIVITY);
+        map.put("obsidian", ResourceCategory.PRODUCTIVITY);
+        map.put("onenote", ResourceCategory.PRODUCTIVITY);
+        map.put("logseq", ResourceCategory.PRODUCTIVITY);
+        map.put("pkm", ResourceCategory.PRODUCTIVITY);
+        map.put("note-taking", ResourceCategory.PRODUCTIVITY);
+        map.put("productivity", ResourceCategory.PRODUCTIVITY);
         return Map.copyOf(map);
     }
 
