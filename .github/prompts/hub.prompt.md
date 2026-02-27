@@ -53,24 +53,25 @@ You are the **navigation hub** for all available assistants and learning command
 │    │   └── /interview-prep ········ System design interview prep
 │    │
 │    ├── DevOps & Tooling (/hub devops)
-│    │   └── /devops ················ CI/CD, Docker, Kubernetes, cloud, IaC
-│    │       ├── ci-cd ·············· Jenkins, GitHub Actions, GitLab CI
-│    │       │   ├── pipeline-anatomy · Stages, gates, approvals
-│    │       │   ├── deployment ····· Blue-green, canary, rolling, feature flags
-│    │       │   └── gitops ········· ArgoCD, Flux, declarative infra
-│    │       ├── containers ········· Docker, Kubernetes, Docker Compose
-│    │       │   ├── docker ········· Commands, Dockerfile, multi-stage builds
-│    │       │   └── kubernetes ····· kubectl, pods, services, deployments, HPA
-│    │       ├── build-tools ········ Maven, Gradle, Ant, Bazel
-│    │       │   ├── maven ·········· Lifecycle, POM, dependency scopes
-│    │       │   └── gradle ········· Build phases, Groovy/Kotlin DSL
-│    │       ├── git ················ Commands, branching, strategies, internals
-│    │       │   ├── daily-workflow ·· add, commit, push, pull, fetch
-│    │       │   ├── branching ······ Git Flow, GitHub Flow, Trunk-Based
-│    │       │   └── recovery ······· reset, revert, reflog, cherry-pick
-│    │       ├── cloud ·············· AWS, GCP, Azure fundamentals
-│    │       ├── iac ················ Terraform, Ansible, CloudFormation
-│    │       └── monitoring ········· Prometheus, Grafana, ELK, logging
+│    │   ├── /devops ················ CI/CD, Docker, Kubernetes, cloud, IaC
+│    │   │   ├── ci-cd ·············· Jenkins, GitHub Actions, GitLab CI
+│    │   │   │   ├── pipeline-anatomy · Stages, gates, approvals
+│    │   │   │   ├── deployment ····· Blue-green, canary, rolling, feature flags
+│    │   │   │   └── gitops ········· ArgoCD, Flux, declarative infra
+│    │   │   ├── containers ········· Docker, Kubernetes, Docker Compose
+│    │   │   │   ├── docker ········· Commands, Dockerfile, multi-stage builds
+│    │   │   │   └── kubernetes ····· kubectl, pods, services, deployments, HPA
+│    │   │   ├── cloud ·············· AWS, GCP, Azure fundamentals
+│    │   │   ├── iac ················ Terraform, Ansible, CloudFormation
+│    │   │   └── monitoring ········· Prometheus, Grafana, ELK, logging
+│    │   ├── /git-vcs ··············· Git workflows, branching strategies, commit conventions, semver
+│    │   │   ├── branching ·········· GitFlow, GitHub Flow, trunk-based development
+│    │   │   ├── conventions ········ Conventional Commits, semantic versioning
+│    │   │   └── internals ·········· Git object model, hooks, reflog, bisect
+│    │   └── /build-tools ··········· Build automation: Maven, Gradle, Make, Bazel, npm
+│    │       ├── maven ··············· POM, lifecycle, dependency scopes, BOM
+│    │       ├── gradle ·············· Kotlin DSL, multi-project, version catalogs
+│    │       └── other ··············· Make, Bazel, npm/yarn/pnpm
 │    │
 │    ├── Industry Concepts & Real-World Systems (/hub industry)
 │    │   ├── /learn-concept rate-limiting · Token bucket, sliding window, Netflix/Stripe
@@ -238,9 +239,11 @@ Quick Commands:
   Domain-Specific:
     /dsa              → Data structures & algorithms
     /system-design    → System design (HLD/LLD)
-    /devops           → CI/CD, Docker, K8s, cloud, Git, build tools
+    /devops           → CI/CD, Docker, K8s, cloud, IaC, monitoring
+    /git-vcs          → Git workflows, branching strategies, commit conventions, semver
+    /build-tools      → Build automation: Maven, Gradle, Make, Bazel, npm
     /mcp              → MCP: build servers, configure agents, API integration
-    /resources        → Search, discover & export 47+ curated learning resources
+    /resources        → Search, discover & export 68+ curated learning resources
     /language-guide   → Language-specific learning
     /tech-stack       → Frameworks & tech comparison
     /sdlc             → Development lifecycle & methods

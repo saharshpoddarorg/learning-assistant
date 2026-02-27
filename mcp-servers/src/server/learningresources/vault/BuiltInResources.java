@@ -3,13 +3,14 @@ package server.learningresources.vault;
 import server.learningresources.model.LearningResource;
 import server.learningresources.vault.providers.AiMlResources;
 import server.learningresources.vault.providers.AlgorithmsResources;
+import server.learningresources.vault.providers.BuildToolsResources;
 import server.learningresources.vault.providers.DataAndSecurityResources;
 import server.learningresources.vault.providers.DevOpsResources;
 import server.learningresources.vault.providers.EngineeringResources;
-import server.learningresources.vault.providers.GitAndBuildResources;
 import server.learningresources.vault.providers.GeneralResources;
 import server.learningresources.vault.providers.JavaResources;
 import server.learningresources.vault.providers.PythonResources;
+import server.learningresources.vault.providers.VcsResources;
 import server.learningresources.vault.providers.WebResources;
 
 import java.util.Collections;
@@ -43,7 +44,8 @@ public final class BuiltInResources {
             new AlgorithmsResources(),
             new EngineeringResources(),
             new DevOpsResources(),
-            new GitAndBuildResources(),
+            new VcsResources(),
+            new BuildToolsResources(),
             new DataAndSecurityResources(),
             new AiMlResources(),
             new GeneralResources()

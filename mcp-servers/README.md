@@ -47,7 +47,7 @@ This module provides a **Java-based configuration system** and **MCP server impl
 
 | Server | Description | Docs |
 |--------|-------------|------|
-| **Learning Resources** | Web scraper + curated vault of 47+ learning resources. Smart discovery, multi-format export, scrape, summarize, search, and browse tutorials, docs, blogs, and more. | [README](src/server/learningresources/README.md) |
+| **Learning Resources** | Web scraper + curated vault of 68+ learning resources. Smart discovery, multi-format export, scrape, summarize, search, and browse tutorials, docs, blogs, and more. | [README](src/server/learningresources/README.md) |
 | **Atlassian** | Unified gateway to Jira, Confluence, and Bitbucket. 27 tools: issue management, sprint tracking, documentation, code collaboration, and cross-product unified search. JSON-RPC 2.0 over STDIO. | [README](src/server/atlassian/README.md) |
 
 ### Shared Modules
@@ -173,7 +173,7 @@ mcp-servers/
 │           │
 │           ├── vault/                    ← Built-in resource library
 │           │   ├── ResourceVault.java    ← ConcurrentHashMap store with search
-│           │   └── BuiltInResources.java ← 47+ curated resources (Java, Web, DevOps, ...)
+│           │   └── BuiltInResources.java ← 68+ curated resources (Java, Web, VCS, Build Tools, ...)
 │           │
 │           └── handler/                  ← MCP tool dispatch (10 tools)
 │               ├── ToolHandler.java      ← Routes 10 tools via switch expression
@@ -485,7 +485,7 @@ McpConfiguration (root)                     ← Config System
 
 LearningResourcesServer                     ← Learning Resources Server
 ├── ResourceVault           ConcurrentHashMap store with search & filter
-│   └── BuiltInResources    47+ curated resources (Java, Web, DevOps, AI/ML, ...)
+│   └── BuiltInResources    68+ curated resources (Java, Web, DevOps, VCS, Build Tools, AI/ML, ...)
 ├── ToolHandler             Routes 10 MCP tools via switch expression
 │   ├── SearchHandler       Vault search, browse, details, categories
 │   ├── ScrapeHandler       Web scrape → summarize → format pipeline

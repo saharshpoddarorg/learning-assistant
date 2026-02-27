@@ -1,6 +1,6 @@
 # Learning Resources MCP Server
 
-> **A curated vault of 47+ learning resources with smart discovery, web scraping, and multi-format export.**
+> **A curated vault of 68+ learning resources with smart discovery, web scraping, and multi-format export.**
 
 ---
 
@@ -12,7 +12,7 @@ and can scrape, extract, and summarize content from any URL on the internet.
 
 **What it does:**
 
-- **Vault** — 47+ pre-loaded resources: official docs, tutorials, blogs, books, and interactive
+- **Vault** — 68+ pre-loaded resources: official docs, tutorials, blogs, books, and interactive
   tools from Oracle, Mozilla, Baeldung, Spring, OWASP, Docker, and more
 - **Smart Discovery** — three-mode engine (specific / vague / exploratory) with keyword-to-concept
   inference, fuzzy matching, domain affinity, language-fit scoring, and "did you mean?" suggestions
@@ -325,13 +325,15 @@ server/learningresources/
 │   ├── RelevanceScorer.java        ← Multi-dimensional relevance scoring (12 dimensions)
 │   ├── KeywordIndex.java           ← Keyword-to-enum intent inference maps
 │   ├── DiscoveryResult.java        ← Discovery result record (SearchMode + scored results)
-│   └── providers/                  ← Modular resource providers (9 files)
+│   └── providers/                  ← Modular resource providers (11 files)
 │       ├── JavaResources.java      ← 13 Java ecosystem resources
 │       ├── WebResources.java       ← 5 web/JS/TS resources
 │       ├── PythonResources.java    ← 4 Python resources
 │       ├── AlgorithmsResources.java← 3 algorithms & DS resources
 │       ├── EngineeringResources.java← 5 design/architecture resources
 │       ├── DevOpsResources.java    ← 6 DevOps/cloud resources
+│       ├── VcsResources.java       ← 9 VCS/Git workflow resources
+│       ├── BuildToolsResources.java← 11 build automation resources (Maven, Gradle, Make, Bazel, npm)
 │       ├── AiMlResources.java      ← 3 AI/ML resources
 │       ├── DataAndSecurityResources.java ← 4 database/security resources
 │       ├── GeneralResources.java   ← 4 general/cross-cutting resources
