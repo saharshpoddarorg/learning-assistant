@@ -150,7 +150,7 @@ You ask Copilot a question
 | Tail a server log | `Terminal → Run Task` → `mcp-servers: logs (learning-resources)` | [scripts/README](../../mcp-servers/scripts/README.md) |
 | Run demo mode | `Terminal → Run Task` → `mcp-servers: demo (learning-resources)` | [server.ps1](../../mcp-servers/scripts/server.ps1) |
 | List all MCP tools | `Terminal → Run Task` → `mcp-servers: list-tools (atlassian)` | [server.sh](../../mcp-servers/scripts/server.sh) |
-| Create a knowledge note | `/brain-new` in Chat | [Brain README](../../brain/README.md) |
+| Create a knowledge note | `/brain-new` in Chat | [Brain README](../../brain/ai-brain/README.md) |
 | Set up macOS dev environment | `/mac-dev` in Chat — or read [mac-os/docs/START-HERE](../../mac-os/docs/START-HERE.md) | [mac-os module](../../mac-os/docs/START-HERE.md) |
 | Add Copilot rules to another project | [Export Guide §1](export-guide.md#1-copilot-customization-github) | [Export Guide](export-guide.md) |
 | Not lose work when chaining instructions | [Copilot Workflow](copilot-workflow.md) | [Workflow Tips](copilot-workflow.md) |

@@ -43,8 +43,8 @@ param(
     [string]$SubDir = ""
 )
 
-$repoRoot  = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
-$brainRoot = Join-Path $repoRoot "ai-brain"
+$repoRoot  = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $PSScriptRoot))
+$brainRoot = Join-Path $repoRoot "brain\ai-brain"
 
 # Resolve source -- allow bare filename (searched across tiers), relative, or absolute
 $sourcePath = $Source
@@ -80,7 +80,7 @@ if ($Tier -eq "archive") {
     Write-Host ""
     $add = Read-Host "Run 'git add' on the file? [Y/n]"
     if ($add -notmatch '^[nN]') {
-        $relativePath = "ai-brain/archive/" + ($destPath.Substring((Join-Path $brainRoot "archive").Length + 1) -replace '\\', '/')
+        $relativePath = "brain/ai-brain/archive/" + ($destPath.Substring((Join-Path $brainRoot "archive").Length + 1) -replace '\\', '/')
         Push-Location $repoRoot
         git add $relativePath
         Pop-Location

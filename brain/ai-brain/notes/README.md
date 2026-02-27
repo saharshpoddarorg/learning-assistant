@@ -19,13 +19,13 @@ ready or significant enough to commit to the repo yet.
 ## Creating notes here
 
 ```powershell
-.\ai-brain\scripts\brain.ps1 new --tier notes
-.\ai-brain\scripts\brain.ps1 new --tier notes --project mcp-servers --title "Auth design"
+.\brain\ai-brain\scripts\brain.ps1 new --tier notes
+.\brain\ai-brain\scripts\brain.ps1 new --tier notes --project mcp-servers --title "Auth design"
 ```
 
 ```bash
-./ai-brain/scripts/brain.sh new --tier notes
-./ai-brain/scripts/brain.sh new --tier notes --project java --title "Records vs classes"
+./brain/ai-brain/scripts/brain.sh new --tier notes
+./brain/ai-brain/scripts/brain.sh new --tier notes --project java --title "Records vs classes"
 ```
 
 ---
@@ -49,8 +49,8 @@ notes/
 
 ```powershell
 # Publish to archive/ -- prompts for project, tags, then commits
-.\ai-brain\scripts\brain.ps1 publish ai-brain\notes\file.md
+.\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\notes\file.md
 
 # Or move to archive/ without prompts (manual git add + commit separately)
-.\ai-brain\scripts\promote.ps1 notes\file.md archive --project java
+.\brain\ai-brain\scripts\promote.ps1 notes\file.md archive --project java
 ```

@@ -17,8 +17,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-BRAIN_ROOT="$REPO_ROOT/ai-brain"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+BRAIN_ROOT="$REPO_ROOT/brain/ai-brain"
 
 SOURCE="${1:-}"
 TIER="${2:-}"
@@ -76,7 +76,7 @@ if [[ "$TIER" == "archive" ]]; then
     echo ""
     read -r -p "Run 'git add' on the file? [Y/n] " add
     if [[ ! "$add" =~ ^[nN] ]]; then
-        GIT_PATH="ai-brain/archive/${DEST_PATH#"$BRAIN_ROOT/archive/"}"
+        GIT_PATH="brain/ai-brain/archive/${DEST_PATH#"$BRAIN_ROOT/archive/"}"
         git -C "$REPO_ROOT" add "$GIT_PATH"
         echo "Staged: $GIT_PATH"
         echo "Next: git commit -m \"brain: publish <topic>\""

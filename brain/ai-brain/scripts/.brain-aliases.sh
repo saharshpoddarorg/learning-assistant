@@ -2,10 +2,10 @@
 # .brain-aliases.sh -- Bash aliases for the brain/ workspace dispatcher
 #
 # Source this file in your shell to get short brain commands:
-#   source ./ai-brain/scripts/.brain-aliases.sh
+#   source ./brain/ai-brain/scripts/.brain-aliases.sh
 #
 # To load automatically, add to ~/.bashrc or ~/.zshrc:
-#   source /path/to/repo/ai-brain/scripts/.brain-aliases.sh
+#   source /path/to/repo/brain/ai-brain/scripts/.brain-aliases.sh
 #
 # Available aliases:
 #   brain         Full dispatcher  (same as ./ai-brain/scripts/brain.sh directly)

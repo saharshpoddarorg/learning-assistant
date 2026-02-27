@@ -37,10 +37,10 @@ Common ones: `mcp-servers`, `java`, `learning-assistant`, `general`.
 
 ```powershell
 # Interactive (asks for project, confirms tags, commits)
-.\ai-brain\scripts\brain.ps1 publish ai-brain\inbox\draft.md
+.\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\inbox\draft.md
 
 # With options
-.\ai-brain\scripts\brain.ps1 publish ai-brain\inbox\draft.md --project mcp-servers --commit
+.\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\inbox\draft.md --project mcp-servers --commit
 ```
 
 The publish workflow:
@@ -85,9 +85,9 @@ Project: <project>  Kind: <kind>  Status: final
 ## Search Archive Notes
 
 ```powershell
-.\ai-brain\scripts\brain.ps1 list --tier archive
-.\ai-brain\scripts\brain.ps1 list --tier archive --project mcp-servers
-.\ai-brain\scripts\brain.ps1 search generics --tier archive
-.\ai-brain\scripts\brain.ps1 search --kind decision --tier archive
-.\ai-brain\scripts\brain.ps1 search --date 2026-02 --tier archive
+.\brain\ai-brain\scripts\brain.ps1 list --tier archive
+.\brain\ai-brain\scripts\brain.ps1 list --tier archive --project mcp-servers
+.\brain\ai-brain\scripts\brain.ps1 search generics --tier archive
+.\brain\ai-brain\scripts\brain.ps1 search --kind decision --tier archive
+.\brain\ai-brain\scripts\brain.ps1 search --date 2026-02 --tier archive
 ```

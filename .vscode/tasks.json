@@ -291,10 +291,10 @@
         {
             "label": "brain: new note",
             "type": "shell",
-            "command": ".\\ai-brain\\scripts\\brain.ps1 new",
-            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai-brain\\scripts\\brain.ps1 new" },
-            "linux":   { "command": "bash ./ai-brain/scripts/brain.sh new" },
-            "osx":     { "command": "bash ./ai-brain/scripts/brain.sh new" },
+            "command": ".\\brain\\ai-brain\\scripts\\brain.ps1 new",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\brain\\ai-brain\\scripts\\brain.ps1 new" },
+            "linux":   { "command": "bash ./brain/ai-brain/scripts/brain.sh new" },
+            "osx":     { "command": "bash ./brain/ai-brain/scripts/brain.sh new" },
             "group": "none",
             "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
             "problemMatcher": []
@@ -302,10 +302,10 @@
         {
             "label": "brain: new note (notes tier)",
             "type": "shell",
-            "command": ".\\ai-brain\\scripts\\brain.ps1 new --tier notes",
-            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai-brain\\scripts\\brain.ps1 new --tier notes" },
-            "linux":   { "command": "bash ./ai-brain/scripts/brain.sh new --tier notes" },
-            "osx":     { "command": "bash ./ai-brain/scripts/brain.sh new --tier notes" },
+            "command": ".\\brain\\ai-brain\\scripts\\brain.ps1 new --tier notes",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\brain\\ai-brain\\scripts\\brain.ps1 new --tier notes" },
+            "linux":   { "command": "bash ./brain/ai-brain/scripts/brain.sh new --tier notes" },
+            "osx":     { "command": "bash ./brain/ai-brain/scripts/brain.sh new --tier notes" },
             "group": "none",
             "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
             "problemMatcher": []
@@ -313,10 +313,10 @@
         {
             "label": "brain: publish note",
             "type": "shell",
-            "command": ".\\ai-brain\\scripts\\brain.ps1 publish",
-            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai-brain\\scripts\\brain.ps1 publish" },
-            "linux":   { "command": "bash ./ai-brain/scripts/brain.sh save" },
-            "osx":     { "command": "bash ./ai-brain/scripts/brain.sh save" },
+            "command": ".\\brain\\ai-brain\\scripts\\brain.ps1 publish",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\brain\\ai-brain\\scripts\\brain.ps1 publish" },
+            "linux":   { "command": "bash ./brain/ai-brain/scripts/brain.sh save" },
+            "osx":     { "command": "bash ./brain/ai-brain/scripts/brain.sh save" },
             "group": "none",
             "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
             "problemMatcher": []
@@ -324,10 +324,10 @@
         {
             "label": "brain: search notes",
             "type": "shell",
-            "command": ".\\ai-brain\\scripts\\brain.ps1 search",
-            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai-brain\\scripts\\brain.ps1 search" },
-            "linux":   { "command": "bash ./ai-brain/scripts/brain.sh search" },
-            "osx":     { "command": "bash ./ai-brain/scripts/brain.sh search" },
+            "command": ".\\brain\\ai-brain\\scripts\\brain.ps1 search",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\brain\\ai-brain\\scripts\\brain.ps1 search" },
+            "linux":   { "command": "bash ./brain/ai-brain/scripts/brain.sh search" },
+            "osx":     { "command": "bash ./brain/ai-brain/scripts/brain.sh search" },
             "group": "none",
             "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
             "problemMatcher": []
@@ -335,10 +335,10 @@
         {
             "label": "brain: list notes",
             "type": "shell",
-            "command": ".\\ai-brain\\scripts\\brain.ps1 list",
-            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai-brain\\scripts\\brain.ps1 list" },
-            "linux":   { "command": "bash ./ai-brain/scripts/brain.sh list" },
-            "osx":     { "command": "bash ./ai-brain/scripts/brain.sh list" },
+            "command": ".\\brain\\ai-brain\\scripts\\brain.ps1 list",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\brain\\ai-brain\\scripts\\brain.ps1 list" },
+            "linux":   { "command": "bash ./brain/ai-brain/scripts/brain.sh list" },
+            "osx":     { "command": "bash ./brain/ai-brain/scripts/brain.sh list" },
             "group": "none",
             "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
             "problemMatcher": []
@@ -346,10 +346,10 @@
         {
             "label": "brain: list archive",
             "type": "shell",
-            "command": ".\\ai-brain\\scripts\\brain.ps1 list --tier archive",
-            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai-brain\\scripts\\brain.ps1 list --tier archive" },
-            "linux":   { "command": "bash ./ai-brain/scripts/brain.sh list --tier archive" },
-            "osx":     { "command": "bash ./ai-brain/scripts/brain.sh list --tier archive" },
+            "command": ".\\brain\\ai-brain\\scripts\\brain.ps1 list --tier archive",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\brain\\ai-brain\\scripts\\brain.ps1 list --tier archive" },
+            "linux":   { "command": "bash ./brain/ai-brain/scripts/brain.sh list --tier archive" },
+            "osx":     { "command": "bash ./brain/ai-brain/scripts/brain.sh list --tier archive" },
             "group": "none",
             "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
             "problemMatcher": []
@@ -357,10 +357,10 @@
         {
             "label": "brain: status",
             "type": "shell",
-            "command": ".\\ai-brain\\scripts\\brain.ps1 status",
-            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai-brain\\scripts\\brain.ps1 status" },
-            "linux":   { "command": "bash ./ai-brain/scripts/brain.sh status" },
-            "osx":     { "command": "bash ./ai-brain/scripts/brain.sh status" },
+            "command": ".\\brain\\ai-brain\\scripts\\brain.ps1 status",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\brain\\ai-brain\\scripts\\brain.ps1 status" },
+            "linux":   { "command": "bash ./brain/ai-brain/scripts/brain.sh status" },
+            "osx":     { "command": "bash ./brain/ai-brain/scripts/brain.sh status" },
             "group": "none",
             "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
             "problemMatcher": []
@@ -368,10 +368,10 @@
         {
             "label": "brain: clear inbox (preview)",
             "type": "shell",
-            "command": ".\\ai-brain\\scripts\\brain.ps1 clear",
-            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai-brain\\scripts\\brain.ps1 clear" },
-            "linux":   { "command": "bash ./ai-brain/scripts/brain.sh clear" },
-            "osx":     { "command": "bash ./ai-brain/scripts/brain.sh clear" },
+            "command": ".\\brain\\ai-brain\\scripts\\brain.ps1 clear",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\brain\\ai-brain\\scripts\\brain.ps1 clear" },
+            "linux":   { "command": "bash ./brain/ai-brain/scripts/brain.sh clear" },
+            "osx":     { "command": "bash ./brain/ai-brain/scripts/brain.sh clear" },
             "group": "none",
             "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
             "problemMatcher": []
@@ -379,10 +379,10 @@
         {
             "label": "brain: clear inbox (force)",
             "type": "shell",
-            "command": ".\\ai-brain\\scripts\\brain.ps1 clear --force",
-            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai-brain\\scripts\\brain.ps1 clear --force" },
-            "linux":   { "command": "bash ./ai-brain/scripts/brain.sh clear --force" },
-            "osx":     { "command": "bash ./ai-brain/scripts/brain.sh clear --force" },
+            "command": ".\\brain\\ai-brain\\scripts\\brain.ps1 clear --force",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\brain\\ai-brain\\scripts\\brain.ps1 clear --force" },
+            "linux":   { "command": "bash ./brain/ai-brain/scripts/brain.sh clear --force" },
+            "osx":     { "command": "bash ./brain/ai-brain/scripts/brain.sh clear --force" },
             "group": "none",
             "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
             "problemMatcher": []
@@ -390,10 +390,10 @@
         {
             "label": "brain: help",
             "type": "shell",
-            "command": ".\\ai-brain\\scripts\\brain.ps1 help",
-            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\ai-brain\\scripts\\brain.ps1 help" },
-            "linux":   { "command": "bash ./ai-brain/scripts/brain.sh help" },
-            "osx":     { "command": "bash ./ai-brain/scripts/brain.sh help" },
+            "command": ".\\brain\\ai-brain\\scripts\\brain.ps1 help",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\brain\\ai-brain\\scripts\\brain.ps1 help" },
+            "linux":   { "command": "bash ./brain/ai-brain/scripts/brain.sh help" },
+            "osx":     { "command": "bash ./brain/ai-brain/scripts/brain.sh help" },
             "group": "none",
             "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
             "problemMatcher": []

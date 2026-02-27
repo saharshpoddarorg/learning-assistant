@@ -22,15 +22,15 @@ Nothing here is committed or pushed. Clear it freely when the session ends.
 
 ```powershell
 # Interactive -- asks for title, kind, tags
-.\ai-brain\scripts\brain.ps1 new
+.\brain\ai-brain\scripts\brain.ps1 new
 
 # Non-interactive
-.\ai-brain\scripts\brain.ps1 new --tier inbox --project mcp-servers --title "SSE transport notes"
+.\brain\ai-brain\scripts\brain.ps1 new --tier inbox --project mcp-servers --title "SSE transport notes"
 ```
 
 ```bash
-./ai-brain/scripts/brain.sh new
-./ai-brain/scripts/brain.sh new --tier inbox --project java --title "Generics questions"
+./brain/ai-brain/scripts/brain.sh new
+./brain/ai-brain/scripts/brain.sh new --tier inbox --project java --title "Generics questions"
 ```
 
 ---
@@ -39,18 +39,18 @@ Nothing here is committed or pushed. Clear it freely when the session ends.
 
 ```powershell
 # See what is here
-.\ai-brain\scripts\brain.ps1 status
-.\ai-brain\scripts\brain.ps1 list --tier inbox
+.\brain\ai-brain\scripts\brain.ps1 status
+.\brain\ai-brain\scripts\brain.ps1 list --tier inbox
 
 # Worth keeping? Move to notes/
-.\ai-brain\scripts\brain.ps1 move ai-brain\inbox\file.md --tier notes
+.\brain\ai-brain\scripts\brain.ps1 move brain\ai-brain\inbox\file.md --tier notes
 
 # Worth committing? Publish directly to repo
-.\ai-brain\scripts\brain.ps1 publish ai-brain\inbox\file.md --project mcp-servers
+.\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\inbox\file.md --project mcp-servers
 
 # Done with it? Clear
-.\ai-brain\scripts\brain.ps1 clear           # preview
-.\ai-brain\scripts\brain.ps1 clear --force   # delete
+.\brain\ai-brain\scripts\brain.ps1 clear           # preview
+.\brain\ai-brain\scripts\brain.ps1 clear --force   # delete
 ```
 
 ---

@@ -426,7 +426,7 @@ Topics:   Budget, investments, habit tracking, time mgmt, tech news, web researc
 
 ### Brain Workspace
 
-Commands for managing the `ai-brain/` personal knowledge workspace — three-tier note system (inbox → notes → archive).
+Commands for managing the `brain/ai-brain/` personal knowledge workspace — three-tier note system (inbox → notes → archive).
 
 #### `/brain-new` — Create a Note
 ```
@@ -436,18 +436,18 @@ Tools:    editFiles, codebase
 Use:      Create a new markdown note with proper frontmatter in inbox/ or notes/
 Example:  /brain-new → "Java generics cheatsheet" → notes → java
 Output:   YYYY-MM-DD_<slug>.md created with kind, tags, status frontmatter
-File:     ai-brain/inbox/ or ai-brain/notes/ (never creates archive/ entries directly)
+File:     brain/ai-brain/inbox/ or brain/ai-brain/notes/ (never creates archive/ entries directly)
 Tip:      Use /brain-publish to promote to archive/ and commit
 ```
 
 #### `/brain-publish` — Publish a Note
 ```
-Inputs:   file (relative to ai-brain/, e.g. inbox/2026-02-21_draft.md), project bucket
+Inputs:   file (relative to brain/ai-brain/, e.g. inbox/2026-02-21_draft.md), project bucket
 Agent:    Copilot
 Tools:    editFiles, codebase, runCommands
 Use:      Promote a note from inbox/ or notes/ to archive/ → tag it → git commit
 Example:  /brain-publish → inbox/2026-02-21_draft.md → mcp-servers
-Output:   Note moved to ai-brain/archive/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md, committed
+Output:   Note moved to brain/ai-brain/archive/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md, committed
 Tip:      Tags are enriched automatically from filename and content
 ```
 
