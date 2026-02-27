@@ -1,0 +1,140 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        // ===========================================================================
+        // Learning Resources MCP Server
+        // ===========================================================================
+
+        {
+            "type": "java",
+            "name": "LR — STDIO Server (production mode)",
+            "request": "launch",
+            "mainClass": "server.learningresources.LearningResourcesServer",
+            "projectName": "mcp-servers",
+            "cwd": "${workspaceFolder}/mcp-servers",
+            "console": "integratedTerminal",
+            // No args → runs in STDIO mode, the same way mcp.json starts it.
+            // Send JSON-RPC 2.0 messages on stdin to interact.
+            "args": []
+        },
+        {
+            "type": "java",
+            "name": "LR — Demo mode",
+            "request": "launch",
+            "mainClass": "server.learningresources.LearningResourcesServer",
+            "projectName": "mcp-servers",
+            "cwd": "${workspaceFolder}/mcp-servers",
+            "console": "integratedTerminal",
+            "args": ["--demo"]
+        },
+        {
+            "type": "java",
+            "name": "LR — List tools",
+            "request": "launch",
+            "mainClass": "server.learningresources.LearningResourcesServer",
+            "projectName": "mcp-servers",
+            "cwd": "${workspaceFolder}/mcp-servers",
+            "console": "integratedTerminal",
+            "args": ["--list-tools"]
+        },
+
+        // ===========================================================================
+        // Atlassian MCP Server (Jira + Confluence + Bitbucket)
+        // ===========================================================================
+
+        {
+            "type": "java",
+            "name": "Atlassian — STDIO Server (production mode)",
+            "request": "launch",
+            "mainClass": "server.atlassian.AtlassianServer",
+            "projectName": "mcp-servers",
+            "cwd": "${workspaceFolder}/mcp-servers",
+            "console": "integratedTerminal",
+            "args": [],
+            "env": {
+                // Point to the Atlassian config directory (populated during setup)
+                "ATLASSIAN_CONFIG_DIR": "${workspaceFolder}/mcp-servers/user-config/servers/atlassian"
+                // OR override individual keys inline:
+                // "ATLASSIAN_JIRA_URL":       "https://your-org.atlassian.net",
+                // "ATLASSIAN_CONFLUENCE_URL": "https://your-org.atlassian.net/wiki",
+                // "ATLASSIAN_EMAIL":           "you@example.com",
+                // "ATLASSIAN_TOKEN":           "your_api_token_here"
+            }
+        },
+        {
+            "type": "java",
+            "name": "Atlassian — Demo mode",
+            "request": "launch",
+            "mainClass": "server.atlassian.AtlassianServer",
+            "projectName": "mcp-servers",
+            "cwd": "${workspaceFolder}/mcp-servers",
+            "console": "integratedTerminal",
+            "args": ["--demo"],
+            "env": {}
+        },
+        {
+            "type": "java",
+            "name": "Atlassian — List tools",
+            "request": "launch",
+            "mainClass": "server.atlassian.AtlassianServer",
+            "projectName": "mcp-servers",
+            "cwd": "${workspaceFolder}/mcp-servers",
+            "console": "integratedTerminal",
+            "args": ["--list-tools"],
+            "env": {}
+        },
+
+        // ===========================================================================
+        // Config Loader — framework diagnostics
+        // ===========================================================================
+
+        {
+            "type": "java",
+            "name": "Config Loader — validate + dump",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "mcp-servers",
+            "cwd": "${workspaceFolder}/mcp-servers",
+            "console": "integratedTerminal",
+            "env": {
+                // Uncomment to inject secrets as env vars instead of editing local config:
+                // "MCP_APIKEYS_GITHUB":  "ghp_your_token_here",
+                // "MCP_APIKEYS_OPENAI":  "sk-proj-your_key_here"
+            }
+        },
+        {
+            "type": "java",
+            "name": "Config Loader — debug logging",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "mcp-servers",
+            "cwd": "${workspaceFolder}/mcp-servers",
+            "console": "integratedTerminal",
+            "vmArgs": "-Djava.util.logging.level=FINE",
+            "env": {}
+        }
+    ],
+
+    // ===========================================================================
+    // Compound launchers — start multiple servers at once for integration testing
+    // ===========================================================================
+    "compounds": [
+        {
+            "name": "All Servers — STDIO mode",
+            "configurations": [
+                "LR — STDIO Server (production mode)",
+                "Atlassian — STDIO Server (production mode)"
+            ],
+            "stopAll": true
+        },
+        {
+            "name": "All Servers — Demo mode",
+            "configurations": [
+                "LR — Demo mode",
+                "Atlassian — Demo mode"
+            ],
+            "stopAll": true
+        }
+    ]
+}

@@ -171,6 +171,13 @@ cd mcp-servers
 ./build.sh --clean   # clean out/ then compile
 ```
 
+**Or use VS Code Tasks** (`Ctrl+Shift+B` / `Terminal → Run Task`):
+
+| Task | Description |
+|------|-------------|
+| `mcp-servers: build` | Compile all Java sources → `out/` |
+| `mcp-servers: build (clean)` | Wipe `out/` then recompile from scratch |
+
 **After building, run a specific server:**
 
 ```bash
@@ -186,7 +193,27 @@ java -cp out server.atlassian.AtlassianServer --demo         # demo mode (no cre
 java -cp out server.atlassian.AtlassianServer                # production STDIO mode
 ```
 
-Or press `F5` in VS Code → select **"Run MCP Config Loader"**.
+**Or use the lifecycle manager** for start/stop/restart/reset/logs:
+
+```powershell
+# Windows
+.\scripts\server.ps1 status
+.\scripts\server.ps1 start  learning-resources
+.\scripts\server.ps1 demo   atlassian
+.\scripts\server.ps1 logs   learning-resources
+.\scripts\server.ps1 reset  all
+```
+
+```bash
+# Linux/macOS / Git Bash
+./scripts/server.sh status
+./scripts/server.sh start  learning-resources
+./scripts/server.sh demo   atlassian
+./scripts/server.sh logs   learning-resources
+./scripts/server.sh reset  all
+```
+
+Or press `F5` in VS Code → select a run config (e.g. **"LR — Demo mode"** or **"Atlassian — List tools"**).
 
 ---
 

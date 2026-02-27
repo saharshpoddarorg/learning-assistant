@@ -7,6 +7,8 @@ configuration from the **layered config system** (env vars > local config > base
 
 ```
 scripts/
+├── server.sh                    ← 🔑 Lifecycle manager: start/stop/restart/reset/demo/logs
+├── server.ps1                   ← 🔑 Lifecycle manager (Windows PowerShell)
 ├── setup.sh                     ← Setup wizard (run this first!)
 ├── setup.ps1                    ← Setup wizard (Windows)
 ├── common/                      ← Shared across all MCP servers
@@ -35,6 +37,52 @@ scripts/
 ```
 
 ## Quick Start
+
+### 0. Lifecycle management (start/stop/restart)
+
+The fastest way to control running servers from the terminal:
+
+```bash
+# Linux/macOS / Git Bash
+./scripts/server.sh status                   # see what's running
+./scripts/server.sh start  learning-resources
+./scripts/server.sh stop   all
+./scripts/server.sh restart atlassian
+./scripts/server.sh reset  all               # stop → clean build → start
+./scripts/server.sh demo   learning-resources  # foreground demo
+./scripts/server.sh list-tools atlassian     # print all 27 tools
+./scripts/server.sh logs   learning-resources  # tail live log
+./scripts/server.sh validate                 # check env + config
+```
+
+```powershell
+# Windows PowerShell
+.\scripts\server.ps1 status
+.\scripts\server.ps1 start  learning-resources
+.\scripts\server.ps1 stop   all
+.\scripts\server.ps1 restart atlassian
+.\scripts\server.ps1 reset  all
+.\scripts\server.ps1 demo   learning-resources
+.\scripts\server.ps1 list-tools atlassian
+.\scripts\server.ps1 logs   learning-resources
+.\scripts\server.ps1 validate
+```
+
+Or use **VS Code Tasks** (`Ctrl+Shift+B` or `Terminal → Run Task`):
+
+| Task label | What it does |
+|---|---|
+| `mcp-servers: status` | Show which servers are running |
+| `mcp-servers: start (learning-resources)` | Start as background process |
+| `mcp-servers: start (atlassian)` | Start Atlassian (credentials required) |
+| `mcp-servers: start (all)` | Start all servers |
+| `mcp-servers: stop (all)` | Stop all running servers |
+| `mcp-servers: restart (learning-resources)` | Stop then start |
+| `mcp-servers: reset (all)` | Stop → clean build → start all |
+| `mcp-servers: demo (learning-resources)` | Foreground demo mode |
+| `mcp-servers: list-tools (atlassian)` | Print all 27 tools |
+| `mcp-servers: validate` | Check config + environment |
+| `mcp-servers: logs (learning-resources)` | Tail live log |
 
 ### 1. Run the setup wizard
 
@@ -75,6 +123,28 @@ Edit `user-config/mcp-config.local.properties` and add your tokens.
 ```
 
 ## Script Categories
+
+### Server Lifecycle Manager (`server.sh / server.ps1`)
+
+The primary tool for controlling MCP server processes manually. VS Code auto-manages servers
+via `.vscode/mcp.json` when Copilot calls a tool; use this script for local testing, smoke
+checks, and working outside VS Code.
+
+| Command | What it does |
+|---------|-------------|
+| `status` | Show running / stopped state for all (or named) server |
+| `start <name>` | Launch server as background process; PID saved to `.pids/` |
+| `stop [name\|all]` | Kill running process(es); clean up PID file |
+| `restart <name>` | Atomic stop → start |
+| `reset [name\|all]` | Stop → clean build → rebuild → start (nuclear option) |
+| `demo <name>` | Run server in foreground demo mode (Ctrl-C to quit) |
+| `list-tools <name>` | Print every MCP tool exposed by that server |
+| `validate` | Check java, `out/`, config files, API keys |
+| `logs <name>` | Tail live log file for that server |
+
+**PID & log files:**
+- PIDs: `scripts/.pids/<name>.pid` (auto-cleaned on stop)
+- Logs: `scripts/.logs/<name>.log` + `.log.err`
 
 ### Setup Wizard (`setup.sh / setup.ps1`)
 
@@ -143,13 +213,14 @@ Example: `browser.executable` is read as:
 
 | Feature             | Linux/macOS (.sh) | Windows (.ps1) |
 |---------------------|:-:|:-:|
+| **Server lifecycle (start/stop/restart/reset/demo/logs)** | ✅ | ✅ |
 | Setup wizard        | ✅ | ✅ |
 | Launch browser      | ✅ | ✅ |
 | Close browser       | ✅ | ✅ |
 | Create profile      | ✅ | ✅ |
 | Token check         | ✅ | ✅ |
 | OAuth flow          | ✅ | — |
-| Config validation   | ✅ | — |
+| Config validation   | ✅ | ✅ (via Git Bash/WSL fallback) |
 | Health check        | ✅ | — |
 | Config reader lib   | ✅ | ✅ |
 

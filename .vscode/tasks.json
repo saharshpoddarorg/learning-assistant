@@ -27,6 +27,266 @@
             "detail": "Delete mcp-servers/out/ then recompile everything from scratch"
         },
 
+        // ── MCP Servers: Setup ────────────────────────────────────────────────
+        {
+            "label": "mcp-servers: setup",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\setup.ps1",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\setup.ps1" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/setup.sh" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/setup.sh" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": [],
+            "detail": "One-time setup wizard: create local config, browser dir, validate environment"
+        },
+
+        // ── MCP Servers: Status ───────────────────────────────────────────────
+        {
+            "label": "mcp-servers: status",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 status",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 status" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh status" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh status" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "shared", "close": false },
+            "problemMatcher": [],
+            "detail": "Show running / stopped state for all MCP servers"
+        },
+
+        // ── MCP Servers: Start ────────────────────────────────────────────────
+        {
+            "label": "mcp-servers: start (learning-resources)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 start learning-resources",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 start learning-resources" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh start learning-resources" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh start learning-resources" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "shared", "close": false },
+            "problemMatcher": [],
+            "detail": "Start the Learning Resources MCP server as a background process"
+        },
+        {
+            "label": "mcp-servers: start (atlassian)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 start atlassian",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 start atlassian" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh start atlassian" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh start atlassian" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "shared", "close": false },
+            "problemMatcher": [],
+            "detail": "Start the Atlassian MCP server as a background process (credentials required)"
+        },
+        {
+            "label": "mcp-servers: start (all)",
+            "type": "shell",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "mcp-servers: start (learning-resources)",
+                "mcp-servers: start (atlassian)"
+            ],
+            "group": "none",
+            "problemMatcher": [],
+            "detail": "Start all MCP servers"
+        },
+
+        // ── MCP Servers: Stop ─────────────────────────────────────────────────
+        {
+            "label": "mcp-servers: stop (all)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 stop all",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 stop all" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh stop all" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh stop all" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "shared", "close": false },
+            "problemMatcher": [],
+            "detail": "Stop all running MCP servers"
+        },
+        {
+            "label": "mcp-servers: stop (learning-resources)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 stop learning-resources",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 stop learning-resources" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh stop learning-resources" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh stop learning-resources" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "shared", "close": false },
+            "problemMatcher": [],
+            "detail": "Stop the Learning Resources MCP server"
+        },
+        {
+            "label": "mcp-servers: stop (atlassian)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 stop atlassian",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 stop atlassian" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh stop atlassian" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh stop atlassian" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "shared", "close": false },
+            "problemMatcher": [],
+            "detail": "Stop the Atlassian MCP server"
+        },
+
+        // ── MCP Servers: Restart ──────────────────────────────────────────────
+        {
+            "label": "mcp-servers: restart (learning-resources)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 restart learning-resources",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 restart learning-resources" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh restart learning-resources" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh restart learning-resources" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "shared", "close": false },
+            "problemMatcher": [],
+            "detail": "Stop then start the Learning Resources MCP server"
+        },
+        {
+            "label": "mcp-servers: restart (atlassian)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 restart atlassian",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 restart atlassian" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh restart atlassian" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh restart atlassian" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "shared", "close": false },
+            "problemMatcher": [],
+            "detail": "Stop then start the Atlassian MCP server"
+        },
+
+        // ── MCP Servers: Reset ────────────────────────────────────────────────
+        {
+            "label": "mcp-servers: reset (all)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 reset all",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 reset all" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh reset all" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh reset all" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": ["$javac"],
+            "detail": "Stop all servers, clean-build, then start all — full reset"
+        },
+        {
+            "label": "mcp-servers: reset (learning-resources)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 reset learning-resources",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 reset learning-resources" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh reset learning-resources" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh reset learning-resources" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": ["$javac"],
+            "detail": "Stop → clean build → rebuild → start the Learning Resources server"
+        },
+        {
+            "label": "mcp-servers: reset (atlassian)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 reset atlassian",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 reset atlassian" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh reset atlassian" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh reset atlassian" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": ["$javac"],
+            "detail": "Stop → clean build → rebuild → start the Atlassian server"
+        },
+
+        // ── MCP Servers: Demo ─────────────────────────────────────────────────
+        {
+            "label": "mcp-servers: demo (learning-resources)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 demo learning-resources",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 demo learning-resources" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh demo learning-resources" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh demo learning-resources" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": [],
+            "detail": "Run Learning Resources server in foreground demo mode"
+        },
+        {
+            "label": "mcp-servers: demo (atlassian)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 demo atlassian",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 demo atlassian" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh demo atlassian" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh demo atlassian" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": [],
+            "detail": "Run Atlassian server in foreground demo mode"
+        },
+
+        // ── MCP Servers: List Tools ───────────────────────────────────────────
+        {
+            "label": "mcp-servers: list-tools (learning-resources)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 list-tools learning-resources",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 list-tools learning-resources" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh list-tools learning-resources" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh list-tools learning-resources" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "shared", "close": false },
+            "problemMatcher": [],
+            "detail": "List all MCP tools exposed by the Learning Resources server"
+        },
+        {
+            "label": "mcp-servers: list-tools (atlassian)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 list-tools atlassian",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 list-tools atlassian" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh list-tools atlassian" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh list-tools atlassian" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "shared", "close": false },
+            "problemMatcher": [],
+            "detail": "List all 27 MCP tools exposed by the Atlassian server"
+        },
+
+        // ── MCP Servers: Validate & Logs ──────────────────────────────────────
+        {
+            "label": "mcp-servers: validate",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 validate",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 validate" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh validate" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh validate" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "shared", "close": false },
+            "problemMatcher": [],
+            "detail": "Validate config + environment (java, out/, API keys)"
+        },
+        {
+            "label": "mcp-servers: logs (learning-resources)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 logs learning-resources",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 logs learning-resources" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh logs learning-resources" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh logs learning-resources" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": [],
+            "isBackground": true,
+            "detail": "Tail the Learning Resources server log (Ctrl-C to stop)"
+        },
+        {
+            "label": "mcp-servers: logs (atlassian)",
+            "type": "shell",
+            "command": ".\\mcp-servers\\scripts\\server.ps1 logs atlassian",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\mcp-servers\\scripts\\server.ps1 logs atlassian" },
+            "linux":   { "command": "bash ./mcp-servers/scripts/server.sh logs atlassian" },
+            "osx":     { "command": "bash ./mcp-servers/scripts/server.sh logs atlassian" },
+            "group": "none",
+            "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
+            "problemMatcher": [],
+            "isBackground": true,
+            "detail": "Tail the Atlassian server log (Ctrl-C to stop)"
+        },
+
         // ── Brain Workspace ──────────────────────────────────────────────────
         {
             "label": "brain: new note",

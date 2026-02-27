@@ -50,6 +50,8 @@ bin/
 !.vscode/tasks.json
 # mcp.json is a project-level MCP server registry (no secrets — uses VS Code inputs for credentials)
 !.vscode/mcp.json
+# launch.json contains debug/run configurations for MCP servers — project-level, portable
+!.vscode/launch.json
 # But mcp-servers/.vscode IS committed (portable config for copying to other projects)
 !mcp-servers/.vscode/
 

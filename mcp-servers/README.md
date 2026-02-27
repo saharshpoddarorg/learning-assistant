@@ -365,7 +365,60 @@ java -cp out Main
 
 ## Automation Scripts
 
-The `scripts/` directory provides cross-platform automation for common MCP operations.
+The `scripts/` directory provides cross-platform automation for all MCP server operations.
+
+### Server Lifecycle Management
+
+Control individual servers manually for local testing, smoke-checks, and debugging — VS Code
+auto-manages them for Copilot via `.vscode/mcp.json`.
+
+```bash
+# Linux/macOS / Git Bash
+./scripts/server.sh status                       # see what's running
+./scripts/server.sh start  learning-resources    # start as background process
+./scripts/server.sh stop   all                   # stop all servers
+./scripts/server.sh restart atlassian            # atomic stop → start
+./scripts/server.sh reset  all                   # stop → clean build → restart
+./scripts/server.sh demo   learning-resources    # foreground demo (Ctrl-C to quit)
+./scripts/server.sh list-tools atlassian         # print all 27 tools
+./scripts/server.sh logs   learning-resources    # tail live log
+./scripts/server.sh validate                     # check java, out/, API keys
+```
+
+```powershell
+# Windows PowerShell
+.\scripts\server.ps1 status
+.\scripts\server.ps1 start  learning-resources
+.\scripts\server.ps1 stop   all
+.\scripts\server.ps1 restart atlassian
+.\scripts\server.ps1 reset  all
+.\scripts\server.ps1 demo   learning-resources
+.\scripts\server.ps1 list-tools atlassian
+.\scripts\server.ps1 logs   learning-resources
+.\scripts\server.ps1 validate
+```
+
+Or use **VS Code Tasks** (`Ctrl+Shift+B` / `Terminal → Run Task`):
+
+| Task | What it does |
+|------|-------------|
+| `mcp-servers: status` | Show running / stopped state |
+| `mcp-servers: start (learning-resources)` | Start as background process |
+| `mcp-servers: start (atlassian)` | Start Atlassian (credentials required) |
+| `mcp-servers: start (all)` | Start all servers |
+| `mcp-servers: stop (all)` | Stop all running servers |
+| `mcp-servers: stop (learning-resources)` | Stop a single server |
+| `mcp-servers: restart (learning-resources)` | Stop then start |
+| `mcp-servers: restart (atlassian)` | Stop then start |
+| `mcp-servers: reset (all)` | Stop → clean build → restart all |
+| `mcp-servers: demo (learning-resources)` | Foreground demo mode |
+| `mcp-servers: list-tools (atlassian)` | Print all 27 tools |
+| `mcp-servers: validate` | Check config + environment |
+| `mcp-servers: logs (learning-resources)` | Tail live log (Ctrl-C to stop) |
+| `mcp-servers: logs (atlassian)` | Tail Atlassian log |
+| `mcp-servers: setup` | One-time setup wizard |
+| `mcp-servers: build` | Compile all Java sources |
+| `mcp-servers: build (clean)` | Wipe `out/` then recompile |
 
 ### Setup Wizard
 
@@ -378,6 +431,7 @@ The `scripts/` directory provides cross-platform automation for common MCP opera
 
 | Category | Script | Purpose |
 |----------|--------|---------|
+| **Lifecycle** | `server.sh / server.ps1` | start / stop / restart / reset / demo / logs / validate |
 | **Setup** | `setup.sh / setup.ps1` | One-time setup wizard |
 | **Browser** | `launch-browser` | Launch auto-isolated browser |
 | **Browser** | `close-browser` | Gracefully stop MCP-managed browser |
