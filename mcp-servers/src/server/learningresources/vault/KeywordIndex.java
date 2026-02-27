@@ -209,12 +209,30 @@ public final class KeywordIndex {
         map.put("roam", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("pkm", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("second brain", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("second-brain", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("para method", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("para", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("code method", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("zettelkasten", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("tiago forte", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("knowledge management", ConceptArea.KNOWLEDGE_MANAGEMENT);
         map.put("digital notes", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("gtd", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("getting things done", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("david allen", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("basb", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("progressive summarization", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("progressive-summarization", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("foam", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("adr", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("architecture decision record", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("daily notes", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("daily journal", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("obsidian plugins", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("dataview", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("templater", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("migration", ConceptArea.KNOWLEDGE_MANAGEMENT);
+        map.put("todoist", ConceptArea.KNOWLEDGE_MANAGEMENT);
 
         return Map.copyOf(map);
     }
@@ -281,6 +299,12 @@ public final class KeywordIndex {
         map.put("pkm", ResourceCategory.PRODUCTIVITY);
         map.put("note-taking", ResourceCategory.PRODUCTIVITY);
         map.put("productivity", ResourceCategory.PRODUCTIVITY);
+        map.put("gtd", ResourceCategory.PRODUCTIVITY);
+        map.put("para", ResourceCategory.PRODUCTIVITY);
+        map.put("second-brain", ResourceCategory.PRODUCTIVITY);
+        map.put("todoist", ResourceCategory.PRODUCTIVITY);
+        map.put("foam", ResourceCategory.PRODUCTIVITY);
+        map.put("zettelkasten", ResourceCategory.PRODUCTIVITY);
         return Map.copyOf(map);
     }
 

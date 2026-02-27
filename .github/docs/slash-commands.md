@@ -273,9 +273,10 @@ Example:  /resources → search → java concurrency
 Actions:  search (keyword/tag), browse (by category), scrape (any URL),
           recommend (topic-based), add (new resource), details (deep-dive),
           discover (3 modes: specific/vague/exploratory), export (md/pdf/word)
-Vault:    80+ curated resources across Java, Python, Web, AI/ML, DevOps,
+Vault:    85+ curated resources across Java, Python, Web, AI/ML, DevOps,
           Git/VCS, build tools, algorithms, engineering, databases, security,
-          digital note-taking & PKM, and more
+          digital note-taking & PKM (15 resources incl. BASB, PARA, Zettelkasten,
+          Obsidian, Notion, Logseq, Foam, GTD, Progressive Summarization), and more
 MCP:      Backed by 10 MCP tools: search_resources, browse_vault, get_resource,
           list_categories, discover_resources, scrape_url, read_url, add_resource,
           add_resource_from_url, export_results
@@ -360,6 +361,9 @@ Topics:   Methodologies: PARA (Projects, Areas, Resources, Archives),
           JDK upgrade: SDKMAN!, Eclipse Temurin, JDK 25 LTS migration from JDK 21
 Platforms: Windows, macOS (see /mac-dev), Linux, iOS, Android
 Skill:    Backed by digital-notetaking/SKILL.md (tool comparison, templates, JDK commands)
+Docs:     brain/digitalnotetaking/ — START-HERE, tools-comparison, para-method, templates,
+          migration-guide (Notion→Obsidian, OneNote→Notion, Logseq→Obsidian)
+Java:     brain/src/digitalnotetaking/ — NoteKind, NoteStatus, NoteMetadata, NoteTemplate
 ```
 
 ---
