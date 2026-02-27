@@ -6,6 +6,24 @@
 - **Build:** Manual compilation (no build tool yet)
 - **Purpose:** Hands-on experimentation with GitHub Copilot's customization features
 
+## Default Steering Mode: `completeness`
+
+> **This is the most important convention in this repo.**
+
+Every change made here follows the **Completeness Mode** — never add anything in isolation.
+Every feature, resource, or prompt has a ripple across vault, keyword index, skill files,
+prompt files, slash-commands, and cross-reference docs.
+
+| Property | Value |
+|---|---|
+| **Active mode** | `completeness` (always on — applied via `change-completeness.instructions.md`) |
+| **Mode file** | `.github/instructions/change-completeness.instructions.md` (`applyTo: **`) |
+| **Steering guide** | `.github/instructions/steering-modes.instructions.md` |
+| **Switch modes** | `/steer` slash command in Copilot Chat |
+
+**Before starting any code change:** check `.github/instructions/change-completeness.instructions.md`
+for the applicable checklist (A–F). Run `.\mcp-servers\build.ps1` before committing.
+
 ## Project Structure
 ```
 learning-assistant/

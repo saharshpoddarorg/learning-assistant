@@ -30,6 +30,7 @@
 | `/context` | Continue prior conversation or start fresh | Agent | `/context` → `continue` |
 | `/scope` | Set generic vs code-specific scope | Agent | `/scope` → `generic` |
 | `/multi-session` | Manage state across chat sessions | Agent | `/multi-session` → `save-state` |
+| `/steer` | View or switch the active steering mode | Copilot | `/steer` → `view` |
 
 ### Learning & Concepts
 | Command | Purpose | Agent | Quick Example |
@@ -79,6 +80,7 @@
 | `/brain-new` | Create a new knowledge note (inbox or notes tier) | Copilot | `/brain-new` → `"generics cheatsheet"` → `notes` |
 | `/brain-publish` | Publish note to archive/ with tagging and git commit | Copilot | `/brain-publish` → `inbox/2026-02-21_draft.md` |
 | `/brain-search` | Search notes by tag, project, kind, date, or text | Copilot | `/brain-search` → `"sse transport"` → `tier=archive` |
+| `/brain-capture-session` | Convert current AI session into a structured session note | Copilot | `/brain-capture-session` → `topic` → `full` |
 
 ---
 
@@ -125,7 +127,9 @@
 ├── instructions/
 │   ├── README.md                    👤 How instructions work
 │   ├── java.instructions.md         🤖 Java coding standards
-│   └── clean-code.instructions.md   🤖 Clean code practices
+│   ├── clean-code.instructions.md   🤖 Clean code practices
+│   ├── change-completeness.instructions.md  🤖 Completeness checklist — DEFAULT steering mode (applyTo: **)
+│   └── steering-modes.instructions.md  🤖 All steering modes — completeness | beast | learning | design | debug | focused
 │
 ├── agents/
 │   ├── README.md                    👤 How agents work
@@ -146,6 +150,7 @@
 │   ├── context.prompt.md            🤖 /context — continue/fresh
 │   ├── scope.prompt.md              🤖 /scope — generic/specific
 │   ├── multi-session.prompt.md      🤖 /multi-session — cross-session state
+│   ├── steer.prompt.md              🤖 /steer — view or switch steering mode (default: completeness)
 │   │
 │   │── [Learning & Concepts]
 │   ├── learn-concept.prompt.md      🤖 /learn-concept — any concept
@@ -184,7 +189,8 @@
 │   │── [Brain Workspace]
 │   ├── brain-new.prompt.md          🤖 /brain-new — create inbox/notes note
 │   ├── brain-publish.prompt.md      🤖 /brain-publish — publish to archive & commit
-│   └── brain-search.prompt.md       🤖 /brain-search — search across tiers
+│   ├── brain-search.prompt.md       🤖 /brain-search — search across tiers
+│   └── brain-capture-session.prompt.md  🤖 /brain-capture-session — convert AI session to session note
 │
 ├── skills/
 │   ├── README.md                    👤 How skills work
@@ -225,6 +231,8 @@ brain/
 │   ├── START-HERE.md                👤 Onboarding: pick a tool, set up PARA, capture first note
 │   ├── tools-comparison.md          👤 Notion vs Obsidian vs Logseq vs OneNote — decision guide
 │   ├── para-method.md               👤 PARA method applied to devs (Obsidian, Notion, Logseq, ai-brain)
+│   ├── code-method.md               👤 CODE method guide — Capture, Organize, Distill (Progressive Summarization), Express
+│   ├── ai-brain-integration.md      👤 Linking AI sessions to PKM — session lifecycle, Obsidian/Notion/Logseq, /brain-capture-session
 │   ├── templates.md                 👤 Note templates: ADR, daily log, snippet, resource, debug, meeting
 │   └── migration-guide.md           👤 Step-by-step migration: Notion→Obsidian, OneNote→Notion, etc.
 │
@@ -307,7 +315,13 @@ brain/
 | **Browse note templates (ADR, daily log, snippet)** | [brain/digitalnotetaking/templates.md](../../brain/digitalnotetaking/templates.md) | Doc |
 | **Compare Notion vs Obsidian vs Logseq** | [brain/digitalnotetaking/tools-comparison.md](../../brain/digitalnotetaking/tools-comparison.md) | Doc |
 | **Understand PARA method for devs** | [brain/digitalnotetaking/para-method.md](../../brain/digitalnotetaking/para-method.md) | Doc |
+| **Understand CODE method (Capture/Organize/Distill/Express)** | [brain/digitalnotetaking/code-method.md](../../brain/digitalnotetaking/code-method.md) | Doc |
+| **Link AI sessions to your PKM / note workspace** | [brain/digitalnotetaking/ai-brain-integration.md](../../brain/digitalnotetaking/ai-brain-integration.md) | Doc |
+| **Capture current AI session as a structured note** | `/brain-capture-session` | Brain |
 | **New to PKM? Start here** | [brain/digitalnotetaking/START-HERE.md](../../brain/digitalnotetaking/START-HERE.md) | Doc |
+| **View or switch Copilot steering mode** | `/steer` | Meta |
+| **See all steering modes and which is active** | `/steer` → `view` | Meta |
+| **Switch to deep-research mode** | `/steer` → `switch` → `beast` | Meta |
 
 ---
 

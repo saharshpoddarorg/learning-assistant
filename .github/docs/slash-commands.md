@@ -45,7 +45,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (34 commands)
+### Quick Lookup (36 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -54,35 +54,37 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 3 | `/context` | Meta | Continue prior conversation or start fresh | Agent |
 | 4 | `/scope` | Meta | Set generic learning vs code-specific scope | Agent |
 | 5 | `/multi-session` | Meta | Save/resume state across chat sessions | Agent |
-| 6 | `/learn-concept` | Learning | Learn any CS/SE concept from scratch | Learning-Mentor |
-| 7 | `/deep-dive` | Learning | Multi-layered progressive concept exploration | Learning-Mentor |
-| 8 | `/learn-from-docs` | Learning | Learn via official documentation | Learning-Mentor |
-| 9 | `/reading-plan` | Learning | Create a structured study plan | Learning-Mentor |
-| 10 | `/teach` | Learning | Learn concepts from current file | Learning-Mentor |
-| 11 | `/dsa` | Domain | Data structures & algorithms | Learning-Mentor |
-| 12 | `/system-design` | Domain | HLD/LLD system design | Learning-Mentor |
-| 13 | `/devops` | Domain | CI/CD, Docker, K8s, cloud, IaC, Git, build tools | Learning-Mentor |
-| 14 | `/language-guide` | Domain | Language-specific learning path | Learning-Mentor |
-| 15 | `/tech-stack` | Domain | Frameworks, databases — compare & learn | Learning-Mentor |
-| 16 | `/sdlc` | Domain | SDLC phases, methodologies, practices | Learning-Mentor |
-| 17 | `/mcp` | Domain | Learn & build MCP (Model Context Protocol) servers | Learning-Mentor |
-| 18 | `/interview-prep` | Career | Interview preparation (DSA, system design, behavioral) | Learning-Mentor |
-| 19 | `/career-roles` | Career | Job roles, skills, pay ranges, roadmaps | Learning-Mentor |
-| 20 | `/design-review` | Code Quality | SOLID/GRASP design review of current file | Designer |
-| 21 | `/refactor` | Code Quality | Identify and apply refactoring opportunities | Designer |
-| 22 | `/explain` | Code Quality | Beginner-friendly file explanation | Ask |
-| 23 | `/debug` | Code Quality | Systematic bug investigation | Debugger |
-| 24 | `/impact` | Code Quality | Change impact & ripple effect analysis | Impact-Analyzer |
-| 25 | `/explore-project` | Domain | Learn from open-source project architecture | Learning-Mentor |
-| 26 | `/resources` | Domain | Search, browse & scrape curated learning resources | Learning-Mentor |
-| 27 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
-| 28 | `/brain-new` | Brain Workspace | Create a new knowledge note (inbox or notes tier) | Copilot |
-| 29 | `/brain-publish` | Brain Workspace | Publish a note to archive/ with tagging and git commit | Copilot |
-| 30 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
-| 31 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
-| 32 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
-| 33 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
-| 34 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
+| 6 | `/steer` | Meta | View or switch the active Copilot steering mode | Copilot |
+| 7 | `/learn-concept` | Learning | Learn any CS/SE concept from scratch | Learning-Mentor |
+| 8 | `/deep-dive` | Learning | Multi-layered progressive concept exploration | Learning-Mentor |
+| 9 | `/learn-from-docs` | Learning | Learn via official documentation | Learning-Mentor |
+| 10 | `/reading-plan` | Learning | Create a structured study plan | Learning-Mentor |
+| 11 | `/teach` | Learning | Learn concepts from current file | Learning-Mentor |
+| 12 | `/dsa` | Domain | Data structures & algorithms | Learning-Mentor |
+| 13 | `/system-design` | Domain | HLD/LLD system design | Learning-Mentor |
+| 14 | `/devops` | Domain | CI/CD, Docker, K8s, cloud, IaC, Git, build tools | Learning-Mentor |
+| 15 | `/language-guide` | Domain | Language-specific learning path | Learning-Mentor |
+| 16 | `/tech-stack` | Domain | Frameworks, databases — compare & learn | Learning-Mentor |
+| 17 | `/sdlc` | Domain | SDLC phases, methodologies, practices | Learning-Mentor |
+| 18 | `/mcp` | Domain | Learn & build MCP (Model Context Protocol) servers | Learning-Mentor |
+| 19 | `/interview-prep` | Career | Interview preparation (DSA, system design, behavioral) | Learning-Mentor |
+| 20 | `/career-roles` | Career | Job roles, skills, pay ranges, roadmaps | Learning-Mentor |
+| 21 | `/design-review` | Code Quality | SOLID/GRASP design review of current file | Designer |
+| 22 | `/refactor` | Code Quality | Identify and apply refactoring opportunities | Designer |
+| 23 | `/explain` | Code Quality | Beginner-friendly file explanation | Ask |
+| 24 | `/debug` | Code Quality | Systematic bug investigation | Debugger |
+| 25 | `/impact` | Code Quality | Change impact & ripple effect analysis | Impact-Analyzer |
+| 26 | `/explore-project` | Domain | Learn from open-source project architecture | Learning-Mentor |
+| 27 | `/resources` | Domain | Search, browse & scrape curated learning resources | Learning-Mentor |
+| 28 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
+| 29 | `/brain-new` | Brain Workspace | Create a new knowledge note (inbox or notes tier) | Copilot |
+| 30 | `/brain-publish` | Brain Workspace | Publish a note to archive/ with tagging and git commit | Copilot |
+| 31 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
+| 32 | `/brain-capture-session` | Brain Workspace | Convert current AI session into a structured session note | Copilot |
+| 33 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
+| 34 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
+| 35 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
+| 36 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
 
 ---
 
@@ -132,6 +134,22 @@ Agent:    Agent
 Use:      Persist context across multiple chat sessions via checkpoint file
 Tip:      Always save-state before a long session hits token limits
 File:     Creates/updates .github/session-state.md
+```
+
+#### `/steer` — Steering Mode Navigator
+```
+Inputs:   action (view / switch / explain / default), mode (completeness / beast / learning / design / debug / focused)
+Agent:    Copilot
+Tools:    codebase
+Use:      View or switch the active behavioral steering mode for the current session
+Default:  completeness — Change Completeness checklist always active (** glob)
+Modes:    completeness (default) | beast | learning | design | debug | focused
+Example:  /steer → view                 (see all modes + which is active)
+          /steer → switch → beast       (switch to Thinking-Beast-Mode)
+          /steer → default              (confirm completeness is active)
+File:     .github/instructions/steering-modes.instructions.md
+Tip:      After 'beast' or 'focused' mode work, always return to 'completeness'
+          before committing to the repo
 ```
 
 ---
@@ -273,8 +291,11 @@ Example:  /resources → search → java concurrency
 Actions:  search (keyword/tag), browse (by category), scrape (any URL),
           recommend (topic-based), add (new resource), details (deep-dive),
           discover (3 modes: specific/vague/exploratory), export (md/pdf/word)
-Vault:    85+ curated resources across Java, Python, Web, AI/ML, DevOps,
-          Git/VCS, build tools, algorithms, engineering, databases, security,
+Vault:    95+ curated resources across Java, Python, Web, AI/ML, DevOps,
+          Git/VCS, build tools, algorithms & data structures (8 DS-specific
+          resources: Java Collections, OpenDSA, VisuAlgo, Neetcode, MIT 6.006,
+          GeeksforGeeks, Python DS docs, Algorithm Design Manual),
+          engineering, databases, security,
           digital note-taking & PKM (15 resources incl. BASB, PARA, Zettelkasten,
           Obsidian, Notion, Logseq, Foam, GTD, Progressive Summarization), and more
 MCP:      Backed by 10 MCP tools: search_resources, browse_vault, get_resource,
@@ -361,8 +382,10 @@ Topics:   Methodologies: PARA (Projects, Areas, Resources, Archives),
           JDK upgrade: SDKMAN!, Eclipse Temurin, JDK 25 LTS migration from JDK 21
 Platforms: Windows, macOS (see /mac-dev), Linux, iOS, Android
 Skill:    Backed by digital-notetaking/SKILL.md (tool comparison, templates, JDK commands)
-Docs:     brain/digitalnotetaking/ — START-HERE, tools-comparison, para-method, templates,
-          migration-guide (Notion→Obsidian, OneNote→Notion, Logseq→Obsidian)
+Docs:     brain/digitalnotetaking/ — START-HERE, tools-comparison, para-method,
+          code-method (CODE: Capture/Organize/Distill/Express), templates,
+          migration-guide (Notion→Obsidian, OneNote→Notion, Logseq→Obsidian),
+          ai-brain-integration (linking AI sessions to your note system)
 Java:     brain/src/digitalnotetaking/ — NoteKind, NoteStatus, NoteMetadata, NoteTemplate
 ```
 
@@ -491,6 +514,21 @@ Example:  /brain-search → "generics" → tag=java → tier=archive
 Output:   Matching notes with frontmatter summary and file paths
 Kinds:    note | decision | session | resource | snippet | ref
 Tiers:    inbox | notes | archive | all (default)
+```
+
+#### `/brain-capture-session` — Capture AI Session as a Note
+```
+Inputs:   topic (what the session was about), project, depth (quick / full)
+Agent:    Copilot
+Tools:    editFiles, codebase
+Use:      Convert the current Copilot session's outputs into a structured session note
+          in brain/ai-brain/inbox/, ready to review and publish
+Output:   YYYY-MM-DD_session-<slug>.md with TL;DR, Key Insights, Code Snippets,
+          Decisions, Follow-ups — all scaffolded from session context
+Example:  /brain-capture-session → "Java generics and wildcards" → java → full
+Tip:      Run at the end of any substantial Copilot session to capture what was learned
+Next:     brain publish brain\ai-brain\inbox\<file>.md --project <bucket>
+File:     .github/prompts/brain-capture-session.prompt.md
 ```
 
 #### `/mcp` — Learn & Build MCP Servers

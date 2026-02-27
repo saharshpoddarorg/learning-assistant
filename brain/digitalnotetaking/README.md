@@ -14,10 +14,13 @@
 | Start taking notes for the first time | [START-HERE.md](START-HERE.md) |
 | Compare Notion, Obsidian, Logseq, OneNote | [tools-comparison.md](tools-comparison.md) |
 | Learn the PARA method for devs | [para-method.md](para-method.md) |
+| Learn the CODE workflow (Capture, Organize, Distill, Express) | [code-method.md](code-method.md) |
 | Get copy-pasteable note templates | [templates.md](templates.md) |
 | Migrate between tools | [migration-guide.md](migration-guide.md) |
+| Link AI sessions to my note system | [ai-brain-integration.md](ai-brain-integration.md) |
 | Write or search notes right now | [../ai-brain/README.md](../ai-brain/README.md) |
 | Get Copilot help (slash command) | `/digital-notetaking` in Copilot Chat |
+| Capture today's AI session as a note | `/brain-capture-session` in Copilot Chat |
 | Browse curated PKM resources | `/resources → search → pkm` |
 
 ---
@@ -48,6 +51,16 @@ Resources/   ← topics of interest             (Distributed Systems, Books)
 Archives/    ← completed / inactive           (old-job, finished-courses)
 ```
 → Full guide: [para-method.md](para-method.md)
+
+### CODE — for the workflow
+
+```
+C → Capture    Don't filter — grab it now (brain new / brain-capture-session)
+O → Organize   Route into PARA (brain move / brain publish)
+D → Distill    Extract the signal — bold, TL;DR, progressive summarization
+E → Express    Create from what you know (code, PR, doc, ADR, blog post)
+```
+→ Full guide: [code-method.md](code-method.md)
 
 ### CODE — for processing
 ```

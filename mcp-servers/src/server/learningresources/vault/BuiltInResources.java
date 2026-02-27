@@ -5,6 +5,7 @@ import server.learningresources.vault.providers.AiMlResources;
 import server.learningresources.vault.providers.AlgorithmsResources;
 import server.learningresources.vault.providers.BuildToolsResources;
 import server.learningresources.vault.providers.DataAndSecurityResources;
+import server.learningresources.vault.providers.DataStructuresResources;
 import server.learningresources.vault.providers.DevOpsResources;
 import server.learningresources.vault.providers.DigitalNotetakingResources;
 import server.learningresources.vault.providers.EngineeringResources;
@@ -43,6 +44,7 @@ public final class BuiltInResources {
             new WebResources(),
             new PythonResources(),
             new AlgorithmsResources(),
+            new DataStructuresResources(),
             new EngineeringResources(),
             new DevOpsResources(),
             new VcsResources(),
