@@ -73,6 +73,7 @@ becomes a skill section, while the dynamic search/filter capability stays in MCP
 ### Step 3 — Produce the Analysis Report
 
 ```markdown
+
 ## MCP → Skill Analysis: <server/tool name>
 
 ### Tool Inventory
@@ -90,7 +91,8 @@ becomes a skill section, while the dynamic search/filter capability stays in MCP
 - **Partial migration:** <notes>
 
 ### Estimated effort: <Low / Medium / High>
-```
+
+```yaml
 
 ---
 
@@ -99,6 +101,7 @@ becomes a skill section, while the dynamic search/filter capability stays in MCP
 Using the migratable content, produce a SKILL.md at `${input:outputPath}`:
 
 ```yaml
+
 ---
 name: <derived from server/tool name>
 description: >
@@ -107,18 +110,25 @@ description: >
    key concepts it teaches. This is how Copilot routes queries to this skill.
    Be specific — "Use when asked about X, Y, Z" patterns work best.>
 ---
-```
+
+```text
 
 Content structure:
 ```
+
 # <Skill Title>
 
 ## Tier 1 — Newbie: <Quick reference, essential commands/facts>
+
 ## Tier 2 — Amateur: <Deeper reference, common patterns, comparison tables>
+
 ## Tier 3 — Pro: <Advanced usage, edge cases, composition patterns>
+
 ## Quick Reference Cheatsheet
+
 ## Learning Resources
-```
+
+```text
 
 **Translation patterns:**
 
@@ -139,12 +149,14 @@ After generating the SKILL.md, remind the user to:
 
 1. **Add to `copilot-instructions.md`** skills block:
    ```
+
    <skill>
    <name><skill-name></name>
    <description>...</description>
    <file>e:\path\to\.github\skills\<name>\SKILL.md</file>
    </skill>
-   ```
+
+   ```text
 
 2. **Update `.github/docs/slash-commands.md`** if a slash command wraps this skill
 

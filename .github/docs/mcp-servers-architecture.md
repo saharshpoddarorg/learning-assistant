@@ -28,7 +28,7 @@ to let AI models (GitHub Copilot, Claude, etc.) call external services as **tool
 
 Think of MCP as a standardised plugin API for AI assistants:
 
-```
+```text
 User in Copilot Chat
       │  "find me java concurrency tutorials"
       ▼
@@ -61,7 +61,7 @@ tools are named operations with specific inputs, not resources with CRUD verbs.
 
 ## 2. How MCP Fits in the System
 
-```
+```text
 ┌────────────────────────────────────────────────────────────────┐
 │                    AI Assistant (Copilot)                       │
 │  Reads tool schemas → calls tools → presents results to user   │
@@ -205,7 +205,7 @@ typically use **HTTP/SSE transport** for multi-client support. See
 
 ## 4. Server Lifecycle
 
-```
+```text
 main() in Main.java
     │
     ├── 1. ConfigManager.fromDefaults()    ← load & validate configuration
@@ -299,7 +299,7 @@ can be tested, extended, and replaced independently.
 
 ### Data Model
 
-```
+```text
 LearningResource (record)
 ├── id             : String           — unique identifier
 ├── title          : String           — display name
@@ -317,7 +317,7 @@ LearningResource (record)
 
 ### Search Tier Hierarchy
 
-```
+```text
 User query "java concurrency official docs"
       │
       ▼
@@ -349,7 +349,7 @@ loaded from `content/ResourceLibrary.java`. Resources include:
 
 `ResourceDiscovery` offers three discovery modes, wired to the `SearchMode`:
 
-```
+```text
 SPECIFIC    → discoverByConcept(concept)  — pinpoint matching
 VAGUE       → discoverByDomain(domain)    — broad domain browsing
 EXPLORATORY → exploreCategory(category)  — curated starter lists
@@ -368,7 +368,7 @@ All three products use **OAuth 2.0** (three-legged flow for cloud) or
 **API tokens** (simpler, for personal use). The `AtlassianConfigLoader` reads
 credentials from `user-config/servers/atlassian/atlassian-config.local.properties`.
 
-```
+```properties
 atlassian.jira.url            = https://myorg.atlassian.net
 atlassian.jira.email          = dev@example.com
 atlassian.jira.api_token      = <personal_api_token>
@@ -380,7 +380,7 @@ atlassian.bitbucket.workspace = myworkspace
 
 Each product has its own REST client:
 
-```
+```text
 AtlassianRestClient (base HTTP machinery)
     ├── JiraClient        (Jira REST API v3)
     ├── ConfluenceClient  (Confluence REST API v2)
@@ -414,7 +414,7 @@ The base client handles:
 
 Configuration uses a **layered override system**:
 
-```
+```text
 Precedence (lowest to highest):
 ┌─────────────────────────────────────────┐
 │ mcp-config.properties      ← defaults  │
@@ -425,7 +425,7 @@ Precedence (lowest to highest):
 
 ### Loading Pipeline
 
-```
+```text
 ConfigManager.fromDefaults()
     │
     ├── 1. PropertiesConfigSource  ← reads mcp-config.properties
@@ -479,30 +479,36 @@ be accidentally mutated. This prevents entire categories of bugs.
 ## 9. Industry Patterns Used
 
 ### Command Pattern
+
 `ToolHandler.handleToolCall()` dispatches based on a command name string.
 Each case in the `switch` is one command. The switch itself is the invoker;
 handler classes are the concrete commands.
 
 ### Strategy Pattern (Config loading)
+
 Each `ConfigSource` is a different strategy for loading key-value pairs.
 `ConfigManager` composes them without knowing their specifics.
 
 ### Chain of Responsibility (Config override)
+
 `PropertiesConfigSource` → `PropertiesConfigSource (local)` → `EnvironmentConfigSource`
 Each layer's values override the previous layer's values for matching keys.
 
 ### Repository Pattern
+
 `ResourceVault` is a Repository — it provides a domain-model-level collection API
 (`findById(id)`, `findByCategory(category)`, `listAll()`) without exposing storage
 details. The vault currently uses an in-memory `Map`, but could be swapped for a
 database-backed implementation without changing callers.
 
 ### Value Object Pattern
+
 All domain records (`LearningResource`, `McpConfiguration`, `ServerDefinition`, etc.)
 are Java records — value objects with no identity beyond their data, no setters,
 and structural equality. This is exactly what the Value Object pattern prescribes.
 
 ### HTTP Client encapsulation
+
 `AtlassianRestClient` encapsulates Java's `HttpClient` — no code outside the
 `client/` package knows what HTTP library is used. This allows swapping to OkHttp,
 Retrofit, or any other HTTP library without touching handlers or models.
@@ -515,7 +521,7 @@ Retrofit, or any other HTTP library without touching handlers or models.
 
 ### Step 1 — Create the server package
 
-```
+```text
 mcp-servers/src/server/github/
 ├── GitHubServer.java       ← STDIO loop + tool registration
 ├── package-info.java

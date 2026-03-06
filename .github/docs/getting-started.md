@@ -1,7 +1,7 @@
 # 🚀 Getting Started — Hands-On Tutorial
 
-> **Time:** ~30 minutes  
-> **Goal:** Understand the customization system and try every primitive hands-on.  
+> **Time:** ~30 minutes
+> **Goal:** Understand the customization system and try every primitive hands-on.
 > **Prerequisites:** VS Code with GitHub Copilot extension installed.
 
 | Audience | Recommendation |
@@ -42,7 +42,7 @@
 
 Your `.github/` folder contains everything Copilot uses to customize its behavior:
 
-```
+```text
 .github/
 │
 ├── copilot-instructions.md              ← Project-wide rules (always active)

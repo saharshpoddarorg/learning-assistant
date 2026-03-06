@@ -25,7 +25,7 @@
 A tool is a named function exposed by an MCP server that the AI can call on behalf of a user.
 In this project, the AI (GitHub Copilot) calls tools instead of browsing the web directly.
 
-```
+```text
 User asks: "Find Java concurrency resources"
 Copilot calls: search_resources { query: "java concurrency" }
 Server returns: list of matching resources from the vault
@@ -96,7 +96,8 @@ private String handleMyNewTool(final Map<String, String> args) {
 ```
 
 In the Copilot chat, try invoking the tool:
-```
+
+```text
 Use my_new_tool with topic="java"
 ```
 
@@ -109,7 +110,7 @@ Use my_new_tool with topic="java"
 This project implements MCP servers **without** an SDK — using raw JSON-RPC over STDIO.
 This is a deliberate choice: zero external dependencies, portable, educational.
 
-```
+```text
 mcp-servers/src/
 │
 ├── Main.java                          ← entry point; creates registry + starts all servers
@@ -218,6 +219,7 @@ To add a completely new server to the project (not just a new tool to an existin
 
 1. **Create a package:** `mcp-servers/src/server/<yourserver>/`
 2. **Create the server class** implementing `McpServer`:
+
    ```java
    package server.yourserver;
 
@@ -237,13 +239,17 @@ To add a completely new server to the project (not just a new tool to an existin
        @Override public void stop()  { isRunning = false; }
    }
    ```
+
 3. **Register in `Main.java`:**
+
    ```java
    registry.register(new YourServer(config));
    ```
+
 4. **Add config** (if needed) to `mcp-servers/user-config/mcp-config.properties`
 5. **Add VS Code task** to `.vscode/tasks.json` (start / stop / restart / logs)
 6. **Build and test:**
+
    ```powershell
    .\mcp-servers\build.ps1
    .\mcp-servers\scripts\server.ps1 start your-server
@@ -434,7 +440,7 @@ final var limited = results.stream().limit(MAX_RESULTS).toList();
 
 STDIO is ideal for local tools. For remote/multi-user scenarios, MCP also supports SSE:
 
-```
+```text
 STDIO transport (this project):
   AI host ← spawns → server process (1:1 relationship)
   Best for: local CLI tools, desktop AI assistants

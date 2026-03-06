@@ -1,9 +1,9 @@
 # Learning Assistant
 
-> **New to this repo?** → Start at [**.github/docs/START-HERE.md**](.github/docs/START-HERE.md) — it tells you exactly what to read based on your experience level.  
+> **New to this repo?** → Start at [**.github/docs/START-HERE.md**](.github/docs/START-HERE.md) — it tells you exactly what to read based on your experience level.
 > **Want everything in one place?** → [**USAGE.md**](USAGE.md) — comprehensive guide covering all features, all levels, all commands.
 
-> **Learn anything. Experiment freely. Grow continuously.**  
+> **Learn anything. Experiment freely. Grow continuously.**
 > An open-source, AI-enhanced learning workspace that turns curiosity into structured knowledge.
 
 [![Made with GitHub Copilot](https://img.shields.io/badge/Made%20with-GitHub%20Copilot-blue?logo=github)](https://github.com/features/copilot)
@@ -103,7 +103,7 @@ Browse the skill files directly — they're well-structured Markdown:
 
 ## Repository Structure
 
-```
+```text
 learning-assistant/
 │
 ├── README.md                        ← You are here
@@ -147,7 +147,7 @@ learning-assistant/
 <details>
 <summary><b>Expand full structure</b></summary>
 
-```
+```text
 .github/
 ├── copilot-instructions.md              Always-on project rules
 │
@@ -250,6 +250,7 @@ See [Learning Resources Server README](mcp-servers/src/server/learningresources/
 - Environment variable overrides (`MCP_*` prefix)
 
 **Quick start:**
+
 ```bash
 cp mcp-servers/user-config/mcp-config.example.properties mcp-servers/user-config/mcp-config.properties
 # Replace <<<PLACEHOLDER>>> values (search for "<<<")

@@ -1,10 +1,10 @@
 # Developer Setup Guide — MCP Servers
 
-> **First time?** Read the full newbie walkthrough first: [`.github/docs/mcp-server-setup.md`](../.github/docs/mcp-server-setup.md)  
+> **First time?** Read the full newbie walkthrough first: [`.github/docs/mcp-server-setup.md`](../.github/docs/mcp-server-setup.md)
 > It explains what MCP is, prerequisites, credentials, and how to use in another project.
 
-> **Time:** ~5 minutes  
-> **Goal:** Get the MCP servers running and connected to GitHub Copilot.  
+> **Time:** ~5 minutes
+> **Goal:** Get the MCP servers running and connected to GitHub Copilot.
 > **Prerequisite:** JDK 21+ ([Adoptium](https://adoptium.net/) or [Azul Zulu](https://www.azul.com/downloads/))
 
 ---
@@ -75,7 +75,7 @@ This project uses **layered configuration** — you only need to provide secrets
 
 **Precedence (highest wins):**
 
-```
+```text
   Environment vars (MCP_*)  →  local config  →  base config  →  defaults
 ```
 

@@ -19,6 +19,7 @@ ${input:depth:How deep? (overview / detailed / exhaustive)}
 
 ### System Design Hierarchy
 ```
+
 System Design
 │
 ├── HLD — High-Level Design
@@ -122,7 +123,8 @@ System Design
         ├── Hotel Booking System
         ├── Snake & Ladder Game
         └── Online Shopping Cart
-```
+
+```markdown
 
 ### Response Structure
 

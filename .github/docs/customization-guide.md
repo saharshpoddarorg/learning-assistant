@@ -1,6 +1,6 @@
 # 🧩 Customization Guide — Architecture Deep-Dive
 
-> **Audience:** You've read the [Getting Started](getting-started.md) tutorial and want to understand how everything fits together.  
+> **Audience:** You've read the [Getting Started](getting-started.md) tutorial and want to understand how everything fits together.
 > **Goal:** See the big picture, learn the architecture, and know how to extend the system.
 | Audience | Recommendation |
 |---|---|
@@ -37,7 +37,7 @@
 
 GitHub Copilot customization is a **layered system** that progressively shapes Copilot's behavior:
 
-```
+```text
 ┌─────────────────────────────────────────────────┐
 │                  YOUR QUESTION                  │
 │          "Review Main.java for SOLID"           │
@@ -71,7 +71,7 @@ GitHub Copilot customization is a **layered system** that progressively shapes C
 
 ### 1. Instructions — The Rules
 
-```
+```text
 copilot-instructions.md          ← Base layer (always on)
      +
 java.instructions.md             ← When editing *.java
@@ -81,13 +81,13 @@ clean-code.instructions.md       ← When editing *.java (stacks!)
 Combined coding standards        ← What Copilot follows
 ```
 
-**Role:** Define *how* code should be written — naming, structure, patterns, style.  
-**Activation:** Automatic, based on the file being edited.  
+**Role:** Define *how* code should be written — naming, structure, patterns, style.
+**Activation:** Automatic, based on the file being edited.
 **Docs:** [Instructions Guide](../instructions/README.md)
 
 ### 2. Agents — The Specialists
 
-```
+```text
 Default (Ask)  ← General-purpose Copilot
 Designer       ← Thinks in patterns, SOLID, architecture
 Debugger       ← Thinks in hypotheses, root causes, evidence
@@ -95,13 +95,13 @@ Impact Analyzer← Thinks in ripple effects, dependencies, risk
 Learning Mentor← Thinks in analogies, exercises, progression
 ```
 
-**Role:** Define *who* Copilot becomes — the persona, expertise, and approach.  
-**Activation:** Manual — you select from the dropdown in Chat.  
+**Role:** Define *who* Copilot becomes — the persona, expertise, and approach.
+**Activation:** Manual — you select from the dropdown in Chat.
 **Docs:** [Agents Guide](../agents/README.md)
 
 ### 3. Prompts — The Shortcuts
 
-```
+```text
 /design-review  → Runs design review workflow with Designer agent
 /debug          → Runs debugging workflow with Debugger agent
 /teach          → Runs teaching workflow with Learning Mentor agent
@@ -133,15 +133,15 @@ Learning Mentor← Thinks in analogies, exercises, progression
 /brain-search → Search notes by tag, project, kind, date, or text
 ```
 
-**Role:** Define *what* to do — pre-built workflows you trigger with a command.  
-**Activation:** Manual — type `/command` in Chat.  
+**Role:** Define *what* to do — pre-built workflows you trigger with a command.
+**Activation:** Manual — type `/command` in Chat.
 **Docs:** [Prompts Guide](../prompts/README.md)
 
 > 💡 **Meta-prompts** (`/composite`, `/context`, `/scope`) are special — they control *how* Copilot works rather than *what* it works on. They can be combined with each other and with task prompts for powerful workflows. See [Meta-Prompts](../prompts/README.md#-meta-prompts-composite-context--scope) for details.
 
 ### 4. Skills — The Toolkits
 
-```
+```text
 java-build/                ← Activates for: compile, build, run
 design-patterns/           ← Activates for: Pattern decisions, SOLID
 java-debugging/            ← Activates for: Exceptions, stack traces
@@ -152,8 +152,8 @@ career-resources/           ← Activates for: Job roles, salaries, career paths
 mcp-development/            ← Activates for: MCP servers, protocol, tools, agent architecture, building MCP
 ```
 
-**Role:** Provide *extra knowledge* — scripts, templates, domain expertise.  
-**Activation:** Automatic — Copilot matches your question to skill descriptions.  
+**Role:** Provide *extra knowledge* — scripts, templates, domain expertise.
+**Activation:** Automatic — Copilot matches your question to skill descriptions.
 **Docs:** [Skills Guide](../skills/README.md)
 
 ---
@@ -179,7 +179,7 @@ When multiple customizations apply, Copilot merges them. Highest priority wins o
 
 ## 🏗️ Architecture Diagram
 
-```
+```text
                          YOU
                           │
                 ┌─────────┴─────────┐
@@ -221,7 +221,7 @@ When multiple customizations apply, Copilot merges them. Highest priority wins o
 
 Agents can **hand off** to each other for multi-step workflows:
 
-```
+```text
 Designer ──handoff──▶ Impact Analyzer ──handoff──▶ Code Reviewer
    │                       │                           │
    │ "Here's my            │ "Here's what              │ "Here's the

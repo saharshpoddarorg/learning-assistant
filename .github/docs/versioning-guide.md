@@ -23,7 +23,7 @@ This guide defines the conventions and tooling for doing this cleanly.
 Each server version lives in its own package. The current (stable) version uses the
 base package name; new versions add a `.v2`, `.v3` suffix:
 
-```
+```text
 server/
 ├── atlassian/               ← v1 (stable, current — DO NOT MODIFY)
 │   └── AtlassianServer.java
@@ -90,7 +90,7 @@ replaces v1 by returning the same name.
 Place the colleague's files in a new package. Do **not** touch the existing
 `server.atlassian` package:
 
-```
+```text
 mcp-servers/src/server/atlassian/v2/
     AtlassianServerV2.java
     handler/
@@ -145,6 +145,7 @@ new Thread(v2::start, "atlassian-v2").start();
 ```
 
 In your AI client (e.g., `claude_desktop_config.json`):
+
 ```json
 {
   "mcpServers": {
@@ -168,7 +169,7 @@ var registry = new McpServerRegistry()
 
 After studying both, create a clean combined implementation back in `server.atlassian`:
 
-```
+```yaml
 Approach: copy the best of v1 + v2 into a new commit on top of v1.
           Delete v2 package once the combined version is stable.
           Bump version to "3.0.0".

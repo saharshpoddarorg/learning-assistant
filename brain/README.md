@@ -1,14 +1,14 @@
 # Brain Module
 
-> The **Brain** module is the knowledge management layer of the Learning Assistant workspace.  
-> It provides both a **live note workspace** (`ai-brain/`) and a **guide library** (`digitalnotetaking/`)  
+> The **Brain** module is the knowledge management layer of the Learning Assistant workspace.
+> It provides both a **live note workspace** (`ai-brain/`) and a **guide library** (`digitalnotetaking/`)
 > for software engineers who want structured, searchable notes alongside their code.
 
 ---
 
 ## Module Structure
 
-```
+```text
 brain/
 ├── ai-brain/             ← Live knowledge workspace (notes, inbox, library)
 │   ├── inbox/            ← Quick capture — gitignored, cleared per session
@@ -77,7 +77,8 @@ Or use Copilot Chat: `/brain-publish`
 | **Library** | `ai-brain/library/` | ✅ | **Imported sources** — external docs, slide decks, reference material you preserved |
 
 The typical lifecycle:
-```
+
+```text
 inbox/  →  brain-new (your writing)  →  notes/
 inbox/  →  brain publish (external source)  →  library/<project>/<YYYY-MM>/
 ```
@@ -100,6 +101,7 @@ engine for the workspace:
 | `NoteTemplate` | Factory — generates templated Markdown notes |
 
 Usage:
+
 ```java
 NoteMetadata metadata = NoteMetadata.builder()
         .kind(NoteKind.DECISION)

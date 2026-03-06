@@ -11,7 +11,7 @@
 CODE is a **four-stage workflow** for turning raw information into usable knowledge.
 Where PARA tells you *where* to put things, CODE tells you *what to do* with them.
 
-```
+```text
 C → Capture    Don't filter — grab it now, judge later
 O → Organize   Put it where it belongs (PARA structure)
 D → Distill    Extract what matters — highlight, summarize, compress
@@ -71,7 +71,7 @@ brain new --tier inbox --project java --kind note --title "Virtual threads gotch
 
 After capture, route notes into your PARA structure:
 
-```
+```text
 Projects  → time-bounded, active work: "Migrate to JDK 25"
 Areas     → ongoing responsibilities: "Java expertise", "Team onboarding"
 Resources → reference material for future use: "Concurrency patterns"
@@ -80,7 +80,7 @@ Archives  → completed or inactive: "2025 Q4 sprint notes"
 
 ### Organize checklist (after a session)
 
-```
+```text
 1. brain status                  # see what's in inbox
 2. brain list --tier inbox       # read each note title
 3. For each note:
@@ -111,7 +111,7 @@ Raw notes are noisy. Distillation compresses them into the minimum effective con
 
 Distill in passes — each pass reduces further:
 
-```
+```text
 Layer 0:  Full article / session transcript           (raw capture)
 Layer 1:  Bold the most interesting sentences         (15 min per note)
 Layer 2:  Highlight the bolded text further (yellow)  (5 min)
@@ -132,7 +132,7 @@ Layer 4+: Use as an input in a future creative work   (express stage)
 
 ### Bad vs good distillation
 
-```
+```text
 ❌ Bad:   Keep pasting long AI outputs without editing
 ✅ Good:  Read the AI output, write your own understanding in 3 sentences
 
@@ -164,7 +164,7 @@ Expression is how captured knowledge pays off. You don't just consume — you cr
 
 ### The expression loop
 
-```
+```text
 Capture → Organize → Distill → Express → (new capture from what you created)
 ```
 
@@ -174,7 +174,7 @@ Expression generates new questions and observations — which you capture back i
 
 ## CODE + PARA Together
 
-```
+```text
 CODE stage    PARA destination
 ──────────    ────────────────
 Capture    →  inbox/ (always start here)
@@ -193,7 +193,7 @@ Express    →  Create a new artifact (code, doc, PR, ADR)
 
 ## Quick Reference
 
-```
+```text
 CODE at a glance:
 
 C  Capture    brain new --tier inbox         → grab it, no judgment

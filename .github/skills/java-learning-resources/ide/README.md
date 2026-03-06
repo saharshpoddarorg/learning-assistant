@@ -6,7 +6,7 @@
 
 ## Directory Structure
 
-```
+```text
 ide/
 ├── README.md                  ← you are here
 └── intellij-idea-guide.md     ← IntelliJ IDEA comprehensive guide

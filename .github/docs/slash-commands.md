@@ -1,7 +1,7 @@
 # ⚡ Slash Commands — Developer Quick Reference
 
-> **Audience:** 👤 Developer  
-> **Purpose:** One-stop reference for ALL slash commands — aliases, usage, inputs, composition, and tips.  
+> **Audience:** 👤 Developer
+> **Purpose:** One-stop reference for ALL slash commands — aliases, usage, inputs, composition, and tips.
 > **When to use:** When you need to know which command to type, what inputs it expects, or how to chain commands.
 
 ---
@@ -34,7 +34,7 @@
 4. Fill in the input prompts (topic, mode, language, etc.)
 5. Press Enter — Copilot executes using the command's template + associated agent
 
-```
+```text
 You type:    /dsa → binary-search → learn-concept → python → intermediate
 Copilot:     Uses Learning-Mentor agent + DSA prompt template
 Result:      Full binary search lesson with Python code, complexity analysis, practice problems
@@ -102,7 +102,8 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 ### Navigation & Meta
 
 #### `/hub` — Master Navigation Index
-```
+
+```yaml
 Inputs:   category (e.g., se, dsa, system-design, devops, daily, career)
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -111,7 +112,8 @@ Tip:      Start here if you're lost — type /hub and pick a branch
 ```
 
 #### `/composite` — Combine Multiple Modes
-```
+
+```yaml
 Inputs:   modes (e.g., refactor, design-review, impact)
 Agent:    Agent
 Use:      Run 2+ analysis modes in one session with deduplicated output
@@ -120,7 +122,8 @@ Tip:      Great for code quality passes — avoids repeating analysis
 ```
 
 #### `/context` — Continue or Start Fresh
-```
+
+```yaml
 Inputs:   action (continue / fresh)
 Agent:    Agent
 Use:      Reconnect to a prior conversation's decisions, or explicitly reset
@@ -128,7 +131,8 @@ Tip:      Use "continue" after switching files or taking a break
 ```
 
 #### `/scope` — Generic vs Code-Specific
-```
+
+```yaml
 Inputs:   scope (generic / specific)
 Agent:    Agent
 Use:      Tell Copilot whether you want pure theory or code-applied learning
@@ -137,7 +141,8 @@ Example:  /scope → generic + /learn-concept → SOLID = theory lesson
 ```
 
 #### `/multi-session` — Cross-Session State
-```
+
+```yaml
 Inputs:   action (save-state / resume / handoff / status)
 Agent:    Agent
 Use:      Persist context across multiple chat sessions via checkpoint file
@@ -146,7 +151,8 @@ File:     Creates/updates .github/session-state.md
 ```
 
 #### `/steer` — Steering Mode Navigator
-```
+
+```yaml
 Inputs:   action (view / switch / explain / default), mode (completeness / beast / learning / design / debug / focused)
 Agent:    Copilot
 Tools:    codebase
@@ -166,7 +172,8 @@ Tip:      After 'beast' or 'focused' mode work, always return to 'completeness'
 ### Learning & Concepts
 
 #### `/learn-concept` — Learn Any Concept
-```
+
+```yaml
 Inputs:   concept, language (optional), depth (overview/detailed/exhaustive)
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -176,7 +183,8 @@ Output:   Definition → Why → Analogy → How → Code → Anti-example → M
 ```
 
 #### `/deep-dive` — Progressive Exploration
-```
+
+```yaml
 Inputs:   concept, starting-level
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -186,7 +194,8 @@ Example:  /deep-dive → generics
 ```
 
 #### `/learn-from-docs` — Official Documentation
-```
+
+```yaml
 Inputs:   concept, docs-source (optional)
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -196,7 +205,8 @@ Tip:      Specify the exact doc/JEP/RFC for better results
 ```
 
 #### `/reading-plan` — Structured Study Plan
-```
+
+```yaml
 Inputs:   topic, duration, level
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -206,7 +216,8 @@ Output:   Sequenced plan with books, tutorials, exercises, milestones
 ```
 
 #### `/teach` — Learn From Code
-```
+
+```yaml
 Inputs:   (uses current open file automatically)
 Agent:    Learning-Mentor
 Tools:    search, codebase, usages
@@ -220,7 +231,8 @@ Output:   Concept list → explanation of each → practice suggestion
 ### Domain-Specific Learning
 
 #### `/dsa` — Data Structures & Algorithms
-```
+
+```yaml
 Inputs:   topic, mode, language, level
 Modes:    learn-concept | solve-pattern | practice-problems | compare-structures |
           complexity-analysis | interview-roadmap
@@ -231,7 +243,8 @@ Output:   Pattern description → signal words → template → trace → comple
 ```
 
 #### `/system-design` — System Design (HLD/LLD)
-```
+
+```yaml
 Inputs:   topic, level (hld/lld/both/concept/interview-practice), depth
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -240,7 +253,8 @@ Output:   Requirements → estimation → architecture diagram → deep-dive →
 ```
 
 #### `/devops` — DevOps & Infrastructure
-```
+
+```yaml
 Inputs:   topic, depth
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -251,7 +265,8 @@ Topics:   CI/CD, containers, Kubernetes, cloud, IaC, monitoring,
 ```
 
 #### `/language-guide` — Language Learning
-```
+
+```yaml
 Inputs:   language, focus-area, level
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -260,7 +275,8 @@ Languages: Java, Python, C++, Go, Rust, JavaScript/TypeScript, and more
 ```
 
 #### `/tech-stack` — Frameworks & Tools
-```
+
+```yaml
 Inputs:   topic, action (learn/compare/evaluate)
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -268,7 +284,8 @@ Example:  /tech-stack → compare Spring vs FastAPI
 ```
 
 #### `/sdlc` — Software Development Lifecycle
-```
+
+```yaml
 Inputs:   topic, depth
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -279,7 +296,8 @@ Topics:   Agile, Scrum, Kanban, XP, SAFe, test pyramid, CI/CD practices,
 ```
 
 #### `/explore-project` — Open Source Study
-```
+
+```yaml
 Inputs:   project, focus
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -288,7 +306,8 @@ Output:   Repository overview → architecture map → key patterns → lessons
 ```
 
 #### `/resources` — Learning Resource Vault
-```
+
+```yaml
 Inputs:   action (search/browse/scrape/recommend/add/details/discover/export), topic/URL, filters (optional)
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -315,7 +334,8 @@ Enums:    ResourceType (11 types incl. PLAYLIST), SearchMode (specific/vague/exp
 ```
 
 #### `/git-vcs` — Git & Version Control
-```
+
+```yaml
 Inputs:   topic, goal, level (newbie/amateur/pro)
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -330,7 +350,8 @@ Resources: Learn Git Branching, Atlassian Git Tutorials, Pro Git Ch.10,
 ```
 
 #### `/build-tools` — Build Automation
-```
+
+```yaml
 Inputs:   tool (maven/gradle/make/bazel/npm), topic, level (newbie/amateur/pro)
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -347,7 +368,8 @@ Resources: Maven Getting Started, Maven POM Reference, Gradle User Guide,
 ```
 
 #### `/mac-dev` — macOS Development Environment
-```
+
+```yaml
 Inputs:   topic (homebrew/npm/nvm/jdk/ide/docker/shell/aliases/dotfiles/brewfile/bootstrap),
           area (install/commands/switch-versions/configure/automate/troubleshoot),
           level (newbie/amateur/pro)
@@ -370,7 +392,8 @@ Skill:    Backed by mac-dev/SKILL.md (Homebrew, JDK, npm, Docker cheatsheets)
 ```
 
 #### `/digital-notetaking` — Digital Note-Taking, PKM & JDK Upgrade
-```
+
+```yaml
 Inputs:   topic (notion/obsidian/logseq/onenote/para-method/code-method/zettelkasten/
                  migration/jdk-upgrade/sdkman/temurin/todo-management),
           tool  (notion/obsidian/logseq/onenote/google-docs/any),
@@ -403,7 +426,8 @@ Java:     brain/src/digitalnotetaking/ — NoteKind, NoteStatus, NoteMetadata, N
 ### Code Quality & Analysis
 
 #### `/design-review` — Architecture Review
-```
+
+```yaml
 Inputs:   (uses current file)
 Agent:    Designer
 Tools:    search, codebase, usages, fetch
@@ -413,7 +437,8 @@ Tip:      Open the file first, then run /design-review
 ```
 
 #### `/refactor` — Refactoring
-```
+
+```yaml
 Inputs:   (uses current file or selection)
 Agent:    Designer
 Tools:    editFiles, codebase
@@ -422,7 +447,8 @@ Output:   Before/after code → explanation of each change
 ```
 
 #### `/explain` — File Explanation
-```
+
+```yaml
 Inputs:   (uses current file)
 Agent:    Ask
 Tools:    codebase
@@ -431,7 +457,8 @@ Output:   Purpose → structure → key concepts → improvements
 ```
 
 #### `/debug` — Bug Investigation
-```
+
+```yaml
 Inputs:   (uses current file + error context)
 Agent:    Debugger
 Tools:    search, codebase, debugger, terminal
@@ -440,7 +467,8 @@ Output:   Hypotheses → root cause → fix → prevention
 ```
 
 #### `/impact` — Change Impact Analysis
-```
+
+```yaml
 Inputs:   (description of planned change)
 Agent:    Impact-Analyzer
 Tools:    search, codebase, usages, problems
@@ -455,7 +483,8 @@ Output:   Affected files → risk level → breaking changes → test gaps
 > **Preview Feature (March 2026):** The `/create-agent` command uses both the **built-in VS Code wizard** and this project's prompt template. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for all new Copilot features.
 
 #### `/create-agent` — Scaffold a Custom Agent
-```
+
+```yaml
 Inputs:   agentName (e.g., Security-Reviewer), purpose (one sentence),
           tools (search/codebase/editFiles/terminal/fetch/all),
           depth (focused/balanced/broad)
@@ -472,7 +501,8 @@ After:    Add the new agent to agents/README.md table and copilot-instructions.m
 ```
 
 #### `/mcp-to-skill` — Migrate an MCP Tool to a Copilot Skill
-```
+
+```yaml
 Inputs:   target     (MCP server name, Java file path, or tool description),
           mode       (analyse / generate / full),
           outputPath (output path for generated SKILL.md, default: .github/skills/<target>/SKILL.md)
@@ -497,7 +527,8 @@ Tip:      Use 'analyse' first before committing to migration — some tools MUST
 ---
 
 #### `/copilot-customization` — Create, Review, or Compose Any Customization File
-```
+
+```yaml
 Inputs:   goal    (create-new / review-existing / compare-types / plan-composition /
                    explain-concept / audit-repo)
           type    (copilot-instructions / instructions / prompt / agent / skill / mcp /
@@ -526,7 +557,8 @@ Tips:     - Use 'all-types' or 'not-sure' as type when unsure which primitive to
 ---
 
 #### `/write-docs` — Create or Update Any Documentation
-```
+
+```yaml
 Inputs:   docType   (start-here / dev-doc / guide / cheatsheet / quick-guide / skill /
                      prompt / alias-command / readme / brain-note / all-of-above)
           source    (inbox-notes / session-notes / concept-description / code-analysis / url / i-will-describe)
@@ -562,7 +594,8 @@ Tips:     - Use 'all-of-above' when processing inbox notes from a session or rea
 ### Career & Interview
 
 #### `/career-roles` — Career Exploration
-```
+
+```yaml
 Inputs:   role, action (overview/skills/pay/compare/roadmap/interview-prep)
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -572,7 +605,8 @@ Pay:      Uses web scraping (levels.fyi, glassdoor) for live data
 ```
 
 #### `/interview-prep` — Interview Preparation
-```
+
+```yaml
 Inputs:   type (dsa/system-design/behavioral), topic, company (optional)
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
@@ -585,7 +619,8 @@ Output:   Patterns → template solutions → company-specific tips → mock que
 ### Daily Life
 
 #### `/daily-assist` — Daily Productivity
-```
+
+```yaml
 Inputs:   category (finance/productivity/news/research)
 Agent:    Daily-Assistant
 Tools:    search, fetch
@@ -600,7 +635,8 @@ Topics:   Budget, investments, habit tracking, time mgmt, tech news, web researc
 Commands for managing the `brain/ai-brain/` personal knowledge workspace — three-tier note system (inbox → notes → library).
 
 #### `/brain-new` — Create a Note
-```
+
+```yaml
 Inputs:   topic (what to capture), tier (inbox/notes), project (e.g., mcp-servers, java, general)
 Agent:    Copilot
 Tools:    editFiles, codebase
@@ -612,7 +648,8 @@ Tip:      Use /brain-publish to promote to library/ and commit
 ```
 
 #### `/brain-publish` — Publish an Imported Source
-```
+
+```yaml
 Inputs:   file (relative to brain/ai-brain/, e.g. inbox/GHCP_Agents_Guide.md), project bucket
 Agent:    Copilot
 Tools:    editFiles, codebase, runCommands
@@ -623,7 +660,8 @@ Tip:      For notes YOU wrote, use /brain-new → notes/ instead
 ```
 
 #### `/brain-search` — Search Notes
-```
+
+```yaml
 Inputs:   query (free text), filters: tag, project, kind, date (YYYY-MM), tier
 Agent:    Copilot
 Tools:    codebase, search
@@ -635,7 +673,8 @@ Tiers:    inbox | notes | library | all (default)
 ```
 
 #### `/brain-capture-session` — Capture AI Session as a Note
-```
+
+```yaml
 Inputs:   topic (what the session was about), project, depth (quick / full)
 Agent:    Copilot
 Tools:    editFiles, codebase
@@ -654,7 +693,8 @@ File:     .github/prompts/brain-capture-session.prompt.md
 ### Quality & Standards
 
 #### `/check-standards` — Audit Files Against Best Practices
-```
+
+```yaml
 Inputs:   target (file path, folder, or filename to audit),
           domain (auto / brain-naming / markdown-frontmatter / file-structure /
                   git-commits / pkm / prompt-file / skill-file / java-code / all)
@@ -683,7 +723,8 @@ Tip:      Run after creating any new file with /write-docs or /brain-new to catc
 ```
 
 #### `/mcp` — Learn & Build MCP Servers
-```
+
+```yaml
 Inputs:   topic (overview/build-server/configure-agent/types-of-mcp/api-integration/
                   agent-patterns/protocol-spec/troubleshoot/real-world-examples),
           goal (learn-concept/build-my-own-mcp/configure-vscode/agent-architecture/
@@ -787,13 +828,13 @@ Most commands prompt you for input values. Here's what each common parameter exp
 
 ### Combining with Meta Commands
 
-```
+```text
 /scope → generic     (theory mode)
 /context → continue  (reconnect to prior)
 /dsa → binary trees  (now taught as pure theory, building on prior context)
 ```
 
-```
+```text
 /scope → specific      (code mode)
 /composite → refactor, design-review, impact
   → Applied to your codebase, combining three analyses
@@ -845,7 +886,7 @@ Each command is pre-configured with the best agent, but you can override by sele
 
 Every slash command maps to a `.prompt.md` file in `.github/prompts/`:
 
-```
+```text
 /dsa           ←→  .github/prompts/dsa.prompt.md
 /system-design ←→  .github/prompts/system-design.prompt.md
 /hub           ←→  .github/prompts/hub.prompt.md

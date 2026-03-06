@@ -1,6 +1,7 @@
 # Project Instructions — Learning Assistant
 
 ## Overview
+
 - **Project:** Learning Assistant — a simple Java project for learning Copilot customization
 - **Language:** Java 21+ (JDK 25 LTS available — use SDKMAN! or Eclipse Temurin for version management)
 - **Build:** Manual compilation (no build tool yet)
@@ -18,14 +19,21 @@ prompt files, slash-commands, and cross-reference docs.
 |---|---|
 | **Active mode** | `completeness` (always on — applied via `change-completeness.instructions.md`) |
 | **Mode file** | `.github/instructions/change-completeness.instructions.md` (`applyTo: **`) |
+| **Formatting rules** | `.github/instructions/md-formatting.instructions.md` (`applyTo: **`) |
 | **Steering guide** | `.github/instructions/steering-modes.instructions.md` |
 | **Switch modes** | `/steer` slash command in Copilot Chat |
 
 **Before starting any code change:** check `.github/instructions/change-completeness.instructions.md`
-for the applicable checklist (A–F). Run `.\mcp-servers\build.ps1` before committing.
+for the applicable checklist (A–G). Run `.\__md_lint.ps1` and `.\mcp-servers\build.ps1` before committing.
+
+**Markdown formatting is always enforced.** Every `.md` file must pass `.\__md_lint.ps1` with 0 issues
+before committing. This includes headings, tables, bullet points, code blocks, and graphic/box
+representations drawn with `|` pipes. See `.github/instructions/md-formatting.instructions.md` and
+`.github/docs/md-formatting-guide.md` for the full rule set.
 
 ## Project Structure
-```
+
+```text
 learning-assistant/
 ├── .github/              ← Copilot customization files (you're learning this!)
 ├── brain/                ← Brain Java module
@@ -64,6 +72,7 @@ the correct skill file.
 ## Coding Conventions
 
 ### Naming
+
 - **Classes:** `UpperCamelCase` (e.g., `StudentManager`, `OrderService`)
 - **Methods:** `lowerCamelCase` (e.g., `calculateTotal`, `getStudentName`)
 - **Variables:** `lowerCamelCase`, descriptive (e.g., `totalPrice`, not `tp`)
@@ -71,15 +80,18 @@ the correct skill file.
 - **Packages:** all lowercase (e.g., `com.learning.service`)
 
 ### Code Style
+
 - Use `final` for variables that don't change
 - Prefer `var` for local variables when the type is obvious (Java 10+)
 - One public class per file, class name matches filename
 - Use `Logger` instead of `System.out.println` (except in learning examples)
 
 ### Methods
+
 - Keep methods under 30 lines
 - Each method should do exactly one thing
 - Add Javadoc to all public methods:
+
   ```java
   /**
    * Calculates the total price including tax.
@@ -92,11 +104,13 @@ the correct skill file.
   ```
 
 ### Error Handling
+
 - Catch specific exceptions, never generic `Exception`
 - Always include a helpful error message
 - Use try-with-resources for closeable resources
 
 ### File Organization (order within a class)
+
 1. Static fields
 2. Instance fields
 3. Constructors
@@ -107,6 +121,7 @@ the correct skill file.
 ## Do's and Don'ts
 
 ### Do:
+
 - ✅ Use descriptive variable names (minimum 3 characters, except loop counters)
 - ✅ Add comments explaining WHY, not WHAT
 - ✅ Use `Objects.requireNonNull()` for null-checking constructor parameters
@@ -114,6 +129,7 @@ the correct skill file.
 - ✅ Close resources with try-with-resources
 
 ### Don't:
+
 - ❌ Don't use single-letter variables (except `i`, `j`, `k` in loops)
 - ❌ Don't leave empty catch blocks
 - ❌ Don't use `==` to compare Strings (use `.equals()`)
@@ -127,7 +143,7 @@ the correct skill file.
 
 ### Commit Message Format
 
-```
+```xml
 <type>(<scope>): <subject>          ← subject: ≤ 50 chars (hard limit 72)
 <blank line>
 <body>                               ← wrap at 72 chars; explain WHY, not WHAT
@@ -171,7 +187,7 @@ for non-trivial changes.
 
 ### Footers
 
-```
+```text
 BREAKING CHANGE: <description>   ← required if API/interface changes
 Closes #<issue-number>           ← auto-closes linked GitHub issue
 Co-authored-by: name <email>     ← for pair/mob contributions
@@ -203,7 +219,8 @@ Always append as the last footer line:
 ### Do ✅ / Don't ❌
 
 **Do:**
-```
+
+```text
 feat(vault): Add VcsResources provider with 9 curated resources
 
 Git foundations, branching strategies (GitFlow, GitHub Flow, TBD),
@@ -213,7 +230,7 @@ provider — keeping VCS concerns separate from build tooling.
 — created by gpt
 ```
 
-```
+```text
 fix(config): Null-check API key before making HTTP request
 
 Without the guard, a missing key caused a NullPointerException
@@ -223,7 +240,7 @@ at startup. Added Objects.requireNonNull with an explicit message.
 — assisted by gpt
 ```
 
-```
+```text
 refactor(vault): Split GitAndBuildResources into VcsResources + BuildToolsResources
 
 VCS (version control workflows) and build automation (Maven, Gradle,
@@ -239,7 +256,8 @@ and made the vault harder to extend incrementally.
 ```
 
 **Don't:**
-```
+
+```markdown
 # ❌ vague subject
 update stuff
 
@@ -258,7 +276,7 @@ Add new provider class for VCS resources
 
 ### Examples with Breaking Changes
 
-```
+```text
 feat(api)!: Replace List<String> tags with Set<String> in LearningResource
 
 Using Set enforces uniqueness at the model level and improves

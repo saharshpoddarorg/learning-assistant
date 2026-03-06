@@ -27,7 +27,7 @@ ${input:mode:Which mode to switch to? (completeness / beast / learning / design 
 
 Show the user the **current and all available steering modes**:
 
-```
+```text
 📡 Steering Modes — Current Session
 
 Default (always on):
@@ -53,7 +53,7 @@ To reset default:  /steer → default
 
 Guide the user to activate their chosen mode:
 
-```
+```text
 Switching to: ${input:mode}
 
 completeness  →  Already active (default). Use /context continue to carry forward.
@@ -86,7 +86,7 @@ Explain the chosen mode in detail. Pull from `.github/instructions/steering-mode
 
 Confirm and reinforce the default mode:
 
-```
+```text
 ✅ Default Steering Mode: completeness
 
 The completeness mode is always active in this project.
@@ -106,7 +106,7 @@ Remember to return to completeness before your final commit.
 
 ## Mode Reference Card
 
-```
+```text
 Mode           | Agent/Activation          | When to Use
 completeness   | Always active (**glob)    | ANY repo change — the default
 beast          | Thinking-Beast-Mode agent | Deep research, complex multi-file problems
@@ -118,7 +118,7 @@ focused        | /scope → specific         | Tiny isolated single-file edits o
 
 ## Stacking Reference
 
-```
+```text
 copilot-instructions.md         (always)
   + change-completeness.md      (always, ** glob) ← DEFAULT MODE
   + steering-modes.md           (always, ** glob) ← THIS FILE

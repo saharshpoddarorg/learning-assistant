@@ -1,12 +1,13 @@
 # learning-assistant
 
-> **Purpose:** Learn how to customize GitHub Copilot using all 5 official primitives.  
-> **Project:** `learning-assistant` — a simple Java project for hands-on experimentation.  
+> **Purpose:** Learn how to customize GitHub Copilot using all 5 official primitives.
+> **Project:** `learning-assistant` — a simple Java project for hands-on experimentation.
 > **Audience:** Developers new to Copilot customization who want to learn by doing.
 
 ---
 
 ## 📑 Table of Contents
+
 - [At a Glance](#-at-a-glance)- [Why Customize Copilot?](#why-customize-copilot)
 - [The 5 Official Primitives](#the-5-official-primitives)
 - [Folder Structure](#folder-structure)
@@ -64,7 +65,7 @@ Out of the box, Copilot knows nothing about **your** project. It guesses based o
 
 GitHub Copilot in VS Code supports exactly **5 customization primitives**. Everything you can do falls into one of these:
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────┐
 │                    COPILOT CUSTOMIZATION                            │
 │                                                                     │
@@ -90,7 +91,7 @@ GitHub Copilot in VS Code supports exactly **5 customization primitives**. Every
 
 ## Folder Structure
 
-```
+```text
 .github/
 │
 ├── copilot-instructions.md              ← Always-on (auto-loaded every request)
@@ -271,7 +272,7 @@ This learning project includes working samples of each primitive, organized into
 
 The agents support **handoff buttons** for seamless multi-step workflows:
 
-```
+```text
   ┌────────────┐        ┌───────────────────┐        ┌─────────────┐
   │  Designer  │──────→ │  Impact-Analyzer  │──────→ │    Agent    │
   │  (think)   │        │  (assess risk)    │        │  (build)    │
@@ -313,6 +314,7 @@ The agents support **handoff buttons** for seamless multi-step workflows:
 ## How These Work Together
 
 ```
+
 You open Main.java and ask a question
 │
 ├── 📋 copilot-instructions.md               ← ALWAYS loaded
@@ -327,7 +329,8 @@ You open Main.java and ask a question
 │
 └── If your question matches a skill:
     └── 🛠️ skills/design-patterns/SKILL.md  ← Knowledge loaded
-```
+
+```yaml
 
 ---
 
@@ -361,6 +364,7 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 ## 📚 Documentation Map
 
 ```
+
 📖 YOU ARE HERE
 │
 ├─── Entry Points (read one based on experience: 🟢🟡🔴)
@@ -384,7 +388,8 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
      ├── docs/mcp-server-setup.md ········ MCP from scratch: install, build, secrets, use, copy
      ├── docs/export-guide.md ············ Copy features to another project (portable setup)
      └── docs/copilot-workflow.md ········ Copilot chat patterns, queuing, multi-session
-```
+
+```markdown
 
 | Guide | What You'll Learn | Audience | Time |
 |---|---|---|---|

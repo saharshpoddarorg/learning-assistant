@@ -13,6 +13,7 @@ description: >
 ## Homebrew — Core Commands Cheatsheet
 
 ### Install & Search
+
 ```zsh
 brew install <formula>              # install a CLI tool or runtime
 brew install --cask <name>         # install a GUI application
@@ -22,6 +23,7 @@ brew deps --tree <formula>         # dependency tree
 ```
 
 ### Update & Maintain
+
 ```zsh
 brew update                        # update Homebrew + formula index
 brew upgrade                       # upgrade all installed packages
@@ -33,6 +35,7 @@ brew list --versions               # list installed packages with versions
 ```
 
 ### Cask Quick Install (GUI Apps)
+
 ```zsh
 brew install --cask temurin                  # Eclipse Temurin JDK (OpenJDK)
 brew install --cask visual-studio-code       # VS Code
@@ -48,6 +51,7 @@ brew install --cask raycast                  # Spotlight replacement
 ```
 
 ### Brewfile (Reproducible Environment)
+
 ```zsh
 brew bundle dump                             # generate Brewfile from current install
 brew bundle install                          # install everything in ./Brewfile
@@ -60,6 +64,7 @@ brew bundle cleanup --force                  # remove packages not in Brewfile
 ## JDK — Installation & Management
 
 ### Install JDKs via Homebrew
+
 ```zsh
 brew install --cask temurin                  # Eclipse Temurin (recommended)
 brew install --cask temurin@21               # Java 21 LTS specifically
@@ -71,6 +76,7 @@ brew install --cask graalvm-jdk              # GraalVM (native image)
 ```
 
 ### List & Switch JDK versions
+
 ```zsh
 /usr/libexec/java_home -V                    # list all installed JDKs
 export JAVA_HOME=$(/usr/libexec/java_home -v 21)   # switch to Java 21
@@ -85,6 +91,7 @@ jenv enable-plugin export                    # auto-set JAVA_HOME
 ```
 
 ### .zshrc aliases for JDK switching
+
 ```zsh
 alias java21='export JAVA_HOME=$(/usr/libexec/java_home -v 21) && java --version'
 alias java17='export JAVA_HOME=$(/usr/libexec/java_home -v 17) && java --version'
@@ -96,6 +103,7 @@ alias javaVersions='/usr/libexec/java_home -V'
 ## npm / nvm — Node.js Version Management
 
 ### nvm (recommended)
+
 ```zsh
 brew install nvm
 
@@ -113,6 +121,7 @@ nvm use                                     # auto-read .nvmrc
 ```
 
 ### npm essentials
+
 ```zsh
 npm install                                  # install from package.json
 npm install <pkg>                           # add dependency
@@ -130,6 +139,7 @@ npm audit fix                               # fix vulnerabilities
 ## Shell Config — Aliases & PATH (~/.zshrc)
 
 ### Essential PATH setup
+
 ```zsh
 # Homebrew (in ~/.zprofile)
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -143,6 +153,7 @@ export LANG="en_US.UTF-8"
 ```
 
 ### Reload config
+
 ```zsh
 source ~/.zshrc                              # reload without restarting terminal
 ```
@@ -152,11 +163,13 @@ source ~/.zshrc                              # reload without restarting termina
 ## Docker on macOS — Core Commands
 
 ### Installation
+
 ```zsh
 brew install --cask docker                   # Docker Desktop for Mac
 ```
 
 ### Essential commands
+
 ```zsh
 docker ps                                    # list running containers
 docker ps -a                                 # all containers
@@ -192,6 +205,7 @@ docker exec -it <id> bash                    # shell into container
 ## 3-Tier Quick Reference
 
 ### 🟢 Newbie (Get Running)
+
 ```zsh
 # 1. Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -205,6 +219,7 @@ java --version && code --version
 ```
 
 ### 🟡 Amateur (Structure Your Environment)
+
 ```zsh
 # IDEs
 brew install --cask intellij-idea docker postman tableplus
@@ -224,6 +239,7 @@ git config --global core.editor "code --wait"
 ```
 
 ### 🔴 Pro (Automate Everything)
+
 ```zsh
 # Brewfile for reproducibility
 brew bundle dump --file=~/dotfiles/Brewfile

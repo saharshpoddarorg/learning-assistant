@@ -339,17 +339,21 @@ CarDto dto = CarMapper.INSTANCE.carToCarDto(car);
 ## 4. Starter Path for Each Project
 
 ### If you have 1 hour:
+
 1. **Javalin** — Read the README, build a hello-world app, trace the request handling
 
 ### If you have 2-3 hours:
+
 2. **Caffeine** — Read the README, study the `CacheBuilder` API, write a caching example
 3. **JUnit 5** — Read `junit-jupiter-api` annotations, write parameterized tests
 
 ### If you have a day:
+
 4. **Guava** — Study `ImmutableList`, `Preconditions`, `LoadingCache`
 5. **Jackson** — Trace how `ObjectMapper.readValue()` works internally
 6. **Resilience4j** — Build a circuit breaker around an HTTP call
 
 ### For ongoing study:
+
 7. **Spring Boot** — Follow the guides at `spring.io/guides`, study auto-configuration
 8. **MapStruct** — Study the annotation processor to understand compile-time code generation

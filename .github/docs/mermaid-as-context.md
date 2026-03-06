@@ -29,7 +29,7 @@ When you paste 500 lines of Java into a Copilot prompt:
 
 ### The Fix: A 20-line Mermaid Diagram
 
-```
+```text
 500 LOC of Device.java
   → LLM guesses: "Device probably extends something"
 
@@ -45,12 +45,14 @@ This isn't about pretty pictures — it's about **making architecture visible as
 ### Your First Diagram-Assisted Prompt (3 steps)
 
 **Step 1 — Ask Copilot to generate a diagram:**
-```
+
+```text
 Generate a Mermaid class diagram showing the IDevice interface,
 its implementations, and all classes that use IDevice.
 ```
 
 **Step 2 — Copilot produces something like:**
+
 ```mermaid
 classDiagram
     class IDevice {
@@ -69,7 +71,8 @@ classDiagram
 ```
 
 **Step 3 — Use the diagram in your next prompt:**
-```
+
+```text
 Using this class diagram as context:
 [paste diagram here]
 
@@ -92,7 +95,7 @@ Now Copilot has complete architectural knowledge and generates correct code on t
 
 ### The 3-Step Workflow
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │  Step 1: GENERATE                                           │
 │  Ask agent to generate a Mermaid diagram from existing code  │
@@ -132,6 +135,7 @@ Now Copilot has complete architectural knowledge and generates correct code on t
 #### Example 1: Adding a Property
 
 **Without diagram context:**
+
 ```java
 // ❌ LLM guesses — missing premodify(), wrong hierarchy, no PropertyChange
 public class Device implements IDevice {
@@ -141,6 +145,7 @@ public class Device implements IDevice {
 ```
 
 **With class diagram context:**
+
 ```java
 // ✅ LLM knows the full contract from the diagram
 @Override
@@ -157,6 +162,7 @@ public void setDescription(@NotNull String description) {
 #### Example 2: Adding Validation to a gRPC Flow
 
 **Sequence diagram fed as context:**
+
 ```mermaid
 sequenceDiagram
     Client->>GrpcServiceImpl: saveDesign(request)
@@ -175,6 +181,7 @@ Agent inserts **exactly** between `beginTransaction()` and `saveOrUpdate()` — 
 #### Example 3: Adding a State to a Lifecycle
 
 **State diagram fed as context:**
+
 ```mermaid
 stateDiagram-v2
     [*] --> Untracked: window opened
@@ -235,27 +242,31 @@ The following diagrams are always-on context when editing any Java file.
 ### Diagram Prompts That Work Well
 
 **Generate a class hierarchy:**
-```
-Generate a Mermaid classDiagram showing [InterfaceName], 
+
+```text
+Generate a Mermaid classDiagram showing [InterfaceName],
 all classes that implement it, and all classes that use it.
 Include the key methods and inheritance relationships.
 ```
 
 **Generate a sequence flow:**
-```
+
+```text
 Generate a Mermaid sequenceDiagram for the [operation] flow,
 from [entry point] through to [end result].
 Show all class interactions in order.
 ```
 
 **Generate a state machine:**
-```
+
+```text
 Generate a Mermaid stateDiagram-v2 for the [component] lifecycle,
 showing all states, transitions, and edge cases.
 ```
 
 **Generate a module dependency graph:**
-```
+
+```text
 Generate a Mermaid graph TD showing all modules in the project
 and their dependencies (which depends on which).
 Show arrow direction as [depends on].
@@ -269,7 +280,7 @@ Show arrow direction as [depends on].
 
 Instead of describing code changes in prose, **show the diff as a diagram modification**.
 
-```
+```text
 Step 1: Generate class diagram for current state
 Step 2: Modify the diagram in your editor (add new class/field/method)
 Step 3: "Implement the changes shown in this modified diagram:
@@ -289,7 +300,7 @@ Step 3: "Implement the changes shown in this modified diagram:
 
 Instead of writing a design doc in English, draw the design as a Mermaid diagram:
 
-```
+```text
 Here is my design:
 [paste Mermaid class diagram with new classes and relationships]
 
@@ -305,7 +316,7 @@ The diagram **is** the specification. No ambiguity about class names, method sig
 
 Each arrow in a sequence diagram becomes a test assertion:
 
-```
+```text
 Given this sequence diagram of the login flow:
 [paste sequence diagram]
 
@@ -319,7 +330,7 @@ Each → becomes a `verify()` or `assertEquals()`. Each -->> becomes an assertio
 
 ### Pattern 4: State Diagram as FSM Implementation
 
-```
+```text
 Implement a state machine for the window lifecycle shown in this state diagram:
 [paste stateDiagram-v2]
 
@@ -333,7 +344,7 @@ Each state becomes an enum value, each transition becomes a method.
 
 When you inherit someone else's code:
 
-```
+```text
 Generate a sequence diagram showing everything that happens when a user
 [performs action], from [entry point] through to [end state].
 Show all class interactions in order.
@@ -347,7 +358,7 @@ You get a full walkthrough in 30 seconds. No reading 15 files.
 
 When evaluating design options:
 
-```
+```text
 I need to choose between Strategy and State patterns for [component].
 Generate both as class diagrams and compare them against the existing
 [relevant component] architecture shown here: [paste current diagram].
@@ -360,7 +371,7 @@ Agent generates both options as diagrams, overlays them against your existing co
 
 ### Pattern 7: Dependency Graph for Build/Impact Order
 
-```
+```text
 Generate a module dependency graph for this codebase.
 Then tell me: if I change [interfaceModule], what is the correct
 build order for all dependent modules?

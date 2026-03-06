@@ -2,8 +2,8 @@
 
 > 🟢 **New here?** → Start at **[START-HERE.md](START-HERE.md)** — it tells you what to read based on experience level.
 
-> **Audience:** 👤 Developer  
-> **Purpose:** Master index of ALL files, slash commands, agents, and skills — with quick lookup by need.  
+> **Audience:** 👤 Developer
+> **Purpose:** Master index of ALL files, slash commands, agents, and skills — with quick lookup by need.
 > **When to use:** When you're not sure which command or file does what you need.
 
 ---
@@ -23,6 +23,7 @@
 ## ⚡ Slash Command Quick Reference
 
 ### Navigation & Meta
+
 | Command | Purpose | Agent | Quick Example |
 |---|---|---|---|
 | `/hub` | Browse all commands by category | Learning-Mentor | `/hub` → `se` |
@@ -33,6 +34,7 @@
 | `/steer` | View or switch the active steering mode | Copilot | `/steer` → `view` |
 
 ### Learning & Concepts
+
 | Command | Purpose | Agent | Quick Example |
 |---|---|---|---|
 | `/learn-concept` | Learn any CS/SE concept | Learning-Mentor | `/learn-concept` → `deadlocks` |
@@ -42,6 +44,7 @@
 | `/teach` | Learn concepts from current file | Learning-Mentor | `/teach` → (open a file first) |
 
 ### Domain-Specific Learning
+
 | Command | Purpose | Agent | Quick Example |
 |---|---|---|---|
 | `/dsa` | Data structures & algorithms | Learning-Mentor | `/dsa` → `binary trees` |
@@ -55,11 +58,13 @@
 | `/resources` | Search, browse & scrape learning resources | Learning-Mentor | `/resources` → `search` → `java concurrency` |
 
 ### Career
+
 | Command | Purpose | Agent | Quick Example |
 |---|---|---|---|
 | `/career-roles` | Job roles, skills, pay, roadmaps | Learning-Mentor | `/career-roles` → `MLE` → `overview` |
 
 ### Code Quality & Analysis
+
 | Command | Purpose | Agent | Quick Example |
 |---|---|---|---|
 | `/design-review` | SOLID/GRASP design review | Designer | `/design-review` (with file open) |
@@ -70,11 +75,13 @@
 | `/explore-project` | Learn from open-source projects | Learning-Mentor | `/explore-project` → `Redis` |
 
 ### Daily Life
+
 | Command | Purpose | Agent | Quick Example |
 |---|---|---|---|
 | `/daily-assist` | Finance, productivity, news, research | Daily-Assistant | `/daily-assist` → `finance` |
 
 ### Brain Workspace
+
 | Command | Purpose | Agent | Quick Example |
 |---|---|---|---|
 | `/brain-new` | Create a new knowledge note (inbox or notes tier) | Copilot | `/brain-new` → `"generics cheatsheet"` → `notes` |
@@ -122,7 +129,7 @@
 
 ## 📁 File Map — All .md Files
 
-```
+```text
 .github/
 │
 ├── (root) README.md                    👤 Project overview, quick start, learning domains
@@ -352,7 +359,8 @@ brain/
 Commands can be **composed** to create powerful workflows. Here are recommended patterns:
 
 ### Learning Workflow
-```
+
+```text
 /career-roles → identify skills gap
     ↓
 /language-guide → learn required language
@@ -367,7 +375,8 @@ Commands can be **composed** to create powerful workflows. Here are recommended 
 ```
 
 ### Code Quality Workflow
-```
+
+```text
 /explain → understand the code
     ↓
 /design-review → find design issues
@@ -380,14 +389,16 @@ Commands can be **composed** to create powerful workflows. Here are recommended 
 ```
 
 ### Cross-Session Workflow
-```
+
+```text
 Session 1:  /multi-session save-state → saves progress
 Session 2:  /multi-session resume → continues from checkpoint
             /context continue → reconnects to prior decisions
 ```
 
 ### DevOps Learning Path
-```
+
+```text
 /devops → Docker → learn containers
     ↓
 /devops → Kubernetes → learn orchestration
@@ -400,7 +411,8 @@ Session 2:  /multi-session resume → continues from checkpoint
 ```
 
 ### Meta-Composition with `/composite`
-```
+
+```text
 /composite → refactor, design-review
   → Combines both into a single deduplicated analysis
   → Shows cross-mode insights
@@ -428,7 +440,7 @@ Session 2:  /multi-session resume → continues from checkpoint
 
 The `/multi-session` prompt can create/update `.github/session-state.md` — a persistent checkpoint file:
 
-```
+```text
 .github/
 └── session-state.md    ← Auto-generated session checkpoint (gitignored or tracked, your choice)
 ```

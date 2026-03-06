@@ -21,6 +21,7 @@ Teach or guide the user on the selected DevOps topic. Adapt your response based 
 
 ### DevOps Domain Map
 ```
+
 CI/CD (Continuous Integration / Continuous Delivery)
 ├── Concepts: pipeline, stages, artifacts, triggers, environments
 ├── Tools: GitHub Actions, GitLab CI, Jenkins, CircleCI, Travis CI
@@ -58,7 +59,8 @@ Version Control & Collaboration
 ├── GitHub: PRs, Actions, branch protection, CODEOWNERS
 ├── Code Review: best practices, automated checks, review checklists
 └── Monorepo vs Polyrepo: trade-offs, tools (Nx, Turborepo, Bazel)
-```
+
+```markdown
 
 ### Response Structure by Goal
 

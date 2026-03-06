@@ -1,6 +1,6 @@
 # 📦 npm on macOS — Node.js Package Management
 
-> Node.js + npm is essential even if you're primarily a Java/Python developer.  
+> Node.js + npm is essential even if you're primarily a Java/Python developer.
 > Modern dev tools (ESLint, Prettier, TypeScript, Vite, Next.js, the GitHub CLI wrapper, etc.)
 > all run on Node. This guide covers installing Node.js, using npm, managing versions with nvm,
 > and working productively with the npm ecosystem on macOS.
@@ -22,6 +22,7 @@
 ## ⬇️ Install Node.js on macOS
 
 ### Option A — nvm (Recommended)
+
 Manages multiple Node.js versions like `jenv` does for Java.
 
 ```zsh
@@ -59,6 +60,7 @@ npm --version
 ## 🟢 Newbie — npm Basics
 
 ### What is npm?
+
 `npm` = **Node Package Manager**. It:
 - Installs JavaScript libraries into your project (`node_modules/`)
 - Runs scripts defined in `package.json`

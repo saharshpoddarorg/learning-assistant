@@ -140,6 +140,7 @@ public record State(String name, String capitalCity, List<String> cities) {
 ### 1.10 Pattern Matching
 
 **Pattern Matching for instanceof (Java 16+):**
+
 ```java
 // Old way
 if (o instanceof String) {
@@ -162,6 +163,7 @@ public boolean equals(Object o) {
 ```
 
 **Pattern Matching for switch (Java 21+):**
+
 ```java
 String formatted = switch(o) {
     case Integer i -> String.format("int %d", i);
@@ -178,6 +180,7 @@ String result = switch(o) {
 ```
 
 **Record Patterns (Java 21+):**
+
 ```java
 // Deconstruct records in instanceof
 if (o instanceof Point(int x, int y)) { /* use x, y */ }
@@ -291,6 +294,7 @@ Complete tutorial series for functional data processing:
 - Use for I/O-bound tasks, NOT CPU-bound (use parallel streams/fork-join for CPU)
 
 **Creating Virtual Threads:**
+
 ```java
 // Preferred: ExecutorService
 ExecutorService service = Executors.newVirtualThreadPerTaskExecutor();
@@ -401,6 +405,7 @@ Thread t = Thread.startVirtualThread(myRunnable);
 > **URL:** `docs.oracle.com/javase/tutorial/java/`
 
 #### 10.2.1 OOP Concepts
+
 | Lesson | Topics |
 |---|---|
 | What Is an Object? | State (fields), behavior (methods), analogy with real-world objects |
@@ -411,6 +416,7 @@ Thread t = Thread.startVirtualThread(myRunnable);
 | Questions and Exercises | Review questions for OOP fundamentals |
 
 #### 10.2.2 Language Basics
+
 | Lesson | Sub-Topics |
 |---|---|
 | **Variables** | Primitive Data Types (`byte`, `short`, `int`, `long`, `float`, `double`, `char`, `boolean`), Arrays (declaring, creating, copying), Variable Summary (fields vs locals vs parameters) |
@@ -419,6 +425,7 @@ Thread t = Thread.startVirtualThread(myRunnable);
 | **Control Flow Statements** | `if-then`, `if-then-else`, `switch`, `while`, `do-while`, `for` (standard & enhanced), Branching (`break`, `continue`, `return`) |
 
 #### 10.2.3 Classes and Objects
+
 | Lesson | Sub-Topics |
 |---|---|
 | **Classes** | Declaring Classes, Declaring Member Variables, Defining Methods, Providing Constructors, Passing Information to Method/Constructor (parameters, varargs) |
@@ -428,6 +435,7 @@ Thread t = Thread.startVirtualThread(myRunnable);
 | **Enum Types** | Defining enums, enum methods, constructors in enums |
 
 #### 10.2.4 Annotations
+
 | Lesson | Content |
 |---|---|
 | Annotations Basics | What they are, where to use them |
@@ -437,12 +445,14 @@ Thread t = Thread.startVirtualThread(myRunnable);
 | Repeating Annotations | `@Repeatable`, container annotations |
 
 #### 10.2.5 Interfaces and Inheritance
+
 | Lesson | Sub-Topics |
 |---|---|
 | **Interfaces** | Defining an Interface, Implementing an Interface, Using Interface as a Type, Evolving Interfaces, Default Methods |
 | **Inheritance** | Multiple Inheritance of State/Implementation/Type, Overriding and Hiding Methods, Polymorphism, Hiding Fields, Using `super`, Object as a Superclass (`toString`/`equals`/`hashCode`/`clone`/`getClass`/`finalize`), Writing Final Classes and Methods, Abstract Methods and Classes |
 
 #### 10.2.6 Numbers and Strings
+
 | Lesson | Sub-Topics |
 |---|---|
 | **Numbers** | Number Classes (wrapper types), Formatting Numeric Print Output, Beyond Basic Arithmetic (`Math` class methods) |
@@ -451,6 +461,7 @@ Thread t = Thread.startVirtualThread(myRunnable);
 | **Autoboxing and Unboxing** | Automatic conversion between primitives and wrappers |
 
 #### 10.2.7 Generics (Comprehensive)
+
 | Lesson | Sub-Topics |
 |---|---|
 | **Why Use Generics?** | Type safety, eliminating casts |
@@ -464,6 +475,7 @@ Thread t = Thread.startVirtualThread(myRunnable);
 | **Restrictions on Generics** | Cannot instantiate type parameters, no primitives, no `instanceof`, no arrays of parameterized types, no overload-by-erasure |
 
 #### 10.2.8 Packages
+
 | Lesson | Content |
 |---|---|
 | Creating a Package | `package` declaration, package hierarchy |
@@ -478,6 +490,7 @@ Thread t = Thread.startVirtualThread(myRunnable);
 > **URL:** `docs.oracle.com/javase/tutorial/essential/`
 
 #### 10.3.1 Exceptions
+
 | Lesson | Sub-Topics |
 |---|---|
 | **What Is an Exception?** | Exception hierarchy, call stack, exception object |
@@ -491,6 +504,7 @@ Thread t = Thread.startVirtualThread(myRunnable);
 > **Cross-reference:** See `jdk-apis-reference.md` § Exception Handling for full hierarchy diagram, code examples, and best practices table.
 
 #### 10.3.2 Basic I/O
+
 | Lesson | Sub-Topics |
 |---|---|
 | **I/O Streams** | Byte Streams (`FileInputStream`/`FileOutputStream`), Character Streams (`FileReader`/`FileWriter`), Buffered Streams, Scanning and Formatting (`Scanner`, `Formatter`, `printf`), I/O from the Command Line (`Console`), Data Streams (`DataInputStream`/`DataOutputStream`), Object Streams (serialization/deserialization) |
@@ -499,6 +513,7 @@ Thread t = Thread.startVirtualThread(myRunnable);
 > **Cross-reference:** See `jdk-apis-reference.md` § I/O API for modern `Files` utility methods and code examples.
 
 #### 10.3.3 Concurrency
+
 | Lesson | Sub-Topics |
 |---|---|
 | **Processes and Threads** | Process vs thread, the Java threading model |
@@ -512,6 +527,7 @@ Thread t = Thread.startVirtualThread(myRunnable);
 > **Cross-reference:** See `jdk-apis-reference.md` § Concurrency for modern code examples including virtual threads, `CompletableFuture`, structured concurrency.
 
 #### 10.3.4 The Platform Environment
+
 | Lesson | Sub-Topics |
 |---|---|
 | **Configuration Utilities** | Properties (`java.util.Properties`), Command-Line Arguments, Environment Variables |
@@ -519,6 +535,7 @@ Thread t = Thread.startVirtualThread(myRunnable);
 | **PATH and CLASSPATH** | Setting PATH, setting CLASSPATH, class loading |
 
 #### 10.3.5 Regular Expressions
+
 | Lesson | Content |
 |---|---|
 | Introduction | What regex is, Java's `java.util.regex` package |

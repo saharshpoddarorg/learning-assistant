@@ -5,7 +5,7 @@ configuration from the **layered config system** (env vars > local config > base
 
 ## Directory Structure
 
-```
+```text
 scripts/
 ├── server.sh                    ← 🔑 Lifecycle manager: start/stop/restart/reset/demo/logs
 ├── server.ps1                   ← 🔑 Lifecycle manager (Windows PowerShell)
@@ -232,6 +232,7 @@ Example: `browser.executable` is read as:
 ### Using the shared config reader
 
 **Bash:**
+
 ```bash
 #!/usr/bin/env bash
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -251,6 +252,7 @@ fi
 ```
 
 **PowerShell:**
+
 ```powershell
 . "$PSScriptRoot\..\..\common\utils\Read-Config.ps1"
 

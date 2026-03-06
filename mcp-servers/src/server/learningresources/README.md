@@ -109,6 +109,7 @@ java -cp out server.learningresources.LearningResourcesServer
 The vault uses a rich, type-safe categorization model. All enums support `fromString()` / `fromDisplayName()` for flexible parsing.
 
 ### ResourceCategory
+
 Broad technology domains for grouping resources.
 
 | Value | Display Name | Description |
@@ -130,6 +131,7 @@ Broad technology domains for grouping resources.
 | `GENERAL` | general | Cross-cutting or general topics |
 
 ### ConceptArea
+
 Fine-grained CS/SE concept areas for precise resource matching (36 values). Each concept belongs to a {@link ConceptDomain}.
 
 | Value | Display Name | Domain | Example Topics |
@@ -169,6 +171,7 @@ Fine-grained CS/SE concept areas for precise resource matching (36 values). Each
 | `GETTING_STARTED` | getting-started | Career & Meta | Environment setup, first project, hello world |
 
 ### ConceptDomain _(new)_
+
 High-level knowledge domains that group related ConceptArea values (8 domains).
 
 | Value | Display Name | Concepts |
@@ -183,6 +186,7 @@ High-level knowledge domains that group related ConceptArea values (8 domains).
 | `CAREER_META` | Career & Meta | INTERVIEW_PREP, CAREER_DEVELOPMENT, GETTING_STARTED |
 
 ### SearchMode _(new)_
+
 User intent classification for the discovery engine (3 modes).
 
 | Value | Display Name | Description | Triggers |
@@ -192,6 +196,7 @@ User intent classification for the discovery engine (3 modes).
 | `EXPLORATORY` | exploratory | Explore — user wants guidance and suggestions | "learn", "beginner", "recommend", "getting started" |
 
 ### DifficultyLevel
+
 Type-safe difficulty with ordinal for range queries.
 
 | Value | Display | Ordinal | Description |
@@ -202,6 +207,7 @@ Type-safe difficulty with ordinal for range queries.
 | `EXPERT` | expert | 4 | Research papers, formal specs |
 
 ### ContentFreshness
+
 Content maintenance status.
 
 | Value | Description |
@@ -212,6 +218,7 @@ Content maintenance status.
 | `ARCHIVED` | No longer maintained but still valuable |
 
 ### LanguageApplicability _(new)_
+
 How a resource relates to programming languages — enables Java-focused filtering.
 
 | Value | Display | Description | Transferable? |
@@ -224,6 +231,7 @@ How a resource relates to programming languages — enables Java-focused filteri
 | `WEB_SPECIFIC` | web-specific | JS/TS/Web-only (event loop, DOM) | No |
 
 ### ResourceType
+
 Content format classification.
 
 | Value | Display | Examples |
@@ -243,6 +251,7 @@ Content format classification.
 | `REPOSITORY` | repository | GitHub repos, examples |
 
 ### OutputFormat
+
 Export format for discovery/search results (nested in `ExportHandler`).
 
 | Value | Extension | Description |
@@ -301,7 +310,7 @@ The `KeywordIndex` maps ~130 keywords/phrases to structured enums:
 
 ## Architecture
 
-```
+```text
 server/learningresources/
 ├── LearningResourcesServer.java    ← STDIO entry point, CLI flags
 ├── package-info.java               ← Package documentation
@@ -363,7 +372,7 @@ server/learningresources/
 
 ### Data Flow
 
-```
+```text
 User → MCP Client → STDIO → LearningResourcesServer
                               ├── ToolHandler (dispatch — 10 tools)
                               │   ├── SearchHandler → ResourceVault
@@ -380,7 +389,7 @@ User → MCP Client → STDIO → LearningResourcesServer
 
 ### Scrape Pipeline
 
-```
+```text
 URL → WebScraper (HTTP GET)
     → ScraperResult (raw HTML + metadata)
     → ContentExtractor (strip HTML → clean text, title, meta tags)
@@ -392,7 +401,7 @@ URL → WebScraper (HTTP GET)
 
 ### Smart Add-from-URL Pipeline
 
-```
+```text
 URL → WebScraper → ContentExtractor
     → Extract: title (from <title>/<h1>), description (meta/OG tags), author
     → Infer: type (from URL patterns), category (from content), concepts

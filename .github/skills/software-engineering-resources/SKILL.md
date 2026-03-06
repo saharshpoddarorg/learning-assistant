@@ -26,6 +26,7 @@ description: >
 ## Foundational Books (The Canon)
 
 ### Clean Code & Design
+
 | Book | Author | Core Topics |
 |---|---|---|
 | **Clean Code** | Robert C. Martin | Naming, functions, comments, formatting, error handling, unit tests |
@@ -38,6 +39,7 @@ description: >
 | **Working Effectively with Legacy Code** | Michael Feathers | Seams, characterization tests, breaking dependencies safely |
 
 ### Software Engineering Practices
+
 | Book | Author | Core Topics |
 |---|---|---|
 | **The Pragmatic Programmer** | Hunt & Thomas | Tips, DRY, orthogonality, tracer bullets, pragmatic thinking |
@@ -48,6 +50,7 @@ description: >
 | **Release It! (2nd Ed.)** | Michael Nygard | Stability patterns, circuit breakers, bulkheads, production readiness |
 
 ### Testing
+
 | Book | Author | Core Topics |
 |---|---|---|
 | **Test Driven Development: By Example** | Kent Beck | Red-green-refactor, TDD rhythms, money example |
@@ -57,6 +60,7 @@ description: >
 | **BDD in Action** | John Ferguson Smart | Behavior-driven development, Gherkin, living documentation |
 
 ### Algorithms & Data Structures
+
 | Book | Author | Core Topics |
 |---|---|---|
 | **Introduction to Algorithms (CLRS)** | Cormen, Leiserson, Rivest, Stein | Comprehensive: sorting, graphs, DP, greedy, NP |
@@ -66,6 +70,7 @@ description: >
 | **Elements of Programming Interviews** | Aziz, Lee, Prakash | Advanced interview problems with detailed solutions |
 
 ### System Design
+
 | Book | Author | Core Topics |
 |---|---|---|
 | **Designing Data-Intensive Applications (DDIA)** | Martin Kleppmann | Storage, replication, partitioning, consistency, stream processing |
@@ -74,6 +79,7 @@ description: >
 | **Software Architecture: The Hard Parts** | Ford, Richards, Sadalage, Dehghani | Architecture decisions, trade-off analysis, modularity |
 
 ### Operating Systems & Networking
+
 | Book | Author | Core Topics |
 |---|---|---|
 | **Operating System Concepts (Silberschatz)** | Silberschatz, Galvin, Gagne | Processes, threads, scheduling, memory, file systems |
@@ -83,6 +89,7 @@ description: >
 | **High Performance Browser Networking** | Ilya Grigorik | HTTP/2, WebSocket, TLS, TCP optimization (free online) |
 
 ### Databases
+
 | Book | Author | Core Topics |
 |---|---|---|
 | **Database Internals** | Alex Petrov | Storage engines, B-trees, LSM, distributed databases |
@@ -90,6 +97,7 @@ description: >
 | **Designing Data-Intensive Applications** | Martin Kleppmann | (also covers distributed data, consistency, transactions) |
 
 ### Concurrency & Multithreading
+
 | Book | Author | Core Topics |
 |---|---|---|
 | **Java Concurrency in Practice** | Brian Goetz | Thread safety, synchronization, concurrent collections, executors |
@@ -101,6 +109,7 @@ description: >
 ## Online Resources by Domain
 
 ### Object-Oriented Programming (OOP)
+
 | Resource | URL | Best For |
 |---|---|---|
 | **Refactoring.Guru — OOP Basics** | `https://refactoring.guru/oop-basics` | Visual OOP concepts |
@@ -112,6 +121,7 @@ description: >
 ### Data Structures & Algorithms (DSA)
 
 #### Online Resources
+
 | Resource | URL | Best For |
 |---|---|---|
 | **VisuAlgo** | `https://visualgo.net/` | Animated algorithm visualizations |
@@ -129,6 +139,7 @@ description: >
 #### Data Structures — Time & Space Complexity
 
 ##### Core Data Structures at a Glance
+
 | Data Structure | Access | Search | Insert | Delete | Space | Notes |
 |---|---|---|---|---|---|---|
 | **Array** | O(1) | O(n) | O(n) | O(n) | O(n) | Contiguous memory; O(1) append if not full |
@@ -152,6 +163,7 @@ description: >
 | **Skip List** | O(log n) | O(log n) | O(log n) | O(log n) | O(n log n) | Probabilistic balanced list; used in Redis |
 
 ##### Hash Collision Strategies
+
 | Strategy | How It Works | Avg Lookup | Worst Lookup | Used In |
 |---|---|---|---|---|
 | **Separate Chaining** | Each bucket is a linked list (or tree at threshold) | O(1) | O(n) | Java HashMap (list → tree at 8) |
@@ -164,6 +176,7 @@ description: >
 **Industry note:** Java's `HashMap` switches from linked list to red-black tree per bucket when a bucket reaches 8 entries (treeify threshold), giving O(log n) worst-case per-bucket lookup instead of O(n).
 
 ##### Trees — Deep Dive with Industry Use
+
 | Tree Type | Balance | Typical Use | Industry Examples |
 |---|---|---|---|
 | **BST** | None (can degrade to O(n)) | Teaching, simple ordered data | Rarely used raw in production |
@@ -178,6 +191,7 @@ description: >
 | **R-Tree** | Spatial indexing | Geospatial queries | PostGIS, MongoDB geospatial, Google Maps |
 
 ##### Heaps — Applications & Patterns
+
 | Application | Data Structure | Complexity | Industry Use |
 |---|---|---|---|
 | **Top-K elements** | Min-heap of size K | O(n log K) | Twitter trending topics, search ranking |
@@ -192,6 +206,7 @@ description: >
 #### Algorithms — Time & Space Complexity
 
 ##### Sorting Algorithms
+
 | Algorithm | Best | Average | Worst | Space | Stable? | In-Place? | Industry Notes |
 |---|---|---|---|---|---|---|---|
 | **Bubble Sort** | O(n) | O(n²) | O(n²) | O(1) | ✅ | ✅ | Teaching only; never in production |
@@ -209,6 +224,7 @@ description: >
 **Interview tip:** Know that `Arrays.sort()` in Java uses dual-pivot Quicksort for primitives and TimSort for objects. Python uses TimSort. C++ `std::sort` uses IntroSort. Knowing **why** each language chose its default matters in interviews.
 
 ##### Searching Algorithms
+
 | Algorithm | Best | Average | Worst | Space | Prerequisite | Industry Use |
 |---|---|---|---|---|---|---|
 | **Linear Search** | O(1) | O(n) | O(n) | O(1) | None | Small unsorted data, fallback |
@@ -224,6 +240,7 @@ description: >
 - **Rotated sorted array:** Time-series data wrap, circular buffer search
 
 ##### Graph Algorithms
+
 | Algorithm | Time | Space | Graph Type | Industry Use |
 |---|---|---|---|---|
 | **BFS** | O(V+E) | O(V) | Unweighted | Social network "degrees of separation", web crawlers, shortest path |
@@ -242,6 +259,7 @@ description: >
 **Interview tip:** Always state the graph representation you're using. Adjacency list gives O(V+E) for BFS/DFS; adjacency matrix gives O(V²). Real systems almost always use adjacency lists (or edge lists for sparse graphs).
 
 ##### Dynamic Programming Patterns
+
 | Pattern | Example Problems | Key Insight | Time | Space (optimized) |
 |---|---|---|---|---|
 | **1D DP** | Climbing Stairs, House Robber, Coin Change | Current state depends on previous 1-2 states | O(n) | O(1) with rolling variables |
@@ -263,6 +281,7 @@ description: >
 #### Real-World Industry Applications
 
 ##### Where Each Data Structure Lives in Production
+
 | Data Structure | Industry System | How It's Used |
 |---|---|---|
 | **Array / Buffer** | Kafka, network stack | Ring buffers for message partitions, TCP receive buffers |
@@ -282,6 +301,7 @@ description: >
 | **Consistent Hashing** | DynamoDB, Cassandra, CDN routing | Distributed shard assignment with minimal remapping |
 
 ##### Where Each Algorithm Lives in Production
+
 | Algorithm | Industry System | How It's Used |
 |---|---|---|
 | **Binary Search** | Database query optimizer, git bisect | Index lookup, finding bug-introducing commit |
@@ -302,6 +322,7 @@ description: >
 #### Optimization Techniques & Patterns
 
 ##### Time Complexity Optimization Strategies
+
 | Strategy | Before | After | Example |
 |---|---|---|---|
 | **Sorting first** | O(n²) brute force pair search | O(n log n) sort + O(n) two pointers | Two Sum (sorted variant) |
@@ -316,6 +337,7 @@ description: >
 | **Memoization/DP** | O(2ⁿ) recursive | O(n·k) with memo table | Fibonacci, knapsack, edit distance |
 
 ##### Space Complexity Optimization Strategies
+
 | Strategy | Before | After | Example |
 |---|---|---|---|
 | **In-place operations** | O(n) extra array | O(1) | Reverse array, Dutch national flag, rotate |
@@ -327,6 +349,7 @@ description: >
 | **Iterator / generator** | O(n) materialized list | O(1) per yield | Java Streams, Python generators for large datasets |
 
 ##### Common Optimization Anti-Patterns (What NOT to Do)
+
 | Anti-Pattern | Problem | Fix |
 |---|---|---|
 | **Premature optimization** | Optimizing before profiling | Profile first, optimize bottlenecks |
@@ -341,7 +364,8 @@ description: >
 #### Interview Perspective — What Interviewers Look For
 
 ##### How to Approach a DSA Problem (UMPIRE Framework)
-```
+
+```text
 U — Understand the problem
     → Restate in your own words
     → Clarify edge cases (empty, single element, duplicates, negative)
@@ -374,6 +398,7 @@ E — Evaluate
 ```
 
 ##### What Each Level of DSA Mastery Looks Like
+
 | Level | What You Know | What You Can Solve | Interview Readiness |
 |---|---|---|---|
 | **Beginner** | Arrays, strings, basic sorting, linear/binary search | Easy problems with brute force | Not ready — build foundations first |
@@ -382,7 +407,8 @@ E — Evaluate
 | **Expert** | Persistent data structures, suffix arrays, advanced graph theory, math/number theory | Hard + competitive programming | Ready for L5+ / Principal / Research roles |
 
 ##### Complexity Analysis — How to Think About It
-```
+
+```text
 O(1)       → Hash lookup, array access, stack push/pop
 O(log n)   → Binary search, balanced BST ops, heap insert/extract
 O(n)       → Single array pass, hash table build, BFS/DFS
@@ -403,6 +429,7 @@ Rule of thumb for interview constraint → expected complexity:
 ```
 
 ##### DSA Patterns for Interviews (Expanded)
+
 | # | Pattern | Signal Words in Problem | Example Problems | Optimal Complexity |
 |---|---|---|---|---|
 | 1 | **Two Pointers** | "sorted array", "pair", "remove duplicates" | Two Sum II, 3Sum, Container With Most Water | O(n) |
@@ -424,6 +451,7 @@ Rule of thumb for interview constraint → expected complexity:
 | 17 | **Bit Manipulation** | "single number", "power of 2", "count bits" | Single Number, Counting Bits | O(n) or O(1) |
 
 #### When to Use Which Data Structure (Expanded)
+
 | Need | Use | Why | Alternative | Trade-off |
 |---|---|---|---|---|
 | Fast lookup by key | HashMap / HashSet | O(1) average | TreeMap O(log n) | Hash loses ordering |
@@ -442,6 +470,7 @@ Rule of thumb for interview constraint → expected complexity:
 ### System Design
 
 #### Online Resources
+
 | Resource | URL | Best For |
 |---|---|---|
 | **System Design Primer** | `https://github.com/donnemartin/system-design-primer` | Comprehensive free guide |
@@ -455,7 +484,8 @@ Rule of thumb for interview constraint → expected complexity:
 | **Educative.io System Design** | `https://www.educative.io/courses/grokking-modern-system-design-interview-for-engineers-managers` | Modern interactive system design course |
 
 #### System Design Topics Map
-```
+
+```text
 HLD (High-Level Design):
   Load Balancing → Caching → CDN → Database Sharding →
   Message Queues → Microservices → API Gateway →
@@ -471,6 +501,7 @@ LLD (Low-Level Design):
 #### HLD — High-Level Design Components (Deep Dive)
 
 ##### Load Balancing
+
 | Concept | Description | Examples |
 |---|---|---|
 | **L4 (Transport)** | Routes by IP/port, no payload inspection | AWS NLB, HAProxy (TCP mode) |
@@ -481,7 +512,8 @@ LLD (Low-Level Design):
 | **Service Mesh LB** | Sidecar proxy handles LB per-service | Istio, Linkerd |
 
 ##### Caching Strategies
-```
+
+```text
 Caching Layers:
   Client Cache (browser, app)
     → CDN Cache (edge, static assets)
@@ -507,15 +539,17 @@ Caching Layers:
 | **FIFO** | Evict oldest entry | Simple, predictable |
 
 ##### Content Delivery Network (CDN)
+
 | Concept | Description |
 |---|---|
-| **Push CDN** | Origin proactively pushes content to edge | 
+| **Push CDN** | Origin proactively pushes content to edge |
 | **Pull CDN** | Edge fetches from origin on first request, then caches |
 | **Edge Computing** | Run logic at CDN edge (Cloudflare Workers, Lambda@Edge) |
 | **Cache Invalidation** | Purge by URL, tag, or prefix; versioned filenames (`app.v2.js`) |
 | **Providers** | Cloudflare, AWS CloudFront, Akamai, Fastly |
 
 ##### Database Sharding & Partitioning
+
 | Strategy | How It Works | Pros | Cons |
 |---|---|---|---|
 | **Horizontal (Sharding)** | Split rows across DB instances by shard key | Scales writes, each shard smaller | Cross-shard queries hard |
@@ -526,7 +560,8 @@ Caching Layers:
 | **Directory-Based** | Lookup table maps key → shard | Flexible | Directory is SPOF |
 
 ##### Message Queues & Event-Driven Architecture
-```
+
+```text
 Point-to-Point (Queue):
   Producer → [Queue] → Consumer (one consumer gets each message)
   Used: Task distribution, order processing
@@ -555,6 +590,7 @@ Event Streaming:
 | **Dead Letter Queue** | Failed messages go to DLQ for inspection | Error handling, debugging |
 
 ##### Microservices Architecture
+
 | Concept | Description |
 |---|---|
 | **Service Decomposition** | Split by bounded context (DDD), not by technical layer |
@@ -567,6 +603,7 @@ Event Streaming:
 | **Backend for Frontend (BFF)** | Separate API layers per client type (mobile, web, IoT) |
 
 ##### Rate Limiting
+
 | Algorithm | How It Works | Pros | Cons |
 |---|---|---|---|
 | **Token Bucket** | Tokens added at fixed rate, consumed per request | Allows bursts, simple | Burst size tuning |
@@ -576,6 +613,7 @@ Event Streaming:
 | **Sliding Window Counter** | Weighted count across current + previous window | Good balance | Approximation |
 
 ##### Reliability & Resilience Patterns
+
 | Pattern | Description | Example |
 |---|---|---|
 | **Circuit Breaker** | Stop calling failing service → fallback → retry after timeout | Netflix Hystrix, Resilience4j |
@@ -590,6 +628,7 @@ Event Streaming:
 #### LLD — Low-Level Design Patterns (Deep Dive)
 
 ##### SOLID Principles Quick Reference
+
 | Principle | Full Name | One-Liner | Violation Sign |
 |---|---|---|---|
 | **S** | Single Responsibility | One class = one reason to change | "and" in class description |
@@ -599,6 +638,7 @@ Event Streaming:
 | **D** | Dependency Inversion | Depend on abstractions, not concretions | `new ConcreteClass()` inside business logic |
 
 ##### Design Pattern Categories for LLD
+
 | Category | Patterns | When to Use |
 |---|---|---|
 | **Creational** | Singleton, Factory Method, Abstract Factory, Builder, Prototype | Object creation complexity, hide instantiation details |
@@ -606,6 +646,7 @@ Event Streaming:
 | **Behavioral** | Strategy, Observer, Command, State, Template Method, Iterator, Chain of Responsibility, Mediator, Visitor | Object interaction, algorithms, state changes |
 
 ##### API Design Checklist
+
 | Aspect | REST Best Practice | gRPC Best Practice |
 |---|---|---|
 | **Naming** | Nouns for resources (`/users`), verbs via HTTP methods | Service + Method (`UserService.GetUser`) |
@@ -617,7 +658,8 @@ Event Streaming:
 | **Rate Limits** | `X-RateLimit-*` headers, `429 Too Many Requests` | Deadline propagation, backpressure |
 
 ##### State Machine Design
-```
+
+```yaml
 Example: Order State Machine
 
   [CREATED] ──place──▶ [PLACED] ──pay──▶ [PAID] ──ship──▶ [SHIPPED] ──deliver──▶ [DELIVERED]
@@ -633,6 +675,7 @@ Rules:
 ```
 
 ##### Schema Design Principles
+
 | Concept | Relational (SQL) | Document (NoSQL) |
 |---|---|---|
 | **Normalize** | 3NF+ — eliminate redundancy, use JOINs | Denormalize — embed related data |
@@ -644,7 +687,8 @@ Rules:
 #### Classic System Design Case Studies
 
 ##### HLD Case Studies — Approach Template
-```
+
+```text
 For each system:
 1. Requirements     → Functional + Non-functional
 2. Estimation       → QPS, Storage, Bandwidth, Memory
@@ -673,7 +717,8 @@ For each system:
 | **Distributed File Storage** | Metadata service, chunk servers, replication | GFS/HDFS model, heartbeats, chunk checksums |
 
 ##### LLD Case Studies — Approach Template
-```
+
+```text
 For each system:
 1. Use Cases        → Actors + user stories
 2. Class Diagram    → Entities + relationships (UML)
@@ -697,6 +742,7 @@ For each system:
 | **Vending Machine** | VendingMachine, Inventory, Coin, Product | State (idle/selecting/dispensing), Strategy (payment) |
 
 #### Architecture Styles Comparison
+
 | Style | When to Use | Pros | Cons | Examples |
 |---|---|---|---|---|
 | **Monolith** | Small team, early stage, simple domain | Simple deploy, easy debugging | Scaling limits, tight coupling | Early-stage startups |
@@ -708,6 +754,7 @@ For each system:
 | **Service-Oriented (SOA)** | Enterprise integration, reusable services | Reuse, standards (WSDL/SOAP) | Heavyweight, ESB complexity | Enterprise IT |
 
 #### Estimation Cheat Sheet (Back-of-Envelope)
+
 | Metric | Quick Estimate |
 |---|---|
 | **Seconds in a day** | ~86,400 ≈ ~100K |
@@ -723,7 +770,8 @@ For each system:
 | **80/20 rule (caching)** | 20% of data serves 80% of reads |
 
 #### Common System Design Interview Framework
-```
+
+```text
 Step 1: Clarify Requirements (5 min)
   → Functional requirements (what the system does)
   → Non-functional requirements (scale, latency, availability, durability)
@@ -754,6 +802,7 @@ Step 5: Wrap Up (5 min)
 ```
 
 ### Networking & Protocols
+
 | Resource | URL | Best For |
 |---|---|---|
 | **MDN Web Docs — HTTP** | `https://developer.mozilla.org/en-US/docs/Web/HTTP` | HTTP protocol deep-dive |
@@ -764,6 +813,7 @@ Step 5: Wrap Up (5 min)
 | **Wikipedia — OSI model** | `https://en.wikipedia.org/wiki/OSI_model` | Network layers reference |
 
 #### Protocol Comparison Quick Reference
+
 | Protocol | Type | Connection | Use Case | Format |
 |---|---|---|---|---|
 | **HTTP/REST** | Request-Response | Stateless | CRUD APIs, web services | JSON/XML |
@@ -777,6 +827,7 @@ Step 5: Wrap Up (5 min)
 | **AMQP** | Message queue | Stateful | Enterprise messaging (RabbitMQ) | Binary |
 
 #### Stateful vs Stateless
+
 | Aspect | Stateless | Stateful |
 |---|---|---|
 | Server memory | No client state between requests | Server tracks client state |
@@ -785,6 +836,7 @@ Step 5: Wrap Up (5 min)
 | Trade-off | Client sends more data per request | Server uses more memory |
 
 ### Operating Systems
+
 | Resource | URL | Best For |
 |---|---|---|
 | **OSTEP (free book)** | `https://pages.cs.wisc.edu/~remzi/OSTEP/` | Free, excellent OS textbook |
@@ -794,7 +846,8 @@ Step 5: Wrap Up (5 min)
 | **Julia Evans' Zines** | `https://wizardzines.com/` | Visual, fun explanations of OS/networking |
 
 #### OS Core Concepts
-```
+
+```text
 Processes → Threads → Scheduling (Round Robin, MLFQ, CFS) →
 Memory Management (Paging, Segmentation, Virtual Memory) →
 Concurrency (Locks, Semaphores, Monitors, Deadlocks) →
@@ -804,6 +857,7 @@ IPC (Pipes, Shared Memory, Message Queues, Sockets)
 ```
 
 ### DBMS & Databases
+
 | Resource | URL | Best For |
 |---|---|---|
 | **Use The Index, Luke** | `https://use-the-index-luke.com/` | SQL indexing and performance |
@@ -813,7 +867,8 @@ IPC (Pipes, Shared Memory, Message Queues, Sockets)
 | **PostgreSQL Docs** | `https://www.postgresql.org/docs/current/` | Excellent reference for RDBMS concepts |
 
 #### Database Concepts Map
-```
+
+```text
 ACID → Transactions → Isolation Levels (Read Uncommitted → Serializable) →
 Indexing (B-Tree, Hash, GIN, GiST) → Query Optimization → Joins →
 Normalization (1NF → BCNF) → Denormalization → Sharding →
@@ -822,6 +877,7 @@ CAP Theorem → Eventual Consistency → Distributed Transactions (2PC, Saga)
 ```
 
 ### Testing & Quality
+
 | Resource | URL | Best For |
 |---|---|---|
 | **Martin Fowler — Testing** | `https://martinfowler.com/testing/` | Test pyramid, test doubles, strategies |
@@ -831,7 +887,8 @@ CAP Theorem → Eventual Consistency → Distributed Transactions (2PC, Saga)
 | **xUnit Patterns** | `http://xunitpatterns.com/` | Catalog of test patterns and smells |
 
 #### Testing Types Map
-```
+
+```text
 Unit Testing → Integration Testing → Contract Testing →
 Component Testing → End-to-End Testing → Performance Testing →
 Load Testing → Stress Testing → Chaos Testing →
@@ -840,6 +897,7 @@ Smoke Testing → Regression Testing → Acceptance Testing
 ```
 
 #### Development Methodologies
+
 | Methodology | Full Name | Key Idea | Cycle |
 |---|---|---|---|
 | **TDD** | Test-Driven Development | Write test first, then code, then refactor | Red → Green → Refactor |
@@ -848,6 +906,7 @@ Smoke Testing → Regression Testing → Acceptance Testing
 | **DDD** | Domain-Driven Design | Model code around the business domain | Ubiquitous Language → Bounded Contexts |
 
 ### SDLC & Methodologies
+
 | Resource | URL | Best For |
 |---|---|---|
 | **Agile Manifesto** | `https://agilemanifesto.org/` | Original agile principles |
@@ -858,6 +917,7 @@ Smoke Testing → Regression Testing → Acceptance Testing
 | **The Twelve-Factor App** | `https://12factor.net/` | SaaS best practices (methodology) |
 
 #### SDLC Models
+
 | Model | Flow | Best For | Risk |
 |---|---|---|---|
 | **Waterfall** | Linear: Requirements → Design → Build → Test → Deploy | Stable, well-known requirements | Late feedback |
@@ -872,7 +932,8 @@ Smoke Testing → Regression Testing → Acceptance Testing
 #### End-to-End Software Development Lifecycle — Complete Reference
 
 ##### Phase 1: Planning & Requirements
-```
+
+```yaml
 Activities:
   - Stakeholder interviews, market research
   - User stories / Use cases / Epics
@@ -898,7 +959,8 @@ Key Roles:
 ```
 
 ##### Phase 2: Design & Architecture
-```
+
+```yaml
 Activities:
   - System architecture (monolith vs microservices vs serverless)
   - Database schema design (ER diagrams, normalization)
@@ -928,7 +990,8 @@ Tools:
 ```
 
 ##### Phase 3: Development
-```
+
+```yaml
 Activities:
   - Environment setup (local dev, devcontainers, codespaces)
   - Version control setup (Git, branching strategy)
@@ -951,7 +1014,8 @@ Tools:
 ```
 
 ##### Phase 4: Testing
-```
+
+```text
 Testing Pyramid (from fast/cheap to slow/expensive):
   ┌───────────────────┐
   │    E2E Tests      │  ← Few, expensive, slow (Cypress, Playwright)
@@ -995,7 +1059,8 @@ Tools:
 ```
 
 ##### Phase 5: Build & Packaging
-```
+
+```yaml
 Activities:
   - Compile source code
   - Run lint/format checks
@@ -1025,7 +1090,8 @@ Tools:
 ```
 
 ##### Phase 6: Deployment & Release
-```
+
+```text
 Deployment Pipeline:
   Build → Test → Stage → Approval → Production
 
@@ -1058,7 +1124,8 @@ Tools:
 ```
 
 ##### Phase 7: Monitoring & Observability
-```
+
+```text
 Three Pillars of Observability:
   1. Logs    — What happened? (structured text/JSON events)
   2. Metrics — How much? How fast? (numerical time-series data)
@@ -1092,7 +1159,8 @@ Tools:
 ```
 
 ##### Phase 8: Maintenance & Operations
-```
+
+```yaml
 Activities:
   - Incident management (detect → triage → fix → postmortem)
   - On-call rotation and escalation
@@ -1104,7 +1172,7 @@ Activities:
   - Documentation updates
 
 Incident Management flow:
-  Detect → Alert → Acknowledge → Triage → Mitigate → 
+  Detect → Alert → Acknowledge → Triage → Mitigate →
   Resolve → Postmortem → Action Items → Done
 
 Postmortem (Blameless):
@@ -1120,6 +1188,7 @@ Tools:
 ```
 
 #### Frontend / UI/UX Aspects
+
 | Aspect | Key Concepts | Tools |
 |---|---|---|
 | **Design Systems** | Component library, tokens, guidelines | Storybook, Figma, Tailwind |
@@ -1134,6 +1203,7 @@ Tools:
 | **Testing** | Component tests, visual regression, E2E | Storybook, Chromatic, Playwright |
 
 #### Backend Aspects
+
 | Aspect | Key Concepts | Tools |
 |---|---|---|
 | **API Design** | REST conventions, OpenAPI, versioning, pagination, rate limiting | Swagger, Postman, Stoplight |
@@ -1148,6 +1218,7 @@ Tools:
 | **Webhooks** | Event-driven integrations, retry logic, HMAC verification | Custom, Svix, Hookdeck |
 
 #### Database Aspects
+
 | Aspect | Key Concepts | Industry Standard |
 |---|---|---|
 | **Schema Design** | Normalization (1NF-BCNF), denormalization, ER modeling | dbdiagram.io, DataGrip |
@@ -1163,6 +1234,7 @@ Tools:
 | **ORM vs Raw SQL** | Type-safe queries, migration generation, performance | Hibernate, SQLAlchemy, Prisma, JOOQ |
 
 ### Multithreading & Concurrency
+
 | Resource | URL | Best For |
 |---|---|---|
 | **Jenkov Concurrency** | `https://jenkov.com/tutorials/java-concurrency/index.html` | Deep Java concurrency tutorial |
@@ -1171,7 +1243,8 @@ Tools:
 | **deadlocks.dev** | `https://deadlocks.dev/` | Concurrency puzzles and challenges |
 
 #### Concurrency Concepts Map
-```
+
+```text
 Threads → Runnable/Callable → Thread Lifecycle → Synchronization →
 Locks (ReentrantLock, ReadWriteLock, StampedLock) →
 Atomic Variables → Volatile → Happens-Before →
@@ -1186,6 +1259,7 @@ Lock-Free Data Structures → CAS Operations
 ## Distributed Systems
 
 ### Books
+
 | Book | Author | Core Topics |
 |---|---|---|
 | **Designing Data-Intensive Applications** | Martin Kleppmann | Replication, partitioning, consistency, stream processing |
@@ -1194,6 +1268,7 @@ Lock-Free Data Structures → CAS Operations
 | **Database Internals** | Alex Petrov | Storage engines, distributed transactions, consensus |
 
 ### Online Resources
+
 | Resource | URL | Best For |
 |---|---|---|
 | **Distributed Systems for Fun and Profit** | `http://book.mixu.net/distsys/` | Free, concise distributed systems intro |
@@ -1203,7 +1278,8 @@ Lock-Free Data Structures → CAS Operations
 | **Martin Kleppmann's Blog** | `https://martin.kleppmann.com/` | Distributed data, CRDTs, formal verification |
 
 ### Replication Topologies
-```
+
+```text
 Single-Leader (Master-Slave / Primary-Replica)
 ────────────────────────────────────────────
   Write → [Leader] → replicates to → [Follower 1]
@@ -1236,6 +1312,7 @@ Leaderless (Peer-to-Peer / Dynamo-style)
 ```
 
 ### Consensus Algorithms
+
 | Algorithm | Approach | Used By |
 |---|---|---|
 | **Raft** | Leader-based, understandable | etcd, CockroachDB, Consul |
@@ -1246,7 +1323,8 @@ Leaderless (Peer-to-Peer / Dynamo-style)
 | **Viewstamped Replication** | View-change based consensus | Research, some production systems |
 
 ### Consistency Models
-```
+
+```text
 Strong Consistency
   └── Linearizability — operations appear instantaneous, globally ordered
   └── Sequential Consistency — all processes see same order
@@ -1259,7 +1337,8 @@ Weak Consistency
 ```
 
 ### Distributed Systems Concepts Map
-```
+
+```yaml
 Communication:
   RPC → REST → gRPC → Message Queues → Event Streaming →
   Pub/Sub → Request-Reply → Async Messaging
@@ -1290,6 +1369,7 @@ Partitioning (Sharding):
 ```
 
 ### Key Theorems & Trade-offs
+
 | Theorem | Statement | Implication |
 |---|---|---|
 | **CAP** | Choose 2 of: Consistency, Availability, Partition tolerance | In network partitions, choose C or A |
@@ -1303,6 +1383,7 @@ Partitioning (Sharding):
 ## DevOps, CI/CD & Infrastructure
 
 ### CI/CD Tools
+
 | Tool | Type | Best For | Docs |
 |---|---|---|---|
 | **GitHub Actions** | Cloud-native CI/CD | GitHub-hosted projects, full workflow automation | `https://docs.github.com/en/actions` |
@@ -1317,7 +1398,8 @@ Partitioning (Sharding):
 | **Spinnaker** | Multi-cloud CD | Netflix's open-source CD platform, canary deployments | `https://spinnaker.io/docs/` |
 
 #### CI/CD Pipeline — Anatomy of a Modern Pipeline
-```
+
+```text
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                         CI/CD PIPELINE                                  │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -1338,6 +1420,7 @@ Partitioning (Sharding):
 ```
 
 #### CI/CD Stages Deep Dive
+
 | Stage | What Happens | Tools | Gate/Criteria |
 |---|---|---|---|
 | **Source** | Code pushed, PR created, tag pushed | Git, GitHub/GitLab webhooks | Branch protection rules |
@@ -1358,6 +1441,7 @@ Partitioning (Sharding):
 | **Notify** | Alert team of deployment | Slack, Teams, PagerDuty, email | — |
 
 #### GitHub Actions — Example Workflow
+
 ```yaml
 # .github/workflows/ci.yml
 name: CI Pipeline
@@ -1401,6 +1485,7 @@ jobs:
 ```
 
 #### Deployment Strategies
+
 | Strategy | How It Works | Downtime | Rollback | Risk | Used By |
 |---|---|---|---|---|---|
 | **Recreate** | Stop old → start new | ✅ Yes | Slow (redeploy) | High | Dev/test environments only |
@@ -1412,7 +1497,8 @@ jobs:
 | **Feature Flags** | Deploy code, toggle feature on/off separately | ❌ Zero | Instant (toggle off) | Very low | LaunchDarkly, Unleash, all FAANG |
 
 #### Feature Flags — Industry Standard
-```
+
+```text
 Deployment ≠ Release
 
 Deploy: Code is on production servers
@@ -1428,7 +1514,8 @@ Industry: All major tech companies use feature flags extensively
 ```
 
 #### GitOps — Declarative Infrastructure
-```
+
+```text
 GitOps Principles:
   1. Declarative — desired state described in Git (YAML, HCL)
   2. Versioned — all changes are Git commits (auditable)
@@ -1446,6 +1533,7 @@ Tools:
 ```
 
 ### Containers & Orchestration
+
 | Tool | Purpose | Docs |
 |---|---|---|
 | **Docker** | Container runtime — package apps with dependencies | `https://docs.docker.com/` |
@@ -1458,6 +1546,7 @@ Tools:
 #### Docker — Deep Dive
 
 ##### Docker Essential Commands
+
 | Command | Purpose |
 |---|---|
 | `docker build -t myapp:1.0 .` | Build image from Dockerfile |
@@ -1481,6 +1570,7 @@ Tools:
 | `docker compose logs -f service` | Follow logs for specific service |
 
 ##### Dockerfile Best Practices
+
 ```dockerfile
 # 1. Use specific base image tags (never :latest in production)
 FROM eclipse-temurin:21-jre-alpine AS runtime
@@ -1510,6 +1600,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
 
 ##### Docker Compose Example
+
 ```yaml
 # docker-compose.yml
 services:
@@ -1554,6 +1645,7 @@ networks:
 ```
 
 ##### Docker Image Optimization
+
 | Technique | Before | After | Impact |
 |---|---|---|---|
 | **Alpine base** | `eclipse-temurin:21-jdk` (400MB) | `eclipse-temurin:21-jre-alpine` (80MB) | 5x smaller |
@@ -1565,7 +1657,8 @@ networks:
 #### Kubernetes — Deep Dive
 
 ##### Kubernetes Architecture
-```
+
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                    CONTROL PLANE                         │
 │  ┌──────────────┐  ┌───────────┐  ┌──────────────────┐ │
@@ -1591,6 +1684,7 @@ networks:
 ```
 
 ##### Kubernetes Essential Commands (kubectl)
+
 | Command | Purpose |
 |---|---|
 | `kubectl get pods` | List pods in current namespace |
@@ -1612,6 +1706,7 @@ networks:
 | `kubectl config use-context <name>` | Switch cluster context |
 
 ##### Kubernetes Resource Types
+
 | Resource | Purpose | Controller |
 |---|---|---|
 | **Pod** | Smallest deployable unit (1+ containers) | — |
@@ -1633,7 +1728,8 @@ networks:
 | **Namespace** | Virtual cluster isolation | — |
 
 ##### Kubernetes Concepts Map (Expanded)
-```
+
+```text
 Pod → ReplicaSet → Deployment → Service → Ingress →
 ConfigMap → Secret → PersistentVolume → StatefulSet →
 DaemonSet → Job/CronJob → HPA → VPA → PDB →
@@ -1645,6 +1741,7 @@ Cert-Manager → External-DNS → Sealed Secrets
 ```
 
 ### Infrastructure as Code (IaC)
+
 | Tool | Type | Docs |
 |---|---|---|
 | **Terraform** | Declarative IaC — cloud-agnostic provisioning | `https://developer.hashicorp.com/terraform/docs` |
@@ -1654,6 +1751,7 @@ Cert-Manager → External-DNS → Sealed Secrets
 | **Chef / Puppet** | Configuration management — agent-based | `https://docs.chef.io/` / `https://www.puppet.com/docs` |
 
 ### Cloud Platforms
+
 | Platform | Docs | Key Services |
 |---|---|---|
 | **AWS** | `https://docs.aws.amazon.com/` | EC2, S3, RDS, Lambda, ECS/EKS, SQS, SNS, DynamoDB |
@@ -1663,6 +1761,7 @@ Cert-Manager → External-DNS → Sealed Secrets
 | **Vercel / Netlify** | `https://vercel.com/docs` | Frontend/JAMstack deployment, serverless functions |
 
 ### Monitoring & Observability
+
 | Tool | Purpose | Docs |
 |---|---|---|
 | **Prometheus** | Metrics collection & alerting (pull-based) | `https://prometheus.io/docs/` |
@@ -1674,7 +1773,8 @@ Cert-Manager → External-DNS → Sealed Secrets
 | **OpenTelemetry** | Vendor-neutral observability framework (traces, metrics, logs) | `https://opentelemetry.io/docs/` |
 
 #### Observability Pillars
-```
+
+```text
 Logs   — What happened? (text records of events)
 Metrics — How much? How fast? (numerical measurements over time)
 Traces  — How did a request flow through services? (distributed context)
@@ -1683,6 +1783,7 @@ Traces  — How did a request flow through services? (distributed context)
 ### Version Control & Collaboration
 
 #### VCS Tools
+
 | Tool | Purpose | Docs |
 |---|---|---|
 | **Git** | Distributed version control | `https://git-scm.com/doc` |
@@ -1693,6 +1794,7 @@ Traces  — How did a request flow through services? (distributed context)
 #### Git — Comprehensive Command Reference
 
 ##### Setup & Configuration
+
 | Command | Purpose |
 |---|---|
 | `git config --global user.name "Name"` | Set author name |
@@ -1704,6 +1806,7 @@ Traces  — How did a request flow through services? (distributed context)
 | `git config --list --show-origin` | Show all configs and where they're set |
 
 ##### Daily Workflow Commands
+
 | Command | Purpose |
 |---|---|
 | `git init` | Initialize new repository |
@@ -1723,6 +1826,7 @@ Traces  — How did a request flow through services? (distributed context)
 | `git fetch --all --prune` | Fetch all remotes, remove deleted remote branches |
 
 ##### Branching & Merging
+
 | Command | Purpose |
 |---|---|
 | `git branch` | List local branches |
@@ -1740,6 +1844,7 @@ Traces  — How did a request flow through services? (distributed context)
 | `git push origin --delete branch-name` | Delete remote branch |
 
 ##### Stashing
+
 | Command | Purpose |
 |---|---|
 | `git stash` | Stash working changes |
@@ -1753,6 +1858,7 @@ Traces  — How did a request flow through services? (distributed context)
 | `git stash branch new-branch` | Create branch from stash |
 
 ##### History & Inspection
+
 | Command | Purpose |
 |---|---|
 | `git log --oneline --graph --all` | Visual commit graph |
@@ -1771,6 +1877,7 @@ Traces  — How did a request flow through services? (distributed context)
 | `git shortlog -sn` | Commit count by author |
 
 ##### Undoing & Recovery
+
 | Command | Purpose | Danger Level |
 |---|---|---|
 | `git checkout -- <file>` | Discard working directory changes | ⚠️ Destructive |
@@ -1785,6 +1892,7 @@ Traces  — How did a request flow through services? (distributed context)
 | `git reflog + git reset --hard <hash>` | Recover "lost" commits | Recovery tool |
 
 ##### Tags
+
 | Command | Purpose |
 |---|---|
 | `git tag v1.0.0` | Lightweight tag |
@@ -1795,6 +1903,7 @@ Traces  — How did a request flow through services? (distributed context)
 | `git push origin :refs/tags/v1.0.0` | Delete remote tag |
 
 ##### Submodules & Subtrees
+
 | Command | Purpose |
 |---|---|
 | `git submodule add <url> path/` | Add submodule |
@@ -1802,6 +1911,7 @@ Traces  — How did a request flow through services? (distributed context)
 | `git subtree add --prefix=lib <url> main` | Add subtree (simpler alternative to submodules) |
 
 #### Git Branching Strategies
+
 | Strategy | Flow | Best For | Used By |
 |---|---|---|---|
 | **Git Flow** | `main` ← `develop` ← `feature/*`, `release/*`, `hotfix/*` | Large teams, release cycles | Enterprise, open source with versioned releases |
@@ -1811,7 +1921,8 @@ Traces  — How did a request flow through services? (distributed context)
 | **Ship/Show/Ask** | Ship (merge w/o review), Show (merge + notify), Ask (PR for review) | Mixed-experience teams | Community projects |
 
 ##### Git Flow Diagram
-```
+
+```text
 main ─────●─────────────────●────────── (releases only)
            \               /
 develop ────●──●──●──●──●──●──●──── (integration branch)
@@ -1822,7 +1933,8 @@ hotfix/z ──────────────●──── (emergency fi
 ```
 
 ##### Trunk-Based Development
-```
+
+```text
 main ──●──●──●──●──●──●──●──●──●──── (always deployable)
         \  /     \  /
   feat-a ●       feat-b ●   (short-lived, < 1 day)
@@ -1831,6 +1943,7 @@ main ──●──●──●──●──●──●──●──●─
 ```
 
 #### Git Best Practices
+
 | Practice | Why |
 |---|---|
 | **Write meaningful commit messages** | `fix: resolve NPE in UserService.findById()` > `fix bug` |
@@ -1845,7 +1958,8 @@ main ──●──●──●──●──●──●──●──●─
 | **Tag releases semantically** | `v1.2.3` = MAJOR.MINOR.PATCH (SemVer) |
 
 #### Semantic Versioning (SemVer)
-```
+
+```text
 MAJOR.MINOR.PATCH  (e.g., 2.4.1)
 
 MAJOR  — Breaking changes (incompatible API changes)
@@ -1864,7 +1978,8 @@ Examples:
 ```
 
 #### Git Internals — How Git Actually Works
-```
+
+```bash
 Git Object Model:
   blob    — file content (just the bytes, no filename)
   tree    — directory listing (maps names → blobs/trees)
@@ -1888,6 +2003,7 @@ Key Insight: branches are just pointers (40-char SHA references)
 ## Frameworks & Tech Stacks
 
 ### Backend Frameworks
+
 | Framework | Language | Type | Docs |
 |---|---|---|---|
 | **Spring Boot** | Java | Full-featured, enterprise | `https://docs.spring.io/spring-boot/docs/current/reference/html/` |
@@ -1904,6 +2020,7 @@ Key Insight: branches are just pointers (40-char SHA references)
 | **Ruby on Rails** | Ruby | Convention over configuration | `https://guides.rubyonrails.org/` |
 
 ### Frontend Frameworks
+
 | Framework | Language | Docs |
 |---|---|---|
 | **React** | JavaScript/TSX | `https://react.dev/` |
@@ -1914,6 +2031,7 @@ Key Insight: branches are just pointers (40-char SHA references)
 | **Nuxt** | Vue/SSR | `https://nuxt.com/docs` |
 
 ### Databases
+
 | Database | Type | Best For | Docs |
 |---|---|---|---|
 | **PostgreSQL** | Relational | General purpose, advanced features | `https://www.postgresql.org/docs/` |
@@ -1926,6 +2044,7 @@ Key Insight: branches are just pointers (40-char SHA references)
 | **SQLite** | Embedded Relational | Local/embedded apps, testing | `https://www.sqlite.org/docs.html` |
 
 ### Message Brokers & Queues
+
 | System | Type | Docs |
 |---|---|---|
 | **Apache Kafka** | Distributed event streaming | `https://kafka.apache.org/documentation/` |
@@ -1937,6 +2056,7 @@ Key Insight: branches are just pointers (40-char SHA references)
 ### Build Tools
 
 #### Build Tools Overview
+
 | Tool | Language/Ecosystem | Type | Docs |
 |---|---|---|---|
 | **Maven** | Java/JVM | Declarative (XML — `pom.xml`) | `https://maven.apache.org/guides/` |
@@ -1952,7 +2072,8 @@ Key Insight: branches are just pointers (40-char SHA references)
 | **sbt** | Scala/Java | Interactive build tool (Scala ecosystem) | `https://www.scala-sbt.org/1.x/docs/` |
 
 #### Maven — Deep Dive
-```
+
+```text
 Maven Lifecycle Phases:
   validate → compile → test → package → verify → install → deploy
 
@@ -1967,6 +2088,7 @@ Key Concepts:
 ```
 
 ##### Maven Essential Commands
+
 | Command | Purpose |
 |---|---|
 | `mvn clean` | Delete target/ directory |
@@ -1984,6 +2106,7 @@ Key Concepts:
 | `mvn archetype:generate` | Create project from template |
 
 ##### Maven POM Structure (Key Elements)
+
 ```xml
 <project>
   <modelVersion>4.0.0</modelVersion>
@@ -2021,6 +2144,7 @@ Key Concepts:
 ```
 
 ##### Maven Dependency Scopes
+
 | Scope | Compile Classpath | Test Classpath | Runtime Classpath | Example |
 |---|---|---|---|---|
 | **compile** (default) | ✅ | ✅ | ✅ | Spring, Guava |
@@ -2030,7 +2154,8 @@ Key Concepts:
 | **system** | ✅ | ✅ | ❌ | Local JARs (avoid — not portable) |
 
 #### Gradle — Deep Dive
-```
+
+```text
 Gradle Build Phases:
   Initialization → Configuration → Execution
 
@@ -2046,6 +2171,7 @@ Key Concepts:
 ```
 
 ##### Gradle Essential Commands
+
 | Command | Purpose |
 |---|---|
 | `./gradlew build` | Compile + test + assemble |
@@ -2062,6 +2188,7 @@ Key Concepts:
 | `./gradlew build --parallel` | Parallel project builds |
 
 ##### Gradle Dependency Configurations
+
 | Configuration | Compile Classpath | Runtime Classpath | Transitive? | Use For |
 |---|---|---|---|---|
 | **implementation** | ✅ | ✅ | ❌ to consumers | Internal dependencies (most common) |
@@ -2072,6 +2199,7 @@ Key Concepts:
 | **annotationProcessor** | ✅ | ❌ | ❌ | Lombok, MapStruct |
 
 #### Maven vs Gradle — Comparison
+
 | Aspect | Maven | Gradle |
 |---|---|---|
 | **Config format** | XML (`pom.xml`) | Groovy/Kotlin DSL (`build.gradle`) |
@@ -2089,7 +2217,8 @@ Key Concepts:
 **Industry note:** Most new Java projects in 2025-2026 use Gradle (especially Spring Boot + Android). Maven remains dominant in legacy enterprise systems. Google's Bazel is used for massive monorepos (Google, Uber, Dropbox).
 
 #### Ant — Legacy Reference
-```
+
+```text
 Apache Ant (Another Neat Tool):
   - Imperative build system (you define every step)
   - XML-based build.xml
@@ -2107,6 +2236,7 @@ Key Ant commands:
 ```
 
 ### API Styles Comparison
+
 | Style | Protocol | Data Format | Best For |
 |---|---|---|---|
 | **REST** | HTTP | JSON | Standard CRUD APIs |
@@ -2144,7 +2274,8 @@ Key Ant commands:
 ### Architectural Patterns Used by Top Companies
 
 #### Rate Limiting — Netflix, Cloudflare, Stripe
-```
+
+```yaml
 Purpose: Protect services from abuse, ensure fair usage, prevent cascading failures
 
 Algorithms:
@@ -2192,7 +2323,8 @@ Implementation (Redis):
 ```
 
 #### Circuit Breaker — Netflix Hystrix / Resilience4j
-```
+
+```yaml
 Purpose: Prevent cascading failures in distributed systems
 
 States:
@@ -2221,7 +2353,8 @@ Industry Usage:
 ```
 
 #### Transformer Architecture — Google / OpenAI
-```
+
+```yaml
 Origin: "Attention Is All You Need" (Google, 2017)
 Architecture: Encoder-Decoder with self-attention mechanism
 
@@ -2257,7 +2390,8 @@ Industry Applications:
 ```
 
 #### Event-Driven Architecture — Uber, LinkedIn, Netflix
-```
+
+```yaml
 Pattern: Services communicate via events (async/decoupled)
 
 Components:
@@ -2288,6 +2422,7 @@ Netflix:
 ```
 
 #### Microservices Patterns in Practice
+
 | Pattern | What It Solves | Used By | Implementation |
 |---|---|---|---|
 | **API Gateway** | Single entry point, routing, auth, rate limiting | Netflix Zuul/Spring Cloud Gateway, Kong, AWS API Gateway | Reverse proxy with routing rules |
@@ -2300,6 +2435,7 @@ Netflix:
 | **CQRS** | Separate read/write models for different optimization | Event Store, Axon, custom | Write → event store → read projections |
 
 #### Observability at Scale — How Big Tech Does It
+
 | Company | Metrics | Logs | Traces | Incident Mgmt |
 |---|---|---|---|---|
 | **Google** | Monarch (internal) | Custom (Dapper-based) | Dapper → OpenTelemetry | Borgmon → SRE on-call |
@@ -2312,6 +2448,7 @@ Netflix:
 | **LinkedIn** | InGraphs (internal) | Custom + ELK | Custom | Custom on-call |
 
 ### The Twelve-Factor App (Industry Standard for SaaS)
+
 | Factor | Principle | Modern Implementation |
 |---|---|---|
 | **1. Codebase** | One codebase tracked in VCS, many deploys | Git repo → CI/CD → dev/staging/prod |
@@ -2328,6 +2465,7 @@ Netflix:
 | **12. Admin Processes** | Run admin tasks as one-off processes | K8s Jobs, one-off containers, scripts |
 
 ### Security in Production
+
 | Area | Concepts | Tools |
 |---|---|---|
 | **Authentication** | OAuth 2.0 + OIDC, JWT, SAML, passkeys, MFA | Keycloak, Auth0, Okta, Firebase Auth |
@@ -2345,6 +2483,7 @@ Netflix:
 ## Tech Trends & Emerging Technology (2025–2026)
 
 ### AI & Machine Learning in Software Engineering
+
 | Trend | What It Is | Status (2025-26) | Impact |
 |---|---|---|---|
 | **AI Coding Assistants** | LLM-powered code generation in IDEs | Mainstream | GitHub Copilot, Cursor, Cody, Windsurf |
@@ -2357,6 +2496,7 @@ Netflix:
 | **AI Testing** | LLM-generated test cases, mutation testing | Emerging | Copilot test generation, CodiumAI |
 
 ### Infrastructure & Platform Trends
+
 | Trend | What It Is | Status (2025–26) | Key Players |
 |---|---|---|---|
 | **Platform Engineering** | Internal developer platforms (IDPs) for self-service | Mainstream | Backstage (Spotify), Port, Humanitec |
@@ -2371,6 +2511,7 @@ Netflix:
 | **FinOps** | Cloud cost management as engineering practice | Growing importance | Kubecost, Infracost, AWS CUR, spot instances |
 
 ### Programming Language & Runtime Trends
+
 | Trend | What It Is | Status (2025–26) |
 |---|---|---|
 | **Rust adoption** | Systems programming with memory safety (no GC) | Growing (Linux kernel, Android, Cloudflare, Discord) |
@@ -2383,6 +2524,7 @@ Netflix:
 | **Swift on Server** | Apple's language for backend (Vapor framework) | Niche but growing |
 
 ### Data & Analytics Trends
+
 | Trend | What It Is | Key Tech |
 |---|---|---|
 | **Data Lakehouse** | Combines data lake + data warehouse | Apache Iceberg, Delta Lake, Apache Hudi |
@@ -2393,6 +2535,7 @@ Netflix:
 | **Feature Stores** | Manage ML features for training and serving | Feast, Tecton, SageMaker Feature Store |
 
 ### Architecture Trends
+
 | Trend | What It Is | When to Use |
 |---|---|---|
 | **Modular Monolith** | Well-structured monolith with clear module boundaries | Most startups (don't start with microservices!) |
@@ -2406,6 +2549,7 @@ Netflix:
 ### Industry-Specific Engineering Insights
 
 #### What Top Companies Do Differently
+
 | Company | Notable Engineering Practices |
 |---|---|
 | **Google** | Monorepo (billions of lines), Borg (K8s predecessor), SRE culture, Spanner (globally distributed DB), MapReduce → Dataflow |
@@ -2420,6 +2564,7 @@ Netflix:
 | **Apple** | Vertical integration, extreme privacy focus, SwiftUI/Metal, custom silicon (M-series) |
 
 #### Engineering Blogs to Follow (Knowledge Sources)
+
 | Blog | URL | Focus |
 |---|---|---|
 | **Netflix Tech Blog** | `https://netflixtechblog.com/` | Distributed systems, microservices, chaos engineering |
@@ -2437,6 +2582,7 @@ Netflix:
 | **CNCF Blog** | `https://www.cncf.io/blog/` | Cloud-native ecosystem, graduated projects |
 
 #### Open Standards & Initiatives to Know
+
 | Standard | What It Is | Why It Matters |
 |---|---|---|
 | **OpenTelemetry (OTel)** | Unified observability framework (traces, metrics, logs) | Vendor-neutral — instrument once, export anywhere |

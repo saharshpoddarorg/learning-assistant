@@ -50,7 +50,8 @@ A **skill** is a Copilot customization file (`.github/skills/<name>/SKILL.md`) t
 This library organises skills into three axes:
 
 ### Axis 1 — Domain / Practice (vertical)
-```
+
+```text
 Software Engineering (broadest domain)
 │
 ├── Software Development (practice domain)
@@ -75,7 +76,8 @@ Software Engineering (broadest domain)
 ```
 
 ### Axis 2 — Roles (cross-cutting)
-```
+
+```text
 Team Roles (cross-cutting across all domains)
 ├── Product Owner (software-development-roles/SKILL.md)
 ├── Developer (software-development-roles/SKILL.md)
@@ -83,7 +85,8 @@ Team Roles (cross-cutting across all domains)
 ```
 
 ### Axis 3 — Methods (cross-cutting)
-```
+
+```text
 Research & Analysis Methods (cross-cutting)
 ├── Deep Research / Investigation (deep-research/SKILL.md)
 └── Requirements Research (requirements-research/SKILL.md)  ← also in Axis 1
@@ -149,7 +152,7 @@ If it's a genuinely new domain → create a new skill directory.
 
 ### Step 3 — Create the file
 
-```
+```text
 .github/skills/<name>/SKILL.md
 ```
 
@@ -273,8 +276,10 @@ description: > ...
 
 ### Quick start
 ```
+
 code example or checklist
-```
+
+```yaml
 
 ---
 

@@ -5,7 +5,7 @@
 Notes live here when **you wrote them** — your distilled insights, your session logs,
 your decisions, your how-tos. This is not for imported external content (that goes to `library/`).
 
-### The core distinction
+## The core distinction
 
 | Tier | Rule |
 |---|---|
@@ -58,7 +58,7 @@ If you're unsure: *Did you write it from scratch?* → `notes/`. *Did you paste 
 
 ## Naming Convention
 
-```
+```text
 YYYY-MM-DD_<kebab-case-descriptive-slug>.md
 
 Examples:

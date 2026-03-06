@@ -112,10 +112,11 @@ Use when:
 
 Modes stack on top of each other:
 
-```
+```text
 copilot-instructions.md     ← project conventions (always on)
     + change-completeness   ← completeness mode (always on, ** glob)
     + steering-modes        ← this file (always on, ** glob)
+    + md-formatting         ← markdown rules (always on, ** glob)
     + java.instructions     ← only when editing .java files
     + clean-code.inst.      ← only when editing .java files
     + Agent persona         ← only when agent is selected in dropdown
@@ -146,7 +147,7 @@ The completeness steering mode is **already the default** in this project becaus
 
 To reinforce this default whenever you start a session or hand off to another session:
 
-```
+```text
 Recommended session start:
   1. Type: /context → continue (to reconnect to prior work)
   2. Or: /steer → completeness (to confirm the mode is active)

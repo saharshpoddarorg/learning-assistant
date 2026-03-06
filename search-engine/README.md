@@ -44,7 +44,7 @@ result.items().forEach(si -> System.out.printf("%3d  %s%n", si.score(), si.item(
 
 ## Module Layout
 
-```
+```text
 search-engine/
 ├── src/
 │   ├── search/api/          ← PUBLIC API — depend only on these
@@ -74,7 +74,7 @@ Implementations (`search.engine.*`) are internal and may change.
 
 Every `ConfigurableSearchEngine.search(context)` call runs these phases in order:
 
-```
+```text
 User Input
     │
     ▼
@@ -111,7 +111,7 @@ without reimplementing the full pipeline.
 The engine is designed as a stacked tier system. Each tier adds domain-specific behaviour
 on top of the generic tier below.
 
-```
+```text
 Tier 0  SearchEngine<T>             search.api.core       — pure interface; callers use this
 Tier 1  ConfigurableSearchEngine<T> search.engine.core    — 5-phase pipeline; override hooks
 Tier 2  LearningSearchEngine        server.learningresources.vault  — LR domain; wraps ResourceDiscovery
@@ -130,6 +130,7 @@ To create a new Tier-N engine:
 ### SearchContext
 
 All searches start here. Build with:
+
 ```java
 SearchContext.of("java streams")           // normalised, DEFAULT_MAX_RESULTS
 SearchContext.of("java streams", 20)       // custom result limit
@@ -144,6 +145,7 @@ Key accessors:
 ### SearchResult
 
 Returned by every `SearchEngine.search()` call:
+
 ```java
 result.items()           // List<ScoredItem<T>>, score-descending
 result.classifiedMode()  // which SearchMode was used
@@ -156,6 +158,7 @@ result.topScore()        // OptionalInt of highest score
 ### ScoredItem
 
 A document paired with its score and optional debug breakdown:
+
 ```java
 ScoredItem<Article> si = result.items().get(0);
 si.item()           // the document

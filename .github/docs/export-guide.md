@@ -1,7 +1,7 @@
 # 📦 Export Guide — Use This Repo in Another Project
 
-> **Goal:** Copy any combination of features from `learning-assistant` to your real project.  
-> **Read level:** 🟡 Amateur+ (assumes you know basic git and terminal usage)  
+> **Goal:** Copy any combination of features from `learning-assistant` to your real project.
+> **Read level:** 🟡 Amateur+ (assumes you know basic git and terminal usage)
 > **Prerequisite:** Complete [Phase 3 (MCP servers)](phase-guide.md#phase-3-mcp-servers--build--connect) in this repo first, so you know what you're exporting.
 
 ---
@@ -42,7 +42,7 @@
 
 ### 1a. Minimal — Just the Rules
 
-Copies only the always-on project rules (`copilot-instructions.md`).  
+Copies only the always-on project rules (`copilot-instructions.md`).
 Zero setup, zero credentials, works immediately.
 
 ```powershell
@@ -52,6 +52,7 @@ $target = "C:\path\to\your-project"
 # Copy the main instructions file
 Copy-Item .github\copilot-instructions.md "$target\.github\copilot-instructions.md"
 ```
+
 ```bash
 # macOS / Linux
 TARGET="/path/to/your-project"
@@ -59,7 +60,7 @@ mkdir -p "$TARGET/.github"
 cp .github/copilot-instructions.md "$TARGET/.github/copilot-instructions.md"
 ```
 
-**After copying:** Edit `$target/.github/copilot-instructions.md` to reflect YOUR project's rules.  
+**After copying:** Edit `$target/.github/copilot-instructions.md` to reflect YOUR project's rules.
 The current file has Java/MCP/learning-assistant specific conventions — update them to match your stack.
 
 > 🟢 **Newbie tip:** Open the file and just read it. Remove any rules that don't apply (e.g., Java rules if your project is Python). Add rules specific to your project.
@@ -77,6 +78,7 @@ $target = "C:\path\to\your-project"
 # Copy entire .github/ (except .git internal files)
 Copy-Item -Recurse .github "$target\.github"
 ```
+
 ```bash
 # macOS / Linux
 TARGET="/path/to/your-project"
@@ -91,10 +93,12 @@ cp -r .github "$TARGET/.github"
 4. Test: Open target project in VS Code → Copilot Chat → type `/` → see commands
 
 **VS Code gitignore note:** If your target project has `.gitignore`, add:
+
 ```gitignore
 # Don't accidentally commit these docs as code docs
 .github/docs/
 ```
+
 Or keep them — they're developer documentation and safe to commit.
 
 ---
@@ -142,7 +146,7 @@ Copy-Item .github\copilot-instructions.md "$target\.github\"
 
 **Example use case:** Monorepo with frontend + backend:
 
-```
+```text
 my-monorepo/
 ├── .github/
 │   └── copilot-instructions.md      ← Global: "This repo uses TypeScript + Java"
@@ -179,6 +183,7 @@ Copy-Item -Recurse mcp-servers "$target\mcp-servers"
 New-Item -ItemType Directory -Force "$target\.vscode"
 Copy-Item mcp-servers\.vscode\mcp.json.example "$target\.vscode\mcp.json"
 ```
+
 ```bash
 TARGET="/path/to/your-project"
 cp -r mcp-servers "$TARGET/mcp-servers"
@@ -191,12 +196,14 @@ cp mcp-servers/.vscode/mcp.json.example "$TARGET/.vscode/mcp.json"
 1. The `mcp.json.example` is pre-configured for Learning Resources. No changes needed to enable it.
 
 2. Build the servers in the target project:
+
    ```powershell
    cd $target\mcp-servers
    .\build.ps1
    ```
 
 3. If `java` is not on PATH, create `build.env.local`:
+
    ```powershell
    Copy-Item mcp-servers\build.env.example "$target\mcp-servers\build.env.local"
    # Edit build.env.local: set JAVA_HOME=C:\path\to\your\jdk-21
@@ -207,6 +214,7 @@ cp mcp-servers/.vscode/mcp.json.example "$TARGET/.vscode/mcp.json"
 **Adjust paths if mcp-servers/ is not at project root:**
 
 If you placed mcp-servers in a subfolder (e.g., `tools/mcp-servers`), update `.vscode/mcp.json`:
+
 ```json
 "cwd": "${workspaceFolder}/tools/mcp-servers",
 "args": ["-cp", "out", "server.learningresources.LearningResourcesServer"]
@@ -236,6 +244,7 @@ if (-not (Test-Path "$target\.vscode\tasks.json")) {
 ```
 
 **After copying — for Atlassian server:**
+
 ```powershell
 cd $target\mcp-servers
 # Create local Atlassian config from template
@@ -254,12 +263,13 @@ $target = "C:\path\to\your-project"
 Copy-Item -Recurse brain "$target\brain"
 ```
 
-**The brain workspace is self-contained** — it has its own scripts, README, and VS Code tasks.  
+**The brain workspace is self-contained** — it has its own scripts, README, and VS Code tasks.
 The only dependency is PowerShell (Windows) or Bash (macOS/Linux).
 
 **Add brain tasks to your target `.vscode/tasks.json`:** Copy the brain task entries from `learning-assistant/.vscode/tasks.json` (the brain-related tasks block) into your target project's tasks.json.
 
 **Copilot prompts for brain (optional):** Copy the brain prompt files:
+
 ```powershell
 $target = "C:\path\to\your-project"
 New-Item -ItemType Directory -Force "$target\.github\prompts"
@@ -343,7 +353,7 @@ mcp-servers/build.env.local
 
 This means you can layer customizations:
 
-```
+```text
 project-root/
 ├── .github/copilot-instructions.md        ← Always active everywhere
 ├── src/
@@ -356,7 +366,7 @@ project-root/
 
 **Use case: Monorepo with multiple teams**
 
-```
+```text
 monorepo/
 ├── .github/copilot-instructions.md
 │   # "This monorepo uses a microservices architecture"
@@ -375,7 +385,7 @@ monorepo/
 
 **`*.instructions.md` files work per file type at any directory level too:**
 
-```
+```text
 frontend/
 └── .github/
     └── instructions/
@@ -390,14 +400,16 @@ frontend/
 After copying to the target project, verify each feature:
 
 **Copilot customization:**
-```
+
+```text
 In VS Code (target project) → Copilot Chat → Agent mode → type /
 → If custom prompts appear: ✅ prompts exported correctly
 → Ask "write a method" → if it follows your conventions: ✅ instructions working
 ```
 
 **MCP servers:**
-```
+
+```text
 Ctrl+Shift+B → "mcp-servers: build" (should say "BUILD SUCCESS")
 Ctrl+Shift+P → "Reload Window"
 Copilot Chat → Agent mode → click 🔧 tools
@@ -406,14 +418,16 @@ Test: "Search for resources about Java streams"
 ```
 
 **Atlassian (if configured):**
-```
+
+```text
 In Copilot Chat: "List the open Jira issues assigned to me"
 → If it returns real Jira data: ✅ Atlassian server working
 → If it says "I can't access Jira": check atlassian-config.local.properties
 ```
 
 **Brain workspace:**
-```
+
+```text
 Ctrl+Shift+P → "Run Task" → "brain: status"
 → If it prints note counts: ✅ brain workspace working
 ```
@@ -425,6 +439,7 @@ Ctrl+Shift+P → "Run Task" → "brain: status"
 When `learning-assistant` receives updates (new agents, prompts, skills, MCP tools) you can pull them into your target project:
 
 **Option A: Selective manual sync**
+
 ```powershell
 # After pulling latest learning-assistant, copy specific new files:
 $src = "E:\mgcnoscan\learning\learning-assistant"
@@ -440,6 +455,7 @@ Copy-Item -Recurse "$src\.github\skills\mcp-development" "$dst\.github\skills\"
 **Option B: Git subtree / submodule (Pro)**
 
 If you version-control your target project with git, use a git subtree to keep `.github/` in sync:
+
 ```bash
 # Add learning-assistant as a subtree (one-time)
 git subtree add --prefix=.github \

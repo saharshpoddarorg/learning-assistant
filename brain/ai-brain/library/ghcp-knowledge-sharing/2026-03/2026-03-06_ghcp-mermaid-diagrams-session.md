@@ -9,7 +9,7 @@ source: imported
 
 # Mermaid Diagrams as LLM Context — The Secret Weapon
 
-> **For:** Knowledge Sharing Session — Developers & QA on Capital IESD-24  
+> **For:** Knowledge Sharing Session — Developers & QA on Capital IESD-24
 > **Date:** February 2026
 
 ---
@@ -53,7 +53,7 @@ source: imported
 > **LLMs don't "see" architecture in code. They see text tokens.**
 > A class diagram makes architecture visible as text — the one format LLMs actually understand.
 
-```
+```text
 500 LOC of Device.java → LLM infers: "Device probably extends something"
 20 lines of Mermaid     → LLM knows: "Device extends AbstractDevice extends LogicObject,
                                        implements IDevice + IPrivilegedDevice,
@@ -69,7 +69,7 @@ source: imported
 
 ### Slide: Three-Step Workflow
 
-```
+```text
 Step 1: GENERATE     → Ask agent to create Mermaid diagram from existing code
 Step 2: FEED         → Include diagram in your next prompt as context
 Step 3: MODIFY       → Agent reasons over diagram to plan and execute changes
@@ -78,12 +78,14 @@ Step 3: MODIFY       → Agent reasons over diagram to plan and execute changes
 ### Slide: Step 1 — Generate Diagram from Code
 
 **Prompt:**
-```
+
+```text
 Generate a Mermaid class diagram showing the IDevice interface hierarchy,
 all its implementations, and all classes that use IDevice across modules.
 ```
 
 **Agent reads code across modules and produces:**
+
 ```mermaid
 classDiagram
     class IDevice {
@@ -104,7 +106,8 @@ classDiagram
 ### Slide: Step 2 — Feed Diagram as Context
 
 **Prompt:**
-```
+
+```text
 Using this class diagram as context:
 
 [paste diagram here]
@@ -156,6 +159,7 @@ Agent now **sees** from the diagram:
 **Prompt:** "Add a description property to IDevice and implement it"
 
 **LLM generates (WRONG):**
+
 ```java
 // ❌ Missing premodify(), wrong hierarchy, no PropertyChange
 public interface IDevice {
@@ -174,6 +178,7 @@ public class Device implements IDevice {
 **Prompt:** "Using the COF Entity Hierarchy diagram, add description to IDevice"
 
 **LLM generates (CORRECT):**
+
 ```java
 // In interfaces_src — IDevice interface
 @Nullable
@@ -241,7 +246,7 @@ stateDiagram-v2
     Active --> Closing: user closes
     Closing --> Removed: IWindowCloseClient.sendRequestFor()
     Removed --> [*]: windowHandlesMap.remove()
-    
+
     Intercepted --> ServiceQueued: m_service != null
     ServiceQueued --> AreaPlaced: postProcess() after service completes
 ```
@@ -265,7 +270,7 @@ flowchart TD
     MC --> RA[Resource.registerActions]
     RA --> DRC[Caplet.addDRCDomainManagers]
     DRC --> Ready[Application ready]
-    
+
     Ready --> UserAction[User triggers action]
     UserAction --> IE{isEnabled?}
     IE -->|Yes| PA[preAction]
@@ -337,7 +342,7 @@ This means **every time you edit any Java file**, all 12 diagrams are loaded int
 
 ### Technique 1: Generate → Modify → Re-generate
 
-```
+```text
 Step 1: "Generate class diagram for IDevice hierarchy"
 Step 2: Modify the diagram in your editor (add new class/property)
 Step 3: "Implement the changes shown in this modified diagram"
@@ -351,7 +356,7 @@ We already did this — `.github/instructions/architecture-diagrams.instructions
 
 ### Technique 3: Sequence Diagram as Test Specification
 
-```
+```text
 "Given this sequence diagram of the login flow, generate integration tests
 that verify each step in the sequence, including error paths"
 ```
@@ -360,7 +365,7 @@ Each arrow in the diagram becomes a test assertion.
 
 ### Technique 4: State Diagram as FSM Implementation
 
-```
+```text
 "Implement a state machine for the window lifecycle shown in this state diagram.
 Use the State pattern with enum-based states."
 ```
@@ -369,7 +374,7 @@ Each state becomes an enum value. Each transition becomes a method.
 
 ### Technique 5: Dependency Graph for Build Order
 
-```
+```text
 "Using the module dependency graph, determine the correct build order
 if I change interfaces_src"
 ```
@@ -399,7 +404,7 @@ Based on the Mermaid technique and Capital codebase patterns, here are expert sk
 
 ### Slide: Skill Priority Matrix
 
-```
+```text
 High Impact + Easy to Create:
   ✅ code-review-checklist    — rules already exist in instruction files
   ✅ test-generation          — patterns already exist (AiUtilsTest, HarnessTestCase)
@@ -423,9 +428,10 @@ High Impact + Higher Effort:
 Most people ask: "Add a property to Device"
 
 Experts ask:
-```
+
+```text
 1. "Generate the IDevice class diagram with all consumers"
-2. "Based on this diagram, what's the full impact of adding wireGauge?"  
+2. "Based on this diagram, what's the full impact of adding wireGauge?"
 3. "Now implement it — interface in interfaces_src, impl in datamodel_src,
     handle all consumers shown in the diagram"
 ```
@@ -435,7 +441,8 @@ Three prompts → zero wrong code.
 #### Pattern 2: Diagram as Specification
 
 Instead of writing a spec document in English, draw a Mermaid diagram:
-```
+
+```text
 Here's my design:
 [paste Mermaid class diagram with new classes]
 
@@ -447,7 +454,8 @@ The diagram IS the specification. No ambiguity.
 #### Pattern 3: Diagram Diff as Change Request
 
 Modify an existing diagram and tell the agent:
-```
+
+```text
 I changed this diagram [paste modified version].
 The differences from the original are:
 - Added IWireConductor.getGauge() method
@@ -460,8 +468,9 @@ Implement only the changes (the diff).
 #### Pattern 4: Reverse Engineering via Diagrams
 
 When you inherit unfamiliar code:
-```
-"Generate a sequence diagram showing what happens when a user places a 
+
+```text
+"Generate a sequence diagram showing what happens when a user places a
 device in Capital Capture, from mouse click to database commit"
 ```
 
@@ -469,9 +478,9 @@ You get a visual walkthrough of the entire flow in 30 seconds. No reading 15 fil
 
 #### Pattern 5: Architecture Decision Records (ADR) with Diagrams
 
-```
-"I need to decide between Strategy pattern and State pattern for window 
-lifecycle management. Generate both as class diagrams and compare them 
+```text
+"I need to decide between Strategy pattern and State pattern for window
+lifecycle management. Generate both as class diagrams and compare them
 against the existing ImmersedModeServices architecture."
 ```
 
@@ -517,7 +526,7 @@ flowchart TD
 
 ### Slide: Quick Reference Card (Handout)
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │       MERMAID DIAGRAMS AS LLM CONTEXT — CHEAT SHEET         │
 ├─────────────────────────────────────────────────────────────┤

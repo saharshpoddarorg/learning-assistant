@@ -4,7 +4,7 @@
 
 ## Directory Structure
 
-```
+```text
 java/
 ├── official/                      ← Oracle, dev.java, JDK documentation
 │   ├── oracle-tutorials-guide.md  ← Complete dev.java & legacy Oracle tutorial content
@@ -19,12 +19,14 @@ java/
 ## Quick Navigation
 
 ### Official Documentation & Tutorials
+
 | File | What It Contains | When to Read It |
 |---|---|---|
 | [`official/oracle-tutorials-guide.md`](official/oracle-tutorials-guide.md) | dev.java modern tutorials (§ 1-9): language basics, OOP, records, pattern matching, virtual threads, modules, security — with code examples. Legacy Oracle tutorials (§ 10): complete lesson-level TOCs for all trails (Learning the Java Language, Essential Java Classes, Collections, Date-Time, Networking, JDBC, Internationalization, Security, JMX, Reflection, and more) with Oracle's recommended Learning Paths | Learning Java language features, finding specific Oracle tutorial lessons |
 | [`official/jdk-apis-reference.md`](official/jdk-apis-reference.md) | Concurrency & multithreading (threads, synchronization, executors, virtual threads), Streams & Gatherers API, Exception handling, Collections, I/O, Date-Time API — with code examples | Using JDK standard library APIs |
 
 ### Community & Open Source
+
 | File | What It Contains | When to Read It |
 |---|---|---|
 | [`community/blogs-and-community-guide.md`](community/blogs-and-community-guide.md) | Inside.java, Baeldung, Jenkov topic maps, YouTube channels, Java evolution summary, book content summaries | Finding the right blog/tutorial for a topic |

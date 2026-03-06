@@ -10,7 +10,7 @@
 
 The `brain/ai-brain/` workspace bridges two worlds:
 
-```
+```text
 AI Session (Copilot Chat / MCP tools)
         ↓  Copilot generates output
     brain/ai-brain/inbox/         ← temporary capture (gitignored)
@@ -43,6 +43,7 @@ The session note becomes your running log. Edit it throughout the session.
 Every time Copilot produces something worth keeping, either:
 
 **Option A: Paste directly into the open session note**
+
 ```markdown
 ## 2026-02-27 — Java generics, ? super T
 
@@ -57,6 +58,7 @@ Every time Copilot produces something worth keeping, either:
 ```
 
 **Option B: Create a separate note per insight**
+
 ```powershell
 # Quick capture, don't stop your flow
 brain new --tier inbox --kind snippet --project java --title "Lower bounded wildcard example"
@@ -104,12 +106,11 @@ source: copilot        # ← marks this as AI-assisted content
 
 ## Summary
 
-
 ## Key insights
-- 
+-
 
 ## Follow-up items
-- [ ] 
+- [ ]
 ```
 
 All `kind` values: `note` | `decision` | `session` | `resource` | `snippet` | `ref`
@@ -139,7 +140,7 @@ output into a clean, publishable session note. It:
 4. Creates the file in `brain/ai-brain/inbox/`
 5. Suggests tags and asks for your confirmation
 
-```
+```yaml
 Usage:  /brain-capture-session
 Then:   Review the created file
 Then:   brain publish <file> --project <bucket>
@@ -151,7 +152,7 @@ Then:   brain publish <file> --project <bucket>
 
 ### Obsidian
 
-```
+```text
 Option 1 — Open brain/ai-brain/ as a vault folder:
   1. Obsidian → Open Folder as Vault → pick brain/ai-brain/
   2. Notes in inbox/ and notes/ appear inside Obsidian
@@ -165,7 +166,7 @@ Option 2 — Sync library/ to your Obsidian vault:
 
 ### Notion
 
-```
+```text
 1. Create a "Dev Sessions" database in Notion
 2. After brain publish, create a new page in that database
 3. Paste the note content — frontmatter fields → Notion properties
@@ -178,7 +179,7 @@ Option 2 — Sync library/ to your Obsidian vault:
 
 ### Logseq
 
-```
+```text
 1. Open brain/ai-brain/ as a Logseq graph (File → Open Folder)
 2. Logseq reads all .md files — inbox/, notes/, library/ become pages
 3. Use [[]] links to connect session notes to concept pages
@@ -247,7 +248,7 @@ This Java API mirrors exactly what `brain new` does at the script level. As the
 
 ## Session Note Naming Convention
 
-```
+```text
 YYYY-MM-DD_session-<brief-topic>.md       ← most session notes
 YYYY-MM-DD_<project>-<topic>.md           ← when project matters
 <topic-slug>.md                            ← timeless reference notes
@@ -272,6 +273,7 @@ The `brain new` command auto-generates the filename — you just supply the titl
    TreeMap because..." is worth an ADR-format note.
 
 5. **Link back to sessions from code**. Add a comment in the relevant source file:
+
    ```java
    // See brain/ai-brain/library/java/2026-02/2026-02-27_generics-session.md
    ```

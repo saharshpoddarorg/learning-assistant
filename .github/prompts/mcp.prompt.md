@@ -27,6 +27,7 @@ Teach or guide the user on MCP (Model Context Protocol). Adapt your response bas
 MCP (Model Context Protocol) is an **open standard** (created by Anthropic, adopted across the industry) that defines how AI assistants (clients) communicate with external tools and data sources (servers). Think of it as **USB-C for AI** — a universal plug-and-play protocol that lets any AI model connect to any tool.
 
 ```
+
 Without MCP:                          With MCP:
 ┌──────┐    custom API    ┌──────┐    ┌──────┐   standard    ┌──────┐
 │ AI   │───────────────→  │Tool A│    │ AI   │   protocol    │MCP   │
@@ -37,11 +38,13 @@ Without MCP:                          With MCP:
 └──────┘  N integrations  └──────┘    └──────┘  same protocol │Server│
                                                               │  B   │
                                                               └──────┘
-```
+
+```markdown
 
 ### MCP Domain Map
 
 ```
+
 MCP (Model Context Protocol)
 │
 ├── Core Concepts
@@ -86,7 +89,8 @@ MCP (Model Context Protocol)
     ├── Performance ··············· Connection pooling, caching, batching
     ├── Deployment ················ Local, Docker, cloud, serverless
     └── Ecosystem ················· MCP registries, community servers, standards
-```
+
+```markdown
 
 ### Protocol Deep-Dive
 
@@ -95,6 +99,7 @@ When `topic` is **overview** or **protocol-spec**:
 #### The Three MCP Primitives
 
 ```
+
 MCP Primitives — What a Server Can Expose
 │
 ├── 1. TOOLS (Model-controlled)
@@ -131,11 +136,13 @@ MCP Primitives — What a Server Can Expose
     │   ├── explain_error(error_message) → explanation prompt
     │   └── generate_tests(function_name) → test generation prompt
     └── Analogy: Recipe cards — user picks which recipe to follow
-```
+
+```markdown
 
 #### Transport Mechanisms
 
 ```
+
 Transport Options
 │
 ├── stdio (Standard I/O)
@@ -158,11 +165,13 @@ Transport Options
     ├── Pros: Simpler than SSE, single endpoint, supports streaming
     ├── Cons: Newer, less tooling support currently
     └── Config: "url": "http://localhost:3001/mcp"
-```
+
+```markdown
 
 #### Protocol Lifecycle
 
 ```
+
 MCP Session Lifecycle
 │
 ├── 1. INITIALIZE
@@ -191,7 +200,8 @@ MCP Session Lifecycle
 └── 4. SHUTDOWN
     Client sends: close notification or drops connection
     Server cleans up resources
-```
+
+```markdown
 
 ### Building MCP Servers — By Language
 
@@ -202,6 +212,7 @@ Provide complete, working examples based on the user's chosen language. Always i
 #### TypeScript MCP Server (Complete Template)
 
 ```typescript
+
 // package.json dependencies: @modelcontextprotocol/sdk
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -264,26 +275,31 @@ server.prompt(
 // 5. Start the server
 const transport = new StdioServerTransport();
 await server.connect(transport);
-```
+
+```markdown
 
 #### Python MCP Server (Complete Template)
 
 ```python
+
 # pip install mcp[cli]
+
 from mcp.server.fastmcp import FastMCP
 from typing import Any
 
 # 1. Create server
+
 mcp = FastMCP(
     name="my-custom-server",
     version="1.0.0"
 )
 
 # 2. Register TOOLS
+
 @mcp.tool()
 async def search_database(query: str, limit: int = 10) -> str:
     """Search records in the database.
-    
+
     Args:
         query: SQL-like search query
         limit: Max results to return
@@ -292,32 +308,38 @@ async def search_database(query: str, limit: int = 10) -> str:
     return json.dumps(results, indent=2)
 
 # 3. Register RESOURCES
+
 @mcp.resource("db://myapp/schema")
 async def get_schema() -> str:
     """Database schema for reference."""
     return json.dumps(await db.get_schema())
 
 # Dynamic resources with URI templates
+
 @mcp.resource("db://myapp/table/{table_name}")
 async def get_table_info(table_name: str) -> str:
     """Get info about a specific table."""
     return json.dumps(await db.table_info(table_name))
 
 # 4. Register PROMPTS
+
 @mcp.prompt()
 async def analyze_table(table_name: str) -> str:
     """Generate analysis prompt for a database table."""
     return f"Analyze the '{table_name}' table: structure, indexes, common queries, and optimization suggestions."
 
 # 5. Run server
+
 if __name__ == "__main__":
     mcp.run()  # defaults to stdio transport
     # For SSE: mcp.run(transport="sse")
-```
+
+```markdown
 
 #### Java MCP Server (Complete Template)
 
 ```java
+
 // Maven: io.modelcontextprotocol:mcp-spring-webflux
 // or: io.modelcontextprotocol:mcp (standalone)
 import io.modelcontextprotocol.server.McpServer;
@@ -329,11 +351,11 @@ import java.util.List;
 import java.util.Map;
 
 public class MyMcpServer {
-    
+
     public static void main(String[] args) {
         // 1. Create transport
         var transport = new StdioServerTransport();
-        
+
         // 2. Define tools
         var searchTool = new McpServerFeatures.SyncToolSpecification(
             new McpSchema.Tool(
@@ -359,7 +381,7 @@ public class MyMcpServer {
                 );
             }
         );
-        
+
         // 3. Build and start server
         var server = McpServer.sync(transport)
             .serverInfo("my-custom-server", "1.0.0")
@@ -368,11 +390,12 @@ public class MyMcpServer {
                 .build())
             .tools(searchTool)
             .build();
-        
+
         // Server runs until process exits
     }
 }
-```
+
+```markdown
 
 ### Configuring MCP in Your Environment
 
@@ -383,6 +406,7 @@ When `topic` is **configure-agent**:
 **Workspace-level** (`.vscode/mcp.json`) — recommended for project-specific MCPs:
 
 ```jsonc
+
 {
   "servers": {
     // stdio-based server (local)
@@ -394,7 +418,7 @@ When `topic` is **configure-agent**:
         "DATABASE_URL": "${input:databaseUrl}"  // prompts user for value
       }
     },
-    
+
     // npx-based server (no local install needed)
     "github-server": {
       "type": "stdio",
@@ -404,7 +428,7 @@ When `topic` is **configure-agent**:
         "GITHUB_TOKEN": "${input:githubToken}"
       }
     },
-    
+
     // Python-based server
     "my-python-server": {
       "type": "stdio",
@@ -414,7 +438,7 @@ When `topic` is **configure-agent**:
         "API_KEY": "${input:apiKey}"
       }
     },
-    
+
     // Docker-based server
     "containerized-server": {
       "type": "stdio",
@@ -426,7 +450,7 @@ When `topic` is **configure-agent**:
         "my-mcp-server:latest"
       ]
     },
-    
+
     // Remote HTTP server
     "remote-api-server": {
       "type": "http",
@@ -437,11 +461,13 @@ When `topic` is **configure-agent**:
     }
   }
 }
-```
+
+```text
 
 **User-level** (`settings.json`) — for global MCPs available in all workspaces:
 
 ```jsonc
+
 {
   "mcp": {
     "servers": {
@@ -453,13 +479,15 @@ When `topic` is **configure-agent**:
     }
   }
 }
-```
+
+```markdown
 
 #### Claude Desktop Configuration
 
 **Location:** `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows)
 
 ```jsonc
+
 {
   "mcpServers": {
     "my-server": {
@@ -471,13 +499,15 @@ When `topic` is **configure-agent**:
     }
   }
 }
-```
+
+```markdown
 
 ### Types of MCP Servers — Complete Catalog
 
 When `topic` is **types-of-mcp**:
 
 ```
+
 MCP Server Catalog (by category)
 │
 ├── 📊 DATA ACCESS
@@ -552,7 +582,8 @@ MCP Server Catalog (by category)
     ├── Business Logic Server ····· Domain-specific operations
     ├── Legacy System Bridge ······ Wrap SOAP/XML/mainframe systems
     └── Compliance/Audit MCP ······ Policy checks, audit logging
-```
+
+```markdown
 
 ### Combining MCP with APIs — Patterns
 
@@ -563,6 +594,7 @@ When `topic` is **api-integration**:
 Wrap an existing REST API so the AI can use it as a tool:
 
 ```typescript
+
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
@@ -612,11 +644,13 @@ server.tool(
     };
   }
 );
-```
+
+```markdown
 
 #### Pattern 2: GraphQL API as MCP
 
 ```typescript
+
 server.tool(
   "query_graphql",
   "Execute a GraphQL query against the product catalog",
@@ -634,13 +668,15 @@ server.tool(
     return { content: [{ type: "text", text: JSON.stringify(result.data, null, 2) }] };
   }
 );
-```
+
+```markdown
 
 #### Pattern 3: Multi-API Aggregator MCP
 
 One MCP server that orchestrates calls across multiple APIs:
 
 ```typescript
+
 // A single MCP server that combines multiple APIs into cohesive tools
 server.tool(
   "get_customer_360",
@@ -653,7 +689,7 @@ server.tool(
       fetch(`${ORDER_API}/orders?customer=${customerId}`).then(r => r.json()),
       fetch(`${SUPPORT_API}/tickets?customer=${customerId}`).then(r => r.json())
     ]);
-    
+
     return {
       content: [{
         type: "text",
@@ -667,11 +703,13 @@ server.tool(
     };
   }
 );
-```
+
+```markdown
 
 #### Pattern 4: OpenAPI Spec → Auto-Generated MCP
 
 ```typescript
+
 // Automatically generate MCP tools from an OpenAPI spec
 import { parse } from "yaml";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -679,7 +717,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 async function createMcpFromOpenAPI(specUrl: string) {
   const spec = parse(await (await fetch(specUrl)).text());
   const server = new McpServer({ name: spec.info.title, version: spec.info.version });
-  
+
   for (const [path, methods] of Object.entries(spec.paths)) {
     for (const [method, operation] of Object.entries(methods)) {
       const toolName = operation.operationId || `${method}_${path}`.replace(/[^a-zA-Z0-9]/g, "_");
@@ -690,13 +728,15 @@ async function createMcpFromOpenAPI(specUrl: string) {
   }
   return server;
 }
-```
+
+```markdown
 
 ### Building Agents with MCP
 
 When `topic` is **agent-patterns**:
 
 ```
+
 Agent Architecture Patterns with MCP
 │
 ├── Pattern 1: SINGLE AGENT + MULTIPLE TOOLS
@@ -774,11 +814,13 @@ Agent Architecture Patterns with MCP
     │
     ├── Use when: Building custom agent applications
     └── Key: MCP provides the "hands", LLM API provides the "brain"
-```
+
+```markdown
 
 #### Custom Agent with MCP + LLM API (Architecture)
 
 ```typescript
+
 // Conceptual architecture: Custom agent combining MCP client + LLM API
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
@@ -787,7 +829,7 @@ import OpenAI from "openai";
 class McpAgent {
   private mcpClients: Map<string, Client> = new Map();
   private llm = new OpenAI();
-  
+
   // Connect to multiple MCP servers
   async connectServer(name: string, command: string, args: string[]) {
     const transport = new StdioClientTransport({ command, args });
@@ -795,7 +837,7 @@ class McpAgent {
     await client.connect(transport);
     this.mcpClients.set(name, client);
   }
-  
+
   // Get all available tools across all MCP servers
   async getAllTools() {
     const tools = [];
@@ -808,12 +850,12 @@ class McpAgent {
     }
     return tools;
   }
-  
+
   // Agent loop: reason → act → observe → repeat
   async run(userMessage: string) {
     const tools = await this.getAllTools();
     const messages = [{ role: "user", content: userMessage }];
-    
+
     while (true) {
       // 1. LLM reasons about what to do
       const response = await this.llm.chat.completions.create({
@@ -824,12 +866,12 @@ class McpAgent {
           function: { name: t.name, description: t.description, parameters: t.inputSchema }
         }))
       });
-      
+
       const choice = response.choices[0];
       if (choice.finish_reason === "stop") {
         return choice.message.content;  // Done!
       }
-      
+
       // 2. Execute tool calls via MCP
       for (const toolCall of choice.message.tool_calls || []) {
         const tool = tools.find(t => t.name === toolCall.function.name);
@@ -838,7 +880,7 @@ class McpAgent {
           name: toolCall.function.name,
           arguments: JSON.parse(toolCall.function.arguments)
         });
-        
+
         // 3. Feed result back to LLM
         messages.push(choice.message);
         messages.push({
@@ -861,13 +903,15 @@ await agent.connectServer("slack", "npx", ["-y", "@modelcontextprotocol/server-s
 const result = await agent.run(
   "Find all open bugs from GitHub, check if they match any recent DB errors, and post a summary to #engineering in Slack"
 );
-```
+
+```markdown
 
 ### Step-by-Step: Build Your First MCP Server
 
 When `goal` is **build-my-own-mcp**, walk through this checklist:
 
 ```
+
 BUILD YOUR OWN MCP SERVER — Checklist
 │
 ├── Step 1: DEFINE PURPOSE
@@ -920,11 +964,13 @@ BUILD YOUR OWN MCP SERVER — Checklist
     ├── PyPI package (for Python servers)
     ├── Docker image (universal, recommended for production)
     └── Add to MCP server registries (mcp.so, Smithery, etc.)
-```
+
+```markdown
 
 ### Security Best Practices
 
 ```
+
 MCP Security Checklist
 │
 ├── AUTHENTICATION
@@ -956,11 +1002,13 @@ MCP Security Checklist
     ├── PII handling — mask/filter personal data
     ├── Don't return raw database errors to the AI
     └── Consider what the AI might do with the data
-```
+
+```markdown
 
 ### Testing & Debugging MCPs
 
 ```
+
 Testing Workflow
 │
 ├── MCP INSPECTOR (interactive testing)
@@ -990,7 +1038,8 @@ Testing Workflow
     │   ├── "Invalid params" → check Zod/JSON Schema matches
     │   └── "Connection refused" → check port and transport type
     └── VS Code: Output panel → "MCP" channel shows server logs
-```
+
+```markdown
 
 ### Real-World Examples — What People Build
 
@@ -1016,6 +1065,7 @@ When `topic` is **build-server** or `goal` is **build-my-own-mcp**, and the user
 Recommend the `mcp-servers/` directory pattern — each MCP as an independent subdirectory:
 
 ```
+
 project-root/
 ├── .vscode/
 │   └── mcp.json          ← ONE file registers ALL MCP servers
@@ -1025,7 +1075,8 @@ project-root/
 │   ├── github-tools-mcp/ ← TypeScript MCP (own package.json)
 │   └── inventory-mcp/    ← Java MCP (own pom.xml)
 └── src/                  ← Main application code
-```
+
+```text
 
 Key rules:
 - **One server per folder** — independent deps, builds, and entry points
@@ -1036,17 +1087,18 @@ Key rules:
 ### `.vscode/mcp.json` Schema Quick Reference
 
 ```jsonc
+
 {
   "servers": {
     "<unique-name>": {
       "type": "stdio" | "http" | "sse",  // Transport type
-      
+
       // stdio fields:
       "command": "node|python|npx|java|docker",
       "args": ["path/to/entry-point"],
       "cwd": "optional-working-dir",
       "env": { "KEY": "${input:keyName}" },
-      
+
       // http/sse fields:
       "url": "http://host:port/mcp",
       "headers": { "Authorization": "Bearer ${input:token}" }
@@ -1056,7 +1108,8 @@ Key rules:
     { "id": "keyName", "type": "promptString", "description": "...", "password": true }
   ]
 }
-```
+
+```text
 
 **Variables available:** `${workspaceFolder}`, `${input:name}`, `${env:VAR}`, `${userHome}`
 
@@ -1090,11 +1143,13 @@ When `topic` is **open-preview**, summarize what's new and link to the full chan
 
 **To enable MCP in VS Code:**
 ```
+
 1. Open VS Code Settings (Ctrl+,)
 2. Search: "chat.mcp.enabled"
 3. Set to true
 4. Reload VS Code
-```
+
+```yaml
 
 ---
 
@@ -1104,13 +1159,16 @@ When `topic` is **streamable-http**:
 It replaces SSE (Server-Sent Events) with a simpler, single POST endpoint.
 
 ```
+
 OLD (SSE):                               NEW (Streamable HTTP):
 Client → POST /message                   Client → POST /mcp
 Client ← GET /sse (event stream)         Server ← (streaming response, may return multiple chunks)
-```
+
+```text
 
 **VS Code config:**
 ```jsonc
+
 {
   "servers": {
     "remote-server": {
@@ -1120,10 +1178,12 @@ Client ← GET /sse (event stream)         Server ← (streaming response, may r
     }
   }
 }
-```
+
+```text
 
 **TypeScript server with Streamable HTTP:**
 ```typescript
+
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import express from "express";
 
@@ -1138,7 +1198,8 @@ app.post("/mcp", async (req, res) => {
 });
 
 app.listen(3001);
-```
+
+```yaml
 
 ---
 
@@ -1155,6 +1216,7 @@ When `topic` is **github-mcp-server**:
 
 **Setup in `.vscode/mcp.json`:**
 ```jsonc
+
 {
   "inputs": [
     { "id": "githubToken", "type": "promptString", "description": "GitHub PAT (needs repo, read:org scopes)", "password": true }
@@ -1168,7 +1230,8 @@ When `topic` is **github-mcp-server**:
     }
   }
 }
-```
+
+```text
 
 **Example prompts after connecting:**
 - *"List all open PRs in this repo that need my review"*
@@ -1190,6 +1253,7 @@ Clients use these hints to decide whether to auto-approve, warn, or require conf
 | `openWorldHint` | Touches external systems | Inform user of external interaction |
 
 ```typescript
+
 server.tool(
   "read_file",
   "Read a file's contents",
@@ -1205,7 +1269,8 @@ server.tool(
   { destructiveHint: true },                        // ← client will warn user
   async ({ path }) => { /* ... */ }
 );
-```
+
+```yaml
 
 ---
 
@@ -1222,6 +1287,7 @@ When `topic` is **create-agent** or `goal` is **create-agent-file**:
 **Option B — Manual:**
 Create `.github/agents/<name>.agent.md`:
 ```yaml
+
 ---
 name: <display-name>
 description: <one-line description of when this agent activates>
@@ -1236,7 +1302,8 @@ tools:                       # restrict which tools the agent can use
 
 <Instructions in plain English — tell the agent what it is, how it should think,
 what it should always / never do, and what output format to use.>
-```
+
+```text
 
 See `.github/docs/copilot-mcp-preview.md` for the full agent mode reference.
 

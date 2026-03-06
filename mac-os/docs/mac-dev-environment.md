@@ -1,6 +1,6 @@
 # 🖥️ macOS Dev Environment — Shell, Aliases, PATH & Dotfiles
 
-> The complete reference for structuring a professional macOS development environment:  
+> The complete reference for structuring a professional macOS development environment:
 > zsh configuration, shell aliases, PATH management, dotfiles strategy, and bootstrap scripts.
 
 ---
@@ -199,7 +199,7 @@ plugins=(
 
 Track your shell config in a Git repository — so you can restore your full environment on a new Mac in minutes.
 
-```
+```bash
 ~/dotfiles/
 ├── .zshrc              → symlinked to ~/.zshrc
 ├── .zprofile           → symlinked to ~/.zprofile
@@ -338,6 +338,7 @@ mkdir -p ~/.config
 ```
 
 **`~/.config/starship.toml` — Developer-optimized config:**
+
 ```toml
 [character]
 success_symbol = "[❯](green)"

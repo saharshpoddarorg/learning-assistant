@@ -12,7 +12,7 @@ description: >
 
 ## Role Hierarchy — IC vs Management Tracks
 
-```
+```text
                IC Track                              Management Track
          ─────────────────                        ─────────────────────
 Level 1:  Intern / New Grad                       ─
@@ -39,6 +39,7 @@ Level 7:  Distinguished Engineer / Fellow         CTO / SVP
 ## Skills Matrices by Role
 
 ### Software Development Engineer (SDE / SWE)
+
 | Level | Languages | System Design | Tools | Soft Skills |
 |---|---|---|---|---|
 | Junior | 1-2 languages, basic DSA | — | Git, IDE, basic CLI | Communication |
@@ -47,6 +48,7 @@ Level 7:  Distinguished Engineer / Fellow         CTO / SVP
 | Staff+ | Polyglot, architecture | Org-wide design | Full platform | Strategy, influence |
 
 ### Machine Learning Engineer (MLE)
+
 | Skill Category | Required Skills |
 |---|---|
 | **Math/Stats** | Linear algebra, calculus, probability, statistics, optimization |
@@ -57,6 +59,7 @@ Level 7:  Distinguished Engineer / Fellow         CTO / SVP
 | **System Design** | ML system design (training infra, serving, A/B testing, monitoring) |
 
 ### DevOps / SRE
+
 | Skill Category | Required Skills |
 |---|---|
 | **CI/CD** | GitHub Actions, Jenkins, GitLab CI, ArgoCD |
@@ -69,6 +72,7 @@ Level 7:  Distinguished Engineer / Fellow         CTO / SVP
 | **Reliability** | SLOs/SLIs/SLAs, incident response, chaos engineering |
 
 ### Software Architect
+
 | Skill Category | Required Skills |
 |---|---|
 | **Architecture Patterns** | Microservices, event-driven, CQRS, hexagonal, layered |

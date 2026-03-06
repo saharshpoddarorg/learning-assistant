@@ -13,7 +13,7 @@ applyTo: "**/*.gradle"
 
 ---
 
-# Part 1 — Common Gradle Guidelines
+## Part 1 — Common Gradle Guidelines
 
 Everything in this section is **universal Gradle knowledge** — applicable to any Java/Kotlin/Groovy project regardless of company or domain.
 
@@ -38,7 +38,7 @@ The **Gradle Wrapper** is the recommended way to run Gradle — it ensures every
 
 ### Wrapper Files
 
-```
+```text
 project-root/
 ├── gradlew              ← Shell script (Linux/Mac) — commit to VCS
 ├── gradlew.bat          ← Batch script (Windows) — commit to VCS
@@ -86,7 +86,7 @@ Gradle executes builds in **three distinct phases**. Understanding these prevent
 
 ### The Three Phases
 
-```
+```text
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
 │  Initialization  │────→│  Configuration  │────→│    Execution    │
 │                 │     │                 │     │                 │
@@ -472,6 +472,7 @@ dependencies {
 ```
 
 ### Benefits
+
 - **Single source of truth** for all dependency versions
 - **IDE autocomplete** for dependency references
 - **Shareable** across modules in multi-project builds
@@ -829,6 +830,7 @@ rm -rf ~/.gradle/caches/
 ### Issue: "Out of memory"
 
 Edit `gradle.properties`:
+
 ```properties
 org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m
 ```
@@ -888,26 +890,28 @@ GRADLE_USER_HOME=/custom/path/.gradle
 ## 1.16 Do's and Don'ts (Generic)
 
 ### Do:
-✅ Use the Gradle Wrapper (`./gradlew`) instead of system `gradle`  
-✅ Use module-specific builds when changing individual files  
-✅ Use parallel builds for faster compilation (`--parallel`)  
-✅ Use `--build-cache` and `--configuration-cache` for performance  
-✅ Use `--warning-mode all` periodically to catch deprecations  
-✅ Check `settings.gradle` to find correct module name  
-✅ Clean before building if you encounter strange errors  
-✅ Use `compileJava` for quick syntax checking  
-✅ Run tests after making changes to ensure nothing broke  
-✅ Use `--info` or `--stacktrace` when debugging build issues  
-✅ Build dependent modules when changing shared interfaces  
+
+✅ Use the Gradle Wrapper (`./gradlew`) instead of system `gradle`
+✅ Use module-specific builds when changing individual files
+✅ Use parallel builds for faster compilation (`--parallel`)
+✅ Use `--build-cache` and `--configuration-cache` for performance
+✅ Use `--warning-mode all` periodically to catch deprecations
+✅ Check `settings.gradle` to find correct module name
+✅ Clean before building if you encounter strange errors
+✅ Use `compileJava` for quick syntax checking
+✅ Run tests after making changes to ensure nothing broke
+✅ Use `--info` or `--stacktrace` when debugging build issues
+✅ Build dependent modules when changing shared interfaces
 
 ### Don't:
-❌ Don't build the entire project when only one module changed  
-❌ Don't modify `settings.gradle` without understanding module dependencies  
-❌ Don't skip tests when pushing to shared branches  
-❌ Don't commit build artifacts (`build/` directories, `.class` files, `.jar` files)  
-❌ Don't run multiple Gradle commands simultaneously in the same workspace  
-❌ Don't ignore dependency errors — they cascade into dependent modules  
-❌ Don't use outdated cached dependencies — refresh if builds behave unexpectedly  
+
+❌ Don't build the entire project when only one module changed
+❌ Don't modify `settings.gradle` without understanding module dependencies
+❌ Don't skip tests when pushing to shared branches
+❌ Don't commit build artifacts (`build/` directories, `.class` files, `.jar` files)
+❌ Don't run multiple Gradle commands simultaneously in the same workspace
+❌ Don't ignore dependency errors — they cascade into dependent modules
+❌ Don't use outdated cached dependencies — refresh if builds behave unexpectedly
 
 ---
 
@@ -925,7 +929,7 @@ GRADLE_USER_HOME=/custom/path/.gradle
 ---
 ---
 
-# Part 2 — Company Project Example: Capital Project
+## Part 2 — Company Project Example: Capital Project
 
 > **What this section is:** A real-world example of how a large enterprise project (200+ Gradle modules) customizes its build workflow. Use it as a **template** for organizing your own project's build documentation.
 >
@@ -986,6 +990,7 @@ git commit -m "Your commit message"
 > **Example of customization:** This shows how a large project organizes 200+ modules into logical categories. Map your own project's modules the same way.
 
 ### Core Framework Modules
+
 - **`capitalcaf`** — Capital Application Framework (CAF)
 - **`capitalcof`** — Capital Object Framework interfaces
 - **`capitalcofimpl`** — COF implementations
@@ -993,12 +998,14 @@ git commit -m "Your commit message"
 - **`capitalcommon`** — Common utilities
 
 ### Manager & Persistence
+
 - **`capitalcapmanimpl`** — Capital Manager implementation
 - **`capitalpostgres`** — PostgreSQL support
 - **`capitalddl`** — Database DDL scripts
 - **`capitalpof`** — Persistence Object Framework
 
 ### Domain Modules
+
 - **`capitallogic`** — Logical design (electrical schematics)
 - **`capitalharness`** — Physical harness design
 - **`capitaltopo`** — Topology management
@@ -1006,6 +1013,7 @@ git commit -m "Your commit message"
 - **`capitaldrafting`** — Drafting functionality
 
 ### Bridge Adapters (CAD/PLM Integration)
+
 - **`capitalbridges`** — Bridge implementation framework
 - **`capitalbridgessdk`** — Bridge SDK
 - **`capitalkbl`** — KBL adapter
@@ -1015,6 +1023,7 @@ git commit -m "Your commit message"
 - **`capitalproe`** — ProE adapter
 
 ### Tools & Services
+
 - **`capitalboot`** — Boot/launcher
 - **`capitalclaunch`** — Client launcher
 - **`capitalrestserver`** — REST server
@@ -1022,6 +1031,7 @@ git commit -m "Your commit message"
 - **`capitalreporterserver`** — Reporting server
 
 ### Testing Modules
+
 - **`capitaltestscof`** — COF tests
 - **`capitaltestscaf`** — CAF tests
 - **`capitaltestlogic`** — Logic tests
@@ -1076,9 +1086,11 @@ git commit -m "Your commit message"
 ### Method 1: Check settings.gradle
 
 Search for the directory path in `settings.gradle`:
+
 ```groovy
 includeBuild("charness_src/src/capitalharness") {name="capitalharness"}
 ```
+
 This means files in `charness_src/src/capitalharness/` belong to module `:capitalharness`.
 
 ### Method 2: Module Name Mapping Table
@@ -1103,6 +1115,7 @@ This means files in `charness_src/src/capitalharness/` belong to module `:capita
 ### Method 3: Search settings.gradle Programmatically
 
 **PowerShell:**
+
 ```powershell
 $filePath = "charness_src/src/capitalharness/MyFile.java"
 $directory = Split-Path $filePath -Parent
@@ -1110,6 +1123,7 @@ Select-String -Path settings.gradle -Pattern $directory
 ```
 
 **Bash:**
+
 ```bash
 FILE_PATH="charness_src/src/capitalharness/MyFile.java"
 DIR_PATH=$(dirname "$FILE_PATH")
@@ -1347,18 +1361,20 @@ alias gd='git diff'
 > **Example of customization:** These supplement the generic do's/don'ts in §1.16 with project-specific rules.
 
 ### Do:
-✅ Use `git push iesd25` (NOT `origin`) for this project  
-✅ Build dependent modules when changing interfaces (COF → COFImpl → consumers)  
-✅ Build proto modules before building implementation modules  
-✅ Check `settings.gradle` to find the correct module name for a file  
-✅ Use `compileJava` for quick syntax checking before full builds  
+
+✅ Use `git push iesd25` (NOT `origin`) for this project
+✅ Build dependent modules when changing interfaces (COF → COFImpl → consumers)
+✅ Build proto modules before building implementation modules
+✅ Check `settings.gradle` to find the correct module name for a file
+✅ Use `compileJava` for quick syntax checking before full builds
 
 ### Don't:
-❌ Don't use `git push origin` — the remote is `iesd25`  
-❌ Don't run `./gradlew build` for the entire project unless necessary (30–60+ minutes)  
-❌ Don't modify `settings.gradle` without understanding module dependencies in this project  
-❌ Don't forget to build proto modules (`capitalgrpc`) before building implementation  
-❌ Don't mix Ant and Gradle builds — prefer Gradle for everything  
+
+❌ Don't use `git push origin` — the remote is `iesd25`
+❌ Don't run `./gradlew build` for the entire project unless necessary (30–60+ minutes)
+❌ Don't modify `settings.gradle` without understanding module dependencies in this project
+❌ Don't forget to build proto modules (`capitalgrpc`) before building implementation
+❌ Don't mix Ant and Gradle builds — prefer Gradle for everything
 
 ---
 

@@ -36,7 +36,7 @@
 MCP (Model Context Protocol) is the **connector layer** between AI brains (LLMs)
 and the world (APIs, databases, files, services). Understanding the full stack:
 
-```
+```text
 ┌─────────────────── AI HOST / CLIENT ───────────────────────┐
 │  Claude Desktop │ VS Code Copilot │ Continue.dev │ Any IDE  │
 └──────────────────────────┬─────────────────────────────────┘
@@ -56,7 +56,7 @@ and the world (APIs, databases, files, services). Understanding the full stack:
 **The AI model never calls external APIs directly.** It calls MCP tools.
 MCP servers call external APIs on the model's behalf. This is the core design:
 
-```
+```text
 User → AI Model → picks tool → MCP server → external API → result → AI Model → User
 ```
 
@@ -80,6 +80,7 @@ each in its own process, each with their own STDIO connection. The AI model
 has access to **all tools from all servers at once**.
 
 **Example: AI client config with 4 servers**
+
 ```json
 {
   "mcpServers": {
@@ -131,7 +132,7 @@ response, without any explicit wiring from you.
 
 **Example: "Create a Jira ticket for the bug I described in my notes"**
 
-```
+```text
 AI step 1: filesystem::read_file("my-notes.md")          → reads bug description
 AI step 2: atlassian::create_jira_issue(summary, desc)   → creates ticket
 AI step 3: atlassian::add_jira_comment(key, "Created!")  → adds confirmation
@@ -188,7 +189,7 @@ Now you can explicitly compare:
 
 Run the same query against both versions and compare:
 
-```
+```yaml
 Prompt: "Using atlassian, search for open bugs in project PAYMENT"
 Prompt: "Now do the same using atlassian-v2"
 ```
@@ -200,7 +201,7 @@ no downtime, no risk — just add the v2 server and compare responses.
 
 After running both in parallel, you'll see which version handles which tools better:
 
-```
+```text
 v1 strengths: Jira search (more accurate JQL translation)
 v2 strengths: Bitbucket PR creation (cleaner response format)
 ```
@@ -245,7 +246,7 @@ It only speaks JSON-RPC 2.0. Both servers are equally usable from the AI's persp
 
 ### 4.2 The MCP Language Matrix
 
-```
+```text
                PROTOTYPING  ENTERPRISE  ML/DATA  BROWSER  LOWEST DEPS
 TypeScript         ⭐⭐⭐        ⭐⭐         ⭐       ⭐⭐⭐       ⭐⭐
 Python             ⭐⭐⭐        ⭐⭐         ⭐⭐⭐     ⭐          ⭐⭐
@@ -256,7 +257,7 @@ Rust               ⭐            ⭐⭐          ⭐        ⭐          ⭐⭐
 
 ### 4.3 Project Layout for Multi-Language MCP Project
 
-```
+```text
 my-mcp-project/
 ├── mcp-java/              ← Java servers (this project's style)
 │   ├── src/
@@ -282,6 +283,7 @@ my-mcp-project/
 ```
 
 **Root AI client config connecting all languages:**
+
 ```json
 {
   "mcpServers": {
@@ -298,7 +300,8 @@ my-mcp-project/
 If you want consistent tool names and response formats across Java and TypeScript:
 
 **Option A — Document in Markdown (simple)**
-```
+
+```text
 tool-contracts/
 ├── atlassian-tools.md    ← tool names, param formats, response schema
 ├── search-tools.md
@@ -306,7 +309,8 @@ tool-contracts/
 ```
 
 **Option B — JSON Schema (structured)**
-```
+
+```text
 tool-contracts/
 ├── schemas/
 │   ├── search_issues.json    ← JSON Schema for the tool's inputSchema
@@ -340,18 +344,21 @@ When the AI client connects to your MCP server, it translates the MCP tool catal
 into the LLM's native function-calling format:
 
 **MCP tool definition →**
+
 ```json
 { "name": "search_jira_issues", "description": "Search Jira...",
   "inputSchema": { "type": "object", "properties": { "query": {"type":"string"} } } }
 ```
 
 **Claude API `tools` parameter (same structure, Anthropic format):**
+
 ```json
 { "name": "search_jira_issues", "description": "Search Jira...",
   "input_schema": { "type": "object", "properties": { "query": {"type":"string"} } } }
 ```
 
 **OpenAI API `tools` parameter:**
+
 ```json
 { "type": "function", "function": {
     "name": "search_jira_issues", "description": "Search Jira...",
@@ -366,6 +373,7 @@ it works with any AI client that supports MCP.
 Your MCP server can itself call LLM APIs to add AI-powered features:
 
 **Example: Java MCP server with OpenAI GPT-4 for summarisation**
+
 ```java
 // In your tool handler — summarise a Confluence page using GPT-4
 private String summarisePage(final String pageContent) {
@@ -393,7 +401,8 @@ private String summarisePage(final String pageContent) {
 ```
 
 This pattern creates a **two-level AI system:**
-```
+
+```text
 User → AI Client (Claude) → MCP tool call → Java server → OpenAI GPT-4 → enriched result → Claude → User
 ```
 
@@ -417,6 +426,7 @@ def classify_document(content: str) -> str:
 ```
 
 Ollama API is OpenAI-compatible, so Python's `openai` library works:
+
 ```python
 from openai import OpenAI
 client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
@@ -439,6 +449,7 @@ Provides chains, agents, memory, RAG pipelines, and tool abstractions.
 - Or: you can expose LangChain chains as MCP server tools
 
 **LangChain calling an MCP server (Python):**
+
 ```python
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
@@ -462,6 +473,7 @@ agent = create_react_agent(llm=ChatOpenAI(), tools=mcp_tools)
 ```
 
 **Exposing a LangChain chain as an MCP tool (Python):**
+
 ```python
 from mcp.server import Server
 from langchain.chains import RetrievalQA
@@ -543,10 +555,11 @@ var result = await kernel.InvokePromptAsync(
 ```
 
 **Java Semantic Kernel (Preview):**
+
 ```java
 // Microsoft Semantic Kernel for Java
 Kernel kernel = Kernel.builder()
-    .withAIService(ChatCompletionService.class, 
+    .withAIService(ChatCompletionService.class,
         new OpenAIChatCompletion("gpt-4o", apiKey))
     .build();
 ```
@@ -592,7 +605,7 @@ An agent is an AI model in a loop — it calls tools, observes results, decides
 the next action, and repeats until the goal is reached. MCP servers provide
 the tools that agents use.
 
-```
+```text
 User request → Agent (LLM in loop)
                     │
                     ├─ tool call 1 (search_jira)
@@ -612,6 +625,7 @@ User request → Agent (LLM in loop)
 ### 7.2 Agent Frameworks That Work with MCP
 
 **LangChain Agents (Python)**
+
 ```python
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain_openai import ChatOpenAI
@@ -628,6 +642,7 @@ result = executor.invoke({"input": "Find all critical Jira bugs in our payment s
 
 **AutoGPT / BabyAGI Pattern**
 These are "autonomous agents" that set their own goals and sub-goals:
+
 ```python
 # Simplified AutoGPT loop
 task_list = ["Find open Jira bugs", "Categorise by severity", "Write summary report"]
@@ -640,6 +655,7 @@ while task_list:
 
 **CrewAI (Multi-Agent)**
 Multiple specialised agents collaborating, each with their own MCP tool subset:
+
 ```python
 from crewai import Agent, Task, Crew
 
@@ -659,6 +675,7 @@ crew.kickoff()
 
 **LangGraph (Stateful Agent)**
 LangGraph models agent state as a graph — ideal for long-running, stateful workflows:
+
 ```python
 from langgraph.graph import StateGraph, END
 
@@ -719,7 +736,7 @@ public class SimpleAgent {
 
 This architecture uses the right language for each job:
 
-```
+```text
 ┌─────────────────────────── AI CLIENT ───────────────────────────┐
 │            Claude Desktop / VS Code / Continue.dev               │
 └───────────────────────────────┬─────────────────────────────────┘
@@ -763,7 +780,8 @@ But the **AI model** orchestrates between them. Three patterns:
 
 **Pattern 1 — AI Orchestration (simplest)**
 Let the AI call each server in turn. No extra code needed.
-```
+
+```yaml
 User: "Find open bugs and create a confluence report"
 AI: search_jira_issues("open bugs") → [3 bugs]
 AI: create_confluence_page("Bug Report", format(3 bugs)) → page created
@@ -771,6 +789,7 @@ AI: create_confluence_page("Bug Report", format(3 bugs)) → page created
 
 **Pattern 2 — Aggregator MCP Server**
 Write one MCP server that internally calls two others:
+
 ```java
 // AggregatorServer.java — one tool that internally does multi-server logic
 public String handleToolCall(String toolName, Map<String, String> args) {
@@ -787,10 +806,12 @@ public String handleToolCall(String toolName, Map<String, String> args) {
 
 **Pattern 3 — Shared Message Bus**
 For complex multi-agent systems:
-```
+
+```text
 MCP Server A → publishes to Redis Pub/Sub
 MCP Server B → subscribes from Redis Pub/Sub
 ```
+
 This breaks MCP's design philosophy (stateless tools) and is only for advanced cases.
 
 ### 8.3 When to Use What Language
@@ -820,7 +841,7 @@ This breaks MCP's design philosophy (stateless tools) and is only for advanced c
 
 ### Recipe 1 — Learning + Atlassian Combined Workflow
 
-```
+```text
 "I want to learn about microservices. Also find any Jira tickets we have
  on the topic so I know what we've already tried."
 
@@ -905,7 +926,7 @@ result = executor.invoke({
 
 ## Summary — Decision Guide
 
-```
+```text
 You want to...                              → Use this approach
 ──────────────────────────────────────────────────────────────────────
 Expose Java APIs as AI tools               → Java MCP server (this project)

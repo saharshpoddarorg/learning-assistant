@@ -19,6 +19,7 @@ ${input:level:Your experience? (student / junior / mid / senior / lead)}
 
 ### SDLC Complete Map
 ```
+
 Software Development Lifecycle — End to End
 │
 ├── 1. PLANNING & REQUIREMENTS
@@ -79,17 +80,20 @@ Software Development Lifecycle — End to End
     ├── Dependency updates & security patches
     ├── Feature deprecation
     └── Documentation updates
-```
+
+```markdown
 
 ### Methodology Comparison
 ```
+
 Waterfall:    Requirements ──→ Design ──→ Build ──→ Test ──→ Deploy (linear)
 Agile/Scrum:  Sprint[Plan → Dev → Test → Review → Retro] × N (iterative)
 Kanban:       Continuous flow with WIP limits (pull-based)
 XP:           Short iterations + pair programming + TDD + CI (discipline)
 Spiral:       Plan → Risk Analysis → Engineer → Evaluate (risk-driven)
 SAFe:         Scaled Agile for large organizations (frameworks of frameworks)
-```
+
+```markdown
 
 ### Response by Focus
 

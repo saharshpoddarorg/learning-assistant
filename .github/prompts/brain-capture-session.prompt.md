@@ -39,9 +39,11 @@ conversation / session context and distil it into a structured, publishable mark
    - What was learned?
 
 2. **Generate the filename:**
-   ```
+
+   ```text
    YYYY-MM-DD_session-<topic-slug>.md
    ```
+
    Use today's date: `${CURRENT_DATE}`.
    Slugify the topic: all-lowercase, hyphens, no spaces.
 
@@ -52,6 +54,7 @@ conversation / session context and distil it into a structured, publishable mark
 5. **Write the note body:**
 
    For `depth` = `full`:
+
    ```markdown
    ---
    date: YYYY-MM-DD
@@ -80,8 +83,10 @@ conversation / session context and distil it into a structured, publishable mark
    ## Code Snippets / Commands
    <!-- Paste the most reusable code / commands from the session -->
    ```language
+
    // snippet here
-   ```
+
+   ```markdown
 
    ## Decisions Made
    <!-- Any architectural or implementation choices, with brief rationale -->
@@ -96,6 +101,7 @@ conversation / session context and distil it into a structured, publishable mark
    ```
 
    For `depth` = `quick`:
+
    ```markdown
    ---
    date: YYYY-MM-DD
@@ -119,7 +125,8 @@ conversation / session context and distil it into a structured, publishable mark
    ```
 
 6. **After creating the file**, tell the user:
-   ```
+
+   ```text
    ✅ Session note created:
       brain/ai-brain/inbox/YYYY-MM-DD_session-<slug>.md
 

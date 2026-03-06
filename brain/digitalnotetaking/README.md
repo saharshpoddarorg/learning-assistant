@@ -1,6 +1,6 @@
 # Digital Note-Taking — Module Guide
 
-> **What is this module?**  
+> **What is this module?**
 > The `brain/digitalnotetaking/` folder is the structured knowledge hub for everything
 > related to personal knowledge management (PKM), digital note-taking, and productivity
 > tools — tailored specifically for software engineers.
@@ -44,26 +44,30 @@ For software engineers, PKM takes the form of:
 ## The Two Methodologies You Need
 
 ### PARA — for organizing
-```
+
+```text
 Projects/    ← active work with a deadline   (mcp-servers, interview-prep)
 Areas/       ← ongoing responsibilities       (Java, Architecture, Career)
 Resources/   ← topics of interest             (Distributed Systems, Books)
 Archives/    ← completed / inactive           (old-job, finished-courses)
 ```
+
 → Full guide: [para-method.md](para-method.md)
 
 ### CODE — for the workflow
 
-```
+```text
 C → Capture    Don't filter — grab it now (brain new / brain-capture-session)
 O → Organize   Route into PARA (brain move / brain publish)
 D → Distill    Extract the signal — bold, TL;DR, progressive summarization
 E → Express    Create from what you know (code, PR, doc, ADR, blog post)
 ```
+
 → Full guide: [code-method.md](code-method.md)
 
 ### CODE — for processing
-```
+
+```text
 Capture   → save anything worth keeping
 Organize  → file into PARA
 Distill   → highlight the key insight (progressive summarization)
@@ -89,7 +93,7 @@ Express   → produce something: ADR, blog post, PR description, wiki
 
 This module connects to the live note workspace at [`brain/ai-brain/`](../ai-brain/):
 
-```
+```text
 brain/
 ├── ai-brain/          ← live workspace (inbox → notes → library)
 │   ├── inbox/         temporary capture (not git-tracked)
@@ -155,17 +159,20 @@ used for tooling (note generation, validation, search index building).
 ## Learning Path
 
 ### If you are new to PKM
+
 1. Read [START-HERE.md](START-HERE.md)
 2. Pick Obsidian (offline) or Notion (cloud) and set it up in 15 minutes
 3. Create your first PARA structure
 4. Use `/brain-new` to capture your first note
 
 ### If you have a system and want to improve it
+
 1. Read [para-method.md](para-method.md) — align your folder structure
 2. Add templates from [templates.md](templates.md) to your tool
 3. Run `/digital-notetaking → code-method → advanced` for progressive summarization tips
 
 ### If you want to migrate tools
+
 1. See [migration-guide.md](migration-guide.md) for step-by-step migration paths
 2. Run `/digital-notetaking → migration → notion-to-obsidian`
 

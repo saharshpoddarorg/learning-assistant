@@ -6,12 +6,15 @@ tools: ['codebase', 'fetch']
 ---
 
 ## Tool / Topic
+
 ${input:topic:What do you want to set up or learn? (homebrew / npm / nvm / jdk / ide / docker / shell / aliases / dotfiles / brewfile / bootstrap)}
 
 ## Specific Area
+
 ${input:area:What specific aspect? (e.g., install, commands, switch-versions, configure, automate, troubleshoot)}
 
 ## Current Level
+
 ${input:level:Your experience level? (newbie / amateur / pro)}
 
 ## Instructions
@@ -22,7 +25,7 @@ Reference module guides in `mac-os/docs/` for detailed reference.
 
 ### Mac Dev Domain Map
 
-```
+```text
 macOS Development Environment
 │
 ├── Package Management
@@ -73,6 +76,7 @@ macOS Development Environment
 ### Response Structure by Level
 
 #### 🟢 Newbie — First steps only
+
 1. **Why this tool/step matters** — what problem it solves
 2. **Install it** — exact command (always via Homebrew where possible)
 3. **Verify it works** — what to run and what output to expect
@@ -81,6 +85,7 @@ macOS Development Environment
 6. **Next step** — what to install/do next
 
 #### 🟡 Amateur — Practical day-to-day usage
+
 1. **How it works** — mental model of the tool
 2. **Essential config** — what to add to `~/.zshrc`, `~/.zprofile`
 3. **Command table** — all day-to-day commands with comments
@@ -90,6 +95,7 @@ macOS Development Environment
 7. **Quick win** — one thing to do right now that improves quality of life
 
 #### 🔴 Pro — Automation & reproducibility
+
 1. **Brewfile strategy** — dump, track in Git, CI/CD new-machine bootstrap
 2. **Dotfiles** — directory structure, symlinking approach, Git repo
 3. **Bootstrap script** — one-command new-Mac setup
@@ -101,6 +107,7 @@ macOS Development Environment
 ### Quick Command Reference
 
 #### Homebrew Essentials
+
 ```zsh
 brew install <formula>                        # CLI tool or runtime
 brew install --cask <name>                    # GUI application
@@ -111,6 +118,7 @@ brew bundle install                           # install from Brewfile
 ```
 
 #### JDK Management
+
 ```zsh
 brew install --cask temurin@21                # install Temurin Java 21
 /usr/libexec/java_home -V                     # list installed JDKs
@@ -120,6 +128,7 @@ jenv local 17                                 # set per-project (with jenv)
 ```
 
 #### npm / nvm
+
 ```zsh
 nvm install --lts                             # install latest LTS Node.js
 nvm use --lts                                 # switch to LTS
@@ -131,6 +140,7 @@ npm run <script>                              # run script
 ```
 
 #### Docker
+
 ```zsh
 brew install --cask docker                    # install Docker Desktop
 docker ps                                     # list running containers
@@ -140,6 +150,7 @@ docker system prune -f                        # cleanup
 ```
 
 #### Shell Config
+
 ```zsh
 source ~/.zshrc                               # reload config
 echo $JAVA_HOME                               # check JAVA_HOME
@@ -149,6 +160,7 @@ lsof -ti :8080 | xargs kill                  # kill port 8080
 ```
 
 ### Curated Resources
+
 - **Homebrew Docs**: https://docs.brew.sh
 - **Homebrew Formulae**: https://formulae.brew.sh
 - **Eclipse Temurin**: https://adoptium.net
@@ -163,6 +175,7 @@ lsof -ti :8080 | xargs kill                  # kill port 8080
 - **oh-my-zsh**: https://ohmyz.sh
 
 ### Module Docs (in this repo)
+
 - [START-HERE](../../mac-os/docs/START-HERE.md)
 - [Homebrew Guide](../../mac-os/docs/homebrew-guide.md)
 - [JDK Setup](../../mac-os/docs/jdk-setup.md)

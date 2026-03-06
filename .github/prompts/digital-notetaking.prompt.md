@@ -13,6 +13,7 @@ tools:
 # /digital-notetaking — Digital Note-Taking & PKM Assistant
 
 ## Input Variables
+
 - `${input:topic}`: What you want to learn or do
   (e.g., `set up Obsidian`, `PARA method`, `migrate Notion to Obsidian`, `upgrade to JDK 25`)
 - `${input:tool}`: Your current or target tool
@@ -26,7 +27,7 @@ tools:
 
 ## Domain Map
 
-```
+```text
 Digital Note-Taking & PKM
 ├── Methodologies (tool-agnostic)
 │   ├── CODE  → Capture, Organize, Distill, Express (Tiago Forte)
@@ -65,7 +66,7 @@ When `level` = `newbie`, respond with:
 3. **5-step quick-start** (copy-pasteable setup commands or UI steps)
 4. **PARA folder structure** to create immediately
 
-```
+```yaml
 Example: User asks "I want to start taking notes as a developer"
 
 → Recommend: Obsidian (Windows/macOS/Linux) or Notion (iOS/Android priority)
@@ -88,7 +89,7 @@ When `level` = `intermediate`, respond with:
 3. **Template** for their specific use case (ADR, sprint log, snippet vault)
 4. **Integration tips** — how to connect their tool with their dev workflow
 
-```
+```yaml
 Example: User asks "How do I apply PARA to my Obsidian vault?"
 
 → Explain PARA in developer context
@@ -113,7 +114,7 @@ When `level` = `advanced`, respond with:
 3. **Cross-tool integration** — Notion ↔ GitHub, Obsidian Git sync, Todoist API
 4. **JDK version management** — SDKMAN!, .sdkmanrc, upgrade from JDK 21 to 25
 
-```
+```yaml
 Example: User asks "How do I migrate from Notion to Obsidian?"
 
 → Export from Notion (Settings → Export as Markdown & CSV)

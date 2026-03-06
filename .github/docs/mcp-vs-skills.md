@@ -55,7 +55,7 @@ Examples:
 
 ### Decision Flowchart
 
-```
+```text
 Does the content come from an external API/database?
   YES → MCP Server
 
@@ -81,7 +81,7 @@ Can't decide? → Start with Skill, add MCP only if you need live data
 
 Some MCP tools are hybrids. The best pattern:
 
-```
+```text
 MCP server: handles search + scoring + live computation
 Skill file: contains curated examples, quick reference, and domain knowledge
 
@@ -112,7 +112,7 @@ User gets both:
 
 ### Migration Workflow
 
-```
+```text
 Step 1 — Audit the MCP server
   Read: mcp-servers/src/server/<name>/
   List all tools in handleCallTool()
@@ -151,6 +151,7 @@ Step 6 — Test
 This repo's `learning-resources` MCP server is a perfect example of the hybrid pattern:
 
 #### What stays in MCP (dynamic)
+
 ```java
 // Complex BM25 search + multi-dimension scoring — too dynamic for a skill
 handleSearch() → BM25Scorer, RelevanceEngine, FreshnessScorer
@@ -158,6 +159,7 @@ handleSearch() → BM25Scorer, RelevanceEngine, FreshnessScorer
 ```
 
 #### What could move to a skill (static reference)
+
 ```java
 // Static enum definitions — perfect for a skill table
 enum ConceptArea { ALGORITHMS, CONCURRENCY, SYSTEM_DESIGN, ... }
@@ -173,10 +175,12 @@ enum ResourceCategory { OFFICIAL_DOCS, VIDEO, BOOK, TUTORIAL, ... }
 This is the recommended pattern for **search-based MCP servers**.
 
 #### What fully moves to skill (purely static)
+
 ```java
 // Server metadata — never changes
 handleGetServerInfo() → "Learning Resources v1.0, 500+ resources"
 ```
+
 This becomes a one-liner in the skill: "Use the `learning-resources` MCP server to search 500+ curated resources."
 
 ---
@@ -198,7 +202,7 @@ This becomes a one-liner in the skill: "Use the `learning-resources` MCP server 
 
 Use the `/mcp-to-skill` slash command to automate the analysis:
 
-```
+```markdown
 # In Copilot Chat:
 /mcp-to-skill
 → target: src/server/learningresources/
@@ -207,6 +211,7 @@ Use the `/mcp-to-skill` slash command to automate the analysis:
 ```
 
 After generating:
+
 ```powershell
 # Build still needed only if MCP server stays active
 .\mcp-servers\build.ps1

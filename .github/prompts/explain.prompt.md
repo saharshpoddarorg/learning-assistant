@@ -8,9 +8,11 @@ tools: ['codebase']
 Explain this file in plain, beginner-friendly language.
 
 ## File
+
 ${file}
 
 ## Instructions
+
 Provide a structured explanation:
 
 1. **Purpose:** What does this file do? (1-2 sentences, plain language)

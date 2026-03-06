@@ -35,13 +35,15 @@ Teach the 6 Copilot customization primitives in a structured way. Adapt to `leve
 #### 🟢 Newbie: The 6 Things You Can Do
 
 ```
+
 1. copilot-instructions.md  → Project-wide rules. Always active. One file.
 2. .instructions.md         → File-type rules. Auto-active when file matches.
 3. .prompt.md               → Slash commands (/my-cmd). On-demand workflows.
 4. .agent.md                → AI personas. Manual dropdown selection.
 5. SKILL.md                 → Domain knowledge. Auto-loads for relevant questions.
 6. MCP Server               → External tools. GitHub, Jira, databases, APIs.
-```
+
+```text
 
 **The 1-sentence rule:**
 - **Instructions** = rules Copilot MUST follow
@@ -71,6 +73,7 @@ Teach the 6 Copilot customization primitives in a structured way. Adapt to `leve
 #### 🔴 Pro: Priority, Stacking, and Composition
 
 ```
+
 Priority (highest wins on conflict):
   1 — Your message      (always wins)
   2 — .prompt.md        (when /cmd invoked)
@@ -92,7 +95,8 @@ Cross-type composition (most powerful):
   Agent + Prompt              → "who" + "what workflow"
   Agent + MCP                 → expert persona + live external data
   Instructions + Agent + MCP  → rules + persona + real tools (full power)
-```
+
+```text
 
 See `.github/docs/copilot-customization-deep-dive.md` for the complete composition pattern library.
 
@@ -108,38 +112,50 @@ Always produce a **complete, ready-to-use file** — not a template with placeho
 Generate the project base instruction file. Structure as:
 
 ```markdown
+
 # Project Instructions — [PROJECT NAME]
 
 ## Overview
+
 - Language: [language + version]
 - Build: [build tool]
 - Purpose: [one sentence]
 
 ## Naming Conventions
+
 - Classes: UpperCamelCase
 - Methods: lowerCamelCase
 - Constants: UPPER_SNAKE_CASE
 - Packages: all lowercase
 
 ## Code Style
+
 - [Specific rules for the language]
 - [Line length, brace style, etc.]
 
 ## Methods
+
 - [Size limits, single responsibility, etc.]
 
 ## Error Handling
+
 - [Specific exception strategy]
 
 ## Do's and Don'ts
+
 ### Do:
+
 - [Rule 1]
+
 ### Don't:
+
 - [Rule 1]
 
 ## Commit Guidelines
+
 [Conventional commits format or team convention]
-```
+
+```text
 
 **Rules for writing good copilot-instructions.md:**
 - Keep under 2 000 tokens — it's sent on EVERY request
@@ -154,18 +170,23 @@ Generate the project base instruction file. Structure as:
 Generate a scoped instruction file. Always include the `applyTo` glob.
 
 ```markdown
+
 ---
 applyTo: "[GLOB PATTERN]"
 ---
+
 # [Domain] Instructions
 
 ## [Category 1]
+
 - [Specific, actionable rule 1]
 - [Specific, actionable rule 2]
 
 ## [Category 2]
+
 - [Rule]
-```
+
+```text
 
 **Glob pattern guide:**
 | Pattern | Matches |
@@ -186,6 +207,7 @@ applyTo: "[GLOB PATTERN]"
 Generate a complete slash command prompt. Identify 3+ input variables for the domain.
 
 ```markdown
+
 ---
 name: [command-name]
 description: '[Brief description — shown in Copilot Chat autocomplete]'
@@ -194,12 +216,15 @@ tools: ['codebase', 'search', 'usages']
 ---
 
 ## [Primary Input]
+
 ${input:topic:What topic? ([option1] / [option2] / [option3])}
 
 ## [Secondary Input]
+
 ${input:goal:What's your goal? ([option1] / [option2])}
 
 ## [Level]
+
 ${input:level:Your level? (beginner / intermediate / advanced)}
 
 ## Instructions
@@ -207,16 +232,20 @@ ${input:level:Your level? (beginner / intermediate / advanced)}
 [Main instructions for Copilot — what to do for each topic/goal combination]
 
 ### When `topic` is `[option1]`:
+
 [Instructions and structure for this topic]
 
 ### When `topic` is `[option2]`:
+
 [Instructions and structure for this topic]
 
 ### Rules
+
 - Always provide working code examples
 - Adapt depth to `level`
 - [Domain-specific rule]
-```
+
+```text
 
 **Key prompt design principles:**
 1. `${input:}` variables — collect the minimum necessary context upfront
@@ -232,6 +261,7 @@ ${input:level:Your level? (beginner / intermediate / advanced)}
 Generate a complete agent persona file. Think about: mindset, vocabulary, tool access, what it never does.
 
 ```markdown
+
 ---
 description: >
   [WHO THIS AGENT IS — one line persona].
@@ -248,27 +278,32 @@ model: gpt-4o   [optional — remove line to use default]
 You are a [ROLE]. Your expertise is [DOMAIN], [SUBDOMAIN], and [ADJACENT KNOWLEDGE].
 
 ## How You Think
+
 - [Primary thinking approach — e.g., "Always look for root causes before suggesting fixes"]
 - [Communication style — e.g., "Be concise and cite evidence from the codebase"]
 - [What you prioritize — e.g., "Correctness over conciseness"]
 
 ## Your Workflow
+
 When the user asks you to [PRIMARY TASK]:
 1. [Step 1 — what you do first]
 2. [Step 2]
 3. [Step 3 — final output format]
 
 ## What You Never Do
+
 - Never [rule 1]
 - Never [rule 2]
 - Never make changes without confirming with the user first (if applicable)
-```
+
+```text
 
 **Available tools (use only what the agent needs):**
 ```
+
 codebase      — Read project files (non-editable view)
 search        — Search workspace
-usages        — Find symbol usages  
+usages        — Find symbol usages
 editFiles     — Create and edit files ← add only if agent must write
 runCommands   — Run terminal commands ← add only if agent must execute
 problems      — Read VS Code diagnostics
@@ -277,7 +312,8 @@ findTestFiles — Find test files for a source file (2025+)
 terminalLastCommand  — Read last terminal output (2025+)
 terminalSelection    — Read selected text in terminal (2025+)
 testFailure          — Read test failure details (2025+)
-```
+
+```yaml
 
 ---
 
@@ -286,6 +322,7 @@ testFailure          — Read test failure details (2025+)
 Generate a complete skill file. The description field is the most important part — write it carefully.
 
 ```markdown
+
 ---
 name: [domain-name]
 description: >
@@ -330,15 +367,18 @@ description: >
 |---|---|
 | [Official docs](...) | ... |
 | [Tutorial](...) | ... |
-```
+
+```text
 
 **Description field formula:**
 ```
-"Comprehensive guide to [DOMAIN X]. 
+
+"Comprehensive guide to [DOMAIN X].
  Covers [SUBTOPIC A], [SUBTOPIC B], [SUBTOPIC C].
  Use when asked about [TERM 1], [TERM 2], [USE CASE 1], or [USE CASE 2].
  Also useful for [ADJACENT USE CASE]."
-```
+
+```yaml
 
 ---
 
@@ -348,6 +388,7 @@ Generate the `.vscode/mcp.json` entry AND the minimal server scaffold.
 
 **Config entry (`.vscode/mcp.json`):**
 ```jsonc
+
 {
   "inputs": [
     {
@@ -368,10 +409,12 @@ Generate the `.vscode/mcp.json` entry AND the minimal server scaffold.
     }
   }
 }
-```
+
+```text
 
 **TypeScript server scaffold:**
 ```typescript
+
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
@@ -402,7 +445,8 @@ server.tool(
 
 const transport = new StdioServerTransport();
 await server.connect(transport);
-```
+
+```yaml
 
 ---
 
@@ -471,6 +515,7 @@ Ask clarifying questions first:
 Then recommend a composition recipe from:
 
 ```
+
 Tier 1 — Simple (1-2 types):
   ├── Rules always enforced                → copilot-instructions.md
   ├── File-type specific rules             → .instructions.md
@@ -486,7 +531,8 @@ Tier 3 — Full Power (4+ types):
   ├── Domain mastery                       → copilot-instructions + .instructions + SKILL + .prompt
   ├── Expert + live data                   → .agent + MCP server
   └── Everything                           → all 6 types active
-```
+
+```yaml
 
 Output: A concrete file list the user needs to create, with one-line description of each.
 
@@ -512,40 +558,48 @@ Use `codebase` and `search` tools to discover the actual state.
 
 When `domain` is **java** or **backend**:
 ```
+
 copilot-instructions.md            → Java version, naming, methods, commits
 java.instructions.md               → Java-specific rules (var, final, @Override)
 clean-code.instructions.md         → Code quality rules
 java-learning-resources/SKILL.md   → Java API reference, patterns, resources
 learning-mentor.agent.md           → Teaching persona for Java learning sessions
 /learn-concept prompt              → Java concept deep dives
-```
+
+```text
 
 When `domain` is **devops** or **ci-cd**:
 ```
+
 copilot-instructions.md            → Commit format, branch naming
 devops.instructions.md             → IaC rules, Docker best practices, k8s conventions
 software-engineering-resources/SKILL.md → DevOps resources
 /devops prompt                     → DevOps learning and reference
 docker-mcp-server                  → Live container management
 kubernetes-mcp-server              → Live cluster operations
-```
+
+```text
 
 When `domain` is **security**:
 ```
+
 security.instructions.md (applyTo: **) → OWASP rules, input validation, no hardcoded secrets
 security-reviewer.agent.md             → Threat modeling mindset, OWASP vocabulary
 /security-review prompt                → Structured audit workflow
 security-mcp-server (optional)         → SAST tool integration
-```
+
+```text
 
 When `domain` is **mcp** or **ai-tools**:
 ```
+
 mcp-development/SKILL.md           → Full MCP protocol reference
 /mcp prompt                        → Learn and build MCP servers
 learning-mentor.agent.md           → Teaching persona for explanations
 github-mcp-server                  → GitHub integration
 .vscode/mcp.json                   → Register all your MCP servers
-```
+
+```yaml
 
 ---
 

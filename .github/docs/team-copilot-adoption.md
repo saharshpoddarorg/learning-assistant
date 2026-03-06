@@ -20,7 +20,8 @@
 ### The Problem Copilot Solves for Teams (and Doesn't Solve by Default)
 
 **Without customization:**
-```
+
+```text
 Dev A's prompt: "Add a setter. Call premodify() first, fire PropertyChangeEvent,
                 use @NotNull, follow VaultKey pattern..."
 
@@ -31,7 +32,8 @@ Dev C: Didn't know about premodify() at all, submits buggy PR
 ```
 
 **With customization:**
-```
+
+```text
 All devs type: /cof-model  Add wireGauge setter to IDevice
 
 → Every dev gets the same correct, convention-compliant output.
@@ -272,7 +274,7 @@ Once instructions and skills are working well, invest in custom agents for your 
 
 **Agent instruction layering architecture:**
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                  CUSTOM AGENT                            │
 │                                                          │
@@ -325,7 +327,7 @@ These diagrams are always loaded when editing Java files.
 
 **How to generate the initial diagrams:**
 
-```
+```text
 Generate a Mermaid classDiagram showing:
 1. The top 5 core interfaces in [your domain]
 2. Their implementation hierarchies
@@ -388,7 +390,7 @@ DO NOT OUTPUT results until all gates are cleared.
 
 Think of `.github/` as a living, version-controlled team knowledge base:
 
-```
+```text
 .github/
 ├── copilot-instructions.md     ← What every developer knows (enforced)
 ├── instructions/               ← What changes by file type (auto-applied)

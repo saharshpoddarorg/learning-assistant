@@ -199,6 +199,7 @@
 ## 5. Java Platform Evolution Summary
 
 ### Release Cadence
+
 - **Since 2017:** 6-month time-based releases (March & September)
 - **LTS versions:** Every 2 years (currently 25, 21, 17, 11, 8)
 - **Preview system:** Features can be tested before becoming standard
@@ -215,6 +216,7 @@
 | **Babylon** | Code reflection | GPU programming, code transformation |
 
 ### Key Performance Improvements (8 → 17+)
+
 - **Throughput:** Higher across all GC collectors
 - **Pause times:** G1 in 17 ≈ 60% of pause time in 8; ZGC achieves sub-millisecond
 - **Footprint:** G1 overhead from ~20% (Java 8) to ~10% (Java 17)

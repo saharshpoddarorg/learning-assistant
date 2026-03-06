@@ -26,8 +26,10 @@ Create a **structured learning plan** with curated resources. The plan should be
 
 Create a visual progression:
 ```
+
 Phase 1: Foundation → Phase 2: Core Skills → Phase 3: Practice → Phase 4: Mastery
-```
+
+```text
 
 For each phase:
 - **Goal** — what you'll understand by the end

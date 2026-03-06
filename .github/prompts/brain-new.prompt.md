@@ -40,6 +40,7 @@ You are a note-taking assistant. Create a well-structured markdown note file in 
 5. Create the file at `brain/ai-brain/${input:tier}/<filename>` with this frontmatter:
 
 ```markdown
+
 ---
 date: <today YYYY-MM-DD>
 kind: <inferred kind>
@@ -52,7 +53,8 @@ source: copilot
 # <Title>
 
 <!-- Begin notes -->
-```
+
+```text
 
 6. After the frontmatter, write a structured outline based on the topic:
    - For `note`: H2 sections for key concepts, with bullet points

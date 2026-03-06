@@ -17,6 +17,7 @@ description: >
 ## Core Methodologies (Tool-Agnostic)
 
 ### CODE Method (Tiago Forte)
+
 | Step | Action | Developer Example |
 |---|---|---|
 | **Capture** | Save anything worth keeping | Bookmark article, clip API doc, save SO answer |
@@ -25,6 +26,7 @@ description: >
 | **Express** | Produce a deliverable | Write ADR, blog post, PR description, wiki page |
 
 ### PARA Method (Tiago Forte)
+
 | Folder | Definition | Development Example |
 |---|---|---|
 | **Projects** | Active goals with deadlines | `mcp-servers v2`, `JDK 25 migration`, `interview prep` |
@@ -36,6 +38,7 @@ description: >
 > Google Drive, or even your file system.
 
 ### Zettelkasten (Slip-Box)
+
 - **Fleeting notes** — rough captures (inbox)
 - **Literature notes** — summaries of sources (in your own words)
 - **Permanent notes** — atomic, link-rich, standalone ideas
@@ -46,7 +49,8 @@ description: >
 ## Newbie — Setting Up Your First System
 
 ### Option A: Notion (Cloud, Cross-Platform)
-```
+
+```text
 1. Create a free account at notion.so
 2. Create one top-level page: "My Second Brain"
 3. Add 4 sub-pages: Projects / Areas / Resources / Archives (PARA)
@@ -57,7 +61,8 @@ description: >
 **Best for:** Beginners, team wikis, iOS/Android users, enterprise
 
 ### Option B: Obsidian (Local, Offline-First)
-```
+
+```text
 1. Download from obsidian.md (free for personal use)
 2. Create a vault in a synced folder (iCloud / Dropbox / Obsidian Sync)
 3. Install community plugins: Dataview, Templater, Calendar
@@ -68,7 +73,8 @@ description: >
 **Best for:** Privacy-conscious, developers, Markdown lovers, offline use
 
 ### Option C: Logseq (Open-Source)
-```
+
+```text
 1. Download from logseq.com (free + open-source)
 2. Choose a local folder or GitHub repo for storage
 3. Use the Daily Journal page to capture throughout the day
@@ -85,6 +91,7 @@ description: >
 ### Note-Taking Templates for Engineers
 
 #### Architecture Decision Record (ADR) Template
+
 ```markdown
 # ADR-001: Use Hexagonal Architecture
 
@@ -96,6 +103,7 @@ description: >
 ```
 
 #### Sprint / Learning Journal Template
+
 ```markdown
 # 2026-02-27 Log
 
@@ -112,22 +120,26 @@ description: >
 ```
 
 #### Code Snippet Note Template
+
 ```markdown
 # Java: Stream groupingBy
 
 **Tags:** #java #streams #collectors
 
 ```java
+
 Map<String, List<Person>> byDept =
     people.stream()
           .collect(Collectors.groupingBy(Person::getDepartment));
-```
+
+```text
 
 **Source:** https://docs.oracle.com/en/java/javase/21/docs/api/
 **Date:** 2026-02-27
 ```
 
 ### Maintaining Todos in PARA
+
 - **Projects** → your active project page = task list (or link to Todoist/Linear)
 - **Inbox** → capture random tasks here, review weekly, promote to Projects or delete
 - **Not in Archives** → a task you "archived" is done, delete it or move to log
@@ -137,7 +149,8 @@ Map<String, List<Person>> byDept =
 ## Pro — Advanced Developer PKM
 
 ### Obsidian Power Setup
-```
+
+```text
 vault/
 ├── Inbox/              ← Daily capture, unfiled
 ├── Projects/
@@ -158,7 +171,8 @@ vault/
 - **Excalidraw** — draw architecture diagrams inside Obsidian
 
 ### Notion Power Setup for Teams
-```
+
+```text
 Workspace Root
 ├── 📋 Projects DB   ← Linked database: status, owner, deadline, PARA link
 ├── 📚 Resources DB  ← Tag-filtered knowledge base
@@ -168,7 +182,8 @@ Workspace Root
 ```
 
 ### Tool Migration Path
-```
+
+```text
 Notion → Obsidian:
   1. Export from Notion (Settings → Export as Markdown & CSV)
   2. Use Obsidian's built-in "Import from Notion" plugin
@@ -184,6 +199,7 @@ OneNote → Notion:
 ```
 
 ### JDK Version Management (cross-platform)
+
 ```bash
 # Install SDKMAN! (Linux/macOS/WSL on Windows)
 curl -s "https://get.sdkman.io" | bash
@@ -203,6 +219,7 @@ sdk default java 21.0.7-tem
 ```
 
 **Windows (without WSL):** Download directly from adoptium.net
+
 ```powershell
 # Set JAVA_HOME manually (PowerShell)
 $env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-25"

@@ -19,6 +19,7 @@ ${input:level:Your level with THIS language? (never-used / beginner / intermedia
 
 ### Language Learning Framework
 ```
+
 Any Programming Language — Learning Hierarchy
 │
 ├── 1. FOUNDATIONS
@@ -67,7 +68,8 @@ Any Programming Language — Learning Hierarchy
     ├── Common pitfalls & anti-patterns
     ├── Production best practices
     └── Open-source projects to study
-```
+
+```markdown
 
 ### Language Quick-Reference Cards
 

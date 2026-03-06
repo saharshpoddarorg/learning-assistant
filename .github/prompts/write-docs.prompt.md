@@ -22,7 +22,7 @@ ${input:level:Who is this for? (solo-dev / team / newbie / amateur / pro / 3-tie
 
 ## Instructions
 
-You are a technical writing expert and developer documentation specialist. Create high-quality, 
+You are a technical writing expert and developer documentation specialist. Create high-quality,
 actionable documentation from the provided content, organized with 3-tier structure wherever appropriate.
 
 Adapt output based on `docType`, `source`, `topic`, and `level`.
@@ -61,6 +61,7 @@ Create a `START-HERE.md` file at the appropriate location.
 
 **Structure:**
 ```markdown
+
 # [Topic] — Start Here
 
 > **You are in the right place if:** [one sentence on who this is for]
@@ -107,7 +108,8 @@ A: [Direct answer]
 
 **Q: [Second question?]**
 A: [Answer]
-```
+
+```yaml
 
 ---
 
@@ -117,6 +119,7 @@ Create a comprehensive developer documentation file.
 
 **Structure (3-tier):**
 ```markdown
+
 # [Topic] — Developer Guide
 
 > [One-sentence description of what this covers and who it's for]
@@ -135,15 +138,19 @@ Create a comprehensive developer documentation file.
 ## 🟢 Concepts (Newbie)
 
 ### What Is [Topic]?
+
 [Clear explanation assuming zero prior knowledge]
 
 ### Why Does It Matter?
+
 [Concrete problem it solves + before/after comparison]
 
 ### The Mental Model
+
 [One analogy or visual that makes it click]
 
 ### Your First [X] (Step-by-Step)
+
 [Minimal working example — fewest steps possible]
 
 ---
@@ -151,15 +158,19 @@ Create a comprehensive developer documentation file.
 ## 🟡 How-To (Amateur)
 
 ### [Most Common Task 1]
+
 [Step-by-step with code examples]
 
 ### [Most Common Task 2]
+
 [Step-by-step]
 
 ### Common Patterns
+
 [Table or list of patterns]
 
 ### Do's and Don'ts
+
 | ✅ Do | ❌ Don't |
 |---|---|
 
@@ -168,12 +179,15 @@ Create a comprehensive developer documentation file.
 ## 🔴 Advanced Patterns (Pro)
 
 ### [Advanced Topic 1]
+
 [Deep explanation with edge cases]
 
 ### [Advanced Topic 2]
 
 ### Performance Considerations
+
 ### Security Considerations (if applicable)
+
 ### Common Pitfalls and How to Avoid Them
 
 ---
@@ -181,12 +195,15 @@ Create a comprehensive developer documentation file.
 ## Reference
 
 ### Quick Command Reference
+
 [Cheatsheet — most common commands/APIs]
 
 ### See Also
+
 - [Related doc 1](link.md)
 - [Related doc 2](link.md)
-```
+
+```yaml
 
 ---
 
@@ -196,6 +213,7 @@ Create a focused, task-oriented guide.
 
 **Structure:**
 ```markdown
+
 # How to [Accomplish Task] — [Topic] Guide
 
 > **Goal:** [Specific outcome after reading this]
@@ -213,12 +231,15 @@ Create a focused, task-oriented guide.
 ## Step-by-Step
 
 ### Step 1: [First Action]
+
 [Clear instructions + command or code block]
 
 ### Step 2: [Second Action]
+
 [Instructions]
 
 ### Step 3: [Third Action]
+
 [Instructions]
 
 ---
@@ -226,9 +247,11 @@ Create a focused, task-oriented guide.
 ## Variations
 
 ### [Variation A — e.g., When using X instead of Y]
+
 [Modified steps]
 
 ### [Variation B]
+
 [Modified steps]
 
 ---
@@ -242,9 +265,11 @@ Create a focused, task-oriented guide.
 ---
 
 ## Next Steps
+
 - [What to do after this guide]
 - [Related guide](link.md)
-```
+
+```yaml
 
 ---
 
@@ -254,6 +279,7 @@ Create a fast-reference document optimized for scanning.
 
 **Structure:**
 ```markdown
+
 # [Topic] — Cheat Sheet
 
 > Quick reference for [audience]. When in doubt, check this first.
@@ -279,7 +305,7 @@ Create a fast-reference document optimized for scanning.
 
 ## Decision Tree
 
-```
+```text
 Need to do X?
 ├── If [condition A] → use [approach A]
 ├── If [condition B] → use [approach B]
@@ -301,7 +327,8 @@ Need to do X?
 [Copy-paste ready template 1]
 
 [Copy-paste ready template 2]
-```
+
+```yaml
 
 ---
 
@@ -313,6 +340,7 @@ Create a `.github/skills/<topic>/SKILL.md` file.
 
 **Structure:**
 ```markdown
+
 ---
 name: [topic-kebab-case]
 description: >
@@ -357,10 +385,12 @@ description: >
 |---|---|---|
 | [Official docs](url) | Official | ... |
 | [Tutorial](url) | Tutorial | ... |
-```
+
+```text
 
 **Critical rule for `description` field:**
 ```
+
 Formula: "Comprehensive guide to [DOMAIN].
           Covers [SUBTOPIC A], [SUBTOPIC B], [SUBTOPIC C].
           Use when asked about [TERM 1], [TERM 2], [TERM 3], or [USE CASE].
@@ -369,7 +399,8 @@ Formula: "Comprehensive guide to [DOMAIN].
 Too vague → never activates
 Too specific → misses related questions
 Cover synonyms, adjacent terms, and common question patterns.
-```
+
+```yaml
 
 ---
 
@@ -381,6 +412,7 @@ Create a `.github/prompts/<name>.prompt.md` slash command.
 
 **Structure:**
 ```markdown
+
 ---
 name: [command-name]          # User types /command-name
 description: '[Brief description shown in Copilot Chat autocomplete picker]'
@@ -389,12 +421,15 @@ tools: ['codebase', 'search', 'editFiles']
 ---
 
 ## [Primary input]
+
 ${input:topic:What topic? ([option1] / [option2] / [option3])}
 
 ## [Secondary input]
+
 ${input:goal:What goal? ([option1] / [option2])}
 
 ## [Depth input]
+
 ${input:level:Depth? (newbie / amateur / pro)}
 
 ---
@@ -404,17 +439,21 @@ ${input:level:Depth? (newbie / amateur / pro)}
 [Main instructions for Copilot organized by input combinations]
 
 ### When `topic` is `[option1]`:
+
 [Full instructions + structure + examples for this topic]
 
 ### When `topic` is `[option2]`:
+
 [Instructions for this topic]
 
 ### Rules
+
 - [Non-negotiable rule 1]
 - [Rule 2]
 - Always provide working, copy-paste ready examples
 - Adapt depth to `level` input
-```
+
+```text
 
 **Design principles for effective prompts:**
 1. `${input:}` variables — collect ALL needed context upfront (users shouldn't need to re-prompt)
@@ -431,6 +470,7 @@ Create a README.md for a component, directory, or project.
 
 **Structure:**
 ```markdown
+
 # [Component / Directory Name]
 
 > [One-sentence description of what this is and what it's for]
@@ -445,7 +485,7 @@ Create a README.md for a component, directory, or project.
 
 ## Contents / Structure
 
-```
+```text
 [directory or file tree]
 ```
 
@@ -470,7 +510,8 @@ Create a README.md for a component, directory, or project.
 ## See Also
 
 - [Related file/doc](link.md)
-```
+
+```yaml
 
 ---
 
@@ -482,6 +523,7 @@ Create a structured brain note in `brain/ai-brain/notes/`.
 
 **Structure:**
 ```markdown
+
 # [Topic] — [YYYY-MM-DD]
 
 ## Summary
@@ -526,7 +568,8 @@ Create a structured brain note in `brain/ai-brain/notes/`.
 ## Tags
 
 `#tag1` `#tag2` `#tag3`
-```
+
+```yaml
 
 ---
 
@@ -553,6 +596,7 @@ For each file produced:
 Regardless of `docType`, always organize content at 3 tiers when `level` is `3-tier` or `team`:
 
 ```
+
 🟢 Newbie tier: "I can do this RIGHT NOW with zero prior knowledge"
    - Most common use case
    - Minimal steps
@@ -570,7 +614,8 @@ Regardless of `docType`, always organize content at 3 tiers when `level` is `3-t
    - Performance, security, architecture considerations
    - Non-obvious techniques and why they work
    - When NOT to use this approach
-```
+
+```yaml
 
 ---
 

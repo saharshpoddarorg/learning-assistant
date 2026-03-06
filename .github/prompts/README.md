@@ -1,7 +1,7 @@
 # 🎯 Prompt Files — Guide
 
-> **What:** Reusable task templates you invoke as **slash commands** in chat (e.g., `/explain`).  
-> **Where:** `.github/prompts/*.prompt.md`  
+> **What:** Reusable task templates you invoke as **slash commands** in chat (e.g., `/explain`).
+> **Where:** `.github/prompts/*.prompt.md`
 > **How to use:** Type `/prompt-name` in VS Code Chat.
 
 ---
@@ -36,7 +36,7 @@ Prompt files are **recipes for common tasks.** Instead of typing detailed instru
 
 ### How It Looks
 
-```
+```text
 You type:    /explain
 Copilot:     (uses current file automatically)
 Result:      Structured explanation of Main.java

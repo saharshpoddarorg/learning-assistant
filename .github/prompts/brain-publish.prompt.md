@@ -44,11 +44,13 @@ You are a knowledge workspace assistant. Publish an **imported external source**
 ### Destination structure
 
 ```
+
 brain/ai-brain/library/
   <project>/
     <YYYY-MM>/
       YYYY-MM-DD_<slug>.md
-```
+
+```markdown
 
 ### Important
 

@@ -1,6 +1,6 @@
 # 🚦 START HERE — Your Entry Point to This Repo
 
-> **You landed here. Perfect. This page tells you exactly where to go next.**  
+> **You landed here. Perfect. This page tells you exactly where to go next.**
 > Takes 2 minutes to read. Skip nothing — it will save you hours.
 
 ---
@@ -40,13 +40,14 @@ You don't know what MCP is, haven't customized Copilot before, and just want thi
 
 **After reading, your first 5 actions:**
 1. `Ctrl+Shift+B` → **"mcp-servers: build"** — compiles the Java servers
-2. Open [`.vscode/mcp.json`](../../.vscode/mcp.json) → change `"disabled": true` to `"disabled": false` for `learning-resources`  
+2. Open [`.vscode/mcp.json`](../../.vscode/mcp.json) → change `"disabled": true` to `"disabled": false` for `learning-resources`
 3. Press `Ctrl+Shift+P` → "Reload Window"
 4. Open Copilot Chat (`Ctrl+Alt+I`) → switch to **Agent** mode
 5. Type `/hub` → see all 36 slash commands
 
 **Manage MCP servers after setup:**
-```
+
+```text
 Terminal → Run Task → "mcp-servers: status"   ← see what's running
 Terminal → Run Task → "mcp-servers: start (learning-resources)"
 Terminal → Run Task → "mcp-servers: stop (all)"
@@ -97,7 +98,7 @@ You understand terminal commands, git, and file structures. You just haven't set
 
 ## 🏗️ System Architecture (2-minute overview)
 
-```
+```text
 YOUR VS CODE WORKSPACE
 │
 ├── .github/                    ← Copilot reads this automatically
@@ -126,9 +127,10 @@ YOUR VS CODE WORKSPACE
 ```
 
 **The magic flow:**
-```
+
+```text
 You ask Copilot a question
-    → Copilot reads .github/ (instructions + agent persona + skill)  
+    → Copilot reads .github/ (instructions + agent persona + skill)
     → Copilot optionally calls MCP tools (search Jira, browse docs, read files)
     → Copilot answers with full context of your project AND external data
 ```

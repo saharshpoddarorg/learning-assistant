@@ -9,9 +9,9 @@ source: imported
 
 # GitHub Copilot (GHCP) Custom Instructions & Agent Mode — Knowledge Sharing Session
 
-> **Target Audience:** Developers & QA Engineers working on Capital IESD-24  
-> **Duration:** ~60-90 minutes  
-> **Presenter:** Dhrumil  
+> **Target Audience:** Developers & QA Engineers working on Capital IESD-24
+> **Duration:** ~60-90 minutes
+> **Presenter:** Dhrumil
 > **Date:** February 2026
 
 ---
@@ -55,7 +55,7 @@ source: imported
 
 ### Slide: The .github Folder — Our Knowledge Base
 
-```
+```text
 .github/
 ├── copilot-instructions.md          ← Global rules for ALL files
 ├── instructions/                     ← Module-specific coding rules
@@ -84,7 +84,7 @@ source: imported
 
 ### Slide: How Instructions Flow into the LLM
 
-```
+```text
 ┌──────────────────────────────────────────────────────┐
 │                    YOUR PROMPT                        │
 │  "Add a new Action to refresh harness connectivity"   │
@@ -131,6 +131,7 @@ source: imported
 - No manual selection needed — the right rules apply to the right files automatically
 
 **Example from our codebase:**
+
 ```yaml
 ---
 applyTo: "cframework_src/**/*.java"
@@ -169,7 +170,8 @@ applyTo: "datamodel_src/**/*.java"
 - Understanding code: "Explain the Observer pattern in COF entities"
 
 **Capital Examples:**
-```
+
+```yaml
 ASK: "What is the difference between IDevice and IPrivilegedDevice?"
 ASK: "How does the premodify() pattern work in datamodel_src?"
 ASK: "What annotations are needed for a new persistent COF object?"
@@ -186,7 +188,8 @@ ASK: "Which module should I modify to add a new DRC validator?"
 - Small targeted changes in the open file
 
 **Capital Examples:**
-```
+
+```yaml
 EDIT: "Add @NotNull annotations to all method parameters"
 EDIT: "Replace this raw iterator with a Stream pipeline"
 EDIT: "Add PropertyChangeEvent firing to this setter"
@@ -205,7 +208,8 @@ EDIT: "Add @ApplicationSpecification for CapitalHarness"
 - Complex refactoring spanning multiple modules
 
 **Capital Examples:**
-```
+
+```yaml
 AGENT: "Generate a complete unit test class for ImportMessageUtils following the pattern in AiUtilsTest"
 AGENT: "Create a new Action class for RefreshHarnessConnectivity in charness_src, following AddPinAction pattern"
 AGENT: "Find all files that implement IDRCDomainManager and summarize their validation logic"
@@ -242,8 +246,8 @@ AGENT: "Create a Confluence design review page for my PR changes"
 
 ### Slide: Rule of Thumb
 
-> **Start with Claude Sonnet 4 for most tasks.  
-> Upgrade to Opus 4 when Agent mode needs deep reasoning.  
+> **Start with Claude Sonnet 4 for most tasks.
+> Upgrade to Opus 4 when Agent mode needs deep reasoning.
 > Use GPT-4o for speed-critical Ask/Edit tasks.**
 
 ---
@@ -273,7 +277,7 @@ Use `jira-confluence-mcp` for all JIRA/Confluence/issue-tracking/documentation t
 
 Key rules the LLM learns:
 - Extend `AppAction` for all user actions (NOT `AbstractAction`)
-- Use `@ApplicationSpecification(includeIn = {Application.CapitalCapture})` 
+- Use `@ApplicationSpecification(includeIn = {Application.CapitalCapture})`
 - Override `actionPerformed()`, `isEnabled()`, `getAppActionName()`
 - Use `ViewActionRT` for interactive drawing actions
 - Use `WaitCursor` for long operations
@@ -449,9 +453,10 @@ In GHCP Agent mode, use `@agent-name` or agent is selected based on task context
 **Context:** Show how Agent generates tests matching `AiUtilsTest.java` patterns
 
 **Prompt to Agent:**
-```
-Generate a unit test class for the Device class in datamodel_src, following the 
-same patterns used in AiUtilsTest.java. Use JUnit 4 with Mockito, 
+
+```text
+Generate a unit test class for the Device class in datamodel_src, following the
+same patterns used in AiUtilsTest.java. Use JUnit 4 with Mockito,
 @RunWith(MockitoJUnitRunner.Silent.class), and follow the test_ naming convention.
 ```
 
@@ -542,8 +547,9 @@ public class DeviceTest
 ### DEMO 2: COF Entity Implementation — PropertyChange Pattern
 
 **Prompt to Agent:**
-```
-I need to add a new setter setDescription(String) to the Device class in 
+
+```text
+I need to add a new setter setDescription(String) to the Device class in
 datamodel_src. Show me how it should be implemented.
 ```
 
@@ -560,6 +566,7 @@ public void setDescription(@NotNull String description) {
 ```
 
 **Without instructions, LLM would generate:**
+
 ```java
 // ❌ Missing premodify() and PropertyChangeEvent
 public void setDescription(String description) {
@@ -572,7 +579,8 @@ public void setDescription(String description) {
 ### DEMO 3: gRPC Service Implementation
 
 **Prompt to Agent:**
-```
+
+```sql
 Create a new gRPC service called GrpcDesignValidationServiceImpl for validating
 design integrity, following the existing gRPC patterns in cmanager_src.
 ```
@@ -589,7 +597,7 @@ import io.grpc.ServerServiceDefinition;
 import io.grpc.stub.StreamObserver;
 import org.jetbrains.annotations.NotNull;
 
-public class GrpcDesignValidationServiceImpl 
+public class GrpcDesignValidationServiceImpl
     extends GrpcDesignValidationServiceGrpc.GrpcDesignValidationServiceImplBase
     implements IGrpcService
 {
@@ -605,7 +613,7 @@ public class GrpcDesignValidationServiceImpl
     }
 
     @Override
-    public void validateDesign(StringValue request, 
+    public void validateDesign(StringValue request,
                                StreamObserver<StringValue> responseObserver) {
         // Validate design integrity...
         responseObserver.onNext(StringValue.of("VALID"));
@@ -621,8 +629,9 @@ public class GrpcDesignValidationServiceImpl
 ### DEMO 4: Domain Q&A — Agent Understands Capital Architecture
 
 **Prompt to Agent:**
-```
-What is the relationship between IDevice, IPrivilegedDevice, and Device in 
+
+```text
+What is the relationship between IDevice, IPrivilegedDevice, and Device in
 the Capital codebase? Which module defines each?
 ```
 
@@ -650,8 +659,9 @@ the Capital codebase? Which module defines each?
 ### DEMO 5: Build Decision Assistance
 
 **Prompt to Agent:**
-```
-I changed 3 files in cframework_src and 1 file in interfaces_src. What should 
+
+```text
+I changed 3 files in cframework_src and 1 file in interfaces_src. What should
 I build?
 ```
 
@@ -682,8 +692,9 @@ I build?
 ### DEMO 6: Confluence Design Review Generation
 
 **Prompt to Agent:**
-```
-Create a design review page for my PR that adds cross-selection support to 
+
+```sql
+Create a design review page for my PR that adds cross-selection support to
 the immersed mode NX integration.
 ```
 
@@ -779,6 +790,7 @@ the immersed mode NX integration.
 7. **Common pitfalls** — "Don't extend AbstractAction, use AppAction"
 
 **Template for a new instruction file:**
+
 ```markdown
 ---
 applyTo: "module_src/**/*.java"
@@ -851,6 +863,7 @@ A: Absolutely. QA can generate test cases, understand test failures, create JIRA
 ## SESSION FLOW RECOMMENDATION
 
 ### Part 1: Theory (15-20 min)
+
 1. Show the Problem (2 min) — Generic LLM output example
 2. Show the Solution (3 min) — Custom instructions architecture
 3. Three Modes (5 min) — Ask / Edit / Agent with visual comparison
@@ -858,6 +871,7 @@ A: Absolutely. QA can generate test cases, understand test failures, create JIRA
 5. Skills & Agents overview (5 min) — What's available
 
 ### Part 2: Live Demos (30-40 min)
+
 1. **Before vs After** — Action class generation (5 min)
 2. **Unit Test Generation** — AiUtilsTest pattern matching (7 min)
 3. **COF Entity Setter** — PropertyChange + premodify() (5 min)
@@ -868,6 +882,7 @@ A: Absolutely. QA can generate test cases, understand test failures, create JIRA
 8. **Confluence Design Review** — Auto-generated review page (5 min)
 
 ### Part 3: Use Cases & Q&A (15-20 min)
+
 1. Developer use cases (5 min)
 2. QA use cases (5 min)
 3. Open Q&A (10 min)
@@ -876,7 +891,7 @@ A: Absolutely. QA can generate test cases, understand test failures, create JIRA
 
 ## QUICK REFERENCE CARD (Handout for Attendees)
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │          GHCP QUICK REFERENCE — Capital IESD-24             │
 ├─────────────────────────────────────────────────────────────┤
@@ -926,40 +941,47 @@ A: Absolutely. QA can generate test cases, understand test failures, create JIRA
 ## APPENDIX: Instruction File Cheat Sheet
 
 ### interfaces.instructions.md
+
 - **Scope:** `interfaces_src/**/*.java`
 - **Key Rule:** ONLY interfaces and enums — NO implementations
 - **Key Interfaces:** `IDevice`, `IConnector`, `IConductor`, `IProject`, `IFIB`, `ICaplet`
 - **Annotations:** `@PersistentObject(xmlName="...")`, `@PersistentAttribute`, `@RequiresComposite`
 
 ### datamodel.instructions.md
+
 - **Scope:** `datamodel_src/**/*.java`
 - **Key Rule:** ALL setters MUST fire PropertyChangeEvent + call premodify()
 - **Patterns:** PropertyChange, Delegation, Iterator, VaultKey, @ObjectRelationship
 - **Base Classes:** `UIDObject`, `NamedObject`, `LogicObject`, `AbstractDevice`
 
 ### cframework.instructions.md
+
 - **Scope:** `cframework_src/**/*.java`
 - **Key Rule:** Extend AppAction, NOT AbstractAction
 - **Patterns:** AppAction, ViewActionRT, IFIB service locator, DRC, WaitCursor
 - **Naming:** `*Action`, `*Panel`, `*Caplet`, `*Lifecycle`, `*Controller`
 
 ### charness.instructions.md
+
 - **Scope:** `charness_src/**/*.java`
 - **Key Rule:** Harness caplet extends CAF patterns for physical design
 - **Key Concepts:** Formboard, Bundle, Wire routing, PLM bridges (CATIA, NX, Teamcenter)
 
 ### cmanager.instructions.md
+
 - **Scope:** `cmanager_src/**`
 - **Key Rule:** NO UI code, NO business logic — persistence only
 - **Pattern:** `PersistenceSession.get()` for thread-local session access
 - **Transaction:** `beginTransaction()` → operations → `commitTransaction()`
 
 ### grpc.instructions.md
+
 - **Scope:** `cmanager_src/.../grpc/**/*.java`
 - **Key Rule:** All services implement `IGrpcService`, take `IManagerLogin` in constructor
 - **Pattern:** Extend `GrpcXxxServiceGrpc.GrpcXxxServiceImplBase`, override RPC methods
 
 ### capital-nx-integration.instructions.md
+
 - **Scope:** `interfaces_src/.../immersed/**`
 - **Key Rule:** EDT safety, window lifecycle tracking, external REST requests via AbstractExternalServiceClient
 - **Pattern:** ImmersedModeServices, IWindowInfoProvider, IApplicationServiceExecutor
