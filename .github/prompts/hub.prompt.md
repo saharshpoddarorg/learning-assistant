@@ -367,6 +367,7 @@ Quick Commands:
     /brain-publish           → Archive imported source to library/ + git commit
     /brain-search            → Search by tag, project, kind, date
     /brain-capture-session   → Convert current AI session into a structured note
+    /check-standards         → Audit any file/folder against best practices (brain-naming, frontmatter, java-code, etc.)
 
   Copilot Customization (Preview — March 2026):
     /create-agent          → Scaffold a custom Copilot agent (.agent.md)
@@ -376,9 +377,14 @@ Quick Commands:
     /write-docs            → Turn raw content → any doc type (brain-note/dev-doc/guide/
                              cheatsheet/skill/prompt/readme). Use 'all-of-above' to
                              produce the full documentation stack from one command.
+    /mcp-to-skill          → Analyse MCP tool and generate SKILL.md replacement
+                             (analyse | generate | full)
     Built-in wizard: Ctrl+Shift+I → /create-agent in Copilot Chat
     Docs: .github/docs/copilot-customization-deep-dive.md — full 3-tier reference
           .github/docs/copilot-mcp-preview.md — MCP open preview features
+          .github/docs/mcp-vs-skills.md — MCP vs Skill decision guide + migration
+          .github/docs/copilot-internals.md — context window, todo processing
+          .github/docs/prompt-composition.md — prompt chaining + 6 workflow recipes
 
   Agents (select from dropdown):
     @Learning-Mentor      @Designer          @Debugger

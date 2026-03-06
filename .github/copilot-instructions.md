@@ -52,6 +52,7 @@ path separators, tool names) or ask if unclear.
 | **Linux** | `java-build` | Bash commands, apt/dnf, SDKMAN! for JDK |
 | **Any** | `digital-notetaking` | Cross-platform: Notion, Obsidian, Logseq |
 | **Any** | `java-build` | JDK version management via SDKMAN! / Temurin |
+| **Any** | `brain-management` | brain/ai-brain/ naming, tier routing, frontmatter, PKM |
 
 **Key rule:** Never give a macOS-only command (e.g., `brew install`) without noting
 it is macOS-specific, and always provide the Windows/Linux equivalent or reference

@@ -81,6 +81,7 @@
 | `/brain-publish` | Publish an imported source to library/ with tag prompting and git commit | Copilot | `/brain-publish` → `inbox/GHCP_Agents_Guide.md` |
 | `/brain-search` | Search notes by tag, project, kind, date, or text | Copilot | `/brain-search` → `"sse transport"` → `tier=library` |
 | `/brain-capture-session` | Convert current AI session into a structured session note | Copilot | `/brain-capture-session` → `topic` → `full` |
+| `/check-standards` | Audit any file/folder against best practices and industry standards | Copilot | `/check-standards` → `brain/ai-brain/notes/` → `brain-naming` |
 
 ---
 
@@ -112,6 +113,7 @@
 | `mcp-development` | MCP servers, protocol, tools, agents | MCP server setup, architecture & dev guide (1,980 lines) |
 | `digital-notetaking` | PKM, PARA, Obsidian, Notion, Logseq, Zettelkasten, second brain, note-taking | Tool comparison, note templates (ADR, sprint log, snippet), migration guides, JDK commands |
 | `mac-dev` | Homebrew, JDK on Mac, nvm, Docker Desktop, zsh, dotfiles | macOS dev environment cheatsheets — install, configure, automate |
+| `brain-management` | brain/ai-brain/ naming conventions, tier routing, frontmatter schema, timestamping, PKM standards | Naming rules, frontmatter schema, kind values, 3-tier routing, anti-patterns |
 
 ---
 
@@ -191,6 +193,8 @@
 │   ├── brain-publish.prompt.md      🤖 /brain-publish — publish to archive & commit
 │   ├── brain-search.prompt.md       🤖 /brain-search — search across tiers
 │   └── brain-capture-session.prompt.md  🤖 /brain-capture-session — convert AI session to session note
+│   ├── check-standards.prompt.md    🤖 /check-standards — audit file/folder against best practices
+│   └── mcp-to-skill.prompt.md       🤖 /mcp-to-skill — analyse MCP tool → generate SKILL.md
 │
 ├── skills/
 │   ├── README.md                    👤 How skills work
@@ -203,6 +207,7 @@
 │   ├── career-resources/SKILL.md    🤖 Career data
 │   ├── digital-notetaking/SKILL.md  🤖 PKM methods, tool cheatsheets, note templates, JDK commands
 │   ├── mac-dev/SKILL.md             🤖 Homebrew, JDK, npm, Docker, shell, dotfiles cheatsheets
+│   ├── brain-management/SKILL.md     🤖 brain/ai-brain/ naming, tier routing, frontmatter, PKM standards
 │   └── mcp-development/SKILL.md     🤖 MCP protocol & server development (1,980 lines)
 │
 └── docs/
@@ -220,7 +225,10 @@
     ├── local-setup-guide.md         👤 What's gitignored + how to set it up — config files, secrets, 3-tier onboarding (🟢/🟡/🔴)
     ├── versioning-guide.md          👤 Server versioning strategy (McpServer interface, registry, package-per-version pattern)
     ├── search-engine.md             👤 Search engine developer guide (🟢 Newbie / 🟡 Amateur / 🔴 Pro)
-    └── search-engine-algorithms.md  👤 BM25, TextMatchScorer, FuzzyMatcher, QueryClassifier deep-dive
+    ├── search-engine-algorithms.md  👤 BM25, TextMatchScorer, FuzzyMatcher, QueryClassifier deep-dive
+    ├── mcp-vs-skills.md             👤 MCP vs Skill decision guide + 6-step migration playbook
+    ├── copilot-internals.md         👤 Context window, loading order, todo processing (3-tier), session continuity
+    └── prompt-composition.md        👤 Prompt chaining patterns + 6 workflow recipes
 
 brain/
 │
@@ -318,6 +326,11 @@ brain/
 | **Understand CODE method (Capture/Organize/Distill/Express)** | [brain/digitalnotetaking/code-method.md](../../brain/digitalnotetaking/code-method.md) | Doc |
 | **Link AI sessions to your PKM / note workspace** | [brain/digitalnotetaking/ai-brain-integration.md](../../brain/digitalnotetaking/ai-brain-integration.md) | Doc |
 | **Capture current AI session as a structured note** | `/brain-capture-session` | Brain |
+| **Audit a file or folder against best practices** | `/check-standards` → target → domain | Prompt |
+| **Decide whether to keep MCP or migrate to skill** | [docs/mcp-vs-skills.md](mcp-vs-skills.md) | Doc |
+| **Migrate an MCP tool to a Copilot Skill** | `/mcp-to-skill` → server → full | Prompt |
+| **Understand Copilot context window & todo processing** | [docs/copilot-internals.md](copilot-internals.md) | Doc |
+| **Chain prompts into multi-step workflows** | [docs/prompt-composition.md](prompt-composition.md) | Doc |
 | **New to PKM? Start here** | [brain/digitalnotetaking/START-HERE.md](../../brain/digitalnotetaking/START-HERE.md) | Doc |
 | **View or switch Copilot steering mode** | `/steer` | Meta |
 | **See all steering modes and which is active** | `/steer` → `view` | Meta |

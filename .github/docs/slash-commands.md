@@ -46,7 +46,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (39 commands)
+### Quick Lookup (41 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -89,6 +89,8 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 37 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
 | 38 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
 | 39 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
+| 40 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
+| 41 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
 
 > **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
 > VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
@@ -469,6 +471,31 @@ Docs:     .github/agents/README.md, .github/docs/copilot-mcp-preview.md
 After:    Add the new agent to agents/README.md table and copilot-instructions.md <agents> block
 ```
 
+#### `/mcp-to-skill` — Migrate an MCP Tool to a Copilot Skill
+```
+Inputs:   target     (MCP server name, Java file path, or tool description),
+          mode       (analyse / generate / full),
+          outputPath (output path for generated SKILL.md, default: .github/skills/<target>/SKILL.md)
+Agent:    Copilot
+Tools:    codebase, editFiles, search
+Use:      Reads an MCP server implementation, applies the MCP-vs-Skill decision matrix,
+          and either produces an analysis report or generates a complete SKILL.md replacement.
+Modes:
+  analyse  → Read implementation → output decision report + tool inventory table
+  generate → Produce ready-to-commit SKILL.md (requires prior analyse or description)
+  full     → analyse + generate + registration instructions in one pass
+Example:  /mcp-to-skill → learning-resources → full
+          /mcp-to-skill → mcp-servers/src/server/atlassian/ → analyse
+Decision: Content static/repeatable? → Skill candidate
+          External API / auth / computation required? → Keep as MCP
+Output:   Decision report + generated SKILL.md + copilot-instructions.md registration steps
+File:     .github/prompts/mcp-to-skill.prompt.md
+Docs:     .github/docs/mcp-vs-skills.md — full decision guide + migration playbook
+Tip:      Use 'analyse' first before committing to migration — some tools MUST stay as MCP
+```
+
+---
+
 #### `/copilot-customization` — Create, Review, or Compose Any Customization File
 ```
 Inputs:   goal    (create-new / review-existing / compare-types / plan-composition /
@@ -620,6 +647,39 @@ Example:  /brain-capture-session → "Java generics and wildcards" → java → 
 Tip:      Run at the end of any substantial Copilot session to capture what was learned
 Next:     brain publish brain\ai-brain\inbox\<file>.md --project <bucket>
 File:     .github/prompts/brain-capture-session.prompt.md
+```
+
+---
+
+### Quality & Standards
+
+#### `/check-standards` — Audit Files Against Best Practices
+```
+Inputs:   target (file path, folder, or filename to audit),
+          domain (auto / brain-naming / markdown-frontmatter / file-structure /
+                  git-commits / pkm / prompt-file / skill-file / java-code / all)
+Agent:    Copilot
+Tools:    codebase, search
+Use:      Run a structured compliance audit against best practices and industry standards.
+          Outputs a severity-tagged report: ❌ Error | ⚠️ Warning | 💡 Suggestion
+Example:  /check-standards → brain/ai-brain/notes/ → brain-naming
+          /check-standards → .github/skills/mac-dev/SKILL.md → skill-file
+          /check-standards → .github/prompts/debug.prompt.md → prompt-file
+          /check-standards → . → all    (audit entire workspace)
+Domains:
+  brain-naming       → ISO 8601 date prefix, lowercase-hyphens slug, kind prefix, ≤50 chars
+  markdown-frontmatter → Required fields, allowed values, tag rules
+  file-structure     → notes/ for writing, library/ for imports, README.md in each tier
+  git-commits        → brain: prefix, ≤72 chars, imperative mood, attribution footer
+  pkm                → Atomic notes (<300 lines), consistent tags, cross-references
+  prompt-file        → Frontmatter completeness, description, input variables, agent/tools
+  skill-file         → Frontmatter, 3-tier structure, cheatsheet, resources, file location
+  java-code          → Naming, method length, Javadoc, exception specificity
+Output:   Compliance report table + prioritised fix suggestions
+File:     .github/prompts/check-standards.prompt.md
+Skill:    brain-management/SKILL.md (standards reference)
+Tip:      Run after creating any new file with /write-docs or /brain-new to catch violations
+          before committing
 ```
 
 #### `/mcp` — Learn & Build MCP Servers
