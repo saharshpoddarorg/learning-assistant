@@ -338,10 +338,10 @@ mcp-servers/user-config/servers/atlassian/atlassian-config.properties  ← base 
 brain/
 ├── inbox/      ← New notes land here (drafts, quick captures)
 ├── notes/      ← Active knowledge you reference often
-└── archive/    ← Published notes — tagged, searchable, permanent
+└── library/    ← Published notes — tagged, searchable, permanent
 ```
 
-**The workflow:** `inbox/ → (review) → notes/ → (publish + tag) → archive/`
+**The workflow:** `inbox/ → (review) → notes/ → (publish + tag) → library/`
 
 ### 5.1 — Create a note with Copilot
 

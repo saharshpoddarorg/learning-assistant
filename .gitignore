@@ -114,12 +114,12 @@ mcp-servers/build.env.local
 # =============================================================================
 # brain/inbox/   -- session-scoped throwaway (never committed)
 # brain/notes/   -- curated session notes, committed to the repo (tracked git)
-# brain/archive/ -- published reference, committed to the repo (tracked git)
+# brain/library/ -- permanent reference library, committed to the repo (tracked git)
 #
 # Tier tracking:
 #   inbox/   → GITIGNORED  (raw captures, cleared per session)
 #   notes/   → TRACKED     (reviewed, permanent developer knowledge)
-#   archive/ → TRACKED     (formally published with tags + git commit)
+#   library/ → TRACKED     (formally published with tags + git commit)
 
 brain/ai-brain/inbox/
 

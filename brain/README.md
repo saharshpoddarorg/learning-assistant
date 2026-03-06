@@ -10,10 +10,10 @@
 
 ```
 brain/
-├── ai-brain/             ← Live knowledge workspace (notes, inbox, archive)
+├── ai-brain/             ← Live knowledge workspace (notes, inbox, library)
 │   ├── inbox/            ← Quick capture — gitignored, cleared per session
-│   ├── notes/            ← Curated notes — gitignored, permanent on this machine
-│   ├── archive/          ← Published notes — git-tracked, permanent in the repo
+│   ├── notes/            ← Curated notes — git-tracked, committed to repo
+│   ├── library/          ← Formal reference library — git-tracked, project-organized
 │   └── scripts/          ← brain.ps1 / brain.sh CLI tools
 ├── digitalnotetaking/    ← Guides & knowledge hub
 │   ├── README.md
@@ -53,7 +53,7 @@ Or use Copilot Chat: `/brain-new`
 ```powershell
 brain search <query>               # full-text search across all tiers
 brain search java --tag generics   # with tag filter
-brain list --tier archive          # list published notes
+brain list --tier library          # list library notes
 ```
 
 Or use Copilot Chat: `/brain-search`
@@ -72,13 +72,13 @@ Or use Copilot Chat: `/brain-publish`
 
 | Tier | Folder | Git-tracked? | Purpose |
 |---|---|---|---|
-| **Inbox** | `ai-brain/inbox/` | ❌ | Raw capture — fast, no pressure to be good |
-| **Notes** | `ai-brain/notes/` | ✅ | Curated notes — committed, searchable by team |
-| **Archive** | `ai-brain/archive/` | ✅ | Formally tagged reference — committed, browseable |
+| **Inbox**   | `ai-brain/inbox/`   | ❌ | Raw capture — fast, no pressure to be good |
+| **Notes**   | `ai-brain/notes/`   | ✅ | Curated notes — committed, searchable by team |
+| **Library** | `ai-brain/library/` | ✅ | Formal reference library — committed, project-organized |
 
 The typical lifecycle:
 ```
-/brain-new → inbox/  →  curate  →  notes/  →  brain publish  →  archive/
+/brain-new → inbox/  →  curate  →  notes/  →  brain publish  →  library/
 ```
 
 ---

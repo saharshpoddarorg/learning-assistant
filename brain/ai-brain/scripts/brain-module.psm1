@@ -15,7 +15,7 @@
 .EXPORTED FUNCTIONS
     brain         Full dispatcher (same as brain.ps1 directly)
     brain-new        Create a new note
-    brain-publish       Save/promote a note to archive/ with tagging and git commit
+#   brain-publish       Save/promote a note to library/ with tagging and git commit
     brain-search     Search notes
     brain-list       List notes
     brain-clear      Clear inbox/
@@ -46,7 +46,7 @@ function Invoke-BrainNew {
 
 function Invoke-BrainPublish {
     <#
-    .SYNOPSIS Promote a note to archive/ with tagging and git commit.
+    .SYNOPSIS Promote a note to library/ with tagging and git commit.
     .EXAMPLE brain-publish
     .EXAMPLE brain-publish brain\inbox\2026-02-21_draft.md --project java --commit
     #>
@@ -57,7 +57,7 @@ function Invoke-BrainSearch {
     <#
     .SYNOPSIS Search notes by frontmatter or full text.
     .EXAMPLE brain-search java
-    .EXAMPLE brain-search --tag generics --project mcp-servers --tier archive
+    .EXAMPLE brain-search --tag generics --project mcp-servers --tier library
     .EXAMPLE brain-search --kind decision
     #>
     & $script:BrainScript search @args
@@ -67,7 +67,7 @@ function Invoke-BrainList {
     <#
     .SYNOPSIS List notes with frontmatter summary.
     .EXAMPLE brain-list
-    .EXAMPLE brain-list --tier archive --project mcp-servers
+    .EXAMPLE brain-list --tier library --project mcp-servers
     .EXAMPLE brain-list --kind decision
     #>
     & $script:BrainScript list @args
@@ -94,7 +94,7 @@ function Invoke-BrainMove {
     <#
     .SYNOPSIS Move a file between tiers.
     .EXAMPLE brain-move inbox\draft.md --tier notes
-    .EXAMPLE brain-move notes\note.md --tier archive --project mcp-servers
+    .EXAMPLE brain-move notes\note.md --tier library --project mcp-servers
     #>
     & $script:BrainScript move @args
 }

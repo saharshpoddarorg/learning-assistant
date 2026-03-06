@@ -251,8 +251,8 @@ You are the **navigation hub** for all available assistants and learning command
 │    │   └── ai-brain-integration ···· Linking AI sessions → brain workspace → PKM
 │    └── Brain Workspace commands
 │        ├── /brain-new ·············· Create a structured note in inbox/ or notes/
-│        ├── /brain-publish ·········· Promote a note to archive/ + git commit
-│        ├── /brain-search ··········· Search across inbox, notes, archive by tag/kind/date
+│        ├── /brain-publish ·········· Promote a note to library/ + git commit
+│        ├── /brain-search ··········· Search across inbox, notes, library by tag/kind/date
 │        └── /brain-capture-session ·· Convert current AI session into a session note
 │
 │    └── /daily-assist ·············· Non-SE daily productivity
@@ -364,7 +364,7 @@ Quick Commands:
 
   Brain Workspace:
     /brain-new               → Create a note in inbox/ or notes/
-    /brain-publish           → Promote note to archive/ + git commit
+    /brain-publish           → Promote note to library/ + git commit
     /brain-search            → Search by tag, project, kind, date
     /brain-capture-session   → Convert current AI session into a structured note
 

@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
-# promote.sh -- Move a file between brain/ tiers (inbox, notes, archive)
+# promote.sh -- Move a file between brain/ tiers (inbox, notes, library)
 #
 # Usage:
 #   ./brain/scripts/promote.sh <source> <tier> [subdir]
 #
 # Arguments:
 #   source   Path relative to brain/   (e.g. inbox/draft.md  or  notes/java/note.md)
-#   tier     Destination: notes | archive
+#   tier     Destination: notes | library
 #   subdir   Optional subdirectory within tier  (e.g. java -> brain/<tier>/java/<file>)
 #
 # Examples:
 #   ./brain/scripts/promote.sh inbox/draft.md notes
 #   ./brain/scripts/promote.sh inbox/draft.md notes java
-#   ./brain/scripts/promote.sh notes/note.md archive
+#   ./brain/scripts/promote.sh notes/note.md library
 
 set -euo pipefail
 
@@ -26,12 +26,12 @@ SUBDIR="${3:-}"
 
 if [[ -z "$SOURCE" || -z "$TIER" ]]; then
     echo "Usage: $0 <source> <tier> [subdir]" >&2
-    echo "  tier: notes | archive" >&2
+    echo "  tier: notes | library" >&2
     exit 1
 fi
 
-if [[ "$TIER" != "notes" && "$TIER" != "archive" ]]; then
-    echo "Error: tier must be 'notes' or 'archive', got: $TIER" >&2
+if [[ "$TIER" != "notes" && "$TIER" != "library" ]]; then
+    echo "Error: tier must be 'notes' or 'library', got: $TIER" >&2
     exit 1
 fi
 
@@ -72,11 +72,11 @@ SOURCE_REL="${SOURCE_PATH#"$BRAIN_ROOT/"}"
 DEST_REL="${DEST_PATH#"$BRAIN_ROOT/"}"
 echo "Moved: $SOURCE_REL -> $DEST_REL"
 
-if [[ "$TIER" == "archive" ]]; then
+if [[ "$TIER" == "library" ]]; then
     echo ""
     read -r -p "Run 'git add' on the file? [Y/n] " add
     if [[ ! "$add" =~ ^[nN] ]]; then
-        GIT_PATH="brain/ai-brain/archive/${DEST_PATH#"$BRAIN_ROOT/archive/"}"
+        GIT_PATH="brain/ai-brain/library/${DEST_PATH#"$BRAIN_ROOT/library/"}"
         git -C "$REPO_ROOT" add "$GIT_PATH"
         echo "Staged: $GIT_PATH"
         echo "Next: git commit -m \"brain: publish <topic>\""

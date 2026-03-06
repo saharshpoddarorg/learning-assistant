@@ -228,7 +228,7 @@ You should see tools like `search_resources`, `browse_vault`, `discover_resource
 | `/multi-session` | Save/resume state across chat sessions | |
 | `/daily-assist` | Finance, productivity, news, research | `analyze my spending`, `summarize tech news` |
 | `/brain-new` | Create a knowledge note | `key insights from today's DSA session` |
-| `/brain-publish` | Publish a note to archive with git commit | |
+| `/brain-publish` | Publish a note to library with git commit | |
 | `/brain-search` | Search across all note tiers | `binary tree traversal` |
 
 **Pro tips:**
@@ -826,13 +826,13 @@ public class LanguageFilter<T extends LearningResource> implements SearchFilter<
 
 ## 7. Brain Workspace — Personal Knowledge System
 
-> Your personal knowledge system. Three tiers — inbox is gitignored, notes and archive are committed.
+> Your personal knowledge system. Three tiers — inbox is gitignored, notes and library are committed.
 
 ```
 brain/ai-brain/
 ├── inbox/    ← Draft notes  [GITIGNORED — session-scoped, cleared when done]
 ├── notes/    ← Curated knowledge notes  [TRACKED — committed to repo]
-└── archive/  ← Formally published reference  [TRACKED — tagged, project-attributed]
+└── library/  ← Permanent reference library  [TRACKED — project-organized, full frontmatter]
 ```
 
 **Three-tier summary:**
@@ -841,14 +841,14 @@ brain/ai-brain/
 |---|---|---|
 | `inbox/` | ❌ | Raw capture — rough ideas, mid-session reasoning, throw-away |
 | `notes/` | ✅ | Reviewed insights worth keeping — committed for sharing |
-| `archive/` | ✅ | Formally published: full frontmatter (kind, project, tags, status) |
+| `library/` | ✅ | Formally published: full frontmatter (kind, project, tags, status) |
 
 **Via Copilot Chat:**
 
 | Command | What it does |
 |---------|-------------|
 | `/brain-new` | Create a new note. Prompts for topic → creates `YYYY-MM-DD_topic.md` in inbox or notes |
-| `/brain-publish` | Move a note from inbox/notes → archive, add tags, commit to git |
+| `/brain-publish` | Move a note from inbox/notes → library, add tags, commit to git |
 | `/brain-search` | Full-text search across all tiers |
 | `/brain-capture-session` | Convert current AI session into a structured session note |
 
@@ -858,10 +858,10 @@ brain/ai-brain/
 |------|------|
 | `brain: new note` | Interactive note creation |
 | `brain: new note (notes tier)` | Skip inbox, go direct to notes/ (committed) |
-| `brain: publish note` | Promote to archive + git commit |
+| `brain: publish note` | Promote to library + git commit |
 | `brain: search notes` | Search by keyword |
 | `brain: list notes` | List all notes |
-| `brain: list archive` | List archived notes |
+| `brain: list archive` | List library notes |
 | `brain: status` | Count notes per tier |
 | `brain: clear inbox (preview)` | Preview what clear would do |
 | `brain: clear inbox (force)` | Clear all inbox notes (destructive!) |
@@ -871,7 +871,7 @@ brain/ai-brain/
 ```powershell
 .\brain\ai-brain\scripts\brain.ps1 new
 .\brain\ai-brain\scripts\brain.ps1 new --tier notes          # goes into committed notes/
-.\brain\ai-brain\scripts\brain.ps1 publish                   # promote inbox/notes → archive
+.\brain\ai-brain\scripts\brain.ps1 publish                   # promote inbox/notes → library
 .\brain\ai-brain\scripts\brain.ps1 search "binary tree"
 .\brain\ai-brain\scripts\brain.ps1 list
 .\brain\ai-brain\scripts\brain.ps1 status
@@ -898,7 +898,7 @@ brain/ai-brain/
 🔴 PRO — Formal reference
 1. Start from a notes/ file (or inbox)
 2. /brain-publish → add project, kind, tags, status frontmatter
-3. Note moves to archive/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md
+3. Note moves to library/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md
 4. git add + git commit happens automatically
 ```
 
@@ -908,7 +908,7 @@ brain/ai-brain/
 |---|---|---|
 | [`2026-02-21_session-mcp-server-fixes-and-restructure.md`](brain/ai-brain/notes/2026-02-21_session-mcp-server-fixes-and-restructure.md) | MCP server bug fix + config restructure | notes/ (committed) |
 | [`2026-03-06_ghcp-knowledge-sharing-distilled.md`](brain/ai-brain/notes/2026-03-06_ghcp-knowledge-sharing-distilled.md) | GHCP customization KS — 3-tier distilled insights | notes/ (committed) |
-| [`archive/ghcp-knowledge-sharing/2026-03/`](brain/ai-brain/archive/ghcp-knowledge-sharing/2026-03/) | Source reference for GHCP KS session (original slides + presenter notes) | archive/ (committed) |
+| [`library/ghcp-knowledge-sharing/2026-03/`](brain/ai-brain/library/ghcp-knowledge-sharing/2026-03/) | Source reference for GHCP KS session (original slides + presenter notes) | library/ (committed) |
 
 ---
 
@@ -1136,10 +1136,10 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 |------|-------------|
 | `brain: new note` | Create a new knowledge note |
 | `brain: new note (notes tier)` | Create directly in notes/ |
-| `brain: publish note` | Promote note → archive + git commit |
+| `brain: publish note` | Promote note → library + git commit |
 | `brain: search notes` | Full-text search |
 | `brain: list notes` | List all active notes |
-| `brain: list archive` | List archived notes |
+| `brain: list archive` | List library notes |
 | `brain: status` | Count notes per tier |
 | `brain: clear inbox (preview)` | Preview what clear would do |
 | `brain: clear inbox (force)` | Clear all inbox notes (irreversible) |
@@ -1358,7 +1358,7 @@ mcp-servers: validate         Check config + environment
 BRAIN TASKS
 ───────────
 brain: new note               Create a draft note
-brain: publish note           Promote to archive
+brain: publish note           Promote to library
 brain: search notes           Full-text search
 brain: status                 Note counts per tier
 

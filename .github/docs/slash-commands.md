@@ -79,7 +79,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 27 | `/resources` | Domain | Search, browse & scrape curated learning resources | Learning-Mentor |
 | 28 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
 | 29 | `/brain-new` | Brain Workspace | Create a new knowledge note (inbox or notes tier) | Copilot |
-| 30 | `/brain-publish` | Brain Workspace | Publish a note to archive/ with tagging and git commit | Copilot |
+| 30 | `/brain-publish` | Brain Workspace | Publish a note to library/ with tagging and git commit | Copilot |
 | 31 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
 | 32 | `/brain-capture-session` | Brain Workspace | Convert current AI session into a structured session note | Copilot |
 | 33 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
@@ -570,7 +570,7 @@ Topics:   Budget, investments, habit tracking, time mgmt, tech news, web researc
 
 ### Brain Workspace
 
-Commands for managing the `brain/ai-brain/` personal knowledge workspace — three-tier note system (inbox → notes → archive).
+Commands for managing the `brain/ai-brain/` personal knowledge workspace — three-tier note system (inbox → notes → library).
 
 #### `/brain-new` — Create a Note
 ```
@@ -580,8 +580,8 @@ Tools:    editFiles, codebase
 Use:      Create a new markdown note with proper frontmatter in inbox/ or notes/
 Example:  /brain-new → "Java generics cheatsheet" → notes → java
 Output:   YYYY-MM-DD_<slug>.md created with kind, tags, status frontmatter
-File:     brain/ai-brain/inbox/ or brain/ai-brain/notes/ (never creates archive/ entries directly)
-Tip:      Use /brain-publish to promote to archive/ and commit
+File:     brain/ai-brain/inbox/ or brain/ai-brain/notes/ (never creates library/ entries directly)
+Tip:      Use /brain-publish to promote to library/ and commit
 ```
 
 #### `/brain-publish` — Publish a Note
@@ -589,9 +589,9 @@ Tip:      Use /brain-publish to promote to archive/ and commit
 Inputs:   file (relative to brain/ai-brain/, e.g. inbox/2026-02-21_draft.md), project bucket
 Agent:    Copilot
 Tools:    editFiles, codebase, runCommands
-Use:      Promote a note from inbox/ or notes/ to archive/ → tag it → git commit
+Use:      Promote a note from inbox/ or notes/ to library/ → tag it → git commit
 Example:  /brain-publish → inbox/2026-02-21_draft.md → mcp-servers
-Output:   Note moved to brain/ai-brain/archive/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md, committed
+Output:   Note moved to brain/ai-brain/library/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md, committed
 Tip:      Tags are enriched automatically from filename and content
 ```
 
@@ -601,10 +601,10 @@ Inputs:   query (free text), filters: tag, project, kind, date (YYYY-MM), tier
 Agent:    Copilot
 Tools:    codebase, search
 Use:      Find notes by tag, project, kind, date range, or full-text across all tiers
-Example:  /brain-search → "generics" → tag=java → tier=archive
+Example:  /brain-search → "generics" → tag=java → tier=library
 Output:   Matching notes with frontmatter summary and file paths
 Kinds:    note | decision | session | resource | snippet | ref
-Tiers:    inbox | notes | archive | all (default)
+Tiers:    inbox | notes | library | all (default)
 ```
 
 #### `/brain-capture-session` — Capture AI Session as a Note

@@ -4,7 +4,7 @@
 
 Content lives here when it is reviewed, refined, and worth sharing — complete enough
 to stand on its own as a reference, but not yet formally published with full tags
-and project attribution (that's `archive/`).
+and project attribution (that's `library/`).
 
 ---
 
@@ -68,13 +68,13 @@ Examples:
 ## When a Note Is Ready for Archive
 
 ```powershell
-# Publish to archive/ -- prompts for project, tags, then commits
+# Publish to library/ -- prompts for project, tags, then commits
 .\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\notes\file.md
 
-# Or move to archive/ without prompts (manual git add + commit separately)
-.\brain\ai-brain\scripts\promote.ps1 notes\file.md archive --project java
+# Or move to library/ without prompts (manual git add + commit separately)
+.\brain\ai-brain\scripts\promote.ps1 notes\file.md library --project java
 ```
 
-The difference between notes/ and archive/:
+The difference between notes/ and library/:
 - **notes/** — committed, searchable, good for reference; informal frontmatter
-- **archive/** — formal YAML frontmatter (kind, project, tags, status, source); appears in `brain list --tier archive`
+- **library/** — formal YAML frontmatter (kind, project, tags, status, source); appears in `brain list --tier library`

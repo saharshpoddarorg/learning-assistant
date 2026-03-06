@@ -10,7 +10,7 @@
 # Available aliases:
 #   brain         Full dispatcher  (same as ./ai-brain/scripts/brain.sh directly)
 #   brain-new        Create a new note
-#   brain-publish       Promote to archive/ with tagging and git commit
+#   brain-publish       Promote to library/ with tagging and git commit
 #   brain-search     Search notes by frontmatter or full text
 #   brain-list       List notes
 #   brain-clear      Clear inbox/

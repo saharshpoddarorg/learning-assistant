@@ -26,7 +26,7 @@ public enum NoteStatus {
     /** Complete and ready, or published to archive. */
     FINAL("final"),
 
-    /** Committed to the {@code archive/} tier — permanently stored in the repo. */
+    /** Committed to the {@code library/} tier — permanently stored in the repo. */
     ARCHIVED("archived");
 
     // ─── Fields ─────────────────────────────────────────────────────

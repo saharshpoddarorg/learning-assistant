@@ -346,10 +346,10 @@
         {
             "label": "brain: list archive",
             "type": "shell",
-            "command": ".\\brain\\ai-brain\\scripts\\brain.ps1 list --tier archive",
-            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\brain\\ai-brain\\scripts\\brain.ps1 list --tier archive" },
-            "linux":   { "command": "bash ./brain/ai-brain/scripts/brain.sh list --tier archive" },
-            "osx":     { "command": "bash ./brain/ai-brain/scripts/brain.sh list --tier archive" },
+            "command": ".\\brain\\ai-brain\\scripts\\brain.ps1 list --tier library",
+            "windows": { "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\brain\\ai-brain\\scripts\\brain.ps1 list --tier library" },
+            "linux":   { "command": "bash ./brain/ai-brain/scripts/brain.sh list --tier library" },
+            "osx":     { "command": "bash ./brain/ai-brain/scripts/brain.sh list --tier library" },
             "group": "none",
             "presentation": { "reveal": "always", "panel": "dedicated", "close": false },
             "problemMatcher": []

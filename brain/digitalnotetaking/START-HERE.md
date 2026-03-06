@@ -132,8 +132,8 @@ Layer 4: Express — turn it into a deliverable (ADR, blog post, PR description)
 ```powershell
 brain new --tier notes --project java        # new curated note
 brain new --tier inbox                        # quick capture
-brain search zettelkasten --tier archive     # semantic search
-brain publish brain\ai-brain\notes\draft.md  # promote to archive + commit
+brain search zettelkasten --tier library     # semantic search
+brain publish brain\ai-brain\notes\draft.md  # promote to library + commit
 ```
 
 Or use slash commands in Copilot Chat:
@@ -172,8 +172,8 @@ Or use slash commands in Copilot Chat:
 brain new                          # create a note interactively
 brain status                       # see what's in each tier
 brain search <query>               # search all notes
-brain publish <path>               # promote to archive + git commit
-brain list --tier archive          # list published notes
+brain publish <path>               # promote to library + git commit
+brain list --tier library          # list library notes
 ```
 
 ---

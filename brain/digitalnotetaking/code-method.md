@@ -186,8 +186,8 @@ Express    →  Create a new artifact (code, doc, PR, ADR)
 | Scenario | CODE flow |
 |---|---|
 | Copilot helps me understand generics | Capture → inbox | Organize → notes/java | Distill → bold key lines + summary | Express → write a Java snippet |
-| Sprint retro notes | Capture → inbox --kind session | Organize → archive/mcp-servers/YYYY-MM | Distill → TL;DR table | Express → add to team wiki |
-| Architecture choice | Capture → inbox --kind decision | Organize → publish to archive | Distill → trim to 3-line ADR | Express → put it in the PR description |
+| Sprint retro notes | Capture → inbox --kind session | Organize → library/mcp-servers/YYYY-MM | Distill → TL;DR table | Express → add to team wiki |
+| Architecture choice | Capture → inbox --kind decision | Organize → publish to library | Distill → trim to 3-line ADR | Express → put it in the PR description |
 
 ---
 

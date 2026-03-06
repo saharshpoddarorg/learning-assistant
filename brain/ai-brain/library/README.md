@@ -1,9 +1,10 @@
-# ai-brain/archive/ -- Published Reference
+# ai-brain/library/ -- Permanent Reference Library
 
 **Tracked by git. Pushed to the repo. Permanent.**
 
-Content here is a real record -- something you would want available from
-another machine, or something worth having in the project history.
+Content here is the permanent reference library -- formally tagged, project-attributed
+notes you want available from any machine, searchable across sessions, and worth
+having in the project history. Never old, never obsolete: a library grows and is consulted.
 
 ---
 
@@ -13,7 +14,7 @@ Notes are organised by **project bucket** then **month**. Created automatically
 by `brain publish` -- you never create folders manually.
 
 ```
-archive/
+library/
   <project>/
     <YYYY-MM>/
       YYYY-MM-DD_slug.md
@@ -48,7 +49,7 @@ The publish workflow:
 2. Asks which project bucket
 3. Suggests tags (from existing frontmatter + filename keywords)
 4. You confirm or adjust
-5. Updates frontmatter, moves file to `archive/<project>/<YYYY-MM>/`
+5. Updates frontmatter, moves file to `library/<project>/<YYYY-MM>/`
 6. Runs `git add` + `git commit`
 
 ---
@@ -82,12 +83,12 @@ Project: <project>  Kind: <kind>  Status: final
 
 ---
 
-## Search Archive Notes
+## Search Library Notes
 
 ```powershell
-.\brain\ai-brain\scripts\brain.ps1 list --tier archive
-.\brain\ai-brain\scripts\brain.ps1 list --tier archive --project mcp-servers
-.\brain\ai-brain\scripts\brain.ps1 search generics --tier archive
-.\brain\ai-brain\scripts\brain.ps1 search --kind decision --tier archive
-.\brain\ai-brain\scripts\brain.ps1 search --date 2026-02 --tier archive
+.\brain\ai-brain\scripts\brain.ps1 list --tier library
+.\brain\ai-brain\scripts\brain.ps1 list --tier library --project mcp-servers
+.\brain\ai-brain\scripts\brain.ps1 search generics --tier library
+.\brain\ai-brain\scripts\brain.ps1 search --kind decision --tier library
+.\brain\ai-brain\scripts\brain.ps1 search --date 2026-02 --tier library
 ```

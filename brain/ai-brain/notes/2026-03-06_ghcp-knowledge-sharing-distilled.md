@@ -12,7 +12,7 @@ source: copilot
 > **Session:** GitHub Copilot customization KS, Capital IESD-24, Feb 2026
 > **Processed:** 2026-03-06 · **Tier:** notes (committed)
 >
-> **Source materials:** [archive/ghcp-knowledge-sharing/2026-03/](../archive/ghcp-knowledge-sharing/2026-03/)
+> **Source materials:** [library/ghcp-knowledge-sharing/2026-03/](../library/ghcp-knowledge-sharing/2026-03/)
 > for the original source files (presenter notes, full slide decks, CIA agent architecture).
 
 ---
@@ -21,7 +21,7 @@ source: copilot
 
 Processed 6 inbox files from a GitHub Copilot knowledge sharing session (Capital IESD-24 project,
 Feb 2026). Distilled the key techniques, patterns, and learnings into an actionable 3-tier reference.
-Source files archived under `brain/ai-brain/archive/ghcp-knowledge-sharing/2026-03/`.
+Source files archived under `brain/ai-brain/library/ghcp-knowledge-sharing/2026-03/`.
 
 ---
 

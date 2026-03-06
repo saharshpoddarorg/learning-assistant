@@ -17,7 +17,7 @@ AI Session (Copilot Chat / MCP tools)
         ↓  You review and promote
     brain/ai-brain/notes/         ← notes on this machine (gitignored)
         ↓  Worth keeping permanently?
-    brain/ai-brain/archive/       ← committed to repo ← connects to your PKM
+    brain/ai-brain/library/       ← committed to repo ← connects to your PKM
         ↓
   /digital-notetaking tools       ← Obsidian, Notion, Logseq, etc.
 ```
@@ -71,7 +71,7 @@ brain list --tier inbox
 
 # 2. Review each note
 #    - One-liner summary:  keep in notes/
-#    - Permanent insight:  publish to archive/
+#    - Permanent insight:  publish to library/
 #    - Pure scratch:       clear
 
 # Publish a session note
@@ -122,7 +122,7 @@ All `source` values: `copilot` | `manual` | `mcp`
 | Command | When to use | Example |
 |---|---|---|
 | `/brain-new` | Create a structured note from a topic | `/brain-new → "Java generics session" → notes → java` |
-| `/brain-publish` | Promote a note to archive/ and commit | `/brain-publish → inbox/2026-02-27_draft.md → java` |
+| `/brain-publish` | Promote a note to library/ and commit | `/brain-publish → inbox/2026-02-27_draft.md → java` |
 | `/brain-search` | Find notes by tag, project, kind, date | `/brain-search → "generics" → tag=java` |
 | `/brain-capture-session` | Convert session content into a publishable note | `/brain-capture-session` |
 
@@ -155,11 +155,11 @@ Then:   brain publish <file> --project <bucket>
 Option 1 — Open brain/ai-brain/ as a vault folder:
   1. Obsidian → Open Folder as Vault → pick brain/ai-brain/
   2. Notes in inbox/ and notes/ appear inside Obsidian
-  3. archive/ appears as your committed reference library
-  Note: inbox/ and notes/ are gitignored → stay on your machine only
+  3. library/ appears as your committed reference library
+  Note: inbox/ is gitignored; notes/ and library/ are committed
 
-Option 2 — Sync archive/ to your Obsidian vault:
-  1. After brain publish, copy the archive/ file to your Obsidian vault's Resources folder
+Option 2 — Sync library/ to your Obsidian vault:
+  1. After brain publish, copy the library/ file to your Obsidian vault's Resources folder
   2. Or use Obsidian Sync / iCloud if your vault is in a synced folder
 ```
 
@@ -180,7 +180,7 @@ Option 2 — Sync archive/ to your Obsidian vault:
 
 ```
 1. Open brain/ai-brain/ as a Logseq graph (File → Open Folder)
-2. Logseq reads all .md files — inbox/, notes/, archive/ become pages
+2. Logseq reads all .md files — inbox/, notes/, library/ become pages
 3. Use [[]] links to connect session notes to concept pages
 4. Add :source: copilot as a property to AI-generated pages
 ```
@@ -195,7 +195,7 @@ From the Command Palette (`Ctrl+Shift+P` → *Tasks: Run Task*):
 |---|---|
 | `brain: new note` | Interactive note creation with prompts |
 | `brain: new note (notes tier)` | Create directly in notes/ |
-| `brain: publish note` | Promote a file to archive/ + commit |
+| `brain: publish note` | Promote a file to library/ + commit |
 | `brain: search notes` | Search across all tiers |
 | `brain: status` | Quick tier summary |
 | `brain: list notes` | List notes/ contents |
@@ -266,14 +266,14 @@ The `brain new` command auto-generates the filename — you just supply the titl
    you distinguish your own thinking from AI output when reviewing months later.
 
 3. **Distill before publishing**. A session note should have a written TL;DR section
-   before it's promoted to `archive/`. Raw AI output alone is not a good archive entry.
+   before it's promoted to `library/`. Raw AI output alone is not a good library entry.
 
 4. **Use `kind: decision` for architectural choices**. Even a small "I chose HashMap over
    TreeMap because..." is worth an ADR-format note.
 
 5. **Link back to sessions from code**. Add a comment in the relevant source file:
    ```java
-   // See brain/ai-brain/archive/java/2026-02/2026-02-27_generics-session.md
+   // See brain/ai-brain/library/java/2026-02/2026-02-27_generics-session.md
    ```
 
 6. **Review inbox at the end of every session** — never let it accumulate over multiple days.

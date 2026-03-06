@@ -11,14 +11,14 @@ development and learning sessions -- with Copilot, MCP servers, or manually.
 ai-brain/
   inbox/     TEMP      quick capture -- clear when session ends     [gitignored]
   notes/     KEEP      curated notes, committed to the repo          [tracked]
-  archive/   PUBLISH   formally tagged reference, committed          [tracked]
+  library/   PUBLISH   formally tagged reference, committed          [tracked]
   scripts/   TOOLS     one dispatcher + module + aliases + VS Code tasks
 ```
 
 The three words match what you would actually say:
 - **"Just capturing this"** → drop it in `inbox/`
 - **"I want to keep this"** → move it to `notes/` (committed — searchable by anyone)
-- **"This is a formal reference"** → `brain publish` promotes it to `archive/` with full tags
+- **"This is a formal reference"** → `brain publish` promotes it to `library/` with full tags
 
 ---
 
@@ -33,7 +33,7 @@ brain status                              # see what is in each tier
 brain new                                 # create a note (interactive)
 brain publish brain\ai-brain\inbox\draft.md        # publish to repo (asks project, tags, commits)
 brain search java --tag generics          # search across all tiers
-brain list --tier archive                 # list committed notes
+brain list --tier library                 # list committed notes in the library
 brain clear                               # preview inbox contents
 brain clear --force                       # delete inbox without prompt
 brain move brain\ai-brain\inbox\draft.md --tier notes   # move to notes
@@ -47,7 +47,7 @@ source ./brain/ai-brain/scripts/.brain-aliases.sh
 brain status
 brain new --tier inbox --project mcp-servers
 brain publish brain/ai-brain/inbox/draft.md --project java
-brain search --kind decision --tier archive
+brain search --kind decision --tier library
 brain move brain/ai-brain/inbox/draft.md --tier notes
 ```
 
@@ -61,13 +61,13 @@ In Copilot Chat (agent mode), use `/brain-new`, `/brain-publish`, `/brain-search
 
 ---
 
-## archive/ Hierarchy
+## library/ Hierarchy
 
 Committed notes are organised by **project bucket** + **month**. This is
 created automatically at publish time -- you never create folders manually.
 
 ```
-archive/
+library/
   README.md
   <project>/
     <YYYY-MM>/

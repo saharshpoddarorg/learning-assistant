@@ -227,7 +227,7 @@ This learning project includes working samples of each primitive, organized into
 | `/resources` | [`resources.prompt.md`](prompts/resources.prompt.md) | Search, browse, discover & export ~100+ curated learning resources |
 | `/mcp` | [`mcp.prompt.md`](prompts/mcp.prompt.md) | Learn & build MCP servers, configure agents, protocol deep-dive |
 | `/brain-new` | [`brain-new.prompt.md`](prompts/brain-new.prompt.md) | Create a knowledge note in inbox/ or notes/ tier |
-| `/brain-publish` | [`brain-publish.prompt.md`](prompts/brain-publish.prompt.md) | Publish a note to archive/ with tagging and git commit |
+| `/brain-publish` | [`brain-publish.prompt.md`](prompts/brain-publish.prompt.md) | Publish a note to library/ with tagging and git commit |
 | `/brain-search` | [`brain-search.prompt.md`](prompts/brain-search.prompt.md) | Search notes by tag, project, kind, date, or full text |
 
 > 📖 **Deep dive:** [Prompts Guide →](prompts/README.md)

@@ -154,7 +154,7 @@ Use the built-in query to see all active projects:
 
 The `brain/ai-brain/` workspace uses a simplified two-axis approach:
 
-- **Tier** (inbox → notes → archive) maps to **actionability**
+- **Tier** (inbox → notes → library) maps to **actionability**
 - **Project** tag (`--project mcp-servers`) maps to PARA's "which project"
 
 ```powershell

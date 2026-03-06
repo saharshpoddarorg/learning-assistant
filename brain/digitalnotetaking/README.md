@@ -91,10 +91,10 @@ This module connects to the live note workspace at [`brain/ai-brain/`](../ai-bra
 
 ```
 brain/
-├── ai-brain/          ← live workspace (inbox → notes → archive)
+├── ai-brain/          ← live workspace (inbox → notes → library)
 │   ├── inbox/         temporary capture (not git-tracked)
 │   ├── notes/         curated notes (not git-tracked)
-│   └── archive/       published notes (git-tracked)
+│   └── library/       published notes (git-tracked)
 └── digitalnotetaking/ ← guides & knowledge hub (this folder)
     ├── README.md      ← you are here
     ├── START-HERE.md
@@ -107,7 +107,7 @@ brain/
 **Workflow:**
 1. Capture in `brain/ai-brain/inbox/` (use `brain new` or `/brain-new`)
 2. Curate in `brain/ai-brain/notes/`
-3. Publish to `brain/ai-brain/archive/` (use `brain publish` or `/brain-publish`)
+3. Publish to `brain/ai-brain/library/` (use `brain publish` or `/brain-publish`)
 4. Search anytime: `brain search <topic>` or `/brain-search`
 
 ---

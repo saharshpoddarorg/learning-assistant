@@ -89,7 +89,7 @@ learning-assistant/
 │   └── ai-brain/
 │       ├── inbox/                      ❌ GITIGNORED — session-scoped scratch notes
 │       ├── notes/                      ✅ TRACKED — curated knowledge notes (committed to repo)
-│       └── archive/                    ✅ TRACKED — formally published reference notes
+│       └── library/                    ✅ TRACKED — permanent reference library (project-organized)
 │
 └── .env, .env.*                        ❌ GITIGNORED — raw env files (never commit)
 ```
@@ -588,7 +588,7 @@ build.env.example                                 ✅ Yes       ❌ No        Te
 mcp-servers/out/                                  ❌ No        ✅ Auto      Compiled classes
 brain/ai-brain/inbox/                             ❌ No        Optional     Session scratch notes
 brain/ai-brain/notes/                             ✅ Yes       ❌ No        Curated knowledge notes (committed)
-brain/ai-brain/archive/                           ✅ Yes       ❌ No        Formally published reference notes
+brain/ai-brain/library/                           ✅ Yes       ❌ No        Permanent reference library (project-organized)
 .idea/                                            ❌ No        ✅ Auto (IDE) IntelliJ workspace
 ```
 

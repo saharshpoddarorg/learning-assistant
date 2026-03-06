@@ -21,7 +21,7 @@ Everything goes through one entry point:
 | Command | Description |
 |---------|-------------|
 | `new`   | Create a new note with frontmatter template |
-| `publish` | Promote to `archive/` with project+date hierarchy, tag prompting, git commit |
+| `publish` | Promote to `library/` with project+date hierarchy, tag prompting, git commit |
 | `move`    | Move between tiers without the full publish workflow |
 | `search` | Search by frontmatter or full text |
 | `list`  | List notes with frontmatter summary |
@@ -33,7 +33,7 @@ Everything goes through one entry point:
 
 | Option | Description |
 |--------|-------------|
-| `--tier inbox\|notes\|archive` | Which tier |
+| `--tier inbox\|notes\|library` | Which tier |
 | `--project <name>` | Project bucket (e.g. `mcp-servers`, `java`) |
 | `--title <title>` | Note title (for `new`) |
 | `--kind <kind>` | `note\|decision\|session\|resource\|snippet\|ref` |
@@ -58,7 +58,7 @@ Everything goes through one entry point:
 # Search across all tiers
 .\brain\ai-brain\scripts\brain.ps1 search java
 .\brain\ai-brain\scripts\brain.ps1 search --tag generics --project java
-.\brain\ai-brain\scripts\brain.ps1 search --kind decision --tier archive
+.\brain\ai-brain\scripts\brain.ps1 search --kind decision --tier library
 
 # Publish a note to the repo (interactive: prompts for project, confirms tags, commits)
 .\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\inbox\2026-02-21_draft.md
@@ -69,7 +69,7 @@ Everything goes through one entry point:
 
 # List notes
 .\brain\ai-brain\scripts\brain.ps1 list
-.\brain\ai-brain\scripts\brain.ps1 list --tier archive --project mcp-servers
+.\brain\ai-brain\scripts\brain.ps1 list --tier library --project mcp-servers
 
 # Status overview
 .\brain\ai-brain\scripts\brain.ps1 status
@@ -137,10 +137,10 @@ Open the Command Palette → **Tasks: Run Task** → choose a `brain:` task:
 |------------|--------------|
 | `brain: new note` | Interactive new note in inbox/ |
 | `brain: new note (notes tier)` | New note in notes/ |
-| `brain: publish note` | Promote to archive/, tag, commit |
+| `brain: publish note` | Promote to library/, tag, commit |
 | `brain: search notes` | Interactive search |
 | `brain: list notes` | List all notes |
-| `brain: list archive` | List only archive/ notes |
+| `brain: list archive` | List only library/ notes |
 | `brain: status` | Tier summary |
 | `brain: clear inbox (preview)` | Show what would be cleared |
 | `brain: clear inbox (force)` | Delete inbox without prompt |
