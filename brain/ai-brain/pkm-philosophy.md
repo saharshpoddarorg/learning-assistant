@@ -21,11 +21,11 @@ Before asking "where does this go?" ask "did I write it?" If you can't answer ye
 
 ## 📑 Table of Contents
 
-- [Why 3 Tiers?](#why-3-tiers)
+- [Why Three Zones?](#why-three-zones)
 - [How It Maps to Established PKM Methods](#how-it-maps-to-established-pkm-methods)
-- [The Inbox (Tier 0 — Capture)](#the-inbox-tier-0--capture)
-- [Notes (Tier 1 — Your Knowledge)](#notes-tier-1--your-knowledge)
-- [Library (Tier 2 — Source Material)](#library-tier-2--source-material)
+- [The Inbox — Capture Zone](#the-inbox--capture-zone)
+- [Notes — Your Knowledge](#notes--your-knowledge)
+- [Library — Source Material](#library--source-material)
 - [Frontmatter Philosophy](#frontmatter-philosophy)
 - [Tagging Strategy](#tagging-strategy)
 - [The Review Cycle](#the-review-cycle)
@@ -35,16 +35,16 @@ Before asking "where does this go?" ask "did I write it?" If you can't answer ye
 
 ---
 
-## Why 3 Tiers?
+## Why Three Zones?
 
 Most PKM systems struggle with two failure modes:
 
 1. **Too flat** (single folder): everything piles up, nothing is findable, capture = loss
 2. **Too deep** (folders within folders): organisation overhead kills the habit; you spend more time filing than thinking
 
-Three tiers solve this by mapping to three distinct **psychological states** during knowledge work:
+Three zones solve this by mapping to three distinct **psychological states** during knowledge work:
 
-| Tier | Psychological state | Commitment | Git |
+| Zone | Psychological state | Commitment | Git |
 |---|---|---|---|
 | **Inbox** | "I haven't processed this yet" | None — ephemeral | Gitignored |
 | **Notes** | "This is my thinking" | Permanent — I own this | Tracked |
@@ -52,16 +52,16 @@ Three tiers solve this by mapping to three distinct **psychological states** dur
 
 ### Why not 2?
 
-A 2-tier system (inbox + notes) loses the distinction between *your synthesis* and *imported sources*.
+A two-zone system (inbox + notes) loses the distinction between *your synthesis* and *imported sources*.
 When you receive an excellent guide from a colleague and put it in `notes/`, it creates an ownership
-illusion — you confuse "I once read this" with "I know this." The 3-tier separation forces
+illusion — you confuse "I once read this" with "I know this." The three-zone separation forces
 deliberate distillation: to move from library to notes, you must write something original.
 
 ### Why not 4+?
 
-Four tiers (`inbox` → `drafts` → `notes` → `library`) adds process overhead that benefits
+Four zones (`inbox` → `drafts` → `notes` → `library`) adds process overhead that benefits
 only large-scale PKM systems (Zettelkasten for writing books). For a developer practitioner's
-workspace, the friction of maintaining 4+ queues kills the capture habit. Three is the sweet spot:
+workspace, the friction of maintaining 4+ zones kills the capture habit. Three is the sweet spot:
 capture, own, reference.
 
 ---
@@ -117,7 +117,7 @@ speed of capture and practical retrieval over theoretical link density.
 
 ---
 
-## The Inbox (Tier 0 — Capture)
+## The Inbox — Capture Zone
 
 **Path:** `brain/ai-brain/inbox/`
 **Git status:** Gitignored — never committed
@@ -151,7 +151,7 @@ Three reasons:
 
 ---
 
-## Notes (Tier 1 — Your Knowledge)
+## Notes — Your Knowledge
 
 **Path:** `brain/ai-brain/notes/`
 **Git status:** Tracked — committed and version-controlled
@@ -186,7 +186,7 @@ If no → it belongs in library/ (keep the source; revisit for distillation late
 
 ---
 
-## Library (Tier 2 — Source Material)
+## Library — Source Material
 
 **Path:** `brain/ai-brain/library/`
 **Git status:** Tracked — committed and version-controlled

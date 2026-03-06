@@ -23,7 +23,7 @@ description: >
 
 ---
 
-## Tier 1 — Newbie: The Three Hats
+## Essentials — The Three Roles at a Glance
 
 ### What Each Role Owns
 
@@ -66,7 +66,7 @@ Outcome: shared understanding BEFORE code is written (much cheaper than finding 
 
 ---
 
-## Tier 2 — Amateur: Role Workflows
+## Patterns & Workflows — Role Workflows
 
 ### Product Owner Workflow
 
@@ -243,7 +243,7 @@ P2 — High (core feature broken; workaround: contact support)
 
 ---
 
-## Tier 3 — Pro: Advanced Role Craft
+## Advanced Reference — Advanced Role Craft
 
 ### Shift-Left Testing
 

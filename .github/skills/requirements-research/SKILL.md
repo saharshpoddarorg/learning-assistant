@@ -26,7 +26,7 @@ description: >
 
 ---
 
-## Tier 1 — Newbie: Requirements Fundamentals
+## Essentials — Requirements Fundamentals
 
 ### The Core Question
 
@@ -74,7 +74,7 @@ Scenario: Successful password reset
 
 ---
 
-## Tier 2 — Amateur: Elicitation & Analysis Methods
+## Patterns & Workflows — Elicitation & Analysis Methods
 
 ### Elicitation Techniques
 
@@ -176,7 +176,7 @@ Goal: "Buy a product online"
 
 ---
 
-## Tier 3 — Pro: Advanced Requirements Engineering
+## Advanced Reference — Advanced Requirements Engineering
 
 ### Requirements Traceability Matrix (RTM)
 

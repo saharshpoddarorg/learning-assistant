@@ -42,7 +42,7 @@ library/  SOURCES  you imported it (external docs, slide decks, reference materi
 
 ---
 
-## Tier 1 — Newbie: Quick Commands & Basic Naming
+## Essentials — Quick Commands & Basic Naming
 
 ### Basic Commands
 
@@ -70,7 +70,7 @@ YYYY-MM-DD_slug.md
 
 ---
 
-## Tier 2 — Amateur: Naming Conventions, Frontmatter & Timestamping
+## Patterns & Workflows — Naming Conventions, Frontmatter & Timestamping
 
 ### Full Naming Convention Table
 
@@ -173,7 +173,7 @@ Rules:
 
 ---
 
-## Tier 3 — Pro: Industry Standards, PKM Methods & Advanced Patterns
+## Advanced Reference — PKM Methods & Industry Standards
 
 ### PKM Method Mapping
 

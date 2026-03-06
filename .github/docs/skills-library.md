@@ -13,7 +13,7 @@
 - [Current Skills Inventory](#current-skills-inventory)
 - [How to Create a New Skill](#how-to-create-a-new-skill)
 - [The Description Field — Most Important Part](#the-description-field--most-important-part)
-- [3-Tier Content Structure](#3-tier-content-structure)
+- [Content Depth Structure](#content-depth-structure)
 - [Naming Conventions](#naming-conventions)
 - [Skills Roadmap](#skills-roadmap)
 - [Anti-Patterns to Avoid](#anti-patterns-to-avoid)
@@ -27,7 +27,7 @@ A **skill** is a Copilot customization file (`.github/skills/<name>/SKILL.md`) t
 1. Contains **domain-specific knowledge** that Copilot doesn't have natively (or has incompletely)
 2. **Auto-activates** when the user asks about the skill's domain (based on the `description` field)
 3. Is **read once** when a relevant request is detected — not loaded on every message
-4. Contains **3-tier content** (Newbie → Amateur → Pro) that Copilot uses to give appropriately-levelled responses
+4. Contains **three depth levels** (Essentials → Patterns & Workflows → Advanced Reference) that Copilot selects from based on the complexity of the request
 
 **Skills vs. other customization primitives:**
 
@@ -214,24 +214,24 @@ description: >
 
 ---
 
-## 3-Tier Content Structure
+## Content Depth Structure
 
-Every skill must have 3 tiers. No exceptions.
+Every skill must have three depth levels. No exceptions.
 
-### Tier 1 — Newbie ("What is this? How do I start?")
+### Essentials ("What is this? Core concepts and quick answers")
 
-- **Audience:** Someone new to the domain
-- **Format:** Short explanations, simple examples, quick-start commands
+- **Purpose:** Core vocabulary, fundamental concepts, and immediate answer templates — always consulted first
+- **Format:** Short explanations, simple examples, quick-start commands or checklists
 - **Length:** 20-50 lines
 - **Includes:**
   - Core concept in 1-2 sentences
   - Most important example (the simplest useful one)
-  - A quick-start checklist or sequence of steps
+  - A quick-start checklist or decision table
   - Common confusion to clear up
 
-### Tier 2 — Amateur ("How do I use this in practice?")
+### Patterns & Workflows ("How do I apply this in practice?")
 
-- **Audience:** Someone familiar with basics, now doing real work
+- **Purpose:** Applied methodologies, step-by-step workflows, and decision frameworks
 - **Format:** Tables, workflows, decision guides, templates
 - **Length:** 50-150 lines
 - **Includes:**
@@ -240,16 +240,16 @@ Every skill must have 3 tiers. No exceptions.
   - A workflow or process with steps
   - Common pitfalls and how to avoid them
 
-### Tier 3 — Pro ("How do I master this?")
+### Advanced Reference ("What are the deep frameworks and edge cases?")
 
-- **Audience:** Someone who knows the domain and wants depth
-- **Format:** Deep-dive theory, advanced patterns, architecture decisions
+- **Purpose:** Expert-level patterns, full rubrics, and advanced decision frameworks
+- **Format:** Deep-dive theory, advanced patterns, architecture decisions, full templates
 - **Length:** 50-200 lines
 - **Includes:**
-  - Advanced concepts not covered in Tier 1/2
+  - Advanced concepts not covered in Essentials or Patterns & Workflows
   - Architecture or design implications
   - Industry-standard practices and why they exist
-  - Specific metrics, evaluation rubrics, or decision frameworks
+  - Specific metrics, evaluation rubrics, or full decision frameworks
 
 ### Format Template
 
@@ -266,7 +266,7 @@ description: > ...
 
 ---
 
-## Tier 1 — Newbie: <Topic> Fundamentals
+## Essentials — <Topic> Fundamentals
 
 ### Core concept
 ...
@@ -278,14 +278,14 @@ code example or checklist
 
 ---
 
-## Tier 2 — Amateur: <Topic> in Practice
+## Patterns & Workflows — <Topic> in Practice
 
 ### Key techniques
 ...table or structured list...
 
 ---
 
-## Tier 3 — Pro: Advanced <Topic>
+## Advanced Reference — <Topic> Deep Patterns
 
 ### Deep dive
 ...advanced content...

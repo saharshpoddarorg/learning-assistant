@@ -21,7 +21,7 @@ description: >
 
 ---
 
-## Tier 1 — Newbie: Investigation Quick-Start
+## Essentials — Investigation Quick-Start
 
 ### The 5-Step Investigation Loop
 
@@ -54,7 +54,7 @@ description: >
 
 ---
 
-## Tier 2 — Amateur: Research Methodologies
+## Patterns & Workflows — Research Methodologies
 
 ### Research Types & When to Use Each
 
@@ -155,7 +155,7 @@ Not in Scope: <explicitly exclude tangential topics>
 
 ---
 
-## Tier 3 — Pro: Advanced Investigation Patterns
+## Advanced Reference — Investigation Techniques & Frameworks
 
 ### Deep Dive Methodology for Unknown Technologies
 
