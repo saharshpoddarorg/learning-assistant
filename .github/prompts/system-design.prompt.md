@@ -124,7 +124,7 @@ System Design
         ├── Snake & Ladder Game
         └── Online Shopping Cart
 
-```
+```markdown
 
 ### Response Structure
 

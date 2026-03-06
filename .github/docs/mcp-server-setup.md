@@ -129,7 +129,7 @@ cd mcp-servers
 
 You should see output ending with:
 
-```
+```text
 BUILD SUCCESS -- compiled 150 files
 ```
 
@@ -295,7 +295,7 @@ If servers appear with tools listed — you're done! Try asking:
 
 ### Quick Smoke Test
 
-```
+```markdown
 # In Copilot Chat (agent mode):
 "Use the learning resources tool to find something about Java streams"
 ```
@@ -316,7 +316,7 @@ If a server doesn't appear, open the VS Code **Output** panel:
 
 To use these MCP servers in another project (e.g., `my-other-project`):
 
-```
+```text
 Things to copy:
   mcp-servers/              ← the entire folder (Java sources + config + build scripts)
   mcp-servers/.vscode/      ← included automatically in the above
@@ -411,7 +411,7 @@ mcp-servers/out/
 
 ### Config Precedence (highest wins first)
 
-```
+```text
 Environment variables (MCP_*, ATLASSIAN_*)
     ↓
 .local.properties files (gitignored, your secrets)
@@ -444,7 +444,7 @@ Built-in defaults
 1. Install JDK 21+ (see §3a)
 2. If installed but still not found, create `mcp-servers/build.env.local` and set `JAVA_HOME`:
 
-   ```
+   ```markdown
    # Copy from build.env.example, then edit:
    JAVA_HOME=C:\path\to\your\jdk-21
    ```

@@ -41,7 +41,7 @@ source: imported
 
 Without prompt files, every developer writes the same context over and over:
 
-```
+```text
 ❌ "I want to add a property to Device.java.
     Make sure to call premodify() before the setter,
     fire a PropertyChangeEvent, use @NotNull,
@@ -50,7 +50,7 @@ Without prompt files, every developer writes the same context over and over:
 
 With a prompt file:
 
-```
+```text
 ✅ /cof-model  Add property "description" to Device.java
 ```
 
@@ -66,7 +66,7 @@ The prompt file carries **all the rules** — you only describe **the task**.
 
 Type `/` in the Copilot Chat input box — a picker appears with all available prompts:
 
-```
+```text
 /history
 /cof-model   Add a new property to IDevice
 /java-dev    Fix null pointer exception in DeviceManager
@@ -85,7 +85,7 @@ Type `/` in the Copilot Chat input box — a picker appears with all available p
 
 Open the file you want to work on, then use the prompt:
 
-```
+```text
 [Device.java is open in editor]
 /cof-model   Add a setDescription() setter following existing patterns
 ```
@@ -110,7 +110,7 @@ Copilot now has the file content + the prompt rules simultaneously.
 
 ### Slide: They Work Together
 
-```
+```text
 You type:  /cof-model  Add description property to Device.java
 
 ┌──────────────────────────────────────────────────────┐
@@ -149,7 +149,7 @@ You type:  /cof-model  Add description property to Device.java
 
 ### Slide: Directory Structure
 
-```
+```text
 .github/prompts/
 ├── history.prompt.md                    ← /history  — chat history viewer
 ├── help-me-choose.prompt.md             ← /help-me-choose
@@ -174,7 +174,7 @@ You type:  /cof-model  Add description property to Device.java
 
 **Solution:** `/cof-model` carries all COF rules — everyone gets the same expert output.
 
-```
+```text
 /cof-model  Add a new property "wireGauge" to the IWireConductor interface
              and implement it in WireConductor.java
 ```
@@ -194,7 +194,7 @@ You type:  /cof-model  Add description property to Device.java
 
 **Solution:** First day, show them these slash commands. They self-serve from day one.
 
-```
+```text
 New dev types: /help-me-choose  I need to add a button that opens a dialog
 ```
 
@@ -212,7 +212,7 @@ Response guides them to `/caplet-action`, which then generates correct `AppActio
 
 **Solution:**
 
-```
+```text
 /build-workflow  I changed IDevice.java and Device.java. What should I build?
 ```
 
@@ -234,7 +234,7 @@ Response guides them to `/caplet-action`, which then generates correct `AppActio
 
 **Proposed prompt:** `/review`
 
-```
+```text
 /review  Check my changes in Device.java before I raise a PR
 ```
 
@@ -255,7 +255,7 @@ Response guides them to `/caplet-action`, which then generates correct `AppActio
 
 **Solution:**
 
-```
+```text
 /java-dev  Generate unit tests for ImportMessageUtils following existing test patterns
 ```
 
@@ -297,7 +297,7 @@ public class ImportMessageUtilsTest {
 
 **Problem:** Developer creates a gRPC service but misses the `IGrpcService` contract.
 
-```
+```text
 /persistence-grpc  Create a new gRPC service for validating design integrity
 ```
 
@@ -314,7 +314,7 @@ public class ImportMessageUtilsTest {
 
 **Proposed prompt:** `/create-bug`
 
-```
+```text
 /create-bug  NPE in CrossSelectionClient.sendRequest() when no design is loaded.
              Steps: Open Capital, don't open any design, try cross-selection.
 ```
@@ -331,7 +331,7 @@ public class ImportMessageUtilsTest {
 
 **Problem:** "What did I ask 20 messages ago?" — Scrolling back is tedious.
 
-```
+```text
 /history
 ```
 
@@ -344,7 +344,7 @@ public class ImportMessageUtilsTest {
 | 3 | 2026-02-28 10:30 | why you store and created file my_userprompt.md |
 | 4 | 2026-02-28 10:00 | i want to give the knowledge sharing session... |
 
-```
+```text
 /history 5    ← Show last 5 instead of 10
 ```
 
@@ -354,7 +354,7 @@ public class ImportMessageUtilsTest {
 
 **Problem:** Immersed mode development has very specific patterns — EDT safety, window tracking, REST payloads.
 
-```
+```text
 /nx-integration  Add cross-selection support when a new NX window is acquired
 ```
 
@@ -369,7 +369,7 @@ public class ImportMessageUtilsTest {
 
 ### USE CASE 10: Performance Investigation
 
-```
+```text
 /analyze-perf  getDeviceConnectors() takes 3 seconds with 1000+ connectors
 ```
 
@@ -470,7 +470,7 @@ You are helping with [specific domain] in the Capital IESD-24 project.
 
 ## QUICK REFERENCE CARD (Session Handout)
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │         GHCP PROMPT FILES — Capital IESD-24                  │
 ├─────────────────────────────────────────────────────────────┤

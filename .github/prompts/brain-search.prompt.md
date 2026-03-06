@@ -43,7 +43,7 @@ TIER     PATH                                        KIND       PROJECT        T
 library  mcp-servers/2026-02/2026-02-21_sse.md       decision   mcp-servers    sse, transport
 notes    2026-02-20_java-generics.md                 note       java           java, generics
 
-```
+```text
 
 7. If no results: suggest broadening the search (remove a filter, try a different term)
 8. If results found: offer to open a specific file or publish one to library/
@@ -55,10 +55,10 @@ To run this from the terminal instead:
 
 .\brain\ai-brain\scripts\brain.ps1 search <query> --tag <tag> --project <project> --kind <kind> --date <YYYY-MM> --tier <tier>
 
-```
+```text
 ```bash
 
 ./brain/ai-brain/scripts/brain.sh search <query> --tag <tag> --project <project> --kind <kind>
 
-```
+```text
 ```

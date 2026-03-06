@@ -71,7 +71,7 @@ Skills are also an **open standard** ([agentskills.io](https://agentskills.io/))
 
 Each skill is a **folder** (not a single file):
 
-```
+```text
 .github/skills/
 │
 ├── java-build/                    ← Skill folder
@@ -123,7 +123,7 @@ You can reference files in this directory using relative paths:
 
 Skills use **progressive disclosure** — they don't dump everything into context immediately:
 
-```
+```text
 Level 1: DISCOVERY (always loaded — very lightweight)
   ├── Copilot reads: name + description from frontmatter
   ├── Cost: ~10-20 tokens per skill
@@ -151,7 +151,7 @@ Level 3: RESOURCES (loaded on demand)
 
 **Directory:**
 
-```
+```text
 java-build/
 ├── SKILL.md
 └── common-errors.md
@@ -183,7 +183,7 @@ See [common-errors.md](./common-errors.md) for troubleshooting.
 
 **Directory:**
 
-```
+```text
 run-tests/
 ├── SKILL.md
 └── examples/
@@ -218,7 +218,7 @@ See [SampleTest.java](./examples/SampleTest.java) for standard structure.
 
 **Directory:**
 
-```
+```sql
 create-class/
 ├── SKILL.md
 └── ClassTemplate.java

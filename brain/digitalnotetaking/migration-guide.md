@@ -23,7 +23,7 @@
 
 ### Step 1 — Export from Notion
 
-```
+```text
 Notion → Settings & members → Settings → Export content
 Export format: Markdown & CSV
 Include subpages: ✅
@@ -34,7 +34,7 @@ Click Export → download the .zip file
 
 ### Step 2 — Use Obsidian's Built-in Importer
 
-```
+```text
 Obsidian → Community plugins → search "Importer" → install
 Open the Importer panel
 Select: Notion
@@ -77,7 +77,7 @@ Move imported notes from `Imports/` into the correct PARA folder. Don't try to k
 
 ### Step 1 — Locate your Logseq files
 
-```
+```text
 Logseq → ... menu → Open in Explorer (the vault folder)
 Your notes are in:
   pages/      ← all named pages
@@ -129,7 +129,7 @@ Same as the Notion migration: move files from `Imports/` into Projects/Areas/Res
 
 ### Step 1 — Export from OneNote to Word
 
-```
+```text
 OneNote (Desktop) → File → Export
 Export as: Word (.docx)
 Export all: entire notebook
@@ -153,7 +153,7 @@ Get-ChildItem ".\onenote-export\" -Filter "*.docx" | ForEach-Object {
 
 ### Step 3 — Import Markdown into Notion
 
-```
+```text
 Notion → sidebar ... → Import → Markdown & CSV
 Select your .md files
 Notion creates pages from them
@@ -200,7 +200,7 @@ Run through this checklist 1 week after migrating:
 
 Use Copilot to help with any step:
 
-```
+```text
 /digital-notetaking → migration → notion-to-obsidian → advanced
 /digital-notetaking → migration → onenote-to-notion → intermediate
 ```

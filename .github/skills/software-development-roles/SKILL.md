@@ -35,7 +35,7 @@ description: >
 
 ### Quick Cognitive Mode Switch
 
-```
+```text
 Putting on the PO hat:
   → Think user outcomes, not implementation details
   → Ask: "Does this deliver value to the customer?"
@@ -56,7 +56,7 @@ Putting on the QA hat:
 
 Before building anything significant, three roles review the story together:
 
-```
+```text
 Product Owner brings: the WHY (user goal, business value, acceptance criteria)
 Developer brings:     the HOW (tech approach, feasibility, edge cases from implementation)
 QA brings:            the "WHAT IF" (failure modes, edge cases, testability questions)
@@ -79,7 +79,7 @@ Outcome: shared understanding BEFORE code is written (much cheaper than finding 
 
 **Backlog lifecycle:**
 
-```
+```text
 Discovery → Initiative → Epic → Feature → User Story → Task
 
 Discovery: raw idea or problem statement from customers or strategy
@@ -92,7 +92,7 @@ Task: technical sub-unit of a story (internal to dev team)
 
 **Sprint cadence (PO perspective):**
 
-```
+```text
 Week before sprint: refinement — review top-of-backlog stories, confirm DoR met
 Sprint Day 1:      planning — commit to sprint goal, clarify stories with team
 During sprint:     answer questions same day; keep backlog up to date
@@ -102,7 +102,7 @@ Post-review:       retrospective; update backlog based on sprint learnings
 
 **Acceptance testing script (during demo):**
 
-```
+```text
 1. Open the story card (confirm acceptance criteria visible)
 2. Walk through each AC with the developer demonstrating
 3. Ask "what happens if…" for at least one edge case per story
@@ -129,7 +129,7 @@ Post-review:       retrospective; update backlog based on sprint learnings
 
 **Feature development workflow:**
 
-```
+```text
 1. Read: read the story, AC, NFRs — ask questions BEFORE starting
 2. Design: think about the approach; sketch if complex; propose in Three Amigos
 3. Branch: create feature branch from main (git flow or trunk-based per project)
@@ -185,7 +185,7 @@ release/v2.3.0                     # release branch (if using git-flow)
 
 **Test pyramid:**
 
-```
+```text
         ╱─────╲       UI / E2E Tests (few, slow, fragile — cover critical journeys only)
        ╱───────╲      Integration Tests (moderate — service-to-service contracts)
       ╱─────────╲     Unit Tests (many, fast, isolated — all edge cases of logic)
@@ -256,7 +256,7 @@ P2 — High (core feature broken; workaround: contact support)
 
 **Principle:** Move quality activities as early in the lifecycle as possible.
 
-```
+```text
 Traditional (waterfall):
 Dev [ Code ] → QA [ Test ] → Found bugs → Dev [ Fix ] → QA [ Retest ]
 (expensive: bugs found late, context lost, re-work is high)
@@ -287,7 +287,7 @@ Layers of shift-left:
 
 **Review culture — constructive feedback patterns:**
 
-```
+```text
 ❌ "This is wrong."
 ✅ "I don't see a null check here — what happens if X is null?"
 
@@ -302,7 +302,7 @@ Layers of shift-left:
 
 **Objective and Key Results as backlog filter:**
 
-```
+```yaml
 Objective: Improve customer account self-service (reduce support contacts 30% by Q3)
   KR1: Password reset completion rate > 80% (currently 0% — not built)
   KR2: Account details self-editable (currently requires support)
@@ -315,7 +315,7 @@ Backlog filter:
 
 **WSJF (Weighted Shortest Job First) scoring for SAFe teams:**
 
-```
+```properties
 WSJF = Cost of Delay / Job Duration
 
 Cost of Delay = User-Business Value + Time Criticality + Risk Reduction + Opportunity Enablement
@@ -326,7 +326,7 @@ Higher WSJF → do first. Smaller tasks with high delay cost beat large low-urge
 
 ### Test Architecture for Long-Lived Systems
 
-```
+```text
 Design tests at the right layer:
   Domain logic (pure functions, algorithms) → unit tests (no mocks)
   Application layer (orchestration, use cases) → unit tests with mocks at boundaries

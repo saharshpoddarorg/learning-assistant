@@ -52,7 +52,7 @@ description: >
 
 ### High-Level Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────┐
 │                   AI APPLICATION                 │
 │  (VS Code, Claude Desktop, Cursor, Custom App)  │
@@ -102,7 +102,7 @@ Tools are the most commonly used primitive. They represent functions that the AI
 
 **JSON-RPC flow:**
 
-```
+```text
 Client → Server: { "method": "tools/list" }
 Server → Client: { "tools": [{ "name": "query_db", "description": "...", "inputSchema": {...} }] }
 
@@ -144,7 +144,7 @@ Prompts are pre-built templates that users can explicitly select. They help user
 
 ### stdio (Standard I/O) — Default for Local Development
 
-```
+```text
 Host Application
     │
     ├── spawns child process: "node server.js"
@@ -162,7 +162,7 @@ Host Application
 
 ### SSE (Server-Sent Events) — Legacy Remote Transport
 
-```
+```text
 Client                          Server
   │                                │
   │── POST /message ──────────────→│  (client → server messages)
@@ -177,7 +177,7 @@ Client                          Server
 
 ### Streamable HTTP — Recommended for Remote/Production
 
-```
+```text
 Client                          Server
   │                                │
   │── POST /mcp ──────────────────→│
@@ -195,7 +195,7 @@ Client                          Server
 
 ### Session Flow
 
-```
+```text
 Phase 1: INITIALIZE
 ──────────────────
 Client → Server:
@@ -942,7 +942,7 @@ Add in Cursor settings → Features → MCP:
 
 The most common pattern. Wrap an existing REST API so AI can use it.
 
-```
+```text
 ┌──────────┐      ┌──────────────┐      ┌──────────────┐
 │  AI      │ MCP  │  MCP Server  │ HTTP │  REST API    │
 │  Agent   │◄────►│  (Wrapper)   │─────→│  (Existing)  │
@@ -1094,7 +1094,7 @@ async function generateFromOpenAPI(specUrl: string, baseUrl: string, apiKey?: st
 
 The simplest and most common pattern. One AI agent (e.g., VS Code Copilot in agent mode) connects to multiple MCP servers.
 
-```
+```text
 .vscode/mcp.json → configure all servers
 Agent mode → AI decides which tools to use based on the task
 ```
@@ -1209,7 +1209,7 @@ await agent.shutdown();
 
 ### Multi-Agent System with MCP
 
-```
+```text
 ┌─────────────────────────────────────────────────┐
 │              ORCHESTRATOR AGENT                  │
 │  (Receives user request, delegates to agents)    │
@@ -1292,7 +1292,7 @@ await agent.shutdown();
 
 ### Authentication & Authorization
 
-```
+```text
 Security Layers
 │
 ├── Transport Security
@@ -1577,7 +1577,7 @@ When building multiple MCP servers in a single project, keep each server as an *
 
 ### Recommended Directory Layout
 
-```
+```text
 your-project/
 ├── .github/                     ← Copilot customization (unchanged)
 ├── .vscode/
@@ -1967,7 +1967,7 @@ java -jar target/inventory-mcp.jar
 
 ### Learning Path
 
-```
+```text
 MCP Learning Path
 │
 ├── Level 1: CONSUMER (use existing MCPs)
@@ -2009,7 +2009,7 @@ MCP Learning Path
 
 ### Tool Registration Pattern
 
-```
+```text
 server.tool(name, description, inputSchema, handler)
 → name: lowercase-kebab-case, verb-first (search_items, create_user)
 → description: One sentence explaining WHEN to use this tool
@@ -2019,7 +2019,7 @@ server.tool(name, description, inputSchema, handler)
 
 ### Resource Registration Pattern
 
-```
+```text
 server.resource(name, uri, description, handler)
 → uri: scheme://path (e.g., db://myapp/schema)
 → Dynamic: use {param} in URI template
@@ -2028,7 +2028,7 @@ server.resource(name, uri, description, handler)
 
 ### Prompt Registration Pattern
 
-```
+```text
 server.prompt(name, description, paramSchema, handler)
 → handler: returns { messages: [{ role, content }] }
 → User selects prompts explicitly (slash commands, menus)

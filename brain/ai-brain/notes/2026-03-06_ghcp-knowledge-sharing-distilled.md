@@ -67,7 +67,7 @@ The instruction layering is what makes all three powerful:
 
 ### Key Insight #2 — Prompt Files Are Team Multipliers
 
-```
+```text
 ❌ Without prompt file (every dev rewrites context):
    "Add a property to Device.java. Call premodify() first, fire PropertyChangeEvent,
     use @NotNull, follow VaultKey pattern, add interface method in interfaces_src..."
@@ -129,7 +129,7 @@ The knowledge sharing session itself is a technique: structured slides + live de
 **The problem:** 500 lines of Java code → ~2,000 tokens of syntax noise → LLM infers relationships.
 **The solution:** 20 lines of Mermaid → ~200 tokens → LLM *knows* relationships explicitly. **10x compression.**
 
-```
+```text
 500 LOC of Device.java  → LLM guesses: "Device probably extends something"
 20 lines of Mermaid     → LLM knows:   "Device extends AbstractDevice,
                                           implements IDevice + IPrivilegedDevice,
@@ -139,7 +139,7 @@ The knowledge sharing session itself is a technique: structured slides + live de
 
 **The 3-step workflow:**
 
-```
+```text
 Step 1: GENERATE → "Generate a Mermaid class diagram showing IDevice hierarchy and all consumers"
 Step 2: FEED     → Paste the diagram into your next prompt as context
 Step 3: MODIFY   → Agent reasons over structure, not code text

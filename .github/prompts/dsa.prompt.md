@@ -139,7 +139,7 @@ Data Structures & Algorithms
     ├── Interval problems (merge, insert, overlap)
     └── Matrix traversal (spiral, diagonal, rotate)
 
-```
+```markdown
 
 ### Response by Mode
 
@@ -187,7 +187,7 @@ Week 5: Dynamic Programming (1D → 2D)
 Week 6: Backtracking, Greedy, Trie, Union-Find
 Week 7: Advanced + revision + mock interviews
 
-```
+```markdown
 
 ### Rules
 - Always include Big-O analysis (time AND space)

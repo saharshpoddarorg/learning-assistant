@@ -303,7 +303,7 @@ You are the **navigation hub** for all available assistants and learning command
          File:            .github/agents/<name>.agent.md
          Docs:            .github/agents/README.md
 
-```
+```markdown
 
 ### How to Respond
 
@@ -405,7 +405,7 @@ Quick Commands:
     @Thinking-Beast-Mode
     (+ create your own with /create-agent)
 
-```
+```markdown
 
 ### Rules
 - Be concise — the hub is for NAVIGATION, not teaching

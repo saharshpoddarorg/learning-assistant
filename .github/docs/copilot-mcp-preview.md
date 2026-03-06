@@ -62,7 +62,7 @@ The `/create-agent` command opens an **interactive wizard** that:
 
 ### Usage
 
-```
+```text
 Ctrl+Shift+I (open Copilot Chat)
 → Type: /create-agent
 → Follow the wizard
@@ -253,7 +253,7 @@ The MCP spec has formally introduced **Streamable HTTP** as the recommended tran
 
 ### Streamable HTTP — How It Works
 
-```
+```text
 Client                          Server
   │                                │
   │── POST /mcp ──────────────────→│  (all client requests)

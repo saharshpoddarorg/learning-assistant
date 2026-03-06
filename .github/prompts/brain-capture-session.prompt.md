@@ -40,7 +40,7 @@ conversation / session context and distil it into a structured, publishable mark
 
 2. **Generate the filename:**
 
-   ```
+   ```text
    YYYY-MM-DD_session-<topic-slug>.md
    ```
 
@@ -86,7 +86,7 @@ conversation / session context and distil it into a structured, publishable mark
 
    // snippet here
 
-   ```
+   ```markdown
 
    ## Decisions Made
    <!-- Any architectural or implementation choices, with brief rationale -->
@@ -126,7 +126,7 @@ conversation / session context and distil it into a structured, publishable mark
 
 6. **After creating the file**, tell the user:
 
-   ```
+   ```text
    ✅ Session note created:
       brain/ai-brain/inbox/YYYY-MM-DD_session-<slug>.md
 

@@ -151,7 +151,7 @@ Data Structures (Arrays, Lists, Stacks, Queues, Trees, Graphs, Hash Maps) →
 Algorithms (Sorting, Searching, Recursion, DP, Greedy, Graph Traversal) →
 Complexity Analysis (Big-O, Big-Theta, Big-Omega, Space vs Time)
 
-```
+```markdown
 
 ### Programming Foundations Track (Java focus)
 ```
@@ -163,7 +163,7 @@ Collections → Generics → Exceptions → File I/O →
 Streams → Lambdas → Optional → Enums → Annotations →
 Records → Sealed Classes → Pattern Matching
 
-```
+```markdown
 
 ### Operating Systems Track
 ```
@@ -175,7 +175,7 @@ File Systems (Inodes, Journaling, VFS) →
 I/O (Blocking, Non-blocking, Async, Epoll) →
 IPC (Pipes, Shared Memory, Message Queues, Sockets)
 
-```
+```markdown
 
 ### Networking & Protocols Track
 ```
@@ -185,7 +185,7 @@ REST → gRPC/Protobuf → GraphQL → WebSocket →
 TLS/SSL → Load Balancing → CDN → Proxy vs Reverse Proxy →
 RPC → Stateful vs Stateless → Connection Pooling
 
-```
+```markdown
 
 ### Database & Storage Track
 ```
@@ -195,7 +195,7 @@ Transactions → ACID → Isolation Levels → Query Optimization → Joins →
 NoSQL (Document, KV, Column, Graph) → Denormalization →
 Replication → Sharding → Partitioning → CAP Theorem → Eventual Consistency
 
-```
+```markdown
 
 ### System Design Track
 ```
@@ -209,7 +209,7 @@ LLD: Class Design → SOLID → Design Patterns → OOP Modeling →
      API Contracts → Schema Design → State Machines →
      Error Handling → Logging → Concurrency Control
 
-```
+```markdown
 
 ### Testing & Quality Track
 ```
@@ -220,7 +220,7 @@ Test Doubles (Mocks, Stubs, Spies, Fakes) →
 Test Pyramid → Mutation Testing → Property-Based Testing →
 Performance Testing → Load Testing → Chaos Testing
 
-```
+```markdown
 
 ### Concurrency & Multithreading Track
 ```
@@ -231,7 +231,7 @@ Producer-Consumer → Readers-Writers → Deadlock Prevention →
 Lock-Free Data Structures → CAS Operations →
 Async/Await → Event Loops → Actor Model → CSP
 
-```
+```markdown
 
 ### DevOps & Tooling Track
 ```
@@ -244,7 +244,7 @@ IaC (Terraform, Ansible, Pulumi) → Cloud (AWS, GCP, Azure — core services) �
 Monitoring (Prometheus, Grafana) → Logging (ELK Stack) → Tracing (Jaeger, OpenTelemetry) →
 Incident Management → SRE Principles (SLI/SLO/SLA, Error Budgets)
 
-```
+```markdown
 
 ### Distributed Systems Track
 ```
@@ -258,7 +258,7 @@ Fault Tolerance (Failure Detection, Circuit Breaker, Bulkhead, Saga) →
 Distributed Transactions (2PC, Saga, Outbox) →
 Theorems (CAP, PACELC, FLP, Two Generals, Byzantine Generals)
 
-```
+```markdown
 
 ### Software Engineering Practices Track
 ```
@@ -269,7 +269,7 @@ Version Control → Code Review → CI/CD →
 SDLC Models (Waterfall, Agile, Scrum, Kanban, XP) →
 Documentation → API Design → Logging & Monitoring
 
-```
+```markdown
 
 ## Output Format for Teaching
 
@@ -318,7 +318,7 @@ Documentation → API Design → Logging & Monitoring
 
 → [Next concept in the learning path]
 
-```
+```markdown
 
 ## Rules
 - Never assume knowledge — if using a term, explain it (or link to where you explained it)

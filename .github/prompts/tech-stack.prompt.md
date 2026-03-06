@@ -69,7 +69,7 @@ API Styles
 ├── tRPC (TypeScript end-to-end)
 └── WebSocket (real-time bidirectional)
 
-```
+```markdown
 
 ### Response Structure
 

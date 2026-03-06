@@ -81,7 +81,7 @@ Software Development Lifecycle — End to End
     ├── Feature deprecation
     └── Documentation updates
 
-```
+```markdown
 
 ### Methodology Comparison
 ```
@@ -93,7 +93,7 @@ XP:           Short iterations + pair programming + TDD + CI (discipline)
 Spiral:       Plan → Risk Analysis → Engineer → Evaluate (risk-driven)
 SAFe:         Scaled Agile for large organizations (frameworks of frameworks)
 
-```
+```markdown
 
 ### Response by Focus
 

@@ -25,7 +25,7 @@ Reference module guides in `mac-os/docs/` for detailed reference.
 
 ### Mac Dev Domain Map
 
-```
+```text
 macOS Development Environment
 │
 ├── Package Management

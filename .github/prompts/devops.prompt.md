@@ -60,7 +60,7 @@ Version Control & Collaboration
 ├── Code Review: best practices, automated checks, review checklists
 └── Monorepo vs Polyrepo: trade-offs, tools (Nx, Turborepo, Bazel)
 
-```
+```markdown
 
 ### Response Structure by Goal
 

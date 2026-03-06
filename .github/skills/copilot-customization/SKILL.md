@@ -28,7 +28,7 @@ description: >
 
 ## The 6 Primitives — At a Glance
 
-```
+```text
 Primitive               File(s)                         Activation      Content Type
 ──────────────────────────────────────────────────────────────────────────────────────
 copilot-instructions    .github/copilot-instructions.md  Always on       Behavioral rules
@@ -106,7 +106,7 @@ applyTo: "**/*.java"
 
 **Stacking example:**
 
-```
+```text
 Open file: UserServiceTest.java
 
 Active instructions:
@@ -141,7 +141,7 @@ description: >
 
 **Description field writing guide:**
 
-```
+```text
 Too vague:   "Java stuff"                    → Never activates
 Too specific: "How to create a singleton"    → Misses related questions
 Just right:  "Use when asked about Java 21+, JVM, concurrency, streams,
@@ -355,7 +355,7 @@ ${input:goal:...}
 
 ### Recipe 1: Always-On Enriched Domain (Instructions + Skill)
 
-```
+```text
 java.instructions.md (applyTo: **/*.java)   → behavioral: HOW to write Java
 java-learning-resources/SKILL.md           → informational: WHAT to know about Java
 ```
@@ -364,7 +364,7 @@ Combined: Java code is written to standards AND Copilot knows deep Java context.
 
 ### Recipe 2: Structured Expert Workflow (Agent + Prompt)
 
-```
+```text
 .agent.md (designer)       → WHO: architecture mindset, pattern vocabulary
 .prompt.md (design-review) → WHAT: structured review workflow
 ```
@@ -373,7 +373,7 @@ User selects Designer, types /design-review → Expert runs structured workflow.
 
 ### Recipe 3: Compound Workflow (Prompt via `#file:` references)
 
-```
+```text
 composite.prompt.md includes:
   #file:.github/prompts/design-review.prompt.md
   #file:.github/prompts/impact.prompt.md
@@ -384,7 +384,7 @@ One `/composite` command runs three full workflows in sequence.
 
 ### Recipe 4: Agent Handoff Chain
 
-```
+```text
 Designer → Impact-Analyzer → Code-Reviewer
 (each agent hands work to the next specialist)
 ```
@@ -393,7 +393,7 @@ Configure via `handoffs:` in agent frontmatter and body instructions.
 
 ### Recipe 5: Specialist + Live Data (Agent + MCP)
 
-```
+```text
 Code-Reviewer agent (read-only tools)   → WHO: review mindset
 GitHub MCP server                       → WHAT data: actual PR diffs
 ```
@@ -402,7 +402,7 @@ Agent reviews real PRs without needing VS Code editFiles access.
 
 ### Recipe 6: Steering Mode (Global Instruction File)
 
-```
+```text
 change-completeness.instructions.md (applyTo: "**")
 ```
 
@@ -411,7 +411,7 @@ Stack multiple `applyTo: "**"` files for multiple global modes.
 
 ### Recipe 7: Full Stack
 
-```
+```text
 copilot-instructions.md          → always: project rules
 java.instructions.md             → when *.java: Java rules
 designer.agent.md                → selected: architecture persona
@@ -570,7 +570,7 @@ description: >
 
 **The 3-step workflow:**
 
-```
+```text
 Step 1: GENERATE  → "Generate a Mermaid class diagram for [InterfaceName] and all consumers"
 Step 2: FEED      → Paste the diagram into your next prompt as context
 Step 3: MODIFY    → Agent reasons over structure, not code text — gets it right first time

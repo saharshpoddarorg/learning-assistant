@@ -14,7 +14,7 @@
 All algorithms live in the `search-engine` IntelliJ module (`search.engine.*` packages).
 Their contracts (interfaces they implement) live in the `search-api` module (`search.api.*`).
 
-```
+```text
 search-api/src/search/api/          ← interfaces (ScoringStrategy, Tokenizer, ...)
 search-engine/src/search/engine/    ← implementations (Bm25Scorer, TextMatchScorer, ...)
 mcp-servers/src/server/...          ← domain engines (LearningSearchEngine, OfficialDocsSearchEngine)
@@ -90,7 +90,7 @@ so a tag match is a strong signal of topical relevance.
 
 ### Scoring model
 
-```
+```text
 for each query word:
     if any tag starts with or contains the word → +hitPoints (default: 15)
     if the entire tag equals the word           → +wholeTagBonus (default: 10)
@@ -257,7 +257,7 @@ Documents published today get the full bonus; older documents get a linearly dec
 
 ### Time-decay model
 
-```
+```text
 age ≤ freshDays  → bonus = freshBonus
 age ≤ staleDays  → bonus = freshBonus × (1 - (age - freshDays) / (staleDays - freshDays))
 age > staleDays  → bonus = 0
@@ -387,7 +387,7 @@ Three-pass inference: per-word exact → phrase → 3-char prefix fallback.
 
 ## Putting It All Together — A Mental Model
 
-```
+```text
 User types:  "learn java concurrency beginner"
                 │
                 ▼

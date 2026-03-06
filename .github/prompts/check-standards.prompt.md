@@ -54,7 +54,7 @@ tags: [tag1, tag2]       # 3–7 tags, lowercase, hyphens
 status: draft            # draft | final | archived
 source: manual           # copilot | manual | imported
 
-```
+```yaml
 
 Violations:
 - Missing frontmatter block entirely
@@ -90,7 +90,7 @@ brain: archive GHCP KS session to library/ghcp-knowledge-sharing
 brain: note 2026-03-06 MCP transport decision [kind: decision]
 brain: update 2026-02-21 session note — add missing frontmatter
 
-```
+```markdown
 
 #### `pkm` — Personal knowledge management best practices
 
@@ -189,7 +189,7 @@ Produce a compliance report in this exact structure:
 2. <second priority>
 3. <optional improvements>
 
-```
+```yaml
 
 ---
 

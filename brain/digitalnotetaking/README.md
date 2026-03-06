@@ -45,7 +45,7 @@ For software engineers, PKM takes the form of:
 
 ### PARA — for organizing
 
-```
+```text
 Projects/    ← active work with a deadline   (mcp-servers, interview-prep)
 Areas/       ← ongoing responsibilities       (Java, Architecture, Career)
 Resources/   ← topics of interest             (Distributed Systems, Books)
@@ -56,7 +56,7 @@ Archives/    ← completed / inactive           (old-job, finished-courses)
 
 ### CODE — for the workflow
 
-```
+```text
 C → Capture    Don't filter — grab it now (brain new / brain-capture-session)
 O → Organize   Route into PARA (brain move / brain publish)
 D → Distill    Extract the signal — bold, TL;DR, progressive summarization
@@ -67,7 +67,7 @@ E → Express    Create from what you know (code, PR, doc, ADR, blog post)
 
 ### CODE — for processing
 
-```
+```text
 Capture   → save anything worth keeping
 Organize  → file into PARA
 Distill   → highlight the key insight (progressive summarization)
@@ -93,7 +93,7 @@ Express   → produce something: ADR, blog post, PR description, wiki
 
 This module connects to the live note workspace at [`brain/ai-brain/`](../ai-brain/):
 
-```
+```text
 brain/
 ├── ai-brain/          ← live workspace (inbox → notes → library)
 │   ├── inbox/         temporary capture (not git-tracked)

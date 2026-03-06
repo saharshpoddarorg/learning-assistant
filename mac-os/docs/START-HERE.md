@@ -19,7 +19,7 @@
 
 ## 🎯 What This Module Covers
 
-```
+```text
 Mac Development Environment
 │
 ├── Package Management
@@ -141,7 +141,7 @@ code --version
 
 Use `/mac-dev` in Copilot Chat for an interactive guide on any topic:
 
-```
+```text
 /mac-dev → homebrew → install → newbie
 /mac-dev → npm → nvm → amateur
 /mac-dev → jdk → temurin → newbie
@@ -152,7 +152,7 @@ Use `/mac-dev` in Copilot Chat for an interactive guide on any topic:
 
 Or use the AI navigator:
 
-```
+```text
 /hub mac       → See the full mac-dev branch in the hub
 ```
 

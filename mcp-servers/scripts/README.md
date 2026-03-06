@@ -5,7 +5,7 @@ configuration from the **layered config system** (env vars > local config > base
 
 ## Directory Structure
 
-```
+```text
 scripts/
 ├── server.sh                    ← 🔑 Lifecycle manager: start/stop/restart/reset/demo/logs
 ├── server.ps1                   ← 🔑 Lifecycle manager (Windows PowerShell)

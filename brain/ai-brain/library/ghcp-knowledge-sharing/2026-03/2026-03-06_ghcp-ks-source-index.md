@@ -93,7 +93,7 @@ The session used **Problem-first → Solution-reveal** structure per section:
 
 This agent runs a full Change Impact Analysis autonomously:
 
-```
+```yaml
 P1:  Create tracker file  ← quality gate (prevents incomplete output)
 P2A: Graph DB sub-agent   ← structural analysis (Neo4j)
 P2B: Vector search sub-agent ← semantic similarity (embeddings)
@@ -134,7 +134,7 @@ stopping early. The tracker has checkboxes; the quality gate prevents output unl
 
 ### Diagram as Specification Pattern
 
-```
+```text
 1. Generate diagram from existing code
 2. MODIFY the diagram in the editor to show your DESIRED state
    (add a class, change an arrow, add a method)
@@ -162,7 +162,7 @@ graph TD
     C[datamodel_src] --> B
     D[cmanager_src] --> B
 
-```
+```text
 
 When editing any .java file, the LLM sees this architectural map automatically.
 ```
@@ -185,7 +185,7 @@ Type `/` in Copilot Chat → picker shows all available prompts
 
 Open the target file first → then type the slash command
 
-```
+```text
 [Device.java open in editor]
 /cof-model  Add a setDescription() setter following existing patterns
 ```

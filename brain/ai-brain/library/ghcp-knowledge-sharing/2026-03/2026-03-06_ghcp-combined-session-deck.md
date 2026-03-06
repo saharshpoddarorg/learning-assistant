@@ -9,7 +9,6 @@ source: imported
 
 # Knowledge Sharing Session -- Use of AI
 
-
 &nbsp;
 
 ## SESSION OUTLINE
@@ -48,7 +47,6 @@ source: imported
 &nbsp;
 &nbsp;
 
-
 ---
 
 # Github Copilot
@@ -56,7 +54,6 @@ source: imported
 ---
 
 ## Three Modes — Ask / Edit / Agent
-
 
 &nbsp;
 
@@ -70,10 +67,9 @@ source: imported
 
 ---
 
-
 ### Quick Decision Rule
 
-```
+```text
 One file, one question?                     →  Ask or Edit
 Multiple files, tools, terminal, research?  →  Agent
 ```
@@ -83,9 +79,7 @@ Multiple files, tools, terminal, research?  →  Agent
 ---
 &nbsp;
 
-
 ---
-
 
 # The `.github` Knowledge Base
 
@@ -104,7 +98,7 @@ Multiple files, tools, terminal, research?  →  Agent
 
 &nbsp;
 
-```
+```text
 .github/
 ├── copilot-instructions.md           ← Global rules (ALWAYS loaded)
 │
@@ -140,7 +134,6 @@ Multiple files, tools, terminal, research?  →  Agent
 &nbsp;
 
 ---
-
 
 ---
 
@@ -185,7 +178,6 @@ Multiple files, tools, terminal, research?  →  Agent
 
 ---
 
-
 &nbsp;
 
 ## How `applyTo` Works — Automatic Scope
@@ -225,7 +217,7 @@ applyTo: "cframework_src/**/*.java"
 
 &nbsp;
 
-```
+```text
 ┌──────────────────────────────────────────────────────┐
 │                    YOUR PROMPT                        │
 │  "Create a DRC validator for bundle spacing"          │
@@ -271,7 +263,6 @@ applyTo: "cframework_src/**/*.java"
 &nbsp;
 
 ---
-
 
 ## Example 1: DRC Domain Manager — Before vs After
 
@@ -384,7 +375,6 @@ public class GrpcDesignValidationServiceImpl
 
 ---
 
-
 # Prompt Files — Reusable Slash Commands
 
 &nbsp;
@@ -406,7 +396,7 @@ public class GrpcDesignValidationServiceImpl
 
 &nbsp;
 
-```
+```text
 ❌ Without prompt file:
    "Add a connector count to IHarnessDesign. Remember to call premodify()
     in the implementation, fire PropertyChangeEvent, use @NotNull,
@@ -446,7 +436,7 @@ public class GrpcDesignValidationServiceImpl
 
 &nbsp;
 
-```
+```text
 You type:  /cof-model  Add description property to IDevice
 
 ┌──────────────────────────────────────────────────────┐
@@ -558,7 +548,7 @@ You are helping with [specific domain] in Capital IESD-24.
 
 **Example prompt:**
 
-```
+```java
 @capital-nx  Add window acquisition handling for a new popup dialog
              that appears during service execution
 ```
@@ -582,7 +572,6 @@ You are helping with [specific domain] in Capital IESD-24.
 
 ---
 
-
 # Mermaid Diagrams as LLM Context
 
 &nbsp;
@@ -602,7 +591,7 @@ You are helping with [specific domain] in Capital IESD-24.
 
 &nbsp;
 
-```
+```text
 500 LOC of Device.java
   → LLM infers: "Device probably extends something"
 
@@ -625,7 +614,7 @@ You are helping with [specific domain] in Capital IESD-24.
 
 &nbsp;
 
-```
+```text
 Step 1:  GENERATE   →  Ask agent to create a Mermaid diagram from existing code
 Step 2:  FEED       →  Include the diagram in your next prompt as context
 Step 3:  MODIFY     →  Agent reasons over structure to plan and implement changes
@@ -770,7 +759,7 @@ flowchart TD
 
 &nbsp;
 
-```
+```text
 1. "Generate the IHarnessDesign class diagram with all consumers"
 2.  Modify the diagram — add a new method or class
 3. "Implement the changes shown in this modified diagram"

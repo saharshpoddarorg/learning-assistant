@@ -13,7 +13,7 @@ applyTo: "**/*.gradle"
 
 ---
 
-# Part 1 — Common Gradle Guidelines
+## Part 1 — Common Gradle Guidelines
 
 Everything in this section is **universal Gradle knowledge** — applicable to any Java/Kotlin/Groovy project regardless of company or domain.
 
@@ -38,7 +38,7 @@ The **Gradle Wrapper** is the recommended way to run Gradle — it ensures every
 
 ### Wrapper Files
 
-```
+```text
 project-root/
 ├── gradlew              ← Shell script (Linux/Mac) — commit to VCS
 ├── gradlew.bat          ← Batch script (Windows) — commit to VCS
@@ -86,7 +86,7 @@ Gradle executes builds in **three distinct phases**. Understanding these prevent
 
 ### The Three Phases
 
-```
+```text
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
 │  Initialization  │────→│  Configuration  │────→│    Execution    │
 │                 │     │                 │     │                 │
@@ -929,7 +929,7 @@ GRADLE_USER_HOME=/custom/path/.gradle
 ---
 ---
 
-# Part 2 — Company Project Example: Capital Project
+## Part 2 — Company Project Example: Capital Project
 
 > **What this section is:** A real-world example of how a large enterprise project (200+ Gradle modules) customizes its build workflow. Use it as a **template** for organizing your own project's build documentation.
 >

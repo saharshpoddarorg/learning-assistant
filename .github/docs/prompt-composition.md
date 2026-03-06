@@ -28,7 +28,7 @@ builds something bigger.
 
 Type one command. After it finishes, type the next:
 
-```
+```text
 Step 1: /deep-dive → Java streams → advanced
 Step 2: /resources → search → "Java streams" (add the best resource to your notes)
 Step 3: /brain-new → "Java streams cheatsheet" → notes → java
@@ -42,7 +42,7 @@ Step 3: /brain-new → "Java streams cheatsheet" → notes → java
 
 Output of prompt A feeds input of prompt B. You type them one after another:
 
-```
+```text
 A — /learn-concept binary-tree → explanation
 B — /dsa → binary-tree → implement → java → medium   (deepens the learning)
 C — /brain-new → "binary tree patterns" → notes       (saves the learning)
@@ -54,7 +54,7 @@ C — /brain-new → "binary tree patterns" → notes       (saves the learning)
 
 Run two commands in the same message (or session) for comparison:
 
-```
+```text
 "Using /design-review principles, review [FileA] and [FileB] and compare which is more SOLID-compliant"
 ```
 
@@ -77,7 +77,7 @@ A meta-prompt orchestrates other prompts implicitly. Examples from this repo:
 
 Start with a diagnostic prompt, then branch:
 
-```
+```text
 /check-standards → brain/ai-brain/notes/
         │
         ├── Issues found → fix files → /check-standards again (iteration)
@@ -86,7 +86,7 @@ Start with a diagnostic prompt, then branch:
 
 Another example:
 
-```
+```text
 /design-review → FileA
         │
         ├── SOLID violations found → /refactor FileA
@@ -97,14 +97,14 @@ Another example:
 
 Use `/context` or `/scope` to set constraints, then run a task prompt:
 
-```
+```text
 /scope specific FileA.java    ← constrains context to one file
 /debug                        ← now runs with that scope active
 ```
 
 Or:
 
-```
+```text
 /context → "We are in the middle of refactoring the MCP server registry.
   All edits should leave existing tools working. Do not rename public methods."
 /refactor src/server/McpServerRegistry.java    ← runs with that context active
@@ -118,7 +118,7 @@ Or:
 
 For any new concept you want to deeply learn and retain:
 
-```
+```text
 Step 1: /deep-dive → <concept> → advanced
         (3-tier conceptual explanation: what, why, how)
 
@@ -141,7 +141,7 @@ Step 5 (optional): /brain-publish → inbox version → library/<project>
 
 ### Recipe 2 — Bug Investigation & Fix Workflow
 
-```
+```text
 Step 1: /debug → <file or description>
         (systematic hypothesis-driven investigation)
 
@@ -163,7 +163,7 @@ Step 5: /brain-new → "session-<bug-slug>" → notes → kind: session
 
 ### Recipe 3 — Architecture Decision Workflow
 
-```
+```text
 Step 1: /system-design → <problem> → HLD
         (explore high-level options)
 
@@ -187,7 +187,7 @@ Step 5: /write-docs dev-doc → <your decision note>
 
 Given a set of slides/notes from a KS session:
 
-```
+```text
 Step 1: brain publish <inbox-file> --project <session-name>
         (archive the raw source to library/)
         [Repeat for each imported file]
@@ -208,7 +208,7 @@ Step 4: /check-standards → brain/ai-brain/notes/ → brain-naming
 
 ### Recipe 5 — MCP-to-Skill Migration
 
-```
+```text
 Step 1: /mcp-to-skill → <server-name> → analyse
         (feasibility report: which tools can migrate)
 
@@ -232,7 +232,7 @@ Step 5: /hub (verify new skill appears in navigation)
 
 When adding a new feature to the repo (MCP tool, skill, prompt, etc.):
 
-```
+```text
 /write-docs all-of-above → <feature description>
 ```
 
@@ -268,7 +268,7 @@ Meta-prompts modify HOW Copilot works rather than WHAT it produces:
 
 ### The /composite Pattern
 
-```
+```text
 /composite
 → prompts: ["/deep-dive java-streams advanced", "/brain-new java-streams-cheatsheet notes"]
 → execute: sequential

@@ -19,15 +19,21 @@ prompt files, slash-commands, and cross-reference docs.
 |---|---|
 | **Active mode** | `completeness` (always on — applied via `change-completeness.instructions.md`) |
 | **Mode file** | `.github/instructions/change-completeness.instructions.md` (`applyTo: **`) |
+| **Formatting rules** | `.github/instructions/md-formatting.instructions.md` (`applyTo: **`) |
 | **Steering guide** | `.github/instructions/steering-modes.instructions.md` |
 | **Switch modes** | `/steer` slash command in Copilot Chat |
 
 **Before starting any code change:** check `.github/instructions/change-completeness.instructions.md`
-for the applicable checklist (A–F). Run `.\mcp-servers\build.ps1` before committing.
+for the applicable checklist (A–G). Run `.\__md_lint.ps1` and `.\mcp-servers\build.ps1` before committing.
+
+**Markdown formatting is always enforced.** Every `.md` file must pass `.\__md_lint.ps1` with 0 issues
+before committing. This includes headings, tables, bullet points, code blocks, and graphic/box
+representations drawn with `|` pipes. See `.github/instructions/md-formatting.instructions.md` and
+`.github/docs/md-formatting-guide.md` for the full rule set.
 
 ## Project Structure
 
-```
+```text
 learning-assistant/
 ├── .github/              ← Copilot customization files (you're learning this!)
 ├── brain/                ← Brain Java module
@@ -137,7 +143,7 @@ the correct skill file.
 
 ### Commit Message Format
 
-```
+```xml
 <type>(<scope>): <subject>          ← subject: ≤ 50 chars (hard limit 72)
 <blank line>
 <body>                               ← wrap at 72 chars; explain WHY, not WHAT
@@ -181,7 +187,7 @@ for non-trivial changes.
 
 ### Footers
 
-```
+```text
 BREAKING CHANGE: <description>   ← required if API/interface changes
 Closes #<issue-number>           ← auto-closes linked GitHub issue
 Co-authored-by: name <email>     ← for pair/mob contributions
@@ -214,7 +220,7 @@ Always append as the last footer line:
 
 **Do:**
 
-```
+```text
 feat(vault): Add VcsResources provider with 9 curated resources
 
 Git foundations, branching strategies (GitFlow, GitHub Flow, TBD),
@@ -224,7 +230,7 @@ provider — keeping VCS concerns separate from build tooling.
 — created by gpt
 ```
 
-```
+```text
 fix(config): Null-check API key before making HTTP request
 
 Without the guard, a missing key caused a NullPointerException
@@ -234,7 +240,7 @@ at startup. Added Objects.requireNonNull with an explicit message.
 — assisted by gpt
 ```
 
-```
+```text
 refactor(vault): Split GitAndBuildResources into VcsResources + BuildToolsResources
 
 VCS (version control workflows) and build automation (Maven, Gradle,
@@ -251,7 +257,7 @@ and made the vault harder to extend incrementally.
 
 **Don't:**
 
-```
+```markdown
 # ❌ vague subject
 update stuff
 
@@ -270,7 +276,7 @@ Add new provider class for VCS resources
 
 ### Examples with Breaking Changes
 
-```
+```text
 feat(api)!: Replace List<String> tags with Set<String> in LearningResource
 
 Using Set enforces uniqueness at the model level and improves

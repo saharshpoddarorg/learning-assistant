@@ -50,7 +50,7 @@ description: >
 
 ### Option A: Notion (Cloud, Cross-Platform)
 
-```
+```text
 1. Create a free account at notion.so
 2. Create one top-level page: "My Second Brain"
 3. Add 4 sub-pages: Projects / Areas / Resources / Archives (PARA)
@@ -62,7 +62,7 @@ description: >
 
 ### Option B: Obsidian (Local, Offline-First)
 
-```
+```text
 1. Download from obsidian.md (free for personal use)
 2. Create a vault in a synced folder (iCloud / Dropbox / Obsidian Sync)
 3. Install community plugins: Dataview, Templater, Calendar
@@ -74,7 +74,7 @@ description: >
 
 ### Option C: Logseq (Open-Source)
 
-```
+```text
 1. Download from logseq.com (free + open-source)
 2. Choose a local folder or GitHub repo for storage
 3. Use the Daily Journal page to capture throughout the day
@@ -132,7 +132,7 @@ Map<String, List<Person>> byDept =
     people.stream()
           .collect(Collectors.groupingBy(Person::getDepartment));
 
-```
+```text
 
 **Source:** https://docs.oracle.com/en/java/javase/21/docs/api/
 **Date:** 2026-02-27
@@ -150,7 +150,7 @@ Map<String, List<Person>> byDept =
 
 ### Obsidian Power Setup
 
-```
+```text
 vault/
 ├── Inbox/              ← Daily capture, unfiled
 ├── Projects/
@@ -172,7 +172,7 @@ vault/
 
 ### Notion Power Setup for Teams
 
-```
+```text
 Workspace Root
 ├── 📋 Projects DB   ← Linked database: status, owner, deadline, PARA link
 ├── 📚 Resources DB  ← Tag-filtered knowledge base
@@ -183,7 +183,7 @@ Workspace Root
 
 ### Tool Migration Path
 
-```
+```text
 Notion → Obsidian:
   1. Export from Notion (Settings → Export as Markdown & CSV)
   2. Use Obsidian's built-in "Import from Notion" plugin

@@ -47,7 +47,7 @@ You don't know what MCP is, haven't customized Copilot before, and just want thi
 
 **Manage MCP servers after setup:**
 
-```
+```text
 Terminal → Run Task → "mcp-servers: status"   ← see what's running
 Terminal → Run Task → "mcp-servers: start (learning-resources)"
 Terminal → Run Task → "mcp-servers: stop (all)"
@@ -98,7 +98,7 @@ You understand terminal commands, git, and file structures. You just haven't set
 
 ## 🏗️ System Architecture (2-minute overview)
 
-```
+```text
 YOUR VS CODE WORKSPACE
 │
 ├── .github/                    ← Copilot reads this automatically
@@ -128,7 +128,7 @@ YOUR VS CODE WORKSPACE
 
 **The magic flow:**
 
-```
+```text
 You ask Copilot a question
     → Copilot reads .github/ (instructions + agent persona + skill)
     → Copilot optionally calls MCP tools (search Jira, browse docs, read files)

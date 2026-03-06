@@ -39,7 +39,7 @@ Without MCP:                          With MCP:
                                                               │  B   │
                                                               └──────┘
 
-```
+```markdown
 
 ### MCP Domain Map
 
@@ -90,7 +90,7 @@ MCP (Model Context Protocol)
     ├── Deployment ················ Local, Docker, cloud, serverless
     └── Ecosystem ················· MCP registries, community servers, standards
 
-```
+```markdown
 
 ### Protocol Deep-Dive
 
@@ -137,7 +137,7 @@ MCP Primitives — What a Server Can Expose
     │   └── generate_tests(function_name) → test generation prompt
     └── Analogy: Recipe cards — user picks which recipe to follow
 
-```
+```markdown
 
 #### Transport Mechanisms
 
@@ -166,7 +166,7 @@ Transport Options
     ├── Cons: Newer, less tooling support currently
     └── Config: "url": "http://localhost:3001/mcp"
 
-```
+```markdown
 
 #### Protocol Lifecycle
 
@@ -201,7 +201,7 @@ MCP Session Lifecycle
     Client sends: close notification or drops connection
     Server cleans up resources
 
-```
+```markdown
 
 ### Building MCP Servers — By Language
 
@@ -276,7 +276,7 @@ server.prompt(
 const transport = new StdioServerTransport();
 await server.connect(transport);
 
-```
+```markdown
 
 #### Python MCP Server (Complete Template)
 
@@ -334,7 +334,7 @@ if __name__ == "__main__":
     mcp.run()  # defaults to stdio transport
     # For SSE: mcp.run(transport="sse")
 
-```
+```markdown
 
 #### Java MCP Server (Complete Template)
 
@@ -395,7 +395,7 @@ public class MyMcpServer {
     }
 }
 
-```
+```markdown
 
 ### Configuring MCP in Your Environment
 
@@ -462,7 +462,7 @@ When `topic` is **configure-agent**:
   }
 }
 
-```
+```text
 
 **User-level** (`settings.json`) — for global MCPs available in all workspaces:
 
@@ -480,7 +480,7 @@ When `topic` is **configure-agent**:
   }
 }
 
-```
+```markdown
 
 #### Claude Desktop Configuration
 
@@ -500,7 +500,7 @@ When `topic` is **configure-agent**:
   }
 }
 
-```
+```markdown
 
 ### Types of MCP Servers — Complete Catalog
 
@@ -583,7 +583,7 @@ MCP Server Catalog (by category)
     ├── Legacy System Bridge ······ Wrap SOAP/XML/mainframe systems
     └── Compliance/Audit MCP ······ Policy checks, audit logging
 
-```
+```markdown
 
 ### Combining MCP with APIs — Patterns
 
@@ -645,7 +645,7 @@ server.tool(
   }
 );
 
-```
+```markdown
 
 #### Pattern 2: GraphQL API as MCP
 
@@ -669,7 +669,7 @@ server.tool(
   }
 );
 
-```
+```markdown
 
 #### Pattern 3: Multi-API Aggregator MCP
 
@@ -704,7 +704,7 @@ server.tool(
   }
 );
 
-```
+```markdown
 
 #### Pattern 4: OpenAPI Spec → Auto-Generated MCP
 
@@ -729,7 +729,7 @@ async function createMcpFromOpenAPI(specUrl: string) {
   return server;
 }
 
-```
+```markdown
 
 ### Building Agents with MCP
 
@@ -815,7 +815,7 @@ Agent Architecture Patterns with MCP
     ├── Use when: Building custom agent applications
     └── Key: MCP provides the "hands", LLM API provides the "brain"
 
-```
+```markdown
 
 #### Custom Agent with MCP + LLM API (Architecture)
 
@@ -904,7 +904,7 @@ const result = await agent.run(
   "Find all open bugs from GitHub, check if they match any recent DB errors, and post a summary to #engineering in Slack"
 );
 
-```
+```markdown
 
 ### Step-by-Step: Build Your First MCP Server
 
@@ -965,7 +965,7 @@ BUILD YOUR OWN MCP SERVER — Checklist
     ├── Docker image (universal, recommended for production)
     └── Add to MCP server registries (mcp.so, Smithery, etc.)
 
-```
+```markdown
 
 ### Security Best Practices
 
@@ -1003,7 +1003,7 @@ MCP Security Checklist
     ├── Don't return raw database errors to the AI
     └── Consider what the AI might do with the data
 
-```
+```markdown
 
 ### Testing & Debugging MCPs
 
@@ -1039,7 +1039,7 @@ Testing Workflow
     │   └── "Connection refused" → check port and transport type
     └── VS Code: Output panel → "MCP" channel shows server logs
 
-```
+```markdown
 
 ### Real-World Examples — What People Build
 
@@ -1076,7 +1076,7 @@ project-root/
 │   └── inventory-mcp/    ← Java MCP (own pom.xml)
 └── src/                  ← Main application code
 
-```
+```text
 
 Key rules:
 - **One server per folder** — independent deps, builds, and entry points
@@ -1109,7 +1109,7 @@ Key rules:
   ]
 }
 
-```
+```text
 
 **Variables available:** `${workspaceFolder}`, `${input:name}`, `${env:VAR}`, `${userHome}`
 
@@ -1149,7 +1149,7 @@ When `topic` is **open-preview**, summarize what's new and link to the full chan
 3. Set to true
 4. Reload VS Code
 
-```
+```yaml
 
 ---
 
@@ -1164,7 +1164,7 @@ OLD (SSE):                               NEW (Streamable HTTP):
 Client → POST /message                   Client → POST /mcp
 Client ← GET /sse (event stream)         Server ← (streaming response, may return multiple chunks)
 
-```
+```text
 
 **VS Code config:**
 ```jsonc
@@ -1179,7 +1179,7 @@ Client ← GET /sse (event stream)         Server ← (streaming response, may r
   }
 }
 
-```
+```text
 
 **TypeScript server with Streamable HTTP:**
 ```typescript
@@ -1199,7 +1199,7 @@ app.post("/mcp", async (req, res) => {
 
 app.listen(3001);
 
-```
+```yaml
 
 ---
 
@@ -1231,7 +1231,7 @@ When `topic` is **github-mcp-server**:
   }
 }
 
-```
+```text
 
 **Example prompts after connecting:**
 - *"List all open PRs in this repo that need my review"*
@@ -1270,7 +1270,7 @@ server.tool(
   async ({ path }) => { /* ... */ }
 );
 
-```
+```yaml
 
 ---
 
@@ -1303,7 +1303,7 @@ tools:                       # restrict which tools the agent can use
 <Instructions in plain English — tell the agent what it is, how it should think,
 what it should always / never do, and what output format to use.>
 
-```
+```text
 
 See `.github/docs/copilot-mcp-preview.md` for the full agent mode reference.
 

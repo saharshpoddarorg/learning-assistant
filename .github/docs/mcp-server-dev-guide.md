@@ -25,7 +25,7 @@
 A tool is a named function exposed by an MCP server that the AI can call on behalf of a user.
 In this project, the AI (GitHub Copilot) calls tools instead of browsing the web directly.
 
-```
+```text
 User asks: "Find Java concurrency resources"
 Copilot calls: search_resources { query: "java concurrency" }
 Server returns: list of matching resources from the vault
@@ -97,7 +97,7 @@ private String handleMyNewTool(final Map<String, String> args) {
 
 In the Copilot chat, try invoking the tool:
 
-```
+```text
 Use my_new_tool with topic="java"
 ```
 
@@ -110,7 +110,7 @@ Use my_new_tool with topic="java"
 This project implements MCP servers **without** an SDK — using raw JSON-RPC over STDIO.
 This is a deliberate choice: zero external dependencies, portable, educational.
 
-```
+```text
 mcp-servers/src/
 │
 ├── Main.java                          ← entry point; creates registry + starts all servers
@@ -440,7 +440,7 @@ final var limited = results.stream().limit(MAX_RESULTS).toList();
 
 STDIO is ideal for local tools. For remote/multi-user scenarios, MCP also supports SSE:
 
-```
+```text
 STDIO transport (this project):
   AI host ← spawns → server process (1:1 relationship)
   Best for: local CLI tools, desktop AI assistants

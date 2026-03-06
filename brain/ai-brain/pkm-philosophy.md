@@ -199,7 +199,7 @@ but that you did not author. Think of it as your personal research library — y
 
 ### Library hierarchy
 
-```
+```text
 library/
   <project-bucket>/
     <YYYY-MM>/
@@ -299,14 +299,14 @@ PKM only works if content is periodically surfaced and refined.
 
 ### Session cycle (end of every session)
 
-```
+```text
 brain status                    # see what's in each tier
 brain clear (--force)           # clear inbox if nothing worth keeping
 ```
 
 ### Weekly review (5 minutes)
 
-```
+```text
 brain list --tier notes         # what did I write this week?
 brain list --tier library       # what did I import this week?
 # Pick 1 note to refine → promote to status: final
@@ -315,7 +315,7 @@ brain list --tier library       # what did I import this week?
 
 ### Monthly review (15 minutes)
 
-```
+```text
 brain search --tag <domain>     # find all notes in a domain
 # Identify: outdated content → mark status: archived
 # Identify: related notes → add shared tags or cross-references
@@ -328,7 +328,7 @@ brain search --tag <domain>     # find all notes in a domain
 
 The naming convention balances **searchability** and **chronological sortability**:
 
-```
+```text
 YYYY-MM-DD_topic-slug.md           ← most notes (date-prefixed)
 YYYY-MM-DD_session-<topic>.md      ← session logs
 YYYY-MM-DD_decision-<topic>.md     ← architectural decisions (ADR format)

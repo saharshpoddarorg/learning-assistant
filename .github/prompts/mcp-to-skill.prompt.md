@@ -92,7 +92,7 @@ becomes a skill section, while the dynamic search/filter capability stays in MCP
 
 ### Estimated effort: <Low / Medium / High>
 
-```
+```yaml
 
 ---
 
@@ -111,7 +111,7 @@ description: >
    Be specific — "Use when asked about X, Y, Z" patterns work best.>
 ---
 
-```
+```text
 
 Content structure:
 ```
@@ -128,7 +128,7 @@ Content structure:
 
 ## Learning Resources
 
-```
+```text
 
 **Translation patterns:**
 
@@ -156,7 +156,7 @@ After generating the SKILL.md, remind the user to:
    <file>e:\path\to\.github\skills\<name>\SKILL.md</file>
    </skill>
 
-   ```
+   ```text
 
 2. **Update `.github/docs/slash-commands.md`** if a slash command wraps this skill
 

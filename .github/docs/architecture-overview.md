@@ -27,7 +27,7 @@
 A proven enterprise architecture pattern separates **contracts** (interfaces) from
 **implementations**:
 
-```
+```text
 interfaces_src  ←  pure contracts; zero business logic
       ↑
   module-a      ←  implementation A (e.g., in-memory search)
@@ -66,7 +66,7 @@ separate modules. `search-engine` contains both layers in two distinct packages:
 
 ## 2. Module Dependency Graph
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                    learning-assistant (root)                 │
 │  IntelliJ project container — no source of its own          │
@@ -100,7 +100,7 @@ separate modules. `search-engine` contains both layers in two distinct packages:
 
 Each tier is a more domain-specific refinement of the one below it:
 
-```
+```text
 Tier 1 — CONTRACTS (search-engine / search.api.*)
 ─────────────────────────────────────────────────────────────
   SearchEngine<T>          QueryClassifier       SearchFilter<T>
@@ -137,7 +137,7 @@ Tier 3 — DOMAIN-SPECIFIC ENGINES (mcp-servers)
 
 Every search runs through these phases in order:
 
-```
+```text
 Phase 1:  classifyQuery()      rawInput → SearchMode (SPECIFIC / VAGUE / EXPLORATORY)
               ↓
 Phase 2:  filterDocuments()    removes items that don't pass SearchFilter<T>
@@ -405,7 +405,7 @@ assistant through to domain services.
 
 ## 8. Package Structure Reference
 
-```
+```text
 learning-assistant/                    ← IntelliJ project root
 │
 ├── search-api/                        ← MODULE: Pure interface contracts

@@ -43,7 +43,7 @@ Teach the 6 Copilot customization primitives in a structured way. Adapt to `leve
 5. SKILL.md                 → Domain knowledge. Auto-loads for relevant questions.
 6. MCP Server               → External tools. GitHub, Jira, databases, APIs.
 
-```
+```text
 
 **The 1-sentence rule:**
 - **Instructions** = rules Copilot MUST follow
@@ -96,7 +96,7 @@ Cross-type composition (most powerful):
   Agent + MCP                 → expert persona + live external data
   Instructions + Agent + MCP  → rules + persona + real tools (full power)
 
-```
+```text
 
 See `.github/docs/copilot-customization-deep-dive.md` for the complete composition pattern library.
 
@@ -155,7 +155,7 @@ Generate the project base instruction file. Structure as:
 
 [Conventional commits format or team convention]
 
-```
+```text
 
 **Rules for writing good copilot-instructions.md:**
 - Keep under 2 000 tokens — it's sent on EVERY request
@@ -186,7 +186,7 @@ applyTo: "[GLOB PATTERN]"
 
 - [Rule]
 
-```
+```text
 
 **Glob pattern guide:**
 | Pattern | Matches |
@@ -245,7 +245,7 @@ ${input:level:Your level? (beginner / intermediate / advanced)}
 - Adapt depth to `level`
 - [Domain-specific rule]
 
-```
+```text
 
 **Key prompt design principles:**
 1. `${input:}` variables — collect the minimum necessary context upfront
@@ -296,7 +296,7 @@ When the user asks you to [PRIMARY TASK]:
 - Never [rule 2]
 - Never make changes without confirming with the user first (if applicable)
 
-```
+```text
 
 **Available tools (use only what the agent needs):**
 ```
@@ -313,7 +313,7 @@ terminalLastCommand  — Read last terminal output (2025+)
 terminalSelection    — Read selected text in terminal (2025+)
 testFailure          — Read test failure details (2025+)
 
-```
+```yaml
 
 ---
 
@@ -368,7 +368,7 @@ description: >
 | [Official docs](...) | ... |
 | [Tutorial](...) | ... |
 
-```
+```text
 
 **Description field formula:**
 ```
@@ -378,7 +378,7 @@ description: >
  Use when asked about [TERM 1], [TERM 2], [USE CASE 1], or [USE CASE 2].
  Also useful for [ADJACENT USE CASE]."
 
-```
+```yaml
 
 ---
 
@@ -410,7 +410,7 @@ Generate the `.vscode/mcp.json` entry AND the minimal server scaffold.
   }
 }
 
-```
+```text
 
 **TypeScript server scaffold:**
 ```typescript
@@ -446,7 +446,7 @@ server.tool(
 const transport = new StdioServerTransport();
 await server.connect(transport);
 
-```
+```yaml
 
 ---
 
@@ -532,7 +532,7 @@ Tier 3 — Full Power (4+ types):
   ├── Expert + live data                   → .agent + MCP server
   └── Everything                           → all 6 types active
 
-```
+```yaml
 
 Output: A concrete file list the user needs to create, with one-line description of each.
 
@@ -566,7 +566,7 @@ java-learning-resources/SKILL.md   → Java API reference, patterns, resources
 learning-mentor.agent.md           → Teaching persona for Java learning sessions
 /learn-concept prompt              → Java concept deep dives
 
-```
+```text
 
 When `domain` is **devops** or **ci-cd**:
 ```
@@ -578,7 +578,7 @@ software-engineering-resources/SKILL.md → DevOps resources
 docker-mcp-server                  → Live container management
 kubernetes-mcp-server              → Live cluster operations
 
-```
+```text
 
 When `domain` is **security**:
 ```
@@ -588,7 +588,7 @@ security-reviewer.agent.md             → Threat modeling mindset, OWASP vocabu
 /security-review prompt                → Structured audit workflow
 security-mcp-server (optional)         → SAST tool integration
 
-```
+```text
 
 When `domain` is **mcp** or **ai-tools**:
 ```
@@ -599,7 +599,7 @@ learning-mentor.agent.md           → Teaching persona for explanations
 github-mcp-server                  → GitHub integration
 .vscode/mcp.json                   → Register all your MCP servers
 
-```
+```yaml
 
 ---
 

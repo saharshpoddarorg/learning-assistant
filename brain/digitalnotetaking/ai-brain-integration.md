@@ -10,7 +10,7 @@
 
 The `brain/ai-brain/` workspace bridges two worlds:
 
-```
+```text
 AI Session (Copilot Chat / MCP tools)
         ↓  Copilot generates output
     brain/ai-brain/inbox/         ← temporary capture (gitignored)
@@ -106,7 +106,6 @@ source: copilot        # ← marks this as AI-assisted content
 
 ## Summary
 
-
 ## Key insights
 -
 
@@ -141,7 +140,7 @@ output into a clean, publishable session note. It:
 4. Creates the file in `brain/ai-brain/inbox/`
 5. Suggests tags and asks for your confirmation
 
-```
+```yaml
 Usage:  /brain-capture-session
 Then:   Review the created file
 Then:   brain publish <file> --project <bucket>
@@ -153,7 +152,7 @@ Then:   brain publish <file> --project <bucket>
 
 ### Obsidian
 
-```
+```text
 Option 1 — Open brain/ai-brain/ as a vault folder:
   1. Obsidian → Open Folder as Vault → pick brain/ai-brain/
   2. Notes in inbox/ and notes/ appear inside Obsidian
@@ -167,7 +166,7 @@ Option 2 — Sync library/ to your Obsidian vault:
 
 ### Notion
 
-```
+```text
 1. Create a "Dev Sessions" database in Notion
 2. After brain publish, create a new page in that database
 3. Paste the note content — frontmatter fields → Notion properties
@@ -180,7 +179,7 @@ Option 2 — Sync library/ to your Obsidian vault:
 
 ### Logseq
 
-```
+```text
 1. Open brain/ai-brain/ as a Logseq graph (File → Open Folder)
 2. Logseq reads all .md files — inbox/, notes/, library/ become pages
 3. Use [[]] links to connect session notes to concept pages
@@ -249,7 +248,7 @@ This Java API mirrors exactly what `brain new` does at the script level. As the
 
 ## Session Note Naming Convention
 
-```
+```text
 YYYY-MM-DD_session-<brief-topic>.md       ← most session notes
 YYYY-MM-DD_<project>-<topic>.md           ← when project matters
 <topic-slug>.md                            ← timeless reference notes

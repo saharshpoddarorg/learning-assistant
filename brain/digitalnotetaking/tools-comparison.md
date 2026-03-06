@@ -6,7 +6,7 @@
 
 ## TL;DR Decision Tree
 
-```
+```text
 Do you need team collaboration?
   ├── Yes → Notion (cloud, real-time co-editing)
   └── No
@@ -61,7 +61,7 @@ Do you need team collaboration?
 
 **Essential plugins for developers:**
 
-```
+```text
 Dataview      ← query your notes like a database (TABLE, LIST, TASK)
 Templater     ← dynamic templates with JS logic and date formatting
 Git           ← auto-commit your vault to GitHub (daily snapshots)
@@ -72,7 +72,7 @@ Spaced Repetition ← flashcards from your notes
 
 **Recommended vault structure:**
 
-```
+```text
 vault/
 ├── Inbox/              ← capture here first, sort later
 ├── Projects/           ← one folder per active project
@@ -106,7 +106,7 @@ vault/
 
 **Recommended workspace structure:**
 
-```
+```text
 Workspace Root
 ├── 📋 Projects DB      ← active projects with status, deadlines
 ├── 📚 Resources DB     ← tagged reference material
@@ -136,7 +136,7 @@ Workspace Root
 
 **Getting started:**
 
-```
+```text
 1. Download: https://logseq.com/#download
 2. Choose "Open a local folder" — pick a synced folder
 3. Today's page opens automatically (daily journal)

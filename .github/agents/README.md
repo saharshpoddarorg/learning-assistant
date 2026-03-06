@@ -128,7 +128,7 @@ handoffs:
 
 ### Workflow Diagram
 
-```
+```text
 ┌──────────┐     handoff      ┌────────────────┐     handoff      ┌──────────────┐
 │ Designer │ ──────────────→  │     Agent      │ ──────────────→  │ Code-Reviewer│
 │ (search  │  "Start          │ (editFiles,    │  "Review         │ (search,     │
@@ -251,7 +251,7 @@ You are a patient, encouraging Java programming tutor.
 
 Or use the richer guided version in this repo:
 
-```
+```text
 /create-agent → agentName → purpose → tools → depth
 ```
 

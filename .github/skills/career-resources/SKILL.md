@@ -12,7 +12,7 @@ description: >
 
 ## Role Hierarchy — IC vs Management Tracks
 
-```
+```text
                IC Track                              Management Track
          ─────────────────                        ─────────────────────
 Level 1:  Intern / New Grad                       ─

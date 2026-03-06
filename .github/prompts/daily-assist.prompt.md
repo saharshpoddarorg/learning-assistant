@@ -60,7 +60,7 @@ Daily Assistant
     ├── Travel planning basics
     └── Any general-purpose question
 
-```
+```markdown
 
 ### Response by Category
 

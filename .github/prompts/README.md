@@ -36,7 +36,7 @@ Prompt files are **recipes for common tasks.** Instead of typing detailed instru
 
 ### How It Looks
 
-```
+```text
 You type:    /explain
 Copilot:     (uses current file automatically)
 Result:      Structured explanation of Main.java

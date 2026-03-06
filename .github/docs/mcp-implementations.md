@@ -209,7 +209,7 @@ server.connect(transport);
 
 ## 5. Side-by-Side Comparison
 
-```
+```text
 Feature                  TypeScript SDK    Python SDK       Java (this project)
 ─────────────────────────────────────────────────────────────────────────────
 Protocol handling        ✅ Automatic      ✅ Automatic     ❌ Manual

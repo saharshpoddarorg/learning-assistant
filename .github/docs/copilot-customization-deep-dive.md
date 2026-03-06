@@ -85,7 +85,7 @@ applyTo: "**/*.java"     # Glob pattern — required
 
 **Stacking example:** For a `*.java` file, all of these apply simultaneously:
 
-```
+```text
 copilot-instructions.md     ← always
     + java.instructions.md      ← applyTo: **/*.java
     + clean-code.instructions.md ← applyTo: **/*.java
@@ -302,7 +302,7 @@ All 6 primitives share these properties:
 
 ### "I want to..." Decision Tree
 
-```
+```text
 I want to...
 │
 ├── ...enforce rules consistently → BEHAVIORAL type
@@ -387,7 +387,7 @@ simultaneously. Here are the patterns — from simple to advanced.
 
 Apply multiple rule layers to the same files. All matching files stack in order.
 
-```
+```text
 copilot-instructions.md          ← Layer 0: project-wide (always)
     + java.instructions.md           ← Layer 1: Java language (applyTo: **/*.java)
     + clean-code.instructions.md     ← Layer 2: code quality (applyTo: **/*.java)
@@ -416,7 +416,7 @@ Every change must follow the completeness checklist...
 
 Multiple skills activate simultaneously when your question spans domains.
 
-```
+```text
 User asks: "How do I build an MCP server in Java using Spring Boot?"
 │
 ├── mcp-development/SKILL.md           ← matches "MCP server", "protocol"
@@ -463,7 +463,7 @@ Avoids duplicating content across prompts.
 
 Agents hand work to specialist agents in sequence.
 
-```
+```yaml
 User: "Review this architecture and tell me what to change"
   │
   ▼
@@ -501,7 +501,7 @@ for a full assessment of the ripple effects of each recommendation.
 
 The "enriched Copilot" pattern: automatic rules AND automatic domain knowledge, both active constantly.
 
-```
+```text
 .github/instructions/java.instructions.md    ← "Use final, var, @Override, try-with-resources"
 .github/skills/java-learning-resources/      ← "Here's the full Java API reference, common patterns"
 ```
@@ -519,7 +519,7 @@ When a user asks a Java question:
 
 The most common cross-type composition: "WHO you are" + "WHAT you do".
 
-```
+```text
 User selects:  Debugger agent (systematic, hypothesis-driven, root-cause focus)
 User types:    /debug
 
@@ -552,7 +552,7 @@ Follow the 5-phase debugging methodology:
 
 Instructions stack UNDER and ALWAYS apply, even when an agent is active.
 
-```
+```text
 java.instructions.md (applyTo: **/*.java):
   "Methods must be <30 lines. Use @Override. Use Objects.requireNonNull."
                           +
@@ -573,7 +573,7 @@ that ASSUME instructions enforce the baseline, so the agent doesn't need to repe
 
 When a prompt is invoked, the relevant skill auto-activates alongside it.
 
-```
+```text
 User types: /mcp
                 │
                 ├── .github/prompts/mcp.prompt.md loads     ← workflow structure + response shape
@@ -592,7 +592,7 @@ structure; the skill controls depth.
 
 The "specialist with real tools" pattern: an expert persona that can actually DO things.
 
-```
+```text
 Code-Reviewer agent:
   - Read-only persona
   - Tools: [codebase, search, usages]  ← no editFiles, no runCommands
@@ -616,7 +616,7 @@ The agent's tool list restricts VS Code tools; MCP server tools are separate.
 
 The maximum-power composition for high-stakes or complex workflows.
 
-```
+```text
 ┌──────────────────────────────────────────────────────┐
 │              ACTIVE CUSTOMIZATION STACK               │
 │                                                       │
@@ -647,7 +647,7 @@ workflow where correctness, depth, and consistency all matter.
 
 Use `applyTo: "**"` instruction files as "always-on behavioral modes" that activate globally.
 
-```
+```text
 .github/instructions/change-completeness.instructions.md:
   applyTo: "**"
   Content: "Every change has a ripple. Follow the completeness checklist..."
@@ -659,7 +659,7 @@ explains and documents all available modes.
 
 **Pattern:**
 
-```
+```text
 copilot-instructions.md       ← base project rules
     + steering-modes.inst.md  (applyTo: **) ← meta: documents modes
     + change-completeness.inst.md (applyTo: **) ← completeness mode: always on
@@ -675,7 +675,7 @@ copilot-instructions.md       ← base project rules
 Use `${input:topic}` variables to make one prompt cover multiple domains — and the skill
 for that domain auto-activates based on the content of the conversation.
 
-```
+```text
 /learn-concept ${input:topic}
 
 User: /learn-concept → "mcp-servers"
@@ -709,7 +709,7 @@ to cover many domains but can delegate depth to the relevant skill.
 
 ### 🚫 Anti-Pattern 2: Bloated `copilot-instructions.md`
 
-```
+```text
 ❌ copilot-instructions.md: 5000 tokens of Maven lifecycle, Git branching diagrams,
    full Java API cheatsheet, 3 different response format templates...
 
@@ -724,7 +724,7 @@ Every token in `copilot-instructions.md` is sent on EVERY request, forever. Keep
 
 ### 🚫 Anti-Pattern 3: Vague Skill Descriptions
 
-```
+```text
 ❌  description: "Java stuff"
     → Never activates (too vague)
 
@@ -745,7 +745,7 @@ single most important field in a `SKILL.md` file.
 
 ### 🚫 Anti-Pattern 4: Agents Without Tool Restrictions
 
-```
+```text
 ❌  .agent.md (no tools: field)
     → Agent gets ALL tools by default (editFiles, runCommands, browser, terminal...)
     → Security risk: a "read-only reviewer" that can run rm -rf
@@ -764,7 +764,7 @@ Always be explicit about `tools:`. Default = everything. Explicit list = least p
 
 ### 🚫 Anti-Pattern 5: Prompt vs. Instructions Confusion
 
-```
+```text
 ❌ copilot-instructions.md:
    "When asked to review code, first check SOLID principles,
     then check naming, then check error handling, then check tests..."
@@ -786,7 +786,7 @@ not a project-wide instruction.
 
 ### 🚫 Anti-Pattern 6: Using MCP When a Skill Would Do
 
-```
+```text
 ❌ Build an MCP server to serve your team's Git branching guide document to Copilot
    → Unnecessary complexity, latency, server infra
 
@@ -805,7 +805,7 @@ Use MCP when you need LIVE data or WRITE operations. Use Skills for STATIC knowl
 
 ### 🚫 Anti-Pattern 7: Duplicate Instruction Content Across Files
 
-```
+```text
 ❌  java.instructions.md:      "Always add Javadoc"
     clean-code.instructions.md: "Always add Javadoc"
     copilot-instructions.md:    "All public methods need Javadoc"
@@ -823,7 +823,7 @@ If a rule applies to all Java files, put it in `java.instructions.md` once. Don'
 
 ### Activation Summary
 
-```
+```text
 ────────────────────────────────────────────────────────────
 PRIMITIVE               ACTIVATION          STACKS
 ────────────────────────────────────────────────────────────
@@ -884,7 +884,7 @@ description: >               # Required: THIS IS THE ACTIVATION TRIGGER
 
 ### Composition Decision Matrix
 
-```
+```text
 NEED                                         → COMBINE
 ─────────────────────────────────────────────────────────
 Rules + Knowledge (always on)               → instructions + skill

@@ -61,7 +61,7 @@ Fixed a compilation error that prevented both MCP servers from building. Added m
 
 ### New — `output/` Directory Structure
 
-```
+```text
 output/
 ├── README.md                   ← System guide (committed)
 ├── learning/

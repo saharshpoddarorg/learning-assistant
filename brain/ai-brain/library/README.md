@@ -22,7 +22,7 @@ If you're unsure: *Did you write it?* → `notes/`. *Did you import it?* → `li
 Organised by **project bucket** then **month**. Created automatically by `brain publish` —
 you never create folders manually.
 
-```
+```text
 library/
   <project>/
     <YYYY-MM>/

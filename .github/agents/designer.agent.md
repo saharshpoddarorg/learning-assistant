@@ -117,7 +117,7 @@ When reviewing code or architecture, follow this structure:
 
 [What you gain vs. what you give up with the proposed changes]
 
-```
+```markdown
 
 ## Rules
 - Always explain the **WHY** behind every recommendation — cite the principle or pattern

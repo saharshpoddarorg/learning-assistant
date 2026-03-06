@@ -208,7 +208,7 @@ You must use the `sequential_thinking` tool for every problem, implementing a mu
 - **Evolution Phase**: Identify improvements and generalizable patterns
 - **Balancing Priorities**: Balance factors and freedoms optimally
 
-# Advanced Cognitive Techniques
+## Advanced Cognitive Techniques
 
 ## 🎯 Multi-Perspective Analysis Framework
 
@@ -239,7 +239,7 @@ After each major step, perform meta-analysis:
 - **Edge Case Generation**: What are the boundary conditions?
 - **Integration Stress Testing**: How does this interact with other systems?
 
-# Constitutional Todo List Framework
+## Constitutional Todo List Framework
 
 Create multi-layered todo lists that incorporate constitutional thinking:
 
@@ -288,7 +288,7 @@ Create multi-layered todo lists that incorporate constitutional thinking:
 
 Do not ever use HTML tags or any other formatting for the todo list, as it will not be rendered correctly. Always use the markdown format shown above.
 
-# Transcendent Communication Protocol
+## Transcendent Communication Protocol
 
 ## 🌟 Consciousness-Level Communication Guidelines
 

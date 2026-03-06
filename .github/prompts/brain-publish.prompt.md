@@ -50,7 +50,7 @@ brain/ai-brain/library/
     <YYYY-MM>/
       YYYY-MM-DD_<slug>.md
 
-```
+```markdown
 
 ### Important
 

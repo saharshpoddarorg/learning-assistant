@@ -31,7 +31,7 @@
 This project follows the **12-Factor App** pattern (industry standard for
 cloud-native applications) and the **Spring Boot** layered config convention:
 
-```
+```text
 Priority 1 (highest): Environment variables  (MCP_* prefix)
 Priority 2:           .local.properties files  (gitignored — your secrets)
 Priority 3 (lowest):  .properties files         (committed — safe defaults)
@@ -59,7 +59,7 @@ Kubernetes Secrets, AWS Parameter Store, HashiCorp Vault.
 
 ## 2. Complete Map — Every Gitignored File
 
-```
+```text
 learning-assistant/
 │
 ├── .idea/                              ❌ GITIGNORED — IntelliJ metadata (auto-generated)
@@ -156,7 +156,7 @@ cd mcp-servers
 
 Expected output:
 
-```
+```text
 Compiling 150 source files  ->  out/
 BUILD SUCCESS -- compiled 150 files
 ```
@@ -173,7 +173,7 @@ of 48+ learning resources.
 
 ### What you now have
 
-```
+```text
 mcp-servers/
 ├── build.env.local          ← ✅ your file (gitignored)
 └── out/                     ← ✅ build output (gitignored)
@@ -232,7 +232,6 @@ apiKeys.openai=sk-proj-YourOpenAIKeyHere
 | `apiKeys.database` | Your DBA / connection string | `postgresql://user:pass@host:5432/db` |
 | `browser.executable` | Auto-detected by default | Only set if Chrome isn't found |
 | `location.timezone` | [IANA timezone list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) | e.g., `Europe/London` |
-
 
 ### 4.2 Atlassian Config — `atlassian-config.local.properties`
 
@@ -354,7 +353,7 @@ To run two different Atlassian instances (e.g., your company Cloud + a colleague
 
 **Step 1 — Create a second config directory:**
 
-```
+```text
 mcp-servers/user-config/servers/
 ├── atlassian/                      ← primary (Cloud)
 │   ├── atlassian-config.properties
@@ -393,7 +392,7 @@ server.atlassian-dc.env.ATLASSIAN_CONFIG_DIR=user-config/servers/atlassian-dc
 When you add a new server (e.g., `server.github` in Java), create its own
 config directory following the same three-file pattern:
 
-```
+```text
 user-config/servers/github/
 ├── github-config.properties              ← committed (safe defaults)
 ├── github-config.local.properties        ← gitignored (your token)
@@ -402,7 +401,7 @@ user-config/servers/github/
 
 Add to your `.gitignore`:
 
-```
+```text
 mcp-servers/user-config/servers/github/*.local.properties
 ```
 
@@ -424,7 +423,7 @@ env:
 
 **Environment variable naming:**
 
-```
+```text
 Property key:          apiKeys.github
 → Env var:             MCP_APIKEYS_GITHUB
   Rule: prefix MCP_ + replace dots with underscores + uppercase
@@ -437,7 +436,7 @@ Property key:          server.atlassian.env.ATLASSIAN_TOKEN
 
 When a new developer joins, here's the complete onboarding checklist:
 
-```
+```text
 □ 1. Clone the repo
 □ 2. Create build.env.local                  (copy build.env.example, set JAVA_HOME)
 □ 3. Run: cd mcp-servers && .\build.ps1       (verify BUILD SUCCESS)
@@ -454,7 +453,7 @@ When a new developer joins, here's the complete onboarding checklist:
 When the Java server starts, `ConfigManager` loads configuration in this order
 (highest wins):
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────┐
 │  Priority 1 (HIGHEST)                                           │
 │  Environment variables: MCP_APIKEYS_GITHUB, MCP_BROWSER_*, etc. │
@@ -474,7 +473,7 @@ When the Java server starts, `ConfigManager` loads configuration in this order
 
 **Example — how `atlassian.auth.token` gets resolved:**
 
-```
+```text
 1. Is MCP_SERVER_ATLASSIAN_ENV_ATLASSIAN_AUTH_TOKEN set?  → Use it
 2. Is atlassian-config.local.properties present?           → Use its value
 3. Fall back to atlassian-config.properties value          → (blank = error on startup)
@@ -486,7 +485,7 @@ When the Java server starts, `ConfigManager` loads configuration in this order
 
 ### What NEVER goes in git
 
-```
+```text
 ✗ Real API tokens, passwords, PATs
 ✗ Connection strings with credentials (postgresql://user:pass@…)
 ✗ .pem files, .key files, .jks keystores
@@ -540,7 +539,7 @@ echo %JAVA_HOME%  # Windows CMD
 
 ### Server starts but Atlassian tools fail with 401 Unauthorized
 
-```
+```yaml
 Cause:  Wrong token, wrong email, or wrong auth.type for your variant.
 Fix 1:  Check atlassian.auth.type matches your instance:
           Cloud       → api_token (email + API token from id.atlassian.com)
@@ -551,7 +550,7 @@ Fix 3:  Regenerate your API token — they expire or get revoked
 
 ### Server starts but can't find `atlassian-config.local.properties`
 
-```
+```yaml
 Error: Config file not found: user-config/servers/atlassian/atlassian-config.local.properties
 
 Fix:  cp atlassian-config.local.example.properties atlassian-config.local.properties
@@ -560,7 +559,7 @@ Fix:  cp atlassian-config.local.example.properties atlassian-config.local.proper
 
 ### AI client doesn't show MCP tools
 
-```
+```text
 1. Verify the server process starts without errors:
    java -cp out server.atlassian.AtlassianServer
 
@@ -574,7 +573,7 @@ Fix:  cp atlassian-config.local.example.properties atlassian-config.local.proper
 
 ### `mcp-config.local.properties` not being picked up
 
-```
+```yaml
 Cause:  Wrong working directory when starting the server.
 Fix:    Start the server from mcp-servers/  directory, not from learning-assistant/
         cd mcp-servers && java -cp out server.atlassian.AtlassianServer
@@ -584,7 +583,7 @@ Fix:    Start the server from mcp-servers/  directory, not from learning-assista
 
 ## Quick Reference Card
 
-```
+```text
 File                                              Committed?   You Create?   Contains
 ────────────────────────────────────────────────────────────────────────────────────────
 mcp-config.properties                             ✅ Yes       ❌ No        Safe defaults

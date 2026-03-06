@@ -37,7 +37,7 @@ Based on the interview type selected, follow the appropriate section below.
   Union-Find → Topological Sort → Heap/Priority Queue →
   Monotonic Stack → Segment Tree → Bit Manipulation
 
-  ```
+  ```text
 - **Signal words** — what clues in a problem statement suggest this pattern?
 
 #### 2. Core Technique

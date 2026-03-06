@@ -4,7 +4,7 @@ This directory contains scripts tailored to individual MCP servers.
 
 ## Structure
 
-```
+```text
 server-specific/
 ├── github/          ← GitHub MCP server scripts
 ├── <server-name>/   ← Add your own server-specific scripts here
@@ -15,7 +15,7 @@ server-specific/
 
 1. Create a directory named after your server (matching `server.<name>` in config):
 
-   ```
+   ```bash
    mkdir -p scripts/server-specific/<your-server>
    ```
 

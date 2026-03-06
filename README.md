@@ -103,7 +103,7 @@ Browse the skill files directly — they're well-structured Markdown:
 
 ## Repository Structure
 
-```
+```text
 learning-assistant/
 │
 ├── README.md                        ← You are here
@@ -147,7 +147,7 @@ learning-assistant/
 <details>
 <summary><b>Expand full structure</b></summary>
 
-```
+```text
 .github/
 ├── copilot-instructions.md              Always-on project rules
 │

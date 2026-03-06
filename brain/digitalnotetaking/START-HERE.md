@@ -26,7 +26,7 @@
 
 **Obsidian (Windows / macOS / Linux)**
 
-```
+```text
 1. Download: https://obsidian.md/download
 2. Run installer
 3. Click "Create new vault" → choose a folder that is synced (Dropbox, iCloud, etc.)
@@ -36,7 +36,7 @@
 
 **Notion**
 
-```
+```text
 1. Sign up: https://notion.so
 2. Use the "Personal" template or start blank
 3. Install the Web Clipper browser extension
@@ -47,7 +47,7 @@
 
 No matter which tool you chose, create these four top-level folders/pages NOW:
 
-```
+```text
 📁 Projects   ← things with a deadline (mcp-servers, job search, course)
 📁 Areas      ← ongoing responsibilities (Java, career, health)
 📁 Resources  ← reference material (books, links, snippets)
@@ -112,7 +112,7 @@ If you are using Obsidian or Logseq:
 
 When you save a note, don't just paste raw content. Process it in layers:
 
-```
+```text
 Layer 0: Raw capture (quotes, links, code snippets)
 Layer 1: Bold the most important sentences
 Layer 2: Highlight within the bold (the essential 10%)

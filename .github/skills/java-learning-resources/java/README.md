@@ -4,7 +4,7 @@
 
 ## Directory Structure
 
-```
+```text
 java/
 ├── official/                      ← Oracle, dev.java, JDK documentation
 │   ├── oracle-tutorials-guide.md  ← Complete dev.java & legacy Oracle tutorial content

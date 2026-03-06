@@ -55,7 +55,7 @@ Examples:
 
 ### Decision Flowchart
 
-```
+```text
 Does the content come from an external API/database?
   YES → MCP Server
 
@@ -81,7 +81,7 @@ Can't decide? → Start with Skill, add MCP only if you need live data
 
 Some MCP tools are hybrids. The best pattern:
 
-```
+```text
 MCP server: handles search + scoring + live computation
 Skill file: contains curated examples, quick reference, and domain knowledge
 
@@ -112,7 +112,7 @@ User gets both:
 
 ### Migration Workflow
 
-```
+```text
 Step 1 — Audit the MCP server
   Read: mcp-servers/src/server/<name>/
   List all tools in handleCallTool()
@@ -202,7 +202,7 @@ This becomes a one-liner in the skill: "Use the `learning-resources` MCP server 
 
 Use the `/mcp-to-skill` slash command to automate the analysis:
 
-```
+```markdown
 # In Copilot Chat:
 /mcp-to-skill
 → target: src/server/learningresources/

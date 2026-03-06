@@ -109,7 +109,7 @@ A: [Direct answer]
 **Q: [Second question?]**
 A: [Answer]
 
-```
+```yaml
 
 ---
 
@@ -203,7 +203,7 @@ Create a comprehensive developer documentation file.
 - [Related doc 1](link.md)
 - [Related doc 2](link.md)
 
-```
+```yaml
 
 ---
 
@@ -269,7 +269,7 @@ Create a focused, task-oriented guide.
 - [What to do after this guide]
 - [Related guide](link.md)
 
-```
+```yaml
 
 ---
 
@@ -305,7 +305,7 @@ Create a fast-reference document optimized for scanning.
 
 ## Decision Tree
 
-```
+```text
 Need to do X?
 ├── If [condition A] → use [approach A]
 ├── If [condition B] → use [approach B]
@@ -328,7 +328,7 @@ Need to do X?
 
 [Copy-paste ready template 2]
 
-```
+```yaml
 
 ---
 
@@ -386,7 +386,7 @@ description: >
 | [Official docs](url) | Official | ... |
 | [Tutorial](url) | Tutorial | ... |
 
-```
+```text
 
 **Critical rule for `description` field:**
 ```
@@ -400,7 +400,7 @@ Too vague → never activates
 Too specific → misses related questions
 Cover synonyms, adjacent terms, and common question patterns.
 
-```
+```yaml
 
 ---
 
@@ -453,7 +453,7 @@ ${input:level:Depth? (newbie / amateur / pro)}
 - Always provide working, copy-paste ready examples
 - Adapt depth to `level` input
 
-```
+```text
 
 **Design principles for effective prompts:**
 1. `${input:}` variables — collect ALL needed context upfront (users shouldn't need to re-prompt)
@@ -485,7 +485,7 @@ Create a README.md for a component, directory, or project.
 
 ## Contents / Structure
 
-```
+```text
 [directory or file tree]
 ```
 
@@ -511,7 +511,7 @@ Create a README.md for a component, directory, or project.
 
 - [Related file/doc](link.md)
 
-```
+```yaml
 
 ---
 
@@ -569,7 +569,7 @@ Create a structured brain note in `brain/ai-brain/notes/`.
 
 `#tag1` `#tag2` `#tag3`
 
-```
+```yaml
 
 ---
 
@@ -615,7 +615,7 @@ Regardless of `docType`, always organize content at 3 tiers when `level` is `3-t
    - Non-obvious techniques and why they work
    - When NOT to use this approach
 
-```
+```yaml
 
 ---
 

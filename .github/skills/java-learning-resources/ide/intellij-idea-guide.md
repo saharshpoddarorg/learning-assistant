@@ -95,7 +95,7 @@ All users now get a single IntelliJ IDEA product.
 
 ### Source roots
 
-```
+```text
 Mark directory as:
   📁 Sources Root        (blue)   — main Java source code
   📁 Test Sources Root   (green)  — test code
@@ -106,7 +106,7 @@ Mark directory as:
 
 ### .idea directory & sharing
 
-```
+```text
 .idea/
 ├── .gitignore              ← tells Git what to ignore
 ├── modules.xml             ← ✅ share (project modules)
@@ -175,7 +175,7 @@ Mark directory as:
 
 **Postfix completion examples:**
 
-```
+```text
 myList.for        →  for (var item : myList) { }
 myList.fori       →  for (int i = 0; i < myList.size(); i++) { }
 value.null        →  if (value == null) { }
@@ -284,7 +284,7 @@ are shown as highlights in the editor.
 
 ### Common refactoring workflows
 
-```
+```text
 1. Extract Method:    Select code → Ctrl+Alt+M → name it → parameters auto-detected
 2. Extract Interface: Refactor This → Extract Interface → select methods
 3. Pull Members Up:   Move methods/fields from subclass to superclass

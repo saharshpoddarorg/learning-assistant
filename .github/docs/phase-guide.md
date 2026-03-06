@@ -158,7 +158,7 @@ The moment you open this folder in VS Code with Copilot installed:
 
 ### 2.3 — What's in the `.github/` folder
 
-```
+```text
 .github/
 ├── copilot-instructions.md        ← Always active: your project rules
 ├── instructions/
@@ -207,7 +207,7 @@ See [customization-guide.md](customization-guide.md) for detailed how-to.
 
 **Option A: VS Code task (recommended)**
 
-```
+```text
 Ctrl+Shift+B → select "mcp-servers: build"
 ```
 
@@ -227,7 +227,7 @@ cd mcp-servers
 
 Expected output:
 
-```
+```text
 BUILD SUCCESS -- compiled 150 files
 ```
 
@@ -249,7 +249,7 @@ The servers in this file:
 
 The Learning Resources server is already `"disabled": false` in `.vscode/mcp.json`. Just reload VS Code:
 
-```
+```text
 Ctrl+Shift+P → "Reload Window" → Enter
 ```
 
@@ -261,7 +261,7 @@ Ctrl+Shift+P → "Reload Window" → Enter
 
 **Test it:**
 
-```
+```text
 In Copilot Chat: "Search for Java concurrency learning resources"
 ```
 
@@ -324,7 +324,7 @@ VS Code will prompt for your GitHub Personal Access Token the first time Copilot
 
 Files that are gitignored (safe for secrets):
 
-```
+```text
 mcp-servers/user-config/mcp-config.local.properties
 mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties
 mcp-servers/build.env.local
@@ -332,7 +332,7 @@ mcp-servers/build.env.local
 
 Files that are committed (no secrets allowed):
 
-```
+```text
 mcp-servers/user-config/mcp-config.properties          ← base defaults only
 mcp-servers/user-config/servers/atlassian/atlassian-config.properties  ← base defaults only
 .vscode/mcp.json                                       ← server registry (uses VS Code inputs for secrets)
@@ -348,7 +348,7 @@ mcp-servers/user-config/servers/atlassian/atlassian-config.properties  ← base 
 
 ### What it is
 
-```
+```text
 brain/
 ├── inbox/      ← Raw capture (drafts, quick grabs — gitignored)
 ├── notes/      ← Your writing — distilled insights, session logs, decisions
@@ -360,7 +360,7 @@ brain/
 
 **Two typical flows:**
 
-```
+```text
 brain-new   → inbox/ → (edit/refine) → notes/
 brain publish → inbox/ → library/<project>/<YYYY-MM>/
 ```
@@ -369,7 +369,7 @@ brain publish → inbox/ → library/<project>/<YYYY-MM>/
 
 In Copilot Chat (Agent mode):
 
-```
+```text
 /brain-new
 → Title: "Java generics cheatsheet"
 → Tier: notes
@@ -380,7 +380,7 @@ Copilot creates a properly formatted markdown note with YAML frontmatter.
 
 ### 5.2 — Search notes
 
-```
+```text
 /brain-search
 → "generics"
 → tier: notes
@@ -388,7 +388,7 @@ Copilot creates a properly formatted markdown note with YAML frontmatter.
 
 ### 5.3 — Publish an imported source to library
 
-```
+```text
 /brain-publish
 → brain/ai-brain/inbox/GHCP_Agents_Guide.md
 → Project: ghcp-knowledge-sharing
@@ -413,7 +413,7 @@ Copilot archives the source file to `library/<project>/<YYYY-MM>/`, prompts for 
 
 ### Example 1: Learning session with resources
 
-```
+```text
 1. Switch to "Learning-Mentor" agent
 2. /dsa → binary trees → learn-concept → python → intermediate
 3. Copilot explains the concept (using DSA prompt template)
@@ -424,7 +424,7 @@ Copilot archives the source file to `library/<project>/<YYYY-MM>/`, prompts for 
 
 ### Example 2: Debugging a real issue
 
-```
+```text
 1. Open the file with the bug
 2. Switch to "Debugger" agent
 3. /debug → Copilot investigates systematically
@@ -435,7 +435,7 @@ Copilot archives the source file to `library/<project>/<YYYY-MM>/`, prompts for 
 
 ### Example 3: Planning a system design for a Jira ticket
 
-```
+```text
 1. Enable Atlassian MCP server (Phase 4.1)
 2. "Find the PROJ-123 Jira ticket and summarize the requirements"
    → Copilot calls jira_get_issue tool
@@ -478,7 +478,7 @@ Copilot archives the source file to `library/<project>/<YYYY-MM>/`, prompts for 
 
 ### The building loop
 
-```
+```text
 1. PICK one feature to add or improve
 2. IDENTIFY the right primitive (instruction / agent / prompt / skill / MCP tool)
 3. CREATE or EDIT the file

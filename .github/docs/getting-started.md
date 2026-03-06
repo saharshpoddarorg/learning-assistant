@@ -42,7 +42,7 @@
 
 Your `.github/` folder contains everything Copilot uses to customize its behavior:
 
-```
+```text
 .github/
 │
 ├── copilot-instructions.md              ← Project-wide rules (always active)

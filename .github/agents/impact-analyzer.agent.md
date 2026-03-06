@@ -59,7 +59,7 @@ Changed Method
     └── Interface this implements
         └── Other implementations (contract changed?)
 
-```
+```text
 
 Go at least **two levels deep**. Ask:
 - If Caller A is affected, who calls Caller A?
@@ -136,7 +136,7 @@ Rate each impact:
 
 [Step-by-step implementation order that minimizes risk]
 
-```
+```markdown
 
 ## Rules
 - Always trace at least two levels of dependencies

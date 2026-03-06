@@ -170,7 +170,7 @@ User: /resources → export → "java" → format=pdf
 User: /resources → recommend → "new to system design"
 → Personalized path: System Design Primer (start) → 12-Factor App → DDIA (book)
 
-```
+```markdown
 
 ### Rules
 - Always show real URLs that the user can click

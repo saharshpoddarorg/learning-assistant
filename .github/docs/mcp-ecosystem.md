@@ -36,7 +36,7 @@
 MCP (Model Context Protocol) is the **connector layer** between AI brains (LLMs)
 and the world (APIs, databases, files, services). Understanding the full stack:
 
-```
+```text
 ┌─────────────────── AI HOST / CLIENT ───────────────────────┐
 │  Claude Desktop │ VS Code Copilot │ Continue.dev │ Any IDE  │
 └──────────────────────────┬─────────────────────────────────┘
@@ -56,7 +56,7 @@ and the world (APIs, databases, files, services). Understanding the full stack:
 **The AI model never calls external APIs directly.** It calls MCP tools.
 MCP servers call external APIs on the model's behalf. This is the core design:
 
-```
+```text
 User → AI Model → picks tool → MCP server → external API → result → AI Model → User
 ```
 
@@ -132,7 +132,7 @@ response, without any explicit wiring from you.
 
 **Example: "Create a Jira ticket for the bug I described in my notes"**
 
-```
+```text
 AI step 1: filesystem::read_file("my-notes.md")          → reads bug description
 AI step 2: atlassian::create_jira_issue(summary, desc)   → creates ticket
 AI step 3: atlassian::add_jira_comment(key, "Created!")  → adds confirmation
@@ -189,7 +189,7 @@ Now you can explicitly compare:
 
 Run the same query against both versions and compare:
 
-```
+```yaml
 Prompt: "Using atlassian, search for open bugs in project PAYMENT"
 Prompt: "Now do the same using atlassian-v2"
 ```
@@ -201,7 +201,7 @@ no downtime, no risk — just add the v2 server and compare responses.
 
 After running both in parallel, you'll see which version handles which tools better:
 
-```
+```text
 v1 strengths: Jira search (more accurate JQL translation)
 v2 strengths: Bitbucket PR creation (cleaner response format)
 ```
@@ -246,7 +246,7 @@ It only speaks JSON-RPC 2.0. Both servers are equally usable from the AI's persp
 
 ### 4.2 The MCP Language Matrix
 
-```
+```text
                PROTOTYPING  ENTERPRISE  ML/DATA  BROWSER  LOWEST DEPS
 TypeScript         ⭐⭐⭐        ⭐⭐         ⭐       ⭐⭐⭐       ⭐⭐
 Python             ⭐⭐⭐        ⭐⭐         ⭐⭐⭐     ⭐          ⭐⭐
@@ -257,7 +257,7 @@ Rust               ⭐            ⭐⭐          ⭐        ⭐          ⭐⭐
 
 ### 4.3 Project Layout for Multi-Language MCP Project
 
-```
+```text
 my-mcp-project/
 ├── mcp-java/              ← Java servers (this project's style)
 │   ├── src/
@@ -301,7 +301,7 @@ If you want consistent tool names and response formats across Java and TypeScrip
 
 **Option A — Document in Markdown (simple)**
 
-```
+```text
 tool-contracts/
 ├── atlassian-tools.md    ← tool names, param formats, response schema
 ├── search-tools.md
@@ -310,7 +310,7 @@ tool-contracts/
 
 **Option B — JSON Schema (structured)**
 
-```
+```text
 tool-contracts/
 ├── schemas/
 │   ├── search_issues.json    ← JSON Schema for the tool's inputSchema
@@ -402,7 +402,7 @@ private String summarisePage(final String pageContent) {
 
 This pattern creates a **two-level AI system:**
 
-```
+```text
 User → AI Client (Claude) → MCP tool call → Java server → OpenAI GPT-4 → enriched result → Claude → User
 ```
 
@@ -605,7 +605,7 @@ An agent is an AI model in a loop — it calls tools, observes results, decides
 the next action, and repeats until the goal is reached. MCP servers provide
 the tools that agents use.
 
-```
+```text
 User request → Agent (LLM in loop)
                     │
                     ├─ tool call 1 (search_jira)
@@ -736,7 +736,7 @@ public class SimpleAgent {
 
 This architecture uses the right language for each job:
 
-```
+```text
 ┌─────────────────────────── AI CLIENT ───────────────────────────┐
 │            Claude Desktop / VS Code / Continue.dev               │
 └───────────────────────────────┬─────────────────────────────────┘
@@ -781,7 +781,7 @@ But the **AI model** orchestrates between them. Three patterns:
 **Pattern 1 — AI Orchestration (simplest)**
 Let the AI call each server in turn. No extra code needed.
 
-```
+```yaml
 User: "Find open bugs and create a confluence report"
 AI: search_jira_issues("open bugs") → [3 bugs]
 AI: create_confluence_page("Bug Report", format(3 bugs)) → page created
@@ -807,7 +807,7 @@ public String handleToolCall(String toolName, Map<String, String> args) {
 **Pattern 3 — Shared Message Bus**
 For complex multi-agent systems:
 
-```
+```text
 MCP Server A → publishes to Redis Pub/Sub
 MCP Server B → subscribes from Redis Pub/Sub
 ```
@@ -841,7 +841,7 @@ This breaks MCP's design philosophy (stateless tools) and is only for advanced c
 
 ### Recipe 1 — Learning + Atlassian Combined Workflow
 
-```
+```text
 "I want to learn about microservices. Also find any Jira tickets we have
  on the topic so I know what we've already tried."
 
@@ -926,7 +926,7 @@ result = executor.invoke({
 
 ## Summary — Decision Guide
 
-```
+```text
 You want to...                              → Use this approach
 ──────────────────────────────────────────────────────────────────────
 Expose Java APIs as AI tools               → Java MCP server (this project)

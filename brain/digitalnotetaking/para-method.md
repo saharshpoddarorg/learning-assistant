@@ -24,7 +24,7 @@ The insight: **most knowledge systems fail because they organise by subject.** P
 
 ### Projects — Active Work with Deadlines
 
-```
+```text
 Projects/
 ├── mcp-servers-v2/          ← Release by 2026-03-31
 ├── java-generics-study/     ← Finish before team review 2026-03-10
@@ -39,7 +39,7 @@ Rules:
 
 ### Areas — Ongoing Responsibilities
 
-```
+```text
 Areas/
 ├── Java/                    ← Always learning Java
 │   ├── concurrency-notes.md
@@ -61,7 +61,7 @@ Rules:
 
 ### Resources — Reference Material
 
-```
+```text
 Resources/
 ├── Books/
 │   ├── clean-code-notes.md
@@ -83,7 +83,7 @@ Rules:
 
 ### Archives — Done or Inactive
 
-```
+```text
 Archives/
 ├── old-job-notes/
 ├── completed-courses/
@@ -103,7 +103,7 @@ Rules:
 
 ### Obsidian
 
-```
+```text
 vault/
 ├── Inbox/              ← Triage before sorting
 ├── Projects/
@@ -125,7 +125,7 @@ SORT due ASC
 
 Create a **top-level "PARA" page** with 4 sub-pages, or use linked databases:
 
-```
+```text
 My Second Brain (root page)
 ├── 🎯 Projects     ← database with: status, goal, deadline, priority
 ├── 🔵 Areas        ← pages for each ongoing area
@@ -139,7 +139,7 @@ My Second Brain (root page)
 
 Logseq is page-based (no folders), so PARA maps to tags:
 
-```
+```text
 #project/mcp-servers
 #area/java
 #resource/book
@@ -148,7 +148,7 @@ Logseq is page-based (no folders), so PARA maps to tags:
 
 Use the built-in query to see all active projects:
 
-```
+```json
 {{query (and (property type project) (not (property status done)))}}
 ```
 
@@ -174,7 +174,7 @@ brain publish brain\ai-brain\notes\note.md --project java
 
 ## PARA Workflow — Weekly Review (15 minutes)
 
-```
+```text
 Every week — run through this:
 
 1. INBOX          → Empty your inbox: sort each item to P/A/R/A
@@ -202,7 +202,7 @@ Every week — run through this:
 
 PARA handles **where things live**. CODE handles **how you process information**:
 
-```
+```text
 CAPTURE   → Drop raw content into Inbox
 ORGANIZE  → Sort Inbox items into P / A / R / A
 DISTILL   → Progressive summarization inside each note

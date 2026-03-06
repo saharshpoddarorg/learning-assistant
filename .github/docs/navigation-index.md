@@ -129,7 +129,7 @@
 
 ## 📁 File Map — All .md Files
 
-```
+```text
 .github/
 │
 ├── (root) README.md                    👤 Project overview, quick start, learning domains
@@ -360,7 +360,7 @@ Commands can be **composed** to create powerful workflows. Here are recommended 
 
 ### Learning Workflow
 
-```
+```text
 /career-roles → identify skills gap
     ↓
 /language-guide → learn required language
@@ -376,7 +376,7 @@ Commands can be **composed** to create powerful workflows. Here are recommended 
 
 ### Code Quality Workflow
 
-```
+```text
 /explain → understand the code
     ↓
 /design-review → find design issues
@@ -390,7 +390,7 @@ Commands can be **composed** to create powerful workflows. Here are recommended 
 
 ### Cross-Session Workflow
 
-```
+```text
 Session 1:  /multi-session save-state → saves progress
 Session 2:  /multi-session resume → continues from checkpoint
             /context continue → reconnects to prior decisions
@@ -398,7 +398,7 @@ Session 2:  /multi-session resume → continues from checkpoint
 
 ### DevOps Learning Path
 
-```
+```text
 /devops → Docker → learn containers
     ↓
 /devops → Kubernetes → learn orchestration
@@ -412,7 +412,7 @@ Session 2:  /multi-session resume → continues from checkpoint
 
 ### Meta-Composition with `/composite`
 
-```
+```text
 /composite → refactor, design-review
   → Combines both into a single deduplicated analysis
   → Shows cross-mode insights
@@ -440,7 +440,7 @@ Session 2:  /multi-session resume → continues from checkpoint
 
 The `/multi-session` prompt can create/update `.github/session-state.md` — a persistent checkpoint file:
 
-```
+```text
 .github/
 └── session-state.md    ← Auto-generated session checkpoint (gitignored or tracked, your choice)
 ```

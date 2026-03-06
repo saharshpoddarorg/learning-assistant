@@ -8,7 +8,7 @@
 
 ## Module Structure
 
-```
+```text
 brain/
 ├── ai-brain/             ← Live knowledge workspace (notes, inbox, library)
 │   ├── inbox/            ← Quick capture — gitignored, cleared per session
@@ -78,7 +78,7 @@ Or use Copilot Chat: `/brain-publish`
 
 The typical lifecycle:
 
-```
+```text
 inbox/  →  brain-new (your writing)  →  notes/
 inbox/  →  brain publish (external source)  →  library/<project>/<YYYY-MM>/
 ```

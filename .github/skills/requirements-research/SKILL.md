@@ -37,7 +37,7 @@ they know it's working? NOT: How should we implement it?
 
 ### User Story Format (3-Part)
 
-```
+```text
 As a <persona/role>
 I want to <action/capability>
 So that <benefit/outcome>
@@ -45,7 +45,7 @@ So that <benefit/outcome>
 
 **Examples:**
 
-```
+```text
 ✅ As a customer, I want to reset my password by email so that I can regain access without calling support.
 ❌ As a user, I want a password reset button (missing: who is "user"? what does "reset" mean? why?)
 ```
@@ -92,7 +92,7 @@ Scenario: Successful password reset
 
 ### Discovery Session Agenda Template
 
-```
+```text
 [15 min] Context setting — what problem are we here to solve?
 [20 min] User journey mapping — walk through the current state
 [20 min] Pain points — what frustrates users today?
@@ -127,7 +127,7 @@ NFRs must be **measurable** — vague NFRs are unverifiable.
 
 ### MoSCoW Prioritisation
 
-```
+```text
 MUST   → Without this, the product fails. Non-negotiable for this iteration.
 SHOULD → High value; include if capacity allows. Strong business case.
 COULD  → Nice to have. Low effort or low urgency.
@@ -139,7 +139,7 @@ Healthy MoSCoW: 40% Must, 30% Should, 20% Could, 10% Won't.
 
 ### RICE Prioritisation Score
 
-```
+```text
 RICE = (Reach × Impact × Confidence) / Effort
 
 Reach:      How many users affected per quarter? (absolute number)
@@ -150,7 +150,7 @@ Effort:     Person-months to implement (lower = better)
 
 ### Stakeholder Analysis
 
-```
+```java
 Map stakeholders on two axes:
   - Power (influence they have over the project)
   - Interest (how much they care about the outcome)
@@ -163,7 +163,7 @@ Low Power + Low Interest    → MONITOR          (minimal engagement)
 
 ### Story Map Structure
 
-```
+```text
 User Goal (top row) → Activities → User Tasks → User Stories (detail rows)
 
 Example:
@@ -184,7 +184,7 @@ Goal: "Buy a product online"
 Every requirement should trace forward (to implementation and tests) and backward
 (to business objective), so you can answer "why does this code exist?"
 
-```
+```text
 Business Goal → Requirement → User Story → Test Cases → Implementation
 
 Example:
@@ -221,7 +221,7 @@ Before writing stories for complex domains, model the domain:
 
 When stakeholders want contradictory things:
 
-```
+```text
 Pattern 1 — Clarify scope: Is the conflict real or are they solving different problems?
 Pattern 2 — Find the upstream goal: What business outcome does each stakeholder want?
              Often the goals align even when the solutions conflict.
@@ -291,7 +291,7 @@ Feature: Password Reset
 
 ### Requirements Research with Copilot
 
-```
+```markdown
 # Use the Thinking-Beast-Mode agent for deep domain research:
 Ask: "Research the domain of [your area]. Identify key entities, relationships,
      events, and business rules using DDD vocabulary. Suggest 5 questions I should

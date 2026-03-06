@@ -501,7 +501,7 @@ ScopedValue.where(CURRENT_USER, authenticatedUser).run(() -> {
 
 ### 2.1 Exception Hierarchy
 
-```
+```text
 java.lang.Throwable
 ├── java.lang.Error                    ← JVM/system errors (don't catch)
 │   ├── OutOfMemoryError
@@ -1086,7 +1086,7 @@ var results = urls.stream()
 
 **Hierarchy Quick Reference:**
 
-```
+```text
 Iterable<T>
 └── Collection<T>
     ├── List<T>           ← ordered, indexed, duplicates allowed

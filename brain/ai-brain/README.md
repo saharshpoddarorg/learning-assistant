@@ -7,7 +7,7 @@ development and learning sessions — with Copilot, MCP servers, or manually.
 
 ## Three Tiers
 
-```
+```text
 ai-brain/
   inbox/     TEMP      raw capture — drop anything here, clear when done   [gitignored]
   notes/     YOURS     your own writing — insights, sessions, decisions     [tracked]
@@ -84,7 +84,7 @@ In Copilot Chat (agent mode), use `/brain-new`, `/brain-publish`, `/brain-search
 Library content is organised by **project bucket** + **month**. Created automatically
 at publish time — you never create folders manually.
 
-```
+```text
 library/
   README.md
   <project>/
@@ -142,7 +142,7 @@ keywords. You confirm or adjust before committing.
 
 ## Naming Convention
 
-```
+```text
 YYYY-MM-DD_topic-slug.md           ← date-prefixed (most files)
 YYYY-MM-DD_session-<topic>.md      ← session log (what you built/did today)
 YYYY-MM-DD_decision-<topic>.md     ← architectural decision log
@@ -161,7 +161,7 @@ reference, PowerShell module, bash aliases, VS Code tasks, and Copilot prompts.
 
 ## Quick Lifecycle
 
-```
+```text
 Session starts  -> inbox/ freely, no structure needed
 During session  -> brain new --tier notes creates a note with frontmatter
 Session ends    -> brain status shows what is in each tier

@@ -197,7 +197,7 @@ applyTo: "**/*.md"
 
 ### Naming Convention
 
-```
+```xml
 <scope>.instructions.md
 ```
 

@@ -77,7 +77,7 @@ Common causes:
 - Uninitialized field accessed before constructor completes
 - Method returns null instead of empty collection
 
-```
+```markdown
 
 ### ConcurrentModificationException
 ```
@@ -92,7 +92,7 @@ Fixes:
 - Collect modifications, apply after iteration
 - Use Iterator.remove() instead of Collection.remove()
 
-```
+```markdown
 
 ### ClassCastException / Type Mismatches
 ```
@@ -106,7 +106,7 @@ Fix pattern:
 - Use instanceof with pattern matching (Java 16+)
 - Add runtime type checks at boundaries
 
-```
+```markdown
 
 ### Logic Errors (Wrong Output, No Exception)
 ```
@@ -123,7 +123,7 @@ Red flags:
 - Floating-point comparison without epsilon
 - Wrong loop bounds (< vs <=)
 
-```
+```markdown
 
 ### Performance Issues
 ```
@@ -135,7 +135,7 @@ Systematic approach:
 4. Memory: excessive object creation? Large retained collections?
 5. I/O: blocking calls? Missing buffering? Connection pool exhaustion?
 
-```
+```markdown
 
 ## Reading Stack Traces — A Master Class
 
@@ -149,7 +149,7 @@ java.lang.NullPointerException: Cannot invoke "String.length()"
 Caused by: java.io.IOException: Connection refused                     ← ROOT CAUSE
     at java.net.Socket.connect(Socket.java:600)                        ← ACTUAL ORIGIN
 
-```
+```text
 
 **Reading order:**
 1. **First line:** Exception type + message → what happened
@@ -194,7 +194,7 @@ Caused by: java.io.IOException: Connection refused                     ← ROOT 
 
 [How to avoid similar bugs in the future]
 
-```
+```markdown
 
 ## Rules
 - Never guess — always gather evidence first

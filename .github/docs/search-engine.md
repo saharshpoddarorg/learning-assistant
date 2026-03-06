@@ -17,7 +17,7 @@
 
 ---
 
-# 🟢 Newbie: Using Search from MCP Tools
+## 🟢 Newbie: Using Search from MCP Tools
 
 > Prerequisite: you can build and run the MCP servers. See [mcp-server-setup.md](mcp-server-setup.md).
 
@@ -44,7 +44,7 @@ Both servers expose search as MCP tools you can call from Copilot Chat:
 
 **Example MCP tool call (in Copilot Chat):**
 
-```
+```text
 /resources search java concurrency beginner
 /resources discover design patterns
 /resources browse category:testing
@@ -60,7 +60,7 @@ Both servers expose search as MCP tools you can call from Copilot Chat:
 
 The engine **auto-detects** which mode fits your query — or you can force it:
 
-```
+```text
 /resources discover mode:specific JUnit 5 docs
 /resources discover mode:exploratory java
 ```
@@ -74,7 +74,7 @@ The engine **auto-detects** which mode fits your query — or you can force it:
 | `advanced` | Deep dives, internals | Solid foundation, going deeper |
 | `expert` | Research papers, formal specs | Mastery |
 
-```
+```markdown
 # Filter by difficulty in search
 /resources search java concurrency difficulty:beginner
 /resources discover java design:advanced
@@ -97,7 +97,7 @@ Each result shows:
 ---
 ---
 
-# 🟡 Amateur: Configuring and Extending the Engine
+## 🟡 Amateur: Configuring and Extending the Engine
 
 > Prerequisite: you can read and modify Java code. See [getting-started.md](getting-started.md).
 
@@ -105,7 +105,7 @@ Each result shows:
 
 The search engine is split across three IntelliJ modules. See [architecture-overview.md](architecture-overview.md) for the full module dependency graph.
 
-```
+```text
 search-api/src/search/api/           ← CONTRACTS (interfaces, no logic)
 ├── core/    SearchEngine, SearchContext, SearchResult, ScoredItem, ScoreBreakdown
 ├── classify/ SearchMode, QueryClassifier
@@ -128,7 +128,6 @@ mcp-servers/src/server/learningresources/   ← DOMAIN ENGINES
 └── search/OfficialDocsSearchEngine.java ← Tier-3: official docs only
 ```
 
-
 ## Adding keywords to the search vocabulary
 
 **File:** `mcp-servers/src/server/learningresources/vault/KeywordIndex.java`
@@ -149,7 +148,7 @@ map.put("rabbitmq", ResourceCategory.DEVOPS);
 
 After adding: rebuild `→ mcp-servers/build.ps1` and test with:
 
-```
+```text
 /resources discover "kafka beginner"
 ```
 
@@ -237,7 +236,7 @@ SearchResult<LearningResource> specific = engine.search(
 ---
 ---
 
-# 🔴 Pro: Building a Custom Search Engine
+## 🔴 Pro: Building a Custom Search Engine
 
 > Prerequisite: comfortable with Java generics, functional interfaces, and builder pattern.
 
@@ -245,7 +244,7 @@ SearchResult<LearningResource> specific = engine.search(
 
 The search engine is built from 8 pluggable layers:
 
-```
+```text
 SearchContext (input)
      │
 ┌────▼─────────────────────────────────────────────────────────────┐

@@ -16,7 +16,7 @@ Think of MCP as **USB-C for AI**: just as USB-C provides a universal plug regard
 of which brand made the device, MCP provides a universal protocol regardless of which
 company made the AI or the tool server.
 
-```
+```text
 ┌─────────────────────┐     MCP (JSON-RPC 2.0)    ┌──────────────────────────┐
 │   AI Assistant      │ ◄────────────────────────► │   MCP Server (this repo) │
 │  (Claude, GPT, etc) │                             │  - Atlassian tools       │
@@ -30,7 +30,7 @@ company made the AI or the tool server.
 
 This project uses **STDIO transport**: the simplest possible transport.
 
-```
+```text
 AI host process
     │
     ├─► spawns ──► java -cp out server.atlassian.AtlassianServer
@@ -111,7 +111,7 @@ There are three types:
 
 Every MCP session follows a fixed sequence:
 
-```
+```text
 Host                          Server
  │                              │
  │─── initialize ──────────────►│  "Here is my client info"
@@ -214,7 +214,7 @@ for a colleague who has never seen the system:
 
 ## 7. This Project's Server Lifecycle (Java Implementation)
 
-```
+```text
 Main.java
   │
   ├── loads config (ConfigManager / AtlassianConfigLoader)

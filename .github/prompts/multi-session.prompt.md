@@ -71,7 +71,7 @@ Multi-Session Patterns (inspired by distributed systems)
     Rebuild current state by replaying events in a new session.
     MCP: Replay tool calls to reconstruct the knowledge gained from previous sessions.
 
-```
+```markdown
 
 ### Action: `save-state`
 
@@ -120,7 +120,7 @@ Create (or update) a **session state file** at `.github/session-state.md` that c
 3. Action: `resume`
 4. Paste this summary or type `check-file`
 
-```
+```markdown
 
 ### Action: `resume`
 
@@ -170,7 +170,7 @@ RESUME INSTRUCTION:
 Type `/multi-session`, action: resume, paste this block.
 === END HANDOFF ===
 
-```
+```markdown
 
 ### Action: `status`
 
@@ -225,7 +225,7 @@ Save/inspect the current MCP environment state:
 
 - [Any server-specific quirks, rate limits hit, auth issues]
 
-```
+```markdown
 
 ### Action: `mcp-handoff`
 
@@ -261,7 +261,7 @@ NEXT TOOL CALLS PLANNED:
 RESUME: `/multi-session`, action: resume, paste this block.
 === END MCP HANDOFF ===
 
-```
+```markdown
 
 ### MCP-Specific Multi-Session Patterns
 
@@ -352,7 +352,7 @@ MCP Multi-Session Patterns (advanced distributed systems analogies)
     ├── TTL: Note timestamp of cache, re-fetch if >24h old
     └── Analogy: CDN / read-through cache — serve from cache, refresh on miss
 
-```
+```markdown
 
 ### Multi-Session + MCP Integration Workflow
 
@@ -388,7 +388,7 @@ Session Lifecycle with MCP
     ├── Optionally re-run key queries to verify data freshness
     └── Continue from where we left off
 
-```
+```markdown
 
 ### Distributed Systems Analogy
 

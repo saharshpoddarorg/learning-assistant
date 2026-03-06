@@ -310,7 +310,7 @@ The `KeywordIndex` maps ~130 keywords/phrases to structured enums:
 
 ## Architecture
 
-```
+```text
 server/learningresources/
 ├── LearningResourcesServer.java    ← STDIO entry point, CLI flags
 ├── package-info.java               ← Package documentation
@@ -372,7 +372,7 @@ server/learningresources/
 
 ### Data Flow
 
-```
+```text
 User → MCP Client → STDIO → LearningResourcesServer
                               ├── ToolHandler (dispatch — 10 tools)
                               │   ├── SearchHandler → ResourceVault
@@ -389,7 +389,7 @@ User → MCP Client → STDIO → LearningResourcesServer
 
 ### Scrape Pipeline
 
-```
+```text
 URL → WebScraper (HTTP GET)
     → ScraperResult (raw HTML + metadata)
     → ContentExtractor (strip HTML → clean text, title, meta tags)
@@ -401,7 +401,7 @@ URL → WebScraper (HTTP GET)
 
 ### Smart Add-from-URL Pipeline
 
-```
+```text
 URL → WebScraper → ContentExtractor
     → Extract: title (from <title>/<h1>), description (meta/OG tags), author
     → Infer: type (from URL patterns), category (from content), concepts

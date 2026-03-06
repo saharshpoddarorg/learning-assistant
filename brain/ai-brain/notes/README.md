@@ -58,7 +58,7 @@ If you're unsure: *Did you write it from scratch?* → `notes/`. *Did you paste 
 
 ## Naming Convention
 
-```
+```text
 YYYY-MM-DD_<kebab-case-descriptive-slug>.md
 
 Examples:

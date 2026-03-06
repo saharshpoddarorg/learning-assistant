@@ -69,7 +69,7 @@ Any Programming Language — Learning Hierarchy
     ├── Production best practices
     └── Open-source projects to study
 
-```
+```markdown
 
 ### Language Quick-Reference Cards
 

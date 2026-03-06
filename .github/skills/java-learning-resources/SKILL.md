@@ -16,7 +16,7 @@ description: >
 
 ## Repository Structure
 
-```
+```text
 java-learning-resources/
 ├── SKILL.md                                ← YOU ARE HERE (master index)
 ├── java/                                   ← All Java resources

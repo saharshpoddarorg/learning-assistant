@@ -85,7 +85,7 @@ mvn dependency:resolve           # download all dependencies
 
 ### Maven Lifecycle Order
 
-```
+```text
 validate -> compile -> test -> package -> verify -> install -> deploy
 ```
 

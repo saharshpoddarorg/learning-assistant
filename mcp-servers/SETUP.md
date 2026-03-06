@@ -75,7 +75,7 @@ This project uses **layered configuration** — you only need to provide secrets
 
 **Precedence (highest wins):**
 
-```
+```text
   Environment vars (MCP_*)  →  local config  →  base config  →  defaults
 ```
 

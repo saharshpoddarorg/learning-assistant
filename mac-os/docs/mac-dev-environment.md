@@ -199,7 +199,7 @@ plugins=(
 
 Track your shell config in a Git repository — so you can restore your full environment on a new Mac in minutes.
 
-```
+```bash
 ~/dotfiles/
 ├── .zshrc              → symlinked to ~/.zshrc
 ├── .zprofile           → symlinked to ~/.zprofile

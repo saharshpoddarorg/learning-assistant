@@ -61,7 +61,7 @@ description: >
 
 ### Key Formulas
 
-```
+```text
 Compound Interest:   A = P × (1 + r/n)^(n×t)
 Simple Interest:     I = P × r × t
 EMI:                 EMI = P × r × (1+r)^n / ((1+r)^n - 1)

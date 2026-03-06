@@ -54,7 +54,7 @@ source: imported
 
 ### Slide: Where Do Agents Live?
 
-```
+```text
 .github/agents/
 ├── capital-nx.agent.md          ← Capital ↔ NX integration specialist
 ├── CIA-Orchestrator.agent.md    ← Change Impact Analysis orchestrator
@@ -76,7 +76,7 @@ Each `.agent.md` file defines:
 
 This is the key concept most people miss. A custom agent doesn't just use one file — it **orchestrates multiple instruction files** based on the task:
 
-```
+```text
 ┌──────────────────────────────────────────────────────────────┐
 │                    CUSTOM AGENT                               │
 │                                                               │
@@ -160,7 +160,7 @@ This is the key concept most people miss. A custom agent doesn't just use one fi
 
 **Example prompt:**
 
-```
+```java
 @capital-nx  Add window acquisition handling for a new popup dialog
              that appears during service execution
 ```
@@ -179,7 +179,7 @@ This is the key concept most people miss. A custom agent doesn't just use one fi
 
 **What it does (autonomous multi-phase workflow):**
 
-```
+```text
 Phase 1: INIT           → Parse inputs, create tracker file
 Phase 2A: GRAPH         → Sub-agent queries Neo4j for structural impact
                            (callers, callees, inheritance, dependencies)
@@ -197,7 +197,7 @@ Post:    MEMORY         → Store learned facts for future sessions
 
 **Example prompt:**
 
-```
+```java
 @CIA-Orchestrator  IESD-2001 IDevice.getBackshell() datamodel_src Feature
 ```
 
@@ -235,7 +235,7 @@ Post:    MEMORY         → Store learned facts for future sessions
 
 **Example prompt:**
 
-```
+```java
 @Thinking-Beast-Mode  The cross-module import validation is failing intermittently
                       under concurrent access. The issue only reproduces under load.
                       Investigate root cause and propose a fix.
@@ -262,7 +262,7 @@ Post:    MEMORY         → Store learned facts for future sessions
 
 ### Slide: Rule of Thumb
 
-```
+```text
 Simple question?              → Ask mode
 Single-file edit?             → Edit mode
 Multi-file code generation?   → Agent mode (regular)
@@ -279,7 +279,7 @@ Deep debugging / research?    → @Thinking-Beast-Mode
 
 **Prompt:**
 
-```
+```java
 @CIA-Orchestrator  IESD-3050 IDevice.addConnector datamodel_src Feature
 ```
 
@@ -323,7 +323,7 @@ Deep debugging / research?    → @Thinking-Beast-Mode
 
 **Prompt:**
 
-```
+```java
 @capital-nx  Implement cross-selection support for a new component panel
              that opens during immersed NX service execution
 ```
@@ -396,7 +396,7 @@ private void placeComponentPanel(@NotNull Component panel) {
 
 **Prompt:**
 
-```
+```java
 @CIA-Orchestrator  IESD-4100 GrpcDataServiceImpl.saveDesign cmanager_src Refactor
 ```
 
@@ -418,7 +418,7 @@ private void placeComponentPanel(@NotNull Component panel) {
 
 **Prompt:**
 
-```
+```java
 @Thinking-Beast-Mode  The ImmersedWindowManager sometimes fails to acquire
                       windows in NX integration. It works 90% of the time,
                       fails under fast window open/close sequences.
@@ -441,13 +441,13 @@ private void placeComponentPanel(@NotNull Component panel) {
 
 **Prompt:**
 
-```
+```java
 @CIA-Orchestrator  IESD-5200 Device.setMCadID datamodel_src BugFix
 ```
 
 **Phase 3 behavioral analysis finds:**
 
-```
+```markdown
 | File | Pattern | Status | Detail |
 |------|---------|--------|--------|
 | Device.java | premodify() | ✅ OK | Called before setMCadID() |
@@ -481,7 +481,7 @@ Each sub-agent has its own tools, its own prompt, and its own output format. The
 
 The `memory` tool lets agents store facts they learn:
 
-```
+```text
 memory.store("Device.java has 23 callers of addConnector — high-impact target")
 memory.store("FQN chs.cof.logical.cable.Device → datamodel_src/src/impl/cofImpl/src/chs/cof/logical/cable/Device.java")
 memory.store("DRC manager LogicDesignDRCDomainManager validates Device properties")
@@ -495,7 +495,7 @@ Next time you run the agent, it already knows these facts. **Institutional knowl
 
 CIA-Orchestrator has mandatory gates that **prevent incomplete output**:
 
-```
+```text
 - [ ] Tracker file exists — no tracker = STOP
 - [ ] Every path verified via read_file
 - [ ] No [FILL] placeholders remain
@@ -553,7 +553,7 @@ These are **reviewable, diffable, and versionable**. You can:
 
 The CIA-Orchestrator has a **hard-coded FQN→Path mapping**:
 
-```
+```text
 chs.cof.logical.*  (interface) → interfaces_src/src/java/src/chs/cof/logical/
 chs.cof.logical.*  (impl)     → datamodel_src/src/impl/cofImpl/src/chs/cof/logical/
 chs.caf.*                      → cframework_src/src/caf/src/chs/caf/
@@ -634,7 +634,7 @@ Show users how to invoke it.
 
 ### USE CASE 1: "Tell Me Everything About This Change Before I Code"
 
-```
+```java
 @CIA-Orchestrator  IESD-6000 IWireConductor.setGauge interfaces_src Feature
 ```
 
@@ -653,7 +653,7 @@ Before writing a single line, you get:
 
 ### USE CASE 2: "Red Team My Solution"
 
-```
+```java
 @Thinking-Beast-Mode  I'm adding a new REST endpoint in datamodel_src/src/rest/
                       for bulk device export. The endpoint accepts a list of
                       device UIDs and returns JSON. Review my implementation
@@ -673,7 +673,7 @@ Agent checks:
 
 ### USE CASE 3: "Find All Violations of Our Coding Standards"
 
-```
+```java
 @CIA-Orchestrator  AUDIT setters-without-premodify datamodel_src Refactor
 ```
 
@@ -689,7 +689,7 @@ Phase 3 behavioral analysis scans all setters in `datamodel_src` and flags:
 
 ### USE CASE 4: "I Broke Something — Find The Blast Radius"
 
-```
+```java
 @CIA-Orchestrator  HOTFIX IDevice.getConnectors changed-return-type datamodel_src BugFix
 ```
 
@@ -706,7 +706,7 @@ You know exactly what to fix before the build even fails.
 
 ### USE CASE 5: "Generate a Complete Immersed Mode Feature"
 
-```
+```java
 @capital-nx  Implement a deactivation flow for panels that are hidden
              during NX mode switching. When the user switches NX contexts,
              all visible Capital panels should deactivate and send
@@ -761,7 +761,7 @@ All following `capital-nx-integration.instructions.md` rules exactly.
 
 ### Slide: When Each Layer Shines
 
-```
+```text
 Instructions  → Background rules (you don't think about them)
 Skills        → Procedural knowledge (activated by keywords)
 Prompts       → Repeatable tasks (you trigger with /)
@@ -770,7 +770,7 @@ Agents        → Complex autonomous workflows (you trigger with @)
 
 **They stack together:**
 
-```
+```text
 You type: @CIA-Orchestrator  IESD-3050 Device.addConnector datamodel_src Feature
 
 What loads:
@@ -790,7 +790,7 @@ What loads:
 
 ## QUICK REFERENCE CARD (Handout)
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │          CUSTOM AGENTS — Capital IESD-24                     │
 ├─────────────────────────────────────────────────────────────┤

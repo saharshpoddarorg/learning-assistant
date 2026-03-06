@@ -119,11 +119,41 @@ When adding to `ConceptArea`, `ResourceCategory`, `DifficultyLevel`, etc.:
 
 Run this for EVERY category of change:
 
+- [ ] **Markdown formatting** — run `.\__md_lint.ps1` from repo root; must exit with **0 issues**
+  (see Section G below and `.github/instructions/md-formatting.instructions.md` for full rules)
 - [ ] **Build passes** — `.\mcp-servers\build.ps1` — 0 compile errors, 0 warnings (where possible)
 - [ ] **No regression in existing behaviour** — manually verify existing slash commands still work
 - [ ] **Commit message follows Conventional Commits** (`feat:`, `fix:`, `docs:`, `chore:`)
 - [ ] **Commit attribution** — append `— created by gpt` or `— assisted by gpt` as applicable
 - [ ] **Single logical commit** — don't mix unrelated changes
+
+---
+
+### G — Pre-Commit Formatting Gates (applies to ALL changes)
+
+Before committing ANY change that touches `.md` files:
+
+#### Auto-fixed by `.\.\__md_lint.ps1` (must be run first)
+
+- [ ] **Trailing whitespace** — no spaces at end of lines
+- [ ] **Blank line BEFORE every heading** — `## Heading` must be preceded by a blank line
+- [ ] **Blank line AFTER every heading** — `## Heading` must be followed by a blank line
+- [ ] **Blank line BEFORE opening code fence** — ` ``` ` preceded by blank line
+- [ ] **Blank line AFTER closing code fence** — ` ``` ` followed by blank line
+- [ ] **3+ consecutive blank lines** — collapsed to 1
+- [ ] **End of file** — exactly one `\n` after last content line
+
+#### Requires human review (reported by `__md_lint.ps1 -Check`, not auto-fixed)
+
+- [ ] **Heading hierarchy** — no level skips (H1→H2→H3, never H1→H3)
+- [ ] **Single H1 per file** — every file has exactly one `# Title`
+- [ ] **Code fence language tags** — every ` ``` ` has a lang tag (` ```java `, ` ```bash `, etc.)
+- [ ] **List marker consistency** — use only `-` or only `*` in each list block
+- [ ] **Ordered list numbering** — `1. 2. 3.` not `1. 1. 1.`
+- [ ] **Tables** — header row + separator row (`|---|`); each row starts and ends with `|`
+- [ ] **Link format** — `[text](url)` with NO space between `]` and `(`
+- [ ] **Graphic/box representations** — tables drawn with `|` must have correct pipe spacing;
+  ASCII diagrams in code blocks must use the correct fence and lang tag (`text`)
 
 ---
 
@@ -176,7 +206,25 @@ Run this for EVERY category of change:
 
 ---
 
-## Build Verification Commands
+## Verification Commands
+
+### Markdown Formatting
+
+```powershell
+# Auto-fix all .md files in the repo, then report remaining issues
+.\__md_lint.ps1
+
+# Check only — report without writing (useful for CI / review)
+.\__md_lint.ps1 -Check
+
+# Check a single file
+.\__md_lint.ps1 -Target "README.md"
+```
+
+Must exit with **0** before committing. If it exits with 1, fix the reported issues
+and re-run. See `.github/docs/md-formatting-guide.md` for the full rule set.
+
+### Java Build
 
 ```powershell
 # Full build (Windows PowerShell)
@@ -191,6 +239,7 @@ Test-Path mcp-servers\out\server\learningresources\vault\providers\BuildToolsRes
 ```
 
 If the build fails:
+
 1. Read the compiler error message — it tells you the exact file and line
 2. Fix the error (missing `)`, wrong type, missing import, etc.)
 3. Re-run the build until it passes

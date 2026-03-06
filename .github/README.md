@@ -65,7 +65,7 @@ Out of the box, Copilot knows nothing about **your** project. It guesses based o
 
 GitHub Copilot in VS Code supports exactly **5 customization primitives**. Everything you can do falls into one of these:
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────┐
 │                    COPILOT CUSTOMIZATION                            │
 │                                                                     │
@@ -91,7 +91,7 @@ GitHub Copilot in VS Code supports exactly **5 customization primitives**. Every
 
 ## Folder Structure
 
-```
+```text
 .github/
 │
 ├── copilot-instructions.md              ← Always-on (auto-loaded every request)
@@ -272,7 +272,7 @@ This learning project includes working samples of each primitive, organized into
 
 The agents support **handoff buttons** for seamless multi-step workflows:
 
-```
+```text
   ┌────────────┐        ┌───────────────────┐        ┌─────────────┐
   │  Designer  │──────→ │  Impact-Analyzer  │──────→ │    Agent    │
   │  (think)   │        │  (assess risk)    │        │  (build)    │
@@ -330,7 +330,7 @@ You open Main.java and ask a question
 └── If your question matches a skill:
     └── 🛠️ skills/design-patterns/SKILL.md  ← Knowledge loaded
 
-```
+```yaml
 
 ---
 
@@ -389,7 +389,7 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
      ├── docs/export-guide.md ············ Copy features to another project (portable setup)
      └── docs/copilot-workflow.md ········ Copilot chat patterns, queuing, multi-session
 
-```
+```markdown
 
 | Guide | What You'll Learn | Audience | Time |
 |---|---|---|---|

@@ -54,7 +54,7 @@ source: copilot
 
 <!-- Begin notes -->
 
-```
+```text
 
 6. After the frontmatter, write a structured outline based on the topic:
    - For `note`: H2 sections for key concepts, with bullet points

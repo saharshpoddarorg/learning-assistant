@@ -55,7 +55,7 @@ source: imported
 
 ### Slide: The .github Folder — Our Knowledge Base
 
-```
+```text
 .github/
 ├── copilot-instructions.md          ← Global rules for ALL files
 ├── instructions/                     ← Module-specific coding rules
@@ -84,7 +84,7 @@ source: imported
 
 ### Slide: How Instructions Flow into the LLM
 
-```
+```text
 ┌──────────────────────────────────────────────────────┐
 │                    YOUR PROMPT                        │
 │  "Add a new Action to refresh harness connectivity"   │
@@ -171,7 +171,7 @@ applyTo: "datamodel_src/**/*.java"
 
 **Capital Examples:**
 
-```
+```yaml
 ASK: "What is the difference between IDevice and IPrivilegedDevice?"
 ASK: "How does the premodify() pattern work in datamodel_src?"
 ASK: "What annotations are needed for a new persistent COF object?"
@@ -189,7 +189,7 @@ ASK: "Which module should I modify to add a new DRC validator?"
 
 **Capital Examples:**
 
-```
+```yaml
 EDIT: "Add @NotNull annotations to all method parameters"
 EDIT: "Replace this raw iterator with a Stream pipeline"
 EDIT: "Add PropertyChangeEvent firing to this setter"
@@ -209,7 +209,7 @@ EDIT: "Add @ApplicationSpecification for CapitalHarness"
 
 **Capital Examples:**
 
-```
+```yaml
 AGENT: "Generate a complete unit test class for ImportMessageUtils following the pattern in AiUtilsTest"
 AGENT: "Create a new Action class for RefreshHarnessConnectivity in charness_src, following AddPinAction pattern"
 AGENT: "Find all files that implement IDRCDomainManager and summarize their validation logic"
@@ -454,7 +454,7 @@ In GHCP Agent mode, use `@agent-name` or agent is selected based on task context
 
 **Prompt to Agent:**
 
-```
+```text
 Generate a unit test class for the Device class in datamodel_src, following the
 same patterns used in AiUtilsTest.java. Use JUnit 4 with Mockito,
 @RunWith(MockitoJUnitRunner.Silent.class), and follow the test_ naming convention.
@@ -548,7 +548,7 @@ public class DeviceTest
 
 **Prompt to Agent:**
 
-```
+```text
 I need to add a new setter setDescription(String) to the Device class in
 datamodel_src. Show me how it should be implemented.
 ```
@@ -580,7 +580,7 @@ public void setDescription(String description) {
 
 **Prompt to Agent:**
 
-```
+```sql
 Create a new gRPC service called GrpcDesignValidationServiceImpl for validating
 design integrity, following the existing gRPC patterns in cmanager_src.
 ```
@@ -630,7 +630,7 @@ public class GrpcDesignValidationServiceImpl
 
 **Prompt to Agent:**
 
-```
+```text
 What is the relationship between IDevice, IPrivilegedDevice, and Device in
 the Capital codebase? Which module defines each?
 ```
@@ -660,7 +660,7 @@ the Capital codebase? Which module defines each?
 
 **Prompt to Agent:**
 
-```
+```text
 I changed 3 files in cframework_src and 1 file in interfaces_src. What should
 I build?
 ```
@@ -693,7 +693,7 @@ I build?
 
 **Prompt to Agent:**
 
-```
+```sql
 Create a design review page for my PR that adds cross-selection support to
 the immersed mode NX integration.
 ```
@@ -891,7 +891,7 @@ A: Absolutely. QA can generate test cases, understand test failures, create JIRA
 
 ## QUICK REFERENCE CARD (Handout for Attendees)
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │          GHCP QUICK REFERENCE — Capital IESD-24             │
 ├─────────────────────────────────────────────────────────────┤

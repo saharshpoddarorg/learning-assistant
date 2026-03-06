@@ -29,7 +29,7 @@ The brain/ai-brain/ workspace uses exactly **3 tiers**. Do NOT create `reference
 
 **Decision:** Keep 3 tiers. Distinguish content by frontmatter `kind`, not by folder structure.
 
-```
+```text
 inbox/    TEMP     gitignored — raw capture, cleared each session
 notes/    YOURS    you authored it (insights, sessions, decisions, how-tos)
 library/  SOURCES  you imported it (external docs, slide decks, reference material)
@@ -57,7 +57,7 @@ brain clear                          # preview + clean inbox
 
 ### The One Naming Rule
 
-```
+```text
 YYYY-MM-DD_slug.md
 ```
 
@@ -145,7 +145,7 @@ source: imported
 
 ### Tag Best Practices
 
-```
+```text
 ✅ 3–7 tags per note     (under 3 = hidden; over 7 = noise)
 ✅ Lowercase hyphens     — mcp-servers, not "MCP Servers"
 ✅ Broad to narrow       — java → generics → wildcards
@@ -216,7 +216,7 @@ See also: [Java generics cheatsheet](../notes/2026-03-06_java-generics-cheatshee
 
 ### Git Commit Conventions for Brain Changes
 
-```
+```text
 brain: note <slug> [kind: session]               ← new note committed
 brain: archive <slug> to library/<project>       ← external source archived
 brain: update <slug> — <what changed>            ← note updated
@@ -226,7 +226,7 @@ brain: reorganise library/<project>/<YYYY-MM>/   ← structural change
 
 ### Weekly Review Pattern (Inbox Zero)
 
-```
+```text
 1. brain status                          # how full is each tier?
 2. brain list --tier inbox               # what is in inbox?
 3. For each inbox file:

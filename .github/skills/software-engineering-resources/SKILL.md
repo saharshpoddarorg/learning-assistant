@@ -365,7 +365,7 @@ description: >
 
 ##### How to Approach a DSA Problem (UMPIRE Framework)
 
-```
+```text
 U — Understand the problem
     → Restate in your own words
     → Clarify edge cases (empty, single element, duplicates, negative)
@@ -408,7 +408,7 @@ E — Evaluate
 
 ##### Complexity Analysis — How to Think About It
 
-```
+```text
 O(1)       → Hash lookup, array access, stack push/pop
 O(log n)   → Binary search, balanced BST ops, heap insert/extract
 O(n)       → Single array pass, hash table build, BFS/DFS
@@ -485,7 +485,7 @@ Rule of thumb for interview constraint → expected complexity:
 
 #### System Design Topics Map
 
-```
+```text
 HLD (High-Level Design):
   Load Balancing → Caching → CDN → Database Sharding →
   Message Queues → Microservices → API Gateway →
@@ -513,7 +513,7 @@ LLD (Low-Level Design):
 
 ##### Caching Strategies
 
-```
+```text
 Caching Layers:
   Client Cache (browser, app)
     → CDN Cache (edge, static assets)
@@ -561,7 +561,7 @@ Caching Layers:
 
 ##### Message Queues & Event-Driven Architecture
 
-```
+```text
 Point-to-Point (Queue):
   Producer → [Queue] → Consumer (one consumer gets each message)
   Used: Task distribution, order processing
@@ -659,7 +659,7 @@ Event Streaming:
 
 ##### State Machine Design
 
-```
+```yaml
 Example: Order State Machine
 
   [CREATED] ──place──▶ [PLACED] ──pay──▶ [PAID] ──ship──▶ [SHIPPED] ──deliver──▶ [DELIVERED]
@@ -688,7 +688,7 @@ Rules:
 
 ##### HLD Case Studies — Approach Template
 
-```
+```text
 For each system:
 1. Requirements     → Functional + Non-functional
 2. Estimation       → QPS, Storage, Bandwidth, Memory
@@ -718,7 +718,7 @@ For each system:
 
 ##### LLD Case Studies — Approach Template
 
-```
+```text
 For each system:
 1. Use Cases        → Actors + user stories
 2. Class Diagram    → Entities + relationships (UML)
@@ -771,7 +771,7 @@ For each system:
 
 #### Common System Design Interview Framework
 
-```
+```text
 Step 1: Clarify Requirements (5 min)
   → Functional requirements (what the system does)
   → Non-functional requirements (scale, latency, availability, durability)
@@ -847,7 +847,7 @@ Step 5: Wrap Up (5 min)
 
 #### OS Core Concepts
 
-```
+```text
 Processes → Threads → Scheduling (Round Robin, MLFQ, CFS) →
 Memory Management (Paging, Segmentation, Virtual Memory) →
 Concurrency (Locks, Semaphores, Monitors, Deadlocks) →
@@ -868,7 +868,7 @@ IPC (Pipes, Shared Memory, Message Queues, Sockets)
 
 #### Database Concepts Map
 
-```
+```text
 ACID → Transactions → Isolation Levels (Read Uncommitted → Serializable) →
 Indexing (B-Tree, Hash, GIN, GiST) → Query Optimization → Joins →
 Normalization (1NF → BCNF) → Denormalization → Sharding →
@@ -888,7 +888,7 @@ CAP Theorem → Eventual Consistency → Distributed Transactions (2PC, Saga)
 
 #### Testing Types Map
 
-```
+```text
 Unit Testing → Integration Testing → Contract Testing →
 Component Testing → End-to-End Testing → Performance Testing →
 Load Testing → Stress Testing → Chaos Testing →
@@ -933,7 +933,7 @@ Smoke Testing → Regression Testing → Acceptance Testing
 
 ##### Phase 1: Planning & Requirements
 
-```
+```yaml
 Activities:
   - Stakeholder interviews, market research
   - User stories / Use cases / Epics
@@ -960,7 +960,7 @@ Key Roles:
 
 ##### Phase 2: Design & Architecture
 
-```
+```yaml
 Activities:
   - System architecture (monolith vs microservices vs serverless)
   - Database schema design (ER diagrams, normalization)
@@ -991,7 +991,7 @@ Tools:
 
 ##### Phase 3: Development
 
-```
+```yaml
 Activities:
   - Environment setup (local dev, devcontainers, codespaces)
   - Version control setup (Git, branching strategy)
@@ -1015,7 +1015,7 @@ Tools:
 
 ##### Phase 4: Testing
 
-```
+```text
 Testing Pyramid (from fast/cheap to slow/expensive):
   ┌───────────────────┐
   │    E2E Tests      │  ← Few, expensive, slow (Cypress, Playwright)
@@ -1060,7 +1060,7 @@ Tools:
 
 ##### Phase 5: Build & Packaging
 
-```
+```yaml
 Activities:
   - Compile source code
   - Run lint/format checks
@@ -1091,7 +1091,7 @@ Tools:
 
 ##### Phase 6: Deployment & Release
 
-```
+```text
 Deployment Pipeline:
   Build → Test → Stage → Approval → Production
 
@@ -1125,7 +1125,7 @@ Tools:
 
 ##### Phase 7: Monitoring & Observability
 
-```
+```text
 Three Pillars of Observability:
   1. Logs    — What happened? (structured text/JSON events)
   2. Metrics — How much? How fast? (numerical time-series data)
@@ -1160,7 +1160,7 @@ Tools:
 
 ##### Phase 8: Maintenance & Operations
 
-```
+```yaml
 Activities:
   - Incident management (detect → triage → fix → postmortem)
   - On-call rotation and escalation
@@ -1244,7 +1244,7 @@ Tools:
 
 #### Concurrency Concepts Map
 
-```
+```text
 Threads → Runnable/Callable → Thread Lifecycle → Synchronization →
 Locks (ReentrantLock, ReadWriteLock, StampedLock) →
 Atomic Variables → Volatile → Happens-Before →
@@ -1279,7 +1279,7 @@ Lock-Free Data Structures → CAS Operations
 
 ### Replication Topologies
 
-```
+```text
 Single-Leader (Master-Slave / Primary-Replica)
 ────────────────────────────────────────────
   Write → [Leader] → replicates to → [Follower 1]
@@ -1324,7 +1324,7 @@ Leaderless (Peer-to-Peer / Dynamo-style)
 
 ### Consistency Models
 
-```
+```text
 Strong Consistency
   └── Linearizability — operations appear instantaneous, globally ordered
   └── Sequential Consistency — all processes see same order
@@ -1338,7 +1338,7 @@ Weak Consistency
 
 ### Distributed Systems Concepts Map
 
-```
+```yaml
 Communication:
   RPC → REST → gRPC → Message Queues → Event Streaming →
   Pub/Sub → Request-Reply → Async Messaging
@@ -1399,7 +1399,7 @@ Partitioning (Sharding):
 
 #### CI/CD Pipeline — Anatomy of a Modern Pipeline
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                         CI/CD PIPELINE                                  │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -1498,7 +1498,7 @@ jobs:
 
 #### Feature Flags — Industry Standard
 
-```
+```text
 Deployment ≠ Release
 
 Deploy: Code is on production servers
@@ -1515,7 +1515,7 @@ Industry: All major tech companies use feature flags extensively
 
 #### GitOps — Declarative Infrastructure
 
-```
+```text
 GitOps Principles:
   1. Declarative — desired state described in Git (YAML, HCL)
   2. Versioned — all changes are Git commits (auditable)
@@ -1658,7 +1658,7 @@ networks:
 
 ##### Kubernetes Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                    CONTROL PLANE                         │
 │  ┌──────────────┐  ┌───────────┐  ┌──────────────────┐ │
@@ -1729,7 +1729,7 @@ networks:
 
 ##### Kubernetes Concepts Map (Expanded)
 
-```
+```text
 Pod → ReplicaSet → Deployment → Service → Ingress →
 ConfigMap → Secret → PersistentVolume → StatefulSet →
 DaemonSet → Job/CronJob → HPA → VPA → PDB →
@@ -1774,7 +1774,7 @@ Cert-Manager → External-DNS → Sealed Secrets
 
 #### Observability Pillars
 
-```
+```text
 Logs   — What happened? (text records of events)
 Metrics — How much? How fast? (numerical measurements over time)
 Traces  — How did a request flow through services? (distributed context)
@@ -1922,7 +1922,7 @@ Traces  — How did a request flow through services? (distributed context)
 
 ##### Git Flow Diagram
 
-```
+```text
 main ─────●─────────────────●────────── (releases only)
            \               /
 develop ────●──●──●──●──●──●──●──── (integration branch)
@@ -1934,7 +1934,7 @@ hotfix/z ──────────────●──── (emergency fi
 
 ##### Trunk-Based Development
 
-```
+```text
 main ──●──●──●──●──●──●──●──●──●──── (always deployable)
         \  /     \  /
   feat-a ●       feat-b ●   (short-lived, < 1 day)
@@ -1959,7 +1959,7 @@ main ──●──●──●──●──●──●──●──●─
 
 #### Semantic Versioning (SemVer)
 
-```
+```text
 MAJOR.MINOR.PATCH  (e.g., 2.4.1)
 
 MAJOR  — Breaking changes (incompatible API changes)
@@ -1979,7 +1979,7 @@ Examples:
 
 #### Git Internals — How Git Actually Works
 
-```
+```bash
 Git Object Model:
   blob    — file content (just the bytes, no filename)
   tree    — directory listing (maps names → blobs/trees)
@@ -2073,7 +2073,7 @@ Key Insight: branches are just pointers (40-char SHA references)
 
 #### Maven — Deep Dive
 
-```
+```text
 Maven Lifecycle Phases:
   validate → compile → test → package → verify → install → deploy
 
@@ -2155,7 +2155,7 @@ Key Concepts:
 
 #### Gradle — Deep Dive
 
-```
+```text
 Gradle Build Phases:
   Initialization → Configuration → Execution
 
@@ -2218,7 +2218,7 @@ Key Concepts:
 
 #### Ant — Legacy Reference
 
-```
+```text
 Apache Ant (Another Neat Tool):
   - Imperative build system (you define every step)
   - XML-based build.xml
@@ -2275,7 +2275,7 @@ Key Ant commands:
 
 #### Rate Limiting — Netflix, Cloudflare, Stripe
 
-```
+```yaml
 Purpose: Protect services from abuse, ensure fair usage, prevent cascading failures
 
 Algorithms:
@@ -2324,7 +2324,7 @@ Implementation (Redis):
 
 #### Circuit Breaker — Netflix Hystrix / Resilience4j
 
-```
+```yaml
 Purpose: Prevent cascading failures in distributed systems
 
 States:
@@ -2354,7 +2354,7 @@ Industry Usage:
 
 #### Transformer Architecture — Google / OpenAI
 
-```
+```yaml
 Origin: "Attention Is All You Need" (Google, 2017)
 Architecture: Encoder-Decoder with self-attention mechanism
 
@@ -2391,7 +2391,7 @@ Industry Applications:
 
 #### Event-Driven Architecture — Uber, LinkedIn, Netflix
 
-```
+```yaml
 Pattern: Services communicate via events (async/decoupled)
 
 Components:

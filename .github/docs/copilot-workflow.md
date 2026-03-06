@@ -28,7 +28,7 @@
 
 Copilot Chat is not a queue. There is no background task runner. Here is what actually happens:
 
-```
+```text
 You press Enter
       │
       ▼
@@ -122,7 +122,7 @@ These are the specific context questions and phrases you embed in your messages 
 
 #### Gate 1 — Explicit stop marker
 
-```
+```text
 Do TASK A completely.
 — STOP —
 Only AFTER you confirm Task A is done, begin TASK B.
@@ -130,14 +130,14 @@ Only AFTER you confirm Task A is done, begin TASK B.
 
 #### Gate 2 — Required confirmation question
 
-```
+```text
 After completing TASK A, ask me: "Task A is done. Ready for Task B?"
 Wait for my reply before continuing to Task B.
 ```
 
 #### Gate 3 — Numbered checklist with live completion display
 
-```
+```text
 Here are 3 tasks. Do them in order.
 After each one, show the updated checklist with [x] before continuing.
 
@@ -152,7 +152,7 @@ Do NOT move to the next task until you show me the updated list.
 
 When you think of a new request AFTER Copilot has already started or just responded:
 
-```
+```text
 HOLD. Before picking up anything new:
 1. Confirm you fully completed [brief description of the earlier request].
 2. List every file you changed in that earlier request.
@@ -162,7 +162,7 @@ Once confirmed, I will give you the new task.
 
 #### Gate 5 — Complete-or-abort checkpoint
 
-```
+```text
 After finishing Task 1:
 - If it is complete → say so explicitly, then move to Task 2.
 - If anything is incomplete → list exactly what is missing and ASK ME before proceeding.
@@ -173,7 +173,7 @@ Do not silently skip or partially complete anything.
 
 **Wrong way** — interrupts the earlier request:
 
-```
+```text
 [Copilot is mid-response on Task A]
 You: "Also, can you do Task B while you're at it?"
 ```
@@ -182,7 +182,7 @@ This risks Copilot mixing both tasks, or abandoning Task A entirely.
 
 **Right way — wait, then send a sequenced follow-up:**
 
-```
+```text
 Step 1: Let Copilot finish its current response completely. Do not type.
 Step 2: Read the response and confirm Task A is done.
 Step 3: Send a new message:
@@ -198,7 +198,7 @@ Start Task B only after confirming Task A."
 
 **Right way — prepend a completion audit question:**
 
-```
+```text
 "Before starting Task B, answer these:
 1. Did you fully complete [specific expected output of Task A]?
 2. Are all files from Task A written / saved?
@@ -224,7 +224,7 @@ Copilot sometimes silently skips parts of your instructions. Watch for these sig
 
 If you are deep into a long session and lose confidence in ordering, use the **audit-and-continue** pattern:
 
-```
+```text
 Pause. Before continuing:
 
 1. List every file you have modified in this session so far.
@@ -247,7 +247,7 @@ This resets the risk of drift mid-session and gives you a full accountability ch
 
 **What NOT to do:**
 
-```
+```text
 Message 1: "Create a UserService class"
 Message 2: "Now add a getById method"
 Message 3: "Also add error handling"
@@ -258,7 +258,7 @@ This loses context as the conversation grows. Each follow-up is less accurate.
 
 **What TO do — front-load all instructions in one message:**
 
-```
+```text
 Please do all of the following:
 
 1. Create `src/service/UserService.java` with:
@@ -287,7 +287,7 @@ Do them in order. Confirm each step as you complete it.
 
 **Step 1: Create a task list at the start of the session:**
 
-```
+```text
 We are going to build a complete user management feature.
 Here is the task list:
 
@@ -302,7 +302,7 @@ Start with Task 1. When done, mark it [x] and show me the updated list.
 
 **Step 2: When Copilot finishes Task 1, it will show:**
 
-```
+```text
 - [x] Task 1: UserService with CRUD methods ✓
 - [ ] Task 2: UserRepository interface         ← next
 ...
@@ -310,7 +310,7 @@ Start with Task 1. When done, mark it [x] and show me the updated list.
 
 **Step 3: Add tasks without losing progress — just append:**
 
-```
+```text
 Great. Before starting Task 2, add these to the list:
 - [ ] Task 2b: Add pagination to the list method
 - [ ] Task 5b: Postman collection export
@@ -322,7 +322,7 @@ Now continue from Task 2.
 
 **Step 4: Resume a paused session:**
 
-```
+```text
 We we building the user management feature. The task list was:
 [paste the most recent task list from earlier in the conversation]
 
@@ -342,7 +342,7 @@ Continue from where we left off (Task 3 is next).
 
 **Save state (at end of session):**
 
-```
+```text
 /multi-session save
 
 Task: Build RecipeService with CRUD
@@ -361,7 +361,7 @@ This writes the state to a file (`.github/session-state.md`).
 
 **Reload state (at start of new session):**
 
-```
+```text
 /multi-session restore
 ```
 
@@ -379,7 +379,7 @@ Copilot reads the saved state file and picks up where it left off.
 
 **Workflow:**
 
-```
+```text
 Step 1: Open brain note for today's session
 /brain-new
 ```
@@ -408,7 +408,7 @@ When Copilot finishes and shows its response — add the new ideas to your next 
 
 **Benefit:** Brain notes are persistent. Even if you close VS Code, your task queue exists in `brain/inbox/` or `brain/notes/`.
 
-```
+```text
 /brain-search user management
 ```
 
@@ -477,7 +477,7 @@ Start a new chat after approximately 20 messages for any feature that is still i
 **B. The scope-first approach:**
 Every time you start a chat, tell Copilot exactly what files are relevant:
 
-```
+```text
 We are working on UserService. The relevant files are:
 - src/service/UserService.java
 - src/repository/UserRepository.java
@@ -491,7 +491,7 @@ This prevents Copilot from "browsing" unrelated files and wasting context budget
 **C. The handoff pattern (Pro):**
 When a long session ends, generate a structured handoff before closing:
 
-```
+```text
 Before I close this session, generate a handoff note in this format:
 
 ## Session Handoff
@@ -508,7 +508,7 @@ Paste this handoff into your brain note or `/multi-session save`.
 **D. The "replay" pattern:**
 If context is stale, don't fight it — start fresh and replay the key decisions:
 
-```
+```text
 New chat. Context: We are midway through building UserService.
 Key decisions already made:
 - We chose Spring Data JPA (not raw JDBC)
@@ -561,7 +561,7 @@ Continue from: [next task]
 
 ### Example 1: Adding a feature across 3 files (Pattern 1)
 
-```
+```text
 I need to add a "favorite" feature to the Learning Resources server.
 
 Please do ALL of the following in order:
@@ -587,7 +587,7 @@ Confirm after each file.
 
 ### Example 2: Resuming after a break (Pattern 3)
 
-```
+```text
 /multi-session restore
 
 [Copilot reads session-state.md and confirms: "I see we were in the middle of
@@ -600,7 +600,7 @@ Good. Continue from the tests.
 
 Current conversation has a task list with Tasks 1–4. Copilot just finished Task 2.
 
-```
+```text
 Before Task 3, please add these to the list and then continue:
 - [ ] Task 3b: Add a helper method extractResourceId() to FavoritesHandler
 - [ ] Task 4b: Integration test (not just unit test)

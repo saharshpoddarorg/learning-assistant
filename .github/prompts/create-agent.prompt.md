@@ -78,7 +78,7 @@ Tell Copilot:
 - How to format responses
 - When to ask for clarification vs proceed
 
-```
+```yaml
 
 ---
 
@@ -128,7 +128,7 @@ tools: [<resolved tools from ${input:tools}>]
 <Key expertise areas — 3-7 bullet points with sub-items>
 <Relevant frameworks, patterns, tools, concepts>
 
-```
+```yaml
 
 ---
 

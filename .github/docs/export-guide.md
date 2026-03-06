@@ -146,7 +146,7 @@ Copy-Item .github\copilot-instructions.md "$target\.github\"
 
 **Example use case:** Monorepo with frontend + backend:
 
-```
+```text
 my-monorepo/
 ├── .github/
 │   └── copilot-instructions.md      ← Global: "This repo uses TypeScript + Java"
@@ -353,7 +353,7 @@ mcp-servers/build.env.local
 
 This means you can layer customizations:
 
-```
+```text
 project-root/
 ├── .github/copilot-instructions.md        ← Always active everywhere
 ├── src/
@@ -366,7 +366,7 @@ project-root/
 
 **Use case: Monorepo with multiple teams**
 
-```
+```text
 monorepo/
 ├── .github/copilot-instructions.md
 │   # "This monorepo uses a microservices architecture"
@@ -385,7 +385,7 @@ monorepo/
 
 **`*.instructions.md` files work per file type at any directory level too:**
 
-```
+```text
 frontend/
 └── .github/
     └── instructions/
@@ -401,7 +401,7 @@ After copying to the target project, verify each feature:
 
 **Copilot customization:**
 
-```
+```text
 In VS Code (target project) → Copilot Chat → Agent mode → type /
 → If custom prompts appear: ✅ prompts exported correctly
 → Ask "write a method" → if it follows your conventions: ✅ instructions working
@@ -409,7 +409,7 @@ In VS Code (target project) → Copilot Chat → Agent mode → type /
 
 **MCP servers:**
 
-```
+```text
 Ctrl+Shift+B → "mcp-servers: build" (should say "BUILD SUCCESS")
 Ctrl+Shift+P → "Reload Window"
 Copilot Chat → Agent mode → click 🔧 tools
@@ -419,7 +419,7 @@ Test: "Search for resources about Java streams"
 
 **Atlassian (if configured):**
 
-```
+```text
 In Copilot Chat: "List the open Jira issues assigned to me"
 → If it returns real Jira data: ✅ Atlassian server working
 → If it says "I can't access Jira": check atlassian-config.local.properties
@@ -427,7 +427,7 @@ In Copilot Chat: "List the open Jira issues assigned to me"
 
 **Brain workspace:**
 
-```
+```text
 Ctrl+Shift+P → "Run Task" → "brain: status"
 → If it prints note counts: ✅ brain workspace working
 ```

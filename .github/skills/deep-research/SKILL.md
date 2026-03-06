@@ -25,7 +25,7 @@ description: >
 
 ### The 5-Step Investigation Loop
 
-```
+```text
 1. DEFINE    → What exactly is the unknown? Write one clear question.
 2. HYPOTHESIZE → What do you already believe? State your best guess.
 3. GATHER    → Where will you look? List 3-5 sources before you start.
@@ -35,7 +35,7 @@ description: >
 
 ### Quick-Start Commands (Copilot)
 
-```
+```text
 /deep-dive       → <topic>          # Progressive multi-layer Copilot exploration
 /learn-from-docs → <technology>     # Official docs parsing
 /resources       → search → <topic> # Curated resource vault lookup
@@ -72,7 +72,7 @@ description: >
 Every investigation should start with explicit hypotheses. This prevents scope creep
 and makes findings verifiable.
 
-```
+```text
 TRIGGER      What question prompted this investigation?
 HYPOTHESES   List 2-4 candidate explanations or answers, ranked by believability
 EXPERIMENTS  For each hypothesis, what would prove/disprove it?
@@ -83,7 +83,7 @@ DECISION     What action (if any) follows?
 
 #### Example: "Our API sometimes returns 503 — why?"
 
-```
+```yaml
 TRIGGER:      Intermittent 503 on /checkout endpoint (3x in 2 days)
 HYPOTHESES:
   H1 (60%): Downstream payment service rate-limiting us
@@ -138,7 +138,7 @@ Option A — highest weighted score; team skills advantage reduces risk.
 
 ### Spike Story Format (Agile)
 
-```
+```yaml
 Title: Spike: Investigate <topic>
 Goal: Understand <specific unknown> so we can <decision this enables>
 Timebox: <N hours/days maximum>
@@ -161,7 +161,7 @@ Not in Scope: <explicitly exclude tangential topics>
 
 When investigating a technology you've never used:
 
-```
+```text
 Phase 1 — LANDSCAPE (1h)
   - What category does this technology belong to? (DB, queue, framework, protocol?)
   - What alternatives exist? What does the ecosystem look like?
@@ -210,7 +210,7 @@ Phase 4 — HANDS-ON (1-2 days)
 
 ### Root-Cause Analysis (Production Issues)
 
-```
+```text
 Step 1 — PRESERVE EVIDENCE
   Export logs, metrics, traces for the incident window before they rotate.
   Snapshot state (heap dumps, thread dumps, DB explain plans).
@@ -305,7 +305,7 @@ Understand [X] to decide [Y].
 
 Combine Copilot commands to build a complete research workflow:
 
-```
+```text
 Step 1  /learn-concept → <topic>        # Concept fundamentals
           ↓
 Step 2  /deep-dive → <topic>            # Progressive layers
@@ -323,7 +323,7 @@ Step 7  /check-standards → brain-naming # Verify our note
 
 **Prompts for Copilot research assistance:**
 
-```
+```text
 "Research [topic] using the hypothesis-driven framework.
  List 3 hypotheses, evidence sources per hypothesis,
  and a weighted trade-off table for [options A, B, C]."

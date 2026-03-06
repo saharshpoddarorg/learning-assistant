@@ -92,7 +92,7 @@ java -cp out server.atlassian.AtlassianServer --demo
 
 ## Project Structure
 
-```
+```text
 mcp-servers/
 ├── .vscode/
 │   ├── settings.json                    ← IDE settings (copy to other projects)
@@ -477,7 +477,7 @@ Or use **VS Code Tasks** (`Ctrl+Shift+B` / `Terminal → Run Task`):
 
 All models are **Java records** — immutable, compact, with defensive copies:
 
-```
+```text
 McpConfiguration (root)                     ← Config System
 ├── ApiKeyStore             Map<String, String> of service → key
 ├── LocationPreferences     timezone, locale, region
@@ -519,7 +519,7 @@ LearningResourcesServer                     ← Learning Resources Server
 
 ### Loader Pipeline
 
-```
+```text
 ┌─────────────────┐   ┌──────────────────┐   ┌──────────────────┐   ┌────────────┐
 │  Base Properties │ → │  Local Properties │ → │  Env Variables   │ → │   Merged   │
 │  (committed)     │   │  (gitignored)    │   │  (MCP_* prefix)  │   │ Properties │

@@ -130,7 +130,7 @@ status: final
 
 // Your code here
 
-```
+```markdown
 
 ## When to Use
 -
@@ -236,7 +236,7 @@ status: final
 // Before
 // After
 
-```
+```markdown
 
 ## Prevention / Follow-Up
 
@@ -335,7 +335,7 @@ status: draft
 
 // Most important code from this session
 
-```
+```markdown
 
 ### What surprised me
 -
@@ -425,7 +425,7 @@ brain new --tier notes --project mcp-servers --kind decision
 
 ### From Copilot Chat
 
-```
+```text
 /brain-new → topic: "ADR for transport layer choice" → tier: notes → kind: decision
 ```
 

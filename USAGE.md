@@ -49,7 +49,7 @@
 
 A **super-charged VS Code workspace** that combines three things:
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                                                                             │
 │  1. KNOWLEDGE BASE — 2,400+ lines of curated SE/CS reference material      │
@@ -151,7 +151,7 @@ This creates your local config file, browser data directory, and reports what ne
 
 ### Step 7 — Build MCP Servers
 
-```
+```text
 Ctrl+Shift+B  →  select "mcp-servers: build"
 ```
 
@@ -180,7 +180,7 @@ cd mcp-servers && ./build.sh    # Linux/Mac
 
 In the same chat, type:
 
-```
+```text
 what MCP tools do you have available?
 ```
 
@@ -301,7 +301,7 @@ These rules come from:
 
 The biggest Copilot Chat mistake is pressing Enter before finishing your instructions. Use the **queue pattern**:
 
-```
+```markdown
 # Instead of:
 "fix this bug"  [Enter]   ← Copilot starts immediately, may miss context
 
@@ -315,14 +315,14 @@ GO"   [Enter]             ← Copilot does all 3 in sequence
 
 **Use `/scope` to stay focused:**
 
-```
+```text
 /scope → code-specific   ← focus only on this project's code
 /scope → generic         ← discuss concepts broadly
 ```
 
 **Use `/context` to carry state:**
 
-```
+```text
 /context → continue      ← picks up where last session ended
 /context → fresh         ← clean slate
 ```
@@ -371,7 +371,7 @@ The skill files in `.github/skills/*/SKILL.md` are excellent reference material 
 
 #### How to add a new request without disrupting in-progress work
 
-```
+```yaml
 WRONG: Type while Copilot is responding → interrupts current work
 
 RIGHT:
@@ -402,7 +402,7 @@ RIGHT:
 
 > 🟢 **Newbie:** Read this. Critical context.
 
-```
+```text
 Without MCP:                         With MCP:
 ─────────────────                    ─────────────────────────────────────────
 You: "What Java resources do         You: "What Java resources do you have?"
@@ -417,7 +417,7 @@ to your files or the internet."      Copilot: "I found 12 Java resources in
 
 **The three components:**
 
-```
+```text
 .vscode/mcp.json          ← REGISTRY: tells VS Code which servers exist
 mcp-servers/out/          ← COMPILED CODE: the Java server programs
 mcp-servers/user-config/  ← SECRETS: your API keys (gitignored)
@@ -548,7 +548,7 @@ Built-in: **~100+ curated learning resources** across Java, Web, DevOps, Cloud, 
 
 **Example workflows:**
 
-```
+```yaml
 You: "Find me intermediate Java concurrency tutorials"
 → Copilot calls search_resources(category=JAVA, difficulty=INTERMEDIATE, type=TUTORIAL)
 → Returns: Baeldung fork-join, VirtualThread guides, etc.
@@ -603,7 +603,7 @@ java -cp out server.learningresources.LearningResourcesServer --demo
 
 **Example workflows:**
 
-```
+```yaml
 You: "What Jira issues are assigned to me in the current sprint?"
 → Copilot calls get_sprint(boardId=...) + search_issues(assignee=currentUser, sprint=current)
 → Returns formatted list with status, priority, story points
@@ -637,7 +637,7 @@ Both are disabled by default. Enable in `.vscode/mcp.json`.
 
 The Java config system (`mcp-servers/src/config/`) uses a **3-layer merge strategy**:
 
-```
+```text
 Layer 3 (highest): Environment variables    MCP_APIKEYS_GITHUB=...
 Layer 2:           Local config             user-config/mcp-config.local.properties
 Layer 1 (base):    Committed config         user-config/mcp-config.properties
@@ -680,7 +680,7 @@ profile.production.preferences.timeoutSeconds=15
 
 **Data model (all Java records — immutable):**
 
-```
+```text
 McpConfiguration
 ├── ApiKeyStore           (Map: service → key)
 ├── LocationPreferences   (timezone, locale, region)
@@ -718,7 +718,7 @@ any MCP server can wire up in minutes. The Learning Resources server uses it to 
 
 ### Architecture — 5-Phase Pipeline
 
-```
+```text
 User query
     │
     ▼
@@ -792,7 +792,7 @@ The `discover_resources` tool uses **QueryClassifier** to pick the right strateg
 
 **KeywordIndex** maps ~130 keywords to ConceptArea enums:
 
-```
+```text
 "binary search" → ConceptArea.SEARCHING
 "microservices" → ConceptArea.DISTRIBUTED_SYSTEMS
 "docker" → ConceptArea.CONTAINERIZATION
@@ -836,7 +836,7 @@ public class LanguageFilter<T extends LearningResource> implements SearchFilter<
 
 > Your personal knowledge system. Three tiers — inbox is gitignored, notes and library are committed.
 
-```
+```text
 brain/ai-brain/
 ├── inbox/    ← Draft notes  [GITIGNORED — session-scoped, cleared when done]
 ├── notes/    ← Curated knowledge notes  [TRACKED — committed to repo]
@@ -893,7 +893,7 @@ brain/ai-brain/
 
 **The learning workflow:**
 
-```
+```text
 🟢 NEWBIE — Quick capture
 1. Learn a concept via /learn-concept or /dsa
 2. Drop raw notes in inbox/: /brain-new → target: inbox
@@ -964,7 +964,7 @@ java -cp out Main
 
 #### Data Structures & Algorithms
 
-```
+```text
 1. Start: /dsa → pick a topic (arrays, linked lists, trees, graphs, DP...)
 2. Learn: Copilot gives theory + code + complexity + interview patterns
 3. Practice: implement in src/
@@ -977,7 +977,7 @@ java -cp out Main
 
 #### System Design
 
-```
+```text
 1. Start: /system-design → describe a system to design
 2. Work through: HLD (components, data flow) → LLD (classes, APIs, DB schema)
 3. Deep dive: /learn-concept → specific components (caching, CDN, message queues)
@@ -989,7 +989,7 @@ java -cp out Main
 
 #### DevOps & CI/CD
 
-```
+```text
 1. Start: /devops → pick a topic
 2. Learn pipeline anatomy, then specific tools (Docker, K8s, Terraform)
 3. Use the Java servers as real code to build CI pipelines for
@@ -1001,7 +1001,7 @@ java -cp out Main
 
 #### Java (Language + Ecosystem)
 
-```
+```text
 1. Deep dive: /language-guide → java
 2. Modern features: Java 21 records, sealed classes, pattern matching, virtual threads
 3. Practice: implement in src/ using the coding conventions in copilot-instructions.md
@@ -1013,7 +1013,7 @@ java -cp out Main
 
 #### Career and Interview Prep
 
-```
+```text
 1. Role exploration: /career-roles → "senior software engineer" or any role
 2. Interview prep: /interview-prep → choose: DSA | system design | behavioral
 3. Mock interview: ask Copilot to "interview me on system design for a URL shortener"
@@ -1023,7 +1023,7 @@ java -cp out Main
 
 #### MCP & AI Engineering
 
-```
+```text
 1. Start: /mcp → learn the protocol, then how the servers here work
 2. Read the skill: .github/skills/mcp-development/SKILL.md (1,980 lines)
 3. Explore the Java source: mcp-servers/src/server/learningresources/
@@ -1035,7 +1035,7 @@ java -cp out Main
 
 Here's a sustainable daily pattern:
 
-```
+```text
 MORNING (~30 min):
 ├── Review yesterday's brain notes       /brain-search "yesterday"
 ├── Pick today's topic                   /hub → choose a domain
@@ -1105,7 +1105,7 @@ java --version && code --version
 
 **Interactive guide (in Copilot Chat):**
 
-```
+```text
 /mac-dev → homebrew → install → newbie
 /mac-dev → jdk → temurin → newbie
 /mac-dev → docker → install → amateur
@@ -1363,7 +1363,7 @@ See [`.github/docs/export-guide.md`](.github/docs/export-guide.md) for a detaile
 
 ## Appendix — Quick Command Cheatsheet
 
-```
+```text
 COPILOT CHAT SHORTCUTS
 ──────────────────────
 Ctrl+Alt+I or Ctrl+Shift+I   Open Copilot Chat

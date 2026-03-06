@@ -33,7 +33,7 @@ Staff Engineer / SDE IV                 Senior EM / Director of Eng
 Principal Engineer / SDE V              VP of Engineering
 Distinguished Engineer / Fellow         CTO / SVP Engineering
 
-```
+```markdown
 
 ### Core Role Catalog
 
@@ -117,7 +117,7 @@ Distinguished Engineer / Fellow         CTO / SVP Engineering
 
 → [Curated path: what to learn, in what order, using /language-guide, /dsa, /system-design, etc.]
 
-```
+```markdown
 
 #### `skills` — Deep Skills Breakdown
 For the specified role and level:

@@ -29,7 +29,7 @@ Homebrew is the **de facto package manager for macOS** (and Linux). It:
 - Manages **services** (databases, web servers) you can start/stop with `brew services`
 - Lets you **bundle your entire setup** into a `Brewfile` for reproducibility
 
-```
+```text
 Without Homebrew:  Google → download .pkg → drag to Applications → configure PATH
 With Homebrew:     brew install --cask intellij-idea
 ```

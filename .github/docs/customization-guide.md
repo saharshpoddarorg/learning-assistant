@@ -37,7 +37,7 @@
 
 GitHub Copilot customization is a **layered system** that progressively shapes Copilot's behavior:
 
-```
+```text
 ┌─────────────────────────────────────────────────┐
 │                  YOUR QUESTION                  │
 │          "Review Main.java for SOLID"           │
@@ -71,7 +71,7 @@ GitHub Copilot customization is a **layered system** that progressively shapes C
 
 ### 1. Instructions — The Rules
 
-```
+```text
 copilot-instructions.md          ← Base layer (always on)
      +
 java.instructions.md             ← When editing *.java
@@ -87,7 +87,7 @@ Combined coding standards        ← What Copilot follows
 
 ### 2. Agents — The Specialists
 
-```
+```text
 Default (Ask)  ← General-purpose Copilot
 Designer       ← Thinks in patterns, SOLID, architecture
 Debugger       ← Thinks in hypotheses, root causes, evidence
@@ -101,7 +101,7 @@ Learning Mentor← Thinks in analogies, exercises, progression
 
 ### 3. Prompts — The Shortcuts
 
-```
+```text
 /design-review  → Runs design review workflow with Designer agent
 /debug          → Runs debugging workflow with Debugger agent
 /teach          → Runs teaching workflow with Learning Mentor agent
@@ -141,7 +141,7 @@ Learning Mentor← Thinks in analogies, exercises, progression
 
 ### 4. Skills — The Toolkits
 
-```
+```text
 java-build/                ← Activates for: compile, build, run
 design-patterns/           ← Activates for: Pattern decisions, SOLID
 java-debugging/            ← Activates for: Exceptions, stack traces
@@ -179,7 +179,7 @@ When multiple customizations apply, Copilot merges them. Highest priority wins o
 
 ## 🏗️ Architecture Diagram
 
-```
+```text
                          YOU
                           │
                 ┌─────────┴─────────┐
@@ -221,7 +221,7 @@ When multiple customizations apply, Copilot merges them. Highest priority wins o
 
 Agents can **hand off** to each other for multi-step workflows:
 
-```
+```text
 Designer ──handoff──▶ Impact Analyzer ──handoff──▶ Code Reviewer
    │                       │                           │
    │ "Here's my            │ "Here's what              │ "Here's the

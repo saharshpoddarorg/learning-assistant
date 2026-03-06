@@ -16,7 +16,7 @@ into which everything Copilot can see gets loaded before it responds.
 Think of it like working memory: whatever fits in the window, Copilot "knows." Whatever
 doesn't fit, it can't see — even if it was discussed earlier in a long conversation.
 
-```
+```text
 ┌─────────────────────────────────────────────────────┐
 │                 CONTEXT WINDOW                       │
 │                                                      │
@@ -109,7 +109,7 @@ regardless of context budget. Use this for complex multi-step workflows.
 
 **Token estimation:**
 
-```
+```text
 1 token ≈ 4 characters of English text
 1 line of markdown ≈ 10–30 tokens
 1 page of text (500 words) ≈ 700 tokens
@@ -139,7 +139,7 @@ This is visible in the conversation as todo status updates.
 **Tier 2 (Multi-step tasks):** Copilot creates a todo list at the start of the task,
 marks each item as `in-progress` before working on it, and `completed` immediately after.
 
-```
+```yaml
 User: "Update all the brain docs for the new tier structure"
 Copilot planning:
   1. Create todo list [brain/README, notes/README, library/README, scripts/README, ...]
@@ -153,7 +153,7 @@ and the next session starts by reading that note. This is how to bridge sessions
 
 ### The Todo Lifecycle (Agent Mode)
 
-```
+```text
 User gives multi-step request
          │
          ▼
@@ -181,14 +181,14 @@ items remain in the conversation context. Resume by saying: "Continue the remain
 
 **Don't:**
 
-```
+```text
 "Fix the brain docs, add new commands, update the hub, and also fix the skill file"
 (Four unrelated things in one message → Copilot may batch badly)
 ```
 
 **Do:**
 
-```
+```text
 "I need to:
 1. Fix the brain/ai-brain/README.md tier section
 2. Add /check-standards to slash-commands.md table
@@ -214,7 +214,7 @@ What IS persistent across sessions:
 
 #### Strategy 1 — Save to brain/ai-brain/notes/ (recommended)
 
-```
+```text
 At end of session:
   /brain-capture-session
   → Copilot creates a session note with: what was done, decisions made, next steps
@@ -225,7 +225,7 @@ At start of next session:
 
 #### Strategy 2 — Explicit context handoff (fast)
 
-```
+```text
 At end of session:
   "Summarise what's remaining from this task in a short paragraph I can paste next time"
 
@@ -235,7 +235,7 @@ At start of next session:
 
 #### Strategy 3 — Use documentation as persistent context
 
-```
+```text
 After any architectural decision:
   Save it to brain/ai-brain/notes/YYYY-MM-DD_decision-<topic>.md
 
@@ -247,7 +247,7 @@ Copilot can discover this via codebase tool at any time:
 
 **Tips for keeping context efficient:**
 
-```
+```text
 1. Use /scope specific → tells Copilot to stay focused on one file
    Less tool calls = less token cost = longer effective conversation
 
@@ -281,7 +281,7 @@ calling MCP tools, or doing more than 2 sequential steps.
 
 ### Context Loading Summary
 
-```
+```text
 Always loaded:    copilot-instructions.md
                   matching .instructions.md files (based on applyTo glob)
                   selected agent persona (if any)
@@ -311,7 +311,7 @@ brain list --tier notes --kind session
 
 ### Effective Multi-Step Request Template
 
-```
+```text
 I need to:
 1. [First thing — one file or one concept]
 2. [Second thing — one file or one concept]
