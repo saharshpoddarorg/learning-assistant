@@ -9,9 +9,9 @@
     Run from any location -- all paths resolve relative to the repo root.
 
 .COMMANDS
-    new       Create a new note with frontmatter template
-    publish   Publish a file to archive/ with project+date hierarchy, tagging, and git commit
-    move      Move a file between tiers (inbox -> notes -> archive)
+    new       Create a new note with frontmatter template (default: inbox/)
+    publish   Publish an imported source file to library/ (project+date hierarchy, tag prompting, git commit)
+    move      Move a file between tiers: inbox -> notes (your writing) | inbox -> library (external source)
     search    Search notes by content or frontmatter (tag, project, kind, date)
     list      List notes with frontmatter summary
     clear     Clear files from inbox/
@@ -24,7 +24,7 @@
     .\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\inbox\draft.md --project mcp-servers
     .\brain\ai-brain\scripts\brain.ps1 search java --tag generics
     .\brain\ai-brain\scripts\brain.ps1 search --project mcp-servers --kind decision
-    .\brain\ai-brain\scripts\brain.ps1 list --tier archive --project mcp-servers
+    .\brain\ai-brain\scripts\brain.ps1 list --tier library --project mcp-servers
     .\brain\ai-brain\scripts\brain.ps1 clear --force
     .\brain\ai-brain\scripts\brain.ps1 status
 #>
@@ -37,7 +37,7 @@ param(
     [Parameter(Position = 1)]
     [string]$Arg1 = "",      # file path for save/promote, query for search
 
-    [string]$Tier     = "",  # inbox | notes | archive
+    [string]$Tier     = "",  # inbox | notes | library
     [string]$Project  = "",  # project bucket
     [string]$Title    = "",  # note title for 'new'
     [string]$Kind     = "",  # note | decision | session | resource | snippet | ref
@@ -59,7 +59,7 @@ $BrainRoot    = Join-Path $RepoRoot "brain\ai-brain"
 
 # ── Valid values ───────────────────────────────────────────────────────────────
 $ValidKinds   = @("note", "decision", "session", "resource", "snippet", "ref")
-$ValidTiers   = @("inbox", "notes", "archive")
+$ValidTiers   = @("inbox", "notes", "library")
 $ValidStatus  = @("draft", "final", "archived")
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
@@ -143,7 +143,7 @@ function Get-TierDir([string]$TierName) {
     Join-Path $BrainRoot $TierName
 }
 
-function Get-AllNotes([string[]]$Tiers = @("inbox","notes","archive")) {
+function Get-AllNotes([string[]]$Tiers = @("inbox","notes","library")) {
     $notes = @()
     foreach ($tier in $Tiers) {
         $dir = Get-TierDir $tier
@@ -183,8 +183,8 @@ function Invoke-Help {
     Write-Host "COMMANDS" -ForegroundColor Yellow
     $cmds = @(
         @("new",     "Create a new note with frontmatter template"),
-        @("publish", "Publish a file to archive/ with project+date hierarchy, tagging, and git commit"),
-        @("move",    "Move a file between tiers  (inbox -> notes -> archive)"),
+        @("publish", "Publish a file to library/ with project+date hierarchy, tagging, and git commit"),
+        @("move",    "Move a file between tiers  (inbox -> notes -> library)"),
         @("search",  "Search notes by frontmatter (--tag, --project, --kind, --date) or full-text"),
         @("list",    "List notes with frontmatter summary"),
         @("clear",   "Clear files from inbox/"),
@@ -197,7 +197,7 @@ function Invoke-Help {
     Write-Host ""
     Write-Host "OPTIONS (not all apply to every command)" -ForegroundColor Yellow
     $opts = @(
-        @("--tier",    "inbox | notes | archive"),
+        @("--tier",    "inbox | notes | library"),
         @("--project", "project bucket name  (e.g. mcp-servers, java, general)"),
         @("--title",   "note title for 'new'"),
         @("--kind",    "note | decision | session | resource | snippet | ref"),
@@ -216,8 +216,8 @@ function Invoke-Help {
     Write-Host "  .\brain\ai-brain\scripts\brain.ps1 new"
     Write-Host "  .\brain\ai-brain\scripts\brain.ps1 new --tier inbox --project mcp-servers --title `"SSE transport`""
     Write-Host "  .\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\inbox\draft.md --project mcp-servers"
-    Write-Host "  .\brain\ai-brain\scripts\brain.ps1 search java --tag generics --tier archive"
-    Write-Host "  .\brain\ai-brain\scripts\brain.ps1 list --tier archive --project mcp-servers"
+    Write-Host "  .\\brain\\ai-brain\\scripts\\brain.ps1 search java --tag generics --tier library"
+    Write-Host "  .\\brain\\ai-brain\\scripts\\brain.ps1 list --tier library --project mcp-servers"
     Write-Host "  .\brain\ai-brain\scripts\brain.ps1 clear --force"
     Write-Host "  .\brain\ai-brain\scripts\brain.ps1 status"
     Write-Host ""
@@ -231,7 +231,7 @@ function Invoke-Help {
 function Invoke-New {
     Write-Header "Create new note"
 
-    $tier    = if ($Tier)    { $Tier }    else { Prompt-Input "Tier (inbox/notes/archive)" "inbox" }
+    $tier    = if ($Tier)    { $Tier }    else { Prompt-Input "Tier (inbox/notes/library)" "inbox" }
     $project = if ($Project) { $Project } else { Prompt-Input "Project" "general" }
     $title   = if ($Title)   { $Title }   else { Prompt-Input "Title" "untitled" }
     $kind    = if ($Kind)    { $Kind }    else { Prompt-Input "Kind ($(($ValidKinds -join '|')))" "note" }
@@ -348,14 +348,14 @@ function Invoke-Publish {
     $fm["tags"]    = $finalTags
     $fm["status"]  = $statusVal
 
-    # Destination: archive/<project>/<YYYY-MM>/filename
+    # Destination: library/<project>/<YYYY-MM>/filename
     $yearMonth = if ($fm["date"] -match '(\d{4}-\d{2})') { $Matches[1] } else { (Get-Date).ToString("yyyy-MM") }
     $filename  = Split-Path $sourcePath -Leaf
-    $destDir   = Join-Path $BrainRoot "archive\$project\$yearMonth"
+    $destDir   = Join-Path $BrainRoot "library\$project\$yearMonth"
     $destPath  = Join-Path $destDir $filename
 
     Write-Host ""
-    Write-Host "  Destination: brain/ai-brain/archive/$project/$yearMonth/$filename" -ForegroundColor Cyan
+    Write-Host "  Destination: brain/ai-brain/library/$project/$yearMonth/$filename" -ForegroundColor Cyan
 
     if (-not $Force) {
         if (-not (Prompt-Confirm "Proceed?" $true)) {
@@ -367,7 +367,7 @@ function Invoke-Publish {
     # Write updated frontmatter to source first
     Set-Frontmatter $sourcePath $fm
 
-    # Move to archive/
+    # Move to library/
     if (-not (Test-Path $destDir)) { New-Item -ItemType Directory -Path $destDir -Force | Out-Null }
     if ((Test-Path $destPath) -and ($sourcePath -ne $destPath)) {
         if (-not $Force) {
@@ -378,10 +378,10 @@ function Invoke-Publish {
         }
     }
     Move-Item $sourcePath $destPath -Force
-    Write-Ok "Moved: brain/ai-brain/archive/$project/$yearMonth/$filename"
+    Write-Ok "Moved: brain/ai-brain/library/$project/$yearMonth/$filename"
 
     # Git operations
-    $gitRelPath = "brain/ai-brain/archive/$project/$yearMonth/$filename" -replace '\\', '/'
+    $gitRelPath = "brain/ai-brain/library/$project/$yearMonth/$filename" -replace '\\', '/'
 
     Push-Location $RepoRoot
     try {
@@ -410,7 +410,7 @@ function Invoke-Move {
 
     $sourcePath = $Arg1
     if (-not $sourcePath) { $sourcePath = Prompt-Input "Source (relative to brain/ai-brain/)" }
-    $targetTier = if ($Tier) { $Tier } else { Prompt-Input "Target tier (notes|archive)" "notes" }
+    $targetTier = if ($Tier) { $Tier } else { Prompt-Input "Target tier (notes|library)" "notes" }
     $subDir     = if ($Project) { $Project } else { Prompt-Input "Subdirectory (optional, Enter for none)" "" }
 
     if (-not [System.IO.Path]::IsPathRooted($sourcePath)) {
@@ -437,7 +437,7 @@ function Invoke-Move {
     $aiRelDest = $destPath.Substring($BrainRoot.Length + 1)
     Write-Ok "Moved: brain/ai-brain/$aiRelSrc -> brain/ai-brain/$aiRelDest"
 
-    if ($targetTier -eq "archive") {
+    if ($targetTier -ne "inbox") {
         Push-Location $RepoRoot
         try {
             $gitPath = "brain/ai-brain/$aiRelDest" -replace '\\', '/'
@@ -455,7 +455,7 @@ function Invoke-Move {
 function Invoke-Search {
     $query = $Arg1
 
-    $tiers = if ($Tier) { @($Tier) } else { @("inbox","notes","archive") }
+    $tiers = if ($Tier) { @($Tier) } else { @("inbox","notes","library") }
     $notes = Get-AllNotes $tiers
 
     $results = @($notes | Where-Object {
@@ -535,7 +535,7 @@ function Invoke-Search {
 # ── Command: list ──────────────────────────────────────────────────────────────
 
 function Invoke-List {
-    $tiers = if ($Tier) { @($Tier) } else { @("inbox","notes","archive") }
+    $tiers = if ($Tier) { @($Tier) } else { @("inbox","notes","library") }
     $notes = Get-AllNotes $tiers
 
     $filtered = @($notes | Where-Object {
@@ -600,9 +600,9 @@ function Invoke-Clear {
 function Invoke-Status {
     Write-Header "brain/ai-brain/ workspace status"
 
-    foreach ($tier in @("inbox","notes","archive")) {
+    foreach ($tier in @("inbox","notes","library")) {
         $dir   = Get-TierDir $tier
-        $gitStatus = if ($tier -eq "archive") { "[tracked]" } else { "[gitignored]" }
+        $gitStatus = if ($tier -eq "inbox") { "[gitignored]" } else { "[tracked]  " }
         if (-not (Test-Path $dir)) {
             Write-Info ("  {0,-10} {1}  (does not exist)" -f $tier, $gitStatus)
             continue

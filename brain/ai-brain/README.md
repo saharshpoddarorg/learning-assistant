@@ -1,7 +1,7 @@
 # ai-brain/ -- Personal Knowledge Workspace
 
 A structured workspace for notes, decisions, and references created during
-development and learning sessions -- with Copilot, MCP servers, or manually.
+development and learning sessions — with Copilot, MCP servers, or manually.
 
 ---
 
@@ -9,45 +9,63 @@ development and learning sessions -- with Copilot, MCP servers, or manually.
 
 ```
 ai-brain/
-  inbox/     TEMP      quick capture -- clear when session ends     [gitignored]
-  notes/     KEEP      curated notes that stay on this machine      [gitignored]
-  archive/   PUBLISH   committed to the repo, permanent reference   [tracked]
+  inbox/     TEMP      raw capture — drop anything here, clear when done   [gitignored]
+  notes/     YOURS     your own writing — insights, sessions, decisions     [tracked]
+  library/   SOURCES   imported source materials you want to preserve       [tracked]
   scripts/   TOOLS     one dispatcher + module + aliases + VS Code tasks
 ```
 
-The three words match what you would actually say:
-- **"Just capturing this"** → drop it in `inbox/`
-- **"I want to keep this"** → move it to `notes/`
-- **"This belongs in the repo"** → `brain publish` promotes it to `archive/` and commits
+### The one question that routes everything
+
+> **Did you write it yourself?**
+>
+> - **Inbox** — not ready yet (raw paste, draft, anything goes — gitignored, cleared per session)
+> - **Notes** — yes, I wrote it (your distilled insights, your session logs, your decisions, your how-tos)
+> - **Library** — no, I imported it (external slide decks, presenter guides, external reference docs, AI session outputs you received)
+
+### Examples
+
+| Content | Tier | Why |
+|---|---|---|
+| Raw paste of a slide deck | inbox → library | It's imported source material |
+| KS session transcript you received | inbox → library | You didn't write it |
+| Distilled insights you synthesised from a KS session | inbox → notes | You wrote it |
+| Session log of what you fixed today | notes | Your writing, your session |
+| Architecture decision you made | notes | Your decision, your reasoning |
+| External reference guide you imported | library | Not your writing |
+| Your own cheatsheet for a tool | notes | You authored it |
 
 ---
 
 ## Getting Started (30 seconds)
 
 ```powershell
-# Windows -- load aliases for this terminal session
+# Windows — load aliases for this terminal session
 . .\brain\ai-brain\scripts\brain-module.psm1
 
 # Then:
-brain status                              # see what is in each tier
-brain new                                 # create a note (interactive)
-brain publish brain\ai-brain\inbox\draft.md        # publish to repo (asks project, tags, commits)
-brain search java --tag generics          # search across all tiers
-brain list --tier archive                 # list committed notes
-brain clear                               # preview inbox contents
-brain clear --force                       # delete inbox without prompt
-brain move brain\ai-brain\inbox\draft.md --tier notes   # move to notes
+brain status                                              # see what is in each tier
+brain new                                                 # create a note (interactive)
+brain new --tier notes --project mcp-servers              # create directly in notes
+brain publish brain\ai-brain\inbox\draft.md               # publish to library (asks project, tags, commits)
+brain search java --tag generics                          # search across all tiers
+brain list --tier library                                 # list library sources
+brain list --tier notes                                   # list your notes
+brain clear                                               # preview inbox contents
+brain clear --force                                       # delete inbox without prompt
+brain move brain\ai-brain\inbox\draft.md --tier notes     # move to notes
+brain move brain\ai-brain\inbox\draft.md --tier library   # move to library (manual, no prompts)
 ```
 
 ```bash
-# Bash -- load aliases for this terminal session
+# Bash — load aliases for this terminal session
 source ./brain/ai-brain/scripts/.brain-aliases.sh
 
 # Same commands, same flags:
 brain status
-brain new --tier inbox --project mcp-servers
-brain publish brain/ai-brain/inbox/draft.md --project java
-brain search --kind decision --tier archive
+brain new --tier notes --project mcp-servers
+brain publish brain/ai-brain/inbox/draft.md --project ghcp-knowledge-sharing
+brain search --kind decision --tier notes
 brain move brain/ai-brain/inbox/draft.md --tier notes
 ```
 
@@ -61,26 +79,26 @@ In Copilot Chat (agent mode), use `/brain-new`, `/brain-publish`, `/brain-search
 
 ---
 
-## archive/ Hierarchy
+## library/ Hierarchy
 
-Committed notes are organised by **project bucket** + **month**. This is
-created automatically at publish time -- you never create folders manually.
+Library content is organised by **project bucket** + **month**. Created automatically
+at publish time — you never create folders manually.
 
 ```
-archive/
+library/
   README.md
   <project>/
     <YYYY-MM>/
       YYYY-MM-DD_slug.md
-  mcp-servers/
-    2026-02/
-      2026-02-21_sse-transport-decision.md
-  java/
-    2026-02/
-      2026-02-18_generics-cheatsheet.md
-  general/
-    2026-01/
-      2026-01-15_git-rebase-notes.md
+  ghcp-knowledge-sharing/
+    2026-03/
+      2026-03-06_ghcp-ks-source-index.md
+      2026-03-06_ghcp-knowledge-sharing-session.md
+      2026-03-06_ghcp-custom-agents-guide.md
+      2026-03-06_ghcp-mermaid-diagrams-session.md
+      2026-03-06_ghcp-prompt-files-guide.md
+      2026-03-06_ghcp-presenter-notes.md
+      2026-03-06_ghcp-combined-session-deck.md
 ```
 
 When you run `brain publish`, it asks which project bucket to use (default: `general`).
@@ -89,7 +107,7 @@ When you run `brain publish`, it asks which project bucket to use (default: `gen
 
 ## Frontmatter
 
-Every note uses this template for search, filtering, and future tooling:
+Every note uses YAML frontmatter for search, filtering, and future tooling:
 
 ```markdown
 ---
@@ -98,7 +116,7 @@ kind: note | decision | session | resource | snippet | ref
 project: mcp-servers | java | general | <your-project>
 tags: [tag1, tag2, tag3]
 status: draft | final | archived
-source: copilot | manual | mcp
+source: copilot | manual | imported
 ---
 
 # Title
@@ -106,16 +124,16 @@ source: copilot | manual | mcp
 Content here.
 ```
 
-### `kind` values
+### `kind` values — and which tier they belong in
 
-| kind | Use for |
-|------|---------|
-| `note` | General notes, explanations, thoughts |
-| `decision` | Architectural or design choices (ADR format) |
-| `session` | Log of what happened in a work/learning session |
-| `resource` | Links, references, reading material |
-| `snippet` | Code or command reference |
-| `ref` | Quick-reference card or cheatsheet |
+| kind | Tier | Use for |
+|------|------|---------|
+| `note` | notes/ | General notes, explanations, thoughts you authored |
+| `decision` | notes/ | Architectural or design choices (ADR format) |
+| `session` | notes/ | Log of what happened in a work/learning session |
+| `ref` | library/ | Imported external reference, slide deck, source document |
+| `resource` | library/ | Imported links, reading lists, curated resource collections |
+| `snippet` | notes/ or library/ | Code or command reference (yours vs imported) |
 
 The `publish` command auto-suggests tags from your existing frontmatter + filename
 keywords. You confirm or adjust before committing.
@@ -125,9 +143,11 @@ keywords. You confirm or adjust before committing.
 ## Naming Convention
 
 ```
-YYYY-MM-DD_topic-slug.md           <- date-prefixed (most files)
-YYYY-MM-DD_project_topic.md        <- when project in name is helpful
-topic-slug.md                      <- timeless reference docs (no date)
+YYYY-MM-DD_topic-slug.md           ← date-prefixed (most files)
+YYYY-MM-DD_session-<topic>.md      ← session log (what you built/did today)
+YYYY-MM-DD_decision-<topic>.md     ← architectural decision log
+YYYY-MM-DD_<source>-<topic>.md     ← imported source file in library/
+topic-slug.md                      ← timeless reference docs (no date)
 ```
 
 ---
@@ -142,9 +162,10 @@ reference, PowerShell module, bash aliases, VS Code tasks, and Copilot prompts.
 ## Quick Lifecycle
 
 ```
-Session starts  -> use inbox/ freely, no structure needed
-During session  -> brain new creates a note with frontmatter ready
+Session starts  -> inbox/ freely, no structure needed
+During session  -> brain new --tier notes creates a note with frontmatter
 Session ends    -> brain status shows what is in each tier
-Worth keeping?  -> yes: brain publish <file>  |  no: brain clear
-Move to notes?  -> brain move <file> --tier notes
+External source -> brain publish <inbox-file> --project <bucket>  (goes to library/)
+Your own work  -> brain move <inbox-file> --tier notes             (goes to notes/)
+Not worth keeping -> brain clear
 ```

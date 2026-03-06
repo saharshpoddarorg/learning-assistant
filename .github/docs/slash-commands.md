@@ -17,6 +17,7 @@
   - [Code Quality & Analysis](#code-quality--analysis)
   - [Career & Interview](#career--interview)
   - [Daily Life](#daily-life)
+  - [Copilot Customization](#copilot-customization)
 - [Aliases & Shortcuts](#-aliases--shortcuts)
 - [Input Parameters Reference](#-input-parameters-reference)
 - [Composition Patterns](#-composition-patterns)
@@ -45,7 +46,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (36 commands)
+### Quick Lookup (41 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -78,13 +79,21 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 27 | `/resources` | Domain | Search, browse & scrape curated learning resources | Learning-Mentor |
 | 28 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
 | 29 | `/brain-new` | Brain Workspace | Create a new knowledge note (inbox or notes tier) | Copilot |
-| 30 | `/brain-publish` | Brain Workspace | Publish a note to archive/ with tagging and git commit | Copilot |
+| 30 | `/brain-publish` | Brain Workspace | Publish an imported source to library/ with tag prompting and git commit | Copilot |
 | 31 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
 | 32 | `/brain-capture-session` | Brain Workspace | Convert current AI session into a structured session note | Copilot |
 | 33 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
 | 34 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
 | 35 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
 | 36 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
+| 37 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
+| 38 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
+| 39 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
+| 40 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
+| 41 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
+
+> **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
+> VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
 
 ---
 
@@ -301,8 +310,8 @@ Vault:    ~100+ curated resources across Java, Python, Web, AI/ML, DevOps,
 MCP:      Backed by 10 MCP tools: search_resources, browse_vault, get_resource,
           list_categories, discover_resources, scrape_url, read_url, add_resource,
           add_resource_from_url, export_results
-Enums:    SearchMode (specific/vague/exploratory), ConceptDomain (8 domains),
-          ConceptArea (34 concepts), DifficultyLevel, LanguageApplicability
+Enums:    ResourceType (11 types incl. PLAYLIST), SearchMode (specific/vague/exploratory),
+          ConceptDomain (8 domains), ConceptArea (36 concepts), DifficultyLevel, LanguageApplicability
 ```
 
 #### `/git-vcs` — Git & Version Control
@@ -441,6 +450,115 @@ Output:   Affected files → risk level → breaking changes → test gaps
 
 ---
 
+### Copilot Customization
+
+> **Preview Feature (March 2026):** The `/create-agent` command uses both the **built-in VS Code wizard** and this project's prompt template. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for all new Copilot features.
+
+#### `/create-agent` — Scaffold a Custom Agent
+```
+Inputs:   agentName (e.g., Security-Reviewer), purpose (one sentence),
+          tools (search/codebase/editFiles/terminal/fetch/all),
+          depth (focused/balanced/broad)
+Agent:    Copilot
+Tools:    editFiles, codebase
+Use:      Generate a .github/agents/<name>.agent.md file with YAML frontmatter,
+          tool restrictions, model pinning, handoff chains, and a persona scaffold
+Example:  /create-agent → Security-Reviewer → "Review for OWASP Top 10" → search,codebase → focused
+Output:   .github/agents/security-reviewer.agent.md with full persona instructions
+Built-in: VS Code also has a native /create-agent wizard in Copilot Chat (Ctrl+Shift+I → /create-agent)
+File:     .github/prompts/create-agent.prompt.md
+Docs:     .github/agents/README.md, .github/docs/copilot-mcp-preview.md
+After:    Add the new agent to agents/README.md table and copilot-instructions.md <agents> block
+```
+
+#### `/mcp-to-skill` — Migrate an MCP Tool to a Copilot Skill
+```
+Inputs:   target     (MCP server name, Java file path, or tool description),
+          mode       (analyse / generate / full),
+          outputPath (output path for generated SKILL.md, default: .github/skills/<target>/SKILL.md)
+Agent:    Copilot
+Tools:    codebase, editFiles, search
+Use:      Reads an MCP server implementation, applies the MCP-vs-Skill decision matrix,
+          and either produces an analysis report or generates a complete SKILL.md replacement.
+Modes:
+  analyse  → Read implementation → output decision report + tool inventory table
+  generate → Produce ready-to-commit SKILL.md (requires prior analyse or description)
+  full     → analyse + generate + registration instructions in one pass
+Example:  /mcp-to-skill → learning-resources → full
+          /mcp-to-skill → mcp-servers/src/server/atlassian/ → analyse
+Decision: Content static/repeatable? → Skill candidate
+          External API / auth / computation required? → Keep as MCP
+Output:   Decision report + generated SKILL.md + copilot-instructions.md registration steps
+File:     .github/prompts/mcp-to-skill.prompt.md
+Docs:     .github/docs/mcp-vs-skills.md — full decision guide + migration playbook
+Tip:      Use 'analyse' first before committing to migration — some tools MUST stay as MCP
+```
+
+---
+
+#### `/copilot-customization` — Create, Review, or Compose Any Customization File
+```
+Inputs:   goal    (create-new / review-existing / compare-types / plan-composition /
+                   explain-concept / audit-repo)
+          type    (copilot-instructions / instructions / prompt / agent / skill / mcp /
+                   all-types / not-sure)
+          domain  (java, security, devops, mcp, git, or any custom topic)
+          level   (newbie / amateur / pro)
+Agent:    Copilot
+Tools:    codebase, editFiles, search
+Use:      Swiss-army tool for all Copilot customization work:
+            - compare-types   → Show the 6-primitive comparison table + decision matrix
+            - create-new      → Scaffold a complete, ready-to-use file of any type
+            - review-existing → Audit an existing customization file for common issues
+            - plan-composition → Recommend which types to combine for a use case
+            - explain-concept → Teach the 6 primitives at newbie/amateur/pro depth
+            - audit-repo      → Scan .github/ and produce a prioritized action plan
+Example:  /copilot-customization → create-new → skill → devops → amateur
+Output:   A complete, paste-ready .github/skills/devops/SKILL.md file
+File:     .github/prompts/copilot-customization.prompt.md
+Docs:     .github/docs/copilot-customization-deep-dive.md (full reference)
+          .github/skills/copilot-customization/SKILL.md (domain knowledge)
+Tips:     - Use 'all-types' or 'not-sure' as type when unsure which primitive to use
+          - Use 'audit-repo' to get a full inventory of your current customizations
+          - Use 'plan-composition' before building a complex stack of multiple types
+```
+
+---
+
+#### `/write-docs` — Create or Update Any Documentation
+```
+Inputs:   docType   (start-here / dev-doc / guide / cheatsheet / quick-guide / skill /
+                     prompt / alias-command / readme / brain-note / all-of-above)
+          source    (inbox-notes / session-notes / concept-description / code-analysis / url / i-will-describe)
+          topic     (the subject, domain, or title for the doc)
+          level     (solo-dev / team / newbie / amateur / pro / 3-tier)
+Agent:    Copilot
+Tools:    codebase, editFiles, search
+Use:      Doc factory — turn any raw content (inbox notes, session slides, a concept description,
+          code analysis, or a URL) into a properly structured markdown doc:
+            - start-here      → Entry-point onboarding file with 🟢🟡🔴 quick wins
+            - dev-doc         → Full 3-tier developer reference (Newbie/Amateur/Pro)
+            - guide           → Task-oriented step-by-step guide with troubleshooting
+            - cheatsheet      → Fast-reference tables + decision tree, no prose
+            - quick-guide     → Compact single-tier "do this now" doc
+            - skill           → SKILL.md with activation-optimized description field
+            - prompt          → Slash command .prompt.md with ${input:} variables
+            - readme          → Component/directory README.md
+            - brain-note      → Structured note for brain/ai-brain/notes/
+            - all-of-above    → Full stack: brain-note + dev-doc + cheatsheet + skill + prompt
+Example:  /write-docs → all-of-above → GitHub Copilot Mermaid Technique → team → inbox-notes
+Output:   Multiple ready-to-commit .md files covering the topic end-to-end
+File:     .github/prompts/write-docs.prompt.md
+Docs:     .github/skills/copilot-customization/SKILL.md (for skill/prompt types)
+          .github/docs/copilot-customization-deep-dive.md (for full reference)
+Tips:     - Use 'all-of-above' when processing inbox notes from a session or reading
+          - Use 'brain-note' for quick capture after a learning session
+          - Use 'skill' to teach Copilot a new domain permanently
+          - The 'description' field in SKILL.md is the most important line — prompt will craft it carefully
+```
+
+---
+
 ### Career & Interview
 
 #### `/career-roles` — Career Exploration
@@ -479,7 +597,7 @@ Topics:   Budget, investments, habit tracking, time mgmt, tech news, web researc
 
 ### Brain Workspace
 
-Commands for managing the `brain/ai-brain/` personal knowledge workspace — three-tier note system (inbox → notes → archive).
+Commands for managing the `brain/ai-brain/` personal knowledge workspace — three-tier note system (inbox → notes → library).
 
 #### `/brain-new` — Create a Note
 ```
@@ -489,19 +607,19 @@ Tools:    editFiles, codebase
 Use:      Create a new markdown note with proper frontmatter in inbox/ or notes/
 Example:  /brain-new → "Java generics cheatsheet" → notes → java
 Output:   YYYY-MM-DD_<slug>.md created with kind, tags, status frontmatter
-File:     brain/ai-brain/inbox/ or brain/ai-brain/notes/ (never creates archive/ entries directly)
-Tip:      Use /brain-publish to promote to archive/ and commit
+File:     brain/ai-brain/inbox/ or brain/ai-brain/notes/ (never creates library/ entries directly)
+Tip:      Use /brain-publish to promote to library/ and commit
 ```
 
-#### `/brain-publish` — Publish a Note
+#### `/brain-publish` — Publish an Imported Source
 ```
-Inputs:   file (relative to brain/ai-brain/, e.g. inbox/2026-02-21_draft.md), project bucket
+Inputs:   file (relative to brain/ai-brain/, e.g. inbox/GHCP_Agents_Guide.md), project bucket
 Agent:    Copilot
 Tools:    editFiles, codebase, runCommands
-Use:      Promote a note from inbox/ or notes/ to archive/ → tag it → git commit
-Example:  /brain-publish → inbox/2026-02-21_draft.md → mcp-servers
-Output:   Note moved to brain/ai-brain/archive/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md, committed
-Tip:      Tags are enriched automatically from filename and content
+Use:      Publish an imported external source from inbox/ to library/ → add frontmatter → tag it → git commit
+Example:  /brain-publish → inbox/GHCP_Agents_Guide.md → ghcp-knowledge-sharing
+Output:   File archived to brain/ai-brain/library/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md, committed
+Tip:      For notes YOU wrote, use /brain-new → notes/ instead
 ```
 
 #### `/brain-search` — Search Notes
@@ -510,10 +628,10 @@ Inputs:   query (free text), filters: tag, project, kind, date (YYYY-MM), tier
 Agent:    Copilot
 Tools:    codebase, search
 Use:      Find notes by tag, project, kind, date range, or full-text across all tiers
-Example:  /brain-search → "generics" → tag=java → tier=archive
+Example:  /brain-search → "generics" → tag=java → tier=library
 Output:   Matching notes with frontmatter summary and file paths
 Kinds:    note | decision | session | resource | snippet | ref
-Tiers:    inbox | notes | archive | all (default)
+Tiers:    inbox | notes | library | all (default)
 ```
 
 #### `/brain-capture-session` — Capture AI Session as a Note
@@ -529,6 +647,39 @@ Example:  /brain-capture-session → "Java generics and wildcards" → java → 
 Tip:      Run at the end of any substantial Copilot session to capture what was learned
 Next:     brain publish brain\ai-brain\inbox\<file>.md --project <bucket>
 File:     .github/prompts/brain-capture-session.prompt.md
+```
+
+---
+
+### Quality & Standards
+
+#### `/check-standards` — Audit Files Against Best Practices
+```
+Inputs:   target (file path, folder, or filename to audit),
+          domain (auto / brain-naming / markdown-frontmatter / file-structure /
+                  git-commits / pkm / prompt-file / skill-file / java-code / all)
+Agent:    Copilot
+Tools:    codebase, search
+Use:      Run a structured compliance audit against best practices and industry standards.
+          Outputs a severity-tagged report: ❌ Error | ⚠️ Warning | 💡 Suggestion
+Example:  /check-standards → brain/ai-brain/notes/ → brain-naming
+          /check-standards → .github/skills/mac-dev/SKILL.md → skill-file
+          /check-standards → .github/prompts/debug.prompt.md → prompt-file
+          /check-standards → . → all    (audit entire workspace)
+Domains:
+  brain-naming       → ISO 8601 date prefix, lowercase-hyphens slug, kind prefix, ≤50 chars
+  markdown-frontmatter → Required fields, allowed values, tag rules
+  file-structure     → notes/ for writing, library/ for imports, README.md in each tier
+  git-commits        → brain: prefix, ≤72 chars, imperative mood, attribution footer
+  pkm                → Atomic notes (<300 lines), consistent tags, cross-references
+  prompt-file        → Frontmatter completeness, description, input variables, agent/tools
+  skill-file         → Frontmatter, 3-tier structure, cheatsheet, resources, file location
+  java-code          → Naming, method length, Javadoc, exception specificity
+Output:   Compliance report table + prioritised fix suggestions
+File:     .github/prompts/check-standards.prompt.md
+Skill:    brain-management/SKILL.md (standards reference)
+Tip:      Run after creating any new file with /write-docs or /brain-new to catch violations
+          before committing
 ```
 
 #### `/mcp` — Learn & Build MCP Servers

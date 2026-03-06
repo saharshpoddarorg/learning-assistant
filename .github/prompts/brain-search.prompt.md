@@ -1,7 +1,7 @@
 ```prompt
 ---
 name: brain-search
-description: 'Search brain/ai-brain/ workspace notes by tags, project, kind, date, or full text — across inbox, notes, and archive tiers'
+description: 'Search brain/ai-brain/ workspace notes by tags, project, kind, date, or full text — across inbox, notes, and library tiers'
 agent: copilot
 tools: ['codebase', 'search']
 ---
@@ -16,7 +16,7 @@ ${input:tag:Filter by tag (e.g. generics, sse, auth)}
 ${input:project:Filter by project (e.g. mcp-servers, java, general)}
 ${input:kind:Filter by kind: note | decision | session | resource | snippet | ref}
 ${input:date:Filter by month (YYYY-MM, e.g. 2026-02)}
-${input:tier:Filter by tier: inbox | notes | archive | all (default: all):all}
+${input:tier:Filter by tier: inbox | notes | library | all (default: all):all}
 
 ## Instructions
 
@@ -25,7 +25,7 @@ You are a knowledge workspace search assistant. Find notes matching the user's q
 ### Steps
 
 1. Determine which tiers to search:
-   - `${input:tier}` == "all" or blank → search inbox/, notes/, archive/
+   - `${input:tier}` == "all" or blank → search inbox/, notes/, library/
    - Otherwise search only that tier
 2. Find all `.md` files in the target tier(s), excluding README.md
 3. For each file, parse the YAML frontmatter (date, kind, project, tags, status)
@@ -39,12 +39,12 @@ You are a knowledge workspace search assistant. Find notes matching the user's q
 
 ```
 TIER     PATH                                        KIND       PROJECT        TAGS
-archive  mcp-servers/2026-02/2026-02-21_sse.md       decision   mcp-servers    sse, transport
+library  mcp-servers/2026-02/2026-02-21_sse.md       decision   mcp-servers    sse, transport
 notes    2026-02-20_java-generics.md                 note       java           java, generics
 ```
 
 7. If no results: suggest broadening the search (remove a filter, try a different term)
-8. If results found: offer to open a specific file or publish one to archive/
+8. If results found: offer to open a specific file or publish one to library/
 
 ### Tip for the user
 

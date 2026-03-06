@@ -1,6 +1,6 @@
 /**
  * Learning Resources MCP Server — web scraping, content summarization,
- * smart discovery, and a curated vault of 47+ worldwide learning resources.
+ * smart discovery, and a curated vault of ~100+ worldwide learning resources.
  *
  * <p>Package structure:
  * <pre>
@@ -8,9 +8,9 @@
  *   ├── {@link server.learningresources.LearningResourcesServer}         — STDIO server entry point
  *   ├── model/                                                            — Immutable data records &amp; enums
  *   │   ├── {@link server.learningresources.model.LearningResource}       — Core 15-field resource record
- *   │   ├── {@link server.learningresources.model.ResourceType}           — Content format enum (10 values)
+ *   │   ├── {@link server.learningresources.model.ResourceType}           — Content format enum (11 values, incl. PLAYLIST)
  *   │   ├── {@link server.learningresources.model.ResourceCategory}       — Topic domain enum (15 values)
- *   │   ├── {@link server.learningresources.model.ConceptArea}            — Fine-grained CS/SE concepts (33 values)
+ *   │   ├── {@link server.learningresources.model.ConceptArea}            — Fine-grained CS/SE concepts (36 values)
  *   │   ├── {@link server.learningresources.model.ConceptDomain}          — High-level knowledge domains (8 values)
  *   │   ├── {@link server.learningresources.model.SearchMode}             — User intent: specific/vague/exploratory
  *   │   ├── {@link server.learningresources.model.DifficultyLevel}        — Beginner → expert with ordinals
@@ -20,7 +20,7 @@
  *   │   └── {@link server.learningresources.model.ResourceQuery}          — Search/filter criteria
  *   ├── vault/                                                            — Discovery engine &amp; resource library
  *   │   ├── {@link server.learningresources.vault.ResourceVault}          — In-memory store with composite search
- *   │   ├── {@link server.learningresources.vault.BuiltInResources}       — 47+ curated resources (9 providers)
+ *   ├── {@link server.learningresources.vault.BuiltInResources}       — ~100+ curated resources (9 providers)
  *   │   ├── {@link server.learningresources.vault.ResourceDiscovery}      — Smart 3-mode discovery engine
  *   │   ├── {@link server.learningresources.vault.RelevanceScorer}        — 12-dimension relevance scoring
  *   │   ├── {@link server.learningresources.vault.KeywordIndex}           — Keyword-to-enum intent inference

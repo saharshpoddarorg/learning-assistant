@@ -129,7 +129,7 @@ Learning Mentor← Thinks in analogies, exercises, progression
 /career-roles → Job roles, skills, pay, career roadmaps
 /multi-session → Manage state across multiple chat sessions
 /brain-new    → Create knowledge notes (inbox/notes tier)
-/brain-publish → Publish notes to archive/ and commit
+/brain-publish → Publish an imported source to library/ and commit
 /brain-search → Search notes by tag, project, kind, date, or text
 ```
 
@@ -393,7 +393,7 @@ These files are **never loaded by Copilot**. They exist as reference material fo
 | `getting-started.md` | `docs/` | Hands-on tutorial |
 | `customization-guide.md` | `docs/` | Architecture deep-dive (this file) |
 | `file-reference.md` | `docs/` | Complete breakdown of who reads what |
-| `slash-commands.md` | `docs/` | All 30 slash commands: aliases, inputs, composition |
+| `slash-commands.md` | `docs/` | All 36 slash commands: aliases, inputs, composition |
 
 **How to write them:**
 - Write as **explanation for humans**: clear prose, examples, links

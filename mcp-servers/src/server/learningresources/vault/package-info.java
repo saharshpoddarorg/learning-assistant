@@ -5,7 +5,7 @@
  * <ul>
  *   <li>{@link server.learningresources.vault.ResourceVault} — thread-safe in-memory store
  *       ({@code ConcurrentHashMap}) with composite search and filter</li>
- *   <li>{@link server.learningresources.vault.BuiltInResources} — pre-loaded library of 47+ curated
+ *   <li>{@link server.learningresources.vault.BuiltInResources} — pre-loaded library of ~100+ curated
  *       resources, composed from 9 domain-specific
  *       {@link server.learningresources.vault.ResourceProvider} implementations</li>
  * </ul>

@@ -1,19 +1,19 @@
 <#
 .SYNOPSIS
-    Move a file between brain/ tiers (inbox, notes, archive).
+    Move a file between brain/ tiers (inbox, notes, library).
 
 .DESCRIPTION
     Moves a file from its current tier to a target tier.
     Source path is relative to the brain/ directory.
     If -SubDir is provided, the file lands in brain/<tier>/<subdir>/.
-    When moving to archive/, the script offers to run `git add` on the file.
+    When moving to library/, the script offers to run `git add` on the file.
 
 .PARAMETER Source
     Source path relative to the brain/ directory.
     Examples: inbox\draft.md   notes\java\note.md
 
 .PARAMETER Tier
-    Destination tier: notes | archive
+    Destination tier: notes | library
 
 .PARAMETER SubDir
     Optional subdirectory within the destination tier.
@@ -28,8 +28,8 @@
     Moves brain/inbox/draft.md to brain/notes/java/draft.md
 
 .EXAMPLE
-    .\brain\scripts\promote.ps1 notes\note.md archive
-    Moves brain/notes/note.md to brain/archive/note.md and offers git add.
+    .\brain\scripts\promote.ps1 notes\note.md library
+    Moves brain/notes/note.md to brain/library/note.md and offers git add.
 #>
 [CmdletBinding()]
 param(
@@ -37,7 +37,7 @@ param(
     [string]$Source,
 
     [Parameter(Mandatory)]
-    [ValidateSet("notes", "archive")]
+    [ValidateSet("notes", "library")]
     [string]$Tier,
 
     [string]$SubDir = ""
@@ -76,11 +76,11 @@ if (Test-Path $destPath) {
 Move-Item -Path $sourcePath -Destination $destPath -Force
 Write-Host "Moved: $($sourcePath.Substring($brainRoot.Length + 1)) -> $($destPath.Substring($brainRoot.Length + 1))" -ForegroundColor Green
 
-if ($Tier -eq "archive") {
+if ($Tier -eq "library") {
     Write-Host ""
     $add = Read-Host "Run 'git add' on the file? [Y/n]"
     if ($add -notmatch '^[nN]') {
-        $relativePath = "brain/ai-brain/archive/" + ($destPath.Substring((Join-Path $brainRoot "archive").Length + 1) -replace '\\', '/')
+        $relativePath = "brain/ai-brain/library/" + ($destPath.Substring((Join-Path $brainRoot "library").Length + 1) -replace '\\', '/')
         Push-Location $repoRoot
         git add $relativePath
         Pop-Location

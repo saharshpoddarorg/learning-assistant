@@ -6,6 +6,15 @@
 > LLM APIs (OpenAI, Anthropic, Gemini), industry SDKs (LangChain, LlamaIndex,
 > Semantic Kernel), agent frameworks, and how to build the best-of-all-worlds system.
 
+> **OPEN PREVIEW UPDATE — March 2026**
+> GitHub Copilot MCP is now in open preview. Key changes for this doc:
+> - VS Code config key changed from `mcpServers` → **`servers`** (in `.vscode/mcp.json`)
+> - Streamable HTTP transport added (new `"type": "http"` in server entries)
+> - GitHub official MCP server (`@modelcontextprotocol/server-github`) now available
+> - Protocol version `2025-03-26` is current — init handshake uses this string
+>
+> See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full feature changelog.
+
 ---
 
 ## Table of Contents

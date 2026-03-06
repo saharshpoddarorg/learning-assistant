@@ -11,7 +11,7 @@ A **super-powered developer workspace** with two independent feature sets you ca
 
 | Feature Set | What It Does | Where It Lives |
 |---|---|---|
-| **Copilot Customization** | Teaches GitHub Copilot your coding rules, gives it specialist personas, and adds 30 slash commands | `.github/` |
+| **Copilot Customization** | Teaches GitHub Copilot your coding rules, gives it specialist personas, and adds 36 slash commands | `.github/` |
 | **MCP Servers** | Connects Copilot to real tools — search Jira, browse learning docs, read GitHub repos, scrape web pages | `mcp-servers/` |
 
 Both work in **this repo** AND can be **copied to any other project** you work on.
@@ -43,7 +43,7 @@ You don't know what MCP is, haven't customized Copilot before, and just want thi
 2. Open [`.vscode/mcp.json`](../../.vscode/mcp.json) → change `"disabled": true` to `"disabled": false` for `learning-resources`  
 3. Press `Ctrl+Shift+P` → "Reload Window"
 4. Open Copilot Chat (`Ctrl+Alt+I`) → switch to **Agent** mode
-5. Type `/hub` → see all 30 slash commands
+5. Type `/hub` → see all 36 slash commands
 
 **Manage MCP servers after setup:**
 ```
@@ -71,7 +71,7 @@ You understand terminal commands, git, and file structures. You just haven't set
 
 **Jump straight to something specific:**
 - Copy to another project → [Export Guide](export-guide.md)
-- What all 30 commands do → [Slash Commands](slash-commands.md)
+- What all 36 commands do → [Slash Commands](slash-commands.md)
 - MCP credentials setup → [MCP Server Setup §5](mcp-server-setup.md#5-configure-credentials-secrets)
 - How to not lose work when pressing Enter → [Copilot Workflow Tips §Queue](copilot-workflow.md#queuing-multiple-instructions)
 
@@ -105,7 +105,7 @@ YOUR VS CODE WORKSPACE
 │   ├── instructions/*.md       ← Rules for specific file types (Java → Java rules)
 │   ├── agents/*.md             ← Specialist personas (Debugger, Designer, Mentor...)
 │   ├── prompts/*.md            ← Slash commands (/dsa, /debug, /brain-new...)
-│   └── skills/*/SKILL.md       ← Deep knowledge packs (47+ resources, MCP guide...)
+│   └── skills/*/SKILL.md       ← Deep knowledge packs (~100+ resources, MCP guide...)
 │
 ├── .vscode/
 │   ├── mcp.json                ← Tells VS Code WHICH MCP servers to start ← KEY FILE
@@ -119,10 +119,10 @@ YOUR VS CODE WORKSPACE
 ├── mac-os/                     ← macOS dev environment learning module
 │   └── docs/                   ← Homebrew, JDK, npm, IDEs, Docker guides
 │
-└── brain/                      ← Personal knowledge notes (inbox→notes→archive)
-    ├── inbox/                  ← Draft notes
-    ├── notes/                  ← Active knowledge
-    └── archive/                ← Published, tagged reference
+└── brain/                      ← Personal knowledge notes (inbox→notes / inbox→library)
+    ├── inbox/                  ← Draft notes (gitignored, temporary)
+    ├── notes/                  ← Your writing — insights, session logs, decisions
+    └── library/                ← Imported sources — slide decks, reference docs, external material
 ```
 
 **The magic flow:**
@@ -172,7 +172,7 @@ You ask Copilot a question
 | **[Getting Started Tutorial](getting-started.md)** | 🟢🟡 | Hands-on: try every primitive (~30 min) |
 | **[Customization Guide](customization-guide.md)** | 🟡🔴 | Architecture deep-dive: how the 5 primitives connect |
 | **[Navigation Index](navigation-index.md)** | 🟡🔴 | Master lookup: all commands, agents, skills, files |
-| **[Slash Commands](slash-commands.md)** | 🟡🔴 | All 30 commands: aliases, inputs, composition |
+| **[Slash Commands](slash-commands.md)** | 🟡🔴 | All 36 commands: aliases, inputs, composition |
 | **[File Reference](file-reference.md)** | 🟡🔴 | Which files Copilot reads vs. developer docs |
 
 ---

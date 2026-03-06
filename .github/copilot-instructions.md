@@ -52,6 +52,10 @@ path separators, tool names) or ask if unclear.
 | **Linux** | `java-build` | Bash commands, apt/dnf, SDKMAN! for JDK |
 | **Any** | `digital-notetaking` | Cross-platform: Notion, Obsidian, Logseq |
 | **Any** | `java-build` | JDK version management via SDKMAN! / Temurin |
+| **Any** | `brain-management` | brain/ai-brain/ naming, tier routing, frontmatter, PKM |
+| **Any** | `deep-research` | Investigation, spike stories, RCA, trade-off analysis, feasibility studies |
+| **Any** | `requirements-research` | User stories, acceptance criteria, BDD, requirements gathering and analysis |
+| **Any** | `software-development-roles` | PO, Developer, QA/Tester role guidance and workflows |
 
 **Key rule:** Never give a macOS-only command (e.g., `brew install`) without noting
 it is macOS-specific, and always provide the Windows/Linux equivalent or reference

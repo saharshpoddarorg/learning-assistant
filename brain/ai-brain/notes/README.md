@@ -1,22 +1,48 @@
-# ai-brain/notes/ -- Curated Local Notes
+# ai-brain/notes/ -- Your Own Writing
 
-**Gitignored. Stays on this machine. Survives sessions.**
+**Git-tracked. Committed to the repo. Permanent.**
 
-Content lives here when it was useful, you may return to it, but it is not
-ready or significant enough to commit to the repo yet.
+Notes live here when **you wrote them** — your distilled insights, your session logs,
+your decisions, your how-tos. This is not for imported external content (that goes to `library/`).
+
+### The core distinction
+
+| Tier | Rule |
+|---|---|
+| `notes/` | **I wrote this** — my synthesis, my session log, my decision |
+| `library/` | **I preserved this** — external source I imported |
+
+If you're unsure: *Did you write it from scratch?* → `notes/`. *Did you paste it from somewhere?* → `library/`.
 
 ---
 
-## Typical content
+## What Belongs Here
 
-- Session notes you want to reread but not necessarily share
-- Research in progress -- not yet a clean permanent note
-- Drafts that need more work before they are repo-worthy
-- Machine-specific notes that should not be pushed
+- Session logs — what you built/fixed today, decisions made, next steps
+- Distilled insights — your synthesis from reading, learning, sessions
+- Architecture decisions (ADR format) — your reasoning for choices made
+- How-to notes — your own cheatsheets, workflows you authored
+- Concept notes — explanations you wrote for future-you
+
+## What Does NOT Belong Here
+
+- Raw mid-session reasoning → `inbox/`
+- Half-finished drafts → `inbox/` until ready
+- External slide decks or imported documents → `library/`
+- Machine-specific configs or secrets → never commit
 
 ---
 
-## Creating notes here
+## Current Notes
+
+| File | Kind | Topic | Date |
+|---|---|---|---|
+| [`2026-02-21_session-mcp-server-fixes-and-restructure.md`](2026-02-21_session-mcp-server-fixes-and-restructure.md) | session | MCP server bug fix, config restructure, output/ hierarchy | 2026-02-21 |
+| [`2026-03-06_ghcp-knowledge-sharing-distilled.md`](2026-03-06_ghcp-knowledge-sharing-distilled.md) | note | GHCP customization KS session — 3-tier distilled insights | 2026-03-06 |
+
+---
+
+## Creating Notes Here
 
 ```powershell
 .\brain\ai-brain\scripts\brain.ps1 new --tier notes
@@ -30,27 +56,32 @@ ready or significant enough to commit to the repo yet.
 
 ---
 
-## Organise how you think
-
-No required subdirectory structure. Add subdirs only when you feel the need:
+## Naming Convention
 
 ```
-notes/
-  2026-02-21_mcp-servers-session.md    <- flat, date-prefixed
-  java/
-    generics-questions.md              <- subject subdirectory
-  decisions/
-    2026-02-22_auth-approach.md
+YYYY-MM-DD_<kebab-case-descriptive-slug>.md
+
+Examples:
+  2026-02-21_session-mcp-server-fixes-and-restructure.md  ← session log
+  2026-03-06_ghcp-knowledge-sharing-distilled.md          ← distilled insights
+  2026-04-15_java-records-vs-classes.md                   ← concept note
+  2026-04-22_decision-hashmap-over-treemap.md             ← decision ADR
 ```
+
+- Date prefix enables chronological sorting
+- Include `session-`, `decision-`, `concept-` prefixes where helpful for scanning
+- All lowercase, hyphens only
 
 ---
 
-## When a note is ready for the repo
+## Moving a Note to Library
+
+If you realise a note is actually imported source material (not your own writing), move it:
 
 ```powershell
-# Publish to archive/ -- prompts for project, tags, then commits
+# Move to library with prompts (publish workflow — project, tags, commit)
 .\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\notes\file.md
 
-# Or move to archive/ without prompts (manual git add + commit separately)
-.\brain\ai-brain\scripts\promote.ps1 notes\file.md archive --project java
+# Or move without prompts (manual git add + commit separately)
+.\brain\ai-brain\scripts\promote.ps1 notes\file.md library --project java
 ```

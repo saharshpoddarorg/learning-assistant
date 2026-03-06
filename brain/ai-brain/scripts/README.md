@@ -4,6 +4,16 @@ All scripts here manage the `brain/ai-brain/` content directory. Use them from t
 
 ---
 
+## Three Tiers — Quick Routing Guide
+
+| Question | Tier | Command |
+|---|---|---|
+| Raw paste, not ready | `inbox/` | just drop the file there |
+| Your writing (you authored it) | `notes/` | `brain new --tier notes` or `brain move ... --tier notes` |
+| External source (you imported it) | `library/` | `brain publish` (with project, tags, commit) |
+
+---
+
 ## Main Dispatcher
 
 Everything goes through one entry point:
@@ -20,23 +30,23 @@ Everything goes through one entry point:
 
 | Command | Description |
 |---------|-------------|
-| `new`   | Create a new note with frontmatter template |
-| `publish` | Promote to `archive/` with project+date hierarchy, tag prompting, git commit |
+| `new`   | Create a new note with frontmatter template (defaults to `inbox/`) |
+| `publish` | Promote inbox file to `library/` with project+date hierarchy, tag prompting, git commit |
 | `move`    | Move between tiers without the full publish workflow |
-| `search` | Search by frontmatter or full text |
+| `search` | Search by frontmatter or full text across any/all tiers |
 | `list`  | List notes with frontmatter summary |
 | `clear` | Clear files from `inbox/` |
-| `status` | Show tier summary (counts, recent files, staged) |
+| `status` | Show tier summary (counts, recent files, git tracking) |
 | `help`  | Show full help |
 
 ### Options
 
 | Option | Description |
 |--------|-------------|
-| `--tier inbox\|notes\|archive` | Which tier |
-| `--project <name>` | Project bucket (e.g. `mcp-servers`, `java`) |
+| `--tier inbox\|notes\|library` | Which tier to target |
+| `--project <name>` | Project bucket (e.g. `mcp-servers`, `ghcp-knowledge-sharing`) |
 | `--title <title>` | Note title (for `new`) |
-| `--kind <kind>` | `note\|decision\|session\|resource\|snippet\|ref` |
+| `--kind <kind>` | `note\|decision\|session\|ref\|resource\|snippet` |
 | `--tag <tag>` | Tag filter (for `search`/`list`) |
 | `--date <YYYY-MM>` | Date filter (for `search`/`list`) |
 | `--status <status>` | `draft\|final\|archived` |
@@ -49,27 +59,27 @@ Everything goes through one entry point:
 ## Quick Examples
 
 ```powershell
-# Create a new inbox note interactively
+# Create a new note in notes/ (your writing)
+.\brain\ai-brain\scripts\brain.ps1 new --tier notes --project mcp-servers --title "Auth design decision"
+
+# Create in inbox (raw capture, figure out tier later)
 .\brain\ai-brain\scripts\brain.ps1 new
 
-# Create in notes tier for a specific project, non-interactively
-.\brain\ai-brain\scripts\brain.ps1 new --tier inbox --project mcp-servers --title "SSE transport notes" --kind note
+# Move an inbox file to notes/ (your writing)
+.\brain\ai-brain\scripts\brain.ps1 move brain\ai-brain\inbox\draft.md --tier notes
+
+# Publish an inbox file to library/ (external source — interactive: project, tags, commit)
+.\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\inbox\GHCP_Agents_Guide.md
+.\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\inbox\GHCP_Agents_Guide.md --project ghcp-knowledge-sharing --commit
 
 # Search across all tiers
 .\brain\ai-brain\scripts\brain.ps1 search java
 .\brain\ai-brain\scripts\brain.ps1 search --tag generics --project java
-.\brain\ai-brain\scripts\brain.ps1 search --kind decision --tier archive
-
-# Publish a note to the repo (interactive: prompts for project, confirms tags, commits)
-.\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\inbox\2026-02-21_draft.md
-.\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\inbox\2026-02-21_draft.md --project mcp-servers --commit
-
-# Move between tiers
-.\brain\ai-brain\scripts\brain.ps1 move brain\ai-brain\inbox\draft.md --tier notes
+.\brain\ai-brain\scripts\brain.ps1 search --kind decision --tier notes
 
 # List notes
-.\brain\ai-brain\scripts\brain.ps1 list
-.\brain\ai-brain\scripts\brain.ps1 list --tier archive --project mcp-servers
+.\brain\ai-brain\scripts\brain.ps1 list --tier notes
+.\brain\ai-brain\scripts\brain.ps1 list --tier library --project ghcp-knowledge-sharing
 
 # Status overview
 .\brain\ai-brain\scripts\brain.ps1 status
@@ -137,10 +147,10 @@ Open the Command Palette → **Tasks: Run Task** → choose a `brain:` task:
 |------------|--------------|
 | `brain: new note` | Interactive new note in inbox/ |
 | `brain: new note (notes tier)` | New note in notes/ |
-| `brain: publish note` | Promote to archive/, tag, commit |
+| `brain: publish note` | Promote to library/, tag, commit |
 | `brain: search notes` | Interactive search |
 | `brain: list notes` | List all notes |
-| `brain: list archive` | List only archive/ notes |
+| `brain: list archive` | List only library/ notes |
 | `brain: status` | Tier summary |
 | `brain: clear inbox (preview)` | Show what would be cleared |
 | `brain: clear inbox (force)` | Delete inbox without prompt |

@@ -56,12 +56,12 @@ A **super-charged VS Code workspace** that combines three things:
 │     DSA, system design, DevOps, Git, design patterns, industry practices,  │
 │     career planning, tech trends 2025–26, and more.                        │
 │                                                                             │
-│  2. AI TUTOR — GitHub Copilot customized with 30 slash commands,           │
-│     7 AI agents, 8 knowledge packs, and project-wide coding rules.         │
+│  2. AI TUTOR — GitHub Copilot customized with 36 slash commands,           │
+│     7 AI agents, 11 knowledge packs, and project-wide coding rules.        │
 │     Ask questions, get lessons, explore concepts, practice code.           │
 │                                                                             │
 │  3. MCP TOOLS — Java servers that give Copilot real-world superpowers:     │
-│     search 47+ curated learning resources, scrape web pages, browse        │
+│     search ~100+ curated learning resources, scrape web pages, browse      │
 │     your Jira/Confluence, query GitHub repos — all from Chat.              │
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -172,7 +172,7 @@ cd mcp-servers && ./build.sh    # Linux/Mac
 1. `Ctrl+Alt+I` or `Ctrl+Shift+I` → opens Copilot Chat
 2. Switch to **Agent** mode (dropdown at top of chat panel)
 3. Type: `/hub`  
-   You should see a list of all 30 slash commands → setup is working.
+   You should see a list of all 36 slash commands → setup is working.
 
 ### Step 10 — Verify MCP Tools Are Available
 
@@ -189,7 +189,7 @@ You should see tools like `search_resources`, `browse_vault`, `discover_resource
 > This is what separates this repo from a simple code editor. Copilot is transformed from a
 > generic assistant into a specialized learning tutor, code reviewer, architect, and debugger.
 
-### 4.1 Slash Commands (30 commands)
+### 4.1 Slash Commands (36 commands)
 
 **How to use:**
 1. Open Copilot Chat (`Ctrl+Alt+I`)
@@ -200,7 +200,7 @@ You should see tools like `search_resources`, `browse_vault`, `discover_resource
 
 | Command | What it does | Example input |
 |---------|-------------|--------------|
-| `/hub` | Browse all 30 commands by category | (no input needed) |
+| `/hub` | Browse all 36 commands by category | (no input needed) |
 | `/learn-concept` | Learn any CS/SE concept from scratch | `binary search`, `TCP handshake`, `dependency injection` |
 | `/deep-dive` | Multi-layered exploration with analogies + code + quiz | `event-driven architecture` |
 | `/learn-from-docs` | Learn via official documentation links | `React hooks`, `Spring Boot` |
@@ -228,7 +228,7 @@ You should see tools like `search_resources`, `browse_vault`, `discover_resource
 | `/multi-session` | Save/resume state across chat sessions | |
 | `/daily-assist` | Finance, productivity, news, research | `analyze my spending`, `summarize tech news` |
 | `/brain-new` | Create a knowledge note | `key insights from today's DSA session` |
-| `/brain-publish` | Publish a note to archive with git commit | |
+| `/brain-publish` | Publish a note to library with git commit | |
 | `/brain-search` | Search across all note tiers | `binary tree traversal` |
 
 **Pro tips:**
@@ -523,7 +523,7 @@ Open `.vscode/launch.json` — select from:
 
 > The first built-in MCP server. No credentials needed. Works out of the box after build.
 
-Built-in: **47+ curated learning resources** across Java, Web, DevOps, Cloud, AI/ML, System Design, and more.
+Built-in: **~100+ curated learning resources** across Java, Web, DevOps, Cloud, AI/ML, System Design, and more.
 
 **Available tools — ask Copilot to use them:**
 
@@ -743,7 +743,7 @@ User query
 │ TypeScorer:        resource type weight                                     │
 │ DifficultyScorer:  proximity to requested level                            │
 │ RecencyScorer:     newer resources get slight boost                        │
-│ ConceptScorer:     ConceptArea overlap (33 concepts across 8 domains)      │
+│ ConceptScorer:     ConceptArea overlap (36 concepts across 8 domains)      │
 │ LanguageScorer:    language applicability match                            │
 │ PopularityScorer:  based on vault usage / add count                        │
 └─────────────────────────────────┬───────────────────────────────────────────┘
@@ -826,33 +826,42 @@ public class LanguageFilter<T extends LearningResource> implements SearchFilter<
 
 ## 7. Brain Workspace — Personal Knowledge System
 
-> Your personal note-taking system. Three tiers: inbox → notes → archive.
+> Your personal knowledge system. Three tiers — inbox is gitignored, notes and library are committed.
 
 ```
 brain/ai-brain/
-├── inbox/    ← Draft notes (rough ideas, quick captures)
-├── notes/    ← Active knowledge (refined, searchable)
-└── archive/  ← Published, tagged reference material
+├── inbox/    ← Draft notes  [GITIGNORED — session-scoped, cleared when done]
+├── notes/    ← Curated knowledge notes  [TRACKED — committed to repo]
+└── library/  ← Permanent reference library  [TRACKED — project-organized, full frontmatter]
 ```
+
+**Three-tier summary:**
+
+| Tier | Git-tracked? | When to use |
+|---|---|---|
+| `inbox/` | ❌ | Raw capture — rough ideas, mid-session reasoning, throw-away |
+| `notes/` | ✅ | Reviewed insights worth keeping — committed for sharing |
+| `library/` | ✅ | Formally published: full frontmatter (kind, project, tags, status) |
 
 **Via Copilot Chat:**
 
 | Command | What it does |
 |---------|-------------|
 | `/brain-new` | Create a new note. Prompts for topic → creates `YYYY-MM-DD_topic.md` in inbox or notes |
-| `/brain-publish` | Move a note from inbox/notes → archive, add tags, commit to git |
+| `/brain-publish` | Move a note from inbox/notes → library, add tags, commit to git |
 | `/brain-search` | Full-text search across all tiers |
+| `/brain-capture-session` | Convert current AI session into a structured session note |
 
 **Via VS Code Tasks** (`Terminal → Run Task`):
 
 | Task | Does |
 |------|------|
 | `brain: new note` | Interactive note creation |
-| `brain: new note (notes tier)` | Skip inbox, go direct to notes |
-| `brain: publish note` | Promote and commit |
+| `brain: new note (notes tier)` | Skip inbox, go direct to notes/ (committed) |
+| `brain: publish note` | Promote to library + git commit |
 | `brain: search notes` | Search by keyword |
 | `brain: list notes` | List all notes |
-| `brain: list archive` | List archived notes |
+| `brain: list archive` | List library notes |
 | `brain: status` | Count notes per tier |
 | `brain: clear inbox (preview)` | Preview what clear would do |
 | `brain: clear inbox (force)` | Clear all inbox notes (destructive!) |
@@ -861,8 +870,8 @@ brain/ai-brain/
 **Via terminal:**
 ```powershell
 .\brain\ai-brain\scripts\brain.ps1 new
-.\brain\ai-brain\scripts\brain.ps1 new --tier notes
-.\brain\ai-brain\scripts\brain.ps1 publish
+.\brain\ai-brain\scripts\brain.ps1 new --tier notes          # goes into committed notes/
+.\brain\ai-brain\scripts\brain.ps1 publish                   # promote inbox/notes → library
 .\brain\ai-brain\scripts\brain.ps1 search "binary tree"
 .\brain\ai-brain\scripts\brain.ps1 list
 .\brain\ai-brain\scripts\brain.ps1 status
@@ -873,10 +882,33 @@ brain/ai-brain/
 ```
 
 **The learning workflow:**
-1. Learn a concept via `/learn-concept` or `/dsa`
-2. Capture key insights with `/brain-new`
-3. Refine the note with Copilot's help (open the file → `/teach` or `/explain`)
-4. When solid → `/brain-publish` → note moves to archive with git commit
+
+```
+🟢 NEWBIE — Quick capture
+1. Learn a concept via /learn-concept or /dsa
+2. Drop raw notes in inbox/: /brain-new → target: inbox
+3. Clear inbox at session end when done
+
+🟡 AMATEUR — Refined knowledge
+1. Review your inbox note after the session
+2. Move to notes/ (committed): brain move file.md --tier notes
+3. Or create directly: /brain-new → target: notes (committed immediately)
+4. Notes are searchable, team-accessible via git
+
+🔴 PRO — Formal reference
+1. Start from a notes/ file (or inbox)
+2. /brain-publish → add project, kind, tags, status frontmatter
+3. Note moves to library/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md
+4. git add + git commit happens automatically
+```
+
+**Existing notes:**
+
+| Note | Topic | Tier |
+|---|---|---|
+| [`2026-02-21_session-mcp-server-fixes-and-restructure.md`](brain/ai-brain/notes/2026-02-21_session-mcp-server-fixes-and-restructure.md) | MCP server bug fix + config restructure | notes/ (committed) |
+| [`2026-03-06_ghcp-knowledge-sharing-distilled.md`](brain/ai-brain/notes/2026-03-06_ghcp-knowledge-sharing-distilled.md) | GHCP customization KS — 3-tier distilled insights | notes/ (committed) |
+| [`library/ghcp-knowledge-sharing/2026-03/`](brain/ai-brain/library/ghcp-knowledge-sharing/2026-03/) | Source reference for GHCP KS session (original slides + presenter notes) | library/ (committed) |
 
 ---
 
@@ -1104,10 +1136,10 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 |------|-------------|
 | `brain: new note` | Create a new knowledge note |
 | `brain: new note (notes tier)` | Create directly in notes/ |
-| `brain: publish note` | Promote note → archive + git commit |
+| `brain: publish note` | Promote note → library + git commit |
 | `brain: search notes` | Full-text search |
 | `brain: list notes` | List all active notes |
-| `brain: list archive` | List archived notes |
+| `brain: list archive` | List library notes |
 | `brain: status` | Count notes per tier |
 | `brain: clear inbox (preview)` | Preview what clear would do |
 | `brain: clear inbox (force)` | Clear all inbox notes (irreversible) |
@@ -1125,7 +1157,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `instructions/clean-code.instructions.md` | Clean code rules — applied to all files |
 | `instructions/build.instructions.md` | Build tool conventions — applied to `*.gradle` |
 | `agents/*.agent.md` | 7 AI personas (select from Chat dropdown) |
-| `prompts/*.prompt.md` | 30 slash commands (type `/command` in Chat) |
+| `prompts/*.prompt.md` | 36 slash commands (type `/command` in Chat) |
 | `skills/*/SKILL.md` | Knowledge packs (auto-load by topic match) |
 
 ### MCP Server Files
@@ -1161,7 +1193,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `.github/docs/phase-guide.md` | Step-by-step phases 0–7 |
 | `.github/docs/getting-started.md` | 30-min hands-on tutorial |
 | `.github/docs/mcp-server-setup.md` | MCP server setup (complete) |
-| `.github/docs/slash-commands.md` | All 30 commands reference |
+| `.github/docs/slash-commands.md` | All 36 commands reference |
 | `.github/docs/customization-guide.md` | How the 5 Copilot primitives connect |
 | `.github/docs/export-guide.md` | Copy to another project |
 | `.github/docs/copilot-workflow.md` | Chat patterns and best practices |
@@ -1300,7 +1332,7 @@ See [`.github/docs/export-guide.md`](.github/docs/export-guide.md) for a detaile
 COPILOT CHAT SHORTCUTS
 ──────────────────────
 Ctrl+Alt+I or Ctrl+Shift+I   Open Copilot Chat
-/hub                          Browse all 30 commands
+/hub                          Browse all 36 commands
 /learn-concept <topic>        Learn anything from scratch
 /dsa <structure/algorithm>    Deep DSA lesson
 /system-design <system>       Design a system
@@ -1326,7 +1358,7 @@ mcp-servers: validate         Check config + environment
 BRAIN TASKS
 ───────────
 brain: new note               Create a draft note
-brain: publish note           Promote to archive
+brain: publish note           Promote to library
 brain: search notes           Full-text search
 brain: status                 Note counts per tier
 

@@ -52,7 +52,7 @@ This repo ships with **two built-in Java MCP servers** and supports **two commun
 
 | Server | What Copilot Can Do With It | Credentials Needed? |
 |---|---|---|
-| **Learning Resources** | Search 47+ curated docs/tutorials, scrape web pages, summarize content, export resource lists | None — works out of the box |
+| **Learning Resources** | Search ~100+ curated docs/tutorials, scrape web pages, summarize content, export resource lists | None — works out of the box |
 | **Atlassian** | Search Jira issues, create/update Confluence pages, list Bitbucket PRs, unified search across all 3 products (27 tools total) | Yes — Atlassian email + API token |
 | **GitHub** (community) | Search repos, read files, list issues, manage PRs, search code | Yes — GitHub Personal Access Token |
 | **Filesystem** (community) | Read/write files in your project folder | None |

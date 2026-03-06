@@ -91,22 +91,24 @@ Written in Markdown. Can be as detailed as needed.
 
 ### Available Tools
 
-| Tool Name | What It Does |
-|---|---|
-| `search` | Search through workspace files |
-| `codebase` | Understand code structure and relationships |
-| `editFiles` | Create / edit / delete files |
-| `terminal` | Run commands in terminal |
-| `fetch` | Fetch web pages |
-| `githubRepo` | Search GitHub repositories |
-| `usages` | Find references / usages of symbols |
-| `problems` | Read compile / lint errors |
-| `debugger` | Interact with the VS Code debugger |
-| `findTestFiles` | Locate test files for given source files |
-| `terminalLastCommand` | Get the last command run in the active terminal |
-| `terminalSelection` | Get the current selection in the active terminal |
-| `testFailure` | Access test failure information |
-| `runCommand` | Run a VS Code command programmatically |
+Available tools evolve as VS Code and Copilot are updated. Full list as of March 2026:
+
+| Tool Name | What It Does | Added |
+|---|---|---|
+| `search` | Search through workspace files | Original |
+| `codebase` | Understand code structure and relationships | Original |
+| `editFiles` | Create / edit / delete files | Original |
+| `terminal` | Run commands in terminal | Original |
+| `fetch` | Fetch web pages | Original |
+| `githubRepo` | Search GitHub repositories | Original |
+| `usages` | Find references / usages of symbols | Original |
+| `problems` | Read compile / lint errors | Original |
+| `debugger` | Interact with the VS Code debugger | Original |
+| `findTestFiles` | Locate test files for given source files | 2025 |
+| `terminalLastCommand` | Get the last command run in the active terminal | 2025 |
+| `terminalSelection` | Get the current selection in the active terminal | 2025 |
+| `testFailure` | Access test failure information | 2025 |
+| `runCommand` | Run a VS Code command programmatically | 2025 |
 
 > **Tip:** Omitting `tools` gives the agent access to **all** tools. Listing specific tools **restricts** it.
 
@@ -238,14 +240,31 @@ You are a patient, encouraging Java programming tutor.
 
 ## 📂 How to Create an Agent
 
-### Option A — VS Code Command (Recommended)
+### Option A — `/create-agent` Slash Command (New — March 2026 Preview)
+
+> **VS Code built-in wizard:** GitHub Copilot Chat now includes a native `/create-agent` command.
+
+1. Open Copilot Chat (`Ctrl+Shift+I`)
+2. Type `/create-agent` in the input box
+3. Follow the interactive wizard: enter a name, description, choose tools
+4. The wizard generates the `.github/agents/<name>.agent.md` file automatically
+
+Or use the richer guided version in this repo:
+```
+/create-agent → agentName → purpose → tools → depth
+```
+File: `.github/prompts/create-agent.prompt.md`
+
+See [copilot-mcp-preview.md](../docs/copilot-mcp-preview.md) for the full `/create-agent` feature details.
+
+### Option B — VS Code Command Palette
 
 1. Press `Ctrl+Shift+P`
 2. Type: **Chat: New Custom Agent**
 3. Choose **Workspace** (saves to `.github/agents/`)
 4. Enter a filename → VS Code generates a template → edit it
 
-### Option B — Manual
+### Option C — Manual
 
 1. Create file: `.github/agents/<name>.agent.md`
 2. Add frontmatter between `---` markers

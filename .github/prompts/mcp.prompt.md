@@ -7,10 +7,10 @@ tools: ['codebase', 'fetch']
 ---
 
 ## Topic
-${input:topic:What MCP topic? (overview / build-server / configure-agent / types-of-mcp / api-integration / agent-patterns / protocol-spec / troubleshoot / real-world-examples)}
+${input:topic:What MCP topic? (overview / build-server / configure-agent / types-of-mcp / api-integration / agent-patterns / protocol-spec / troubleshoot / real-world-examples / open-preview / streamable-http / github-mcp-server / tool-annotations / create-agent)}
 
 ## Goal
-${input:goal:What's your goal? (learn-concept / build-my-own-mcp / configure-vscode / agent-architecture / compare-approaches / interview-prep)}
+${input:goal:What's your goal? (learn-concept / build-my-own-mcp / configure-vscode / agent-architecture / compare-approaches / interview-prep / agent-mode / create-agent-file)}
 
 ## Current Level
 ${input:level:Your experience level? (beginner / know-the-basics / intermediate / advanced)}
@@ -1067,6 +1067,199 @@ Key rules:
 - Use `/devops` for CI/CD, Docker, and deployment topics related to MCP hosting
 - Use `/tech-stack` to compare MCP with other tool-integration approaches
 - Use `/hub trends` for AI coding assistants and agentic AI trends
+
+### Open Preview Topics (March 2026)
+
+When `topic` is **open-preview**, summarize what's new and link to the full changelog:
+
+> See `.github/docs/copilot-mcp-preview.md` for the complete changelog.
+
+**What changed in Copilot MCP Open Preview (March 2026):**
+
+| Feature | What Changed |
+|---|---|
+| **MCP availability** | Open preview — no waitlist, enable via VS Code settings |
+| **Protocol version** | `2025-03-26` replaces `2024-11-05` |
+| **Config key** | `servers` replaces `mcpServers` in `.vscode/mcp.json` |
+| **Transport** | Streamable HTTP replaces SSE for remote servers |
+| **GitHub MCP server** | Official `@modelcontextprotocol/server-github` available |
+| **`/create-agent`** | Built-in VS Code wizard for scaffolding `.agent.md` files |
+| **Model selection** | `model:` field in `.agent.md` frontmatter |
+| **Tool annotations** | `readOnlyHint`, `destructiveHint`, `idempotentHint` |
+| **New agent tools** | `findTestFiles`, `terminalLastCommand`, `terminalSelection`, `testFailure`, `runCommand` |
+
+**To enable MCP in VS Code:**
+```
+1. Open VS Code Settings (Ctrl+,)
+2. Search: "chat.mcp.enabled"
+3. Set to true
+4. Reload VS Code
+```
+
+---
+
+When `topic` is **streamable-http**:
+
+**Streamable HTTP** is the new recommended transport for remote/production MCP servers.
+It replaces SSE (Server-Sent Events) with a simpler, single POST endpoint.
+
+```
+OLD (SSE):                               NEW (Streamable HTTP):
+Client → POST /message                   Client → POST /mcp
+Client ← GET /sse (event stream)         Server ← (streaming response, may return multiple chunks)
+```
+
+**VS Code config:**
+```jsonc
+{
+  "servers": {
+    "remote-server": {
+      "type": "http",
+      "url": "https://mcp.example.com/mcp",
+      "headers": { "Authorization": "Bearer ${input:token}" }
+    }
+  }
+}
+```
+
+**TypeScript server with Streamable HTTP:**
+```typescript
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import express from "express";
+
+const app = express();
+app.use(express.json());
+
+const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
+await server.connect(transport);
+
+app.post("/mcp", async (req, res) => {
+  await transport.handleRequest(req, res, req.body);
+});
+
+app.listen(3001);
+```
+
+---
+
+When `topic` is **github-mcp-server**:
+
+**The official GitHub MCP server** gives any MCP-compatible AI client direct access to GitHub APIs.
+
+**Capabilities:**
+- Search/read repositories, files, and code
+- List, create, update issues and pull requests
+- View GitHub Actions workflow runs
+- Manage branches, commits, and releases
+- Review code, add comments
+
+**Setup in `.vscode/mcp.json`:**
+```jsonc
+{
+  "inputs": [
+    { "id": "githubToken", "type": "promptString", "description": "GitHub PAT (needs repo, read:org scopes)", "password": true }
+  ],
+  "servers": {
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": { "GITHUB_TOKEN": "${input:githubToken}" }
+    }
+  }
+}
+```
+
+**Example prompts after connecting:**
+- *"List all open PRs in this repo that need my review"*
+- *"Find all issues labeled 'bug' and summarize them"*
+- *"What files changed in the last 3 commits on main?"*
+
+---
+
+When `topic` is **tool-annotations**:
+
+Tool annotations (protocol v`2025-03-26`) let your server declare the **safety profile** of each tool.
+Clients use these hints to decide whether to auto-approve, warn, or require confirmation.
+
+| Annotation | Meaning | When true, client may… |
+|---|---|---|
+| `readOnlyHint` | No side effects | Auto-approve without asking user |
+| `destructiveHint` | May delete/overwrite | Show a warning before running |
+| `idempotentHint` | Calling twice = calling once | Allow retry without warning |
+| `openWorldHint` | Touches external systems | Inform user of external interaction |
+
+```typescript
+server.tool(
+  "read_file",
+  "Read a file's contents",
+  { path: z.string() },
+  { readOnlyHint: true, idempotentHint: true },   // ← annotations object
+  async ({ path }) => { /* ... */ }
+);
+
+server.tool(
+  "delete_file",
+  "Permanently delete a file",
+  { path: z.string() },
+  { destructiveHint: true },                        // ← client will warn user
+  async ({ path }) => { /* ... */ }
+);
+```
+
+---
+
+When `topic` is **create-agent** or `goal` is **create-agent-file**:
+
+**Two ways to create a Copilot agent:**
+
+**Option A — Built-in VS Code wizard (`/create-agent`):**
+1. Open Copilot Chat (Ctrl+Shift+I)
+2. Type `/create-agent`
+3. Answer 4 questions: name, purpose, key responsibilities, tool restrictions
+4. VS Code generates `.github/agents/<name>.agent.md` automatically
+
+**Option B — Manual:**
+Create `.github/agents/<name>.agent.md`:
+```yaml
+---
+name: <display-name>
+description: <one-line description of when this agent activates>
+model: gpt-4o                # optional — pin to specific model
+tools:                       # restrict which tools the agent can use
+  - codebase
+  - editFiles
+  - runCommands
+---
+
+# <Agent Name>
+
+<Instructions in plain English — tell the agent what it is, how it should think,
+what it should always / never do, and what output format to use.>
+```
+
+See `.github/docs/copilot-mcp-preview.md` for the full agent mode reference.
+
+---
+
+When `goal` is **agent-mode**:
+
+**Copilot Agent Mode** lets GitHub Copilot autonomously plan and execute multi-step tasks
+using tools — file edits, terminal commands, test runs, web searches.
+
+**Enable it:**
+1. VS Code Settings → search `"github.copilot.chat.agent.enabled"` → set `true`
+2. Switch chat mode: Copilot Chat dropdown → **"Agent"**
+
+**How it differs from Ask mode:**
+
+| | Ask Mode | Agent Mode |
+|---|---|---|
+| **Edits files** | Suggests only | Directly edits |
+| **Runs commands** | Never | Yes (with approval) |
+| **Multi-step** | Single Q&A | Plans and loops |
+| **MCP tools** | Read-only | Full tool use |
+| **Best for** | Questions, explanations | Complex tasks, refactors |
 
 ### Rules
 - Always provide WORKING code examples — never pseudocode for build-server topic

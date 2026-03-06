@@ -224,10 +224,10 @@ This learning project includes working samples of each primitive, organized into
 | `/daily-assist` | [`daily-assist.prompt.md`](prompts/daily-assist.prompt.md) | Finance, productivity, news, daily life tasks |
 | `/career-roles` | [`career-roles.prompt.md`](prompts/career-roles.prompt.md) | Job roles, skills, pay ranges, career roadmaps |
 | `/multi-session` | [`multi-session.prompt.md`](prompts/multi-session.prompt.md) | Manage state across multiple chat sessions |
-| `/resources` | [`resources.prompt.md`](prompts/resources.prompt.md) | Search, browse, discover & export 47+ curated learning resources |
+| `/resources` | [`resources.prompt.md`](prompts/resources.prompt.md) | Search, browse, discover & export ~100+ curated learning resources |
 | `/mcp` | [`mcp.prompt.md`](prompts/mcp.prompt.md) | Learn & build MCP servers, configure agents, protocol deep-dive |
 | `/brain-new` | [`brain-new.prompt.md`](prompts/brain-new.prompt.md) | Create a knowledge note in inbox/ or notes/ tier |
-| `/brain-publish` | [`brain-publish.prompt.md`](prompts/brain-publish.prompt.md) | Publish a note to archive/ with tagging and git commit |
+| `/brain-publish` | [`brain-publish.prompt.md`](prompts/brain-publish.prompt.md) | Publish a note to library/ with tagging and git commit |
 | `/brain-search` | [`brain-search.prompt.md`](prompts/brain-search.prompt.md) | Search notes by tag, project, kind, date, or full text |
 
 > 📖 **Deep dive:** [Prompts Guide →](prompts/README.md)
@@ -376,7 +376,7 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 ├─── Reference
 │    ├── docs/file-reference.md ·········· Who reads what (🤖 Copilot vs 👤 developer)
 │    ├── docs/navigation-index.md ········ Master index: all commands, files, workflows
-│    └── docs/slash-commands.md ········· All 30 slash commands: aliases, inputs, composition
+│    └── docs/slash-commands.md ········· All 36 slash commands: aliases, inputs, composition
 │
 └─── Tutorials, Deep Dives & Workflows
      ├── docs/getting-started.md ········· Hands-on: verify setup, try each primitive
@@ -397,7 +397,7 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 | [Customization Guide →](docs/customization-guide.md) | Architecture, how primitives connect, extending | 🟡🔴 | ~20 min |
 | [File Reference →](docs/file-reference.md) | Which files Copilot reads vs. developer docs | 🟡🔴 | ~5 min |
 | [Navigation Index →](docs/navigation-index.md) | Master lookup: all commands, agents, skills, file map | 🔴 | ~5 min |
-| [Slash Commands →](docs/slash-commands.md) | All 30 commands: details, aliases, inputs, composition | 🔴 | ~5 min |
+| [Slash Commands →](docs/slash-commands.md) | All 36 commands: details, aliases, inputs, composition | 🔴 | ~5 min |
 | [Instructions Guide →](instructions/README.md) | Glob patterns, conditional rules, examples | 🟡🔴 | ~15 min |
 | [Agents Guide →](agents/README.md) | Custom personas, tools, handoffs, examples | 🟡🔴 | ~15 min |
 | [Prompts Guide →](prompts/README.md) | Slash commands, variables, meta-prompts | 🟡🔴 | ~15 min |
