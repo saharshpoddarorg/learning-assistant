@@ -114,6 +114,9 @@
 | `digital-notetaking` | PKM, PARA, Obsidian, Notion, Logseq, Zettelkasten, second brain, note-taking | Tool comparison, note templates (ADR, sprint log, snippet), migration guides, JDK commands |
 | `mac-dev` | Homebrew, JDK on Mac, nvm, Docker Desktop, zsh, dotfiles | macOS dev environment cheatsheets — install, configure, automate |
 | `brain-management` | brain/ai-brain/ naming conventions, tier routing, frontmatter schema, timestamping, PKM standards | Naming rules, frontmatter schema, kind values, 3-tier routing, anti-patterns |
+| `deep-research` | Investigation, research, spike stories, RCA, trade-off analysis, technology evaluation | 5-step investigation loop, hypothesis-driven framework, ADR template, evaluation rubric |
+| `requirements-research` | Requirements gathering, user stories, BDD/Gherkin, acceptance criteria, stakeholder analysis | INVEST, MoSCoW/RICE, elicitation techniques, DoR/DoD, domain modelling |
+| `software-development-roles` | PO, Developer, QA/Tester role workflows and responsibilities | Three amigos, shift-left, backlog lifecycle, code review checklist, test pyramid |
 
 ---
 
@@ -208,7 +211,10 @@
 │   ├── digital-notetaking/SKILL.md  🤖 PKM methods, tool cheatsheets, note templates, JDK commands
 │   ├── mac-dev/SKILL.md             🤖 Homebrew, JDK, npm, Docker, shell, dotfiles cheatsheets
 │   ├── brain-management/SKILL.md     🤖 brain/ai-brain/ naming, tier routing, frontmatter, PKM standards
-│   └── mcp-development/SKILL.md     🤖 MCP protocol & server development (1,980 lines)
+│   ├── mcp-development/SKILL.md     🤖 MCP protocol & server development (1,980 lines)
+│   ├── deep-research/SKILL.md       🤖 Investigation & analysis methodology (3-tier: hypothesis-driven, RCA, evaluation rubric)
+│   ├── requirements-research/SKILL.md  🤖 Requirements gathering, user stories, BDD, INVEST, MoSCoW, DoR/DoD
+│   └── software-development-roles/SKILL.md  🤖 PO / Developer / QA role workflows, three amigos, shift-left
 │
 └── docs/
     ├── getting-started.md           👤 Hands-on tutorial
@@ -227,6 +233,8 @@
     ├── search-engine.md             👤 Search engine developer guide (🟢 Newbie / 🟡 Amateur / 🔴 Pro)
     ├── search-engine-algorithms.md  👤 BM25, TextMatchScorer, FuzzyMatcher, QueryClassifier deep-dive
     ├── mcp-vs-skills.md             👤 MCP vs Skill decision guide + 6-step migration playbook
+    ├── mcp-server-dev-guide.md      👤 MCP server development 3-tier guide — add tools, Java pattern, TypeScript, security, testing
+    ├── skills-library.md            👤 Skills library taxonomy, creation guide, naming conventions, roadmap
     ├── copilot-internals.md         👤 Context window, loading order, todo processing (3-tier), session continuity
     └── prompt-composition.md        👤 Prompt chaining patterns + 6 workflow recipes
 
@@ -246,6 +254,7 @@ brain/
 │
 ├── ai-brain/
 │   ├── README.md                    👤 Live workspace guide — 3 tiers, scripts, frontmatter schema
+│   ├── pkm-philosophy.md            👤 WHY this structure — maps to PARA/CODE/GTD/Zettelkasten, design decisions log
 │   ├── inbox/                       🔒 Gitignored — quick capture (drop anything here)
 │   ├── notes/                       ✅ Git-tracked — your writing: insights, session logs, decisions
 │   ├── library/                     ✅ Git-tracked — imported sources: slide decks, reference docs, external material

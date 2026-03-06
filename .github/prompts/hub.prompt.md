@@ -162,6 +162,16 @@ You are the **navigation hub** for all available assistants and learning command
 │    │       ├── messaging ·········· Kafka, RabbitMQ, Redis Pub/Sub
 │    │       └── compare ··········· Side-by-side framework comparison
 │    │
+│    ├── Software Development Practice (/hub sd)
+│    │   ├── skills/requirements-research ··· Requirements gathering, user stories, BDD,
+│    │   │                                    elicitation techniques, MoSCoW, RICE, NFRs
+│    │   └── skills/software-development-roles · PO / Developer / QA role workflows,
+│    │                                            Three Amigos, shift-left testing
+│    │
+│    ├── Research & Investigation (/hub research)
+│    │   └── skills/deep-research ············ Spikes, RCA, technology evaluation,
+│    │                                          HDF framework, ADR templates, trade-off scoring
+│    │
 │    ├── SDLC & Methodologies (/hub sdlc)
 │    │   └── /sdlc ·················· Software Development Lifecycle
 │    │       ├── phases ············· Requirements → Design → Dev → Test → Deploy → Maintain
