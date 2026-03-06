@@ -46,12 +46,14 @@ Violations:
 
 Required fields:
 ```yaml
+
 date: YYYY-MM-DD         # ISO 8601 — when note content applies to
 kind: note               # note | decision | session | resource | snippet | ref
 project: general         # lowercase-hyphens project bucket
 tags: [tag1, tag2]       # 3–7 tags, lowercase, hyphens
 status: draft            # draft | final | archived
 source: manual           # copilot | manual | imported
+
 ```
 
 Violations:
@@ -83,9 +85,11 @@ Standards (Conventional Commits + brain prefix):
 
 Examples of compliant subjects:
 ```
+
 brain: archive GHCP KS session to library/ghcp-knowledge-sharing
 brain: note 2026-03-06 MCP transport decision [kind: decision]
 brain: update 2026-02-21 session note — add missing frontmatter
+
 ```
 
 #### `pkm` — Personal knowledge management best practices
@@ -149,6 +153,7 @@ Determine applicable domains from the target:
 Produce a compliance report in this exact structure:
 
 ```markdown
+
 ## Standards Check Report — <target>
 
 **Domain checked:** <domain>
@@ -183,6 +188,7 @@ Produce a compliance report in this exact structure:
 1. <highest priority fix>
 2. <second priority>
 3. <optional improvements>
+
 ```
 
 ---

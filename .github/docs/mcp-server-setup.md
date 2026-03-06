@@ -1,6 +1,6 @@
 # MCP Server Setup Guide — Complete Beginner's Walkthrough
 
-> **Who this is for:** Anyone — you don't need to know what MCP is, how AI works,  
+> **Who this is for:** Anyone — you don't need to know what MCP is, how AI works,
 > or have any prior setup experience. Follow the steps in order and you'll be done in ~10 minutes.
 
 ---
@@ -68,9 +68,11 @@ You need two things before any MCP server will work.
 The Learning Resources and Atlassian servers are written in Java. You need JDK 21 or newer.
 
 **Check if you already have it:**
+
 ```powershell
 java -version
 ```
+
 If you see `21` or higher → you're good. Skip to step 3b.
 
 **Install if missing:**
@@ -87,10 +89,12 @@ If you see `21` or higher → you're good. Skip to step 3b.
 Only needed if you want the GitHub or Filesystem community servers.
 
 **Check if you already have it:**
+
 ```powershell
 node --version
 npm --version
 ```
+
 If both show version numbers → you're good.
 
 **Install if missing:**
@@ -110,11 +114,13 @@ The MCP servers are pre-written but need to be compiled into runnable code first
 **In VS Code:** Press `Ctrl+Shift+B` → select **"mcp-servers: build"**
 
 Or in a terminal:
+
 ```powershell
 # Windows PowerShell
 cd mcp-servers
 .\build.ps1
 ```
+
 ```bash
 # macOS / Linux
 cd mcp-servers
@@ -122,6 +128,7 @@ cd mcp-servers
 ```
 
 You should see output ending with:
+
 ```
 BUILD SUCCESS -- compiled 150 files
 ```
@@ -139,6 +146,7 @@ The local config is where you store your secrets (API keys, passwords). It's git
 Copy-Item mcp-servers\user-config\mcp-config.local.example.properties `
           mcp-servers\user-config\mcp-config.local.properties
 ```
+
 ```bash
 # macOS / Linux
 cp mcp-servers/user-config/mcp-config.local.example.properties \
@@ -170,11 +178,13 @@ Works immediately after building. No credentials required.
 4. **Copy the token immediately** — you can't see it again after closing the dialog
 
 **Step 2 — Create the Atlassian local config:**
+
 ```powershell
 # Windows PowerShell
 Copy-Item mcp-servers\user-config\servers\atlassian\atlassian-config.local.example.properties `
           mcp-servers\user-config\servers\atlassian\atlassian-config.local.properties
 ```
+
 ```bash
 # macOS / Linux
 cp mcp-servers/user-config/servers/atlassian/atlassian-config.local.example.properties \
@@ -241,10 +251,13 @@ No credentials needed. It just needs to be enabled in `mcp.json` (see §6).
 ## 6. Enable Servers in VS Code
 
 Open `.vscode/mcp.json`. For each server you've configured, change:
+
 ```json
 "disabled": true
 ```
+
 to:
+
 ```json
 "disabled": false
 ```
@@ -315,22 +328,26 @@ Things to create in your target project:
 ### Step-by-Step
 
 **Step 1 — Copy the mcp-servers folder into your target project:**
+
 ```powershell
 # Windows PowerShell
 $target = "C:\path\to\your-project"
 Copy-Item -Recurse mcp-servers "$target\mcp-servers"
 ```
+
 ```bash
 # macOS / Linux
 cp -r mcp-servers /path/to/your-project/mcp-servers
 ```
 
 **Step 2 — Copy the mcp.json example to your target project's .vscode:**
+
 ```powershell
 # Windows PowerShell (run from repo root)
 New-Item -ItemType Directory -Force "$target\.vscode"
 Copy-Item mcp-servers\.vscode\mcp.json.example "$target\.vscode\mcp.json"
 ```
+
 ```bash
 mkdir -p /path/to/your-project/.vscode
 cp mcp-servers/.vscode/mcp.json.example /path/to/your-project/.vscode/mcp.json
@@ -341,12 +358,14 @@ cp mcp-servers/.vscode/mcp.json.example /path/to/your-project/.vscode/mcp.json
 Open `your-project/.vscode/mcp.json`. The `cwd` and classpath values use `${workspaceFolder}/mcp-servers` by default — this assumes `mcp-servers/` is directly inside your project root. If that's where you put it, no changes needed.
 
 If you put it somewhere else (e.g., `tools/mcp-servers`), update both `cwd` and the `-cp` argument:
+
 ```json
 "cwd": "${workspaceFolder}/tools/mcp-servers",
 "args": ["-cp", "out", "server.learningresources.LearningResourcesServer"]
 ```
 
 **Step 4 — Build and configure credentials (same as §4–5):**
+
 ```powershell
 cd $target\mcp-servers
 .\build.ps1
@@ -355,6 +374,7 @@ cd $target\mcp-servers
 Then follow §5 to configure whichever credentials you need.
 
 **Step 5 — Add to your target project's `.gitignore`:**
+
 ```gitignore
 # MCP server secrets
 mcp-servers/user-config/mcp-config.local.properties
@@ -423,10 +443,12 @@ Built-in defaults
 **Fix:**
 1. Install JDK 21+ (see §3a)
 2. If installed but still not found, create `mcp-servers/build.env.local` and set `JAVA_HOME`:
+
    ```
    # Copy from build.env.example, then edit:
    JAVA_HOME=C:\path\to\your\jdk-21
    ```
+
 3. Rerun the build
 
 ### MCP server doesn't appear in Copilot tools panel
@@ -473,11 +495,13 @@ Built-in defaults
 
 1. Check the VS Code Output panel for the exact error
 2. Try running the server manually in a terminal to see the full error:
+
    ```powershell
    # From mcp-servers/
    java -cp out server.learningresources.LearningResourcesServer --list-tools
    java -cp out server.atlassian.AtlassianServer --list-tools
    ```
+
 3. If `out/` is missing — rebuild: `.\build.ps1`
 4. If class not found — use `.\build.ps1 -Clean` to force a full recompile
 

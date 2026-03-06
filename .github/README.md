@@ -1,12 +1,13 @@
 # learning-assistant
 
-> **Purpose:** Learn how to customize GitHub Copilot using all 5 official primitives.  
-> **Project:** `learning-assistant` — a simple Java project for hands-on experimentation.  
+> **Purpose:** Learn how to customize GitHub Copilot using all 5 official primitives.
+> **Project:** `learning-assistant` — a simple Java project for hands-on experimentation.
 > **Audience:** Developers new to Copilot customization who want to learn by doing.
 
 ---
 
 ## 📑 Table of Contents
+
 - [At a Glance](#-at-a-glance)- [Why Customize Copilot?](#why-customize-copilot)
 - [The 5 Official Primitives](#the-5-official-primitives)
 - [Folder Structure](#folder-structure)
@@ -313,6 +314,7 @@ The agents support **handoff buttons** for seamless multi-step workflows:
 ## How These Work Together
 
 ```
+
 You open Main.java and ask a question
 │
 ├── 📋 copilot-instructions.md               ← ALWAYS loaded
@@ -327,6 +329,7 @@ You open Main.java and ask a question
 │
 └── If your question matches a skill:
     └── 🛠️ skills/design-patterns/SKILL.md  ← Knowledge loaded
+
 ```
 
 ---
@@ -361,6 +364,7 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 ## 📚 Documentation Map
 
 ```
+
 📖 YOU ARE HERE
 │
 ├─── Entry Points (read one based on experience: 🟢🟡🔴)
@@ -384,6 +388,7 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
      ├── docs/mcp-server-setup.md ········ MCP from scratch: install, build, secrets, use, copy
      ├── docs/export-guide.md ············ Copy features to another project (portable setup)
      └── docs/copilot-workflow.md ········ Copilot chat patterns, queuing, multi-session
+
 ```
 
 | Guide | What You'll Learn | Audience | Time |

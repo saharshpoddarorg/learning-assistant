@@ -1,7 +1,7 @@
 # 📐 Custom Instructions — Guide
 
-> **What:** Markdown files with coding standards that Copilot auto-loads based on the file you're editing.  
-> **Where:** `.github/instructions/*.instructions.md`  
+> **What:** Markdown files with coding standards that Copilot auto-loads based on the file you're editing.
+> **Where:** `.github/instructions/*.instructions.md`
 > **How to use:** Automatic — Copilot matches the `applyTo` glob pattern to the file you have open.
 
 ---

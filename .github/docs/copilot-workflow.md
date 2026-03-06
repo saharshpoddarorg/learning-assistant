@@ -1,6 +1,6 @@
 # 🔄 Copilot Workflow Guide — Chat Patterns & Instruction Queuing
 
-> **Goal:** Understand how Copilot chat actually works and how to give complex multi-step instructions without losing your progress.  
+> **Goal:** Understand how Copilot chat actually works and how to give complex multi-step instructions without losing your progress.
 > **Covers:** Chat queuing, multi-turn patterns, agent mode vs ask mode, token limits, and best practices per experience level.
 
 ---
@@ -121,6 +121,7 @@ Open [`.github/copilot-instructions.md`](../copilot-instructions.md) and append 
 These are the specific context questions and phrases you embed in your messages to force Copilot to stop and confirm before proceeding to the next item:
 
 #### Gate 1 — Explicit stop marker
+
 ```
 Do TASK A completely.
 — STOP —
@@ -128,12 +129,14 @@ Only AFTER you confirm Task A is done, begin TASK B.
 ```
 
 #### Gate 2 — Required confirmation question
+
 ```
 After completing TASK A, ask me: "Task A is done. Ready for Task B?"
 Wait for my reply before continuing to Task B.
 ```
 
 #### Gate 3 — Numbered checklist with live completion display
+
 ```
 Here are 3 tasks. Do them in order.
 After each one, show the updated checklist with [x] before continuing.
@@ -146,7 +149,9 @@ Do NOT move to the next task until you show me the updated list.
 ```
 
 #### Gate 4 — The HOLD pattern (for new requests added after work started)
+
 When you think of a new request AFTER Copilot has already started or just responded:
+
 ```
 HOLD. Before picking up anything new:
 1. Confirm you fully completed [brief description of the earlier request].
@@ -156,6 +161,7 @@ Once confirmed, I will give you the new task.
 ```
 
 #### Gate 5 — Complete-or-abort checkpoint
+
 ```
 After finishing Task 1:
 - If it is complete → say so explicitly, then move to Task 2.
@@ -166,13 +172,16 @@ Do not silently skip or partially complete anything.
 ### How to Queue a New Request Without Disrupting In-Progress Work
 
 **Wrong way** — interrupts the earlier request:
+
 ```
 [Copilot is mid-response on Task A]
 You: "Also, can you do Task B while you're at it?"
 ```
+
 This risks Copilot mixing both tasks, or abandoning Task A entirely.
 
 **Right way — wait, then send a sequenced follow-up:**
+
 ```
 Step 1: Let Copilot finish its current response completely. Do not type.
 Step 2: Read the response and confirm Task A is done.
@@ -188,6 +197,7 @@ Start Task B only after confirming Task A."
 ```
 
 **Right way — prepend a completion audit question:**
+
 ```
 "Before starting Task B, answer these:
 1. Did you fully complete [specific expected output of Task A]?
@@ -236,15 +246,18 @@ This resets the risk of drift mid-session and gives you a full accountability ch
 **When to use:** Any time you have a multi-step task.
 
 **What NOT to do:**
+
 ```
 Message 1: "Create a UserService class"
 Message 2: "Now add a getById method"
 Message 3: "Also add error handling"
 Message 4: "And write a unit test"
 ```
+
 This loses context as the conversation grows. Each follow-up is less accurate.
 
 **What TO do — front-load all instructions in one message:**
+
 ```
 Please do all of the following:
 
@@ -273,8 +286,9 @@ Do them in order. Confirm each step as you complete it.
 **When to use:** Long sessions where you need to add tasks as you think of them.
 
 **Step 1: Create a task list at the start of the session:**
+
 ```
-We are going to build a complete user management feature. 
+We are going to build a complete user management feature.
 Here is the task list:
 
 - [ ] Task 1: UserService with CRUD methods
@@ -287,6 +301,7 @@ Start with Task 1. When done, mark it [x] and show me the updated list.
 ```
 
 **Step 2: When Copilot finishes Task 1, it will show:**
+
 ```
 - [x] Task 1: UserService with CRUD methods ✓
 - [ ] Task 2: UserRepository interface         ← next
@@ -294,6 +309,7 @@ Start with Task 1. When done, mark it [x] and show me the updated list.
 ```
 
 **Step 3: Add tasks without losing progress — just append:**
+
 ```
 Great. Before starting Task 2, add these to the list:
 - [ ] Task 2b: Add pagination to the list method
@@ -305,6 +321,7 @@ Now continue from Task 2.
 > 🟡 **Why this works:** Copilot can see the task list in the conversation history. As long as you stay in the same chat, it tracks what has been done. New tasks drop into the bottom of the list — nothing gets lost.
 
 **Step 4: Resume a paused session:**
+
 ```
 We we building the user management feature. The task list was:
 [paste the most recent task list from earlier in the conversation]
@@ -324,11 +341,12 @@ Continue from where we left off (Task 3 is next).
 - The chat has grown long and Copilot is losing early context
 
 **Save state (at end of session):**
+
 ```
 /multi-session save
 
 Task: Build RecipeService with CRUD
-Status: 
+Status:
   ✓ RecipeService.java created (src/service/RecipeService.java)
   ✓ Repository interface done
   ✗ Unit tests NOT started
@@ -342,9 +360,11 @@ Blockers: None
 This writes the state to a file (`.github/session-state.md`).
 
 **Reload state (at start of new session):**
+
 ```
 /multi-session restore
 ```
+
 Copilot reads the saved state file and picks up where it left off.
 
 > 🟢 **Newbie:** Think of this like a save point in a video game. You save before closing, load before continuing.
@@ -358,12 +378,14 @@ Copilot reads the saved state file and picks up where it left off.
 **When to use:** Planning tasks before starting, or capturing ideas while Copilot is working.
 
 **Workflow:**
+
 ```
 Step 1: Open brain note for today's session
 /brain-new
 ```
 
 In the note, write your full task list before starting:
+
 ```markdown
 # Session: User Management Feature
 Date: 2026-03-01
@@ -371,7 +393,7 @@ Date: 2026-03-01
 ## Queue
 - [ ] UserService CRUD
 - [ ] Tests
-- [ ] REST controller  
+- [ ] REST controller
 - [ ] API docs
 
 ## Ideas that came up while working
@@ -389,6 +411,7 @@ When Copilot finishes and shows its response — add the new ideas to your next 
 ```
 /brain-search user management
 ```
+
 Finds all notes related to the feature so you can re-load context.
 
 ---
@@ -410,7 +433,7 @@ Finds all notes related to the feature so you can re-load context.
 - **Planning, learning, reviewing?** → Ask mode
 - **Building, fixing, refactoring, building?** → Agent mode
 
-> 🟢 **Newbie safety tip:** Before any agent-mode session that will edit multiple files, run:  
+> 🟢 **Newbie safety tip:** Before any agent-mode session that will edit multiple files, run:
 > ```
 > git status
 > git stash  ← if you have unsaved changes
@@ -453,6 +476,7 @@ Start a new chat after approximately 20 messages for any feature that is still i
 
 **B. The scope-first approach:**
 Every time you start a chat, tell Copilot exactly what files are relevant:
+
 ```
 We are working on UserService. The relevant files are:
 - src/service/UserService.java
@@ -461,25 +485,29 @@ We are working on UserService. The relevant files are:
 
 Ignore all other files unless I specifically reference them.
 ```
+
 This prevents Copilot from "browsing" unrelated files and wasting context budget.
 
 **C. The handoff pattern (Pro):**
 When a long session ends, generate a structured handoff before closing:
+
 ```
 Before I close this session, generate a handoff note in this format:
 
 ## Session Handoff
 **Feature:** [name]
 **Completed:** [list with files changed]
-**In Progress:** [current state]  
+**In Progress:** [current state]
 **Next Steps:** [numbered list]
 **Decisions Made:** [key architectural choices, with reasoning]
 **Watch Out For:** [any gotchas discovered]
 ```
+
 Paste this handoff into your brain note or `/multi-session save`.
 
 **D. The "replay" pattern:**
 If context is stale, don't fight it — start fresh and replay the key decisions:
+
 ```
 New chat. Context: We are midway through building UserService.
 Key decisions already made:
@@ -562,7 +590,7 @@ Confirm after each file.
 ```
 /multi-session restore
 
-[Copilot reads session-state.md and confirms: "I see we were in the middle of 
+[Copilot reads session-state.md and confirms: "I see we were in the middle of
 adding the favorites feature. Tests are not yet done. Next: FavoritesHandlerTest.java"]
 
 Good. Continue from the tests.

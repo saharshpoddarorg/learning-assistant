@@ -26,7 +26,7 @@
 
 ### 1 — `copilot-instructions.md` — The Foundation
 
-**Location:** `.github/copilot-instructions.md` (exactly one file)  
+**Location:** `.github/copilot-instructions.md` (exactly one file)
 **Analogy:** *Employee handbook* — every new hire (every Copilot session) reads it first.
 
 The single root file that defines who you are as a team and what your standards are.
@@ -40,6 +40,7 @@ you've selected. It is always the lowest-priority layer — everything else stac
 - High-level "always/never" rules that apply everywhere
 
 **Format:**
+
 ```markdown
 # Project Instructions
 
@@ -48,6 +49,7 @@ you've selected. It is always the lowest-priority layer — everything else stac
 - Methods: lowerCamelCase
 ...
 ```
+
 No frontmatter needed — VS Code recognizes the filename.
 
 **What it does NOT do:** It does not activate specific tools, it is not a persona, and it cannot
@@ -58,7 +60,7 @@ injected into every request.
 
 ### 2 — `.instructions.md` — The Specialists
 
-**Location:** `.github/instructions/*.instructions.md` (can be many files)  
+**Location:** `.github/instructions/*.instructions.md` (can be many files)
 **Analogy:** *Department-specific HR policy supplement* — Marketing follows the handbook AND the
 Marketing policy; Engineering follows the handbook AND the Engineering policy.
 
@@ -67,6 +69,7 @@ when the file you're editing matches their `applyTo` glob. Multiple instruction 
 same file — they ALL stack.
 
 **Key frontmatter field:**
+
 ```yaml
 ---
 applyTo: "**/*.java"     # Glob pattern — required
@@ -81,6 +84,7 @@ applyTo: "**/*.java"     # Glob pattern — required
 - Steering mode files (e.g., `change-completeness.instructions.md` with `applyTo: "**"`)
 
 **Stacking example:** For a `*.java` file, all of these apply simultaneously:
+
 ```
 copilot-instructions.md     ← always
     + java.instructions.md      ← applyTo: **/*.java
@@ -92,7 +96,7 @@ copilot-instructions.md     ← always
 
 ### 3 — `.prompt.md` — The Shortcuts
 
-**Location:** `.github/prompts/*.prompt.md` (can be many files)  
+**Location:** `.github/prompts/*.prompt.md` (can be many files)
 **Analogy:** *Standard Operating Procedure (SOP)* — instead of re-explaining the full review
 process every time, you say "run the review SOP" and everyone knows what to do.
 
@@ -101,6 +105,7 @@ Slash-command templates that define **pre-built workflows**. Users trigger them 
 active when explicitly invoked.
 
 **Key frontmatter fields:**
+
 ```yaml
 ---
 name: design-review
@@ -126,7 +131,7 @@ tools: ['codebase', 'search', 'usages']
 
 ### 4 — `.agent.md` — The Personas
 
-**Location:** `.github/agents/*.agent.md` (can be many files)  
+**Location:** `.github/agents/*.agent.md` (can be many files)
 **Analogy:** *Job title and role description* — when you hire a security auditor vs. a UX
 designer, each brings a completely different mindset, vocabulary, and approach to the same problem.
 
@@ -135,6 +140,7 @@ from a dropdown in VS Code Chat. When active, the agent's system prompt, tool re
 and handoff chain all come into effect.
 
 **Key frontmatter fields:**
+
 ```yaml
 ---
 description: >
@@ -164,7 +170,7 @@ model: gpt-4o          # Optional — pin to specific model (new in 2026)
 
 ### 5 — `SKILL.md` — The Knowledge Base
 
-**Location:** `.github/skills/<domain>/SKILL.md` (one per domain)  
+**Location:** `.github/skills/<domain>/SKILL.md` (one per domain)
 **Analogy:** *Domain reference manual* — not rules about HOW to write code, but deep knowledge
 ABOUT a domain that Copilot can draw on when answering questions.
 
@@ -174,6 +180,7 @@ resources, command references, recipes. Copilot infers when to activate a skill 
 matching your question to the skill's `description` field.
 
 **Key frontmatter fields:**
+
 ```yaml
 ---
 name: mcp-development
@@ -200,7 +207,7 @@ informational. Use instructions for behavioral rules, skills for knowledge.
 
 ### 6 — MCP Servers — The External Hands
 
-**Location:** `.vscode/mcp.json` (config) + external server code  
+**Location:** `.vscode/mcp.json` (config) + external server code
 **Analogy:** *Physical workbench tools* — Copilot can know everything about Git from a skill file,
 but MCP servers are what let it actually **do things** with Git (create PRs, push commits, etc.).
 
@@ -209,6 +216,7 @@ call as tools. They run as separate processes, communicate via JSON-RPC, and can
 an external API or database can do — read files, query databases, search GitHub, update Jira.
 
 **Config (`.vscode/mcp.json`):**
+
 ```jsonc
 {
   "inputs": [
@@ -339,27 +347,27 @@ I want to...
 
 ### Common Confusions
 
-**"Should this go in `copilot-instructions.md` or a `SKILL.md`?"**  
-→ Ask: *Is it a RULE (behavioral) or KNOWLEDGE (informational)?*  
+**"Should this go in `copilot-instructions.md` or a `SKILL.md`?"**
+→ Ask: *Is it a RULE (behavioral) or KNOWLEDGE (informational)?*
 - "Always use `var` for local variables" → **instruction** (rule)
 - "Here's a reference of all Maven lifecycle phases" → **skill** (knowledge)
 
-**"Should this be an `.instructions.md` or a `SKILL.md`?"**  
+**"Should this be an `.instructions.md` or a `SKILL.md`?"**
 → Ask: *Should Copilot DO something differently, or KNOW something extra?*
 - "Never use raw SQL in service classes" → **instruction** (changes behavior)
 - "Here's how our SQL schema is organized" → **skill** (adds knowledge)
 
-**"Should this be an `.agent.md` or a `.prompt.md`?"**  
+**"Should this be an `.agent.md` or a `.prompt.md`?"**
 → Ask: *Is this a ROLE or a TASK?*
 - "Be a security auditor" → **agent** (persona, sustained across conversation)
 - "Do a security audit of this class" → **prompt** (one-shot workflow)
 
-**"Should this be a `.prompt.md` or part of `copilot-instructions.md`?"**  
+**"Should this be a `.prompt.md` or part of `copilot-instructions.md`?"**
 → Ask: *Is this always needed, or only sometimes?*
 - "Always format responses with these sections" → **instructions** (always)
 - "Format a design review report as..." → **prompt** (only during /design-review)
 
-**"Should this be a `SKILL.md` or an MCP Server?"**  
+**"Should this be a `SKILL.md` or an MCP Server?"**
 → Ask: *Is this static reference data or live/writable data?*
 - "Here's how JavaDoc works" → **skill** (static knowledge)
 - "Read the latest JavaDoc for project X from our Confluence" → **MCP** (live, external)
@@ -386,13 +394,14 @@ copilot-instructions.md          ← Layer 0: project-wide (always)
     + test.instructions.md           ← Layer 3: test-specific (applyTo: **/*Test.java)
 ```
 
-For a `UserServiceTest.java` file, **all 4 layers** are active simultaneously.  
+For a `UserServiceTest.java` file, **all 4 layers** are active simultaneously.
 For `pom.xml`, only Layer 0 applies.
 
 **When to use:** Separate concerns cleanly — one file for language rules, one for quality, one for test conventions. Don't put everything in `copilot-instructions.md`.
 
 **Steering mode variant:** Use `applyTo: "**"` to make an instruction file project-wide
 (same behavior as `copilot-instructions.md`, but it stacks on top instead of being the base):
+
 ```yaml
 ---
 applyTo: "**"
@@ -469,6 +478,7 @@ Designer (agent)
 ```
 
 **Agent file configuration:**
+
 ```yaml
 ---
 description: Architecture reviewer. Hands off to Impact-Analyzer when design decision made.
@@ -648,6 +658,7 @@ mode files by adding multiple `applyTo: "**"` instruction files. The steering-mo
 explains and documents all available modes.
 
 **Pattern:**
+
 ```
 copilot-instructions.md       ← base project rules
     + steering-modes.inst.md  (applyTo: **) ← meta: documents modes
@@ -784,7 +795,7 @@ not a project-wide instruction.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅ Build an MCP server for: reading LIVE GitHub PR data, creating issues, 
+✅ Build an MCP server for: reading LIVE GitHub PR data, creating issues,
    pushing commits — things that require real API calls
 ```
 
@@ -828,6 +839,7 @@ MCP servers             auto (agent mode)   Yes (all servers)
 ### Frontmatter Field Reference
 
 **`.instructions.md`:**
+
 ```yaml
 ---
 applyTo: "**/*.java"          # Required: glob pattern(s) for file matching
@@ -835,6 +847,7 @@ applyTo: "**/*.java"          # Required: glob pattern(s) for file matching
 ```
 
 **`.prompt.md`:**
+
 ```yaml
 ---
 name: my-command              # Required: the /command-name users type
@@ -846,6 +859,7 @@ mode: ask                     # Optional: 'ask' | 'agent' | 'edit'
 ```
 
 **`.agent.md`:**
+
 ```yaml
 ---
 description: >               # Required: WHEN to use (shown in dropdown)
@@ -859,6 +873,7 @@ model: gpt-4o                # Optional (new 2026): pin to model
 ```
 
 **`SKILL.md`:**
+
 ```yaml
 ---
 name: my-skill               # Required: skill identifier

@@ -1,6 +1,6 @@
 # PARA Method — Practical Guide for Developers
 
-> PARA = **P**rojects · **A**reas · **R**esources · **A**rchives  
+> PARA = **P**rojects · **A**reas · **R**esources · **A**rchives
 > Created by Tiago Forte. Works with ANY tool: Obsidian, Notion, Logseq, Google Drive, or your file system.
 
 ---
@@ -114,6 +114,7 @@ vault/
 ```
 
 **Tip:** Use the Dataview plugin to query across folders:
+
 ```dataview
 TABLE status, due FROM "Projects"
 WHERE status != "done"
@@ -146,6 +147,7 @@ Logseq is page-based (no folders), so PARA maps to tags:
 ```
 
 Use the built-in query to see all active projects:
+
 ```
 {{query (and (property type project) (not (property status done)))}}
 ```
@@ -211,5 +213,5 @@ The two methods work together, not separately.
 
 ---
 
-*Related: [START-HERE.md](START-HERE.md) · [templates.md](templates.md) · [tools-comparison.md](tools-comparison.md)*  
+*Related: [START-HERE.md](START-HERE.md) · [templates.md](templates.md) · [tools-comparison.md](tools-comparison.md)*
 *Copilot: `/digital-notetaking → para-method → obsidian → intermediate → windows`*

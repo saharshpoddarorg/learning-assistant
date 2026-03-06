@@ -1,7 +1,7 @@
 # 🍎 Mac Dev Module — START HERE
 
-> **Purpose:** Learn how to set up and use a professional macOS development environment.  
-> This module is your incremental, iterative guide — from zero to a fully equipped dev machine.  
+> **Purpose:** Learn how to set up and use a professional macOS development environment.
+> This module is your incremental, iterative guide — from zero to a fully equipped dev machine.
 > Built for all three tiers: **Newbie → Amateur → Pro**.
 
 ---
@@ -10,7 +10,7 @@
 
 - [What This Module Covers](#-what-this-module-covers)
 - [Choose Your Tier](#-choose-your-tier)
-- [Quick Start (10 Minutes)](#-quick-start-10-minutes)  
+- [Quick Start (10 Minutes)](#-quick-start-10-minutes)
 - [Full Learning Path](#-full-learning-path)
 - [All Guides In This Module](#-all-guides-in-this-module)
 - [Slash Command Quick Access](#-slash-command-quick-access)
@@ -62,22 +62,27 @@ Mac Development Environment
 ## ⚡ Quick Start (10 Minutes)
 
 ### Step 1 — Install Homebrew (the foundation of everything)
+
 ```zsh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
+
 After installation, follow the "Next steps" printed in the terminal (add Homebrew to PATH).
 
 ### Step 2 — Install a JDK (open-source)
+
 ```zsh
 brew install --cask temurin          # Eclipse Temurin (OpenJDK) — recommended
 ```
 
 ### Step 3 — Install VS Code
+
 ```zsh
 brew install --cask visual-studio-code
 ```
 
 ### Step 4 — Verify everything works
+
 ```zsh
 java --version    # should print 21 or later
 javac --version
@@ -146,6 +151,7 @@ Use `/mac-dev` in Copilot Chat for an interactive guide on any topic:
 ```
 
 Or use the AI navigator:
+
 ```
 /hub mac       → See the full mac-dev branch in the hub
 ```

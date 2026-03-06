@@ -1,6 +1,6 @@
 # 📋 Phase Guide — Zero to Fully Operational
 
-> **Who this is for:** Anyone setting up this repo from scratch, or iteratively adding features.  
+> **Who this is for:** Anyone setting up this repo from scratch, or iteratively adding features.
 > **Read [START-HERE.md](START-HERE.md) first** if you haven't — it tells you which phases apply to you.
 
 ---
@@ -20,14 +20,15 @@
 ---
 
 ## Audience Legend
+
 > 🟢 **Newbie** — explains every term · 🟡 **Amateur** — knows basics · 🔴 **Pro** — reference only
 
 ---
 
 ## Phase 0: Orient — What Is All This?
 
-> 🟢 **Newbie:** Read this whole section. It's 5 minutes that will save hours of confusion.  
-> 🟡 **Amateur:** Skim the diagram. Skip to Phase 1.  
+> 🟢 **Newbie:** Read this whole section. It's 5 minutes that will save hours of confusion.
+> 🟡 **Amateur:** Skim the diagram. Skip to Phase 1.
 > 🔴 **Pro:** Skip entirely.
 
 ### What you have
@@ -42,23 +43,23 @@
 
 ### What "MCP" means (🟢 Newbie only)
 
-> **MCP = Model Context Protocol.** It's a standard that lets AI assistants (Copilot, Claude, etc.) connect to external tools.  
+> **MCP = Model Context Protocol.** It's a standard that lets AI assistants (Copilot, Claude, etc.) connect to external tools.
 > Think of it like USB — one standard plug that works with any device. Instead of Copilot only knowing your open files, MCP lets it search Jira, read documentation, query databases, etc.
 
 ### What "Copilot Customization" means (🟢 Newbie only)
 
-> By default, Copilot is generic. Customization makes it specific to YOUR project:  
-> - **Instructions files** = rules it always follows ("use Logger, not System.out.println")  
-> - **Agents** = specialist personas ("act as a code reviewer, not a code writer")  
-> - **Prompts** = saved commands you type as `/command` shortcuts  
+> By default, Copilot is generic. Customization makes it specific to YOUR project:
+> - **Instructions files** = rules it always follows ("use Logger, not System.out.println")
+> - **Agents** = specialist personas ("act as a code reviewer, not a code writer")
+> - **Prompts** = saved commands you type as `/command` shortcuts
 > - **Skills** = deep knowledge packs it loads when the topic matches
 
 ---
 
 ## Phase 1: Prerequisites — Install Once
 
-> 🟢 **Newbie:** Do every step. This is one-time setup.  
-> 🟡 **Amateur:** Check versions, install what's missing.  
+> 🟢 **Newbie:** Do every step. This is one-time setup.
+> 🟡 **Amateur:** Check versions, install what's missing.
 > 🔴 **Pro:** `java -version` (need 21+), `node -v` (need 18+), VS Code Copilot extension active.
 
 ### 1.1 — VS Code + GitHub Copilot
@@ -88,9 +89,11 @@ code .
 ### 1.3 — JDK 21+ (Java for MCP servers)
 
 **Check first:**
+
 ```powershell
 java -version
 ```
+
 If it shows `21` or higher → skip to 1.4.
 
 **Install if missing:**
@@ -103,7 +106,7 @@ If it shows `21` or higher → skip to 1.4.
 
 Only needed if you want the GitHub or Filesystem community servers. Learning Resources and Atlassian servers are pure Java — no Node.js needed.
 
-**Check:** `node --version` (need 18+)  
+**Check:** `node --version` (need 18+)
 **Install if missing:** https://nodejs.org/ → download LTS version
 
 ### 1.5 — Recommended VS Code Extensions
@@ -123,8 +126,8 @@ In VS Code: `Ctrl+Shift+X` → install these:
 
 ## Phase 2: Copilot Customization — Works Immediately
 
-> 🟢 **Newbie:** This phase requires ZERO setup. Just open the folder and it works.  
-> 🟡 **Amateur:** Skim to understand what's already active.  
+> 🟢 **Newbie:** This phase requires ZERO setup. Just open the folder and it works.
+> 🟡 **Amateur:** Skim to understand what's already active.
 > 🔴 **Pro:** See [customization-guide.md](customization-guide.md) for architecture details.
 
 ### What's already working (no setup needed)
@@ -196,23 +199,26 @@ See [customization-guide.md](customization-guide.md) for detailed how-to.
 
 ## Phase 3: MCP Servers — Build & Connect
 
-> 🟢 **Newbie:** Follow every step in order. See [mcp-server-setup.md](mcp-server-setup.md) for the full guide.  
-> 🟡 **Amateur:** Quick version below. Full guide in [mcp-server-setup.md](mcp-server-setup.md).  
+> 🟢 **Newbie:** Follow every step in order. See [mcp-server-setup.md](mcp-server-setup.md) for the full guide.
+> 🟡 **Amateur:** Quick version below. Full guide in [mcp-server-setup.md](mcp-server-setup.md).
 > 🔴 **Pro:** `Ctrl+Shift+B` → `mcp-servers: build` → edit `.vscode/mcp.json` → reload.
 
 ### 3.1 — Build the Java servers
 
 **Option A: VS Code task (recommended)**
+
 ```
 Ctrl+Shift+B → select "mcp-servers: build"
 ```
 
 **Option B: Terminal**
+
 ```powershell
 # Windows PowerShell
 cd mcp-servers
 .\build.ps1
 ```
+
 ```bash
 # macOS / Linux
 cd mcp-servers
@@ -220,6 +226,7 @@ cd mcp-servers
 ```
 
 Expected output:
+
 ```
 BUILD SUCCESS -- compiled 150 files
 ```
@@ -253,17 +260,19 @@ Ctrl+Shift+P → "Reload Window" → Enter
 3. You should see: `learning-resources` with ~10 tools listed
 
 **Test it:**
+
 ```
 In Copilot Chat: "Search for Java concurrency learning resources"
 ```
+
 Copilot will call the `search_resources` tool and return actual results.
 
 ---
 
 ## Phase 4: Configure Credentials (Secrets)
 
-> 🟢 **Newbie:** Only do the servers you want. Start with Atlassian if you use Jira.  
-> 🟡 **Amateur:** See detailed instructions in [mcp-server-setup.md §5](mcp-server-setup.md#5-configure-credentials-secrets).  
+> 🟢 **Newbie:** Only do the servers you want. Start with Atlassian if you use Jira.
+> 🟡 **Amateur:** See detailed instructions in [mcp-server-setup.md §5](mcp-server-setup.md#5-configure-credentials-secrets).
 > 🔴 **Pro:** Fill `atlassian-config.local.properties`, set `"disabled": false` in `mcp.json`, reload.
 
 ### 4.1 — Atlassian (Jira + Confluence + Bitbucket)
@@ -273,6 +282,7 @@ Copilot will call the `search_resources` tool and return actual results.
 - Click "Create API token" → name it → copy it immediately
 
 **Step 2 — Create local config:**
+
 ```powershell
 # Windows
 Copy-Item mcp-servers\user-config\servers\atlassian\atlassian-config.local.example.properties `
@@ -280,6 +290,7 @@ Copy-Item mcp-servers\user-config\servers\atlassian\atlassian-config.local.examp
 ```
 
 **Step 3 — Fill in credentials** in the new file:
+
 ```properties
 atlassian.instance.name=work-cloud
 atlassian.variant=cloud
@@ -292,6 +303,7 @@ atlassian.product.confluence.enabled=true
 ```
 
 **Step 4 — Enable in `.vscode/mcp.json`:**
+
 ```json
 "atlassian": {
     ...
@@ -303,7 +315,7 @@ atlassian.product.confluence.enabled=true
 
 ### 4.2 — GitHub
 
-Open `.vscode/mcp.json` → set `"disabled": false` for `github`.  
+Open `.vscode/mcp.json` → set `"disabled": false` for `github`.
 VS Code will prompt for your GitHub Personal Access Token the first time Copilot uses it.
 
 **Get your token:** https://github.com/settings/tokens → Generate → scopes: `repo` (or `public_repo`)
@@ -311,6 +323,7 @@ VS Code will prompt for your GitHub Personal Access Token the first time Copilot
 ### 4.3 — Never commit secrets
 
 Files that are gitignored (safe for secrets):
+
 ```
 mcp-servers/user-config/mcp-config.local.properties
 mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties
@@ -318,6 +331,7 @@ mcp-servers/build.env.local
 ```
 
 Files that are committed (no secrets allowed):
+
 ```
 mcp-servers/user-config/mcp-config.properties          ← base defaults only
 mcp-servers/user-config/servers/atlassian/atlassian-config.properties  ← base defaults only
@@ -328,8 +342,8 @@ mcp-servers/user-config/servers/atlassian/atlassian-config.properties  ← base 
 
 ## Phase 5: Brain Workspace — Your Knowledge Base
 
-> 🟢 **Newbie:** This is optional. Your personal note vault — Copilot writes, you organize.  
-> 🟡 **Amateur:** Use the VS Code tasks or slash commands.  
+> 🟢 **Newbie:** This is optional. Your personal note vault — Copilot writes, you organize.
+> 🟡 **Amateur:** Use the VS Code tasks or slash commands.
 > 🔴 **Pro:** `brain.ps1 new|publish|search` — see `brain/scripts/README.md`.
 
 ### What it is
@@ -345,6 +359,7 @@ brain/
 - Yes → `notes/` | No (imported external content) → `library/`
 
 **Two typical flows:**
+
 ```
 brain-new   → inbox/ → (edit/refine) → notes/
 brain publish → inbox/ → library/<project>/<YYYY-MM>/
@@ -353,12 +368,14 @@ brain publish → inbox/ → library/<project>/<YYYY-MM>/
 ### 5.1 — Create a note with Copilot
 
 In Copilot Chat (Agent mode):
+
 ```
 /brain-new
 → Title: "Java generics cheatsheet"
 → Tier: notes
 → Project: java
 ```
+
 Copilot creates a properly formatted markdown note with YAML frontmatter.
 
 ### 5.2 — Search notes
@@ -376,6 +393,7 @@ Copilot creates a properly formatted markdown note with YAML frontmatter.
 → brain/ai-brain/inbox/GHCP_Agents_Guide.md
 → Project: ghcp-knowledge-sharing
 ```
+
 Copilot archives the source file to `library/<project>/<YYYY-MM>/`, prompts for tags, and commits it.
 
 ### 5.4 — VS Code Tasks for brain
@@ -438,7 +456,7 @@ Copilot archives the source file to `library/<project>/<YYYY-MM>/`, prompts for 
 
 ## Phase 7: Export to Another Project
 
-> 🟡 **Amateur+:** Copy any subset of this repo's features to another project.  
+> 🟡 **Amateur+:** Copy any subset of this repo's features to another project.
 > 🔴 **Pro:** See [export-guide.md](export-guide.md) for exact commands.
 
 ### What you can export independently

@@ -9,7 +9,7 @@ source: imported
 
 # GitHub Copilot Prompt Files — Complete Guide
 
-> **For:** Knowledge Sharing Session — Developers & QA on Capital IESD-24  
+> **For:** Knowledge Sharing Session — Developers & QA on Capital IESD-24
 > **Date:** February 2026
 
 ---
@@ -42,9 +42,9 @@ source: imported
 Without prompt files, every developer writes the same context over and over:
 
 ```
-❌ "I want to add a property to Device.java. 
-    Make sure to call premodify() before the setter, 
-    fire a PropertyChangeEvent, use @NotNull, 
+❌ "I want to add a property to Device.java.
+    Make sure to call premodify() before the setter,
+    fire a PropertyChangeEvent, use @NotNull,
     and follow the pattern in the existing setters..."
 ```
 
@@ -63,6 +63,7 @@ The prompt file carries **all the rules** — you only describe **the task**.
 ### Slide: Three Ways to Invoke
 
 #### Method 1 — Slash Command in Chat (Most Common)
+
 Type `/` in the Copilot Chat input box — a picker appears with all available prompts:
 
 ```
@@ -74,12 +75,14 @@ Type `/` in the Copilot Chat input box — a picker appears with all available p
 ```
 
 #### Method 2 — Command Palette
+
 1. Press `Ctrl+Shift+P`
 2. Type **"Chat: Run Prompt"**
 3. Select the prompt file
 4. Enter your task description
 
 #### Method 3 — With File Context
+
 Open the file you want to work on, then use the prompt:
 
 ```
@@ -208,12 +211,13 @@ Response guides them to `/caplet-action`, which then generates correct `AppActio
 **Problem:** Developer changes `interfaces_src` and only builds `capitalcaf` — breaks other modules.
 
 **Solution:**
+
 ```
 /build-workflow  I changed IDevice.java and Device.java. What should I build?
 ```
 
 **Agent Response (with prompt's knowledge):**
-> ⚠️ You changed `interfaces_src` — this is the contract layer.  
+> ⚠️ You changed `interfaces_src` — this is the contract layer.
 > Interface changes ripple through **all** downstream modules.
 > ```bash
 > source setup.env
@@ -235,7 +239,7 @@ Response guides them to `/caplet-action`, which then generates correct `AppActio
 ```
 
 **Prompt file would check:**
-- [ ] All setters call `premodify()` 
+- [ ] All setters call `premodify()`
 - [ ] All setters fire `PropertyChangeEvent`
 - [ ] `@NotNull`/`@Nullable` on all parameters
 - [ ] No direct UI code in `datamodel_src`
@@ -250,6 +254,7 @@ Response guides them to `/caplet-action`, which then generates correct `AppActio
 **Problem:** QA/dev writes a test, but uses JUnit 5 syntax — project uses JUnit 4.
 
 **Solution:**
+
 ```
 /java-dev  Generate unit tests for ImportMessageUtils following existing test patterns
 ```
@@ -264,6 +269,7 @@ Response guides them to `/caplet-action`, which then generates correct `AppActio
 - Correct base test class per module (`HarnessTestCase`, `DataModelTestCase`)
 
 **Output:**
+
 ```java
 @RunWith(MockitoJUnitRunner.Silent.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

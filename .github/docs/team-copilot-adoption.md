@@ -20,6 +20,7 @@
 ### The Problem Copilot Solves for Teams (and Doesn't Solve by Default)
 
 **Without customization:**
+
 ```
 Dev A's prompt: "Add a setter. Call premodify() first, fire PropertyChangeEvent,
                 use @NotNull, follow VaultKey pattern..."
@@ -31,6 +32,7 @@ Dev C: Didn't know about premodify() at all, submits buggy PR
 ```
 
 **With customization:**
+
 ```
 All devs type: /cof-model  Add wireGauge setter to IDevice
 

@@ -145,50 +145,61 @@ Instead of immediately answering, sometimes ask:
 
 ### CS Fundamentals Track
 ```
+
 OOP (Encapsulation, Inheritance, Polymorphism, Abstraction) →
 Data Structures (Arrays, Lists, Stacks, Queues, Trees, Graphs, Hash Maps) →
 Algorithms (Sorting, Searching, Recursion, DP, Greedy, Graph Traversal) →
 Complexity Analysis (Big-O, Big-Theta, Big-Omega, Space vs Time)
+
 ```
 
 ### Programming Foundations Track (Java focus)
 ```
+
 Variables & Types → Operators → Control Flow → Methods →
 Arrays → Strings → Classes & Objects → Constructors →
 Access Modifiers → Static vs Instance → Final keyword →
 Collections → Generics → Exceptions → File I/O →
 Streams → Lambdas → Optional → Enums → Annotations →
 Records → Sealed Classes → Pattern Matching
+
 ```
 
 ### Operating Systems Track
 ```
+
 Processes → Threads → CPU Scheduling (Round Robin, MLFQ, CFS) →
 Memory Management (Paging, Segmentation, Virtual Memory, TLB) →
 Concurrency (Locks, Semaphores, Monitors, Deadlocks) →
 File Systems (Inodes, Journaling, VFS) →
 I/O (Blocking, Non-blocking, Async, Epoll) →
 IPC (Pipes, Shared Memory, Message Queues, Sockets)
+
 ```
 
 ### Networking & Protocols Track
 ```
+
 OSI Model → TCP/IP → UDP → DNS → HTTP/1.1 → HTTP/2 → HTTP/3 →
 REST → gRPC/Protobuf → GraphQL → WebSocket →
 TLS/SSL → Load Balancing → CDN → Proxy vs Reverse Proxy →
 RPC → Stateful vs Stateless → Connection Pooling
+
 ```
 
 ### Database & Storage Track
 ```
+
 Relational Model → SQL → Normalization (1NF–BCNF) → Indexing (B-Tree, Hash) →
 Transactions → ACID → Isolation Levels → Query Optimization → Joins →
 NoSQL (Document, KV, Column, Graph) → Denormalization →
 Replication → Sharding → Partitioning → CAP Theorem → Eventual Consistency
+
 ```
 
 ### System Design Track
 ```
+
 HLD: Requirements → Estimation → Architecture → API Design →
      Load Balancing → Caching → CDN → Database Selection →
      Message Queues → Microservices → Rate Limiting →
@@ -197,28 +208,34 @@ HLD: Requirements → Estimation → Architecture → API Design →
 LLD: Class Design → SOLID → Design Patterns → OOP Modeling →
      API Contracts → Schema Design → State Machines →
      Error Handling → Logging → Concurrency Control
+
 ```
 
 ### Testing & Quality Track
 ```
+
 Unit Testing → Integration Testing → Contract Testing → E2E Testing →
 TDD (Red-Green-Refactor) → BDD (Given/When/Then) → ATDD →
 Test Doubles (Mocks, Stubs, Spies, Fakes) →
 Test Pyramid → Mutation Testing → Property-Based Testing →
 Performance Testing → Load Testing → Chaos Testing
+
 ```
 
 ### Concurrency & Multithreading Track
 ```
+
 Threads → Synchronization → Locks → Atomic Operations →
 Thread Pools → Executors → Futures/Promises →
 Producer-Consumer → Readers-Writers → Deadlock Prevention →
 Lock-Free Data Structures → CAS Operations →
 Async/Await → Event Loops → Actor Model → CSP
+
 ```
 
 ### DevOps & Tooling Track
 ```
+
 Version Control (Git) → Branching Strategies (GitFlow, Trunk-Based) →
 CI/CD (GitHub Actions, Jenkins, GitLab CI) → Build Tools (Maven, Gradle, npm) →
 Containers (Docker, Dockerfile, Compose) → Registries (Docker Hub, GHCR, ECR) →
@@ -226,10 +243,12 @@ Orchestration (Kubernetes: Pods, Deployments, Services, Ingress) → Helm →
 IaC (Terraform, Ansible, Pulumi) → Cloud (AWS, GCP, Azure — core services) →
 Monitoring (Prometheus, Grafana) → Logging (ELK Stack) → Tracing (Jaeger, OpenTelemetry) →
 Incident Management → SRE Principles (SLI/SLO/SLA, Error Budgets)
+
 ```
 
 ### Distributed Systems Track
 ```
+
 Communication (RPC, REST, gRPC, Message Queues, Event Streaming) →
 Replication (Single-Leader, Multi-Leader, Leaderless, Quorum) →
 Consistency Models (Linearizability, Sequential, Causal, Eventual) →
@@ -238,53 +257,67 @@ Partitioning (Hash, Range, Consistent Hashing) →
 Fault Tolerance (Failure Detection, Circuit Breaker, Bulkhead, Saga) →
 Distributed Transactions (2PC, Saga, Outbox) →
 Theorems (CAP, PACELC, FLP, Two Generals, Byzantine Generals)
+
 ```
 
 ### Software Engineering Practices Track
 ```
+
 Clean Code → Refactoring → Code Smells → SOLID Principles →
 Design Patterns (Creational, Structural, Behavioral) →
 Version Control → Code Review → CI/CD →
 SDLC Models (Waterfall, Agile, Scrum, Kanban, XP) →
 Documentation → API Design → Logging & Monitoring
+
 ```
 
 ## Output Format for Teaching
 
 ```markdown
+
 ## [Concept Name]
 
 ### What is it?
+
 [1-2 sentences, plain language]
 
 ### Why does it exist?
+
 [The problem it solves]
 
 ### Real-World Analogy
+
 [Something familiar]
 
 ### How It Works
+
 [Technical explanation — with code, diagram, or both as appropriate]
 
 ### Example
+
 ```[language]
 // Working code in the relevant language (or pseudocode for pure theory)
 ```
 
 ### Without This Concept (The Pain)
+
 ```[language]
 // What you'd have to do without it — ugly, error-prone, verbose
 ```
 
 ### Common Mistakes
+
 1. [Mistake] → [Why it's wrong] → [Correct approach]
 
 ### Quick Quiz
+
 1. [Question to check understanding]
 2. [Question to check understanding]
 
 ### What to Learn Next
+
 → [Next concept in the learning path]
+
 ```
 
 ## Rules

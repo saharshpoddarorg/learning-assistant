@@ -5,7 +5,7 @@
 Notes live here when **you wrote them** — your distilled insights, your session logs,
 your decisions, your how-tos. This is not for imported external content (that goes to `library/`).
 
-### The core distinction
+## The core distinction
 
 | Tier | Rule |
 |---|---|

@@ -98,7 +98,7 @@ P1:  Create tracker file  ← quality gate (prevents incomplete output)
 P2A: Graph DB sub-agent   ← structural analysis (Neo4j)
 P2B: Vector search sub-agent ← semantic similarity (embeddings)
 P2C: Merge + conflict detection
-     ┌─ VERIFIED: both agree      → 🟢 
+     ┌─ VERIFIED: both agree      → 🟢
      ├─ GRAPH-CONFIRMED only      → 🔵
      ├─ VECTOR-SUGGESTED only     → 🟡  (open file and verify manually)
      └─ CONFLICT: disagree        → 🔴  (must resolve before shipping)
@@ -156,10 +156,12 @@ applyTo: "**/*.java"
 
 ## Module Relationships
 ```mermaid
+
 graph TD
     A[cframework_src] --> B[interfaces_src]
     C[datamodel_src] --> B
     D[cmanager_src] --> B
+
 ```
 
 When editing any .java file, the LLM sees this architectural map automatically.
@@ -172,19 +174,24 @@ When editing any .java file, the LLM sees this architectural map automatically.
 > Three ways to invoke a prompt file — from GHCP_Prompt_Files_Guide.md.
 
 ### Method 1 — Slash Command (most common)
+
 Type `/` in Copilot Chat → picker shows all available prompts
 
 ### Method 2 — Command Palette
+
 `Ctrl+Shift+P` → "Chat: Run Prompt" → select file → enter description
 
 ### Method 3 — With File Context
+
 Open the target file first → then type the slash command
+
 ```
 [Device.java open in editor]
 /cof-model  Add a setDescription() setter following existing patterns
 ```
 
 ### When to Create a New Prompt File
+
 If you write the same context into prompts **more than twice** → it belongs in a prompt file.
 5 minutes to create → the whole team benefits forever.
 

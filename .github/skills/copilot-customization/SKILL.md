@@ -45,10 +45,10 @@ MCP Server              .vscode/mcp.json + server code    Auto (agent)    Extern
 
 ### 1. `copilot-instructions.md` — Project Foundation
 
-**Location:** `.github/copilot-instructions.md` (exactly ONE file)  
-**Activation:** Every single request — no conditions  
-**Role:** Project-wide non-negotiable ground rules  
-**Stacks:** Always the base layer; everything else adds on top  
+**Location:** `.github/copilot-instructions.md` (exactly ONE file)
+**Activation:** Every single request — no conditions
+**Role:** Project-wide non-negotiable ground rules
+**Stacks:** Always the base layer; everything else adds on top
 **Size:** Keep under 2 000 tokens — it's sent on EVERY request
 
 **Frontmatter:** None required (VS Code recognizes the filename)
@@ -71,12 +71,13 @@ MCP Server              .vscode/mcp.json + server code    Auto (agent)    Extern
 
 ### 2. `.instructions.md` — File-Type Specialists
 
-**Location:** `.github/instructions/*.instructions.md` (many files allowed)  
-**Activation:** Automatic when `applyTo` glob matches the open file  
-**Role:** File-type-specific coding standards that stack on base rules  
+**Location:** `.github/instructions/*.instructions.md` (many files allowed)
+**Activation:** Automatic when `applyTo` glob matches the open file
+**Role:** File-type-specific coding standards that stack on base rules
 **Stacks:** Yes — multiple files matching the same file all activate together
 
 **Frontmatter (required):**
+
 ```yaml
 ---
 applyTo: "**/*.java"           # Required — one glob string
@@ -84,11 +85,13 @@ applyTo: "**/*.java"           # Required — one glob string
 ```
 
 **Multi-glob (stack multiple patterns):**
+
 ```yaml
 ---
 applyTo: "**/*.java"
 ---
 ```
+
 > To apply one file to multiple globs, create multiple instruction files or use `"**"` for global.
 
 **Glob pattern guide:**
@@ -102,6 +105,7 @@ applyTo: "**/*.java"
 | `**` | Every file (steering mode pattern) |
 
 **Stacking example:**
+
 ```
 Open file: UserServiceTest.java
 
@@ -118,12 +122,13 @@ All 4 are merged and active simultaneously.
 
 ### 3. `SKILL.md` — Domain Knowledge Base
 
-**Location:** `.github/skills/<domain-name>/SKILL.md`  
-**Activation:** Automatic — VS Code semantically matches your question to the `description` field  
-**Role:** Deep informational reference (NOT behavioral rules)  
+**Location:** `.github/skills/<domain-name>/SKILL.md`
+**Activation:** Automatic — VS Code semantically matches your question to the `description` field
+**Role:** Deep informational reference (NOT behavioral rules)
 **Stacks:** Yes — multiple skills can activate simultaneously
 
 **Frontmatter (required):**
+
 ```yaml
 ---
 name: my-skill-name
@@ -135,14 +140,16 @@ description: >
 ```
 
 **Description field writing guide:**
+
 ```
 Too vague:   "Java stuff"                    → Never activates
 Too specific: "How to create a singleton"    → Misses related questions
-Just right:  "Use when asked about Java 21+, JVM, concurrency, streams, 
+Just right:  "Use when asked about Java 21+, JVM, concurrency, streams,
               Spring, Maven, Gradle, or Java learning resources."
 ```
 
 **Content structure best practices (3-tier):**
+
 ```markdown
 ## 🟢 Quick Reference (newbie)
 Simple cheatsheet — works for 80% of questions
@@ -165,12 +172,13 @@ Edge cases, performance, architecture, deep dives
 
 ### 4. `.agent.md` — AI Personas
 
-**Location:** `.github/agents/*.agent.md`  
-**Activation:** Manual — user selects from VS Code Chat dropdown  
-**Role:** AI persona with specific mindset, tool access, and communication style  
+**Location:** `.github/agents/*.agent.md`
+**Activation:** Manual — user selects from VS Code Chat dropdown
+**Role:** AI persona with specific mindset, tool access, and communication style
 **Stacks:** No — one agent active at a time
 
 **Frontmatter fields (all optional except description):**
+
 ```yaml
 ---
 description: >                 # Required: shown in dropdown + when to use
@@ -200,6 +208,7 @@ model: gpt-4o                  # Optional (2026): pin to specific model
 
 **Agent body (Markdown):**
 The Markdown body is the system prompt — write it as direct instructions to the AI:
+
 ```markdown
 You are a [ROLE]. Your expertise is [DOMAIN].
 
@@ -222,12 +231,13 @@ When the user asks for [TASK]:
 
 ### 5. `.prompt.md` — Slash Command Workflows
 
-**Location:** `.github/prompts/*.prompt.md`  
-**Activation:** Manual — user types `/command-name` in Copilot Chat  
-**Role:** Pre-built workflow template with inputs, steps, and output structure  
+**Location:** `.github/prompts/*.prompt.md`
+**Activation:** Manual — user types `/command-name` in Copilot Chat
+**Role:** Pre-built workflow template with inputs, steps, and output structure
 **Stacks:** No — one prompt active per invocation
 
 **Frontmatter fields:**
+
 ```yaml
 ---
 name: design-review             # Required: /design-review in chat
@@ -239,6 +249,7 @@ mode: ask                       # Optional: 'ask' | 'agent' | 'edit'
 ```
 
 **Variable injection (powerful feature):**
+
 ```markdown
 ${input:varName:Prompt shown to user when they invoke the command?}
 
@@ -249,6 +260,7 @@ ${input:symptom:Describe the exact error or behavior}
 ```
 
 **File attachment:**
+
 ```markdown
 Reference the current file:
 #file:${file}
@@ -261,11 +273,12 @@ Reference another prompt (prompt chaining):
 ```
 
 **Prompt body structure (best practices):**
+
 ```markdown
 ## Topic
 ${input:topic:...}
 
-## Context  
+## Context
 ${input:goal:...}
 
 ## Instructions
@@ -287,12 +300,13 @@ ${input:goal:...}
 
 ### 6. MCP Servers — External Tools
 
-**Location:** Config at `.vscode/mcp.json`; server code anywhere (TypeScript, Python, Java, Go)  
-**Activation:** Always registered; Copilot agent calls tools as needed  
-**Role:** External process that gives Copilot real-world tool access  
+**Location:** Config at `.vscode/mcp.json`; server code anywhere (TypeScript, Python, Java, Go)
+**Activation:** Always registered; Copilot agent calls tools as needed
+**Role:** External process that gives Copilot real-world tool access
 **Stacks:** Yes — all registered servers active simultaneously
 
 **Workspace config (`.vscode/mcp.json`):**
+
 ```jsonc
 {
   "inputs": [
@@ -340,50 +354,63 @@ ${input:goal:...}
 ## Composition Recipes
 
 ### Recipe 1: Always-On Enriched Domain (Instructions + Skill)
+
 ```
 java.instructions.md (applyTo: **/*.java)   → behavioral: HOW to write Java
 java-learning-resources/SKILL.md           → informational: WHAT to know about Java
 ```
+
 Combined: Java code is written to standards AND Copilot knows deep Java context.
 
 ### Recipe 2: Structured Expert Workflow (Agent + Prompt)
+
 ```
 .agent.md (designer)       → WHO: architecture mindset, pattern vocabulary
 .prompt.md (design-review) → WHAT: structured review workflow
 ```
+
 User selects Designer, types /design-review → Expert runs structured workflow.
 
 ### Recipe 3: Compound Workflow (Prompt via `#file:` references)
+
 ```
 composite.prompt.md includes:
   #file:.github/prompts/design-review.prompt.md
   #file:.github/prompts/impact.prompt.md
   #file:.github/prompts/refactor.prompt.md
 ```
+
 One `/composite` command runs three full workflows in sequence.
 
 ### Recipe 4: Agent Handoff Chain
+
 ```
 Designer → Impact-Analyzer → Code-Reviewer
 (each agent hands work to the next specialist)
 ```
+
 Configure via `handoffs:` in agent frontmatter and body instructions.
 
 ### Recipe 5: Specialist + Live Data (Agent + MCP)
+
 ```
 Code-Reviewer agent (read-only tools)   → WHO: review mindset
 GitHub MCP server                       → WHAT data: actual PR diffs
 ```
+
 Agent reviews real PRs without needing VS Code editFiles access.
 
 ### Recipe 6: Steering Mode (Global Instruction File)
+
 ```
 change-completeness.instructions.md (applyTo: "**")
 ```
+
 Acts as a project-wide behavioral mode — always on, for every file.
 Stack multiple `applyTo: "**"` files for multiple global modes.
 
 ### Recipe 7: Full Stack
+
 ```
 copilot-instructions.md          → always: project rules
 java.instructions.md             → when *.java: Java rules
@@ -392,6 +419,7 @@ design-review.prompt.md          → invoked: review workflow
 design-patterns/SKILL.md         → auto: pattern knowledge
 github-mcp-server                → auto: live PR data
 ```
+
 Maximum customization for architecture review sessions.
 
 ---
@@ -415,25 +443,25 @@ MCP servers don't fit the priority model — they're tools the agent calls, not 
 
 ## Troubleshooting Activation
 
-**"My skill isn't activating"**  
-→ Check: Is the `description` field specific enough? Does it include the exact terms the user asks?  
+**"My skill isn't activating"**
+→ Check: Is the `description` field specific enough? Does it include the exact terms the user asks?
 → Test: Ask a question that uses words from the description field
 
-**"My instructions aren't being followed"**  
-→ Check: Is `applyTo` glob correct? Test the glob at `globtester.com`  
-→ Check: Is the file too large? (>500 tokens for instructions — Copilot may truncate)  
+**"My instructions aren't being followed"**
+→ Check: Is `applyTo` glob correct? Test the glob at `globtester.com`
+→ Check: Is the file too large? (>500 tokens for instructions — Copilot may truncate)
 → Check: Is the rule in conflict with a higher-priority source?
 
-**"My agent isn't in the dropdown"**  
-→ Check: Is the file in `.github/agents/` with `.agent.md` extension?  
+**"My agent isn't in the dropdown"**
+→ Check: Is the file in `.github/agents/` with `.agent.md` extension?
 → Check: Is `description:` present in frontmatter (required)?
 
-**"My prompt /command isn't showing"**  
-→ Check: Is `name:` in frontmatter matching the /command you type?  
+**"My prompt /command isn't showing"**
+→ Check: Is `name:` in frontmatter matching the /command you type?
 → Check: File must be in `.github/prompts/` with `.prompt.md` extension
 
-**"MCP server tools aren't available"**  
-→ Check: Are you in Agent mode? (MCP tools only available in agent mode)  
+**"MCP server tools aren't available"**
+→ Check: Are you in Agent mode? (MCP tools only available in agent mode)
 → Check: Did the server start successfully? (VS Code → Output → MCP)
 
 ---
@@ -441,6 +469,7 @@ MCP servers don't fit the priority model — they're tools the agent calls, not 
 ## Quick Templates
 
 ### New `.instructions.md`
+
 ```markdown
 ---
 applyTo: "**/*.java"
@@ -456,6 +485,7 @@ applyTo: "**/*.java"
 ```
 
 ### New `.agent.md`
+
 ```markdown
 ---
 description: >
@@ -479,6 +509,7 @@ When the user asks you to [TASK]:
 ```
 
 ### New `.prompt.md`
+
 ```markdown
 ---
 name: my-command
@@ -504,6 +535,7 @@ ${input:goal:What is your goal?}
 ```
 
 ### New `SKILL.md`
+
 ```markdown
 ---
 name: domain-name
@@ -537,6 +569,7 @@ description: >
 > **10x token compression, higher first-attempt accuracy.**
 
 **The 3-step workflow:**
+
 ```
 Step 1: GENERATE  → "Generate a Mermaid class diagram for [InterfaceName] and all consumers"
 Step 2: FEED      → Paste the diagram into your next prompt as context
@@ -562,6 +595,7 @@ Step 3: MODIFY    → Agent reasons over structure, not code text — gets it ri
 | API design planning | `classDiagram` (contracts + hierarchies) |
 
 **Always-on architecture context — embed in instruction files:**
+
 ```markdown
 ---
 applyTo: "**/*.java"
@@ -574,6 +608,7 @@ applyTo: "**/*.java"
 ## Core Entity Hierarchy
 [paste classDiagram here]
 ```
+
 This loads the diagram into context automatically for every Java file edit.
 
 **Advanced techniques:**
@@ -608,6 +643,7 @@ When choosing which model to use in VS Code Copilot Chat:
 > Use **Gemini 2.5 Pro** when you need to reference a very large file or whole codebase.
 
 **Pin model in `.agent.md` frontmatter (2026+):**
+
 ```yaml
 model: gpt-4o            # Fast agents
 model: claude-opus-4-5   # Deep reasoning agents

@@ -19,6 +19,7 @@ ${input:level:Your experience? (beginner / intermediate / advanced / evaluating-
 
 ### Tech Stack Domain Map
 ```
+
 Backend Frameworks
 ├── Java: Spring Boot, Quarkus, Micronaut, Jakarta EE
 ├── Python: Django, Flask, FastAPI, Tornado
@@ -67,6 +68,7 @@ API Styles
 ├── GraphQL (query language)
 ├── tRPC (TypeScript end-to-end)
 └── WebSocket (real-time bidirectional)
+
 ```
 
 ### Response Structure

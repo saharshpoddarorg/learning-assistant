@@ -9,7 +9,7 @@ source: imported
 
 # Mermaid Diagrams as LLM Context — The Secret Weapon
 
-> **For:** Knowledge Sharing Session — Developers & QA on Capital IESD-24  
+> **For:** Knowledge Sharing Session — Developers & QA on Capital IESD-24
 > **Date:** February 2026
 
 ---
@@ -78,12 +78,14 @@ Step 3: MODIFY       → Agent reasons over diagram to plan and execute changes
 ### Slide: Step 1 — Generate Diagram from Code
 
 **Prompt:**
+
 ```
 Generate a Mermaid class diagram showing the IDevice interface hierarchy,
 all its implementations, and all classes that use IDevice across modules.
 ```
 
 **Agent reads code across modules and produces:**
+
 ```mermaid
 classDiagram
     class IDevice {
@@ -104,6 +106,7 @@ classDiagram
 ### Slide: Step 2 — Feed Diagram as Context
 
 **Prompt:**
+
 ```
 Using this class diagram as context:
 
@@ -156,6 +159,7 @@ Agent now **sees** from the diagram:
 **Prompt:** "Add a description property to IDevice and implement it"
 
 **LLM generates (WRONG):**
+
 ```java
 // ❌ Missing premodify(), wrong hierarchy, no PropertyChange
 public interface IDevice {
@@ -174,6 +178,7 @@ public class Device implements IDevice {
 **Prompt:** "Using the COF Entity Hierarchy diagram, add description to IDevice"
 
 **LLM generates (CORRECT):**
+
 ```java
 // In interfaces_src — IDevice interface
 @Nullable
@@ -241,7 +246,7 @@ stateDiagram-v2
     Active --> Closing: user closes
     Closing --> Removed: IWindowCloseClient.sendRequestFor()
     Removed --> [*]: windowHandlesMap.remove()
-    
+
     Intercepted --> ServiceQueued: m_service != null
     ServiceQueued --> AreaPlaced: postProcess() after service completes
 ```
@@ -265,7 +270,7 @@ flowchart TD
     MC --> RA[Resource.registerActions]
     RA --> DRC[Caplet.addDRCDomainManagers]
     DRC --> Ready[Application ready]
-    
+
     Ready --> UserAction[User triggers action]
     UserAction --> IE{isEnabled?}
     IE -->|Yes| PA[preAction]
@@ -423,9 +428,10 @@ High Impact + Higher Effort:
 Most people ask: "Add a property to Device"
 
 Experts ask:
+
 ```
 1. "Generate the IDevice class diagram with all consumers"
-2. "Based on this diagram, what's the full impact of adding wireGauge?"  
+2. "Based on this diagram, what's the full impact of adding wireGauge?"
 3. "Now implement it — interface in interfaces_src, impl in datamodel_src,
     handle all consumers shown in the diagram"
 ```
@@ -435,6 +441,7 @@ Three prompts → zero wrong code.
 #### Pattern 2: Diagram as Specification
 
 Instead of writing a spec document in English, draw a Mermaid diagram:
+
 ```
 Here's my design:
 [paste Mermaid class diagram with new classes]
@@ -447,6 +454,7 @@ The diagram IS the specification. No ambiguity.
 #### Pattern 3: Diagram Diff as Change Request
 
 Modify an existing diagram and tell the agent:
+
 ```
 I changed this diagram [paste modified version].
 The differences from the original are:
@@ -460,8 +468,9 @@ Implement only the changes (the diff).
 #### Pattern 4: Reverse Engineering via Diagrams
 
 When you inherit unfamiliar code:
+
 ```
-"Generate a sequence diagram showing what happens when a user places a 
+"Generate a sequence diagram showing what happens when a user places a
 device in Capital Capture, from mouse click to database commit"
 ```
 
@@ -470,8 +479,8 @@ You get a visual walkthrough of the entire flow in 30 seconds. No reading 15 fil
 #### Pattern 5: Architecture Decision Records (ADR) with Diagrams
 
 ```
-"I need to decide between Strategy pattern and State pattern for window 
-lifecycle management. Generate both as class diagrams and compare them 
+"I need to decide between Strategy pattern and State pattern for window
+lifecycle management. Generate both as class diagrams and compare them
 against the existing ImmersedModeServices architecture."
 ```
 

@@ -20,6 +20,7 @@ You are the **navigation hub** for all available assistants and learning command
 ### Full Navigation Tree
 
 ```
+
 /hub — YOU ARE HERE (navigation index)
 │
 ├─── SOFTWARE ENGINEERING (/hub se)
@@ -301,6 +302,7 @@ You are the **navigation hub** for all available assistants and learning command
          Built-in wizard: Ctrl+Shift+I → /create-agent
          File:            .github/agents/<name>.agent.md
          Docs:            .github/agents/README.md
+
 ```
 
 ### How to Respond
@@ -322,6 +324,7 @@ You are the **navigation hub** for all available assistants and learning command
 ### Quick Reference Card (always show at the end)
 
 ```
+
 Quick Commands:
 
   Navigation & Meta:
@@ -401,6 +404,7 @@ Quick Commands:
     @Impact-Analyzer      @Code-Reviewer     @Daily-Assistant
     @Thinking-Beast-Mode
     (+ create your own with /create-agent)
+
 ```
 
 ### Rules

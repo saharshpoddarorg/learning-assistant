@@ -59,6 +59,7 @@ There are three types:
 | **Notification** | Either direction | Fire-and-forget event (no response) |
 
 ### Example Request
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -75,6 +76,7 @@ There are three types:
 ```
 
 ### Example Success Response
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -91,6 +93,7 @@ There are three types:
 ```
 
 ### Example Error Response
+
 ```json
 {
   "jsonrpc": "2.0",

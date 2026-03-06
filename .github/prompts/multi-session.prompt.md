@@ -26,6 +26,7 @@ Copilot chat sessions have a **token limit**. In long conversations (complex ref
 ### Session Management Strategies
 
 ```
+
 Multi-Session Patterns (inspired by distributed systems)
 │
 ├── 1. STATE SNAPSHOT (like database checkpoint)
@@ -69,6 +70,7 @@ Multi-Session Patterns (inspired by distributed systems)
     Log every tool call as an immutable event.
     Rebuild current state by replaying events in a new session.
     MCP: Replay tool calls to reconstruct the knowledge gained from previous sessions.
+
 ```
 
 ### Action: `save-state`
@@ -76,39 +78,48 @@ Multi-Session Patterns (inspired by distributed systems)
 Create (or update) a **session state file** at `.github/session-state.md` that captures:
 
 ```markdown
+
 # Session State — [Date]
 
 ## Active Task
+
 [What we're working on]
 
 ## Completed Steps
+
 - [x] Step 1 — brief what was done
 - [x] Step 2 — brief what was done
 
 ## Remaining Steps
+
 - [ ] Step 3 — what's next
 - [ ] Step 4 — after that
 
 ## Key Decisions Made
+
 - Decision 1: [chose X because Y]
 - Decision 2: [chose A over B because C]
 
 ## Context Snapshot
+
 - Files modified: [list]
 - Patterns/conventions established: [list]
 - Open questions: [list]
 
 ## MCP State (if MCP servers were used)
+
 - Active servers: [list of server names from mcp.json]
 - Tools used this session: [tool_name → what it returned / what we learned]
 - Server health: [all healthy / server-X had errors]
 - Pending operations: [any multi-step tool workflows in progress]
 
 ## How to Resume
+
 1. Open a new chat
 2. Type: `/multi-session`
 3. Action: `resume`
 4. Paste this summary or type `check-file`
+
 ```
 
 ### Action: `resume`
@@ -126,6 +137,7 @@ Create (or update) a **session state file** at `.github/session-state.md` that c
 Produce a **handoff document** optimized for pasting into a new session:
 
 ```
+
 === SESSION HANDOFF ===
 Date: [timestamp]
 Task: [one-line description]
@@ -157,6 +169,7 @@ MCP TOOL CALL LOG:
 RESUME INSTRUCTION:
 Type `/multi-session`, action: resume, paste this block.
 === END HANDOFF ===
+
 ```
 
 ### Action: `status`
@@ -178,9 +191,11 @@ Save/inspect the current MCP environment state:
 4. **Save MCP snapshot** to the session state file:
 
 ```markdown
+
 ## MCP Environment Snapshot — [Date]
 
 ### Configured Servers (.vscode/mcp.json)
+
 | Server Name | Type | Command | Status |
 |---|---|---|---|
 | weather | stdio | node mcp-servers/weather-mcp/dist/index.js | ✅ Healthy |
@@ -188,6 +203,7 @@ Save/inspect the current MCP environment state:
 | github | stdio | npx @modelcontextprotocol/server-github | ⚠️ Token expired |
 
 ### Tool Inventory
+
 | Server | Tool | Description |
 |---|---|---|
 | weather | get_weather | Get current weather for a city |
@@ -198,6 +214,7 @@ Save/inspect the current MCP environment state:
 | github | list_repos | List repositories |
 
 ### Session Tool Call History
+
 | # | Tool | Input (summary) | Output (summary) | Timestamp |
 |---|---|---|---|---|
 | 1 | query_db | SELECT COUNT(*) FROM users | 1,423 users | 14:30 |
@@ -205,7 +222,9 @@ Save/inspect the current MCP environment state:
 | 3 | create_issue | title="Fix login bug" | Issue #42 created | 14:35 |
 
 ### Notes
+
 - [Any server-specific quirks, rate limits hit, auth issues]
+
 ```
 
 ### Action: `mcp-handoff`
@@ -213,6 +232,7 @@ Save/inspect the current MCP environment state:
 Produce an MCP-focused handoff optimized for restoring tool context in a new session:
 
 ```
+
 === MCP SESSION HANDOFF ===
 Date: [timestamp]
 Task: [what we were building/debugging with MCP tools]
@@ -240,11 +260,13 @@ NEXT TOOL CALLS PLANNED:
 
 RESUME: `/multi-session`, action: resume, paste this block.
 === END MCP HANDOFF ===
+
 ```
 
 ### MCP-Specific Multi-Session Patterns
 
 ```
+
 MCP Multi-Session Patterns (advanced distributed systems analogies)
 │
 ├── PATTERN 1: TOOL CALL JOURNAL (Event Sourcing)
@@ -266,7 +288,7 @@ MCP Multi-Session Patterns (advanced distributed systems analogies)
 │   │   Next session: check if server recovered → "half-open" → retry once.
 │   │
 │   │   Session 1: github.create_issue → timeout (failure 1)
-│   │   Session 2: github.create_issue → timeout (failure 2)  
+│   │   Session 2: github.create_issue → timeout (failure 2)
 │   │   Session 3: circuit OPEN → skip github, use fallback (manual note)
 │   │   Session 4: half-open → try once → success → circuit CLOSED
 │   │
@@ -329,6 +351,7 @@ MCP Multi-Session Patterns (advanced distributed systems analogies)
     ├── When: Resources that rarely change (schemas, configs, large docs)
     ├── TTL: Note timestamp of cache, re-fetch if >24h old
     └── Analogy: CDN / read-through cache — serve from cache, refresh on miss
+
 ```
 
 ### Multi-Session + MCP Integration Workflow
@@ -336,6 +359,7 @@ MCP Multi-Session Patterns (advanced distributed systems analogies)
 When working on a complex task that spans multiple sessions AND uses MCP tools:
 
 ```
+
 Session Lifecycle with MCP
 │
 ├── SESSION START
@@ -363,6 +387,7 @@ Session Lifecycle with MCP
     ├── Re-establish MCP connections (automatic in VS Code)
     ├── Optionally re-run key queries to verify data freshness
     └── Continue from where we left off
+
 ```
 
 ### Distributed Systems Analogy

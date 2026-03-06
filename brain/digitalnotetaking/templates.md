@@ -1,6 +1,6 @@
 # Note Templates — Developer PKM Collection
 
-> Copy-pasteable Markdown templates for common developer note-taking scenarios.  
+> Copy-pasteable Markdown templates for common developer note-taking scenarios.
 > Works with Obsidian, Logseq, any Markdown tool, or the `brain/ai-brain/` workspace.
 
 ---
@@ -34,24 +34,24 @@ status: draft
 # YYYY-MM-DD — Daily Log
 
 ## Top 3 for Today
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ]
+- [ ]
+- [ ]
 
 ## What I Worked On
-- 
+-
 
 ## What I Learned
-- 
+-
 
 ## Questions / Stuck Points
-- 
+-
 
 ## Tomorrow
-- 
+-
 
 ## Links & Resources
-- 
+-
 ```
 
 **Where to file:** `Projects/<active-project>/` or `Areas/Journal/`
@@ -71,8 +71,8 @@ status: final
 
 # ADR-NNN: <short title>
 
-**Status:** Proposed | Accepted | Deprecated | Superseded by ADR-NNN  
-**Date:** YYYY-MM-DD  
+**Status:** Proposed | Accepted | Deprecated | Superseded by ADR-NNN
+**Date:** YYYY-MM-DD
 **Deciders:** <names or teams>
 
 ## Context
@@ -86,13 +86,13 @@ status: final
 ## Consequences
 
 ### Positive
-- 
+-
 
 ### Negative / Trade-offs
-- 
+-
 
 ### Neutral
-- 
+-
 
 ## Alternatives Considered
 
@@ -101,7 +101,7 @@ status: final
 |  |  |
 
 ## References
-- 
+-
 ```
 
 **Where to file:** `Areas/Architecture/ADRs/` or `Projects/<project>/decisions/`
@@ -121,23 +121,25 @@ status: final
 
 # <Language>: <pattern name>
 
-**Tags:** #<lang> #<concept>  
+**Tags:** #<lang> #<concept>
 **Source:** <URL or book reference>
 
 ## The Pattern
 
 ```<language>
+
 // Your code here
+
 ```
 
 ## When to Use
-- 
+-
 
 ## When NOT to Use
-- 
+-
 
 ## Key Points
-- 
+-
 
 ## See Also
 - [[related-note]]
@@ -160,10 +162,10 @@ status: final
 
 # Resource: <Title>
 
-**Type:** Book | Article | Course | Video | Documentation  
-**Author:** <author>  
-**URL:** <link>  
-**Read:** YYYY-MM-DD  
+**Type:** Book | Article | Course | Video | Documentation
+**Author:** <author>
+**URL:** <link>
+**Read:** YYYY-MM-DD
 **Rating:** ⭐⭐⭐⭐⭐
 
 ## One-Line Summary
@@ -186,7 +188,7 @@ status: final
 > "..."
 
 ## How I Will Apply This
-- 
+-
 
 ## Related Notes
 - [[]]
@@ -209,8 +211,8 @@ status: final
 
 # Debug: <short description of the bug>
 
-**Date found:** YYYY-MM-DD  
-**Time to resolve:** <duration>  
+**Date found:** YYYY-MM-DD
+**Time to resolve:** <duration>
 **Severity:** Low | Medium | High | Critical
 
 ## Symptom
@@ -230,8 +232,10 @@ status: final
 ## Fix Applied
 
 ```<language>
+
 // Before
 // After
+
 ```
 
 ## Prevention / Follow-Up
@@ -264,27 +268,27 @@ status: final
 
 # Meeting: <title>
 
-**Date:** YYYY-MM-DD HH:MM  
-**Attendees:** <names>  
+**Date:** YYYY-MM-DD HH:MM
+**Attendees:** <names>
 **Purpose:** <one sentence>
 
 ## Agenda
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Notes
 
 ### Topic 1
-- 
+-
 
 ### Topic 2
-- 
+-
 
 ## Decisions Made
 
-- **Decision:** <what was decided>  
+- **Decision:** <what was decided>
   **Rationale:** <why>
 
 ## Action Items
@@ -294,8 +298,8 @@ status: final
 |  |  |  |
 
 ## Next Meeting
-- Date: 
-- Agenda: 
+- Date:
+- Agenda:
 ```
 
 ---
@@ -313,12 +317,12 @@ status: draft
 
 # Learning: <topic>
 
-**Duration:** <time spent>  
-**Source:** <book/course/video/doc>  
+**Duration:** <time spent>
+**Source:** <book/course/video/doc>
 **Level pre-session:** Newbie | Intermediate | Advanced
 
 ## What I Wanted to Learn
-- 
+-
 
 ## What I Actually Learned
 
@@ -328,20 +332,22 @@ status: draft
 ### Key API / commands / patterns
 
 ```<language>
+
 // Most important code from this session
+
 ```
 
 ### What surprised me
-- 
+-
 
 ## Questions that remain
-- 
+-
 
 ## Next step
-- 
+-
 
 ## Resources to follow up
-- 
+-
 ```
 
 ---
@@ -359,8 +365,8 @@ status: draft
 
 # Project Charter: <project name>
 
-**Start date:** YYYY-MM-DD  
-**Target completion:** YYYY-MM-DD  
+**Start date:** YYYY-MM-DD
+**Target completion:** YYYY-MM-DD
 **Priority:** Low | Medium | High
 
 ## Goal
@@ -374,10 +380,10 @@ status: draft
 ## Scope
 
 ### In scope
-- 
+-
 
 ### Out of scope
-- 
+-
 
 ## Key Milestones
 
@@ -387,8 +393,8 @@ status: draft
 
 ## Success Criteria
 
-- [ ] 
-- [ ] 
+- [ ]
+- [ ]
 
 ## Risks
 
@@ -397,7 +403,7 @@ status: draft
 |  |  |  |
 
 ## Resources & References
-- 
+-
 ```
 
 ---
@@ -427,5 +433,5 @@ Copilot will generate a completed ADR template using the ai-brain schema.
 
 ---
 
-*Related: [para-method.md](para-method.md) · [START-HERE.md](START-HERE.md) · [brain/ai-brain/README.md](../ai-brain/README.md)*  
+*Related: [para-method.md](para-method.md) · [START-HERE.md](START-HERE.md) · [brain/ai-brain/README.md](../ai-brain/README.md)*
 *Java source: [`brain/src/digitalnotetaking/NoteTemplate.java`](../src/digitalnotetaking/NoteTemplate.java)*

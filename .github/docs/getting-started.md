@@ -1,7 +1,7 @@
 # 🚀 Getting Started — Hands-On Tutorial
 
-> **Time:** ~30 minutes  
-> **Goal:** Understand the customization system and try every primitive hands-on.  
+> **Time:** ~30 minutes
+> **Goal:** Understand the customization system and try every primitive hands-on.
 > **Prerequisites:** VS Code with GitHub Copilot extension installed.
 
 | Audience | Recommendation |

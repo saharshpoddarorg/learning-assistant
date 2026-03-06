@@ -155,6 +155,7 @@ cd mcp-servers
 ```
 
 Expected output:
+
 ```
 Compiling 150 source files  ->  out/
 BUILD SUCCESS -- compiled 150 files
@@ -191,6 +192,7 @@ mcp-servers/
 This file holds your API keys and overrides for any external services.
 
 **Create it:**
+
 ```bash
 # Windows
 copy mcp-servers\user-config\mcp-config.local.example.properties mcp-servers\user-config\mcp-config.local.properties
@@ -239,6 +241,7 @@ because it has more complex auth (Cloud vs Data Center vs Server) and multiple
 product URLs.
 
 **Create it:**
+
 ```bash
 # Windows
 copy mcp-servers\user-config\servers\atlassian\atlassian-config.local.example.properties ^
@@ -311,6 +314,7 @@ For the MCP servers to connect to your AI client (Claude Desktop, VS Code Copilo
 Continue.dev), you need to register them in the AI client's config file.
 
 **Claude Desktop** (`%APPDATA%\Claude\claude_desktop_config.json` on Windows):
+
 ```json
 {
   "mcpServers": {
@@ -327,6 +331,7 @@ Continue.dev), you need to register them in the AI client's config file.
 ```
 
 **VS Code** (`.vscode/mcp.json`, already configured in this repo):
+
 ```json
 {
   "servers": {
@@ -348,6 +353,7 @@ Continue.dev), you need to register them in the AI client's config file.
 To run two different Atlassian instances (e.g., your company Cloud + a colleague's DC):
 
 **Step 1 — Create a second config directory:**
+
 ```
 mcp-servers/user-config/servers/
 ├── atlassian/                      ← primary (Cloud)
@@ -359,6 +365,7 @@ mcp-servers/user-config/servers/
 ```
 
 **Step 2 — Register second instance in `mcp-config.local.properties`:**
+
 ```properties
 server.atlassian-dc.name=Atlassian DC
 server.atlassian-dc.enabled=true
@@ -370,6 +377,7 @@ server.atlassian-dc.env.ATLASSIAN_CONFIG_DIR=user-config/servers/atlassian-dc
 ```
 
 **Step 3 — Register both in your AI client:**
+
 ```json
 {
   "mcpServers": {
@@ -393,6 +401,7 @@ user-config/servers/github/
 ```
 
 Add to your `.gitignore`:
+
 ```
 mcp-servers/user-config/servers/github/*.local.properties
 ```
@@ -414,6 +423,7 @@ env:
 ```
 
 **Environment variable naming:**
+
 ```
 Property key:          apiKeys.github
 → Env var:             MCP_APIKEYS_GITHUB

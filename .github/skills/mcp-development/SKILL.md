@@ -101,6 +101,7 @@ Tools are the most commonly used primitive. They represent functions that the AI
 - Results are returned as content blocks (text, images, or embedded resources)
 
 **JSON-RPC flow:**
+
 ```
 Client → Server: { "method": "tools/list" }
 Server → Client: { "tools": [{ "name": "query_db", "description": "...", "inputSchema": {...} }] }
@@ -280,6 +281,7 @@ mkdir src && touch src/index.ts
 ```
 
 **package.json additions:**
+
 ```json
 {
   "type": "module",
@@ -373,7 +375,7 @@ server.tool(
         isError: true
       };
     }
-    
+
     const item = await db.createItem({ name, category, price, description });
     return {
       content: [{ type: "text", text: `Created item: ${JSON.stringify(item, null, 2)}` }]
@@ -516,7 +518,7 @@ async def search_items(
     limit: int = 20
 ) -> str:
     """Search for items in the inventory by name, category, or price range.
-    
+
     Args:
         query: Search query string
         category: Category filter (electronics, clothing, food, or all)
@@ -535,7 +537,7 @@ async def create_item(
     description: Optional[str] = None
 ) -> str:
     """Create a new item in the inventory.
-    
+
     Args:
         name: Item name
         category: Item category (electronics, clothing, food)
@@ -544,7 +546,7 @@ async def create_item(
     """
     if price > 1_000_000:
         raise ValueError("Price exceeds maximum allowed value of 1,000,000")
-    
+
     item = await db.create_item(name=name, category=category, price=price, description=description)
     return json.dumps(item, indent=2)
 
@@ -616,14 +618,14 @@ uv tool install .
         <artifactId>mcp</artifactId>
         <version>0.9.0</version>
     </dependency>
-    
+
     <!-- OR: Spring Boot MCP (recommended for Spring projects) -->
     <dependency>
         <groupId>io.modelcontextprotocol</groupId>
         <artifactId>mcp-spring-webflux</artifactId>
         <version>0.9.0</version>
     </dependency>
-    
+
     <!-- Spring AI (for Spring Boot auto-configuration) -->
     <dependency>
         <groupId>org.springframework.ai</groupId>
@@ -644,10 +646,10 @@ import java.util.List;
 import java.util.Map;
 
 public class InventoryMcpServer {
-    
+
     public static void main(String[] args) {
         var transport = new StdioServerTransport();
-        
+
         // Define tools
         var searchTool = new McpServerFeatures.SyncToolSpecification(
             new McpSchema.Tool(
@@ -673,7 +675,7 @@ public class InventoryMcpServer {
                 );
             }
         );
-        
+
         // Build server
         var server = McpServer.sync(transport)
             .serverInfo("inventory-server", "1.0.0")
@@ -696,7 +698,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class InventoryTools {
-    
+
     @Tool(description = "Search for items in the inventory")
     public String searchItems(
         @ToolParam(description = "Search query") String query,
@@ -706,7 +708,7 @@ public class InventoryTools {
         // Implementation
         return inventoryService.search(query, category, limit != null ? limit : 20);
     }
-    
+
     @Tool(description = "Create a new inventory item")
     public String createItem(
         @ToolParam(description = "Item name") String name,
@@ -719,6 +721,7 @@ public class InventoryTools {
 ```
 
 **application.yml:**
+
 ```yaml
 spring:
   ai:
@@ -749,14 +752,14 @@ func main() {
         server.WithToolCapabilities(true),
         server.WithResourceCapabilities(true, true),
     )
-    
+
     // Register tool
     searchTool := mcp.NewTool("search_items",
         mcp.WithDescription("Search for items in the inventory"),
         mcp.WithString("query", mcp.Required(), mcp.Description("Search query")),
         mcp.WithNumber("limit", mcp.Description("Max results"), mcp.DefaultNumber(20)),
     )
-    
+
     s.AddTool(searchTool, func(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
         query := req.Params.Arguments["query"].(string)
         results, err := Search(query)
@@ -766,7 +769,7 @@ func main() {
         jsonBytes, _ := json.MarshalIndent(results, "", "  ")
         return mcp.NewToolResultText(string(jsonBytes)), nil
     })
-    
+
     // Start stdio server
     if err := server.ServeStdio(s); err != nil {
         panic(err)
@@ -815,6 +818,7 @@ public static class InventoryTools
 > stores them securely and only prompts once per session. Use `"type": "http"` for Streamable HTTP remote servers.
 
 **Workspace-level** (`.vscode/mcp.json`):
+
 ```jsonc
 {
   // Declare secret inputs once — VS Code prompts the user and stores them securely
@@ -877,6 +881,7 @@ public static class InventoryTools
 ```
 
 **User-level** (VS Code `settings.json`):
+
 ```jsonc
 {
   "mcp": {
@@ -893,7 +898,7 @@ public static class InventoryTools
 
 ### Claude Desktop
 
-**macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`  
+**macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
 **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```jsonc
@@ -917,6 +922,7 @@ public static class InventoryTools
 ### Cursor
 
 Add in Cursor settings → Features → MCP:
+
 ```jsonc
 {
   "mcpServers": {
@@ -1045,12 +1051,12 @@ async function generateFromOpenAPI(specUrl: string, baseUrl: string, apiKey?: st
   const specText = await (await fetch(specUrl)).text();
   const spec = parse(specText);
   const server = new McpServer({ name: spec.info.title, version: spec.info.version });
-  
+
   for (const [path, methods] of Object.entries(spec.paths)) {
     for (const [httpMethod, operation] of Object.entries(methods)) {
       const toolName = operation.operationId;
       if (!toolName) continue;
-      
+
       // Convert OpenAPI parameters to Zod schema
       const schemaProps = {};
       for (const param of operation.parameters || []) {
@@ -1058,7 +1064,7 @@ async function generateFromOpenAPI(specUrl: string, baseUrl: string, apiKey?: st
           ? z.string().describe(param.description || param.name)
           : z.string().optional().describe(param.description || param.name);
       }
-      
+
       server.tool(toolName, operation.summary || operation.description || toolName, schemaProps,
         async (args) => {
           let url = `${baseUrl}${path}`;
@@ -1068,7 +1074,7 @@ async function generateFromOpenAPI(specUrl: string, baseUrl: string, apiKey?: st
           }
           const headers = { "Content-Type": "application/json" };
           if (apiKey) headers["Authorization"] = `Bearer ${apiKey}`;
-          
+
           const res = await fetch(url, { method: httpMethod.toUpperCase(), headers });
           const data = await res.json();
           return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
@@ -1108,7 +1114,7 @@ import Anthropic from "@anthropic-ai/sdk";
 class CustomAgent {
   private mcpClients: Map<string, Client> = new Map();
   private anthropic = new Anthropic();
-  
+
   async connectMcpServer(name: string, command: string, args: string[]) {
     const transport = new StdioClientTransport({ command, args });
     const client = new Client({ name: "custom-agent", version: "1.0.0" });
@@ -1116,12 +1122,12 @@ class CustomAgent {
     this.mcpClients.set(name, client);
     console.log(`Connected to ${name}, tools: ${(await client.listTools()).tools.map(t => t.name).join(", ")}`);
   }
-  
+
   async run(userMessage: string): Promise<string> {
     // Collect all tools from all servers
     const allTools = [];
     const toolServerMap = new Map();
-    
+
     for (const [serverName, client] of this.mcpClients) {
       const { tools } = await client.listTools();
       for (const tool of tools) {
@@ -1133,10 +1139,10 @@ class CustomAgent {
         toolServerMap.set(tool.name, serverName);
       }
     }
-    
+
     // Agent loop
     const messages = [{ role: "user" as const, content: userMessage }];
-    
+
     while (true) {
       const response = await this.anthropic.messages.create({
         model: "claude-sonnet-4-20250514",
@@ -1144,7 +1150,7 @@ class CustomAgent {
         tools: allTools,
         messages
       });
-      
+
       // If no tool use, return the text response
       if (response.stop_reason === "end_turn") {
         return response.content
@@ -1152,17 +1158,17 @@ class CustomAgent {
           .map(b => b.text)
           .join("\n");
       }
-      
+
       // Process tool calls
       messages.push({ role: "assistant", content: response.content });
       const toolResults = [];
-      
+
       for (const block of response.content) {
         if (block.type !== "tool_use") continue;
-        
+
         const serverName = toolServerMap.get(block.name);
         const client = this.mcpClients.get(serverName);
-        
+
         try {
           const result = await client.callTool({ name: block.name, arguments: block.input });
           toolResults.push({
@@ -1179,11 +1185,11 @@ class CustomAgent {
           });
         }
       }
-      
+
       messages.push({ role: "user", content: toolResults });
     }
   }
-  
+
   async shutdown() {
     for (const client of this.mcpClients.values()) {
       await client.close();
@@ -1384,10 +1390,10 @@ server.tool(
     if (confirm !== "yes-delete") {
       return { content: [{ type: "text", text: "Deletion NOT performed. Set confirm='yes-delete' to proceed." }] };
     }
-    
+
     // Audit log
     console.error(`[AUDIT] DELETE FROM ${table} WHERE ${condition} — confirmed`);
-    
+
     const result = await db.execute(`DELETE FROM ${table} WHERE ${condition}`);
     return {
       content: [{ type: "text", text: `Deleted ${result.rowCount} rows from ${table}` }]
@@ -1436,31 +1442,31 @@ describe("search_items tool", () => {
       category: "electronics",
       limit: 5
     });
-    
+
     expect(result.isError).toBeFalsy();
     const data = JSON.parse(result.content[0].text);
     expect(data.items.length).toBeLessThanOrEqual(5);
     expect(data.query).toBe("laptop");
   });
-  
+
   it("handles empty results gracefully", async () => {
     const result = await searchItemsHandler({
       query: "nonexistent-item-xyz",
       category: "all",
       limit: 10
     });
-    
+
     expect(result.isError).toBeFalsy();
     const data = JSON.parse(result.content[0].text);
     expect(data.items).toHaveLength(0);
   });
-  
+
   it("returns error for invalid input", async () => {
     const result = await searchItemsHandler({
       query: "",  // empty query
       limit: -1   // invalid limit
     });
-    
+
     expect(result.isError).toBe(true);
   });
 });
@@ -1475,7 +1481,7 @@ import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js"
 
 describe("MCP Server Integration", () => {
   let client: Client;
-  
+
   beforeAll(async () => {
     const transport = new StdioClientTransport({
       command: "node",
@@ -1484,17 +1490,17 @@ describe("MCP Server Integration", () => {
     client = new Client({ name: "test-client", version: "1.0.0" });
     await client.connect(transport);
   });
-  
+
   afterAll(async () => {
     await client.close();
   });
-  
+
   it("lists tools correctly", async () => {
     const { tools } = await client.listTools();
     expect(tools.map(t => t.name)).toContain("search_items");
     expect(tools.map(t => t.name)).toContain("create_item");
   });
-  
+
   it("calls tool and returns valid response", async () => {
     const result = await client.callTool({
       name: "search_items",
@@ -1503,7 +1509,7 @@ describe("MCP Server Integration", () => {
     expect(result.content).toBeDefined();
     expect(result.content[0].type).toBe("text");
   });
-  
+
   it("lists resources correctly", async () => {
     const { resources } = await client.listResources();
     expect(resources.map(r => r.uri)).toContain("inventory://schema");
@@ -1516,11 +1522,13 @@ describe("MCP Server Integration", () => {
 ## Deployment Strategies
 
 ### Local Development (stdio)
+
 - Server runs as child process of the AI client
 - Best for personal tools, development, experimentation
 - Zero network configuration
 
 ### Docker Container
+
 ```dockerfile
 FROM node:22-slim
 WORKDIR /app
@@ -1545,12 +1553,14 @@ ENTRYPOINT ["node", "dist/index.js"]
 ```
 
 ### Cloud / Serverless (HTTP transport)
+
 - Deploy as HTTP service (AWS Lambda, Cloud Run, Fly.io, Railway)
 - Use Streamable HTTP transport
 - Add authentication (API key, OAuth)
 - Multiple clients can connect to same server instance
 
 ### npm / PyPI Distribution
+
 ```bash
 # Publish TypeScript server
 npm publish  # Users run: npx -y your-package-name
@@ -1648,16 +1658,16 @@ The `mcp.json` file is the **single configuration file** that registers all MCP 
 {
   // Top-level: "servers" object — each key is a unique server name
   "servers": {
-    
+
     // ─── SERVER NAME (unique identifier) ──────────────────────
     "<server-name>": {
-      
+
       // REQUIRED: Transport type
       // "stdio"  → local process (stdin/stdout)
       // "http"   → remote HTTP endpoint (Streamable HTTP)
       // "sse"    → remote Server-Sent Events (legacy)
       "type": "stdio" | "http" | "sse",
-      
+
       // ─── For stdio transport ──────────────────────────────
       "command": "<executable>",    // REQUIRED: "node", "python", "npx", "java", "docker", etc.
       "args": ["<arg1>", "<arg2>"],  // OPTIONAL: command-line arguments
@@ -1666,7 +1676,7 @@ The `mcp.json` file is the **single configuration file** that registers all MCP 
         "KEY": "value",
         "SECRET": "${input:secretName}"  // Prompts user for value (secure)
       },
-      
+
       // ─── For http / sse transport ────────────────────────
       "url": "<endpoint-url>",       // REQUIRED: "http://localhost:3001/mcp" or "https://..."
       "headers": {                   // OPTIONAL: HTTP headers
@@ -1674,7 +1684,7 @@ The `mcp.json` file is the **single configuration file** that registers all MCP 
       }
     }
   },
-  
+
   // OPTIONAL: Input variable definitions (prompted from user)
   "inputs": [
     {
@@ -1710,7 +1720,7 @@ The `mcp.json` file is the **single configuration file** that registers all MCP 
         "WEATHER_API_KEY": "${input:weatherApiKey}"
       }
     },
-    
+
     // ─── Python MCP (local, stdio) ─────────────────────────
     "database": {
       "type": "stdio",
@@ -1720,7 +1730,7 @@ The `mcp.json` file is the **single configuration file** that registers all MCP 
         "DATABASE_URL": "${input:databaseUrl}"
       }
     },
-    
+
     // ─── npx-based MCP (no local install needed) ───────────
     "github": {
       "type": "stdio",
@@ -1730,7 +1740,7 @@ The `mcp.json` file is the **single configuration file** that registers all MCP 
         "GITHUB_TOKEN": "${input:githubToken}"
       }
     },
-    
+
     // ─── Docker-based MCP ──────────────────────────────────
     "containerized-api": {
       "type": "stdio",
@@ -1742,7 +1752,7 @@ The `mcp.json` file is the **single configuration file** that registers all MCP 
         "my-mcp-server:latest"
       ]
     },
-    
+
     // ─── Remote HTTP MCP ───────────────────────────────────
     "remote-service": {
       "type": "http",
@@ -1751,14 +1761,14 @@ The `mcp.json` file is the **single configuration file** that registers all MCP 
         "Authorization": "Bearer ${input:remoteToken}"
       }
     },
-    
+
     // ─── Java MCP (local, stdio) ───────────────────────────
     "inventory": {
       "type": "stdio",
       "command": "java",
       "args": ["-jar", "${workspaceFolder}/mcp-servers/inventory-mcp/target/inventory-mcp.jar"]
     },
-    
+
     // ─── uvx-based Python MCP (no local install) ───────────
     "search": {
       "type": "stdio",
@@ -1769,7 +1779,7 @@ The `mcp.json` file is the **single configuration file** that registers all MCP 
       }
     }
   },
-  
+
   "inputs": [
     {
       "id": "weatherApiKey",
@@ -1939,12 +1949,14 @@ java -jar target/inventory-mcp.jar
 ## Ecosystem & Community
 
 ### MCP Server Registries
+
 - **mcp.so** — Community MCP server registry
 - **Smithery** — MCP server marketplace
 - **GitHub Topics** — Search `mcp-server` on GitHub
 - **Awesome MCP Servers** — Curated list on GitHub
 
 ### Official Resources
+
 - **Specification:** https://spec.modelcontextprotocol.io
 - **Documentation:** https://modelcontextprotocol.io
 - **TypeScript SDK:** https://github.com/modelcontextprotocol/typescript-sdk
@@ -1996,6 +2008,7 @@ MCP Learning Path
 ## Quick Reference — MCP Cheat Sheet
 
 ### Tool Registration Pattern
+
 ```
 server.tool(name, description, inputSchema, handler)
 → name: lowercase-kebab-case, verb-first (search_items, create_user)
@@ -2005,6 +2018,7 @@ server.tool(name, description, inputSchema, handler)
 ```
 
 ### Resource Registration Pattern
+
 ```
 server.resource(name, uri, description, handler)
 → uri: scheme://path (e.g., db://myapp/schema)
@@ -2013,6 +2027,7 @@ server.resource(name, uri, description, handler)
 ```
 
 ### Prompt Registration Pattern
+
 ```
 server.prompt(name, description, paramSchema, handler)
 → handler: returns { messages: [{ role, content }] }
@@ -2020,6 +2035,7 @@ server.prompt(name, description, paramSchema, handler)
 ```
 
 ### Debugging Commands
+
 ```bash
 # Test with Inspector
 npx @modelcontextprotocol/inspector <command> <args>
@@ -2035,6 +2051,7 @@ Send: { "method": "tools/list", "id": 1 }
 ```
 
 ### Common Pitfalls
+
 | Issue | Cause | Fix |
 |---|---|---|
 | "Server not found" | Wrong command path | Use absolute paths or verify `npx`/`node` is in PATH |

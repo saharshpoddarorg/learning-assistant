@@ -130,17 +130,20 @@ Run this for EVERY category of change:
 ## 3-Tier Completeness Guide
 
 ### Newbie — "I added a thing, and it works"
+
 - New provider/prompt/skill created
 - Registered in BuiltInResources / slash-commands
 - Build passes
 
 ### Amateur — "I added a thing, it works, and it's discoverable"
+
 - All of the above
 - KeywordIndex updated (discoverability via search)
 - Slash command entry added with example usage
 - Skill file has the cheatsheet
 
 ### Pro — "I added a thing that is comprehensive, connected, and iterative"
+
 - All of the above
 - 3-tier content in skill and prompt files
 - Vault resource count updated in documentation

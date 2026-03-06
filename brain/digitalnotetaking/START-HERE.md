@@ -25,6 +25,7 @@
 ### Step 2 — Install
 
 **Obsidian (Windows / macOS / Linux)**
+
 ```
 1. Download: https://obsidian.md/download
 2. Run installer
@@ -34,6 +35,7 @@
 ```
 
 **Notion**
+
 ```
 1. Sign up: https://notion.so
 2. Use the "Personal" template or start blank
@@ -56,6 +58,7 @@ No matter which tool you chose, create these four top-level folders/pages NOW:
 ### Step 4 — Your first note
 
 Open your tool and write one note right now:
+
 ```markdown
 # Today's Log — [date]
 

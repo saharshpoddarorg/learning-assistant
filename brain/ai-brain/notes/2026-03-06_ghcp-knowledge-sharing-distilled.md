@@ -138,6 +138,7 @@ The knowledge sharing session itself is a technique: structured slides + live de
 ```
 
 **The 3-step workflow:**
+
 ```
 Step 1: GENERATE → "Generate a Mermaid class diagram showing IDevice hierarchy and all consumers"
 Step 2: FEED     → Paste the diagram into your next prompt as context

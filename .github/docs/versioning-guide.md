@@ -145,6 +145,7 @@ new Thread(v2::start, "atlassian-v2").start();
 ```
 
 In your AI client (e.g., `claude_desktop_config.json`):
+
 ```json
 {
   "mcpServers": {

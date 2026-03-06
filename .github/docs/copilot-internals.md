@@ -108,6 +108,7 @@ regardless of context budget. Use this for complex multi-step workflows.
 | GPT-4 Turbo | ~128K tokens | ~90K tokens |
 
 **Token estimation:**
+
 ```
 1 token ≈ 4 characters of English text
 1 line of markdown ≈ 10–30 tokens
@@ -137,6 +138,7 @@ This is visible in the conversation as todo status updates.
 
 **Tier 2 (Multi-step tasks):** Copilot creates a todo list at the start of the task,
 marks each item as `in-progress` before working on it, and `completed` immediately after.
+
 ```
 User: "Update all the brain docs for the new tier structure"
 Copilot planning:
@@ -178,12 +180,14 @@ items remain in the conversation context. Resume by saying: "Continue the remain
 ### How to Structure Requests for Best Planning
 
 **Don't:**
+
 ```
 "Fix the brain docs, add new commands, update the hub, and also fix the skill file"
 (Four unrelated things in one message → Copilot may batch badly)
 ```
 
 **Do:**
+
 ```
 "I need to:
 1. Fix the brain/ai-brain/README.md tier section
@@ -298,7 +302,7 @@ NOT loaded:       previous chat sessions
 # Save session state to brain/
 /brain-capture-session → gives it a topic name
 
-# List recent session notes  
+# List recent session notes
 brain list --tier notes --kind session
 
 # Resume next session

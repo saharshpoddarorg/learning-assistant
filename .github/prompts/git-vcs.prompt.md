@@ -21,6 +21,7 @@ Teach or guide the user on the selected Git/VCS topic. Adapt your response based
 
 ### Git & VCS Domain Map
 ```
+
 Git Fundamentals (newbie)
 ├── Core commands: init, clone, add, commit, push, pull, fetch
 ├── Inspecting: status, log, diff, show, blame
@@ -54,6 +55,7 @@ Advanced Git (pro)
 ├── Bisect: binary search for bug-introducing commit
 ├── Worktrees: multiple checkouts of the same repo
 └── Submodules and subtrees
+
 ```
 
 ### Response Structure by Level

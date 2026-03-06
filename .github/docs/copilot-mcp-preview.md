@@ -410,14 +410,14 @@ const participant = vscode.chat.createChatParticipant(
   'my-extension.myParticipant',
   async (request, context, stream, token) => {
     stream.markdown("# My Response\n\n");
-    
+
     const models = await vscode.lm.selectChatModels({ vendor: 'copilot' });
     const response = await models[0].sendRequest(
       [vscode.LanguageModelChatMessage.User(request.prompt)],
       {},
       token
     );
-    
+
     for await (const chunk of response.text) {
       stream.markdown(chunk);
     }
@@ -552,6 +552,7 @@ The community maintains a registry at `mcpservers.org` — lists categorized MCP
 ### If You Have an Older `.vscode/mcp.json`
 
 Old format (pre-2025):
+
 ```json
 {
   "mcpServers": {
@@ -564,6 +565,7 @@ Old format (pre-2025):
 ```
 
 New format (2025+):
+
 ```json
 {
   "servers": {
@@ -582,18 +584,21 @@ New format (2025+):
 SSE transport still works but is being phased out. Migrate to Streamable HTTP:
 
 **Old (SSE server):**
+
 ```typescript
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 // ... two-channel setup
 ```
 
 **New (Streamable HTTP server):**
+
 ```typescript
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 // ... single POST endpoint
 ```
 
 **Client config change:**
+
 ```json
 // Old SSE: needed both url and /message endpoint separately
 { "url": "http://localhost:3001/sse" }

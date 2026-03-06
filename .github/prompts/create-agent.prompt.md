@@ -55,6 +55,7 @@ A custom agent is a **specialist persona** for GitHub Copilot Chat. When selecte
 ### Agent File Anatomy
 
 ```markdown
+
 ---
 name: My-Agent-Name          ← display name in dropdown
 description: 'Short placeholder text shown in chat input'
@@ -76,6 +77,7 @@ Tell Copilot:
 - What to do and NOT do
 - How to format responses
 - When to ask for clarification vs proceed
+
 ```
 
 ---
@@ -89,6 +91,7 @@ Based on the inputs provided, generate the following file:
 **Agent file structure to generate (strictly follow this):**
 
 ```markdown
+
 ---
 name: ${input:agentName}
 description: '${input:purpose}'
@@ -124,6 +127,7 @@ tools: [<resolved tools from ${input:tools}>]
 
 <Key expertise areas — 3-7 bullet points with sub-items>
 <Relevant frameworks, patterns, tools, concepts>
+
 ```
 
 ---

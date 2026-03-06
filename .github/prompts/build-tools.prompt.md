@@ -21,6 +21,7 @@ Teach or guide on the selected build tool and topic. Adapt depth and detail to t
 
 ### Build Tools Domain Map
 ```
+
 Maven
 ├── Core: pom.xml, coordinates (groupId:artifactId:version), repositories
 ├── Lifecycle: validate → compile → test → package → verify → install → deploy
@@ -59,6 +60,7 @@ npm / yarn / pnpm
 ├── Workspaces: monorepo setup, hoisting
 ├── Lockfiles: package-lock.json, yarn.lock, pnpm-lock.yaml (commit these)
 └── Publishing: npm access, npm publish, scoped packages (@org/pkg)
+
 ```
 
 ### Response Structure by Level

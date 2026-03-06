@@ -243,6 +243,7 @@ Step 6 — POST-MORTEM
 ### Research Documentation Patterns
 
 **Architecture Decision Record (ADR)** — for technical decisions:
+
 ```markdown
 ---
 date: YYYY-MM-DD
@@ -270,6 +271,7 @@ Why were the alternatives rejected?
 ```
 
 **Spike Findings Doc** — after a spike story:
+
 ```markdown
 ---
 date: YYYY-MM-DD
@@ -320,14 +322,15 @@ Step 7  /check-standards → brain-naming # Verify our note
 ```
 
 **Prompts for Copilot research assistance:**
+
 ```
-"Research [topic] using the hypothesis-driven framework. 
- List 3 hypotheses, evidence sources per hypothesis, 
+"Research [topic] using the hypothesis-driven framework.
+ List 3 hypotheses, evidence sources per hypothesis,
  and a weighted trade-off table for [options A, B, C]."
 
-"Perform a technology evaluation of [tech] using the full 
+"Perform a technology evaluation of [tech] using the full
  rubric: functional, operational, security, ecosystem, team, financial."
 
-"Build a research plan for a spike on [topic]. 
+"Build a research plan for a spike on [topic].
  Timebox: 2 days. Questions to answer: [...]"
 ```

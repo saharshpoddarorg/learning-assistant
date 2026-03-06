@@ -154,6 +154,7 @@ These files **directly affect Copilot's AI behavior**. Editing them changes what
 | **Skill definitions** | `SKILL.md` | `.github/skills/<name>/` | Auto — when your question matches the description | Extra knowledge, scripts, and templates |
 
 #### Key rules for Copilot-read files:
+
 - **Content is instructions to the AI** — write them as directives ("Use X", "Never do Y", "When asked to Z, follow these steps")
 - **Frontmatter matters** — YAML headers (`applyTo`, `description`, `tools`, etc.) control when and how the file loads
 - **Keep them focused** — shorter, targeted instructions get better compliance than long documents
@@ -184,6 +185,7 @@ These files are **documentation for humans**. Copilot does NOT read these to sha
 | **MCP Config Template** | `mcp-servers/user-config/mcp-config.example.properties` | Full property reference with documented placeholders (~280 lines) | When setting up MCP config for the first time |
 
 #### Key rules for developer files:
+
 - **Content is explanation for humans** — write clearly, use examples, add links
 - **Editing these does NOT change Copilot** — they are reference material only
 - **Keep them in sync** — when you add a new agent/prompt/skill, update the relevant README

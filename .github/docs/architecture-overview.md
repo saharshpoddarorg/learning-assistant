@@ -150,6 +150,7 @@ Phase 5:  buildResult()        trims to maxResults, builds SearchResult<T>
 ```
 
 **Hooks for customisation:**
+
 ```java
 // Override in a subclass to run code before/after the pipeline:
 protected SearchResult<T> preSearch(SearchContext context)  { /* ... */ return null; }
@@ -164,6 +165,7 @@ when the result is empty.
 ## 4. Design Patterns Reference
 
 ### Strategy Pattern
+
 **Where:** `ScoringStrategy<T>`, `RankingStrategy<T>`, `SearchFilter<T>`, `QueryClassifier`
 
 **What:** Defines a family of algorithms, encapsulates each, and makes them interchangeable.
@@ -178,6 +180,7 @@ SearchEngineConfig.<Article>builder()
 ```
 
 ### Template Method Pattern
+
 **Where:** `ConfigurableSearchEngine<T>`
 
 **What:** Defines the skeleton of the search pipeline (`final search()` method) and
@@ -187,6 +190,7 @@ The `final` modifier on `search()` ensures the 5-phase contract is always honour
 subclasses can only plug into the defined extension points.
 
 ### Builder Pattern
+
 **Where:** `SearchEngineConfig`, `Bm25Scorer`, `CompositeScorer`, `KeywordQueryClassifier`, `TextMatchScorer`, `TagScorer`, `KeywordRegistry`
 
 **What:** Assembles complex objects step-by-step without telescoping constructors.
@@ -204,6 +208,7 @@ Bm25Scorer.<Resource>builder()
 ```
 
 ### Chain of Responsibility Pattern
+
 **Where:** `FilterChain<T>`, `RankingStrategy.thenRank()`
 
 **What:** Passes a request through a chain of handlers. `FilterChain` short-circuits
@@ -218,6 +223,7 @@ FilterChain.of(
 ```
 
 ### Composite Pattern
+
 **Where:** `CompositeScorer<T>`
 
 **What:** A tree of scorers where the composite scores the same way as a single leaf.
@@ -225,6 +231,7 @@ Callers call `.score(item, ctx)` — they don't know if they're talking to a sim
 or a weighted composite of five scorers.
 
 ### Functional Interface / Lambda Pattern
+
 **Where:** `ScoringStrategy<T>`, `SearchFilter<T>`, `QueryClassifier`, `Tokenizer`
 
 All four are `@FunctionalInterface` — they can be implemented as lambdas, improving
@@ -238,6 +245,7 @@ ScoringStrategy<Resource> zero       = (resource, ctx) -> 0;
 ```
 
 ### Singleton (stateless)
+
 **Where:** `ScoreRanker<T>`
 
 A stateless comparator with no mutable state — safe to share across threads.
@@ -249,6 +257,7 @@ ScoreRanker<Resource> ranker = ScoreRanker.instance();
 ```
 
 ### Factory Method (static)
+
 **Where:** `SearchContext.of()`, `SearchResult.empty()`, `FilterChain.of()`,
 `ScoringStrategy.zero()`, `QueryClassifier.alwaysVague()`, etc.
 
@@ -280,6 +289,7 @@ and the AI calls them like functions. See [mcp-servers-architecture.md](mcp-serv
 for a complete protocol breakdown.
 
 ### Dependency Inversion Principle (DIP)
+
 From **SOLID** principles. The `search-api` module IS the application of DIP:
 - High-level policy: `mcp-servers` (uses search to serve AI queries)
 - Abstraction: `search-api` (`SearchEngine<T>`, `ScoringStrategy<T>`, ...)
@@ -289,6 +299,7 @@ Policy code (`mcp-servers`) depends ONLY on abstractions (`search-api`).
 Low-level detail (`search-engine`) also depends on the same abstractions.
 
 ### Interface Segregation Principle (ISP)
+
 From **SOLID** principles. The search API is split into many small, focused interfaces
 rather than one large `SearchEngine` god-interface:
 - `ScoringStrategy<T>` — scoring only
@@ -301,12 +312,14 @@ rather than one large `SearchEngine` god-interface:
 A component implementing one of these doesn't need to know about the others.
 
 ### Open/Closed Principle (OCP)
+
 From **SOLID** principles. `ConfigurableSearchEngine<T>` is:
 - **Closed for modification:** the 5-phase pipeline is `final` — you can't break it
 - **Open for extension:** add `preSearch` / `postSearch` hooks, plug in new strategies,
   implement new `SearchFilter` or `ScoringStrategy` without touching base classes
 
 ### Zero-Dependency Architecture
+
 The entire `search-api` and `search-engine` modules use **only the Java 21 standard
 library** — no Maven, no Gradle, no third-party JARs. This is intentional:
 - Educational clarity: understand the algorithm, not the framework
@@ -360,6 +373,7 @@ List<ScoredItem<LearningResource>> items = result.items(); // type-safe!
 ### Why not `<?>` everywhere?
 
 If `SearchEngine<?>` were the base interface, you'd lose type safety at every boundary:
+
 ```java
 SearchEngine<?> engine = ...;
 SearchResult<?> result = engine.search(ctx);

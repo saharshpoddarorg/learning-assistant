@@ -45,12 +45,14 @@ This isn't about pretty pictures — it's about **making architecture visible as
 ### Your First Diagram-Assisted Prompt (3 steps)
 
 **Step 1 — Ask Copilot to generate a diagram:**
+
 ```
 Generate a Mermaid class diagram showing the IDevice interface,
 its implementations, and all classes that use IDevice.
 ```
 
 **Step 2 — Copilot produces something like:**
+
 ```mermaid
 classDiagram
     class IDevice {
@@ -69,6 +71,7 @@ classDiagram
 ```
 
 **Step 3 — Use the diagram in your next prompt:**
+
 ```
 Using this class diagram as context:
 [paste diagram here]
@@ -132,6 +135,7 @@ Now Copilot has complete architectural knowledge and generates correct code on t
 #### Example 1: Adding a Property
 
 **Without diagram context:**
+
 ```java
 // ❌ LLM guesses — missing premodify(), wrong hierarchy, no PropertyChange
 public class Device implements IDevice {
@@ -141,6 +145,7 @@ public class Device implements IDevice {
 ```
 
 **With class diagram context:**
+
 ```java
 // ✅ LLM knows the full contract from the diagram
 @Override
@@ -157,6 +162,7 @@ public void setDescription(@NotNull String description) {
 #### Example 2: Adding Validation to a gRPC Flow
 
 **Sequence diagram fed as context:**
+
 ```mermaid
 sequenceDiagram
     Client->>GrpcServiceImpl: saveDesign(request)
@@ -175,6 +181,7 @@ Agent inserts **exactly** between `beginTransaction()` and `saveOrUpdate()` — 
 #### Example 3: Adding a State to a Lifecycle
 
 **State diagram fed as context:**
+
 ```mermaid
 stateDiagram-v2
     [*] --> Untracked: window opened
@@ -235,13 +242,15 @@ The following diagrams are always-on context when editing any Java file.
 ### Diagram Prompts That Work Well
 
 **Generate a class hierarchy:**
+
 ```
-Generate a Mermaid classDiagram showing [InterfaceName], 
+Generate a Mermaid classDiagram showing [InterfaceName],
 all classes that implement it, and all classes that use it.
 Include the key methods and inheritance relationships.
 ```
 
 **Generate a sequence flow:**
+
 ```
 Generate a Mermaid sequenceDiagram for the [operation] flow,
 from [entry point] through to [end result].
@@ -249,12 +258,14 @@ Show all class interactions in order.
 ```
 
 **Generate a state machine:**
+
 ```
 Generate a Mermaid stateDiagram-v2 for the [component] lifecycle,
 showing all states, transitions, and edge cases.
 ```
 
 **Generate a module dependency graph:**
+
 ```
 Generate a Mermaid graph TD showing all modules in the project
 and their dependencies (which depends on which).

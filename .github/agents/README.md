@@ -1,7 +1,7 @@
 # 🤖 Custom Agents — Guide
 
-> **What:** Custom agents are AI **personas** — specialist roles that Copilot can assume.  
-> **Where:** `.github/agents/*.agent.md`  
+> **What:** Custom agents are AI **personas** — specialist roles that Copilot can assume.
+> **Where:** `.github/agents/*.agent.md`
 > **How to use:** Select from the agents dropdown in VS Code Chat.
 
 ---
@@ -250,9 +250,11 @@ You are a patient, encouraging Java programming tutor.
 4. The wizard generates the `.github/agents/<name>.agent.md` file automatically
 
 Or use the richer guided version in this repo:
+
 ```
 /create-agent → agentName → purpose → tools → depth
 ```
+
 File: `.github/prompts/create-agent.prompt.md`
 
 See [copilot-mcp-preview.md](../docs/copilot-mcp-preview.md) for the full `/create-agent` feature details.
@@ -299,7 +301,7 @@ Yes! When you select an agent, `copilot-instructions.md` and matching `*.instruc
 <details>
 <summary><strong>An agent doesn't appear in the dropdown?</strong></summary>
 
-Check: (1) file is in `.github/agents/`, (2) extension is `.agent.md`, (3) YAML frontmatter is valid.  
+Check: (1) file is in `.github/agents/`, (2) extension is `.agent.md`, (3) YAML frontmatter is valid.
 Right-click in Chat → **Diagnostics** to see errors.
 
 </details>
@@ -307,7 +309,7 @@ Right-click in Chat → **Diagnostics** to see errors.
 <details>
 <summary><strong>What's the difference between agents and prompts?</strong></summary>
 
-Agents are **persistent personas** (active throughout the conversation).  
+Agents are **persistent personas** (active throughout the conversation).
 Prompts are **one-shot tasks** (run once and done).
 
 </details>

@@ -92,24 +92,31 @@ When reviewing code or architecture, follow this structure:
 ## Output Format for Design Reviews
 
 ```markdown
+
 ## Design Review: [Component Name]
 
 ### Summary
+
 [1-2 sentence assessment]
 
 ### Strengths
+
 - [What's done well]
 
 ### Issues Found
+
 | # | Severity | Principle Violated | Issue | Recommendation |
 |---|----------|-------------------|-------|----------------|
 | 1 | Critical | SRP | ... | ... |
 
 ### Proposed Architecture
+
 [Diagram or description of improved design]
 
 ### Trade-offs
+
 [What you gain vs. what you give up with the proposed changes]
+
 ```
 
 ## Rules

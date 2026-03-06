@@ -1,7 +1,7 @@
 # 🎯 Prompt Files — Guide
 
-> **What:** Reusable task templates you invoke as **slash commands** in chat (e.g., `/explain`).  
-> **Where:** `.github/prompts/*.prompt.md`  
+> **What:** Reusable task templates you invoke as **slash commands** in chat (e.g., `/explain`).
+> **Where:** `.github/prompts/*.prompt.md`
 > **How to use:** Type `/prompt-name` in VS Code Chat.
 
 ---

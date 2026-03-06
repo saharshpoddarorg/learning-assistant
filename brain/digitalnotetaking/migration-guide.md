@@ -1,6 +1,6 @@
 # Migration Guide — Moving Between Note-Taking Tools
 
-> Step-by-step instructions for migrating between popular PKM tools.  
+> Step-by-step instructions for migrating between popular PKM tools.
 > Covers: Notion → Obsidian · Logseq → Obsidian · OneNote → Notion · Any → Markdown
 
 ---
@@ -56,6 +56,7 @@ Click Import
 - Callout blocks → loose Markdown text (add `> [!NOTE]` manually)
 
 **Fix linked databases with Dataview:**
+
 ```dataview
 TABLE status, due, priority FROM "Projects"
 WHERE type = "project" AND status != "done"
@@ -104,6 +105,7 @@ Copy-Item -Path "C:\path\to\logseq\journals\*" -Destination "C:\path\to\obsidian
 | `DONE`, `TODO`, `LATER`, `NOW` | `- [x]`, `- [ ]` | Manual replace |
 
 **Batch-fix TODO keywords (PowerShell):**
+
 ```powershell
 # Replace Logseq task markers with Obsidian checkbox style
 Get-ChildItem "C:\obsidian\Imports\" -Recurse -Filter "*.md" | ForEach-Object {
@@ -205,5 +207,5 @@ Use Copilot to help with any step:
 
 ---
 
-*Related: [tools-comparison.md](tools-comparison.md) · [para-method.md](para-method.md) · [START-HERE.md](START-HERE.md)*  
+*Related: [tools-comparison.md](tools-comparison.md) · [para-method.md](para-method.md) · [START-HERE.md](START-HERE.md)*
 *Vault resources: `/resources → search → migration`*

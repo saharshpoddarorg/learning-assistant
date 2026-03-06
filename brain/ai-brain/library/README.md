@@ -6,7 +6,7 @@ The library holds external content you imported and want to preserve: slide deck
 guides, presenter notes, raw session documents — anything you did **not** write yourself.
 Sources are kept verbatim (or near-verbatim) with frontmatter added for searchability.
 
-### notes/ vs library/ — the core rule
+## notes/ vs library/ — the core rule
 
 | Tier | Rule | Examples |
 |---|---|---|

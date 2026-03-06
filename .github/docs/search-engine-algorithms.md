@@ -20,7 +20,7 @@ search-engine/src/search/engine/    ← implementations (Bm25Scorer, TextMatchSc
 mcp-servers/src/server/...          ← domain engines (LearningSearchEngine, OfficialDocsSearchEngine)
 ```
 
-**Code location format** used in this document:  
+**Code location format** used in this document:
 `search.engine.algorithm.Bm25Scorer` → file is `search-engine/src/search/engine/algorithm/Bm25Scorer.java`
 
 ---
@@ -75,6 +75,7 @@ because a word appearing in the title is a different strength of evidence than a
 matching.
 
 ### Code location
+
 `search/engine/algorithm/TextMatchScorer.java`
 
 ---
@@ -102,6 +103,7 @@ Tags alone can't detect body relevance, but they're very precise for category-st
 searches ("show me all Java tutorials").
 
 ### Code location
+
 `search/engine/algorithm/TagScorer.java`
 
 ---
@@ -127,6 +129,7 @@ The composite combines them into one score without any strategy needing knowledg
 of the others. This is the **Strategy pattern** applied to scoring.
 
 ### Code location
+
 `search/engine/algorithm/CompositeScorer.java`
 
 ---
@@ -187,6 +190,7 @@ Large corpora (hundreds to thousands of documents) with long bodies.
 Less effective for very short descriptions or title-only matching.
 
 ### Code location
+
 `search/engine/algorithm/Bm25Scorer.java`
 
 ---
@@ -214,6 +218,7 @@ have, has, had, do, does, did, will, would, could, should, may, might, shall, ca
 on, at, to, for, with, by, from, up, as, into, through, about, than, then, so.
 
 ### Code location
+
 `search/engine/algorithm/DefaultTokenizer.java`
 
 ---
@@ -238,6 +243,7 @@ For true edit-distance fuzzy matching, this could be extended with a Levenshtein
 implementation (left as an exercise — see `FuzzyMatcher.scoreWord()` for the extension point).
 
 ### Code location
+
 `search/engine/algorithm/FuzzyMatcher.java`
 
 ---
@@ -268,6 +274,7 @@ age > staleDays  → bonus = 0
 ### When to use
 
 Combine with `ScoreRanker` using `thenRank()`:
+
 ```java
 .ranker(ScoreRanker.<Article>instance()
        .thenRank(new RecencyBoostRanker<>(Article::updatedAt)))
@@ -276,6 +283,7 @@ Combine with `ScoreRanker` using `thenRank()`:
 This first sorts by relevance score, then re-boosts (and re-sorts) for recency.
 
 ### Code location
+
 `search/engine/rank/RecencyBoostRanker.java`
 
 ---
@@ -306,6 +314,7 @@ but "java streams official docs" should prioritise official Oracle documentation
 in SPECIFIC mode. The classifier routes each query to the right scoring strategy.
 
 ### Code location
+
 `search/engine/classify/KeywordQueryClassifier.java`
 
 ---

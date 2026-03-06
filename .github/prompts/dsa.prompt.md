@@ -22,6 +22,7 @@ ${input:level:Your DSA level? (beginner / intermediate / advanced / contest-leve
 
 ### DSA Complete Hierarchy
 ```
+
 Data Structures & Algorithms
 │
 ├── DATA STRUCTURES
@@ -137,6 +138,7 @@ Data Structures & Algorithms
     ├── Heap / Top-K (k-th largest, merge k sorted)
     ├── Interval problems (merge, insert, overlap)
     └── Matrix traversal (spiral, diagonal, rotate)
+
 ```
 
 ### Response by Mode
@@ -176,6 +178,7 @@ Deep walkthrough of Big-O for the given topic, including:
 #### If mode = interview-roadmap:
 Structured study plan:
 ```
+
 Week 1: Arrays, Strings, Two Pointers, Sliding Window
 Week 2: Linked Lists, Stacks, Queues, Binary Search
 Week 3: Trees (BFS, DFS), BST, Heaps
@@ -183,6 +186,7 @@ Week 4: Graphs (BFS, DFS, Dijkstra), Topological Sort
 Week 5: Dynamic Programming (1D → 2D)
 Week 6: Backtracking, Greedy, Trie, Union-Find
 Week 7: Advanced + revision + mock interviews
+
 ```
 
 ### Rules

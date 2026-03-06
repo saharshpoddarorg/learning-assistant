@@ -138,6 +138,7 @@ System.out.println("Worker completed");
 - **Memory consistency errors:** Different threads have inconsistent views of shared memory
 
 **Synchronized Methods:**
+
 ```java
 public class Counter {
     private int count = 0;
@@ -154,6 +155,7 @@ public class Counter {
 ```
 
 **Synchronized Blocks (finer-grained control):**
+
 ```java
 public void addName(String name) {
     synchronized(this) {
@@ -174,6 +176,7 @@ public void safeMethod() {
 ```
 
 **Volatile Variables:**
+
 ```java
 // Guarantees visibility: writes by one thread are immediately visible to others
 // Does NOT guarantee atomicity of compound operations (like i++)
@@ -181,6 +184,7 @@ private volatile boolean running = true;
 ```
 
 **Atomic Variables (`java.util.concurrent.atomic`):**
+
 ```java
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -481,6 +485,7 @@ try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
 ```
 
 **Scoped Values (Preview, companion to virtual threads):**
+
 ```java
 // Thread-local replacement for virtual threads
 private static final ScopedValue<User> CURRENT_USER = ScopedValue.newInstance();
@@ -526,6 +531,7 @@ java.lang.Throwable
 ### 2.2 Catching and Handling
 
 **Basic try-catch-finally:**
+
 ```java
 public void writeList() {
     PrintWriter out = null;
@@ -547,6 +553,7 @@ public void writeList() {
 ```
 
 **Multi-catch (Java 7+):**
+
 ```java
 // Handle multiple exception types with a single handler
 catch (IOException | SQLException ex) {
@@ -558,6 +565,7 @@ catch (IOException | SQLException ex) {
 ```
 
 **Try-with-resources (Java 7+):**
+
 ```java
 // Resources implementing AutoCloseable are automatically closed
 static String readFirstLineFromFile(String path) throws IOException {
@@ -1105,6 +1113,7 @@ Map<K,V>                  ← key-value pairs (not Collection)
 ```
 
 **Immutable Collections (Java 9+):**
+
 ```java
 List<String> list = List.of("a", "b", "c");           // unmodifiable
 Set<Integer> set = Set.of(1, 2, 3);                    // unmodifiable
@@ -1118,6 +1127,7 @@ SequencedMap<K,V>      — firstEntry(), lastEntry(), reversed()
 ```
 
 **Lambda-enhanced Map operations (Java 8+):**
+
 ```java
 map.compute("key", (k, v) -> v == null ? 1 : v + 1);
 map.computeIfAbsent("key", k -> expensiveComputation(k));

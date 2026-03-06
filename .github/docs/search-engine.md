@@ -1,6 +1,6 @@
 # Search Engine — Developer Guide
 
-> **The pluggable search engine powering all MCP servers. Start here.**  
+> **The pluggable search engine powering all MCP servers. Start here.**
 > File: `.github/docs/search-engine.md`
 
 ---
@@ -43,6 +43,7 @@ Both servers expose search as MCP tools you can call from Copilot Chat:
 | `browse_vault` | Browse by category or type | `category: "java"` |
 
 **Example MCP tool call (in Copilot Chat):**
+
 ```
 /resources search java concurrency beginner
 /resources discover design patterns
@@ -58,6 +59,7 @@ Both servers expose search as MCP tools you can call from Copilot Chat:
 | **Exploratory** | You want curated recommendations | `"help me get started"`, `"beginner stuff"`, `"what should I learn"` |
 
 The engine **auto-detects** which mode fits your query — or you can force it:
+
 ```
 /resources discover mode:specific JUnit 5 docs
 /resources discover mode:exploratory java
@@ -89,7 +91,7 @@ Each result shows:
 
 ---
 
-**→ Next:** [Amateur path: configuring the engine](#-amateur-configuring-and-extending-the-engine)  
+**→ Next:** [Amateur path: configuring the engine](#-amateur-configuring-and-extending-the-engine)
 **→ See also:** [MCP Server Setup](mcp-server-setup.md) · [Slash Commands](slash-commands.md)
 
 ---
@@ -146,6 +148,7 @@ map.put("rabbitmq", ResourceCategory.DEVOPS);
 ```
 
 After adding: rebuild `→ mcp-servers/build.ps1` and test with:
+
 ```
 /resources discover "kafka beginner"
 ```
@@ -166,8 +169,8 @@ static final int OFFICIAL_BOOST     =  15;  // Official/authoritative source
 static final int DIFFICULTY_FIT     =  10;  // Difficulty matches target range
 ```
 
-**To boost official sources more:** raise `OFFICIAL_BOOST` from 15 to 25.  
-**To downweight difficulty:** lower `DIFFICULTY_FIT` from 10 to 5.  
+**To boost official sources more:** raise `OFFICIAL_BOOST` from 15 to 25.
+**To downweight difficulty:** lower `DIFFICULTY_FIT` from 10 to 5.
 **General rule:** change one constant at a time, test with 3-5 varied queries.
 
 ## Adding a new resource to the vault
@@ -228,7 +231,7 @@ SearchResult<LearningResource> specific = engine.search(
 
 ---
 
-**→ Next:** [Pro path: building a custom engine](#-pro-building-a-custom-search-engine)  
+**→ Next:** [Pro path: building a custom engine](#-pro-building-a-custom-search-engine)
 **→ See also:** [Module technical reference](../../mcp-servers/src/search/README.md) · [Java instructions](../instructions/java.instructions.md)
 
 ---

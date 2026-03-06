@@ -174,6 +174,7 @@ Mark directory as:
 | **Postfix** | Type `.` after expression | `expr.if` → `if (expr) {}`, `expr.var` → `var x = expr;` |
 
 **Postfix completion examples:**
+
 ```
 myList.for        →  for (var item : myList) { }
 myList.fori       →  for (int i = 0; i < myList.size(); i++) { }

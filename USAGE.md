@@ -89,8 +89,8 @@ This guide uses three tiers throughout. Find yours and follow the hints:
 
 ## 3. One-Time Setup
 
-> 🟢 **Newbie:** Do every step in order. Nothing is optional here.  
-> 🟡 **Amateur:** Check versions (1a, 1b), skip rest if installed.  
+> 🟢 **Newbie:** Do every step in order. Nothing is optional here.
+> 🟡 **Amateur:** Check versions (1a, 1b), skip rest if installed.
 > 🔴 **Pro:** `java -version` ≥21, Copilot active, `node -v` ≥18.
 
 ### Step 1 — Install VS Code
@@ -141,6 +141,7 @@ code .       # opens the workspace in VS Code
 # Windows PowerShell (from the repo root):
 .\mcp-servers\scripts\setup.ps1
 ```
+
 ```bash
 # Linux/macOS:
 ./mcp-servers/scripts/setup.sh
@@ -155,6 +156,7 @@ Ctrl+Shift+B  →  select "mcp-servers: build"
 ```
 
 Or in terminal:
+
 ```powershell
 cd mcp-servers; .\build.ps1     # Windows
 cd mcp-servers && ./build.sh    # Linux/Mac
@@ -171,15 +173,17 @@ cd mcp-servers && ./build.sh    # Linux/Mac
 
 1. `Ctrl+Alt+I` or `Ctrl+Shift+I` → opens Copilot Chat
 2. Switch to **Agent** mode (dropdown at top of chat panel)
-3. Type: `/hub`  
+3. Type: `/hub`
    You should see a list of all 36 slash commands → setup is working.
 
 ### Step 10 — Verify MCP Tools Are Available
 
 In the same chat, type:
+
 ```
 what MCP tools do you have available?
 ```
+
 You should see tools like `search_resources`, `browse_vault`, `discover_resources`, etc.
 
 ---
@@ -310,12 +314,14 @@ GO"   [Enter]             ← Copilot does all 3 in sequence
 ```
 
 **Use `/scope` to stay focused:**
+
 ```
 /scope → code-specific   ← focus only on this project's code
 /scope → generic         ← discuss concepts broadly
 ```
 
 **Use `/context` to carry state:**
+
 ```
 /context → continue      ← picks up where last session ended
 /context → fresh         ← clean slate
@@ -374,7 +380,7 @@ RIGHT:
 3. Send a new message:
 
    "Good — [Task A] is confirmed complete.
-   
+
    Now: [Task B description].
    Do not start B until you confirm A is done."
 ```
@@ -400,7 +406,7 @@ RIGHT:
 Without MCP:                         With MCP:
 ─────────────────                    ─────────────────────────────────────────
 You: "What Java resources do         You: "What Java resources do you have?"
-     you have?"                      
+     you have?"
 Copilot: "I don't have access        Copilot: [calls search_resources tool]
 to your files or the internet."      Copilot: "I found 12 Java resources in
                                      your vault: Baeldung (tutorials),
@@ -557,6 +563,7 @@ You: "Add it to my vault"
 ```
 
 **Run in demo mode to see it in action:**
+
 ```powershell
 .\mcp-servers\scripts\server.ps1 demo learning-resources
 # Or:
@@ -784,6 +791,7 @@ The `discover_resources` tool uses **QueryClassifier** to pick the right strateg
 | `EXPLORATORY` | General/curious queries | Full scan + relevance-ranked, with "did you mean?" |
 
 **KeywordIndex** maps ~130 keywords to ConceptArea enums:
+
 ```
 "binary search" → ConceptArea.SEARCHING
 "microservices" → ConceptArea.DISTRIBUTED_SYSTEMS
@@ -868,6 +876,7 @@ brain/ai-brain/
 | `brain: help` | Show all commands |
 
 **Via terminal:**
+
 ```powershell
 .\brain\ai-brain\scripts\brain.ps1 new
 .\brain\ai-brain\scripts\brain.ps1 new --tier notes          # goes into committed notes/
@@ -876,6 +885,7 @@ brain/ai-brain/
 .\brain\ai-brain\scripts\brain.ps1 list
 .\brain\ai-brain\scripts\brain.ps1 status
 ```
+
 ```bash
 ./brain/ai-brain/scripts/brain.sh new
 ./brain/ai-brain/scripts/brain.sh search "binary tree"
@@ -935,6 +945,7 @@ brain/ai-brain/
 7. Capture insights → `/brain-new`
 
 **Compile and run anything in src/:**
+
 ```powershell
 # From the repo root:
 javac -d out src\*.java
@@ -952,6 +963,7 @@ java -cp out Main
 ### 9.1 Learning Paths by Topic
 
 #### Data Structures & Algorithms
+
 ```
 1. Start: /dsa → pick a topic (arrays, linked lists, trees, graphs, DP...)
 2. Learn: Copilot gives theory + code + complexity + interview patterns
@@ -964,6 +976,7 @@ java -cp out Main
 **Key skill content:** Arrays, stacks, queues, linked lists, trees (BST, AVL, Red-Black), heaps, tries, hash maps, graphs (BFS, DFS, Dijkstra, Bellman-Ford), sorting algorithms, binary search, dynamic programming, greedy, backtracking — all with complexity tables.
 
 #### System Design
+
 ```
 1. Start: /system-design → describe a system to design
 2. Work through: HLD (components, data flow) → LLD (classes, APIs, DB schema)
@@ -975,6 +988,7 @@ java -cp out Main
 **Key skill content:** Scaling strategies, load balancing, caching (Redis, Memcached), CDN, databases (SQL vs NoSQL, sharding, replication), message queues (Kafka architecture), API design (REST, gRPC, GraphQL), rate limiting (token bucket, sliding window), circuit breakers, service discovery, distributed consensus.
 
 #### DevOps & CI/CD
+
 ```
 1. Start: /devops → pick a topic
 2. Learn pipeline anatomy, then specific tools (Docker, K8s, Terraform)
@@ -986,6 +1000,7 @@ java -cp out Main
 **Key skill content:** CI/CD pipeline anatomy (GitHub Actions, Jenkins), Docker (image layers, multi-stage builds), Kubernetes (pods, deployments, services, HPA), GitOps (ArgoCD, Flux), deployment strategies (blue-green, canary, rolling), IaC (Terraform), monitoring & observability (metrics, logs, traces, Prometheus, Grafana, Jaeger).
 
 #### Java (Language + Ecosystem)
+
 ```
 1. Deep dive: /language-guide → java
 2. Modern features: Java 21 records, sealed classes, pattern matching, virtual threads
@@ -997,6 +1012,7 @@ java -cp out Main
 **Key skill content:** Java 21+ syntax, concurrency (ExecutorService, CompletableFuture, VirtualThread), Java records, functional interfaces, streams, Optional, collections, Spring Boot/Data/Security/Cloud, JUnit 5, Mockito, JPA/Hibernate.
 
 #### Career and Interview Prep
+
 ```
 1. Role exploration: /career-roles → "senior software engineer" or any role
 2. Interview prep: /interview-prep → choose: DSA | system design | behavioral
@@ -1006,6 +1022,7 @@ java -cp out Main
 ```
 
 #### MCP & AI Engineering
+
 ```
 1. Start: /mcp → learn the protocol, then how the servers here work
 2. Read the skill: .github/skills/mcp-development/SKILL.md (1,980 lines)
@@ -1064,10 +1081,10 @@ For MCP servers specifically:
 
 ### 9.4 Mac Dev Module — macOS Environment
 
-> **Location:** `mac-os/` · **Entry point:** `mac-os/docs/START-HERE.md`  
+> **Location:** `mac-os/` · **Entry point:** `mac-os/docs/START-HERE.md`
 > **Slash command:** `/mac-dev` · **Hub:** `/hub mac`
 
-An incremental, iterative learning module for setting up a professional macOS development environment.  
+An incremental, iterative learning module for setting up a professional macOS development environment.
 Follow it at your own pace — each guide is self-contained and 3-tier aware.
 
 **Learning Path:**
@@ -1079,6 +1096,7 @@ Follow it at your own pace — each guide is self-contained and 3-tier aware.
 | 🔴 Pro | Brewfile, dotfiles, bootstrap script, jenv | [Full Environment](../mac-os/docs/mac-dev-environment.md) → [Homebrew §Brewfile](../mac-os/docs/homebrew-guide.md) → [JDK §jenv](../mac-os/docs/jdk-setup.md) |
 
 **Quick install in 3 commands:**
+
 ```zsh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install --cask temurin visual-studio-code iterm2
@@ -1086,6 +1104,7 @@ java --version && code --version
 ```
 
 **Interactive guide (in Copilot Chat):**
+
 ```
 /mac-dev → homebrew → install → newbie
 /mac-dev → jdk → temurin → newbie
@@ -1094,6 +1113,7 @@ java --version && code --version
 ```
 
 **Java environment checker** (compile and run from repo root):
+
 ```zsh
 javac mac-os/src/development/MacEnvChecker.java -d mac-os/out
 java -cp mac-os/out MacEnvChecker
@@ -1106,6 +1126,7 @@ java -cp mac-os/out MacEnvChecker
 Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all tasks):
 
 ### MCP Servers
+
 | Task | Description |
 |------|-------------|
 | `mcp-servers: build` ⭐ | Compile all Java sources → `out/` |
@@ -1132,6 +1153,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `mcp-servers: logs (atlassian)` | Tail live log |
 
 ### Brain Workspace
+
 | Task | Description |
 |------|-------------|
 | `brain: new note` | Create a new knowledge note |
@@ -1150,6 +1172,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 ## 11. All Files Quick Reference
 
 ### Copilot-Read Files (in `.github/`)
+
 | File | What it does |
 |------|-------------|
 | `copilot-instructions.md` | Always-on coding rules (naming, Javadoc, Logger, etc.) |
@@ -1161,6 +1184,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `skills/*/SKILL.md` | Knowledge packs (auto-load by topic match) |
 
 ### MCP Server Files
+
 | File | What it does |
 |------|-------------|
 | `.vscode/mcp.json` | Registry — which servers VS Code starts |
@@ -1175,6 +1199,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `mcp-servers/src/search/` | Pluggable search engine |
 
 ### VS Code Config
+
 | File | What it does |
 |------|-------------|
 | `.vscode/tasks.json` | All VS Code tasks (build, start, stop, brain, etc.) |
@@ -1185,6 +1210,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `mcp-servers/.vscode/extensions.json` | Recommended extensions |
 
 ### Documentation
+
 | Doc | Purpose |
 |-----|---------|
 | `USAGE.md` | **This file** — complete developer guide |
@@ -1213,12 +1239,14 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 
 1. Create `e.g., my-command.prompt.md` in `.github/prompts/`
 2. Add YAML frontmatter:
+
    ```yaml
    ---
    mode: agent
    description: My new command that does X
    ---
    ```
+
 3. Write the prompt body — describe what Copilot should do
 4. Type `/my-command` in Copilot Chat → it appears instantly
 
@@ -1251,6 +1279,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
    - Writes to stdout (JSON-RPC 2.0 responses)
    - Handles `tools/list` and `tools/call` requests
 2. Add a server definition to `mcp-servers/user-config/mcp-config.properties`:
+
    ```properties
    server.my-server.name=My Server
    server.my-server.enabled=true
@@ -1258,7 +1287,9 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
    server.my-server.command=java
    server.my-server.args=-cp,out,server.myserver.MyServer
    ```
+
 3. Add it to `.vscode/mcp.json`:
+
    ```jsonc
    "my-server": {
      "type": "stdio",
@@ -1267,6 +1298,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
      "cwd": "${workspaceFolder}/mcp-servers"
    }
    ```
+
 4. Add it to `scripts/server.ps1` and `server.sh` SERVER_CLASS maps
 5. Build and reload window
 
@@ -1304,16 +1336,19 @@ cp    .vscode/launch.json      /path/to/target/project/.vscode/launch.json  # me
 ```
 
 Then in the target project:
+
 ```powershell
 # Windows
 .\mcp-servers\scripts\setup.ps1
 ```
+
 ```bash
 # Linux/Mac
 ./mcp-servers/scripts/setup.sh
 ```
 
 **Gitignore to add:**
+
 ```gitignore
 mcp-servers/user-config/mcp-config.local.properties
 mcp-servers/user-config/servers/**/*.local.properties

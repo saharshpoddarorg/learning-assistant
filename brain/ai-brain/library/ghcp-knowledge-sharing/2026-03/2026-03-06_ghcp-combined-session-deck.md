@@ -9,7 +9,7 @@ source: imported
 
 # Knowledge Sharing Session -- Use of AI
 
- 
+
 &nbsp;
 
 ## SESSION OUTLINE
@@ -50,11 +50,12 @@ source: imported
 
 
 ---
+
 # Github Copilot
+
 ---
 
 ## Three Modes — Ask / Edit / Agent
-
 
 
 &nbsp;
@@ -141,9 +142,10 @@ Multiple files, tools, terminal, research?  →  Agent
 ---
 
 
-
 ---
+
 # The Problem & The Solution
+
 ---
 
 ## The Problem
@@ -182,7 +184,7 @@ Multiple files, tools, terminal, research?  →  Agent
 &nbsp;
 
 ---
- 
+
 
 &nbsp;
 
@@ -248,7 +250,7 @@ applyTo: "cframework_src/**/*.java"
 │  ✓ "Extend AppAction for actions"                    │
 │  ✓ "Use @ApplicationSpecification annotation"        │
 │  ✓ "JUnit 4 with MockitoJUnitRunner.Silent.class"    │
-│  
+│
 └──────────────────┬───────────────────────────────────┘
                    │
                    ▼
@@ -269,7 +271,7 @@ applyTo: "cframework_src/**/*.java"
 &nbsp;
 
 ---
-  
+
 
 ## Example 1: DRC Domain Manager — Before vs After
 
@@ -381,7 +383,7 @@ public class GrpcDesignValidationServiceImpl
 &nbsp;
 
 ---
-  
+
 
 # Prompt Files — Reusable Slash Commands
 
@@ -463,7 +465,7 @@ You type:  /cof-model  Add description property to IDevice
 &nbsp;
 
 ---
- 
+
 &nbsp;
 
 ## Creating Your Own Prompt File
@@ -555,8 +557,9 @@ You are helping with [specific domain] in Capital IESD-24.
 &nbsp;
 
 **Example prompt:**
+
 ```
-@capital-nx  Add window acquisition handling for a new popup dialog 
+@capital-nx  Add window acquisition handling for a new popup dialog
              that appears during service execution
 ```
 
@@ -793,6 +796,7 @@ flowchart TD
 &nbsp;
 
 ---
+
 # Tips, Best Practices & Wrap-up
 
 &nbsp;
@@ -839,6 +843,3 @@ flowchart TD
 # Thank You & Questions?
 
 &nbsp;
-
-
-

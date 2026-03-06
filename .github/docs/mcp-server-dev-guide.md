@@ -96,6 +96,7 @@ private String handleMyNewTool(final Map<String, String> args) {
 ```
 
 In the Copilot chat, try invoking the tool:
+
 ```
 Use my_new_tool with topic="java"
 ```
@@ -218,6 +219,7 @@ To add a completely new server to the project (not just a new tool to an existin
 
 1. **Create a package:** `mcp-servers/src/server/<yourserver>/`
 2. **Create the server class** implementing `McpServer`:
+
    ```java
    package server.yourserver;
 
@@ -237,13 +239,17 @@ To add a completely new server to the project (not just a new tool to an existin
        @Override public void stop()  { isRunning = false; }
    }
    ```
+
 3. **Register in `Main.java`:**
+
    ```java
    registry.register(new YourServer(config));
    ```
+
 4. **Add config** (if needed) to `mcp-servers/user-config/mcp-config.properties`
 5. **Add VS Code task** to `.vscode/tasks.json` (start / stop / restart / logs)
 6. **Build and test:**
+
    ```powershell
    .\mcp-servers\build.ps1
    .\mcp-servers\scripts\server.ps1 start your-server

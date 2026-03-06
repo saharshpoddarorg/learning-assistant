@@ -85,6 +85,7 @@ Start with a diagnostic prompt, then branch:
 ```
 
 Another example:
+
 ```
 /design-review → FileA
         │
@@ -102,8 +103,9 @@ Use `/context` or `/scope` to set constraints, then run a task prompt:
 ```
 
 Or:
+
 ```
-/context → "We are in the middle of refactoring the MCP server registry. 
+/context → "We are in the middle of refactoring the MCP server registry.
   All edits should leave existing tools working. Do not rename public methods."
 /refactor src/server/McpServerRegistry.java    ← runs with that context active
 ```

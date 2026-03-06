@@ -1,6 +1,6 @@
 # MCP Servers Module
 
-> **Purpose:** Configuration architecture and runtime for MCP (Model Context Protocol) servers.  
+> **Purpose:** Configuration architecture and runtime for MCP (Model Context Protocol) servers.
 > **Location:** `mcp-servers/` in the learning-assistant project root.
 
 ---
@@ -240,6 +240,7 @@ Configuration uses a **3-layer merge strategy** (industry-standard pattern used 
 | **Slack** | `xoxb-XXXX-XXXX-XXXX` | [api.slack.com/apps](https://api.slack.com/apps) → OAuth |
 
 **Set via local config** (recommended):
+
 ```properties
 # user-config/mcp-config.local.properties
 apiKeys.github=ghp_abc123def456ghi789jkl012mno345pqr678
@@ -247,6 +248,7 @@ server.github.env.GITHUB_TOKEN=ghp_abc123def456ghi789jkl012mno345pqr678
 ```
 
 **Or via env vars:**
+
 ```bash
 export MCP_APIKEYS_GITHUB="ghp_abc123def456ghi789jkl012mno345pqr678"   # Linux/Mac
 $env:MCP_APIKEYS_GITHUB = "ghp_abc123def456ghi789jkl012mno345pqr678"   # Windows
@@ -272,6 +274,7 @@ separate from your personal browser. No manual profile creation needed.
 **Override:** Set `browser.dataDir` in config or `MCP_BROWSER_DATADIR` env var.
 
 **Ephemeral mode:** Use `--ephemeral` flag for temporary sessions (data deleted on close):
+
 ```bash
 ./scripts/common/browser/launch-browser.sh --ephemeral --url "https://example.com"
 ```
@@ -281,6 +284,7 @@ separate from your personal browser. No manual profile creation needed.
 Each MCP server is configured as a `server.{name}.*` block in the base config:
 
 **STDIO server (local subprocess):**
+
 ```properties
 server.github.name=GitHub MCP Server
 server.github.enabled=true
@@ -291,6 +295,7 @@ server.github.env.GITHUB_TOKEN=              # ← set in local config or env va
 ```
 
 **SSE server (remote HTTP endpoint):**
+
 ```properties
 server.custom-api.name=My Custom Server
 server.custom-api.enabled=true
@@ -350,6 +355,7 @@ server.my-server.env.API_KEY=
 ### 2. Set the secret in local config
 
 Add to `user-config/mcp-config.local.properties`:
+
 ```properties
 server.my-server.env.API_KEY=your_actual_key_here
 ```

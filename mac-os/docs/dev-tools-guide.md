@@ -115,6 +115,7 @@ code --disable-extensions                  # launch without extensions (debug)
 ```
 
 **Essential VS Code extensions for Mac devs:**
+
 ```zsh
 code --install-extension ms-vscode.vscode-typescript-next
 code --install-extension dbaeumer.vscode-eslint

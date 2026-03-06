@@ -1,7 +1,7 @@
 # 🍺 Homebrew — The macOS Package Manager
 
-> **The single most important tool on your Mac for software development.**  
-> Homebrew lets you install command-line tools, languages, runtimes, and GUI apps  
+> **The single most important tool on your Mac for software development.**
+> Homebrew lets you install command-line tools, languages, runtimes, and GUI apps
 > (via Casks) with a single command — no hunting for installers, no PATH wrangling.
 
 ---
@@ -42,11 +42,13 @@ With Homebrew:     brew install --cask intellij-idea
 
 Homebrew needs the Xcode CLI tools. Homebrew's installer will prompt for them, but you
 can install manually first:
+
 ```zsh
 xcode-select --install
 ```
 
 ### Install Homebrew
+
 ```zsh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
@@ -54,6 +56,7 @@ xcode-select --install
 ### Post-install — Add to PATH (Apple Silicon / M1/M2/M3/M4 Macs)
 
 After installation, the installer prints a "Next steps" block. Run it:
+
 ```zsh
 # Add these two lines to your ~/.zprofile (or ~/.zshrc)
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
@@ -63,6 +66,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 > **Intel Mac?** Homebrew installs to `/usr/local/` and is usually on PATH automatically.
 
 ### Verify
+
 ```zsh
 brew --version      # should print: Homebrew 4.x.x
 brew doctor         # diagnose any issues
@@ -87,12 +91,14 @@ brew doctor         # diagnose any issues
 ## 🟢 Newbie — Essential Commands
 
 ### Install a package
+
 ```zsh
 brew install <formula>             # install a CLI tool or runtime
 brew install --cask <name>         # install a GUI application
 ```
 
 ### Search before installing
+
 ```zsh
 brew search java                   # find all java-related packages
 brew search --casks intellij       # search only casks
@@ -100,6 +106,7 @@ brew info temurin                  # get info about a specific package
 ```
 
 ### Update & upgrade
+
 ```zsh
 brew update                        # update Homebrew itself and formula index
 brew upgrade                       # upgrade ALL installed packages
@@ -107,6 +114,7 @@ brew upgrade <formula>             # upgrade one specific package
 ```
 
 ### List & check installed
+
 ```zsh
 brew list                          # list all installed formulae
 brew list --casks                  # list all installed casks
@@ -114,12 +122,14 @@ brew list --versions               # show versions too
 ```
 
 ### Uninstall
+
 ```zsh
 brew uninstall <formula>           # remove a formula
 brew uninstall --cask <name>       # remove a GUI app
 ```
 
 ### Clean up
+
 ```zsh
 brew cleanup                       # remove old versions, free disk space
 brew cleanup --dry-run             # preview what would be deleted
@@ -197,6 +207,7 @@ brew list --pinned                 # list pinned formulae
 A `Brewfile` documents every package you need. Check it into Git.
 
 **Generate a Brewfile from your current installation:**
+
 ```zsh
 brew bundle dump                   # creates ./Brewfile
 brew bundle dump --force           # overwrite existing
@@ -204,6 +215,7 @@ brew bundle dump --file=~/dotfiles/Brewfile     # specify path
 ```
 
 **Example `Brewfile`:**
+
 ```ruby
 # Taps
 tap "homebrew/cask-fonts"
@@ -235,18 +247,21 @@ cask "font-jetbrains-mono-nerd-font"
 ```
 
 **Install everything from Brewfile:**
+
 ```zsh
 brew bundle install                       # install all in ./Brewfile
 brew bundle install --file=~/dotfiles/Brewfile
 ```
 
 **Check what's missing:**
+
 ```zsh
 brew bundle check                         # exit 0 = all installed
 brew bundle check --verbose               # list what's missing
 ```
 
 **Clean orphaned packages (not in Brewfile):**
+
 ```zsh
 brew bundle cleanup                       # show what would be removed
 brew bundle cleanup --force               # actually remove
@@ -255,6 +270,7 @@ brew bundle cleanup --force               # actually remove
 ### Homebrew Services
 
 Manage background services (databases, Redis, etc.):
+
 ```zsh
 brew services list                         # list all services + status
 brew services start postgresql             # start postgresql
@@ -290,6 +306,7 @@ export HOMEBREW_CASK_OPTS="--no-quarantine" # skip Gatekeeper quarantine
 ## 📦 Common Formulae for Developers
 
 ### Languages & Runtimes
+
 ```zsh
 brew install --cask temurin                # Eclipse Temurin JDK (OpenJDK) — recommended
 brew install --cask temurin@21             # specific version
@@ -308,6 +325,7 @@ brew install rbenv                         # Ruby version manager
 ```
 
 ### Version Control & Collaboration
+
 ```zsh
 brew install git                           # Git
 brew install gh                            # GitHub CLI
@@ -316,6 +334,7 @@ brew install gitui                         # terminal Git UI
 ```
 
 ### CLI Productivity
+
 ```zsh
 brew install wget                          # file download
 brew install curl                          # HTTP client
@@ -333,6 +352,7 @@ brew install direnv                        # per-directory environment variables
 ```
 
 ### Networking & APIs
+
 ```zsh
 brew install httpie                        # HTTP client (human-friendly curl)
 brew install grpcurl                       # gRPC CLI client
@@ -341,6 +361,7 @@ brew install nmap                          # network scanner
 ```
 
 ### Databases (CLI)
+
 ```zsh
 brew install postgresql@16                 # PostgreSQL
 brew install mysql                         # MySQL

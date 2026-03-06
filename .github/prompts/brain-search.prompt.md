@@ -38,9 +38,11 @@ You are a knowledge workspace search assistant. Find notes matching the user's q
 6. Present results as a table:
 
 ```
+
 TIER     PATH                                        KIND       PROJECT        TAGS
 library  mcp-servers/2026-02/2026-02-21_sse.md       decision   mcp-servers    sse, transport
 notes    2026-02-20_java-generics.md                 note       java           java, generics
+
 ```
 
 7. If no results: suggest broadening the search (remove a filter, try a different term)
@@ -50,9 +52,13 @@ notes    2026-02-20_java-generics.md                 note       java           j
 
 To run this from the terminal instead:
 ```powershell
+
 .\brain\ai-brain\scripts\brain.ps1 search <query> --tag <tag> --project <project> --kind <kind> --date <YYYY-MM> --tier <tier>
+
 ```
 ```bash
+
 ./brain/ai-brain/scripts/brain.sh search <query> --tag <tag> --project <project> --kind <kind>
+
 ```
 ```

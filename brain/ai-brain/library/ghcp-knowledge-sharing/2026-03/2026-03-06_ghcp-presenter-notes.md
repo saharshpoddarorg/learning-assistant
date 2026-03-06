@@ -9,7 +9,7 @@ source: imported
 
 # GHCP Knowledge Sharing — Presenter Notes
 
-> These are your private talking points for each section.  
+> These are your private talking points for each section.
 > Keep this file open on a second screen or print before the session.
 
 ---

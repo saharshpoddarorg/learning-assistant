@@ -60,6 +60,7 @@ Do you need team collaboration?
 - Database features require the Dataview plugin (learning curve)
 
 **Essential plugins for developers:**
+
 ```
 Dataview      ← query your notes like a database (TABLE, LIST, TASK)
 Templater     ← dynamic templates with JS logic and date formatting
@@ -70,6 +71,7 @@ Spaced Repetition ← flashcards from your notes
 ```
 
 **Recommended vault structure:**
+
 ```
 vault/
 ├── Inbox/              ← capture here first, sort later
@@ -103,6 +105,7 @@ vault/
 - Can get slow with large workspaces
 
 **Recommended workspace structure:**
+
 ```
 Workspace Root
 ├── 📋 Projects DB      ← active projects with status, deadlines
@@ -132,6 +135,7 @@ Workspace Root
 - Less polished UI on mobile
 
 **Getting started:**
+
 ```
 1. Download: https://logseq.com/#download
 2. Choose "Open a local folder" — pick a synced folder

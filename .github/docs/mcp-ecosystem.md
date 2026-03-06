@@ -80,6 +80,7 @@ each in its own process, each with their own STDIO connection. The AI model
 has access to **all tools from all servers at once**.
 
 **Example: AI client config with 4 servers**
+
 ```json
 {
   "mcpServers": {
@@ -282,6 +283,7 @@ my-mcp-project/
 ```
 
 **Root AI client config connecting all languages:**
+
 ```json
 {
   "mcpServers": {
@@ -298,6 +300,7 @@ my-mcp-project/
 If you want consistent tool names and response formats across Java and TypeScript:
 
 **Option A — Document in Markdown (simple)**
+
 ```
 tool-contracts/
 ├── atlassian-tools.md    ← tool names, param formats, response schema
@@ -306,6 +309,7 @@ tool-contracts/
 ```
 
 **Option B — JSON Schema (structured)**
+
 ```
 tool-contracts/
 ├── schemas/
@@ -340,18 +344,21 @@ When the AI client connects to your MCP server, it translates the MCP tool catal
 into the LLM's native function-calling format:
 
 **MCP tool definition →**
+
 ```json
 { "name": "search_jira_issues", "description": "Search Jira...",
   "inputSchema": { "type": "object", "properties": { "query": {"type":"string"} } } }
 ```
 
 **Claude API `tools` parameter (same structure, Anthropic format):**
+
 ```json
 { "name": "search_jira_issues", "description": "Search Jira...",
   "input_schema": { "type": "object", "properties": { "query": {"type":"string"} } } }
 ```
 
 **OpenAI API `tools` parameter:**
+
 ```json
 { "type": "function", "function": {
     "name": "search_jira_issues", "description": "Search Jira...",
@@ -366,6 +373,7 @@ it works with any AI client that supports MCP.
 Your MCP server can itself call LLM APIs to add AI-powered features:
 
 **Example: Java MCP server with OpenAI GPT-4 for summarisation**
+
 ```java
 // In your tool handler — summarise a Confluence page using GPT-4
 private String summarisePage(final String pageContent) {
@@ -393,6 +401,7 @@ private String summarisePage(final String pageContent) {
 ```
 
 This pattern creates a **two-level AI system:**
+
 ```
 User → AI Client (Claude) → MCP tool call → Java server → OpenAI GPT-4 → enriched result → Claude → User
 ```
@@ -417,6 +426,7 @@ def classify_document(content: str) -> str:
 ```
 
 Ollama API is OpenAI-compatible, so Python's `openai` library works:
+
 ```python
 from openai import OpenAI
 client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
@@ -439,6 +449,7 @@ Provides chains, agents, memory, RAG pipelines, and tool abstractions.
 - Or: you can expose LangChain chains as MCP server tools
 
 **LangChain calling an MCP server (Python):**
+
 ```python
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
@@ -462,6 +473,7 @@ agent = create_react_agent(llm=ChatOpenAI(), tools=mcp_tools)
 ```
 
 **Exposing a LangChain chain as an MCP tool (Python):**
+
 ```python
 from mcp.server import Server
 from langchain.chains import RetrievalQA
@@ -543,10 +555,11 @@ var result = await kernel.InvokePromptAsync(
 ```
 
 **Java Semantic Kernel (Preview):**
+
 ```java
 // Microsoft Semantic Kernel for Java
 Kernel kernel = Kernel.builder()
-    .withAIService(ChatCompletionService.class, 
+    .withAIService(ChatCompletionService.class,
         new OpenAIChatCompletion("gpt-4o", apiKey))
     .build();
 ```
@@ -612,6 +625,7 @@ User request → Agent (LLM in loop)
 ### 7.2 Agent Frameworks That Work with MCP
 
 **LangChain Agents (Python)**
+
 ```python
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain_openai import ChatOpenAI
@@ -628,6 +642,7 @@ result = executor.invoke({"input": "Find all critical Jira bugs in our payment s
 
 **AutoGPT / BabyAGI Pattern**
 These are "autonomous agents" that set their own goals and sub-goals:
+
 ```python
 # Simplified AutoGPT loop
 task_list = ["Find open Jira bugs", "Categorise by severity", "Write summary report"]
@@ -640,6 +655,7 @@ while task_list:
 
 **CrewAI (Multi-Agent)**
 Multiple specialised agents collaborating, each with their own MCP tool subset:
+
 ```python
 from crewai import Agent, Task, Crew
 
@@ -659,6 +675,7 @@ crew.kickoff()
 
 **LangGraph (Stateful Agent)**
 LangGraph models agent state as a graph — ideal for long-running, stateful workflows:
+
 ```python
 from langgraph.graph import StateGraph, END
 
@@ -763,6 +780,7 @@ But the **AI model** orchestrates between them. Three patterns:
 
 **Pattern 1 — AI Orchestration (simplest)**
 Let the AI call each server in turn. No extra code needed.
+
 ```
 User: "Find open bugs and create a confluence report"
 AI: search_jira_issues("open bugs") → [3 bugs]
@@ -771,6 +789,7 @@ AI: create_confluence_page("Bug Report", format(3 bugs)) → page created
 
 **Pattern 2 — Aggregator MCP Server**
 Write one MCP server that internally calls two others:
+
 ```java
 // AggregatorServer.java — one tool that internally does multi-server logic
 public String handleToolCall(String toolName, Map<String, String> args) {
@@ -787,10 +806,12 @@ public String handleToolCall(String toolName, Map<String, String> args) {
 
 **Pattern 3 — Shared Message Bus**
 For complex multi-agent systems:
+
 ```
 MCP Server A → publishes to Redis Pub/Sub
 MCP Server B → subscribes from Redis Pub/Sub
 ```
+
 This breaks MCP's design philosophy (stateless tools) and is only for advanced cases.
 
 ### 8.3 When to Use What Language

@@ -479,30 +479,36 @@ be accidentally mutated. This prevents entire categories of bugs.
 ## 9. Industry Patterns Used
 
 ### Command Pattern
+
 `ToolHandler.handleToolCall()` dispatches based on a command name string.
 Each case in the `switch` is one command. The switch itself is the invoker;
 handler classes are the concrete commands.
 
 ### Strategy Pattern (Config loading)
+
 Each `ConfigSource` is a different strategy for loading key-value pairs.
 `ConfigManager` composes them without knowing their specifics.
 
 ### Chain of Responsibility (Config override)
+
 `PropertiesConfigSource` → `PropertiesConfigSource (local)` → `EnvironmentConfigSource`
 Each layer's values override the previous layer's values for matching keys.
 
 ### Repository Pattern
+
 `ResourceVault` is a Repository — it provides a domain-model-level collection API
 (`findById(id)`, `findByCategory(category)`, `listAll()`) without exposing storage
 details. The vault currently uses an in-memory `Map`, but could be swapped for a
 database-backed implementation without changing callers.
 
 ### Value Object Pattern
+
 All domain records (`LearningResource`, `McpConfiguration`, `ServerDefinition`, etc.)
 are Java records — value objects with no identity beyond their data, no setters,
 and structural equality. This is exactly what the Value Object pattern prescribes.
 
 ### HTTP Client encapsulation
+
 `AtlassianRestClient` encapsulates Java's `HttpClient` — no code outside the
 `client/` package knows what HTTP library is used. This allows swapping to OkHttp,
 Retrofit, or any other HTTP library without touching handlers or models.

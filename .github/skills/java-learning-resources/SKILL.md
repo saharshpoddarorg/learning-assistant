@@ -216,6 +216,7 @@ java-learning-resources/
 Use this to find the best resource for a specific concept:
 
 ### Java Language Fundamentals
+
 | Concept | Best Resource | Why |
 |---|---|---|
 | Syntax & basics | Oracle Tutorial: Learning the Java Language | Official, comprehensive |
@@ -225,6 +226,7 @@ Use this to find the best resource for a specific concept:
 | Exception handling | `java/official/jdk-apis-reference.md` § Exception Handling | Full hierarchy, code examples, best practices |
 
 ### JDK APIs
+
 | Concept | Best Resource | Why |
 |---|---|---|
 | Concurrency & threading | `java/official/jdk-apis-reference.md` § Concurrency | Complete coverage: threads → virtual threads |
@@ -235,6 +237,7 @@ Use this to find the best resource for a specific concept:
 | Date-Time | `java/official/jdk-apis-reference.md` § Date-Time | java.time class summary |
 
 ### Modern Java (11-21+)
+
 | Concept | Best Resource | Why |
 |---|---|---|
 | Records | Inside.java / JEP 395 | Direct from the designers |
@@ -246,6 +249,7 @@ Use this to find the best resource for a specific concept:
 | Gatherers | `java/official/jdk-apis-reference.md` § Gatherer API | Full API with built-in gatherers |
 
 ### Design & Architecture
+
 | Concept | Best Resource | Why |
 |---|---|---|
 | SOLID principles | Clean Code + Baeldung | Theory + practical Java examples |
@@ -255,6 +259,7 @@ Use this to find the best resource for a specific concept:
 | API design | Effective Java chapters 4-9 | Industry bible for Java API design |
 
 ### Testing
+
 | Concept | Best Resource | Why |
 |---|---|---|
 | JUnit 5 | Baeldung JUnit 5 Guide | Comprehensive, practical |
@@ -263,6 +268,7 @@ Use this to find the best resource for a specific concept:
 | Test patterns | xUnit Patterns (xunitpatterns.com) | Catalog of test patterns |
 
 ### Concurrency
+
 | Concept | Best Resource | Why |
 |---|---|---|
 | Thread basics | `java/official/jdk-apis-reference.md` § Concurrency | Full thread lifecycle, sync, locks |
@@ -272,6 +278,7 @@ Use this to find the best resource for a specific concept:
 | Structured concurrency | `java/official/jdk-apis-reference.md` § Structured Concurrency | StructuredTaskScope, scoped values |
 
 ### IDE & Tooling
+
 | Concept | Best Resource | Why |
 |---|---|---|
 | IntelliJ IDEA setup | `ide/intellij-idea-guide.md` § Installation | Installation, first config, JDK setup |
@@ -310,6 +317,7 @@ When a learner asks about IDE features or setup:
 Navigate by topic to find the right deep-reference file:
 
 ### Java Language & Tutorials → `java/official/oracle-tutorials-guide.md`
+
 - dev.java/learn complete tutorial index with all sub-topics (§ 1-9)
 - Language basics, OOP, classes/objects, inheritance, interfaces, generics, lambdas
 - Records (Java 16+) with code, Pattern Matching (Java 16-21+) with code
@@ -330,6 +338,7 @@ Navigate by topic to find the right deep-reference file:
   - Oracle's official Learning Paths (New to Java, Building on Foundation, Client, Server)
 
 ### JDK APIs & Deep Dives → `java/official/jdk-apis-reference.md`
+
 - **Concurrency:** Thread creation, lifecycle, synchronization, liveness, executors, Fork/Join, CompletableFuture, virtual threads, structured concurrency — all with code
 - **Exceptions:** Throwable hierarchy diagram, checked vs unchecked, try/catch/finally, multi-catch, try-with-resources, custom exceptions, best practices table
 - **Stream API:** Operations tables, collectors (groupingBy, partitioning, teeing), optionals, parallel streams
@@ -338,6 +347,7 @@ Navigate by topic to find the right deep-reference file:
 - **I/O, Date-Time, HTTP Client, Foreign Function, Modules, GC, JFR**
 
 ### Blogs & Community → `java/community/blogs-and-community-guide.md`
+
 - Inside.java content types, key authors, recent articles
 - Jenkov complete topic index + concurrency study guide (40+ articles)
 - Baeldung category coverage, other blogs, community aggregators
@@ -345,12 +355,14 @@ Navigate by topic to find the right deep-reference file:
 - YouTube channels, book content summaries
 
 ### Open Source Study → `java/community/open-source-study-guide.md`
+
 - 9-step methodology for studying any OSS project
 - Deep dives: Guava, JUnit 5, Spring Boot, Caffeine, Jackson, Resilience4j, Javalin, MapStruct
 - Design patterns found across projects with concrete examples
 - Starter paths by time available (1 hour → 1 day)
 
 ### IntelliJ IDEA → `ide/intellij-idea-guide.md`
+
 - Setup, installation, migration from Eclipse/VS Code
 - Navigation shortcuts, Search Everywhere, structure views
 - Code completion (basic, smart, statement, postfix, live templates)
@@ -360,4 +372,3 @@ Navigate by topic to find the right deep-reference file:
 - Gradle/Maven integration, Git/VCS, testing (JUnit 5, coverage)
 - Spring/Jakarta EE support, database tools, HTTP client
 - Essential plugins, performance tuning, customization
-

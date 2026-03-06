@@ -43,6 +43,7 @@ The session note becomes your running log. Edit it throughout the session.
 Every time Copilot produces something worth keeping, either:
 
 **Option A: Paste directly into the open session note**
+
 ```markdown
 ## 2026-02-27 — Java generics, ? super T
 
@@ -57,6 +58,7 @@ Every time Copilot produces something worth keeping, either:
 ```
 
 **Option B: Create a separate note per insight**
+
 ```powershell
 # Quick capture, don't stop your flow
 brain new --tier inbox --kind snippet --project java --title "Lower bounded wildcard example"
@@ -106,10 +108,10 @@ source: copilot        # ← marks this as AI-assisted content
 
 
 ## Key insights
-- 
+-
 
 ## Follow-up items
-- [ ] 
+- [ ]
 ```
 
 All `kind` values: `note` | `decision` | `session` | `resource` | `snippet` | `ref`
@@ -272,6 +274,7 @@ The `brain new` command auto-generates the filename — you just supply the titl
    TreeMap because..." is worth an ADR-format note.
 
 5. **Link back to sessions from code**. Add a comment in the relevant source file:
+
    ```java
    // See brain/ai-brain/library/java/2026-02/2026-02-27_generics-session.md
    ```

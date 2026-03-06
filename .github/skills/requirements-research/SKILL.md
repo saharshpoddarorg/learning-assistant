@@ -6,7 +6,7 @@ description: >
   Covers elicitation techniques (interviews, workshops, observation, surveys),
   requirements specification (user stories, use cases, acceptance criteria, BDD Gherkin),
   requirements analysis (gap analysis, impact analysis, dependency mapping, conflict resolution),
-  stakeholder identification and management, non-functional requirements (NFRs), 
+  stakeholder identification and management, non-functional requirements (NFRs),
   requirements traceability, prioritization frameworks (MoSCoW, WSJF, RICE, Kano),
   working with Product Owners and business analysts, discovery sessions, story mapping,
   and requirements documentation best practices.
@@ -44,6 +44,7 @@ So that <benefit/outcome>
 ```
 
 **Examples:**
+
 ```
 ✅ As a customer, I want to reset my password by email so that I can regain access without calling support.
 ❌ As a user, I want a password reset button (missing: who is "user"? what does "reset" mean? why?)

@@ -1,6 +1,7 @@
 # Project Instructions — Learning Assistant
 
 ## Overview
+
 - **Project:** Learning Assistant — a simple Java project for learning Copilot customization
 - **Language:** Java 21+ (JDK 25 LTS available — use SDKMAN! or Eclipse Temurin for version management)
 - **Build:** Manual compilation (no build tool yet)
@@ -25,6 +26,7 @@ prompt files, slash-commands, and cross-reference docs.
 for the applicable checklist (A–F). Run `.\mcp-servers\build.ps1` before committing.
 
 ## Project Structure
+
 ```
 learning-assistant/
 ├── .github/              ← Copilot customization files (you're learning this!)
@@ -64,6 +66,7 @@ the correct skill file.
 ## Coding Conventions
 
 ### Naming
+
 - **Classes:** `UpperCamelCase` (e.g., `StudentManager`, `OrderService`)
 - **Methods:** `lowerCamelCase` (e.g., `calculateTotal`, `getStudentName`)
 - **Variables:** `lowerCamelCase`, descriptive (e.g., `totalPrice`, not `tp`)
@@ -71,15 +74,18 @@ the correct skill file.
 - **Packages:** all lowercase (e.g., `com.learning.service`)
 
 ### Code Style
+
 - Use `final` for variables that don't change
 - Prefer `var` for local variables when the type is obvious (Java 10+)
 - One public class per file, class name matches filename
 - Use `Logger` instead of `System.out.println` (except in learning examples)
 
 ### Methods
+
 - Keep methods under 30 lines
 - Each method should do exactly one thing
 - Add Javadoc to all public methods:
+
   ```java
   /**
    * Calculates the total price including tax.
@@ -92,11 +98,13 @@ the correct skill file.
   ```
 
 ### Error Handling
+
 - Catch specific exceptions, never generic `Exception`
 - Always include a helpful error message
 - Use try-with-resources for closeable resources
 
 ### File Organization (order within a class)
+
 1. Static fields
 2. Instance fields
 3. Constructors
@@ -107,6 +115,7 @@ the correct skill file.
 ## Do's and Don'ts
 
 ### Do:
+
 - ✅ Use descriptive variable names (minimum 3 characters, except loop counters)
 - ✅ Add comments explaining WHY, not WHAT
 - ✅ Use `Objects.requireNonNull()` for null-checking constructor parameters
@@ -114,6 +123,7 @@ the correct skill file.
 - ✅ Close resources with try-with-resources
 
 ### Don't:
+
 - ❌ Don't use single-letter variables (except `i`, `j`, `k` in loops)
 - ❌ Don't leave empty catch blocks
 - ❌ Don't use `==` to compare Strings (use `.equals()`)
@@ -203,6 +213,7 @@ Always append as the last footer line:
 ### Do ✅ / Don't ❌
 
 **Do:**
+
 ```
 feat(vault): Add VcsResources provider with 9 curated resources
 
@@ -239,6 +250,7 @@ and made the vault harder to extend incrementally.
 ```
 
 **Don't:**
+
 ```
 # ❌ vague subject
 update stuff

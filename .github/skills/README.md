@@ -1,7 +1,7 @@
 # 🛠️ Agent Skills — Guide
 
-> **What:** Folders containing instructions + scripts + resources that Copilot loads automatically when the task matches.  
-> **Where:** `.github/skills/<skill-name>/SKILL.md`  
+> **What:** Folders containing instructions + scripts + resources that Copilot loads automatically when the task matches.
+> **Where:** `.github/skills/<skill-name>/SKILL.md`
 > **How to use:** Just ask Copilot a matching question — skills load automatically.
 
 ---
@@ -150,6 +150,7 @@ Level 3: RESOURCES (loaded on demand)
 <summary><strong>Example 1: Java Build Skill</strong></summary>
 
 **Directory:**
+
 ```
 java-build/
 ├── SKILL.md
@@ -157,6 +158,7 @@ java-build/
 ```
 
 **SKILL.md:**
+
 ```markdown
 ---
 name: java-build
@@ -180,6 +182,7 @@ See [common-errors.md](./common-errors.md) for troubleshooting.
 <summary><strong>Example 2: Run Tests Skill (with template file)</strong></summary>
 
 **Directory:**
+
 ```
 run-tests/
 ├── SKILL.md
@@ -188,6 +191,7 @@ run-tests/
 ```
 
 **SKILL.md:**
+
 ```markdown
 ---
 name: run-tests
@@ -213,6 +217,7 @@ See [SampleTest.java](./examples/SampleTest.java) for standard structure.
 <summary><strong>Example 3: Create Class Skill (with Java template)</strong></summary>
 
 **Directory:**
+
 ```
 create-class/
 ├── SKILL.md
@@ -220,6 +225,7 @@ create-class/
 ```
 
 **SKILL.md:**
+
 ```markdown
 ---
 name: create-class

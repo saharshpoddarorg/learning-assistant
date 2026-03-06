@@ -14,6 +14,7 @@ server-specific/
 ## Adding Scripts for a New Server
 
 1. Create a directory named after your server (matching `server.<name>` in config):
+
    ```
    mkdir -p scripts/server-specific/<your-server>
    ```

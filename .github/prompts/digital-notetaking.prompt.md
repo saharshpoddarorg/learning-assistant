@@ -13,6 +13,7 @@ tools:
 # /digital-notetaking — Digital Note-Taking & PKM Assistant
 
 ## Input Variables
+
 - `${input:topic}`: What you want to learn or do
   (e.g., `set up Obsidian`, `PARA method`, `migrate Notion to Obsidian`, `upgrade to JDK 25`)
 - `${input:tool}`: Your current or target tool

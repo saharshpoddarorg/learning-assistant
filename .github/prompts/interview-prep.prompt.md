@@ -30,11 +30,13 @@ Based on the interview type selected, follow the appropriate section below.
 - **Identify the pattern** — which algorithmic pattern does this problem (or topic) belong to?
 - **Pattern family:** show where it fits in the DSA pattern map:
   ```
+
   Arrays/Strings → Two Pointers → Sliding Window → Binary Search →
   Linked Lists → Stacks/Queues → Trees → Graphs (BFS/DFS) →
   Backtracking → Dynamic Programming → Greedy → Trie →
   Union-Find → Topological Sort → Heap/Priority Queue →
   Monotonic Stack → Segment Tree → Bit Manipulation
+
   ```
 - **Signal words** — what clues in a problem statement suggest this pattern?
 

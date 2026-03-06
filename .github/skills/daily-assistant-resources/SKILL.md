@@ -12,6 +12,7 @@ description: >
 ## Productivity Methods & Resources
 
 ### Time Management Techniques
+
 | Method | How It Works | Best For |
 |---|---|---|
 | **Pomodoro** | 25 min focus + 5 min break, 4 cycles then 15 min break | Sustained focus on single tasks |
@@ -23,6 +24,7 @@ description: >
 | **Batching** | Group similar tasks together | Reducing context-switching |
 
 ### Goal Setting Frameworks
+
 | Framework | Structure | Use Case |
 |---|---|---|
 | **SMART Goals** | Specific, Measurable, Achievable, Relevant, Time-bound | Individual goals |
@@ -31,6 +33,7 @@ description: >
 | **WOOP** | Wish, Outcome, Obstacle, Plan | Behavior change |
 
 ### Productivity Tools
+
 | Tool | Purpose | Free Tier? |
 |---|---|---|
 | **Notion** | All-in-one workspace, docs, databases | Yes |
@@ -42,6 +45,7 @@ description: >
 | **Toggl** | Time tracking | Yes |
 
 ### Books on Productivity
+
 | Book | Author | Key Idea |
 |---|---|---|
 | **Atomic Habits** | James Clear | Small habits compound; 1% better every day |
@@ -56,6 +60,7 @@ description: >
 ## Finance Basics
 
 ### Key Formulas
+
 ```
 Compound Interest:   A = P × (1 + r/n)^(n×t)
 Simple Interest:     I = P × r × t
@@ -65,6 +70,7 @@ Rule of 72:          Years to double = 72 / interest rate
 ```
 
 ### Investment Concepts
+
 | Concept | What It Means |
 |---|---|
 | **Stocks** | Ownership shares in a company |
@@ -78,6 +84,7 @@ Rule of 72:          Years to double = 72 / interest rate
 | **Diversification** | Spread investments to reduce risk |
 
 ### Budgeting Frameworks
+
 | Method | Split | How It Works |
 |---|---|---|
 | **50/30/20** | 50% needs, 30% wants, 20% savings | Simple, good starting point |
@@ -90,6 +97,7 @@ Rule of 72:          Years to double = 72 / interest rate
 ## News & Research Sources
 
 ### Tech News
+
 | Source | URL | Focus |
 |---|---|---|
 | **Hacker News** | `https://news.ycombinator.com/` | Tech, startups, programming |
@@ -100,6 +108,7 @@ Rule of 72:          Years to double = 72 / interest rate
 | **Morning Brew** | `https://www.morningbrew.com/` | Business + tech digest |
 
 ### Developer-Specific News
+
 | Source | URL | Focus |
 |---|---|---|
 | **dev.to** | `https://dev.to/` | Developer community articles |
@@ -109,6 +118,7 @@ Rule of 72:          Years to double = 72 / interest rate
 | **Reddit r/programming** | `https://reddit.com/r/programming` | Programming discussion |
 
 ### Gadget & Product Review
+
 | Source | URL | Focus |
 |---|---|---|
 | **Wirecutter** | `https://www.nytimes.com/wirecutter/` | Product recommendations |

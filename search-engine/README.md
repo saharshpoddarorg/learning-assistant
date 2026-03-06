@@ -130,6 +130,7 @@ To create a new Tier-N engine:
 ### SearchContext
 
 All searches start here. Build with:
+
 ```java
 SearchContext.of("java streams")           // normalised, DEFAULT_MAX_RESULTS
 SearchContext.of("java streams", 20)       // custom result limit
@@ -144,6 +145,7 @@ Key accessors:
 ### SearchResult
 
 Returned by every `SearchEngine.search()` call:
+
 ```java
 result.items()           // List<ScoredItem<T>>, score-descending
 result.classifiedMode()  // which SearchMode was used
@@ -156,6 +158,7 @@ result.topScore()        // OptionalInt of highest score
 ### ScoredItem
 
 A document paired with its score and optional debug breakdown:
+
 ```java
 ScoredItem<Article> si = result.items().get(0);
 si.item()           // the document

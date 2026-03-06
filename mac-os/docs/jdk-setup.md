@@ -1,6 +1,6 @@
 # ☕ JDK Setup on macOS — Open-Source Java Distributions
 
-> Install and manage Java Development Kits on macOS using Homebrew.  
+> Install and manage Java Development Kits on macOS using Homebrew.
 > Covers Eclipse Temurin, Amazon Corretto, Azul Zulu, GraalVM — and multi-JDK management.
 
 ---
@@ -147,7 +147,7 @@ brew install --cask zulu@17
 
 ### jenv — Automatic JDK Switching Per Project
 
-`jenv` manages JDK versions like `nvm` does for Node or `pyenv` for Python.  
+`jenv` manages JDK versions like `nvm` does for Node or `pyenv` for Python.
 It reads a `.java-version` file in your project root and switches automatically.
 
 ```zsh

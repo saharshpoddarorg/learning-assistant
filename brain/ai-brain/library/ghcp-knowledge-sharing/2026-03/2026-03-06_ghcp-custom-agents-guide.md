@@ -9,7 +9,7 @@ source: imported
 
 # GitHub Copilot Custom Agents — The Hidden Superpower
 
-> **For:** Knowledge Sharing Session — Developers & QA on Capital IESD-24  
+> **For:** Knowledge Sharing Session — Developers & QA on Capital IESD-24
 > **Date:** February 2026
 
 ---
@@ -159,8 +159,9 @@ This is the key concept most people miss. A custom agent doesn't just use one fi
 - Window tracking — `Map<Component, Long>` consistency on open/hide/close
 
 **Example prompt:**
+
 ```
-@capital-nx  Add window acquisition handling for a new popup dialog 
+@capital-nx  Add window acquisition handling for a new popup dialog
              that appears during service execution
 ```
 
@@ -195,6 +196,7 @@ Post:    MEMORY         → Store learned facts for future sessions
 ```
 
 **Example prompt:**
+
 ```
 @CIA-Orchestrator  IESD-2001 IDevice.getBackshell() datamodel_src Feature
 ```
@@ -232,8 +234,9 @@ Post:    MEMORY         → Store learned facts for future sessions
   5. Adversarial Solution Validation (stress testing, edge cases)
 
 **Example prompt:**
+
 ```
-@Thinking-Beast-Mode  The cross-module import validation is failing intermittently 
+@Thinking-Beast-Mode  The cross-module import validation is failing intermittently
                       under concurrent access. The issue only reproduces under load.
                       Investigate root cause and propose a fix.
 ```
@@ -261,10 +264,10 @@ Post:    MEMORY         → Store learned facts for future sessions
 
 ```
 Simple question?              → Ask mode
-Single-file edit?             → Edit mode  
+Single-file edit?             → Edit mode
 Multi-file code generation?   → Agent mode (regular)
 NX immersed window work?      → @capital-nx
-Cross-module impact analysis? → @CIA-Orchestrator  
+Cross-module impact analysis? → @CIA-Orchestrator
 Deep debugging / research?    → @Thinking-Beast-Mode
 ```
 
@@ -275,6 +278,7 @@ Deep debugging / research?    → @Thinking-Beast-Mode
 ### EXAMPLE 1: CIA Agent — Impact of Changing IDevice Interface
 
 **Prompt:**
+
 ```
 @CIA-Orchestrator  IESD-3050 IDevice.addConnector datamodel_src Feature
 ```
@@ -318,8 +322,9 @@ Deep debugging / research?    → @Thinking-Beast-Mode
 ### EXAMPLE 2: Capital-NX Agent — Adding Cross-Selection Support
 
 **Prompt:**
+
 ```
-@capital-nx  Implement cross-selection support for a new component panel 
+@capital-nx  Implement cross-selection support for a new component panel
              that opens during immersed NX service execution
 ```
 
@@ -330,9 +335,9 @@ Deep debugging / research?    → @Thinking-Beast-Mode
 @Override
 public void windowOpened(@NotNull AWTEvent event) {
     Window window = (Window) event.getSource();
-    IWindowInfoProvider windowInfo = 
+    IWindowInfoProvider windowInfo =
         ImmersedModeServices.requireExtension(window, IWindowInfoProvider.class);
-    
+
     if (canBeIntercepted(windowInfo)) {
         SwingUtilities.invokeLater(() -> {  // ← EDT safety
             if (m_service != null) {
@@ -360,17 +365,17 @@ public void sendCrossSelection(@NotNull List<SelectionInfo> selections) {
 
 // 3. Area-based geometry with POPUP fallback
 private void placeComponentPanel(@NotNull Component panel) {
-    IWindowInfoProvider info = 
+    IWindowInfoProvider info =
         ImmersedModeServices.requireExtension(panel, IWindowInfoProvider.class);
     String windowType = info.getWindowType();
-    
+
     ImmersedAreaEnum area = windowType.equals(ImmersedAreaEnum.UNKNOWN.toString())
         ? ImmersedAreaEnum.POPUP  // ← Fallback to POPUP area
         : ImmersedAreaEnum.valueOf(windowType);
-    
+
     ImmersedModeServices.getService(IApplicationServiceExecutor.class)
         .setAreaBasedGeometryFor(panel);
-    
+
     // Track the window
     windowHandlesMap.put(panel, info.getOSWindowID());
 }
@@ -390,6 +395,7 @@ private void placeComponentPanel(@NotNull Component panel) {
 ### EXAMPLE 3: CIA Agent — gRPC Service Change Impact
 
 **Prompt:**
+
 ```
 @CIA-Orchestrator  IESD-4100 GrpcDataServiceImpl.saveDesign cmanager_src Refactor
 ```
@@ -411,10 +417,11 @@ private void placeComponentPanel(@NotNull Component panel) {
 ### EXAMPLE 4: Thinking Beast Mode — Debugging Hidden Race Condition
 
 **Prompt:**
+
 ```
-@Thinking-Beast-Mode  The ImmersedWindowManager sometimes fails to acquire 
-                      windows in NX integration. It works 90% of the time, 
-                      fails under fast window open/close sequences. 
+@Thinking-Beast-Mode  The ImmersedWindowManager sometimes fails to acquire
+                      windows in NX integration. It works 90% of the time,
+                      fails under fast window open/close sequences.
                       Investigate and fix.
 ```
 
@@ -433,6 +440,7 @@ private void placeComponentPanel(@NotNull Component panel) {
 ### EXAMPLE 5: CIA Agent — PropertyChange Pattern Verification
 
 **Prompt:**
+
 ```
 @CIA-Orchestrator  IESD-5200 Device.setMCadID datamodel_src BugFix
 ```
@@ -646,9 +654,9 @@ Before writing a single line, you get:
 ### USE CASE 2: "Red Team My Solution"
 
 ```
-@Thinking-Beast-Mode  I'm adding a new REST endpoint in datamodel_src/src/rest/ 
-                      for bulk device export. The endpoint accepts a list of 
-                      device UIDs and returns JSON. Review my implementation 
+@Thinking-Beast-Mode  I'm adding a new REST endpoint in datamodel_src/src/rest/
+                      for bulk device export. The endpoint accepts a list of
+                      device UIDs and returns JSON. Review my implementation
                       for security, performance, and correctness issues.
 ```
 
@@ -699,9 +707,9 @@ You know exactly what to fix before the build even fails.
 ### USE CASE 5: "Generate a Complete Immersed Mode Feature"
 
 ```
-@capital-nx  Implement a deactivation flow for panels that are hidden 
-             during NX mode switching. When the user switches NX contexts, 
-             all visible Capital panels should deactivate and send 
+@capital-nx  Implement a deactivation flow for panels that are hidden
+             during NX mode switching. When the user switches NX contexts,
+             all visible Capital panels should deactivate and send
              deactivation requests to the NX server.
 ```
 
@@ -761,6 +769,7 @@ Agents        → Complex autonomous workflows (you trigger with @)
 ```
 
 **They stack together:**
+
 ```
 You type: @CIA-Orchestrator  IESD-3050 Device.addConnector datamodel_src Feature
 
