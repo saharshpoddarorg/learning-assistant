@@ -17,6 +17,7 @@
   - [Code Quality & Analysis](#code-quality--analysis)
   - [Career & Interview](#career--interview)
   - [Daily Life](#daily-life)
+  - [Copilot Customization](#copilot-customization)
 - [Aliases & Shortcuts](#-aliases--shortcuts)
 - [Input Parameters Reference](#-input-parameters-reference)
 - [Composition Patterns](#-composition-patterns)
@@ -45,7 +46,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (36 commands)
+### Quick Lookup (39 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -85,6 +86,12 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 34 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
 | 35 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
 | 36 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
+| 37 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
+| 38 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
+| 39 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
+
+> **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
+> VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
 
 ---
 
@@ -437,6 +444,90 @@ Agent:    Impact-Analyzer
 Tools:    search, codebase, usages, problems
 Use:      Trace ripple effects of a code change
 Output:   Affected files → risk level → breaking changes → test gaps
+```
+
+---
+
+### Copilot Customization
+
+> **Preview Feature (March 2026):** The `/create-agent` command uses both the **built-in VS Code wizard** and this project's prompt template. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for all new Copilot features.
+
+#### `/create-agent` — Scaffold a Custom Agent
+```
+Inputs:   agentName (e.g., Security-Reviewer), purpose (one sentence),
+          tools (search/codebase/editFiles/terminal/fetch/all),
+          depth (focused/balanced/broad)
+Agent:    Copilot
+Tools:    editFiles, codebase
+Use:      Generate a .github/agents/<name>.agent.md file with YAML frontmatter,
+          tool restrictions, model pinning, handoff chains, and a persona scaffold
+Example:  /create-agent → Security-Reviewer → "Review for OWASP Top 10" → search,codebase → focused
+Output:   .github/agents/security-reviewer.agent.md with full persona instructions
+Built-in: VS Code also has a native /create-agent wizard in Copilot Chat (Ctrl+Shift+I → /create-agent)
+File:     .github/prompts/create-agent.prompt.md
+Docs:     .github/agents/README.md, .github/docs/copilot-mcp-preview.md
+After:    Add the new agent to agents/README.md table and copilot-instructions.md <agents> block
+```
+
+#### `/copilot-customization` — Create, Review, or Compose Any Customization File
+```
+Inputs:   goal    (create-new / review-existing / compare-types / plan-composition /
+                   explain-concept / audit-repo)
+          type    (copilot-instructions / instructions / prompt / agent / skill / mcp /
+                   all-types / not-sure)
+          domain  (java, security, devops, mcp, git, or any custom topic)
+          level   (newbie / amateur / pro)
+Agent:    Copilot
+Tools:    codebase, editFiles, search
+Use:      Swiss-army tool for all Copilot customization work:
+            - compare-types   → Show the 6-primitive comparison table + decision matrix
+            - create-new      → Scaffold a complete, ready-to-use file of any type
+            - review-existing → Audit an existing customization file for common issues
+            - plan-composition → Recommend which types to combine for a use case
+            - explain-concept → Teach the 6 primitives at newbie/amateur/pro depth
+            - audit-repo      → Scan .github/ and produce a prioritized action plan
+Example:  /copilot-customization → create-new → skill → devops → amateur
+Output:   A complete, paste-ready .github/skills/devops/SKILL.md file
+File:     .github/prompts/copilot-customization.prompt.md
+Docs:     .github/docs/copilot-customization-deep-dive.md (full reference)
+          .github/skills/copilot-customization/SKILL.md (domain knowledge)
+Tips:     - Use 'all-types' or 'not-sure' as type when unsure which primitive to use
+          - Use 'audit-repo' to get a full inventory of your current customizations
+          - Use 'plan-composition' before building a complex stack of multiple types
+```
+
+---
+
+#### `/write-docs` — Create or Update Any Documentation
+```
+Inputs:   docType   (start-here / dev-doc / guide / cheatsheet / quick-guide / skill /
+                     prompt / alias-command / readme / brain-note / all-of-above)
+          source    (inbox-notes / session-notes / concept-description / code-analysis / url / i-will-describe)
+          topic     (the subject, domain, or title for the doc)
+          level     (solo-dev / team / newbie / amateur / pro / 3-tier)
+Agent:    Copilot
+Tools:    codebase, editFiles, search
+Use:      Doc factory — turn any raw content (inbox notes, session slides, a concept description,
+          code analysis, or a URL) into a properly structured markdown doc:
+            - start-here      → Entry-point onboarding file with 🟢🟡🔴 quick wins
+            - dev-doc         → Full 3-tier developer reference (Newbie/Amateur/Pro)
+            - guide           → Task-oriented step-by-step guide with troubleshooting
+            - cheatsheet      → Fast-reference tables + decision tree, no prose
+            - quick-guide     → Compact single-tier "do this now" doc
+            - skill           → SKILL.md with activation-optimized description field
+            - prompt          → Slash command .prompt.md with ${input:} variables
+            - readme          → Component/directory README.md
+            - brain-note      → Structured note for brain/ai-brain/notes/
+            - all-of-above    → Full stack: brain-note + dev-doc + cheatsheet + skill + prompt
+Example:  /write-docs → all-of-above → GitHub Copilot Mermaid Technique → team → inbox-notes
+Output:   Multiple ready-to-commit .md files covering the topic end-to-end
+File:     .github/prompts/write-docs.prompt.md
+Docs:     .github/skills/copilot-customization/SKILL.md (for skill/prompt types)
+          .github/docs/copilot-customization-deep-dive.md (for full reference)
+Tips:     - Use 'all-of-above' when processing inbox notes from a session or reading
+          - Use 'brain-note' for quick capture after a learning session
+          - Use 'skill' to teach Copilot a new domain permanently
+          - The 'description' field in SKILL.md is the most important line — prompt will craft it carefully
 ```
 
 ---

@@ -10,15 +10,15 @@ development and learning sessions -- with Copilot, MCP servers, or manually.
 ```
 ai-brain/
   inbox/     TEMP      quick capture -- clear when session ends     [gitignored]
-  notes/     KEEP      curated notes that stay on this machine      [gitignored]
-  archive/   PUBLISH   committed to the repo, permanent reference   [tracked]
+  notes/     KEEP      curated notes, committed to the repo          [tracked]
+  archive/   PUBLISH   formally tagged reference, committed          [tracked]
   scripts/   TOOLS     one dispatcher + module + aliases + VS Code tasks
 ```
 
 The three words match what you would actually say:
 - **"Just capturing this"** → drop it in `inbox/`
-- **"I want to keep this"** → move it to `notes/`
-- **"This belongs in the repo"** → `brain publish` promotes it to `archive/` and commits
+- **"I want to keep this"** → move it to `notes/` (committed — searchable by anyone)
+- **"This is a formal reference"** → `brain publish` promotes it to `archive/` with full tags
 
 ---
 

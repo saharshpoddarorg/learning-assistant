@@ -16,6 +16,25 @@ description: >
 
 # MCP (Model Context Protocol) — Comprehensive Development Guide
 
+---
+
+> **OPEN PREVIEW — March 2026**
+>
+> GitHub Copilot MCP support is now in **open preview** (no waitlist).
+> Key additions in this update:
+> - **Protocol version `2025-03-26`** — replaces `2024-11-05`
+> - **Streamable HTTP transport** — replaces SSE for remote servers (single POST `/mcp` endpoint)
+> - **VS Code `.vscode/mcp.json`** — config key is now `servers` (not `mcpServers`)
+> - **GitHub official MCP server** — `npx -y @modelcontextprotocol/server-github`
+> - **`/create-agent` wizard** — built-in VS Code command to scaffold agent files
+> - **Model selection in agents** — `model:` field in `.agent.md` frontmatter
+> - **Tool annotations** — `readOnlyHint`, `destructiveHint`, `idempotentHint`
+> - **New VS Code agent tools** — `findTestFiles`, `terminalLastCommand`, `terminalSelection`, `testFailure`, `runCommand`
+>
+> See [`.github/docs/copilot-mcp-preview.md`](../docs/copilot-mcp-preview.md) for the full changelog.
+
+---
+
 ## What Is MCP?
 
 **MCP (Model Context Protocol)** is an open standard (originally created by Anthropic, now broadly adopted) that defines a universal protocol for AI assistants to connect with external tools, data sources, and services. It standardizes how AI models discover, invoke, and receive results from tools — replacing the need for custom integrations per tool.
@@ -791,9 +810,20 @@ public static class InventoryTools
 
 ### VS Code / GitHub Copilot
 
+> **Note (March 2026 — Open Preview):** The config key is now **`servers`** (was `mcpServers`).
+> Use `${input:VAR_NAME}` anywhere in `env` values to prompt for secrets at connect time — VS Code
+> stores them securely and only prompts once per session. Use `"type": "http"` for Streamable HTTP remote servers.
+
 **Workspace-level** (`.vscode/mcp.json`):
 ```jsonc
 {
+  // Declare secret inputs once — VS Code prompts the user and stores them securely
+  "inputs": [
+    { "id": "githubToken",  "type": "promptString", "description": "GitHub Personal Access Token", "password": true },
+    { "id": "apiKey",       "type": "promptString", "description": "API Key",                        "password": true },
+    { "id": "databaseUrl",  "type": "promptString", "description": "Database connection URL" }
+  ],
+
   "servers": {
     // Local stdio server
     "my-server": {
@@ -805,15 +835,15 @@ public static class InventoryTools
         "API_KEY": "${input:apiKey}"
       }
     },
-    
-    // npx-based (no local install)
+
+    // GitHub official MCP server (Open Preview — March 2026)
     "github": {
       "type": "stdio",
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-github"],
       "env": { "GITHUB_TOKEN": "${input:githubToken}" }
     },
-    
+
     // Python server
     "python-server": {
       "type": "stdio",
@@ -821,7 +851,7 @@ public static class InventoryTools
       "args": ["-m", "my_mcp_server"],
       "cwd": "${workspaceFolder}/mcp-servers/python"
     },
-    
+
     // Docker-based
     "docker-server": {
       "type": "stdio",
@@ -833,11 +863,11 @@ public static class InventoryTools
         "my-mcp-server:latest"
       ]
     },
-    
-    // Remote HTTP server
+
+    // Remote Streamable HTTP server (replaces SSE — recommended for production)
     "remote-server": {
       "type": "http",
-      "url": "https://mcp.example.com/api",
+      "url": "https://mcp.example.com/mcp",
       "headers": {
         "Authorization": "Bearer ${input:token}"
       }
@@ -1215,7 +1245,7 @@ await agent.shutdown();
 
 | Server | Language | What It Does |
 |---|---|---|
-| `@modelcontextprotocol/server-github` | TS | GitHub repos, issues, PRs, actions |
+| `@modelcontextprotocol/server-github` | TS | GitHub repos, issues, PRs, actions — **Official GitHub MCP server (Open Preview March 2026)** |
 | `@modelcontextprotocol/server-gitlab` | TS | GitLab projects, MRs, pipelines |
 | `@modelcontextprotocol/server-git` | TS | Local git operations |
 | `mcp-server-docker` | Python | Docker container management |
@@ -1298,6 +1328,42 @@ Security Layers
     ├── Alert on unusual patterns (many calls, errors, sensitive operations)
     ├── Retain logs for compliance (if applicable)
     └── Redact sensitive data in logs
+```
+
+### Tool Annotations — Hint Intent to the Client (Protocol v2025-03-26)
+
+Tool annotations let your server advertise the **safety profile** of each tool so the client (VS Code, Claude, etc.) can decide whether to auto-approve calls, warn users, or require confirmation.
+
+| Annotation | Type | Meaning |
+|---|---|---|
+| `readOnlyHint` | `boolean` | Tool only reads data — no side effects (safe to auto-approve) |
+| `destructiveHint` | `boolean` | Tool may delete or overwrite data — client should warn user |
+| `idempotentHint` | `boolean` | Calling the tool multiple times with same args has same effect as calling once |
+| `openWorldHint` | `boolean` | Tool may interact with external systems outside the server's known domain |
+
+```typescript
+// TypeScript — annotated tool definition
+server.tool(
+  "search_records",
+  "Find records matching a query",
+  { query: z.string() },
+  {
+    readOnlyHint: true,      // safe — only reads
+    idempotentHint: true     // same query, same result
+  },
+  async ({ query }) => { /* ... */ }
+);
+
+server.tool(
+  "delete_records",
+  "Permanently delete records",
+  { table: z.string(), condition: z.string() },
+  {
+    destructiveHint: true,   // warns user before executing
+    idempotentHint: false    // deleting twice has different results
+  },
+  async ({ table, condition }) => { /* ... */ }
+);
 ```
 
 ### Dangerous Operations Pattern

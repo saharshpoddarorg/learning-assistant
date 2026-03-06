@@ -239,7 +239,7 @@ brain/
 ├── ai-brain/
 │   ├── README.md                    👤 Live workspace guide — 3 tiers, scripts, frontmatter schema
 │   ├── inbox/                       🔒 Gitignored — quick capture (drop anything here)
-│   ├── notes/                       🔒 Gitignored — curated notes (stays on this machine)
+│   ├── notes/                       ✅ Git-tracked — curated knowledge notes (committed to repo)
 │   ├── archive/                     ✅ Git-tracked — published notes, permanent reference
 │   └── scripts/                     👤 brain.ps1 / brain.sh CLI + brain-module.psm1 aliases
 │

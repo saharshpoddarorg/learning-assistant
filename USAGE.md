@@ -826,14 +826,22 @@ public class LanguageFilter<T extends LearningResource> implements SearchFilter<
 
 ## 7. Brain Workspace — Personal Knowledge System
 
-> Your personal note-taking system. Three tiers: inbox → notes → archive.
+> Your personal knowledge system. Three tiers — inbox is gitignored, notes and archive are committed.
 
 ```
 brain/ai-brain/
-├── inbox/    ← Draft notes (rough ideas, quick captures)
-├── notes/    ← Active knowledge (refined, searchable)
-└── archive/  ← Published, tagged reference material
+├── inbox/    ← Draft notes  [GITIGNORED — session-scoped, cleared when done]
+├── notes/    ← Curated knowledge notes  [TRACKED — committed to repo]
+└── archive/  ← Formally published reference  [TRACKED — tagged, project-attributed]
 ```
+
+**Three-tier summary:**
+
+| Tier | Git-tracked? | When to use |
+|---|---|---|
+| `inbox/` | ❌ | Raw capture — rough ideas, mid-session reasoning, throw-away |
+| `notes/` | ✅ | Reviewed insights worth keeping — committed for sharing |
+| `archive/` | ✅ | Formally published: full frontmatter (kind, project, tags, status) |
 
 **Via Copilot Chat:**
 
@@ -842,14 +850,15 @@ brain/ai-brain/
 | `/brain-new` | Create a new note. Prompts for topic → creates `YYYY-MM-DD_topic.md` in inbox or notes |
 | `/brain-publish` | Move a note from inbox/notes → archive, add tags, commit to git |
 | `/brain-search` | Full-text search across all tiers |
+| `/brain-capture-session` | Convert current AI session into a structured session note |
 
 **Via VS Code Tasks** (`Terminal → Run Task`):
 
 | Task | Does |
 |------|------|
 | `brain: new note` | Interactive note creation |
-| `brain: new note (notes tier)` | Skip inbox, go direct to notes |
-| `brain: publish note` | Promote and commit |
+| `brain: new note (notes tier)` | Skip inbox, go direct to notes/ (committed) |
+| `brain: publish note` | Promote to archive + git commit |
 | `brain: search notes` | Search by keyword |
 | `brain: list notes` | List all notes |
 | `brain: list archive` | List archived notes |
@@ -861,8 +870,8 @@ brain/ai-brain/
 **Via terminal:**
 ```powershell
 .\brain\ai-brain\scripts\brain.ps1 new
-.\brain\ai-brain\scripts\brain.ps1 new --tier notes
-.\brain\ai-brain\scripts\brain.ps1 publish
+.\brain\ai-brain\scripts\brain.ps1 new --tier notes          # goes into committed notes/
+.\brain\ai-brain\scripts\brain.ps1 publish                   # promote inbox/notes → archive
 .\brain\ai-brain\scripts\brain.ps1 search "binary tree"
 .\brain\ai-brain\scripts\brain.ps1 list
 .\brain\ai-brain\scripts\brain.ps1 status
@@ -873,10 +882,33 @@ brain/ai-brain/
 ```
 
 **The learning workflow:**
-1. Learn a concept via `/learn-concept` or `/dsa`
-2. Capture key insights with `/brain-new`
-3. Refine the note with Copilot's help (open the file → `/teach` or `/explain`)
-4. When solid → `/brain-publish` → note moves to archive with git commit
+
+```
+🟢 NEWBIE — Quick capture
+1. Learn a concept via /learn-concept or /dsa
+2. Drop raw notes in inbox/: /brain-new → target: inbox
+3. Clear inbox at session end when done
+
+🟡 AMATEUR — Refined knowledge
+1. Review your inbox note after the session
+2. Move to notes/ (committed): brain move file.md --tier notes
+3. Or create directly: /brain-new → target: notes (committed immediately)
+4. Notes are searchable, team-accessible via git
+
+🔴 PRO — Formal reference
+1. Start from a notes/ file (or inbox)
+2. /brain-publish → add project, kind, tags, status frontmatter
+3. Note moves to archive/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md
+4. git add + git commit happens automatically
+```
+
+**Existing notes:**
+
+| Note | Topic | Tier |
+|---|---|---|
+| [`2026-02-21_session-mcp-server-fixes-and-restructure.md`](brain/ai-brain/notes/2026-02-21_session-mcp-server-fixes-and-restructure.md) | MCP server bug fix + config restructure | notes/ (committed) |
+| [`2026-03-06_ghcp-knowledge-sharing-distilled.md`](brain/ai-brain/notes/2026-03-06_ghcp-knowledge-sharing-distilled.md) | GHCP customization KS — 3-tier distilled insights | notes/ (committed) |
+| [`archive/ghcp-knowledge-sharing/2026-03/`](brain/ai-brain/archive/ghcp-knowledge-sharing/2026-03/) | Source reference for GHCP KS session (original slides + presenter notes) | archive/ (committed) |
 
 ---
 

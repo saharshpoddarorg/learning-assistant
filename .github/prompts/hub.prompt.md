@@ -92,17 +92,48 @@ You are the **navigation hub** for all available assistants and learning command
 │    │       ├── add ···················· Add a resource to the vault
 │    │       └── details ················ Deep-dive into a specific resource
 │    │
-│    ├── MCP & Agentic AI (/hub mcp)
+│    ├── MCP & Agentic AI (/hub mcp)  [Open Preview — March 2026]
 │    │   └── /mcp ······················· Model Context Protocol — build & configure
 │    │       ├── overview ··············· What is MCP, architecture, protocol spec
+│    │       ├── open-preview ··········· New: MCP features in Copilot open preview
 │    │       ├── build-server ··········· Build MCP servers (TS, Python, Java, Go, C#)
-│    │       ├── configure-agent ········ Configure MCP in VS Code, Claude, Cursor
+│    │       ├── configure-agent ········ Configure MCP in VS Code via .vscode/mcp.json
 │    │       ├── types-of-mcp ··········· Catalog: data, dev tools, productivity, infra
 │    │       ├── api-integration ········ Wrap REST/GraphQL/gRPC APIs as MCP tools
 │    │       ├── agent-patterns ········· Single agent, multi-agent, tool chaining
-│    │       ├── real-world-examples ···· GitHub, filesystem, Postgres, Puppeteer, etc.
+│    │       ├── real-world-examples ···· GitHub MCP server, filesystem, Postgres, etc.
 │    │       ├── troubleshoot ··········· Debug MCP servers, Inspector, common issues
 │    │       └── project-structure ······ Multi-MCP layout, mcp.json schema, scaffolding
+│    │
+│    ├── Copilot Customization (/hub customization)  [Preview — March 2026]
+│    │   ├── /create-agent ·············· Scaffold a new .github/agents/*.agent.md file
+│    │   │   ├── wizard ················ Built-in VS Code wizard: Ctrl+Shift+I → /create-agent
+│    │   │   ├── guided-prompt ·········· Use .github/prompts/create-agent.prompt.md
+│    │   │   ├── tool-list ·············· Full agent tools reference
+│    │   │   └── after-creation ········· Register in README + copilot-instructions
+│    │   ├── /copilot-customization ····· Create, review, compare, or compose any customization file
+│    │   │   ├── compare-types ·········· 6-primitive comparison table + decision matrix
+│    │   │   ├── create-new ············· Scaffold any type: instruction/prompt/agent/skill/MCP
+│    │   │   ├── plan-composition ······· Recommend which types to combine for your use case
+│    │   │   ├── review-existing ········ Audit an existing file for common issues
+│    │   │   ├── explain-concept ········ Teach the 6 primitives at newbie/amateur/pro depth
+│    │   │   └── audit-repo ············· Scan .github/ and produce a prioritized action plan
+│    │   ├── /write-docs ················ Create or update any doc from provided content
+│    │   │   ├── all-of-above ··········· Full stack: brain-note + dev-doc + cheatsheet + skill + prompt
+│    │   │   ├── dev-doc ················ 3-tier developer reference (Newbie/Amateur/Pro)
+│    │   │   ├── skill ·················· SKILL.md with activation-optimized description field
+│    │   │   ├── prompt ················· Slash command .prompt.md with ${input:} variables
+│    │   │   ├── cheatsheet ············· Fast-reference tables + decision tree
+│    │   │   ├── start-here ············· Entry-point onboarding file
+│    │   │   └── brain-note ············· Structured note for brain/ai-brain/notes/
+│    │   └── Docs
+│    │       ├── agents/README.md ······· File format, tools, handoffs, examples
+│    │       ├── copilot-mcp-preview.md · Full changelog: /create-agent, MCP preview,
+│    │       │                            Streamable HTTP, GitHub MCP server, model selection
+│    │       ├── copilot-customization-deep-dive.md · Comprehensive 3-tier reference:
+│    │       │                            6 primitives, comparison table, decision matrix,
+│    │       │                            12 composition recipes, 7 anti-patterns
+│    │       └── customization-guide.md · Architecture overview and how primitives stack
 │    │
 │    ├── Tech Trends & Emerging Tech (/hub trends)
 │    │   ├── /learn-concept ai-coding ···· Copilot, Cursor, agentic AI, vibe coding
@@ -254,7 +285,12 @@ You are the **navigation hub** for all available assistants and learning command
      ├── Impact-Analyzer ············ Change ripple effect analysis
      ├── Code-Reviewer ·············· Bug detection, best practices
      ├── Daily-Assistant ············ Finance, productivity, news, research
-     └── Thinking-Beast-Mode ········ Deep research agent with web fetching
+     ├── Thinking-Beast-Mode ········ Deep research agent with web fetching
+     │
+     └── [Create Your Own Agent] ···· /create-agent — scaffold a new agent with guided inputs
+         Built-in wizard: Ctrl+Shift+I → /create-agent
+         File:            .github/agents/<name>.agent.md
+         Docs:            .github/agents/README.md
 ```
 
 ### How to Respond
@@ -332,10 +368,23 @@ Quick Commands:
     /brain-search            → Search by tag, project, kind, date
     /brain-capture-session   → Convert current AI session into a structured note
 
+  Copilot Customization (Preview — March 2026):
+    /create-agent          → Scaffold a custom Copilot agent (.agent.md)
+    /copilot-customization → Create/review/compare/compose any customization type
+                             Includes: compare-types, create-new, plan-composition,
+                             review-existing, explain-concept, audit-repo
+    /write-docs            → Turn raw content → any doc type (brain-note/dev-doc/guide/
+                             cheatsheet/skill/prompt/readme). Use 'all-of-above' to
+                             produce the full documentation stack from one command.
+    Built-in wizard: Ctrl+Shift+I → /create-agent in Copilot Chat
+    Docs: .github/docs/copilot-customization-deep-dive.md — full 3-tier reference
+          .github/docs/copilot-mcp-preview.md — MCP open preview features
+
   Agents (select from dropdown):
     @Learning-Mentor      @Designer          @Debugger
     @Impact-Analyzer      @Code-Reviewer     @Daily-Assistant
     @Thinking-Beast-Mode
+    (+ create your own with /create-agent)
 ```
 
 ### Rules

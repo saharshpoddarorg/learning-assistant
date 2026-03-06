@@ -73,8 +73,8 @@ Or use Copilot Chat: `/brain-publish`
 | Tier | Folder | Git-tracked? | Purpose |
 |---|---|---|---|
 | **Inbox** | `ai-brain/inbox/` | ❌ | Raw capture — fast, no pressure to be good |
-| **Notes** | `ai-brain/notes/` | ❌ | Curated, stays on this machine |
-| **Archive** | `ai-brain/archive/` | ✅ | Committed to the repo, permanent reference |
+| **Notes** | `ai-brain/notes/` | ✅ | Curated notes — committed, searchable by team |
+| **Archive** | `ai-brain/archive/` | ✅ | Formally tagged reference — committed, browseable |
 
 The typical lifecycle:
 ```

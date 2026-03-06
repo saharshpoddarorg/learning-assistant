@@ -113,11 +113,15 @@ mcp-servers/build.env.local
 # Brain workspace (brain/ directory) -- personal knowledge management
 # =============================================================================
 # brain/inbox/   -- session-scoped throwaway (never committed)
-# brain/notes/   -- local persistent between sessions (never committed)
-# brain/archive/ -- curated, committed to the repo (NOT listed here)
+# brain/notes/   -- curated session notes, committed to the repo (tracked git)
+# brain/archive/ -- published reference, committed to the repo (tracked git)
+#
+# Tier tracking:
+#   inbox/   → GITIGNORED  (raw captures, cleared per session)
+#   notes/   → TRACKED     (reviewed, permanent developer knowledge)
+#   archive/ → TRACKED     (formally published with tags + git commit)
 
 brain/ai-brain/inbox/
-brain/ai-brain/notes/
 
 # =============================================================================
 # OS Generated Files
