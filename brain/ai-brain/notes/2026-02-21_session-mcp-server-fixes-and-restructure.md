@@ -1,3 +1,12 @@
+---
+date: 2026-02-21
+kind: session
+project: mcp-servers
+tags: [mcp-servers, bug-fix, atlassian, config, output-directory, java]
+status: final
+source: manual
+---
+
 # Session: MCP Servers — Server Fixes, Config Restructure & Output Hierarchy — 2026-02-21
 
 ## Summary

@@ -58,10 +58,10 @@ brain list --tier library          # list library notes
 
 Or use Copilot Chat: `/brain-search`
 
-### I want to publish a note to the repo
+### I want to publish an imported source to the library
 
 ```powershell
-brain publish brain\ai-brain\inbox\my-note.md --project java
+brain publish brain\ai-brain\inbox\GHCP_Agents_Guide.md --project ghcp-knowledge-sharing
 ```
 
 Or use Copilot Chat: `/brain-publish`
@@ -72,14 +72,18 @@ Or use Copilot Chat: `/brain-publish`
 
 | Tier | Folder | Git-tracked? | Purpose |
 |---|---|---|---|
-| **Inbox**   | `ai-brain/inbox/`   | ❌ | Raw capture — fast, no pressure to be good |
-| **Notes**   | `ai-brain/notes/`   | ✅ | Curated notes — committed, searchable by team |
-| **Library** | `ai-brain/library/` | ✅ | Formal reference library — committed, project-organized |
+| **Inbox**   | `ai-brain/inbox/`   | ❌ | Raw capture — fast, temporary, gitignored |
+| **Notes**   | `ai-brain/notes/`   | ✅ | **Your writing** — distilled insights, session logs, decisions you authored |
+| **Library** | `ai-brain/library/` | ✅ | **Imported sources** — external docs, slide decks, reference material you preserved |
 
 The typical lifecycle:
 ```
-/brain-new → inbox/  →  curate  →  notes/  →  brain publish  →  library/
+inbox/  →  brain-new (your writing)  →  notes/
+inbox/  →  brain publish (external source)  →  library/<project>/<YYYY-MM>/
 ```
+
+**One routing question:** "Did you write this yourself?"
+- Yes → `notes/` | No (imported) → `library/`
 
 ---
 

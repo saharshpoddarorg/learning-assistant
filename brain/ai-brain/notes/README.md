@@ -1,35 +1,44 @@
-# ai-brain/notes/ -- Curated Knowledge Notes
+# ai-brain/notes/ -- Your Own Writing
 
-**Git-tracked. Committed to the repo. Permanent developer knowledge.**
+**Git-tracked. Committed to the repo. Permanent.**
 
-Content lives here when it is reviewed, refined, and worth sharing — complete enough
-to stand on its own as a reference, but not yet formally published with full tags
-and project attribution (that's `library/`).
+Notes live here when **you wrote them** — your distilled insights, your session logs,
+your decisions, your how-tos. This is not for imported external content (that goes to `library/`).
+
+### The core distinction
+
+| Tier | Rule |
+|---|---|
+| `notes/` | **I wrote this** — my synthesis, my session log, my decision |
+| `library/` | **I preserved this** — external source I imported |
+
+If you're unsure: *Did you write it from scratch?* → `notes/`. *Did you paste it from somewhere?* → `library/`.
 
 ---
 
 ## What Belongs Here
 
-- Session notes from learning or dev work sessions (reviewed, not raw)
-- Distilled insights from multiple sources
-- In-progress research that has solidified into stable notes
-- Conceptual cheatsheets and how-to references
-- Notes you'd want accessible from another machine or to share with a teammate
+- Session logs — what you built/fixed today, decisions made, next steps
+- Distilled insights — your synthesis from reading, learning, sessions
+- Architecture decisions (ADR format) — your reasoning for choices made
+- How-to notes — your own cheatsheets, workflows you authored
+- Concept notes — explanations you wrote for future-you
 
 ## What Does NOT Belong Here
 
-- Raw mid-session reasoning → use `inbox/`
-- Half-finished drafts → use `inbox/` until ready
+- Raw mid-session reasoning → `inbox/`
+- Half-finished drafts → `inbox/` until ready
+- External slide decks or imported documents → `library/`
 - Machine-specific configs or secrets → never commit
 
 ---
 
 ## Current Notes
 
-| File | Topic | Date |
-|---|---|---|
-| [`2026-02-21_session-mcp-server-fixes-and-restructure.md`](2026-02-21_session-mcp-server-fixes-and-restructure.md) | MCP server bug fix, config restructure, output/ hierarchy | 2026-02-21 |
-| [`2026-03-06_ghcp-knowledge-sharing-distilled.md`](2026-03-06_ghcp-knowledge-sharing-distilled.md) | GHCP customization KS session — 3-tier distilled insights | 2026-03-06 |
+| File | Kind | Topic | Date |
+|---|---|---|---|
+| [`2026-02-21_session-mcp-server-fixes-and-restructure.md`](2026-02-21_session-mcp-server-fixes-and-restructure.md) | session | MCP server bug fix, config restructure, output/ hierarchy | 2026-02-21 |
+| [`2026-03-06_ghcp-knowledge-sharing-distilled.md`](2026-03-06_ghcp-knowledge-sharing-distilled.md) | note | GHCP customization KS session — 3-tier distilled insights | 2026-03-06 |
 
 ---
 
@@ -53,28 +62,26 @@ and project attribution (that's `library/`).
 YYYY-MM-DD_<kebab-case-descriptive-slug>.md
 
 Examples:
-  2026-02-21_session-mcp-server-fixes-and-restructure.md   ← session notes
-  2026-03-06_ghcp-knowledge-sharing-distilled.md           ← distilled KS insights
-  2026-04-15_java-records-vs-classes.md                    ← concept notes
-  2026-04-22_system-design-url-shortener.md                ← design notes
+  2026-02-21_session-mcp-server-fixes-and-restructure.md  ← session log
+  2026-03-06_ghcp-knowledge-sharing-distilled.md          ← distilled insights
+  2026-04-15_java-records-vs-classes.md                   ← concept note
+  2026-04-22_decision-hashmap-over-treemap.md             ← decision ADR
 ```
 
-- Date prefix enables chronological sorting and cross-referencing
-- Slug is descriptive — reader knows the topic without opening the file
-- All lowercase, hyphens, no spaces
+- Date prefix enables chronological sorting
+- Include `session-`, `decision-`, `concept-` prefixes where helpful for scanning
+- All lowercase, hyphens only
 
 ---
 
-## When a Note Is Ready for Archive
+## Moving a Note to Library
+
+If you realise a note is actually imported source material (not your own writing), move it:
 
 ```powershell
-# Publish to library/ -- prompts for project, tags, then commits
+# Move to library with prompts (publish workflow — project, tags, commit)
 .\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\notes\file.md
 
-# Or move to library/ without prompts (manual git add + commit separately)
+# Or move without prompts (manual git add + commit separately)
 .\brain\ai-brain\scripts\promote.ps1 notes\file.md library --project java
 ```
-
-The difference between notes/ and library/:
-- **notes/** — committed, searchable, good for reference; informal frontmatter
-- **library/** — formal YAML frontmatter (kind, project, tags, status, source); appears in `brain list --tier library`

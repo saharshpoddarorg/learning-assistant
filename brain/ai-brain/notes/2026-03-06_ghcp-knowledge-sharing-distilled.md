@@ -61,11 +61,70 @@ The instruction layering is what makes all three powerful:
 
 ---
 
+## � TIER 2 — Amateur: Getting Productive
+
+> You've used Copilot. Now learn how to make it work consistently and efficiently as a team.
+
+### Key Insight #2 — Prompt Files Are Team Multipliers
+
+```
+❌ Without prompt file (every dev rewrites context):
+   "Add a property to Device.java. Call premodify() first, fire PropertyChangeEvent,
+    use @NotNull, follow VaultKey pattern, add interface method in interfaces_src..."
+
+✅ With prompt file (1 line):
+   /cof-model  Add wireGauge property to IDevice
+```
+
+**ROI from the session:** ~60-80% reduction in prompt re-engineering. Higher first-attempt accuracy.
+
+**When to create a new prompt file:** If you write the same context into prompts more than twice,
+it belongs in a prompt file. 5 minutes to create it, the whole team benefits forever.
+
+---
+
+### Key Insight #3 — Model Selection
+
+| Task | Best Model | Why |
+|---|---|---|
+| Quick inline edit | GPT-4o | Fast, good enough |
+| Generate tests / code | Claude Sonnet 4 | Good quality, follows patterns |
+| Multi-file agent task with deep reasoning | Claude Opus 4 | Best reasoning |
+| Large file understanding | Gemini 2.5 Pro | 1M token context window |
+| Debug complex logic | Claude Opus 4 / o3-mini | Deep reasoning |
+| Build/Git commands | GPT-4o | Speed matters, simple task |
+
+> **Rule of thumb:** Start with Sonnet 4 for most tasks. Upgrade to Opus 4 when Agent mode needs deep reasoning. Use GPT-4o for speed-critical Ask/Edit.
+
+---
+
+### Key Insight #4 — Team Adoption Playbook
+
+The knowledge sharing session itself is a technique: structured slides + live demos + presenter notes.
+
+**What made the KS session effective:**
+- Opening hook: "Raise your hand if you've told Copilot the same thing twice in one session"
+- Problem-first: show broken output before showing fixed output
+- Live demos: show actual before/after code diffs
+- Hard numbers: 60-80% reduction in re-prompting, developer wrote 4 lines → Copilot wrote full impl
+- Presenter notes kept on second screen for natural delivery
+
+**Skills to create (identified in the session):**
+| Priority | Skill | Why High Value |
+|---|---|---|
+| High + Easy | `code-review-checklist` | Rules already exist in instruction files |
+| High + Easy | `test-generation` | Patterns already exist in test files |
+| High + Easy | `pr-description-generator` | Template + git diff analysis |
+| High + Medium | `diagram-first-development` | Eliminates wrong first attempts |
+| High + Medium | `onboarding-guide` | New devs productive in days |
+
+---
+
 ## 🔴 TIER 3 — Pro: Advanced Techniques
 
 > Power features that unlock significant productivity gains once you understand the fundamentals.
 
-### Key Insight #2 — Mermaid Diagrams as LLM Context (⭐ Novel Technique)
+### Key Insight #5 — Mermaid Diagrams as LLM Context (⭐ Novel Technique)
 
 **The problem:** 500 lines of Java code → ~2,000 tokens of syntax noise → LLM infers relationships.
 **The solution:** 20 lines of Mermaid → ~200 tokens → LLM *knows* relationships explicitly. **10x compression.**
@@ -105,7 +164,7 @@ Step 3: MODIFY   → Agent reasons over structure, not code text
 
 ---
 
-### Key Insight #3 — Custom Agents are Autonomous Multi-Phase Workers
+### Key Insight #6 — Custom Agents are Autonomous Multi-Phase Workers
 
 Regular Chat vs Custom Agent:
 | Aspect | Regular Chat | Custom Agent |
@@ -132,65 +191,6 @@ Regular Chat vs Custom Agent:
 | 🔵 GRAPH-CONFIRMED | Structural match only — likely correct |
 | 🟡 VECTOR-SUGGESTED | Semantic similarity only — verify manually |
 | 🔴 CONFLICT | Sources disagree — must resolve |
-
----
-
-## 🟡 TIER 2 — Amateur: Getting Productive
-
-> You've used Copilot. Now learn how to make it work consistently and efficiently as a team.
-
-### Key Insight #4 — Prompt Files Are Team Multipliers
-
-```
-❌ Without prompt file (every dev rewrites context):
-   "Add a property to Device.java. Call premodify() first, fire PropertyChangeEvent,
-    use @NotNull, follow VaultKey pattern, add interface method in interfaces_src..."
-
-✅ With prompt file (1 line):
-   /cof-model  Add wireGauge property to IDevice
-```
-
-**ROI from the session:** ~60-80% reduction in prompt re-engineering. Higher first-attempt accuracy.
-
-**When to create a new prompt file:** If you write the same context into prompts more than twice,
-it belongs in a prompt file. 5 minutes to create it, the whole team benefits forever.
-
----
-
-### Key Insight #5 — Model Selection
-
-| Task | Best Model | Why |
-|---|---|---|
-| Quick inline edit | GPT-4o | Fast, good enough |
-| Generate tests / code | Claude Sonnet 4 | Good quality, follows patterns |
-| Multi-file agent task with deep reasoning | Claude Opus 4 | Best reasoning |
-| Large file understanding | Gemini 2.5 Pro | 1M token context window |
-| Debug complex logic | Claude Opus 4 / o3-mini | Deep reasoning |
-| Build/Git commands | GPT-4o | Speed matters, simple task |
-
-> **Rule of thumb:** Start with Sonnet 4 for most tasks. Upgrade to Opus 4 when Agent mode needs deep reasoning. Use GPT-4o for speed-critical Ask/Edit.
-
----
-
-### Key Insight #6 — Team Adoption Playbook
-
-The knowledge sharing session itself is a technique: structured slides + live demos + presenter notes.
-
-**What made the KS session effective:**
-- Opening hook: "Raise your hand if you've told Copilot the same thing twice in one session"
-- Problem-first: show broken output before showing fixed output
-- Live demos: show actual before/after code diffs
-- Hard numbers: 60-80% reduction in re-prompting, developer wrote 4 lines → Copilot wrote full impl
-- Presenter notes kept on second screen for natural delivery
-
-**Skills to create (identified in the session):**
-| Priority | Skill | Why High Value |
-|---|---|---|
-| High + Easy | `code-review-checklist` | Rules already exist in instruction files |
-| High + Easy | `test-generation` | Patterns already exist in test files |
-| High + Easy | `pr-description-generator` | Template + git diff analysis |
-| High + Medium | `diagram-first-development` | Eliminates wrong first attempts |
-| High + Medium | `onboarding-guide` | New devs productive in days |
 
 ---
 

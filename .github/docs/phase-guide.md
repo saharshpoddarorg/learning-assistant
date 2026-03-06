@@ -336,12 +336,19 @@ mcp-servers/user-config/servers/atlassian/atlassian-config.properties  ← base 
 
 ```
 brain/
-├── inbox/      ← New notes land here (drafts, quick captures)
-├── notes/      ← Active knowledge you reference often
-└── library/    ← Published notes — tagged, searchable, permanent
+├── inbox/      ← Raw capture (drafts, quick grabs — gitignored)
+├── notes/      ← Your writing — distilled insights, session logs, decisions
+└── library/    ← Imported sources — slide decks, reference docs you preserved
 ```
 
-**The workflow:** `inbox/ → (review) → notes/ → (publish + tag) → library/`
+**One routing question:** "Did you write this yourself?"
+- Yes → `notes/` | No (imported external content) → `library/`
+
+**Two typical flows:**
+```
+brain-new   → inbox/ → (edit/refine) → notes/
+brain publish → inbox/ → library/<project>/<YYYY-MM>/
+```
 
 ### 5.1 — Create a note with Copilot
 
@@ -362,14 +369,14 @@ Copilot creates a properly formatted markdown note with YAML frontmatter.
 → tier: notes
 ```
 
-### 5.3 — Publish a note to archive
+### 5.3 — Publish an imported source to library
 
 ```
 /brain-publish
-→ brain/notes/2026-02-21_java-generics.md
-→ Project: java
+→ brain/ai-brain/inbox/GHCP_Agents_Guide.md
+→ Project: ghcp-knowledge-sharing
 ```
-Copilot enriches the note with tags, updates frontmatter, and commits it.
+Copilot archives the source file to `library/<project>/<YYYY-MM>/`, prompts for tags, and commits it.
 
 ### 5.4 — VS Code Tasks for brain
 

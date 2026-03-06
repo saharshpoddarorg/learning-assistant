@@ -129,7 +129,7 @@ Learning Mentor← Thinks in analogies, exercises, progression
 /career-roles → Job roles, skills, pay, career roadmaps
 /multi-session → Manage state across multiple chat sessions
 /brain-new    → Create knowledge notes (inbox/notes tier)
-/brain-publish → Publish notes to library/ and commit
+/brain-publish → Publish an imported source to library/ and commit
 /brain-search → Search notes by tag, project, kind, date, or text
 ```
 

@@ -5,7 +5,7 @@
 #
 # Commands:
 #   new       Create a new note with frontmatter template
-#   publish   Promote to library/ with project+date hierarchy, tagging, git commit
+#   publish   Publish an imported source to library/ (project+date hierarchy, tag prompting, git commit)
 #   move      Move a file between tiers (inbox -> notes -> library)
 #   search    Search notes by frontmatter or full text
 #   list      List notes with frontmatter summary
@@ -28,7 +28,7 @@
 # Examples:
 #   ./brain/ai-brain/scripts/brain.sh new
 #   ./brain/ai-brain/scripts/brain.sh new --tier inbox --project mcp-servers --title "SSE transport"
-#   ./brain/ai-brain/scripts/brain.sh publish brain/ai-brain/inbox/draft.md --project mcp-servers
+#   ./brain/ai-brain/scripts/brain.sh publish brain/ai-brain/inbox/GHCP_Agents_Guide.md --project ghcp-knowledge-sharing
 #   ./brain/ai-brain/scripts/brain.sh search java --tag generics
 #   ./brain/ai-brain/scripts/brain.sh list --tier library --project mcp-servers
 #   ./brain/ai-brain/scripts/brain.sh clear --force
@@ -163,7 +163,7 @@ cmd_help() {
     echo -e "${YELLOW}COMMANDS${RESET}"
     printf "  %-10s %s\n" \
         "new"     "Create a new note with frontmatter template" \
-        "publish" "Promote to library/ with project+date hierarchy, tagging, git commit" \
+        "publish" "Publish an imported source to library/ (project+date hierarchy, tag prompting, git commit)" \
         "move"    "Move a file between tiers (inbox -> notes -> library)" \
         "search"  "Search notes by frontmatter (--tag, --project, --kind, --date) or text" \
         "list"    "List notes with frontmatter summary" \
@@ -187,7 +187,7 @@ cmd_help() {
     echo -e "${YELLOW}EXAMPLES${RESET}"
     echo "  ./brain/ai-brain/scripts/brain.sh new"
     echo "  ./brain/ai-brain/scripts/brain.sh new --tier inbox --project mcp-servers --title \"SSE transport\""
-    echo "  ./brain/ai-brain/scripts/brain.sh publish brain/ai-brain/inbox/draft.md --project mcp-servers"
+    echo "  ./brain/ai-brain/scripts/brain.sh publish brain/ai-brain/inbox/GHCP_Agents_Guide.md --project ghcp-knowledge-sharing"
     echo "  ./brain/ai-brain/scripts/brain.sh search java --tag generics --tier library"
     echo "  ./brain/ai-brain/scripts/brain.sh list --tier library --project mcp-servers"
     echo "  ./brain/ai-brain/scripts/brain.sh clear --force"

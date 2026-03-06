@@ -9,9 +9,9 @@
     Run from any location -- all paths resolve relative to the repo root.
 
 .COMMANDS
-    new       Create a new note with frontmatter template
-    publish   Publish a file to library/ with project+date hierarchy, tagging, and git commit
-    move      Move a file between tiers (inbox -> notes -> library)
+    new       Create a new note with frontmatter template (default: inbox/)
+    publish   Publish an imported source file to library/ (project+date hierarchy, tag prompting, git commit)
+    move      Move a file between tiers: inbox -> notes (your writing) | inbox -> library (external source)
     search    Search notes by content or frontmatter (tag, project, kind, date)
     list      List notes with frontmatter summary
     clear     Clear files from inbox/

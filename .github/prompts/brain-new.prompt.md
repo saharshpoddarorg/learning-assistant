@@ -12,7 +12,10 @@ ${input:topic:Describe what you want to write about (e.g. "Java generics", "SSE 
 
 ## Tier
 
-${input:tier:Where should this go? inbox (temporary, default) or notes (keep between sessions)?:inbox}
+${input:tier:Where should this go? inbox (temporary, default) or notes (your own writing)?:inbox}
+
+> **Routing rule:** This command creates notes YOU write (your own distilled insights, session logs, decisions).
+> To archive an external/imported source (slide deck, reference doc), use `/brain-publish` → `library/` instead.
 
 ## Project
 
@@ -63,7 +66,7 @@ source: copilot
 
 ### Important
 
-- Keep the file in `brain/ai-brain/${input:tier}/` -- do NOT create it anywhere else
-- Do not commit the file (inbox and notes are gitignored anyway)
-- After creating, tell the user: "Run `brain-publish` or `brain publish <path>` when ready to commit to the repo"
+- Keep the file in `brain/ai-brain/${input:tier}/` — do NOT create it anywhere else
+- Do not commit the file (inbox notes are gitignored; notes/ files can be committed manually)
+- After creating, tell the user: "To commit this note, add it to git manually. To archive an imported source, use `/brain-publish`"
 ```

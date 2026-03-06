@@ -79,7 +79,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 27 | `/resources` | Domain | Search, browse & scrape curated learning resources | Learning-Mentor |
 | 28 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
 | 29 | `/brain-new` | Brain Workspace | Create a new knowledge note (inbox or notes tier) | Copilot |
-| 30 | `/brain-publish` | Brain Workspace | Publish a note to library/ with tagging and git commit | Copilot |
+| 30 | `/brain-publish` | Brain Workspace | Publish an imported source to library/ with tag prompting and git commit | Copilot |
 | 31 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
 | 32 | `/brain-capture-session` | Brain Workspace | Convert current AI session into a structured session note | Copilot |
 | 33 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
@@ -584,15 +584,15 @@ File:     brain/ai-brain/inbox/ or brain/ai-brain/notes/ (never creates library/
 Tip:      Use /brain-publish to promote to library/ and commit
 ```
 
-#### `/brain-publish` — Publish a Note
+#### `/brain-publish` — Publish an Imported Source
 ```
-Inputs:   file (relative to brain/ai-brain/, e.g. inbox/2026-02-21_draft.md), project bucket
+Inputs:   file (relative to brain/ai-brain/, e.g. inbox/GHCP_Agents_Guide.md), project bucket
 Agent:    Copilot
 Tools:    editFiles, codebase, runCommands
-Use:      Promote a note from inbox/ or notes/ to library/ → tag it → git commit
-Example:  /brain-publish → inbox/2026-02-21_draft.md → mcp-servers
-Output:   Note moved to brain/ai-brain/library/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md, committed
-Tip:      Tags are enriched automatically from filename and content
+Use:      Publish an imported external source from inbox/ to library/ → add frontmatter → tag it → git commit
+Example:  /brain-publish → inbox/GHCP_Agents_Guide.md → ghcp-knowledge-sharing
+Output:   File archived to brain/ai-brain/library/<project>/<YYYY-MM>/YYYY-MM-DD_slug.md, committed
+Tip:      For notes YOU wrote, use /brain-new → notes/ instead
 ```
 
 #### `/brain-search` — Search Notes

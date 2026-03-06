@@ -15,7 +15,7 @@
 .EXPORTED FUNCTIONS
     brain         Full dispatcher (same as brain.ps1 directly)
     brain-new        Create a new note
-#   brain-publish       Save/promote a note to library/ with tagging and git commit
+#   brain-publish       Publish an imported source to library/ (tag prompting, git commit)
     brain-search     Search notes
     brain-list       List notes
     brain-clear      Clear inbox/
@@ -46,9 +46,9 @@ function Invoke-BrainNew {
 
 function Invoke-BrainPublish {
     <#
-    .SYNOPSIS Promote a note to library/ with tagging and git commit.
+    .SYNOPSIS Publish an imported source file to library/ with project+date hierarchy, tag prompting, and git commit.
     .EXAMPLE brain-publish
-    .EXAMPLE brain-publish brain\inbox\2026-02-21_draft.md --project java --commit
+    .EXAMPLE brain-publish brain\ai-brain\inbox\GHCP_Agents_Guide.md --project ghcp-knowledge-sharing --commit
     #>
     & $script:BrainScript publish @args
 }

@@ -78,7 +78,7 @@
 | Command | Purpose | Agent | Quick Example |
 |---|---|---|---|
 | `/brain-new` | Create a new knowledge note (inbox or notes tier) | Copilot | `/brain-new` → `"generics cheatsheet"` → `notes` |
-| `/brain-publish` | Publish note to library/ with tagging and git commit | Copilot | `/brain-publish` → `inbox/2026-02-21_draft.md` |
+| `/brain-publish` | Publish an imported source to library/ with tag prompting and git commit | Copilot | `/brain-publish` → `inbox/GHCP_Agents_Guide.md` |
 | `/brain-search` | Search notes by tag, project, kind, date, or text | Copilot | `/brain-search` → `"sse transport"` → `tier=library` |
 | `/brain-capture-session` | Convert current AI session into a structured session note | Copilot | `/brain-capture-session` → `topic` → `full` |
 
@@ -239,8 +239,8 @@ brain/
 ├── ai-brain/
 │   ├── README.md                    👤 Live workspace guide — 3 tiers, scripts, frontmatter schema
 │   ├── inbox/                       🔒 Gitignored — quick capture (drop anything here)
-│   ├── notes/                       ✅ Git-tracked — curated knowledge notes (committed to repo)
-│   ├── library/                     ✅ Git-tracked — permanent reference library, published notes
+│   ├── notes/                       ✅ Git-tracked — your writing: insights, session logs, decisions
+│   ├── library/                     ✅ Git-tracked — imported sources: slide decks, reference docs, external material
 │   └── scripts/                     👤 brain.ps1 / brain.sh CLI + brain-module.psm1 aliases
 │
 └── src/

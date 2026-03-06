@@ -119,10 +119,10 @@ YOUR VS CODE WORKSPACE
 ├── mac-os/                     ← macOS dev environment learning module
 │   └── docs/                   ← Homebrew, JDK, npm, IDEs, Docker guides
 │
-└── brain/                      ← Personal knowledge notes (inbox→notes→library)
-    ├── inbox/                  ← Draft notes
-    ├── notes/                  ← Active knowledge
-    └── library/                ← Published, tagged reference
+└── brain/                      ← Personal knowledge notes (inbox→notes / inbox→library)
+    ├── inbox/                  ← Draft notes (gitignored, temporary)
+    ├── notes/                  ← Your writing — insights, session logs, decisions
+    └── library/                ← Imported sources — slide decks, reference docs, external material
 ```
 
 **The magic flow:**
