@@ -89,9 +89,7 @@ And the next paragraph continues here.
 ```markdown
 Here is the command:
 ```powershell
-
 .\build.ps1
-
 ```text
 And the next paragraph continues here.
 ```

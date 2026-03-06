@@ -519,25 +519,14 @@ LearningResourcesServer                     ← Learning Resources Server
 
 ### Loader Pipeline
 
-```text
-┌─────────────────┐   ┌──────────────────┐   ┌──────────────────┐   ┌────────────┐
-│  Base Properties │ → │  Local Properties │ → │  Env Variables   │ → │   Merged   │
-│  (committed)     │   │  (gitignored)    │   │  (MCP_* prefix)  │   │ Properties │
-└─────────────────┘   └──────────────────┘   └──────────────────┘   └──────┬─────┘
-                                                                           │
-                                                                    ┌──────▼──────┐
-                                                                    │ ConfigParser │
-                                                                    │ (flat→model) │
-                                                                    └──────┬──────┘
-                                                                           │
-                                                                    ┌──────▼──────┐
-                                                                    │  Validator   │
-                                                                    └──────┬──────┘
-                                                                           │
-                                                                    ┌──────▼──────────┐
-                                                                    │ Profile Resolve  │
-                                                                    │ (merge overrides)│
-                                                                    └─────────────────┘
+```mermaid
+flowchart LR
+    BaseP["Base Properties\n(committed)"] --> Merged["Merged\nProperties"]
+    LocalP["Local Properties\n(gitignored)"] --> Merged
+    EnvV["Env Variables\n(MCP_* prefix)"] --> Merged
+    Merged --> CP["ConfigParser\n(flat → model)"]
+    CP --> V[Validator]
+    V --> PR["Profile Resolve\n(merge overrides)"]
 ```
 
 ### Validation

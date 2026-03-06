@@ -121,9 +121,7 @@ The output will appear in the terminal.
 <!-- ❌ wrong — no blank lines -->
 Run this command:
 ```bash
-
 ./build.sh
-
 ```text
 The output will appear in the terminal.
 ```

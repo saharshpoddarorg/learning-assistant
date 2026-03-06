@@ -101,6 +101,8 @@ function Invoke-LintFile {
 
         if ($isFence) {
             $tickCount = ($Matches[1]).Length
+            # GFM spec: closing fence must have NO info string (bare ticks only)
+            $hasInfoStr = ($cur -replace '^\s*[`~]+', '').Trim() -ne ''
             if (-not $inFence) {
                 # opening fence
                 $inFence    = $true
@@ -109,7 +111,7 @@ function Invoke-LintFile {
                 if ($rebuilt.Count -gt 0 -and $rebuilt[$rebuilt.Count - 1] -ne '') {
                     $rebuilt.Add('')
                 }
-                # Auto-add language tag if missing
+                # Auto-add language tag if missing (only bare opening fences)
                 if ($cur -match '^(\s*`{3,})\s*$') {
                     # Gather upcoming lines to guess language
                     $upcoming = @()
@@ -122,8 +124,8 @@ function Invoke-LintFile {
                 } else {
                     $rebuilt.Add($cur)
                 }
-            } elseif ($tickCount -ge $fenceDepth) {
-                # closing fence
+            } elseif ($tickCount -ge $fenceDepth -and -not $hasInfoStr) {
+                # closing fence: same/higher depth AND bare (no info string per GFM spec)
                 $inFence = $false
                 $rebuilt.Add($cur)
                 # blank after closing fence
@@ -131,6 +133,7 @@ function Invoke-LintFile {
                     $rebuilt.Add('')
                 }
             } else {
+                # Fence-like line inside outer fence (literal content or lower-depth nested)
                 $rebuilt.Add($cur)
             }
         } elseif ((-not $inFence) -and ($cur -match '^(#{1,6}) ')) {
@@ -191,11 +194,13 @@ function Invoke-LintFile {
 
         $isFence2 = $line -match '^\s*(`{3,}|~{3,})'
         if ($isFence2) {
-            $tickCount2 = ($Matches[1]).Length
+            $tickCount2  = ($Matches[1]).Length
+            $hasInfo2    = ($line -replace '^\s*[`~]+', '').Trim() -ne ''
             if (-not $inFence2) {
                 $inFence2    = $true
                 $fenceDepth2 = $tickCount2
-            } elseif ($tickCount2 -ge $fenceDepth2) {
+            } elseif ($tickCount2 -ge $fenceDepth2 -and -not $hasInfo2) {
+                # GFM spec: closing fence must have no info string
                 $inFence2 = $false
             }
         }
