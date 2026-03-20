@@ -5,9 +5,9 @@
 
 | Audience | Start Here |
 |---|---|
-| 🟢 **Newbie** | [Part 9 — Why Not Just Skills?](#part-9-why-not-just-skills--the-faq) → [Part 1 — The 6 Primitives](#part-1-the-6-primitives) → [Decision Guide](#part-3-decision-guide) |
-| 🟡 **Amateur** | [Comparison Table](#part-2-head-to-head-comparison) → [Composition Basics](#same-type-composition) → [Migration Guide](#part-7-migration--interchange-guide) |
-| 🔴 **Pro** | [Latest Features](#part-11-latest-features--api-updates-2026) → [Full Stack Compositions](#cross-type-composition) → [Anti-Patterns](#part-5-anti-patterns) → [Official Resources](#part-10-official-resources--standards) |
+| 🟢 **Newbie** | [Part 9 — Why Not Just Skills?](#part-9-why-not-just-skills--the-faq) → [Part 1 — The 6 Primitives](#part-1-the-6-primitives) → [Decision Guide](#part-3-decision-guide) → [Side-by-Side Examples](#part-12-side-by-side--same-task-every-primitive) |
+| 🟡 **Amateur** | [Comparison Table](#part-2-head-to-head-comparison) → [Composition Basics](#same-type-composition) → [Migration Guide](#part-7-migration--interchange-guide) → [Testing](#part-14-testing-your-customizations) → [Cross-Repo Portability](#part-15-cross-repo-portability) |
+| 🔴 **Pro** | [Latest Features](#part-11-latest-features--api-updates-2026) → [Full Stack Compositions](#cross-type-composition) → [Anti-Patterns](#part-5-anti-patterns) → [Token Economics](#part-13-token-economics--performance) → [API Surface](#part-16-complete-api-surface-reference) → [Security](#part-17-security-considerations) → [Official Resources](#part-10-official-resources--standards) |
 
 ---
 
@@ -24,6 +24,13 @@
 9. [Why Not Just Skills? — The FAQ](#part-9-why-not-just-skills--the-faq)
 10. [Official Resources & Standards](#part-10-official-resources--standards)
 11. [Latest Features & API Updates (2026)](#part-11-latest-features--api-updates-2026)
+12. [Side-by-Side — Same Task, Every Primitive](#part-12-side-by-side--same-task-every-primitive)
+13. [Token Economics & Performance](#part-13-token-economics--performance)
+14. [Testing Your Customizations](#part-14-testing-your-customizations)
+15. [Cross-Repo Portability](#part-15-cross-repo-portability)
+16. [Complete API Surface Reference](#part-16-complete-api-surface-reference)
+17. [Security Considerations](#part-17-security-considerations)
+18. [Versioning & Evolving Customizations](#part-18-versioning--evolving-customizations)
 
 ---
 
@@ -2126,3 +2133,866 @@ Both `applyTo` (file glob) and `description` (semantic match) contribute to acti
 | `.agent.md` | `handoffs:` for chaining; subagents; `user-invocable`; `disable-model-invocation`; `argument-hint`; agent hooks; `target: github-copilot`; `.chatmode.md` → `.agent.md` rename; org-level agents; `/create-agent` generation |
 | `SKILL.md` | Skills as slash commands; three-level loading; `user-invocable`; `disable-model-invocation`; `argument-hint`; agent plugins (extensions); Agent Skills open standard; `/create-skill` generation |
 | MCP servers | `mcp-servers` in agent frontmatter (for cloud agents); `servers` key (not `mcpServers`) in Open Preview |
+
+---
+
+## Part 12: Side-by-Side — Same Task, Every Primitive
+
+> **See exactly how each primitive handles the same requirement — and why the right
+> choice matters.** These examples make the abstract comparison concrete.
+
+---
+
+### Task A: "Enforce `final` on local variables in Java"
+
+#### Using `copilot-instructions.md` (works but wasteful)
+
+```markdown
+# Project Instructions
+- Always use `final` for local variables that don't change
+```
+
+**Result:** Rule injected on EVERY request — even Markdown edits, YAML edits, terminal
+commands. Wastes tokens when you're not editing Java.
+
+#### Using `.instructions.md` (correct choice)
+
+```yaml
+---
+applyTo: "**/*.java"
+---
+- Always use `final` for local variables that don't change
+```
+
+**Result:** Rule activates only when editing `.java` files. Zero overhead elsewhere.
+
+#### Using `SKILL.md` (wrong — unreliable enforcement)
+
+```yaml
+---
+name: java-final
+description: Use when asked about Java final keyword...
+---
+# Use final for local variables that don't change
+```
+
+**Result:** Only loads when Copilot judges the topic relevant. If you ask "write a getter,"
+the skill may not activate — the `final` rule is silently skipped.
+
+#### Using `.prompt.md` (wrong — requires manual trigger)
+
+```yaml
+---
+name: java-final-check
+description: 'Check code for missing final keywords'
+---
+Review the code and add final to all variables that don't change.
+```
+
+**Result:** Only runs when you type `/java-final-check`. Won't help during normal coding.
+
+#### Using `.agent.md` (overkill)
+
+```markdown
+---
+description: Java purist who insists on final everywhere.
+---
+You are a strict Java developer. Every local variable MUST be final...
+```
+
+**Result:** Works, but you'd need to select this agent for every session. Agents are
+for sustained personas, not single rules.
+
+#### Verdict
+
+| Primitive | Verdict | Why |
+|---|---|---|
+| `copilot-instructions.md` | ⚠️ Works but wasteful | Injected everywhere, even non-Java |
+| **`.instructions.md`** | **✅ Best choice** | **Scoped to Java files, automatic, zero overhead** |
+| `SKILL.md` | ❌ Wrong tool | Activation is unreliable for behavioral rules |
+| `.prompt.md` | ❌ Wrong tool | Requires manual trigger; rules should be automatic |
+| `.agent.md` | ❌ Overkill | Persona for a single rule? No. |
+| MCP server | ❌ Absurd | Building a server to say "use final"? Never. |
+
+---
+
+### Task B: "Explain our microservice architecture to new devs"
+
+#### Using `copilot-instructions.md` (wrong — too much for always-on)
+
+```markdown
+# Architecture
+Our system has 12 microservices: OrderService, UserService, PaymentService...
+(200 lines of architecture knowledge)
+```
+
+**Result:** 200 lines injected into EVERY request. Most requests don't need architecture
+context. Wastes ~400 tokens per request.
+
+#### Using `SKILL.md` (correct choice)
+
+```yaml
+---
+name: our-architecture
+description: >
+  Use when asked about our microservice architecture, service boundaries,
+  inter-service communication, or system design decisions.
+---
+# Microservice Architecture Reference
+## Services
+| Service | Responsibility | API | Dependencies |
+|---|---|---|---|
+| OrderService | Order lifecycle | REST | UserService, PaymentService |
+...
+```
+
+**Result:** Loads only when someone asks about architecture. Zero cost otherwise.
+Semantic matching works perfectly for informational reference content.
+
+#### Using `.instructions.md` (wrong — knowledge, not rules)
+
+Instructions are behavioral directives. "Our system has 12 microservices" isn't a rule
+Copilot must follow — it's knowledge Copilot should know.
+
+#### Verdict
+
+| Primitive | Verdict | Why |
+|---|---|---|
+| `copilot-instructions.md` | ❌ Token waste | 200 lines on every request |
+| `.instructions.md` | ❌ Wrong type | Knowledge, not rules |
+| **`SKILL.md`** | **✅ Best choice** | **Loads on-demand, semantic activation** |
+| `.prompt.md` | ⚠️ If structured walkthrough needed | `/architecture` could work as guided tour |
+| `.agent.md` | ❌ Overkill | No need for persona change |
+| MCP server | ❌ Static content | No live data needed |
+
+---
+
+### Task C: "Run a structured security audit on this class"
+
+#### Using `.prompt.md` + `.agent.md` (correct — workflow + persona)
+
+```yaml
+# .github/agents/security-auditor.agent.md
+---
+description: >
+  Security-focused code reviewer. OWASP Top 10, injection checks,
+  auth/authz analysis. Read-only — never modifies code.
+tools:
+  - codebase
+  - search
+  - usages
+---
+You are a security auditor. Be skeptical. Assume everything is vulnerable
+until proven otherwise. Check OWASP Top 10 categories systematically.
+```
+
+```yaml
+# .github/prompts/security-audit.prompt.md
+---
+name: security-audit
+description: 'Run OWASP Top 10 audit on the current file'
+agent: security-auditor
+---
+${input:scope:What to audit? (current file / selected code / entire module)}
+
+## Audit Steps
+1. Injection (SQL, XSS, command)
+2. Broken auth
+3. Sensitive data exposure
+...
+Output a findings table: severity | category | location | recommendation
+```
+
+**Result:** Type `/security-audit` → structured, reproducible audit with expert mindset.
+
+#### Using `SKILL.md` only (insufficient — no workflow, no persona)
+
+A skill could provide OWASP reference knowledge, but can't structure the audit workflow
+or change Copilot's skeptical mindset. Best used alongside the agent+prompt combo.
+
+#### Verdict
+
+| Primitive | Verdict | Why |
+|---|---|---|
+| `copilot-instructions.md` | ❌ Not a universal rule | Security audits are on-demand, not every-request |
+| `.instructions.md` | ❌ Too narrow | Rules can't define multi-step workflows |
+| `SKILL.md` | ⚠️ Complementary | OWASP reference = skill; audit process = prompt |
+| **`.prompt.md` + `.agent.md`** | **✅ Best choice** | **Workflow structure + expert persona** |
+| MCP server | ⚠️ If scanning tool needed | Could wrap a SAST tool as MCP |
+
+---
+
+### Task D: "Let Copilot create PRs and read Jira tickets"
+
+Only one primitive can do this: **MCP server**.
+
+No `.md` file can make API calls. The other 5 primitives inject text into Copilot's
+context — only MCP servers give Copilot real hands to interact with external systems.
+
+```jsonc
+// .vscode/mcp.json
+{
+  "servers": {
+    "github": { "type": "stdio", "command": "npx", "args": ["-y", "@modelcontextprotocol/server-github"] },
+    "jira": { "type": "stdio", "command": "java", "args": ["-jar", "mcp-servers/out/atlassian-server.jar"] }
+  }
+}
+```
+
+**Complementary skill:** Add a skill with Jira project conventions (ticket naming,
+story point scale, workflow states) so Copilot knows HOW to write good tickets,
+while MCP gives it the ability to CREATE them.
+
+---
+
+## Part 13: Token Economics & Performance
+
+> **Every customization costs tokens. Understanding the budget helps you build
+> efficient stacks that don't waste context window space.**
+
+---
+
+### How Tokens Are Consumed
+
+```text
+┌─────────────────────────────────────────────────────────┐
+│                    CONTEXT WINDOW                        │
+│                                                          │
+│  System prompt (Copilot built-in)          ~1 500 tokens │
+│  copilot-instructions.md (always)          ~200–800      │
+│  Active .instructions.md files             ~100–500 each │
+│  Active SKILL.md files                     ~200–2 000    │
+│  .agent.md persona (if selected)           ~100–400      │
+│  .prompt.md template (if invoked)          ~50–200       │
+│  MCP tool schemas (all registered)         ~50–200 each  │
+│  MCP tool results (when called)            ~100–2 000    │
+│  Conversation history                      variable      │
+│  User's current message                    variable      │
+│  ──────────────────────────────────────────────────────  │
+│  REMAINING: available for Copilot's response             │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Token Budget by Primitive
+
+| Primitive | Injected When | Typical Tokens | Budget Guidance |
+|---|---|---|---|
+| `copilot-instructions.md` | Every request | 200–800 | Keep under 500 — this is your "tax" on every interaction |
+| `.instructions.md` | File pattern matches | 100–300 each | Lean rules; 20-60 lines typical |
+| `SKILL.md` | Semantic match | 200–2 000 | Larger is OK — only loads when relevant |
+| `.agent.md` | Session start | 100–400 | Moderate — persona context for whole session |
+| `.prompt.md` | Per invocation | 50–200 | Lean templates; depth comes from skills/agents |
+| MCP schemas | Agent mode active | 50–200 per server | Descriptive schemas help Copilot pick the right tool |
+| MCP results | Per tool call | 100–2 000 | Trim large results — return summaries, not raw dumps |
+
+### Optimization Strategies
+
+**🟢 Newbie:** Keep `copilot-instructions.md` under 80 lines. That's it.
+
+**🟡 Amateur:**
+
+- Move reference blocks from instructions to skills (load-on-demand vs. always-on)
+- Use `applyTo` globs to scope instructions narrowly — don't pollute non-matching files
+- Write concise skill sections — tables > paragraphs for token efficiency
+- Use thin prompts that delegate depth to the matching skill
+
+**🔴 Pro:**
+
+- Audit your full stack: open a file, estimate total tokens loaded
+- Use the 3-level skill loading (discovery → instructions → resources) — VS Code already
+  does this, but awareness helps you structure skills with the most important content first
+- Split large skills (>500 lines) into focused sub-skills — only the relevant one loads
+- For agents, avoid duplicating instructions content in the persona — agents STACK on
+  instructions, so the agent body only needs unique persona context
+- MCP tool schemas should use concise `description` fields — verbose descriptions waste tokens
+- Return structured JSON from MCP tools, not prose — smaller payload, easier for LLM to parse
+
+### Cost of Stacking (Real-World Estimate)
+
+A typical "full stack" session editing a Java file:
+
+```text
+Component                            Tokens    Cumulative
+─────────────────────────────────────────────────────────
+Copilot system prompt                ~1 500    1 500
+copilot-instructions.md              ~400      1 900
+java.instructions.md                 ~200      2 100
+clean-code.instructions.md           ~150      2 250
+Designer agent persona               ~300      2 550
+design-review prompt                 ~100      2 650
+design-patterns SKILL.md             ~800      3 450
+GitHub MCP schemas                   ~150      3 600
+─────────────────────────────────────────────────────────
+Total context overhead               ~3 600    (~2 100 from your files)
+```
+
+With a 128K context window, 3 600 tokens is ~3% overhead — well within budget even
+for long conversations. The cost is bearable because each component earns its keep.
+
+---
+
+## Part 14: Testing Your Customizations
+
+> **How do you know your instructions, skills, agents, and prompts actually work?
+> Here's a systematic testing methodology.**
+
+---
+
+### Testing by Primitive Type
+
+#### Testing Instructions
+
+```text
+Method: Open a matching file → ask Copilot to write code → verify the rule is followed
+
+Test script for java.instructions.md (applyTo: **/*.java):
+  1. Open any .java file
+  2. Ask: "Write a method that parses a CSV line"
+  3. Check: Does the generated code use `final` for local variables? (if that's your rule)
+  4. Check: Does it include Javadoc? (if that's your rule)
+  5. Check: Is the method under 30 lines? (if that's your rule)
+
+Negative test:
+  6. Open a .py file
+  7. Ask the same question
+  8. Check: Java rules should NOT apply to Python output
+```
+
+#### Testing Skills
+
+```text
+Method: Ask a question that should activate the skill → verify skill content appears
+
+Test script for mcp-development/SKILL.md:
+  1. Ask: "How do I create an MCP server in TypeScript?"
+  2. Check: Response includes MCP-specific details (tool registration, JSON-RPC, stdio)
+  3. Check: Response references the SDK (modelcontextprotocol/typescript-sdk)
+
+Activation test:
+  4. Ask: "What's the weather today?" (unrelated question)
+  5. Check: MCP skill should NOT activate for unrelated queries
+
+Edge case:
+  6. Ask: "How do I add a tool to my Copilot setup?"
+  7. Check: Should the MCP skill activate? (Yes — "tool" + "Copilot" is semantically close)
+```
+
+#### Testing Agents
+
+```text
+Method: Select agent → ask domain questions → verify persona is active
+
+Test script for debugger.agent.md:
+  1. Select "Debugger" from Chat dropdown
+  2. Ask: "This method returns null sometimes"
+  3. Check: Does the agent use hypothesis-driven approach?
+  4. Check: Does it list possible causes systematically?
+  5. Check: Does it ask clarifying questions before jumping to solutions?
+
+Tool restriction test:
+  6. If agent has tools: [codebase, search] (no editFiles)
+  7. Ask: "Fix this bug by editing the file"
+  8. Check: Agent should explain what to change but NOT edit files directly
+```
+
+#### Testing Prompts
+
+```text
+Method: Type the slash command → verify the workflow structure is followed
+
+Test script for /design-review:
+  1. Type: /design-review
+  2. Fill in any variables (topic, scope, etc.)
+  3. Check: Does the response follow the prompt's template structure?
+  4. Check: Is the correct agent auto-selected (if agent: field is set)?
+  5. Check: Are the output sections in the expected order?
+```
+
+#### Testing MCP Servers
+
+```text
+Method: In agent mode, ask Copilot to use the tool → verify real data returns
+
+Test script for GitHub MCP:
+  1. Ensure agent mode is active
+  2. Ask: "List open PRs in this repo"
+  3. Check: Does Copilot call the MCP tool (visible in response metadata)?
+  4. Check: Does the result contain REAL, current data (not hallucinated)?
+  5. Check: Error handling — what happens if the server is down?
+```
+
+### Systematic Test Matrix
+
+| What To Test | How To Test | Pass Criteria |
+|---|---|---|
+| Instruction activation (positive) | Open matching file, ask for code | Rule is followed |
+| Instruction activation (negative) | Open non-matching file, same question | Rule is NOT applied |
+| Instruction stacking | Open file matching multiple globs | ALL matching rules applied |
+| Skill activation (positive) | Ask topic-relevant question | Skill content in response |
+| Skill activation (negative) | Ask unrelated question | Skill NOT in response |
+| Multi-skill activation | Ask cross-domain question | Multiple skills contribute |
+| Agent persona | Select agent, ask domain question | Persona is evident in style |
+| Agent tool restriction | Request action agent can't do | Agent refuses or explains limitation |
+| Prompt structure | Invoke slash command | Response matches template |
+| Prompt + agent | Invoke prompt with `agent:` field | Correct agent auto-selected |
+| MCP tool call | Request external data in agent mode | Real data returned |
+| MCP error handling | Request data with server down | Graceful error, no crash |
+| Full stack | All 6 active simultaneously | No conflicts, each contributes |
+
+### Debugging Activation Issues
+
+```text
+Symptom: "My skill isn't activating"
+→ Check description field — does it contain the keywords you're asking about?
+→ Try: /skill-name to manually invoke it (2026 feature)
+→ Rephrase your question to include exact words from the description
+
+Symptom: "My instruction is being ignored"
+→ Open VS Code Output → select "GitHub Copilot" → look for loaded files
+→ Check: is applyTo glob correct? Test at globtester.com
+→ Check: is a higher-priority source (agent, prompt) overriding?
+
+Symptom: "My agent isn't in the dropdown"
+→ Check: file is in .github/agents/ with .agent.md extension
+→ Check: description field exists in frontmatter (required)
+→ Reload window: Ctrl+Shift+P → "Developer: Reload Window"
+
+Symptom: "MCP tools not available"
+→ Check: must be in Agent mode (not Ask or Edit mode)
+→ Check: VS Code Output → "MCP" → look for connection errors
+→ Check: did the server process actually start?
+```
+
+---
+
+## Part 15: Cross-Repo Portability
+
+> **How to design customizations that travel between repositories — personal projects,
+> team repos, org-wide standards, and open-source contributions.**
+
+---
+
+### Portability Tiers
+
+| Tier | What Travels | How |
+|---|---|---|
+| **Copy-paste portable** | `.md` files with no project-specific references | Copy `.github/` folder wholesale |
+| **Adapt-and-go** | `.md` files with project-specific examples | Copy, then search-replace project names |
+| **Template-based** | Parameterized files with `${input:}` variables | Copy as-is; variables prompt at runtime |
+| **Org-level** | Files in the `.github` org repo | Automatic inheritance to all repos |
+| **Agent Skills standard** | `SKILL.md` files following agentskills.io | Portable across VS Code, Claude Code, Gemini CLI |
+
+### What Ports Easily vs. What Doesn't
+
+| Primitive | Portability | Friction Points |
+|---|---|---|
+| `copilot-instructions.md` | ⚠️ Medium | Project-specific naming, conventions, structure references |
+| `.instructions.md` | ✅ High | Generic rules port well; `applyTo` globs usually work across repos |
+| `SKILL.md` | ✅ High | Domain knowledge is inherently portable (Java skills work in any Java project) |
+| `.agent.md` | ✅ High | Personas are project-agnostic (a "debugger" works anywhere) |
+| `.prompt.md` | ✅ High | Workflows port well; `${input:}` variables handle project differences |
+| MCP servers | ❌ Low | Require build setup, dependencies, server processes, credentials |
+
+### Designing for Portability
+
+**🟢 Newbie — Just Copy the Files**
+
+```text
+1. Copy the .github/ folder from this repo to your new project
+2. Delete files you don't need
+3. Edit copilot-instructions.md to match your new project's conventions
+4. Done — instructions, skills, agents, and prompts all work immediately
+```
+
+**🟡 Amateur — Adapt with a Checklist**
+
+When porting `.github/` to a new repo:
+
+```text
+☐ copilot-instructions.md — update project name, language, conventions
+☐ .instructions.md files — keep generic ones, remove project-specific ones
+☐ SKILL.md files — keep domain skills (Java, Git, MCP), remove project-specific skills
+☐ .agent.md files — keep all (personas are universal)
+☐ .prompt.md files — keep all (workflows are universal)
+☐ MCP servers — don't copy; configure from scratch per project
+☐ .vscode/mcp.json — don't copy; configure per environment
+```
+
+**🔴 Pro — Organization-Level Architecture**
+
+```text
+.github org repo (github.com/<org>/.github):
+  copilot-instructions.md    ← org-wide standards (priority: lowest)
+  instructions/
+    security.instructions.md ← org-wide security rules
+    testing.instructions.md  ← org-wide test standards
+  agents/
+    security-auditor.agent.md ← shared security persona
+  skills/
+    company-architecture/SKILL.md ← company conventions
+
+Each project repo:
+  .github/
+    copilot-instructions.md  ← project-specific overrides (priority: medium)
+    skills/
+      project-domain/SKILL.md ← project-specific knowledge
+
+Developer's machine:
+  VS Code settings → personal instruction overrides (priority: highest)
+```
+
+### Cross-Tool Portability (Agent Skills Standard)
+
+Skills written for VS Code Copilot are portable to any tool supporting the
+[Agent Skills](https://agentskills.io/) standard:
+
+| Tool | Reads `SKILL.md`? | Reads `.instructions.md`? | Reads `.agent.md`? |
+|---|---|---|---|
+| VS Code Copilot | ✅ | ✅ | ✅ |
+| Claude Code | ✅ (via AGENTS.md) | ❌ (uses CLAUDE.md) | ❌ (uses .claude/agents) |
+| Gemini CLI | ✅ | ❌ | ❌ |
+| Goose | ✅ | ❌ | ❌ |
+| Roo Code | ✅ | ❌ | ❌ |
+| OpenHands | ✅ | ❌ | ❌ |
+| Qodo | ✅ | ❌ | ❌ |
+
+**Key insight:** If you want maximum cross-tool portability, invest most heavily in
+`SKILL.md` files and `AGENTS.md` — these are the most widely supported formats.
+Instructions and prompts are VS Code-specific (for now).
+
+### Multi-Tool Instruction Strategy
+
+For teams using both VS Code Copilot and Claude Code:
+
+```text
+.github/
+  copilot-instructions.md   ← VS Code Copilot reads this
+  AGENTS.md                  ← Both Copilot and Claude Code read this
+  CLAUDE.md                  ← Claude Code reads this; Copilot also reads for compat
+  .claude/rules              ← Claude Code rules; Copilot also reads
+  skills/
+    <domain>/SKILL.md        ← Agent Skills standard — all tools read this
+```
+
+**Recommendation:** Put the most critical, universal rules in `AGENTS.md` — it has the
+broadest compatibility across AI coding tools.
+
+---
+
+## Part 16: Complete API Surface Reference
+
+> **Every frontmatter field, every tool name, every glob pattern — in one place.**
+
+---
+
+### Frontmatter Fields — Universal Reference
+
+#### `copilot-instructions.md`
+
+```yaml
+# No frontmatter — VS Code recognizes the filename
+```
+
+#### `.instructions.md`
+
+```yaml
+---
+applyTo: "**/*.java"          # Required: glob pattern for file matching
+description: >                # Optional (2026): semantic matching trigger
+  Java best practices including SOLID, clean code, modern features.
+---
+```
+
+#### `.prompt.md`
+
+```yaml
+---
+name: my-command                # Required: slash command name (/my-command)
+description: 'Brief text'      # Required: autocomplete description
+agent: agent-name               # Optional: auto-select agent on invocation
+tools:                          # Optional: restrict tools (default: all)
+  - codebase
+  - search
+  - editFiles
+mode: ask                       # Optional: 'ask' | 'agent' | 'edit'
+argument-hint: 'Enter topic'    # Optional (2026): hint text after selection
+---
+```
+
+#### `.agent.md`
+
+```yaml
+---
+description: >                  # Required: when to use (shown in dropdown)
+  Use when you need X. Expert in Y, Z.
+tools:                          # Optional: restrict tools (default: ALL)
+  - codebase
+  - search
+  - usages
+  - editFiles
+  - runCommands
+  - problems
+  - fetch
+  - findTestFiles
+  - terminalLastCommand
+  - terminalSelection
+  - testFailure
+model: gpt-4o                   # Optional (2026): pin model
+handoffs:                        # Optional (2026): agent handoff chain
+  - agent: target-agent
+    label: 'Button Label'
+    prompt: 'Initial message'
+    send: history                # 'history' | 'selected-context' | 'nothing'
+    model: claude-opus-4-5       # Optional: override model for handoff
+user-invocable: true             # Optional (2026): show in UI (default: true)
+disable-model-invocation: false  # Optional (2026): prevent auto-invocation
+argument-hint: 'Describe bug'   # Optional (2026): input hint text
+target: github-copilot          # Optional (2026): for cloud/coding agents
+mcp-servers:                     # Optional (2026): MCP servers for cloud agents
+  - server-name
+---
+```
+
+#### `SKILL.md`
+
+```yaml
+---
+name: skill-identifier          # Required: kebab-case identifier
+description: >                  # Required: activation trigger (semantic matching)
+  Use when asked about [topic A], [topic B], or [use case C].
+  Covers: [subtopic X], [subtopic Y].
+user-invocable: true             # Optional (2026): show as /skill-name
+disable-model-invocation: false  # Optional (2026): prevent auto-activation
+argument-hint: 'Enter topic'     # Optional (2026): hint text
+---
+```
+
+### Tool Names Reference
+
+Tools available in `tools:` frontmatter arrays:
+
+| Tool Name | What It Does | Category |
+|---|---|---|
+| `codebase` | Read files in the workspace (not editable) | Read |
+| `search` | Search text in workspace files | Read |
+| `usages` | Find references/usages of a symbol | Read |
+| `problems` | Read VS Code Problems panel | Read |
+| `findTestFiles` | Find test files associated with a source file | Read |
+| `terminalLastCommand` | Read the last terminal command output | Read |
+| `terminalSelection` | Read selected text in the terminal | Read |
+| `testFailure` | Read failing test details | Read |
+| `editFiles` | Create and edit workspace files | Write |
+| `runCommands` | Execute terminal commands | Write |
+| `fetch` | Fetch URLs (web pages, APIs) | Network |
+| `runSubagent` | Invoke another agent as a subagent | Agent |
+
+**Security categories:**
+
+- **Read** tools: safe for read-only agents
+- **Write** tools: restrict for review/audit agents
+- **Network** tools: restrict for sandboxed agents
+- **Agent** tools: for orchestrator agents only
+
+### Glob Pattern Reference
+
+Common `applyTo` patterns for `.instructions.md`:
+
+| Pattern | Matches | Use Case |
+|---|---|---|
+| `**` | Everything | Steering modes (completeness, formatting) |
+| `**/*.java` | All Java files | Java coding rules |
+| `**/*.{ts,tsx}` | TypeScript files | React/TS conventions |
+| `**/*.{js,jsx}` | JavaScript files | JS conventions |
+| `**/*.py` | Python files | Python conventions |
+| `**/*.md` | Markdown files | Documentation rules |
+| `**/*Test.java` | Java test files | Test-specific conventions |
+| `**/*Spec.ts` | TypeScript spec files | Test-specific conventions |
+| `**/controller/**/*.java` | Controller-layer Java | API design rules |
+| `**/service/**/*.java` | Service-layer Java | Business logic rules |
+| `**/pom.xml` | Maven POM files | Maven-specific conventions |
+| `**/Dockerfile` | Dockerfiles | Container build rules |
+| `**/*.gradle` | Gradle files | Build script rules |
+| `**/.github/**` | All .github content | Meta-customization rules |
+
+### Chat Mode Reference
+
+The `mode:` field in `.prompt.md`:
+
+| Mode | Behavior | Best For |
+|---|---|---|
+| `ask` | Copilot responds conversationally, no file edits | Explanations, analysis, reviews |
+| `agent` | Copilot can use tools (edit, search, terminal) | Implementation, refactoring |
+| `edit` | Copilot directly edits the current file | Inline code changes |
+
+---
+
+## Part 17: Security Considerations
+
+> **Customization files control what Copilot can do. Security matters.**
+
+---
+
+### Threat Model
+
+| Threat | Surface | Mitigation |
+|---|---|---|
+| **Prompt injection via skill content** | Malicious content in `SKILL.md` could override instructions | Review skill content; don't auto-generate from untrusted sources |
+| **Overprivileged agents** | Agent without `tools:` restriction gets all tools including `runCommands` | Always specify explicit `tools:` list; default to read-only |
+| **MCP credential exposure** | API tokens in `.vscode/mcp.json` committed to git | Use `${input:}` variables with `password: true`; add `mcp.json` to `.gitignore` |
+| **MCP server code injection** | MCP server constructs commands from user input | Validate/sanitize all inputs; use parameterized queries/commands |
+| **Org-level instruction override** | Org-wide rules could be overridden by repo-level files | Audit priority hierarchy; use org policies for critical security rules |
+| **Instruction manipulation** | PR adds malicious rules to `.instructions.md` | Code review `.github/` changes carefully; treat them as security-sensitive |
+
+### Agent Security Best Practices
+
+```text
+PRINCIPLE: Least Privilege — agents should have the minimum tools needed.
+
+Read-Only Agent (reviews, analysis):
+  tools: [codebase, search, usages, problems]
+
+Implementation Agent (writes code):
+  tools: [codebase, search, usages, editFiles]
+
+Full-Power Agent (admin tasks):
+  tools: [codebase, search, usages, editFiles, runCommands, fetch]
+  ← Only for trusted, well-tested agents
+```
+
+**Never omit the `tools:` field** on agents that should be restricted. The default is
+ALL tools — a "read-only reviewer" without `tools:` can run `rm -rf`.
+
+### MCP Server Security
+
+```text
+✅ DO:
+- Use ${input:} variables for all secrets (they prompt at runtime, don't persist)
+- Add .vscode/mcp.json to .gitignore if it contains local credentials
+- Validate all tool inputs before executing commands
+- Return minimal data (don't dump entire DB tables)
+- Log tool invocations for audit
+
+❌ DON'T:
+- Hardcode API tokens in mcp.json
+- Build MCP tools that execute arbitrary shell commands from user input
+- Return sensitive data (passwords, tokens, PII) in tool results
+- Trust tool input without validation — it comes from the LLM, not the user
+```
+
+### Secure `.github/` Code Review Checklist
+
+When reviewing PRs that modify `.github/` customization files:
+
+```text
+☐ No new always-on instructions that could override security rules
+☐ Agent tool lists are appropriately restricted
+☐ Skill descriptions don't contain prompt injection payloads
+☐ Prompt templates don't bypass safety guardrails
+☐ MCP configuration doesn't expose credentials
+☐ No instructions that disable safety features or bypass verification steps
+```
+
+---
+
+## Part 18: Versioning & Evolving Customizations
+
+> **Customizations aren't "set and forget." They evolve with your team, codebase, and
+> the Copilot platform itself.**
+
+---
+
+### Evolution Patterns
+
+#### Phase 1: Bootstrap (Week 1)
+
+```text
+.github/
+├── copilot-instructions.md   ← 30 lines: naming, language, commit format
+└── instructions/
+    └── java.instructions.md  ← 15 lines: Java-specific rules
+```
+
+#### Phase 2: Knowledge (Week 2-4)
+
+```text
+.github/
+├── copilot-instructions.md
+├── instructions/
+│   ├── java.instructions.md
+│   └── clean-code.instructions.md
+└── skills/
+    ├── project-architecture/SKILL.md  ← your domain knowledge
+    └── java-patterns/SKILL.md         ← team patterns
+```
+
+#### Phase 3: Workflows (Month 2)
+
+```text
+.github/
+├── copilot-instructions.md
+├── instructions/ (3-4 files)
+├── skills/ (4-6 domains)
+├── prompts/
+│   ├── review.prompt.md       ← team code review workflow
+│   ├── test-gen.prompt.md     ← test generation
+│   └── debug.prompt.md        ← debugging workflow
+└── agents/
+    └── code-reviewer.agent.md ← team reviewer persona
+```
+
+#### Phase 4: Mature (Month 3+)
+
+```text
+.github/
+├── copilot-instructions.md
+├── instructions/ (5-8 files, including steering modes)
+├── skills/ (8-12 domains)
+├── prompts/ (10-20 commands)
+├── agents/ (3-5 specialists)
+└── docs/ (guides, references, onboarding)
+[Plus]
+.vscode/
+└── mcp.json (2-3 MCP servers)
+```
+
+### Version Control for Customizations
+
+**Treat `.github/` as first-class code:** review PRs, write commit messages, test changes.
+
+```text
+feat(skills): Add kubernetes deployment patterns skill
+
+New SKILL.md with 3-tier reference (beginner/intermediate/advanced)
+covering kubectl commands, deployment strategies, and common
+troubleshooting patterns.
+
+— created by gpt
+```
+
+### Breaking Changes
+
+When a customization change could surprise team members:
+
+| Change | Impact | Communication |
+|---|---|---|
+| New always-on instruction | Changes Copilot behavior for everyone | Team notification + PR review |
+| Renamed slash command | Existing muscle memory broken | Deprecation period with alias |
+| Removed agent | Users lose a persona they rely on | Announce replacement or merge |
+| New MCP server | New tool buttons appear in agent mode | Demo in team meeting |
+| Description field change in skill | Skill may activate for different queries | Test activation before/after |
+
+### Deprecation Pattern
+
+```text
+1. Add "DEPRECATED" to the old file's description
+2. Create the replacement file
+3. Update cross-references
+4. Wait 2 sprints
+5. Delete the old file
+```
+
+---
+
+**Navigation:** [← START-HERE](START-HERE.md) · [Newbie Guide →](copilot-customization-newbie.md)
+· [Customization Guide →](customization-guide.md) · [Primitives Cheatsheet →](primitives-at-a-glance.md)
+· [MCP vs Skills →](mcp-vs-skills.md) · [Export Guide →](export-guide.md)

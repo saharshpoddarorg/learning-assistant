@@ -118,7 +118,10 @@ You are the **navigation hub** for all available assistants and learning command
 │    │   │   ├── plan-composition ······· Recommend which types to combine for your use case
 │    │   │   ├── review-existing ········ Audit an existing file for common issues
 │    │   │   ├── explain-concept ········ Teach the 6 primitives at newbie/amateur/pro depth
-│    │   │   └── audit-repo ············· Scan .github/ and produce a prioritized action plan
+│    │   │   ├── audit-repo ············· Scan .github/ and produce a prioritized action plan
+│    │   │   ├── token-audit ············ Estimate token cost of your customization stack
+│    │   │   ├── test-activation ········ Generate test scripts to verify customizations work
+│    │   │   └── port-to-repo ··········· Plan how to copy customizations to another repository
 │    │   ├── /write-docs ················ Create or update any doc from provided content
 │    │   │   ├── all-of-above ··········· Full stack: brain-note + dev-doc + cheatsheet + skill + prompt
 │    │   │   ├── dev-doc ················ 3-tier developer reference (Newbie/Amateur/Pro)
@@ -131,9 +134,10 @@ You are the **navigation hub** for all available assistants and learning command
 │    │       ├── agents/README.md ······· File format, tools, handoffs, examples
 │    │       ├── copilot-mcp-preview.md · Full changelog: /create-agent, MCP preview,
 │    │       │                            Streamable HTTP, GitHub MCP server, model selection
-│    │       ├── copilot-customization-deep-dive.md · Comprehensive 3-tier reference:
-│    │       │                            6 primitives, comparison table, decision matrix,
-│    │       │                            12 composition recipes, 7 anti-patterns
+│    │       ├── copilot-customization-deep-dive.md · 18-part reference: comparison,
+│    │       │                            migration, side-by-side examples, token economics,
+│    │       │                            testing, cross-repo portability, API surface, security
+│    │       ├── primitives-at-a-glance.md · One-page cheatsheet for all 6 primitives
 │    │       └── customization-guide.md · Architecture overview and how primitives stack
 │    │
 │    ├── Tech Trends & Emerging Tech (/hub trends)
@@ -388,14 +392,16 @@ Quick Commands:
     /create-agent          → Scaffold a custom Copilot agent (.agent.md)
     /copilot-customization → Create/review/compare/compose any customization type
                              Includes: compare-types, create-new, plan-composition,
-                             review-existing, explain-concept, audit-repo
+                             review-existing, explain-concept, audit-repo,
+                             token-audit, test-activation, port-to-repo
     /write-docs            → Turn raw content → any doc type (brain-note/dev-doc/guide/
                              cheatsheet/skill/prompt/readme). Use 'all-of-above' to
                              produce the full documentation stack from one command.
     /mcp-to-skill          → Analyse MCP tool and generate SKILL.md replacement
                              (analyse | generate | full)
     Built-in wizard: Ctrl+Shift+I → /create-agent in Copilot Chat
-    Docs: .github/docs/copilot-customization-deep-dive.md — full 3-tier reference
+    Docs: .github/docs/copilot-customization-deep-dive.md — 18-part reference
+          .github/docs/primitives-at-a-glance.md — one-page cheatsheet
           .github/docs/copilot-mcp-preview.md — MCP open preview features
           .github/docs/mcp-vs-skills.md — MCP vs Skill decision guide + migration
           .github/docs/copilot-internals.md — context window, todo processing

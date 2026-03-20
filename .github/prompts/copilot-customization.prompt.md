@@ -7,7 +7,7 @@ tools: ['codebase', 'editFiles', 'search']
 ---
 
 ## What do you want to do?
-${input:goal:What's your goal? (create-new / review-existing / compare-types / plan-composition / explain-concept / audit-repo)}
+${input:goal:What's your goal? (create-new / review-existing / compare-types / plan-composition / explain-concept / audit-repo / token-audit / test-activation / port-to-repo)}
 
 ## Which type? (if create-new or review-existing)
 ${input:type:Which customization type? (copilot-instructions / instructions / prompt / agent / skill / mcp / all-types / not-sure)}
@@ -611,5 +611,81 @@ github-mcp-server                  → GitHub integration
 - For `review-existing`: be specific about what to improve and why (not just "it could be better")
 - For `compare-types`: always show examples, not just theory
 - For `plan-composition`: output a concrete file list, not just abstract advice
+- For `token-audit`: examine actual file sizes and estimate token impact
+- For `test-activation`: generate concrete test scripts per primitive
+- For `port-to-repo`: produce a step-by-step checklist with portable vs. project-specific files
 - Always reference `copilot-customization-deep-dive.md` for the full composition pattern library
-```
+- Always reference `primitives-at-a-glance.md` for the quick cheatsheet
+
+---
+
+### When `goal` is `token-audit`:
+
+Estimate the token cost of the user's current customization stack.
+
+1. **Discover all customization files** using `search` and `codebase` tools
+2. **Measure each file:** line count → approximate token count (1 line ≈ 15-25 tokens)
+3. **Classify by injection type:**
+   - Always-on: `copilot-instructions.md` + any `applyTo: "**"` instruction files
+   - File-scoped: `.instructions.md` with specific `applyTo` globs
+   - On-demand: `SKILL.md` (semantic), `.agent.md` (manual), `.prompt.md` (manual)
+   - MCP: schemas (always in agent mode) + results (per tool call)
+4. **Calculate scenarios:**
+   - Minimum overhead: only always-on files (editing a file with no matching globs)
+   - Typical Java session: always-on + Java instructions + likely skill
+   - Full-stack session: all 6 types active simultaneously
+5. **Output:** Token budget table with recommendations for optimization
+
+**Token estimation rules:**
+- `copilot-instructions.md` under 500 tokens = healthy
+- `.instructions.md` under 300 tokens each = healthy
+- `SKILL.md` under 2000 tokens = healthy
+- Total always-on overhead under 1500 tokens = good
+- Total full-stack overhead under 5000 tokens = acceptable
+
+---
+
+### When `goal` is `test-activation`:
+
+Generate a concrete test script for the user's customizations.
+
+For each customization file found:
+
+1. **Positive test** — ask a question that SHOULD activate the file
+2. **Negative test** — ask a question that should NOT activate the file
+3. **Stacking test** — verify multiple matching files all contribute
+4. **Priority test** — verify higher-priority sources win on conflicts
+5. **Output:** A numbered test checklist the user can walk through
+
+**Include debugging steps** for each test case:
+- Where to look in VS Code for activation evidence
+- How to rephrase questions if activation fails
+- How to check if the glob pattern is correct
+
+---
+
+### When `goal` is `port-to-repo`:
+
+Help the user copy customizations to a different repository.
+
+1. **Survey current `.github/` setup** — list all files
+2. **Classify each file:**
+   - **Portable as-is:** generic rules, domain skills, universal agents
+   - **Needs adaptation:** project-specific references, naming, structure
+   - **Don't copy:** project-specific skills, MCP configs with local paths
+3. **Generate a porting checklist:**
+   ```text
+   ☐ Copy .github/instructions/ (update project-specific rules)
+   ☐ Copy .github/agents/ (universal — no changes needed)
+   ☐ Copy .github/prompts/ (universal — no changes needed)
+   ☐ Copy .github/skills/ (skip project-specific skills)
+   ☐ Create new copilot-instructions.md for the target project
+   ☐ Configure .vscode/mcp.json from scratch (don't copy credentials)
+   ```
+
+4. **Cross-tool strategy:** If the target repo uses Claude Code, Cursor, or other tools,
+   recommend putting shared content in `AGENTS.md` and `SKILL.md` (Agent Skills standard)
+5. **Org-level option:** If the user has 5+ repos, recommend the `.github` org repo pattern
+   instead of copying to each repo individually
+
+```text

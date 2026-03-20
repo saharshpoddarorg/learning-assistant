@@ -88,10 +88,17 @@ You understand terminal commands, git, and file structures. You just haven't set
 | I need to... | Go to |
 |---|---|
 | Find a slash command | [navigation-index.md §Slash Commands](navigation-index.md#-slash-command-quick-reference) |
+| One-page primitives cheatsheet | [Primitives At-a-Glance](primitives-at-a-glance.md) |
 | Understand the 6 customization types | [Customization Deep Dive](copilot-customization-deep-dive.md) |
 | See latest Copilot features (2026) | [Deep Dive §Latest Features](copilot-customization-deep-dive.md#part-11-latest-features--api-updates-2026) |
 | Migrate between primitive types | [Deep Dive §Migration Guide](copilot-customization-deep-dive.md#part-7-migration--interchange-guide) |
 | Decide: skill vs instruction vs prompt | [Deep Dive §Decision Guide](copilot-customization-deep-dive.md#part-3-decision-guide) |
+| Side-by-side: same task, every primitive | [Deep Dive §Side-by-Side](copilot-customization-deep-dive.md#part-12-side-by-side--same-task-every-primitive) |
+| Token economics and performance | [Deep Dive §Token Economics](copilot-customization-deep-dive.md#part-13-token-economics--performance) |
+| Test that customizations activate | [Deep Dive §Testing](copilot-customization-deep-dive.md#part-14-testing-your-customizations) |
+| Port customizations to another repo | [Deep Dive §Cross-Repo](copilot-customization-deep-dive.md#part-15-cross-repo-portability) |
+| Complete API/frontmatter reference | [Deep Dive §API Surface](copilot-customization-deep-dive.md#part-16-complete-api-surface-reference) |
+| Security considerations | [Deep Dive §Security](copilot-customization-deep-dive.md#part-17-security-considerations) |
 | Copy `.github/` to another repo | [export-guide.md §Copilot customization](export-guide.md#1-copilot-customization-github) |
 | Quick step-by-step export (newbie) | [Newbie Export Guide](export-newbie-guide.md) |
 | Copy MCP servers to another repo | [export-guide.md §MCP Servers](export-guide.md#2-mcp-servers) |
@@ -182,10 +189,12 @@ You ask Copilot a question
 | **[Copilot Workflow Tips](copilot-workflow.md)** | 🟢🟡🔴 | Chat queuing, chaining, not losing context, best practices |
 | **[Getting Started Tutorial](getting-started.md)** | 🟢🟡 | Hands-on: try every primitive (~30 min) |
 | **[Customization 5-Min Guide](copilot-customization-newbie.md)** | 🟢 | Plain-language intro to all 6 types + "why not just skills?" FAQ |
-| **[Customization Guide](customization-guide.md)** | 🟡🔴 | Architecture deep-dive: how the 5 primitives connect |
-| **[Customization Deep Dive](copilot-customization-deep-dive.md)** | 🟡🔴 | All 6 primitives: comparison, decision guide, migration, interchange |
+| **[Primitives At-a-Glance](primitives-at-a-glance.md)** | 🟢🟡🔴 | One-page cheatsheet: comparison, decision flowchart, token budget |
+| **[Customization Guide](customization-guide.md)** | 🟡🔴 | Architecture deep-dive: how the 6 primitives connect |
+| **[Customization Deep Dive](copilot-customization-deep-dive.md)** | 🟡🔴 | 18-part reference: comparison, migration, testing, security, cross-repo |
+| **[MCP vs Skills](mcp-vs-skills.md)** | 🟡🔴 | Decision guide: MCP server or Copilot skill? Migration playbook |
 | **[Navigation Index](navigation-index.md)** | 🟡🔴 | Master lookup: all commands, agents, skills, files |
-| **[Slash Commands](slash-commands.md)** | 🟡🔴 | All 36 commands: aliases, inputs, composition |
+| **[Slash Commands](slash-commands.md)** | 🟡🔴 | All 42 commands: aliases, inputs, composition |
 | **[File Reference](file-reference.md)** | 🟡🔴 | Which files Copilot reads vs. developer docs |
 
 ---
