@@ -71,6 +71,8 @@ You understand terminal commands, git, and file structures. You just haven't set
 | 4 | [Export Guide](export-guide.md) | 15 min | You only use this one repo |
 
 **Jump straight to something specific:**
+- Which customization type should I use? → [Customization Deep Dive](copilot-customization-deep-dive.md)
+- Migrate existing customizations → [Migration & Interchange Guide](copilot-customization-deep-dive.md#part-7-migration--interchange-guide)
 - Copy to another project → [Export Guide](export-guide.md)
 - What all 36 commands do → [Slash Commands](slash-commands.md)
 - MCP credentials setup → [MCP Server Setup §5](mcp-server-setup.md#5-configure-credentials-secrets)
@@ -85,6 +87,9 @@ You understand terminal commands, git, and file structures. You just haven't set
 | I need to... | Go to |
 |---|---|
 | Find a slash command | [navigation-index.md §Slash Commands](navigation-index.md#-slash-command-quick-reference) |
+| Understand the 6 customization types | [Customization Deep Dive](copilot-customization-deep-dive.md) |
+| Migrate between primitive types | [Deep Dive §Migration Guide](copilot-customization-deep-dive.md#part-7-migration--interchange-guide) |
+| Decide: skill vs instruction vs prompt | [Deep Dive §Decision Guide](copilot-customization-deep-dive.md#part-3-decision-guide) |
 | Copy `.github/` to another repo | [export-guide.md §Copilot customization](export-guide.md#1-copilot-customization-github) |
 | Copy MCP servers to another repo | [export-guide.md §MCP Servers](export-guide.md#2-mcp-servers) |
 | Configure Atlassian credentials | [mcp-server-setup.md §5b](mcp-server-setup.md#5b-atlassian-server-jira--confluence--bitbucket) |
@@ -173,6 +178,7 @@ You ask Copilot a question
 | **[Copilot Workflow Tips](copilot-workflow.md)** | 🟢🟡🔴 | Chat queuing, chaining, not losing context, best practices |
 | **[Getting Started Tutorial](getting-started.md)** | 🟢🟡 | Hands-on: try every primitive (~30 min) |
 | **[Customization Guide](customization-guide.md)** | 🟡🔴 | Architecture deep-dive: how the 5 primitives connect |
+| **[Customization Deep Dive](copilot-customization-deep-dive.md)** | 🟡🔴 | All 6 primitives: comparison, decision guide, migration, interchange |
 | **[Navigation Index](navigation-index.md)** | 🟡🔴 | Master lookup: all commands, agents, skills, files |
 | **[Slash Commands](slash-commands.md)** | 🟡🔴 | All 36 commands: aliases, inputs, composition |
 | **[File Reference](file-reference.md)** | 🟡🔴 | Which files Copilot reads vs. developer docs |

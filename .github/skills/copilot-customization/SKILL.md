@@ -681,3 +681,70 @@ model: gemini-2.0-flash  # Large context agents
 - Presenter notes kept on second screen for natural delivery
 
 Full guide: `.github/docs/team-copilot-adoption.md`
+
+---
+
+## Migration & Interchange Patterns
+
+> When content is in the wrong primitive type, or you need to refactor your `.github/` setup.
+> Full guide with before/after examples: `.github/docs/copilot-customization-deep-dive.md` Part 7.
+
+### 3 Simple Rules (Newbie)
+
+```text
+RULE (always enforce)       → .instructions.md
+KNOWLEDGE (answer questions) → SKILL.md
+WORKFLOW (trigger manually)  → .prompt.md
+```
+
+### The 8 Common Migration Paths
+
+| # | From | To | When |
+|---|---|---|---|
+| 1 | Bloated `copilot-instructions.md` | Split `.instructions.md` files | File exceeds ~200 lines or has file-type-specific rules |
+| 2 | `.instructions.md` | `SKILL.md` | File contains reference knowledge, not rules |
+| 3 | `SKILL.md` | `.instructions.md` | Skill has rules that must always apply (not just when relevant) |
+| 4 | `.prompt.md` | `.agent.md` | Prompt defines a persistent persona, not a one-shot task |
+| 5 | `.agent.md` | `.prompt.md` | Agent is only ever used for one-shot tasks |
+| 6 | `SKILL.md` | MCP server | Knowledge is dynamic (changes daily, needs live API access) |
+| 7 | MCP server | `SKILL.md` | Server only returns static/hardcoded content |
+| 8 | Multiple prompts | Agent + thin prompts | 5+ prompts share the same persona/context |
+
+### Quick Decision Flowchart
+
+```text
+Is it a RULE?
+├── Yes → Specific file types? → .instructions.md (applyTo glob)
+│         All files?           → copilot-instructions.md
+└── No → Is it KNOWLEDGE?
+    ├── Yes → Static?  → SKILL.md
+    │         Dynamic? → MCP server
+    └── No → One-shot task?     → .prompt.md
+             Persistent persona? → .agent.md
+```
+
+### Interchange Matrix (Pro)
+
+```text
+FROM ↓ / TO →    instructions  skill   prompt  agent   MCP
+──────────────────────────────────────────────────────────
+instructions     —            ✅ know  ⚠️ rare ❌      ❌
+skill            ✅ enforce   —        ❌      ❌      ✅ live
+prompt           ❌           ❌       —       ✅ mode  ❌
+agent            ❌           ❌       ✅ thin —        ❌
+MCP              ❌           ✅ static ❌     ❌      —
+
+✅ = natural path    ⚠️ = possible but usually wrong    ❌ = not applicable
+```
+
+### The "Right Size" Heuristic
+
+```text
+copilot-instructions.md  →  30–80 lines
+.instructions.md         →  20–60 lines per file
+SKILL.md                 →  100–500 lines
+.prompt.md               →  10–40 lines
+.agent.md                →  20–80 lines
+```
+
+If a file drastically exceeds these ranges, it likely needs splitting or migration.

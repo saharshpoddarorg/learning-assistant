@@ -19,6 +19,8 @@
 4. [Composition Patterns](#part-4-composition-patterns)
 5. [Anti-Patterns](#part-5-anti-patterns)
 6. [Quick Reference Card](#part-6-quick-reference-card)
+7. [Migration & Interchange Guide](#part-7-migration--interchange-guide)
+8. [Step-by-Step Creation Walkthroughs](#part-8-step-by-step-creation-walkthroughs)
 
 ---
 
@@ -909,3 +911,582 @@ Repeatable compound workflow                → prompt with #file: references
 | Instruction file format | [../instructions/README.md](../instructions/README.md) |
 | Skill file format | [../skills/README.md](../skills/README.md) |
 | Prompt file format | [../prompts/README.md](../prompts/README.md) |
+| Migration & interchange | [Part 7 below](#part-7-migration--interchange-guide) |
+| Step-by-step creation | [Part 8 below](#part-8-step-by-step-creation-walkthroughs) |
+
+---
+
+## Part 7: Migration & Interchange Guide
+
+> **When you already have customizations but they're in the wrong primitive type —
+> or you're not sure whether two types are interchangeable.**
+
+This section covers the 8 most common migration paths, with before/after examples,
+a 3-tier decision framework, and an interchange matrix.
+
+---
+
+### 🟢 Newbie — 3 Simple Rules
+
+If you're just getting started, these three rules prevent 90% of misplacements:
+
+```text
+RULE 1:  If it's a RULE that should ALWAYS apply → instruction file
+RULE 2:  If it's KNOWLEDGE that answers questions → skill file
+RULE 3:  If it's a WORKFLOW you trigger manually  → prompt file
+```
+
+**Don't overthink it.** Pick one, try it, and if it doesn't activate when expected,
+read the Amateur section below for migration patterns.
+
+---
+
+### 🟡 Amateur — The 8 Migration Paths
+
+#### Migration 1: Bloated `copilot-instructions.md` → Split `.instructions.md` Files
+
+**When to migrate:** Your `copilot-instructions.md` exceeds ~200 lines, or contains
+rules that only apply to specific file types.
+
+**Before (everything in one file):**
+
+```markdown
+<!-- copilot-instructions.md — 400 lines, unmaintainable -->
+# Project Instructions
+## Java Rules
+- Use final for variables that don't change
+- Prefer var for local variables...
+- Add Javadoc to all public methods...
+(80 lines of Java rules)
+
+## Markdown Rules
+- Every heading must have blank lines before and after...
+- Use --- for horizontal rules...
+(60 lines of Markdown rules)
+
+## Clean Code Rules
+- Methods under 30 lines...
+- Single responsibility...
+(40 lines of clean code rules)
+```
+
+**After (domain-specific instruction files):**
+
+```text
+.github/
+├── copilot-instructions.md          ← 50 lines: project overview + universal rules ONLY
+├── instructions/
+│   ├── java.instructions.md         ← applyTo: "**/*.java" — Java-specific rules
+│   ├── md-formatting.instructions.md ← applyTo: "**" — Markdown formatting rules
+│   └── clean-code.instructions.md   ← applyTo: "**/*.java" — Clean code principles
+```
+
+**Migration steps:**
+
+1. Identify rule clusters in `copilot-instructions.md` (Java, Markdown, testing, etc.)
+2. For each cluster, create `.github/instructions/<domain>.instructions.md`
+3. Set `applyTo` to the narrowest glob that matches (`**/*.java`, `**/*.md`, `**/test/**`)
+4. Move the rules — copy-paste, then delete from `copilot-instructions.md`
+5. Keep only project-wide conventions in `copilot-instructions.md` (naming, commit style, structure)
+
+**Key insight:** `copilot-instructions.md` is your **project overview**. Instruction files
+are your **domain-specific rule books**. If a rule only matters when editing `.java` files,
+it belongs in an instruction file with `applyTo: "**/*.java"`.
+
+---
+
+#### Migration 2: Instructions → Skill (knowledge extraction)
+
+**When to migrate:** Your instruction file contains large blocks of **reference knowledge**
+(lists of resources, concept explanations, "here's how X works" sections) rather than
+**rules** ("always do X", "never do Y").
+
+**The test:** Read each line and ask: "Is this a rule Copilot must follow, or knowledge
+Copilot should know?" Rules stay as instructions. Knowledge becomes a skill.
+
+**Before (instruction file with embedded knowledge):**
+
+```markdown
+---
+applyTo: "**/*.java"
+---
+# Java Instructions
+
+## Rules
+- Use `final` for variables that don't change
+- Prefer `var` for local variables
+
+## Java Concurrency Reference
+Virtual threads were introduced in Java 21...
+Use `Executors.newVirtualThreadPerTaskExecutor()` for I/O-bound work...
+Structured concurrency via `StructuredTaskScope`...
+(100 lines of concurrency knowledge)
+```
+
+**After (rules in instruction, knowledge in skill):**
+
+```markdown
+<!-- .github/instructions/java.instructions.md -->
+---
+applyTo: "**/*.java"
+---
+# Java Instructions
+- Use `final` for variables that don't change
+- Prefer `var` for local variables
+```
+
+```markdown
+<!-- .github/skills/java-concurrency/SKILL.md -->
+---
+name: java-concurrency
+description: >
+  Use when asked about Java concurrency, virtual threads,
+  structured concurrency, or parallel processing...
+---
+# Java Concurrency Knowledge
+Virtual threads were introduced in Java 21...
+(Full reference material here)
+```
+
+**Why this matters:** Instructions are injected **every time** the file pattern matches.
+Skills activate **only when relevant**. Moving 100 lines of concurrency knowledge to a
+skill means Copilot only loads it when you ask about concurrency — not when you're
+writing a simple getter method.
+
+---
+
+#### Migration 3: Skill → `.instructions.md` (enforcement extraction)
+
+**When to migrate:** Your skill file contains rules that Copilot should **always enforce**
+when editing certain files, not just reference when asked.
+
+**The test:** If you want Copilot to follow these rules even when the user doesn't ask
+about the topic, they need to be instructions (auto-applied by file pattern), not skills
+(auto-applied by semantic relevance).
+
+**Before (skill with enforcement rules):**
+
+```markdown
+<!-- SKILL.md — mixing knowledge with rules -->
+---
+description: Use when asked about API design...
+---
+# API Design Skill
+## Rules (should always apply to controller files)
+- All endpoints return ResponseEntity
+- Use @Valid on request bodies
+- Return 404 for missing resources, never null
+
+## Knowledge (reference material)
+REST maturity model: Level 0 through Level 3...
+HATEOAS explained: ...
+```
+
+**After:**
+
+```markdown
+<!-- .github/instructions/api-design.instructions.md -->
+---
+applyTo: "**/controller/**/*.java"
+---
+- All endpoints return ResponseEntity
+- Use @Valid on request bodies
+- Return 404 for missing resources, never null
+```
+
+```markdown
+<!-- .github/skills/api-design/SKILL.md (knowledge only) -->
+---
+description: Use when asked about API design, REST maturity, HATEOAS...
+---
+# API Design Knowledge
+REST maturity model: Level 0 through Level 3...
+HATEOAS explained: ...
+```
+
+---
+
+#### Migration 4: Prompt → Agent (workflow to persona)
+
+**When to migrate:** Your prompt file defines a detailed **persona** and **behavioral style**
+that you want to reuse across multiple conversations — not just a one-shot workflow.
+
+**The test:** Do you select this by typing `/command` once, or do you want to stay in this
+"mode" for an entire conversation? If the latter, it should be an agent.
+
+**Before (prompt acting as a persona):**
+
+```markdown
+---
+name: code-reviewer
+description: 'Review code like a senior engineer'
+mode: ask
+---
+You are a senior software engineer performing a code review.
+Be thorough, critical, and constructive...
+Always check: SOLID, naming, error handling, test coverage...
+Review the selected code and provide feedback.
+```
+
+**After (agent for persistent persona):**
+
+```markdown
+<!-- .github/agents/code-reviewer.agent.md -->
+---
+description: >
+  Use when you want thorough, senior-engineer-level code review.
+  Checks SOLID, naming, error handling, and test coverage.
+tools:
+  - codebase
+  - search
+  - usages
+---
+You are a senior software engineer performing a code review.
+Be thorough, critical, and constructive...
+Always check: SOLID, naming, error handling, test coverage...
+```
+
+**Keep the prompt too (as a quick-trigger):**
+
+```markdown
+---
+name: review
+description: 'Quick code review of the selected code'
+agent: code-reviewer
+mode: ask
+---
+Review the selected code. Focus on: {{focus}}
+```
+
+**Pattern:** Agent = persistent persona. Prompt = quick-trigger that optionally selects
+an agent. They complement each other — don't delete the prompt, just make it delegate.
+
+---
+
+#### Migration 5: Agent → Prompt (persona to workflow)
+
+**When to migrate:** Your agent file is rarely used as a persistent mode. Users just
+want to trigger a specific task, not switch their entire conversation persona.
+
+**The test:** Do you ever "stay in" this agent for 5+ exchanges? If not, it's a prompt.
+
+**Before (agent used as a one-shot):**
+
+```markdown
+<!-- .github/agents/generate-tests.agent.md -->
+---
+description: Use when you need to generate unit tests for Java code.
+---
+You are a test generation expert. Generate JUnit 5 tests with...
+```
+
+**After (prompt — more natural invocation):**
+
+```markdown
+---
+name: test-gen
+description: 'Generate JUnit 5 tests for the current file'
+mode: agent
+---
+Generate comprehensive JUnit 5 tests for the current file.
+Include: happy path, edge cases, error scenarios.
+Use: @BeforeEach setup, assertThrows for exceptions...
+```
+
+**Rule of thumb:** If the user's mental model is "I want to **do** X" → prompt.
+If it's "I want Copilot to **be** X" → agent.
+
+---
+
+#### Migration 6: Skill → MCP Server (static to live)
+
+**When to migrate:** Your skill file references data that changes frequently or requires
+real-time access (API responses, database state, live documentation, issue trackers).
+
+**The test:** Is the knowledge **static** (rarely changes, can be committed to git)?
+Keep it as a skill. Is the knowledge **dynamic** (changes daily, requires network access)?
+Migrate to MCP.
+
+**Before (skill with stale data):**
+
+```markdown
+---
+description: Use when asked about our Jira project status...
+---
+# Project Status
+## Current Sprint (Sprint 47)
+- PROJ-101: User auth — In Progress
+- PROJ-102: Dashboard — Done
+- PROJ-103: Reports — To Do
+(outdated the moment you commit it)
+```
+
+**After (MCP server with live data):**
+
+```java
+// MCP tool: jira_get_sprint_status
+// Returns live sprint data from Jira REST API
+```
+
+```markdown
+<!-- Keep the skill for STATIC context that complements live data -->
+---
+description: Use when asked about project conventions, not live status...
+---
+# Project Conventions
+- Sprint length: 2 weeks
+- Story point scale: 1, 2, 3, 5, 8, 13
+- Definition of Done: code reviewed + tests passing + deployed to staging
+```
+
+**Pattern:** MCP replaces the **dynamic** part of a skill. Keep the **static** context
+(conventions, reference guides) as a skill alongside the MCP server.
+
+---
+
+#### Migration 7: MCP Server → Skill (simplification)
+
+**When to migrate:** You built an MCP server but it only serves static content that
+never changes. The server infrastructure is overkill.
+
+**The test:** Does the server make any network calls, read any databases, or access any
+APIs? If not — if it's just returning hardcoded content — a skill file does the same
+job with zero infrastructure.
+
+**Before (MCP server serving static content):**
+
+```java
+case "get_git_branching_guide":
+    return """
+        ## Git Branching Strategies
+        ### GitFlow: main, develop, feature/*, release/*, hotfix/*
+        ### GitHub Flow: main + feature branches only...
+        """;
+```
+
+**After (skill file — same content, zero infra):**
+
+```markdown
+---
+description: Use when asked about Git branching strategies...
+---
+# Git Branching Strategies
+## GitFlow: main, develop, feature/*, release/*, hotfix/*
+## GitHub Flow: main + feature branches only...
+```
+
+---
+
+#### Migration 8: Multiple Prompts → Prompt + Agent (consolidation)
+
+**When to migrate:** You have 5+ prompt files that all set the same persona/context
+before doing slightly different tasks.
+
+**Before (repeated persona in every prompt):**
+
+```markdown
+<!-- debug.prompt.md -->
+You are an expert debugger. You use hypothesis-driven debugging...
+Investigate: {{issue}}
+```
+
+```markdown
+<!-- rca.prompt.md -->
+You are an expert debugger. You use hypothesis-driven debugging...
+Perform root cause analysis on: {{issue}}
+```
+
+```markdown
+<!-- trace.prompt.md -->
+You are an expert debugger. You use hypothesis-driven debugging...
+Trace the execution path of: {{function}}
+```
+
+**After (one agent + lightweight prompts):**
+
+```markdown
+<!-- .github/agents/debugger.agent.md -->
+---
+description: Expert debugger using hypothesis-driven analysis...
+---
+You are an expert debugger. You use hypothesis-driven debugging...
+```
+
+```markdown
+<!-- debug.prompt.md -->
+---
+agent: debugger
+---
+Investigate: {{issue}}
+```
+
+```markdown
+<!-- rca.prompt.md -->
+---
+agent: debugger
+---
+Perform root cause analysis on: {{issue}}
+```
+
+**Benefit:** Persona defined once. Prompts become thin workflow triggers.
+
+---
+
+### 🔴 Pro — Interchange Matrix & Advanced Patterns
+
+#### The Interchange Matrix
+
+Not all primitives are interchangeable. This matrix shows which migrations are
+**valid**, **possible but not recommended**, or **impossible**:
+
+```text
+FROM ↓ / TO →    instructions  skill   prompt  agent   MCP    copilot-inst
+────────────────────────────────────────────────────────────────────────────
+copilot-inst     ✅ split     ⚠️ rare  ❌      ❌      ❌     —
+instructions     —            ✅ know  ⚠️ rare ❌      ❌     ✅ merge
+skill            ✅ enforce   —        ❌      ❌      ✅ live ⚠️ rare
+prompt           ❌           ❌       —       ✅ mode  ❌     ❌
+agent            ❌           ❌       ✅ thin —        ❌     ❌
+MCP              ❌           ✅ static ❌     ❌      —      ❌
+
+✅ = natural migration path    ⚠️ = possible but usually wrong    ❌ = not applicable
+```
+
+**Reading the matrix:** Row = source type, Column = target type. For example,
+"instructions → skill" is ✅ (natural path when extracting knowledge from rules).
+
+#### When Content Could Live in Multiple Primitives
+
+Some content genuinely fits more than one type. Use this tiebreaker:
+
+| Criterion | Winner |
+|---|---|
+| Must apply even when the user doesn't ask about this topic | `.instructions.md` |
+| Should only load when semantically relevant | `SKILL.md` |
+| Needs user to explicitly trigger it | `.prompt.md` |
+| Content changes weekly or faster | MCP server |
+| Content changes monthly or slower | `SKILL.md` or `.instructions.md` |
+| Content is < 20 lines of rules | `.instructions.md` |
+| Content is > 50 lines of reference | `SKILL.md` |
+
+#### Refactoring at Scale — Multi-File Migration
+
+When reorganizing an entire `.github/` directory:
+
+1. **Audit current state** — list every file, its size, and primary purpose (rules/knowledge/workflow/persona)
+2. **Classify each file** — tag as `rule`, `knowledge`, `workflow`, `persona`, or `mixed`
+3. **Split mixed files first** — extract rules → instructions, knowledge → skills
+4. **Consolidate similar agents** — if 3 agents share 80% of their persona, create one base agent
+5. **Wire prompts to agents** — prompts become thin triggers (`agent: <name>` in frontmatter)
+6. **Verify activation** — test each primitive by asking Copilot questions that should trigger it
+7. **Delete orphans** — remove files that nothing references and nothing activates
+
+#### The "Right Size" Heuristic
+
+```text
+copilot-instructions.md  →  30–80 lines (project overview + universal rules)
+.instructions.md         →  20–60 lines per file (focused domain rules)
+SKILL.md                 →  100–500 lines (deep domain knowledge)
+.prompt.md               →  10–40 lines (workflow trigger + template)
+.agent.md                →  20–80 lines (persona definition + behavioral rules)
+MCP server               →  As complex as needed (but each TOOL should do one thing)
+```
+
+If a file drastically exceeds these ranges, it's likely trying to do too much and
+should be split or migrated.
+
+---
+
+## Part 8: Step-by-Step Creation Walkthroughs
+
+> **Quick reference for creating each primitive type from scratch.**
+> For full architectural context, see [Customization Guide](customization-guide.md).
+
+### Create an Instruction File
+
+```text
+1. Create:  .github/instructions/<domain>.instructions.md
+2. Add frontmatter:
+   ---
+   applyTo: "**/*.java"    ← glob pattern: when does this activate?
+   ---
+3. Write rules as bullet points — imperative ("Use X", "Never Y")
+4. Test: open a file matching the glob → ask Copilot a question → verify the rule is followed
+```
+
+### Create a Skill
+
+```text
+1. Create:  .github/skills/<domain>/SKILL.md
+2. Add frontmatter:
+   ---
+   name: my-domain
+   description: >
+     Use when asked about [topic A], [topic B], or [topic C]...
+   ---
+3. Write reference content — explanations, tables, cheatsheets, resource links
+4. Test: ask Copilot about [topic A] → verify the skill content appears in the response
+5. KEY: the description field IS the activation trigger — make it specific and keyword-rich
+```
+
+### Create a Prompt (Slash Command)
+
+```text
+1. Create:  .github/prompts/<command-name>.prompt.md
+2. Add frontmatter:
+   ---
+   name: my-command
+   description: 'One-line description shown in autocomplete'
+   mode: ask           ← 'ask' | 'agent' | 'edit'
+   agent: designer     ← optional: auto-select an agent
+   tools: ['codebase'] ← optional: restrict tools
+   ---
+3. Write the prompt template with {{variables}} for user input
+4. Test: type /my-command in Chat → verify it triggers correctly
+```
+
+### Create an Agent
+
+```text
+1. Create:  .github/agents/<name>.agent.md
+2. Add frontmatter:
+   ---
+   description: >
+     Use when you want [persona] behavior. Expert in [X], [Y], [Z].
+   ---
+3. Write the persona: who the agent IS, how it THINKS, what it DOES and DOESN'T do
+4. Test: select the agent from the Chat dropdown → ask domain questions → verify persona
+5. KEY: description tells VS Code WHEN to suggest this agent — be specific
+```
+
+### Create an MCP Server
+
+```text
+1. Higher complexity — see the full guide: mcp-development SKILL.md
+2. Quick summary:
+   a. Define tools (name, description, input schema)
+   b. Implement handlers (API calls, data processing)
+   c. Register in mcp.json (command, args, env)
+   d. Build and test with MCP Inspector or VS Code
+3. Use MCP ONLY when you need: live data, write operations, or external API access
+```
+
+### Quick Decision Flowchart
+
+```text
+I want to add something to my .github/ setup. What do I create?
+
+Is it a RULE?
+├── Yes → Does it apply to specific file types?
+│   ├── Yes → .instructions.md (with applyTo glob)
+│   └── No → copilot-instructions.md (universal rule)
+└── No → Is it KNOWLEDGE?
+    ├── Yes → Is the knowledge STATIC?
+    │   ├── Yes → SKILL.md
+    │   └── No (live/dynamic) → MCP server
+    └── No → Is it a WORKFLOW?
+        ├── Yes → Is it a one-shot task?
+        │   ├── Yes → .prompt.md
+        │   └── No (persistent mode) → .agent.md
+        └── No → Probably doesn't need a customization file
+```
