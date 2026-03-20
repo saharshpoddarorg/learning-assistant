@@ -192,6 +192,121 @@ When adding or modifying documentation, skills, or guide files in `.github/docs/
 
 ---
 
+### I — Todo & Task Tracking (applies to ALL multi-step work)
+
+When performing any multi-step work, follow these task tracking rules rigorously:
+
+- [ ] **Create todos at the start** — break work into specific, actionable items before starting
+- [ ] **One in-progress at a time** — never have more than one todo marked `in-progress`
+- [ ] **Mark completed immediately** — mark each todo as `completed` the moment it finishes;
+  never batch completions
+- [ ] **New request during in-progress work** — if the user gives additional instructions while
+  earlier work is still running, create new todos for the new requests and append them to the
+  existing todo list (do NOT replace or rewrite existing todos)
+- [ ] **Sub-agent work** — when delegating to a sub-agent, mark the parent todo as in-progress,
+  and when the sub-agent completes, mark the parent todo as completed
+- [ ] **Final state verification** — before committing, verify every todo is either `completed`
+  or explicitly cancelled (none left as `not-started` or `in-progress`)
+- [ ] **Comprehensive coverage** — create additional todos whenever new sub-tasks are discovered
+  during work; do not skip discovered tasks just because they were not in the original plan
+
+---
+
+### J — Commit Message & Pull Request Standards (applies to ALL commits)
+
+Every commit and push must follow these rules:
+
+#### Commit Messages
+
+- [ ] **Conventional Commits format** — `type(scope): subject` (see `copilot-instructions.md`)
+- [ ] **Subject is accurate** — the subject line describes ALL significant changes in the commit,
+  not just the first or most obvious change
+- [ ] **Body lists all changes** — the commit body must enumerate all files and categories of
+  changes made (use bullet points for 3+ files changed)
+- [ ] **Descriptive, not generic** — never use vague subjects like "update files", "fix stuff",
+  "various changes"; be specific about what was added/changed/fixed
+- [ ] **Attribution footer** — include `— created by gpt` or `— assisted by gpt` as the last line
+- [ ] **Single logical unit** — one commit = one logical change; do not mix unrelated changes
+
+#### Pull Request Suggestions
+
+- [ ] **Suggest PR title after push** — when pushing to a feature branch (e.g., `saharsh1`),
+  always suggest an appropriate PR title and description for merging into the default branch
+- [ ] **PR title format** — use the same Conventional Commits format: `type(scope): description`
+- [ ] **PR description** — include:
+  - Summary of all changes (1-3 sentences)
+  - Bullet list of key modifications
+  - Files changed count
+  - Any breaking changes or migration notes
+- [ ] **Branch context** — mention the source and target branches (e.g., `saharsh1 → master`)
+
+---
+
+### K — Comprehensive Repo Maintenance (applies to ALL changes)
+
+Every change must maintain the repo's overall consistency and completeness:
+
+#### Cross-References & Links
+
+- [ ] **Cross-references current** — when adding or editing docs, verify all related documents
+  link to each other; never leave a new doc unreachable from existing navigation
+- [ ] **Numbers and counts accurate** — when adding resources, update all resource counts
+  mentioned in documentation (README, slash-commands, USAGE.md, etc.)
+- [ ] **Links functional** — every internal link added must point to an existing file; do not
+  link to files that do not exist
+
+#### Newbie & 3-Tier Content
+
+- [ ] **Newbie files updated** — when adding features, ensure newbie-specific docs
+  (START-HERE.md, getting-started.md, export-newbie-guide.md, copilot-customization-newbie.md)
+  include or reference the new content at the appropriate level
+- [ ] **3-tier consistency** — skill files and prompt files must maintain newbie/amateur/pro
+  sections; new content must be added at the appropriate tier(s)
+- [ ] **Slash commands current** — when adding prompts, update `slash-commands.md` quick lookup
+  table AND the detailed command section
+
+#### Developer Documentation
+
+- [ ] **START-HERE updated** — if a new doc was created, add it to the Documentation Map
+- [ ] **Navigation links exist** — every doc in `.github/docs/` must have footer navigation
+  back to START-HERE and forward to at least one related doc
+- [ ] **README reflects reality** — root README and module READMEs must describe actual
+  capabilities, not outdated or aspirational features
+
+---
+
+### L — Semantic Build Safety (applies to ALL changes)
+
+Beyond compiler/runtime build success, ensure logical and semantic correctness:
+
+- [ ] **Semantic consistency** — enum values, keyword mappings, and resource metadata must
+  be semantically correct (e.g., don't assign `ALGORITHMS` concept area to a UI framework)
+- [ ] **No dead references** — no file references, resource IDs, or cross-links pointing to
+  content that has been moved, renamed, or deleted
+- [ ] **Configuration coherence** — if adding new config keys, env vars, or properties, ensure
+  all config files (examples, docs, and actual configs) are updated in sync
+- [ ] **Template consistency** — if modifying a template or schema (e.g., frontmatter fields),
+  verify all existing files using that template still conform
+
+---
+
+### M — No Regression / No Information Loss (applies to ALL edits)
+
+When editing existing files, protect existing content:
+
+- [ ] **Never remove useful information** — when updating a section, preserve all existing
+  useful content; add to it rather than replacing it (unless the original is factually wrong)
+- [ ] **Preserve examples** — if a file has working code examples, keep them intact when
+  adding new examples alongside them
+- [ ] **Preserve cross-references** — when restructuring content, ensure all existing inbound
+  and outbound links continue to work (update them if targets move)
+- [ ] **Test existing behaviour** — verify that existing slash commands, skills, and agents
+  still work after changes; don't break what already works
+- [ ] **Additive by default** — treat edits as additive operations; only remove content when
+  it is provably wrong, outdated, or duplicated
+
+---
+
 ## 3-Tier Completeness Guide
 
 ### Newbie — "I added a thing, and it works"
@@ -217,6 +332,12 @@ When adding or modifying documentation, skills, or guide files in `.github/docs/
 - No orphan resources (all accessible via at least one discovery path)
 - No orphan docs (all `.md` files reachable from START-HERE or navigation index)
 - Documentation reflects actual capabilities (no false advertising in slash-commands.md)
+- Todo tracking rules followed throughout (Section I complete)
+- Commit message is descriptive and accurate (Section J complete)
+- PR title and description suggested after push (Section J complete)
+- All cross-references, numbers, and links verified (Section K complete)
+- Semantic build safety verified (Section L complete)
+- No regression or information loss (Section M complete)
 - Commit is a clean, standalone logical unit
 
 ---

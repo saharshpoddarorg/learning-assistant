@@ -802,6 +802,49 @@ Full explanation with examples: `.github/docs/copilot-customization-deep-dive.md
 
 ---
 
+## Curated GitHub Repositories
+
+> **Famous, well-maintained, open-source repositories for learning, reference, and resources.**
+> These are some of the most starred and community-trusted repositories on GitHub.
+
+### GHCP & AI Agent Customization
+
+| Repository | Stars | Description |
+|---|---|---|
+| [github/awesome-copilot](https://github.com/github/awesome-copilot) | 26k+ | Official community collection of Copilot agents, instructions, skills, plugins, hooks, workflows, and cookbook examples. Includes Learning Hub at [awesome-copilot.github.com](https://awesome-copilot.github.com) |
+| [anthropics/skills](https://github.com/anthropics/skills) | 98k+ | Reference implementation of Agent Skills standard. Creative, Development, Enterprise, and Document skill categories. Powers Claude Code document capabilities |
+| [agentskills/agentskills](https://github.com/agentskills/agentskills) | — | The open specification for Agent Skills adopted by Claude Code, Gemini CLI, Goose, Roo Code, OpenHands, Qodo, and many more |
+| [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) | 35k+ | Official MCP reference server implementations (GitHub, filesystem, Slack, Google Drive, etc.) |
+
+### Free Ebooks & Learning Resources
+
+| Repository | Stars | Description |
+|---|---|---|
+| [EbookFoundation/free-programming-books](https://github.com/EbookFoundation/free-programming-books) | 384k+ | The most starred GitHub repo for free programming books. Books by language and subject, cheat sheets, free courses, interactive tutorials, podcasts, and playgrounds. 40+ languages |
+| [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) | 482k+ | "What I cannot create, I do not understand." Step-by-step guides for recreating 30+ technologies from scratch (databases, Docker, Git, OS, compilers, neural networks, etc.) |
+| [practical-tutorials/project-based-learning](https://github.com/practical-tutorials/project-based-learning) | 261k+ | Project-based tutorials organized by programming language. Build real applications (web, mobile, games, ML, DevOps) to learn |
+| [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | 290k+ | Learn how to design large-scale systems. System design interview prep with real-world architecture examples |
+| [papers-we-love/papers-we-love](https://github.com/papers-we-love/papers-we-love) | 91k+ | Classic and influential CS papers organized by topic. Community reading groups worldwide |
+
+### Software Engineering & Algorithms
+
+| Repository | Stars | Description |
+|---|---|---|
+| [trekhleb/javascript-algorithms](https://github.com/trekhleb/javascript-algorithms) | 190k+ | Algorithms and data structures implemented in JavaScript with explanations and links to further readings |
+| [TheAlgorithms/Java](https://github.com/TheAlgorithms/Java) | 60k+ | All algorithms implemented in Java — sorting, searching, graphs, dynamic programming, etc. |
+| [kdn251/interviews](https://github.com/kdn251/interviews) | 63k+ | Everything you need to prepare for a technical interview — DSA, system design, behavioral |
+| [iluwatar/java-design-patterns](https://github.com/iluwatar/java-design-patterns) | 91k+ | Design patterns implemented in Java. Gang of Four + application patterns with real-world examples |
+
+### AI / LLM Resources
+
+| Repository | Stars | Description |
+|---|---|---|
+| [f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts) | 120k+ | Curated list of prompt engineering techniques and examples for ChatGPT and other LLMs |
+| [Hannibal046/Awesome-LLM](https://github.com/Hannibal046/Awesome-LLM) | 20k+ | Curated list of LLM papers, tools, frameworks, and resources |
+| [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) | 45k+ | Build a Large Language Model from scratch — step-by-step code and explanations |
+
+---
+
 ## Latest Features (2026)
 
 Features from the latest VS Code Copilot documentation (March 2026):

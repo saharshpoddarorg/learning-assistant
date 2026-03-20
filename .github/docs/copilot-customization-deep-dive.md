@@ -1697,6 +1697,40 @@ cues (prompts), and live effects (MCP servers).
 | Semantic Versioning | [semver.org](https://semver.org/) | Version numbering (used in prompt templates) |
 | JSON Schema | [json-schema.org](https://json-schema.org/) | MCP tool input schemas |
 | JSON-RPC 2.0 | [jsonrpc.org/specification](https://www.jsonrpc.org/specification) | MCP transport protocol |
+| Agent Skills Standard | [agentskills.io](https://agentskills.io/) | Open standard for agent skills (adopted by Claude Code, Gemini CLI, Goose, Roo Code, OpenHands, and more) |
+
+### Curated GitHub Repositories
+
+> **Famous, well-maintained, open-source repositories useful for learning and reference.**
+
+#### GHCP & AI Agent Customization
+
+| Repository | Stars | What It Offers |
+|---|---|---|
+| [github/awesome-copilot](https://github.com/github/awesome-copilot) | 26k+ | Community collection of Copilot agents, instructions, skills, plugins, hooks, workflows, cookbook. Learning Hub at [awesome-copilot.github.com](https://awesome-copilot.github.com) |
+| [anthropics/skills](https://github.com/anthropics/skills) | 98k+ | Reference Agent Skills implementation. Creative, Development, Enterprise, and Document skill categories. Powers Claude Code document capabilities |
+| [agentskills/agentskills](https://github.com/agentskills/agentskills) | — | The open specification for Agent Skills (originally by Anthropic, now adopted across many AI coding assistants) |
+| [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) | 35k+ | Official MCP reference server implementations (GitHub, filesystem, Slack, Google Drive, PostgreSQL, etc.) |
+
+#### Free Ebooks & Learning Resources
+
+| Repository | Stars | What It Offers |
+|---|---|---|
+| [EbookFoundation/free-programming-books](https://github.com/EbookFoundation/free-programming-books) | 384k+ | Most starred repo for free programming books. Books by language and subject, cheat sheets, free courses, interactive tutorials, podcasts, and playgrounds in 40+ languages |
+| [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) | 482k+ | Step-by-step guides to recreate 30+ technologies from scratch (databases, Docker, Git, OS, compilers, neural networks, search engines, shells, etc.) |
+| [practical-tutorials/project-based-learning](https://github.com/practical-tutorials/project-based-learning) | 261k+ | Project-based tutorials by programming language. Build real applications (web, mobile, games, ML, DevOps) |
+| [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | 290k+ | Learn large-scale system design. System design interview prep with real-world architecture examples |
+| [papers-we-love/papers-we-love](https://github.com/papers-we-love/papers-we-love) | 91k+ | Classic and influential CS papers organized by topic with community reading groups |
+
+#### Software Engineering & AI
+
+| Repository | Stars | What It Offers |
+|---|---|---|
+| [iluwatar/java-design-patterns](https://github.com/iluwatar/java-design-patterns) | 91k+ | Design patterns implemented in Java — GoF + application patterns with real-world examples |
+| [TheAlgorithms/Java](https://github.com/TheAlgorithms/Java) | 60k+ | All algorithms implemented in Java — sorting, searching, graphs, dynamic programming |
+| [trekhleb/javascript-algorithms](https://github.com/trekhleb/javascript-algorithms) | 190k+ | Algorithms and data structures in JavaScript with explanations and further reading links |
+| [f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts) | 120k+ | Curated prompt engineering techniques and examples for ChatGPT and other LLMs |
+| [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) | 45k+ | Build a Large Language Model from scratch — step-by-step code and explanations |
 
 ---
 
