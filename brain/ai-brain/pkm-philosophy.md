@@ -14,8 +14,9 @@ This single question routes every piece of content to the correct tier.
 - **Inbox** = raw capture, not ready, not committed (gitignored)
 - **Notes** = your own writing: insights, decisions, session logs, cheatsheets
 - **Library** = imported sources: slide decks, guides, AI-generated reference docs you received
+- **Sessions** = captured AI conversations: research, analysis, learning deep-dives worth revisiting
 
-Before asking "where does this go?" ask "did I write it?" If you can't answer yet, it goes in **inbox** until you know.
+Before asking "where does this go?" ask "did I write it?" If you can't answer yet, it goes in **inbox** until you know. If it was a valuable AI conversation, it goes in **sessions/**.
 
 ---
 
@@ -26,6 +27,7 @@ Before asking "where does this go?" ask "did I write it?" If you can't answer ye
 - [The Inbox — Capture Zone](#the-inbox--capture-zone)
 - [Notes — Your Knowledge](#notes--your-knowledge)
 - [Library — Source Material](#library--source-material)
+- [Sessions — Captured AI Conversations](#sessions--captured-ai-conversations)
 - [Frontmatter Philosophy](#frontmatter-philosophy)
 - [Tagging Strategy](#tagging-strategy)
 - [The Review Cycle](#the-review-cycle)
@@ -49,6 +51,11 @@ Three zones solve this by mapping to three distinct **psychological states** dur
 | **Inbox** | "I haven't processed this yet" | None — ephemeral | Gitignored |
 | **Notes** | "This is my thinking" | Permanent — I own this | Tracked |
 | **Library** | "This is a source I curate" | Permanent — I reference this | Tracked |
+| **Sessions** | "This was a valuable AI exploration" | Permanent — I can revisit this | Tracked |
+
+> **Note:** The workspace started with three zones and evolved to four when AI chat sessions
+> became a distinct content type. See [Why a 4th tier for sessions?](#design-decisions-log)
+> in the Design Decisions Log.
 
 ### Why not 2?
 
@@ -229,6 +236,74 @@ brain publish brain\ai-brain\inbox\draft.md --project ghcp-knowledge-sharing
 
 ---
 
+## Sessions — Captured AI Conversations
+
+**Path:** `brain/ai-brain/sessions/`
+**Git status:** Tracked — committed and version-controlled
+
+### Purpose
+
+Sessions preserve **valuable AI chat conversations** in their native request-response format.
+Unlike notes (your distilled writing) or library (imported external sources), sessions capture
+the analytical flow of AI-assisted exploration — research, code analysis, debugging, learning,
+and design discussions.
+
+### What belongs in sessions/
+
+| Category | Domain | Description |
+|---|---|---|
+| `code-analysis` | work | Architecture analysis, code review, pattern identification |
+| `debugging` | work | Complex investigation, root cause analysis |
+| `requirements` | work | User stories, acceptance criteria, feature scoping |
+| `performance` | work | Profiling, optimization, benchmarking |
+| `feature-exploration` | work | Design alternatives, POC planning, feasibility |
+| `documentation` | work | API docs, design docs, architecture overviews |
+| `research` | work / personal | Technology evaluation, protocol analysis, tool comparison |
+| `learning` | personal | Concept deep-dives, tutorials, skill-building |
+| `project-dev` | personal | Personal project development, side-project architecture |
+| `financial` | personal | Budgeting, investment, tax strategies |
+
+### What does NOT belong in sessions/
+
+- Simple refactoring (rename, extract method) — too routine
+- One-line fixes — no analytical depth
+- Build/compile commands — no learning value
+- Quick factual answers — no reference value
+
+### The capture gate
+
+Sessions are captured **automatically** when the conversation meets complexity criteria:
+research, analysis, multi-exchange depth, lengthy explanations, or explicit user request.
+See `.github/instructions/chat-capture.instructions.md` for the full policy.
+
+### Sessions hierarchy
+
+```text
+sessions/
+  work/
+    <category>/
+      YYYY-MM-DD_HH-MMtt_<category>_<subject>[_v<N>].md
+  personal/
+    <category>/
+      YYYY-MM-DD_HH-MMtt_<category>_<subject>[_v<N>].md
+```
+
+### The promotion path
+
+Captured sessions can be **promoted** to notes/ when you distil them into your own writing:
+1. Read the session capture
+2. Write your synthesis in `notes/YYYY-MM-DD_slug.md`
+3. Link back to the source session
+4. The session remains as evidence; the note becomes your knowledge
+
+### Versioning
+
+Sessions support continuation versioning: `_v2`, `_v3`, etc., with a `parent:` field
+in frontmatter linking to the previous version. Use versioning when continuing analysis
+on the same subject. Start a new file for different aspects or fresh perspectives.
+
+---
+
 ## Frontmatter Philosophy
 
 Every note (in `notes/` or `library/`) carries YAML frontmatter. The philosophy:
@@ -401,6 +476,28 @@ PARA with folders (`notes/projects/mcp-servers/`, `notes/areas/java/`) would cre
 - Duplicate content when a note belongs to multiple areas
 
 Using the `project:` frontmatter field achieves PARA's project grouping without the folder overhead.
+
+### Why a 4th tier for sessions?
+
+The original three-tier design (inbox / notes / library) handles human-authored knowledge and
+imported sources well. But AI chat sessions don't fit cleanly into either:
+
+- They're **not your distilled writing** (so not notes/)
+- They're **not imported external sources** (so not library/)
+- They're **not raw, disposable captures** (they have lasting reference value)
+
+AI-assisted exploration sessions — research, code analysis, complex debugging, architecture
+discussions — produce structured, valuable content that sits between "imported source" and
+"your own notes." The `sessions/` tier captures these conversations in their native
+request-response format, preserving the analytical flow.
+
+**When to promote:** If you distil insights from a session capture into your own words,
+that distillation goes in `notes/` with a link back to the session. The session stays as
+the raw evidence trail; the note becomes your knowledge.
+
+**Why not put sessions in library/?** Library holds external sources you didn't create.
+Sessions are collaborative — you prompted them, you shaped the conversation. They deserve
+their own tier with domain/category hierarchy that matches how you'd search for them later.
 
 ### Why gitignore inbox/ instead of a separate repo?
 

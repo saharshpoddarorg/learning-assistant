@@ -140,7 +140,21 @@ public enum ConceptArea {
     GETTING_STARTED("getting-started", ConceptDomain.CAREER_META),
 
     /** Personal knowledge management: digital note-taking, CODE method, PARA method, PKM tools. */
-    KNOWLEDGE_MANAGEMENT("knowledge-management", ConceptDomain.CAREER_META);
+    KNOWLEDGE_MANAGEMENT("knowledge-management", ConceptDomain.CAREER_META),
+
+    // ─── Personal Development ───────────────────────────────────────
+
+    /** Self-improvement: habits, mindset, growth, motivation, discipline, reading. */
+    SELF_IMPROVEMENT("self-improvement", ConceptDomain.PERSONAL_DEVELOPMENT),
+
+    /** Communication skills: writing, public speaking, storytelling, feedback. */
+    COMMUNICATION_SKILLS("communication-skills", ConceptDomain.PERSONAL_DEVELOPMENT),
+
+    /** Financial literacy: budgeting, investing, personal finance, tax basics. */
+    FINANCIAL_LITERACY("financial-literacy", ConceptDomain.PERSONAL_DEVELOPMENT),
+
+    /** Productivity habits: time management, deep work, focus, routines. */
+    PRODUCTIVITY_HABITS("productivity-habits", ConceptDomain.PERSONAL_DEVELOPMENT);
 
     private final String displayName;
     private final ConceptDomain domain;

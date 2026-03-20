@@ -4,6 +4,12 @@ applyTo: "**/*.java"
 
 # Java Coding Standards
 
+> **Authority:** These conventions are grounded in the
+> [Oracle Code Conventions](https://www.oracle.com/java/technologies/javase/codeconventions-introduction.html),
+> [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html),
+> and idiomatic Java 21+ practices. When this file is silent on a topic, defer to
+> those standards. When uncertain, research the convention — don't guess.
+
 ## Naming Conventions
 
 - **Classes:** `UpperCamelCase` — e.g., `CustomerService`, `OrderValidator`

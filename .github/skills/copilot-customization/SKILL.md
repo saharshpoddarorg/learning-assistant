@@ -6,7 +6,9 @@ description: >
   which customization type to use, how to create instructions or prompts or agents or skills,
   differences between customization types, composition of multiple customizations, when to use
   skills vs instructions vs prompts vs agents vs MCP servers, frontmatter syntax, activation rules,
-  stacking order, or building a .github/ customization strategy for a repository.
+  stacking order, building a .github/ customization strategy, why not just use skills for everything,
+  migrating between primitive types, converting instructions to skills, or choosing the right
+  customization approach for a repository.
 ---
 
 # GitHub Copilot Customization — Skill Reference
@@ -681,3 +683,234 @@ model: gemini-2.0-flash  # Large context agents
 - Presenter notes kept on second screen for natural delivery
 
 Full guide: `.github/docs/team-copilot-adoption.md`
+
+---
+
+## Migration & Interchange Patterns
+
+> When content is in the wrong primitive type, or you need to refactor your `.github/` setup.
+> Full guide with before/after examples: `.github/docs/copilot-customization-deep-dive.md` Part 7.
+
+### 3 Simple Rules (Newbie)
+
+```text
+RULE (always enforce)       → .instructions.md
+KNOWLEDGE (answer questions) → SKILL.md
+WORKFLOW (trigger manually)  → .prompt.md
+```
+
+### The 8 Common Migration Paths
+
+| # | From | To | When |
+|---|---|---|---|
+| 1 | Bloated `copilot-instructions.md` | Split `.instructions.md` files | File exceeds ~200 lines or has file-type-specific rules |
+| 2 | `.instructions.md` | `SKILL.md` | File contains reference knowledge, not rules |
+| 3 | `SKILL.md` | `.instructions.md` | Skill has rules that must always apply (not just when relevant) |
+| 4 | `.prompt.md` | `.agent.md` | Prompt defines a persistent persona, not a one-shot task |
+| 5 | `.agent.md` | `.prompt.md` | Agent is only ever used for one-shot tasks |
+| 6 | `SKILL.md` | MCP server | Knowledge is dynamic (changes daily, needs live API access) |
+| 7 | MCP server | `SKILL.md` | Server only returns static/hardcoded content |
+| 8 | Multiple prompts | Agent + thin prompts | 5+ prompts share the same persona/context |
+
+### Quick Decision Flowchart
+
+```text
+Is it a RULE?
+├── Yes → Specific file types? → .instructions.md (applyTo glob)
+│         All files?           → copilot-instructions.md
+└── No → Is it KNOWLEDGE?
+    ├── Yes → Static?  → SKILL.md
+    │         Dynamic? → MCP server
+    └── No → One-shot task?     → .prompt.md
+             Persistent persona? → .agent.md
+```
+
+### Interchange Matrix (Pro)
+
+```text
+FROM ↓ / TO →    instructions  skill   prompt  agent   MCP
+──────────────────────────────────────────────────────────
+instructions     —            ✅ know  ⚠️ rare ❌      ❌
+skill            ✅ enforce   —        ❌      ❌      ✅ live
+prompt           ❌           ❌       —       ✅ mode  ❌
+agent            ❌           ❌       ✅ thin —        ❌
+MCP              ❌           ✅ static ❌     ❌      —
+
+✅ = natural path    ⚠️ = possible but usually wrong    ❌ = not applicable
+```
+
+### The "Right Size" Heuristic
+
+```text
+copilot-instructions.md  →  30–80 lines
+.instructions.md         →  20–60 lines per file
+SKILL.md                 →  100–500 lines
+.prompt.md               →  10–40 lines
+.agent.md                →  20–80 lines
+```
+
+If a file drastically exceeds these ranges, it likely needs splitting or migration.
+
+---
+
+## Why Not Just Skills? — Quick Reference
+
+> When users ask "why not just use skills for everything?" refer to this.
+
+**Skills are knowledge packs. They do ONE job well: giving Copilot domain reference
+material when semantically relevant.** They cannot:
+
+| Need | Why skills fail | Correct primitive |
+|---|---|---|
+| Enforce rules on every Java file | Skills only activate when Copilot judges the conversation relevant | `.instructions.md` (auto by file pattern) |
+| Change Copilot's persona | Skills add knowledge, not personality | `.agent.md` |
+| Trigger a workflow with `/command` | Skills have no manual trigger | `.prompt.md` |
+| Access live API data | Skills are static text files | MCP server |
+
+**The 5 sentences to memorize:**
+
+```text
+1. "Copilot must ALWAYS do this"                → instruction
+2. "Copilot should KNOW this when relevant"      → skill
+3. "I want to TRIGGER a specific task"           → prompt
+4. "I want Copilot to BECOME someone different"  → agent
+5. "I need LIVE data from an external system"    → MCP server
+```
+
+Full explanation with examples: `.github/docs/copilot-customization-deep-dive.md` Part 9.
+
+---
+
+## Official Resources
+
+| Resource | URL |
+|---|---|
+| Copilot Customization Overview | [code.visualstudio.com/docs/copilot/customization](https://code.visualstudio.com/docs/copilot/customization) |
+| Custom Instructions | [code.visualstudio.com/.../custom-instructions](https://code.visualstudio.com/docs/copilot/customization/custom-instructions) |
+| Prompt Files | [code.visualstudio.com/.../prompt-files](https://code.visualstudio.com/docs/copilot/customization/prompt-files) |
+| Custom Agents | [code.visualstudio.com/.../custom-agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) |
+| Agent Skills | [code.visualstudio.com/.../agent-skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills) |
+| Agent Skills Standard | [agentskills.io](https://agentskills.io/) |
+| MCP Specification | [spec.modelcontextprotocol.io](https://spec.modelcontextprotocol.io/) |
+| GitHub Copilot Docs | [docs.github.com/en/copilot](https://docs.github.com/en/copilot) |
+| Awesome Copilot | [github.com/github/awesome-copilot](https://github.com/github/awesome-copilot) |
+| Anthropic Skills | [github.com/anthropics/skills](https://github.com/anthropics/skills) |
+| 5-Minute Newbie Guide | `.github/docs/copilot-customization-newbie.md` |
+| Full Deep Dive | `.github/docs/copilot-customization-deep-dive.md` |
+| Export to Your Project | `.github/docs/export-guide.md` |
+| Newbie Export Guide | `.github/docs/export-newbie-guide.md` |
+
+---
+
+## Curated GitHub Repositories
+
+> **Famous, well-maintained, open-source repositories for learning, reference, and resources.**
+> These are some of the most starred and community-trusted repositories on GitHub.
+
+### GHCP & AI Agent Customization
+
+| Repository | Stars | Description |
+|---|---|---|
+| [github/awesome-copilot](https://github.com/github/awesome-copilot) | 26k+ | Official community collection of Copilot agents, instructions, skills, plugins, hooks, workflows, and cookbook examples. Includes Learning Hub at [awesome-copilot.github.com](https://awesome-copilot.github.com) |
+| [anthropics/skills](https://github.com/anthropics/skills) | 98k+ | Reference implementation of Agent Skills standard. Creative, Development, Enterprise, and Document skill categories. Powers Claude Code document capabilities |
+| [agentskills/agentskills](https://github.com/agentskills/agentskills) | — | The open specification for Agent Skills adopted by Claude Code, Gemini CLI, Goose, Roo Code, OpenHands, Qodo, and many more |
+| [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) | 35k+ | Official MCP reference server implementations (GitHub, filesystem, Slack, Google Drive, etc.) |
+
+### Free Ebooks & Learning Resources
+
+| Repository | Stars | Description |
+|---|---|---|
+| [EbookFoundation/free-programming-books](https://github.com/EbookFoundation/free-programming-books) | 384k+ | The most starred GitHub repo for free programming books. Books by language and subject, cheat sheets, free courses, interactive tutorials, podcasts, and playgrounds. 40+ languages |
+| [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) | 482k+ | "What I cannot create, I do not understand." Step-by-step guides for recreating 30+ technologies from scratch (databases, Docker, Git, OS, compilers, neural networks, etc.) |
+| [practical-tutorials/project-based-learning](https://github.com/practical-tutorials/project-based-learning) | 261k+ | Project-based tutorials organized by programming language. Build real applications (web, mobile, games, ML, DevOps) to learn |
+| [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | 290k+ | Learn how to design large-scale systems. System design interview prep with real-world architecture examples |
+| [papers-we-love/papers-we-love](https://github.com/papers-we-love/papers-we-love) | 91k+ | Classic and influential CS papers organized by topic. Community reading groups worldwide |
+
+### Software Engineering & Algorithms
+
+| Repository | Stars | Description |
+|---|---|---|
+| [trekhleb/javascript-algorithms](https://github.com/trekhleb/javascript-algorithms) | 190k+ | Algorithms and data structures implemented in JavaScript with explanations and links to further readings |
+| [TheAlgorithms/Java](https://github.com/TheAlgorithms/Java) | 60k+ | All algorithms implemented in Java — sorting, searching, graphs, dynamic programming, etc. |
+| [kdn251/interviews](https://github.com/kdn251/interviews) | 63k+ | Everything you need to prepare for a technical interview — DSA, system design, behavioral |
+| [iluwatar/java-design-patterns](https://github.com/iluwatar/java-design-patterns) | 91k+ | Design patterns implemented in Java. Gang of Four + application patterns with real-world examples |
+
+### AI / LLM Resources
+
+| Repository | Stars | Description |
+|---|---|---|
+| [f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts) | 120k+ | Curated list of prompt engineering techniques and examples for ChatGPT and other LLMs |
+| [Hannibal046/Awesome-LLM](https://github.com/Hannibal046/Awesome-LLM) | 20k+ | Curated list of LLM papers, tools, frameworks, and resources |
+| [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) | 45k+ | Build a Large Language Model from scratch — step-by-step code and explanations |
+
+### CS Education & Self-Taught Paths
+
+| Repository | Stars | Description |
+|---|---|---|
+| [ossu/computer-science](https://github.com/ossu/computer-science) | 180k+ | Free self-taught CS education — structured like a 4-year degree. Intro, core, advanced, and capstone |
+| [jwasham/coding-interview-university](https://github.com/jwasham/coding-interview-university) | 312k+ | Complete CS study plan to become a software engineer at top companies. Multi-month structured path |
+| [charlax/professional-programming](https://github.com/charlax/professional-programming) | 47k+ | Full-stack resources for programmers — must-read books, articles, and 60+ topics from algorithms to writing |
+| [mtdvio/every-programmer-should-know](https://github.com/mtdvio/every-programmer-should-know) | 86k+ | Technical things every developer should know — algorithms, security, architecture, distributed systems |
+| [sindresorhus/awesome](https://github.com/sindresorhus/awesome) | 447k+ | The master meta-list of awesome lists. Covers every language, framework, platform, and domain |
+| [trimstray/the-book-of-secret-knowledge](https://github.com/trimstray/the-book-of-secret-knowledge) | 211k+ | Inspiring lists, manuals, cheatsheets, CLI/web tools — Linux, networking, security, DevOps |
+| [kamranahmedse/developer-roadmap](https://github.com/kamranahmedse/developer-roadmap) | 310k+ | Interactive roadmaps for every developer role — frontend, backend, DevOps, full-stack, and more |
+
+### Personal Development & Self-Improvement
+
+| Repository | Stars | Description |
+|---|---|---|
+| [hackerkid/Mind-Expanding-Books](https://github.com/hackerkid/Mind-Expanding-Books) | 11k+ | Curated mind-expanding books — startups, philosophy, psychology, economics, self-help |
+| [jyguyomarch/awesome-productivity](https://github.com/jyguyomarch/awesome-productivity) | 2k+ | Productivity resources — time management, focus, habits, deep work, and personal effectiveness |
+| [matteofigus/awesome-speaking](https://github.com/matteofigus/awesome-speaking) | 1k+ | Public speaking resources — presentation skills, storytelling, and conference speaking |
+| [ashishb/awesome-personal-finance](https://github.com/ashishb/awesome-personal-finance) | 300+ | Personal finance resources — budgeting, investing, tax planning for tech professionals |
+
+---
+
+## Latest Features (2026)
+
+Features from the latest VS Code Copilot documentation (March 2026):
+
+### New Always-On Files
+
+| File | Purpose |
+|---|---|
+| `AGENTS.md` | Multi-agent compatible instructions (read by Copilot, Claude Code, and other agents) |
+| `CLAUDE.md` | Claude Code instructions (Copilot reads for cross-tool compatibility) |
+| `.claude/rules` | Claude Code rules (Copilot reads these too) |
+
+### New Frontmatter Fields
+
+| Field | Applies To | Purpose |
+|---|---|---|
+| `handoffs:` | `.agent.md` | Define agent-to-agent handoff chains |
+| `user-invocable:` | `.agent.md`, `SKILL.md` | Control visibility in dropdowns/commands (default: true) |
+| `disable-model-invocation:` | `.agent.md`, `SKILL.md` | Prevent AI from auto-invoking (default: false) |
+| `argument-hint:` | `.agent.md`, `SKILL.md`, `.prompt.md` | Hint text shown after user selects the item |
+| `target:` | `.agent.md` | Set to `github-copilot` for cloud agents |
+| `mcp-servers:` | `.agent.md` | MCP servers for cloud/coding agents |
+| `description:` | `.instructions.md` | Now used for semantic matching (not just `applyTo`) |
+
+### New Generation Commands
+
+| Command | Creates |
+|---|---|
+| `/init` | Generates `copilot-instructions.md` from workspace analysis |
+| `/create-instruction` | New `.instructions.md` file via AI interview |
+| `/create-agent` | New `.agent.md` file via AI interview |
+| `/create-skill` | New `SKILL.md` file via AI interview |
+| `/create-prompt` | New `.prompt.md` file via AI interview |
+
+### Key Architecture Changes
+
+- **Skills appear as slash commands** — type `/skill-name` to invoke manually
+- **Three-level skill loading** — discovery (name+description) → instructions (body) → resource access (files)
+- **Organization-level sharing** — place customizations in the `.github` org repo
+- **Settings Sync** — prompt and instruction files sync across devices
+- **Chat Customizations editor** — `Chat: Open Chat Customizations` command (Preview)
+- **Configurable locations** — `chat.instructionsFilesLocations`, `chat.agentFilesLocations`, etc.
+- **Agent hooks** (Preview) — pre/post-response hook commands scoped to agents
+- **Agent plugins** — extensions contribute skills via `chatSkills` in `package.json`
+- **`.chatmode.md` → `.agent.md`** — old format renamed (still recognized for back-compat)
+- **Instruction priority** — Personal > Repository > Organization
+
+For full details, see [Part 11 of the Deep Dive](../docs/copilot-customization-deep-dive.md#part-11-latest-features--api-updates-2026).

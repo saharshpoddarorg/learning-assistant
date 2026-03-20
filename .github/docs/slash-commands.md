@@ -46,7 +46,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (41 commands)
+### Quick Lookup (42 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -82,15 +82,16 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 30 | `/brain-publish` | Brain Workspace | Publish an imported source to library/ with tag prompting and git commit | Copilot |
 | 31 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
 | 32 | `/brain-capture-session` | Brain Workspace | Convert current AI session into a structured session note | Copilot |
-| 33 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
-| 34 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
-| 35 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
-| 36 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
-| 37 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
-| 38 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
-| 39 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
-| 40 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
-| 41 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
+| 33 | `/session-scope` | Brain Workspace | Manage session scope — widen, narrow, switch, split, cross-reference | Copilot |
+| 34 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
+| 35 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
+| 36 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
+| 37 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
+| 38 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
+| 39 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
+| 40 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
+| 41 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
+| 42 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
 
 > **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
 > VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
@@ -547,8 +548,10 @@ Use:      Swiss-army tool for all Copilot customization work:
 Example:  /copilot-customization → create-new → skill → devops → amateur
 Output:   A complete, paste-ready .github/skills/devops/SKILL.md file
 File:     .github/prompts/copilot-customization.prompt.md
-Docs:     .github/docs/copilot-customization-deep-dive.md (full reference)
+Docs:     .github/docs/copilot-customization-deep-dive.md (full reference, incl. latest 2026 features)
           .github/skills/copilot-customization/SKILL.md (domain knowledge)
+          .github/docs/export-guide.md (export to work/personal repos)
+          .github/docs/export-newbie-guide.md (newbie export walkthrough)
 Tips:     - Use 'all-types' or 'not-sure' as type when unsure which primitive to use
           - Use 'audit-repo' to get a full inventory of your current customizations
           - Use 'plan-composition' before building a complex stack of multiple types
@@ -686,6 +689,31 @@ Example:  /brain-capture-session → "Java generics and wildcards" → java → 
 Tip:      Run at the end of any substantial Copilot session to capture what was learned
 Next:     brain publish brain\ai-brain\inbox\<file>.md --project <bucket>
 File:     .github/prompts/brain-capture-session.prompt.md
+```
+
+#### `/session-scope` — Manage Session Scope
+
+```yaml
+Inputs:   action (status / widen / narrow / switch / split / link / history),
+          project (for narrow/switch), feature (for narrow/switch to feature),
+          target (session file path for link action)
+Agent:    Copilot
+Tools:    editFiles, codebase, search
+Use:      Track, adjust, and cross-reference the scope level of chat sessions.
+          Sessions can be global (general knowledge), project-scoped, or
+          feature-scoped. Scope can change mid-session with transition logging.
+Actions:  status — show current scope | widen — feature→project→global |
+          narrow — global→project→feature | switch — jump to different context |
+          split — fork scope segment into its own session file |
+          link — cross-reference another session | history — show transitions
+Example:  /session-scope → status
+          /session-scope → widen
+          /session-scope → narrow → abs-development → user-auth-flow
+          /session-scope → split
+File:     .github/prompts/session-scope.prompt.md
+Ref:      .github/instructions/session-scoping.instructions.md
+Tip:      Use when requirements gathering naturally evolves into general research —
+          widen the scope so the learning is discoverable beyond the original project
 ```
 
 ---

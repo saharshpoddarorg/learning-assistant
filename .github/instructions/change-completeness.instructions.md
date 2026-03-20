@@ -32,6 +32,12 @@ When adding or expanding a `ResourceProvider` class (e.g., `VcsResources.java`, 
     conceptAreas, tags, author, difficulty, freshness, isOfficial, isFree, languageApplicability, addedAt)
   - IDs are unique, lowercase, hyphenated
   - No duplicate URLs with existing providers (check `VcsResources.java`, `BuildToolsResources.java`, `DevOpsResources.java`, `JavaResources.java`, etc.)
+- [ ] **Web research for accuracy** — before adding or updating learning resources, verify
+  metadata by fetching the source (GitHub repo pages, documentation sites, etc.):
+  - Star counts, descriptions, and author names must reflect current reality
+  - URLs must be valid and reachable (no 404s, no redirects to unrelated pages)
+  - When adding GitHub repos, fetch the repo page to confirm stars, description, and activity
+  - When in doubt about a resource's quality or accuracy, research it — don't guess
 - [ ] **Register in `BuiltInResources.java`** — add `new YourProvider()` to `PROVIDERS` and add `import`
 - [ ] **Enum check** — verify `ConceptArea` and `ResourceCategory` have the values you need;
   if not, add them (and update all enum-related tests/indexes)
@@ -119,10 +125,16 @@ When adding to `ConceptArea`, `ResourceCategory`, `DifficultyLevel`, etc.:
 
 Run this for EVERY category of change:
 
+- [ ] **Industry standards** — verify the approach aligns with established conventions,
+  official documentation, and community best practices before implementing. Consult the
+  Standards Quick-Reference table in `copilot-instructions.md` for authoritative sources
+  per domain. When in doubt, research the standard — don't guess.
 - [ ] **Markdown formatting** — run `.\__md_lint.ps1` from repo root; must exit with **0 issues**
   (see Section G below and `.github/instructions/md-formatting.instructions.md` for full rules)
 - [ ] **Build passes** — `.\mcp-servers\build.ps1` — 0 compile errors, 0 warnings (where possible)
 - [ ] **No regression in existing behaviour** — manually verify existing slash commands still work
+- [ ] **Cross-references complete** — verify all related docs link to each other
+  (see Section H below for the documentation cross-reference checklist)
 - [ ] **Commit message follows Conventional Commits** (`feat:`, `fix:`, `docs:`, `chore:`)
 - [ ] **Commit attribution** — append `— created by gpt` or `— assisted by gpt` as applicable
 - [ ] **Single logical commit** — don't mix unrelated changes
@@ -157,6 +169,154 @@ Before committing ANY change that touches `.md` files:
 
 ---
 
+### H — Documentation Cross-References (applies to doc/skill/guide changes)
+
+When adding or modifying documentation, skills, or guide files in `.github/docs/` or `.github/skills/`:
+
+- [ ] **START-HERE.md** — verify the newbie/amateur/pro reading paths include the new content
+  where appropriate; update the Documentation Map table if a new doc file was created
+- [ ] **Navigation links** — new docs must have a footer navigation linking back to START-HERE
+  and forward to at least one related doc
+- [ ] **Cross-references from existing docs** — if the new content relates to an existing doc,
+  add a link from that doc's "Further Reading" or "What's Next?" table to the new content
+- [ ] **SKILL.md description** — if a skill's coverage area expanded, update its `description`
+  field in YAML frontmatter so it activates on the new keywords
+- [ ] **getting-started.md** — if a new primitive or feature was added, update the "What's Next?"
+  table to point to the relevant detailed doc
+- [ ] **customization-guide.md** — if a new customization primitive or pattern was documented,
+  update the Further Reading table to include it
+- [ ] **copilot-customization-deep-dive.md** — if the change adds new migration paths, official
+  resources, or FAQ entries, update the relevant Part and TOC
+- [ ] **No orphan docs** — every `.md` file in `.github/docs/` must be reachable from at least
+  one other file (either START-HERE, navigation-index, or a related doc's links)
+- [ ] **Official resources** — if a change references new external tools or standards, add
+  the official documentation link to the relevant "Resources" or "Further Reading" section
+- [ ] **export-guide.md** — if a new config file, credential, or environment variable was added,
+  update the Config Files and API Keys Reference tables in export-guide.md
+- [ ] **export-newbie-guide.md** — if a new exportable feature was added, verify the newbie
+  export guide covers how to copy it and whether it's safe to skip
+
+---
+
+### I — Todo & Task Tracking (applies to ALL multi-step work)
+
+When performing any multi-step work, follow these task tracking rules rigorously:
+
+- [ ] **Create todos at the start** — break work into specific, actionable items before starting
+- [ ] **One in-progress at a time** — never have more than one todo marked `in-progress`
+- [ ] **Mark completed immediately** — mark each todo as `completed` the moment it finishes;
+  never batch completions
+- [ ] **New request during in-progress work** — if the user gives additional instructions while
+  earlier work is still running, create new todos for the new requests and append them to the
+  existing todo list (do NOT replace or rewrite existing todos)
+- [ ] **Sub-agent work** — when delegating to a sub-agent, mark the parent todo as in-progress,
+  and when the sub-agent completes, mark the parent todo as completed
+- [ ] **Final state verification** — before committing, verify every todo is either `completed`
+  or explicitly cancelled (none left as `not-started` or `in-progress`)
+- [ ] **Comprehensive coverage** — create additional todos whenever new sub-tasks are discovered
+  during work; do not skip discovered tasks just because they were not in the original plan
+
+---
+
+### J — Commit Message & Pull Request Standards (applies to ALL commits)
+
+Every commit and push must follow these rules:
+
+#### Commit Messages
+
+- [ ] **Conventional Commits format** — `type(scope): subject` (see `copilot-instructions.md`)
+- [ ] **Subject is accurate** — the subject line describes ALL significant changes in the commit,
+  not just the first or most obvious change
+- [ ] **Body lists all changes** — the commit body must enumerate all files and categories of
+  changes made (use bullet points for 3+ files changed)
+- [ ] **Descriptive, not generic** — never use vague subjects like "update files", "fix stuff",
+  "various changes"; be specific about what was added/changed/fixed
+- [ ] **Attribution footer** — include `— created by gpt` or `— assisted by gpt` as the last line
+- [ ] **Single logical unit** — one commit = one logical change; do not mix unrelated changes
+
+#### Pull Request Suggestions
+
+- [ ] **Suggest PR title after push** — when pushing to a feature branch (e.g., `saharsh1`),
+  always suggest an appropriate PR title and description for merging into the default branch
+- [ ] **Re-check full commit list** — before suggesting a PR title, run
+  `git log origin/master..HEAD --oneline` (or equivalent for the default branch) to enumerate
+  ALL commits that will be part of the PR — never base the suggestion on only the latest commit
+- [ ] **PR title format** — use the same Conventional Commits format: `type(scope): description`;
+  when the PR spans multiple types, use the dominant type or `feat` and summarise in the subject
+- [ ] **PR description** — include:
+  - Summary of ALL changes across every commit (1-3 sentences)
+  - Bullet list of key modifications grouped by commit or area
+  - Total files changed count (use `git diff --stat origin/master..HEAD`)
+  - Any breaking changes or migration notes
+- [ ] **Branch context** — mention the source and target branches (e.g., `saharsh1 → master`)
+
+---
+
+### K — Comprehensive Repo Maintenance (applies to ALL changes)
+
+Every change must maintain the repo's overall consistency and completeness:
+
+#### Cross-References & Links
+
+- [ ] **Cross-references current** — when adding or editing docs, verify all related documents
+  link to each other; never leave a new doc unreachable from existing navigation
+- [ ] **Numbers and counts accurate** — when adding resources, update all resource counts
+  mentioned in documentation (README, slash-commands, USAGE.md, etc.)
+- [ ] **Links functional** — every internal link added must point to an existing file; do not
+  link to files that do not exist
+
+#### Newbie & 3-Tier Content
+
+- [ ] **Newbie files updated** — when adding features, ensure newbie-specific docs
+  (START-HERE.md, getting-started.md, export-newbie-guide.md, copilot-customization-newbie.md)
+  include or reference the new content at the appropriate level
+- [ ] **3-tier consistency** — skill files and prompt files must maintain newbie/amateur/pro
+  sections; new content must be added at the appropriate tier(s)
+- [ ] **Slash commands current** — when adding prompts, update `slash-commands.md` quick lookup
+  table AND the detailed command section
+
+#### Developer Documentation
+
+- [ ] **START-HERE updated** — if a new doc was created, add it to the Documentation Map
+- [ ] **Navigation links exist** — every doc in `.github/docs/` must have footer navigation
+  back to START-HERE and forward to at least one related doc
+- [ ] **README reflects reality** — root README and module READMEs must describe actual
+  capabilities, not outdated or aspirational features
+
+---
+
+### L — Semantic Build Safety (applies to ALL changes)
+
+Beyond compiler/runtime build success, ensure logical and semantic correctness:
+
+- [ ] **Semantic consistency** — enum values, keyword mappings, and resource metadata must
+  be semantically correct (e.g., don't assign `ALGORITHMS` concept area to a UI framework)
+- [ ] **No dead references** — no file references, resource IDs, or cross-links pointing to
+  content that has been moved, renamed, or deleted
+- [ ] **Configuration coherence** — if adding new config keys, env vars, or properties, ensure
+  all config files (examples, docs, and actual configs) are updated in sync
+- [ ] **Template consistency** — if modifying a template or schema (e.g., frontmatter fields),
+  verify all existing files using that template still conform
+
+---
+
+### M — No Regression / No Information Loss (applies to ALL edits)
+
+When editing existing files, protect existing content:
+
+- [ ] **Never remove useful information** — when updating a section, preserve all existing
+  useful content; add to it rather than replacing it (unless the original is factually wrong)
+- [ ] **Preserve examples** — if a file has working code examples, keep them intact when
+  adding new examples alongside them
+- [ ] **Preserve cross-references** — when restructuring content, ensure all existing inbound
+  and outbound links continue to work (update them if targets move)
+- [ ] **Test existing behaviour** — verify that existing slash commands, skills, and agents
+  still work after changes; don't break what already works
+- [ ] **Additive by default** — treat edits as additive operations; only remove content when
+  it is provably wrong, outdated, or duplicated
+
+---
+
 ## 3-Tier Completeness Guide
 
 ### Newbie — "I added a thing, and it works"
@@ -178,8 +338,16 @@ Before committing ANY change that touches `.md` files:
 - 3-tier content in skill and prompt files
 - Vault resource count updated in documentation
 - Cross-references between prompt ↔ skill ↔ vault ↔ keyword index
+- Documentation cross-references verified (Section H checklist complete)
 - No orphan resources (all accessible via at least one discovery path)
+- No orphan docs (all `.md` files reachable from START-HERE or navigation index)
 - Documentation reflects actual capabilities (no false advertising in slash-commands.md)
+- Todo tracking rules followed throughout (Section I complete)
+- Commit message is descriptive and accurate (Section J complete)
+- PR title and description suggested after push (Section J complete)
+- All cross-references, numbers, and links verified (Section K complete)
+- Semantic build safety verified (Section L complete)
+- No regression or information loss (Section M complete)
 - Commit is a clean, standalone logical unit
 
 ---
@@ -203,6 +371,8 @@ Before committing ANY change that touches `.md` files:
 | `USAGE.md` | UPDATE — relevant section |
 | `README.md` (root) | UPDATE if project-level docs changed |
 | `copilot-instructions.md` | UPDATE — skills block, conventions |
+| `.github/docs/export-guide.md` | UPDATE — if new config files, env vars, or credentials added |
+| `.github/docs/export-newbie-guide.md` | UPDATE — if new exportable features added |
 
 ---
 

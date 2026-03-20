@@ -33,10 +33,11 @@ You don't know what MCP is, haven't customized Copilot before, and just want thi
 | Step | Read This | Time | What You'll Get |
 |---|---|---|---|
 | 1 | **This page** (you're here) | 2 min | Know where to go |
-| 2 | [Phase Guide — Read Me First §§ Phase 0–2](phase-guide.md#phase-0) | 10 min | Understand the whole system |
-| 3 | [MCP Server Setup — Complete Guide](mcp-server-setup.md) | 10 min | Get MCP servers working |
-| 4 | [Getting Started Tutorial](getting-started.md) | 30 min | Try Copilot customization hands-on |
-| 5 | [Phase Guide — Phases 3–7](phase-guide.md#phase-3) | 20 min | Brain workspace + export to other projects |
+| 2 | [Customization 5-Minute Guide](copilot-customization-newbie.md) | 5 min | Understand the 6 types in plain language |
+| 3 | [Phase Guide — Read Me First §§ Phase 0–2](phase-guide.md#phase-0) | 10 min | Understand the whole system |
+| 4 | [MCP Server Setup — Complete Guide](mcp-server-setup.md) | 10 min | Get MCP servers working |
+| 5 | [Getting Started Tutorial](getting-started.md) | 30 min | Try Copilot customization hands-on |
+| 6 | [Phase Guide — Phases 3–7](phase-guide.md#phase-3) | 20 min | Brain workspace + export to other projects |
 
 **After reading, your first 5 actions:**
 1. `Ctrl+Shift+B` → **"mcp-servers: build"** — compiles the Java servers
@@ -71,6 +72,8 @@ You understand terminal commands, git, and file structures. You just haven't set
 | 4 | [Export Guide](export-guide.md) | 15 min | You only use this one repo |
 
 **Jump straight to something specific:**
+- Which customization type should I use? → [Customization Deep Dive](copilot-customization-deep-dive.md)
+- Migrate existing customizations → [Migration & Interchange Guide](copilot-customization-deep-dive.md#part-7-migration--interchange-guide)
 - Copy to another project → [Export Guide](export-guide.md)
 - What all 36 commands do → [Slash Commands](slash-commands.md)
 - MCP credentials setup → [MCP Server Setup §5](mcp-server-setup.md#5-configure-credentials-secrets)
@@ -85,7 +88,12 @@ You understand terminal commands, git, and file structures. You just haven't set
 | I need to... | Go to |
 |---|---|
 | Find a slash command | [navigation-index.md §Slash Commands](navigation-index.md#-slash-command-quick-reference) |
+| Understand the 6 customization types | [Customization Deep Dive](copilot-customization-deep-dive.md) |
+| See latest Copilot features (2026) | [Deep Dive §Latest Features](copilot-customization-deep-dive.md#part-11-latest-features--api-updates-2026) |
+| Migrate between primitive types | [Deep Dive §Migration Guide](copilot-customization-deep-dive.md#part-7-migration--interchange-guide) |
+| Decide: skill vs instruction vs prompt | [Deep Dive §Decision Guide](copilot-customization-deep-dive.md#part-3-decision-guide) |
 | Copy `.github/` to another repo | [export-guide.md §Copilot customization](export-guide.md#1-copilot-customization-github) |
+| Quick step-by-step export (newbie) | [Newbie Export Guide](export-newbie-guide.md) |
 | Copy MCP servers to another repo | [export-guide.md §MCP Servers](export-guide.md#2-mcp-servers) |
 | Configure Atlassian credentials | [mcp-server-setup.md §5b](mcp-server-setup.md#5b-atlassian-server-jira--confluence--bitbucket) |
 | Queue Copilot instructions | [copilot-workflow.md](copilot-workflow.md) |
@@ -170,9 +178,12 @@ You ask Copilot a question
 | **[Phase Guide](phase-guide.md)** | 🟢🟡 | Step-by-step phases 0–7: from zero to fully operational |
 | **[MCP Server Setup](mcp-server-setup.md)** | 🟢🟡 | Get MCP servers working: build, credentials, verify |
 | **[Export Guide](export-guide.md)** | 🟡🔴 | Copy Copilot customization + MCP servers to other projects |
+| **[Newbie Export Guide](export-newbie-guide.md)** | 🟢 | 10-minute step-by-step: copy to your first project |
 | **[Copilot Workflow Tips](copilot-workflow.md)** | 🟢🟡🔴 | Chat queuing, chaining, not losing context, best practices |
 | **[Getting Started Tutorial](getting-started.md)** | 🟢🟡 | Hands-on: try every primitive (~30 min) |
+| **[Customization 5-Min Guide](copilot-customization-newbie.md)** | 🟢 | Plain-language intro to all 6 types + "why not just skills?" FAQ |
 | **[Customization Guide](customization-guide.md)** | 🟡🔴 | Architecture deep-dive: how the 5 primitives connect |
+| **[Customization Deep Dive](copilot-customization-deep-dive.md)** | 🟡🔴 | All 6 primitives: comparison, decision guide, migration, interchange |
 | **[Navigation Index](navigation-index.md)** | 🟡🔴 | Master lookup: all commands, agents, skills, files |
 | **[Slash Commands](slash-commands.md)** | 🟡🔴 | All 36 commands: aliases, inputs, composition |
 | **[File Reference](file-reference.md)** | 🟡🔴 | Which files Copilot reads vs. developer docs |
@@ -189,8 +200,8 @@ You ask Copilot a question
 | I lose context when I press Enter | [Copilot Workflow](copilot-workflow.md) |
 | I don't know which command to use | [Navigation Index](navigation-index.md) or type `/hub` |
 | Atlassian server errors | [MCP Setup §5b](mcp-server-setup.md#5b-atlassian-server-jira--confluence--bitbucket) |
-| How do I copy this to my real project? | [Export Guide](export-guide.md) |
+| How do I copy this to my real project? | [Export Guide](export-guide.md) or [Newbie Export](export-newbie-guide.md) |
 
 ---
 
-**Navigation:** [Phase Guide →](phase-guide.md) · [MCP Setup →](mcp-server-setup.md) · [Export Guide →](export-guide.md) · [Copilot Workflow →](copilot-workflow.md) · [Getting Started →](getting-started.md) · [Navigation Index →](navigation-index.md)
+**Navigation:** [Phase Guide →](phase-guide.md) · [MCP Setup →](mcp-server-setup.md) · [Export Guide →](export-guide.md) · [Newbie Export →](export-newbie-guide.md) · [Copilot Workflow →](copilot-workflow.md) · [Getting Started →](getting-started.md) · [Navigation Index →](navigation-index.md)

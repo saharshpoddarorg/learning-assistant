@@ -31,6 +31,46 @@ before committing. This includes headings, tables, bullet points, code blocks, a
 representations drawn with `|` pipes. See `.github/instructions/md-formatting.instructions.md` and
 `.github/docs/md-formatting-guide.md` for the full rule set.
 
+## Decision-Making Principles
+
+> **Always ground decisions in industry standards, established protocols, and best practices.**
+
+When making any decision — architecture, tooling, configuration, file organization, naming,
+gitignore rules, security, dependency management, or workflow — follow this hierarchy:
+
+1. **Industry standards first** — use established conventions (e.g., `.gitignore` templates
+   from GitHub, Conventional Commits, SemVer, 12-Factor App, OWASP)
+2. **Community consensus** — follow what the majority of well-maintained open-source projects
+   do (e.g., what to commit vs. ignore, folder structures, config layering)
+3. **Framework/tool conventions** — respect the idioms of the tools in use (e.g., Maven
+   standard layout, VS Code workspace conventions, Java naming conventions)
+4. **Project conventions** — this repo's own rules (completeness mode, formatting, etc.)
+   build on top of industry standards, never contradict them
+
+When uncertain about the right approach:
+
+- **Research before deciding** — check official documentation, widely-adopted style guides,
+  and established open-source patterns before choosing an approach
+- **Explain the reasoning** — cite the standard or practice that informed the decision
+- **Prefer boring technology** — favour well-established, battle-tested approaches over
+  novel or clever ones unless there's a clear, documented benefit
+- **Consistency over preference** — if the project already follows a pattern, extend it
+  rather than introducing a competing one (unless the existing pattern violates a standard)
+
+### Standards Quick-Reference
+
+| Domain | Authoritative Sources |
+|---|---|
+| Java style | Oracle Code Conventions, Google Java Style Guide |
+| Git | `.gitignore` templates (github/gitignore), Conventional Commits, SemVer |
+| Security | OWASP Top 10, CWE/SANS Top 25 |
+| API design | REST (Richardson Maturity Model), JSON:API, OpenAPI spec |
+| Config management | 12-Factor App (factor III), dotenv pattern, Spring profiles |
+| Project structure | Maven Standard Directory Layout, framework conventions |
+| Documentation | Diátaxis framework, README checklist (Make a README) |
+| VS Code | Commit portable project-level configs; ignore personal/machine-specific files |
+| Dependencies | Pin versions, audit regularly, prefer well-maintained libraries |
+
 ## Project Structure
 
 ```text
@@ -38,7 +78,7 @@ learning-assistant/
 ├── .github/              ← Copilot customization files (you're learning this!)
 ├── brain/                ← Brain Java module
 │   ├── src/              ← Java entry point + digitalnotetaking package
-│   └── ai-brain/         ← Personal knowledge workspace (inbox, notes, archive)
+│   └── ai-brain/         ← Personal knowledge workspace (inbox, notes, library, sessions)
 ├── mac-os/               ← macOS dev environment learning module
 │   └── docs/             ← Homebrew, JDK, npm, IDEs, Docker, dotfiles guides
 ├── mcp-servers/          ← MCP servers (Java)
@@ -60,7 +100,7 @@ path separators, tool names) or ask if unclear.
 | **Linux** | `java-build` | Bash commands, apt/dnf, SDKMAN! for JDK |
 | **Any** | `digital-notetaking` | Cross-platform: Notion, Obsidian, Logseq |
 | **Any** | `java-build` | JDK version management via SDKMAN! / Temurin |
-| **Any** | `brain-management` | brain/ai-brain/ naming, tier routing, frontmatter, PKM |
+| **Any** | `brain-management` | brain/ai-brain/ naming, tier routing (inbox/notes/library/sessions), frontmatter, PKM |
 | **Any** | `deep-research` | Investigation, spike stories, RCA, trade-off analysis, feasibility studies |
 | **Any** | `requirements-research` | User stories, acceptance criteria, BDD, requirements gathering and analysis |
 | **Any** | `software-development-roles` | PO, Developer, QA/Tester role guidance and workflows |

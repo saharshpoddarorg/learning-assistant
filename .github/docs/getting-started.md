@@ -505,7 +505,15 @@ Test it: Select **Explainer** from the agent dropdown → ask about any concept
 
 | Your Goal | Where to Go |
 |---|---|
+| Quick 5-minute overview of all types | [Customization 5-Minute Guide](copilot-customization-newbie.md) |
+| All 6 types compared with migration paths | [Customization Deep Dive](copilot-customization-deep-dive.md) |
+| Latest Copilot features (AGENTS.md, handoffs, etc.) | [Deep Dive §Latest Features](copilot-customization-deep-dive.md#part-11-latest-features--api-updates-2026) |
+| Why each type exists (FAQ) | [Deep Dive §Why Not Just Skills?](copilot-customization-deep-dive.md#part-9-why-not-just-skills--the-faq) |
+| Migrate content between types | [Deep Dive §Migration Guide](copilot-customization-deep-dive.md#part-7-migration--interchange-guide) |
+| Official Microsoft/GitHub docs | [Deep Dive §Official Resources](copilot-customization-deep-dive.md#part-10-official-resources--standards) |
 | Understand how everything connects | [Customization Guide](customization-guide.md) |
+| Copy to your work/personal project (newbie) | [Newbie Export Guide](export-newbie-guide.md) |
+| Full export with all options | [Export Guide](export-guide.md) |
 | See which files Copilot reads vs developer docs | [File Reference](file-reference.md) |
 | Learn about agents in depth | [Agents Guide](../agents/README.md) |
 | Learn about prompts in depth | [Prompts Guide](../prompts/README.md) |

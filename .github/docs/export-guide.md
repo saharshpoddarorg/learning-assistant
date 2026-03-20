@@ -19,9 +19,16 @@
 - [3. Brain Workspace](#3-brain-workspace)
 - [4. Everything (Full Export)](#4-everything-full-export)
 - [5. Gitignore Entries](#5-gitignore-entries-required-in-target-project)
-- [6. Directory-Level Copilot Customization](#6-directory-level-copilot-customization)
-- [7. Verify the Export](#7-verify-the-export)
-- [8. Keep It In Sync](#8-keeping-the-export-in-sync)
+- [6. Work vs Personal Repo — What's Different](#6-work-vs-personal-repo--whats-different)
+- [7. What You Can Safely Skip](#7-what-you-can-safely-skip)
+- [8. Config Files & Environment Variables Reference](#8-config-files--environment-variables-reference)
+- [9. API Keys & Credentials Reference](#9-api-keys--credentials-reference)
+- [10. Directory-Level Copilot Customization](#10-directory-level-copilot-customization)
+- [11. Verify the Export](#11-verify-the-export)
+- [12. Keep It In Sync](#12-keeping-the-export-in-sync)
+
+> 🟢 **Brand new?** Start with the [Newbie Step-by-Step Export Guide](export-newbie-guide.md)
+> instead — it's a simplified 10-minute walkthrough.
 
 ---
 
@@ -347,9 +354,239 @@ mcp-servers/build.env.local
 
 ---
 
-## 6. Directory-Level Copilot Customization
+## 6. Work vs Personal Repo — What's Different
+
+The same export works for both work and personal repos. The difference is which **MCP
+servers** you enable and which **skills/prompts** you keep.
+
+### Work Repository
+
+| What | Action | Why |
+|---|---|---|
+| `.github/copilot-instructions.md` | Edit for your project's language, conventions, team rules | This becomes your team's coding standard |
+| `.github/instructions/java.instructions.md` | Keep if Java; replace with your language | Language-specific rules |
+| `.github/instructions/change-completeness.instructions.md` | Remove (or adapt for your team's workflow) | This is learning-assistant specific |
+| `.github/instructions/chat-capture.instructions.md` | Remove unless you want session capture | Personal productivity feature |
+| `.github/instructions/steering-modes.instructions.md` | Remove unless you use steering modes | Learning-assistant workflow |
+| `.github/agents/` | Keep agents relevant to your work (debugger, designer, code-reviewer) | Universal value |
+| `.github/skills/brain-management/` | Remove | Personal knowledge management — not for work repo |
+| `.github/skills/mac-dev/` | Remove unless team uses macOS | OS-specific |
+| `.github/skills/career-resources/` | Remove | Personal career guidance — not for work repo |
+| `.github/skills/daily-assistant-resources/` | Remove | Personal productivity — not for work repo |
+| MCP: Atlassian | **Enable** with your work Jira/Confluence credentials | Read work tickets and docs |
+| MCP: GitHub | **Enable** with a PAT that has access to your org repos | Search work repos |
+| MCP: Learning Resources | Keep (no credentials needed) | Learning resources are useful everywhere |
+| MCP: Filesystem | Enable if you want Copilot to search local files directly | Optional |
+| `brain/` | Do NOT copy to work repo | Personal workspace — keep separate |
+
+### Personal Software Development Repository
+
+| What | Action | Why |
+|---|---|---|
+| `.github/copilot-instructions.md` | Edit for your personal project's stack | Your personal coding rules |
+| `.github/instructions/` | Keep relevant language files, remove others | Only keep what applies |
+| `.github/instructions/change-completeness.instructions.md` | Optional — keep if you like the completeness workflow | Ensures thorough changes |
+| `.github/agents/` | Keep all — they're useful for any project | Debugger, designer, reviewer |
+| `.github/skills/` | Keep all you find useful — career, daily assistant, SE resources | Personal enrichment |
+| MCP: Atlassian | **Skip** — no work Jira to connect to | Not needed for personal projects |
+| MCP: GitHub | Optional — enable if you want Copilot to search your GitHub repos | Nice for OSS contributors |
+| MCP: Learning Resources | **Keep** — great for learning | No credentials needed |
+| `brain/` | Copy if you want a personal knowledge base | PKM system |
+
+---
+
+## 7. What You Can Safely Skip
+
+Not every piece of learning-assistant is needed in every project. Here's what you can
+safely omit **without breaking anything**:
+
+### Always Safe to Skip
+
+| Item | Path | Why it's safe to skip |
+|---|---|---|
+| Developer docs | `.github/docs/` | Documentation about learning-assistant itself — not your project |
+| Change completeness checklist | `.github/instructions/change-completeness.instructions.md` | Specific to this repo's workflow |
+| Steering modes | `.github/instructions/steering-modes.instructions.md` | Specific to this repo's workflow |
+| Chat capture | `.github/instructions/chat-capture.instructions.md` | Session capture — personal productivity |
+| Markdown formatting rules | `.github/instructions/md-formatting.instructions.md` | Unless your project enforces md lint |
+| Brain workspace | `brain/` | Personal knowledge management module |
+| macOS module | `mac-os/` | Setup guides for mac development |
+| Search engine module | `search-engine/` | Learning module — not production code |
+| Entry points | `src/Main.java` | This repo's Java entry point |
+| `.github/prompts/hub.prompt.md` | `.github/prompts/hub.prompt.md` | Hub for this repo's slash commands |
+
+### Skip Based on Your Stack
+
+| If your project... | Skip these |
+|---|---|
+| Is NOT Java | `java.instructions.md`, `clean-code.instructions.md`, `java-build/SKILL.md`, `java-learning-resources/SKILL.md` |
+| Does NOT use MCP servers | `mcp-servers/`, `.vscode/mcp.json`, `mcp-development/SKILL.md` |
+| Does NOT use Jira/Confluence | `mcp-servers/user-config/servers/atlassian/`, Atlassian config in `.vscode/mcp.json` |
+| Does NOT need GitHub search in Copilot | GitHub server entry in `.vscode/mcp.json` |
+| Does NOT use macOS | `mac-dev/SKILL.md` |
+| Does NOT want brain/PKM | `brain-management/SKILL.md`, `brain-*.prompt.md`, `digital-notetaking/SKILL.md` |
+
+### Never Skip
+
+| Item | Why it must stay |
+|---|---|
+| `.github/copilot-instructions.md` | Core project instructions — Copilot needs this |
+| At least one agent (`.github/agents/`) | Without agents, no agent dropdown options |
+| At least one prompt (`.github/prompts/`) | Without prompts, no `/` slash commands |
+
+---
+
+## 8. Config Files & Environment Variables Reference
+
+Every configuration file and environment variable in this project, and whether you need it:
+
+### Config Files
+
+| File | Purpose | Required? | Contains Secrets? |
+|---|---|---|---|
+| `.github/copilot-instructions.md` | Project-wide Copilot rules | **Yes** | No |
+| `.github/instructions/*.instructions.md` | File-type-specific Copilot rules | Recommended | No |
+| `.vscode/mcp.json` | MCP server registry (which servers to run) | Only if using MCP | No (tokens via inputs) |
+| `.vscode/tasks.json` | VS Code build/run tasks | Recommended | No |
+| `mcp-servers/build.env.local` | Java build environment overrides | Only if `java` not on PATH | No |
+| `mcp-servers/build.env.example` | Template for `build.env.local` | Reference only — don't edit | No |
+| `mcp-servers/user-config/mcp-config.properties` | Shared (committed) MCP config | Committed — safe | No |
+| `mcp-servers/user-config/mcp-config.local.properties` | Personal MCP config overrides | Only if customizing | **Yes — gitignored** |
+| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties` | Atlassian credentials | Only if using Atlassian MCP | **Yes — gitignored** |
+| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.example.properties` | Template for Atlassian config | Reference only — don't edit | No |
+
+### Environment Variables
+
+| Variable | Set Where | Purpose | Required? |
+|---|---|---|---|
+| `JAVA_HOME` | `build.env.local` or system PATH | JDK location for MCP server build | Only if `java` not on PATH |
+| `ATLASSIAN_CONFIG_DIR` | `.vscode/mcp.json` (auto-set) | Path to Atlassian config directory | Auto — don't set manually |
+| `GITHUB_TOKEN` | VS Code input prompt | GitHub Personal Access Token | Only if using GitHub MCP server |
+
+### How `.vscode/mcp.json` Manages Servers
+
+The MCP config uses VS Code's input variables for secrets — no env files needed:
+
+```json
+{
+  "inputs": [
+    {
+      "id": "github-token",
+      "type": "promptString",
+      "description": "GitHub Personal Access Token (PAT)",
+      "password": true
+    }
+  ],
+  "servers": {
+    "learning-resources": {
+      // Always enabled — no credentials needed
+      "type": "stdio",
+      "command": "java",
+      "args": ["-cp", "out", "server.learningresources.LearningResourcesServer"],
+      "cwd": "${workspaceFolder}/mcp-servers"
+    },
+    "atlassian": {
+      "disabled": true,   // <-- Change to false when ready
+      "type": "stdio",
+      "command": "java",
+      "args": ["-cp", "out", "server.atlassian.AtlassianMcpServer"],
+      "cwd": "${workspaceFolder}/mcp-servers",
+      "env": {
+        "ATLASSIAN_CONFIG_DIR": "${workspaceFolder}/mcp-servers/user-config/servers/atlassian"
+      }
+    },
+    "github": {
+      "disabled": true,   // <-- Change to false when ready
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_TOKEN": "${input:github-token}"
+      }
+    }
+  }
+}
+```
+
+### Creating Config Files from Templates
+
+```powershell
+# MCP build config (if java not on PATH)
+Copy-Item mcp-servers\build.env.example mcp-servers\build.env.local
+# Edit: set JAVA_HOME=C:\path\to\jdk-21
+
+# Atlassian config (if using Jira/Confluence)
+Copy-Item mcp-servers\user-config\servers\atlassian\atlassian-config.local.example.properties `
+          mcp-servers\user-config\servers\atlassian\atlassian-config.local.properties
+# Edit: set email, api.token, base URLs
+```
+
+---
+
+## 9. API Keys & Credentials Reference
+
+Which servers need credentials, where to get them, and what to set:
+
+### Quick Decision Table
+
+| Server | Credential Type | Where to Get It | Where to Put It | Can I Skip It? |
+|---|---|---|---|---|
+| Learning Resources | None | — | — | No credential needed — always works |
+| Atlassian (Jira/Confluence) | API token | [Atlassian API tokens](https://id.atlassian.com/manage-profile/security/api-tokens) | `atlassian-config.local.properties` | **Yes** — skip if not using Jira/Confluence |
+| GitHub | Personal Access Token (PAT) | [GitHub token settings](https://github.com/settings/tokens) | VS Code prompts at runtime | **Yes** — skip if not using GitHub search |
+| Filesystem | None | — | — | No credential needed |
+
+### Atlassian Credentials — Step by Step
+
+1. Go to [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens)
+2. Click **Create API token**
+3. Name it "VS Code Copilot" (or anything memorable)
+4. Copy the token (you won't see it again)
+5. Create the config file:
+
+   ```powershell
+   cd mcp-servers\user-config\servers\atlassian
+   Copy-Item atlassian-config.local.example.properties atlassian-config.local.properties
+   ```
+
+6. Edit `atlassian-config.local.properties`:
+
+   ```properties
+   atlassian.email=your.name@company.com
+   atlassian.api.token=ATATT3xFfGF0... (paste your token here)
+   atlassian.jira.base.url=https://your-company.atlassian.net
+   atlassian.confluence.base.url=https://your-company.atlassian.net/wiki
+   atlassian.bitbucket.workspace=your-workspace
+   ```
+
+7. In `.vscode/mcp.json`, change atlassian's `"disabled": true` to `"disabled": false`
+8. Reload VS Code window
+
+### GitHub PAT — Step by Step
+
+1. Go to [github.com/settings/tokens](https://github.com/settings/tokens)
+2. Click **Generate new token** → choose **Fine-grained token** (recommended)
+3. Select your repository access scope:
+   - **Public repos only:** select `public_repo`
+   - **All your repos:** select `repo`
+4. In `.vscode/mcp.json`, change github's `"disabled": true` to `"disabled": false`
+5. Reload VS Code window — it will **prompt** you for the token at runtime
+6. Paste your PAT when prompted (VS Code stores it securely)
+
+### Security Rules
+
+- **Never commit** `.local.properties` files — they are gitignored by default
+- **Never commit** API tokens in `.vscode/mcp.json` — use VS Code input variables instead
+- **Rotate tokens** periodically — Atlassian tokens don't expire automatically; GitHub tokens
+  can be set to expire
+- **Minimal scope** — give tokens the minimum permissions needed (read-only where possible)
+
+---
+
+## 10. Directory-Level Copilot Customization
 
 > 🟡 **Amateur / Pro:** VS Code supports `.github/copilot-instructions.md` at **any directory level**.
+> Also see [parent repository discovery](#parent-repo-discovery) — VS Code can load customizations from parent directories.
 
 This means you can layer customizations:
 
@@ -395,7 +632,7 @@ frontend/
 
 ---
 
-## 7. Verify the Export
+## 11. Verify the Export
 
 After copying to the target project, verify each feature:
 
@@ -434,7 +671,7 @@ Ctrl+Shift+P → "Run Task" → "brain: status"
 
 ---
 
-## 8. Keeping the Export in Sync
+## 12. Keeping the Export in Sync
 
 When `learning-assistant` receives updates (new agents, prompts, skills, MCP tools) you can pull them into your target project:
 
@@ -472,4 +709,4 @@ git subtree pull --prefix=.github \
 
 ---
 
-**Navigation:** [← Phase Guide](phase-guide.md) · [← START HERE](START-HERE.md) · [Copilot Workflow →](copilot-workflow.md) · [MCP Setup →](mcp-server-setup.md)
+**Navigation:** [← Phase Guide](phase-guide.md) · [← START HERE](START-HERE.md) · [Newbie Export Guide →](export-newbie-guide.md) · [Copilot Workflow →](copilot-workflow.md) · [MCP Setup →](mcp-server-setup.md)

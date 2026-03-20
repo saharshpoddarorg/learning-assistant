@@ -190,6 +190,66 @@ public final class KeywordIndex {
         map.put("monitoring", ConceptArea.OBSERVABILITY);
         map.put("logging", ConceptArea.OBSERVABILITY);
         map.put("tracing", ConceptArea.OBSERVABILITY);
+        map.put("prometheus", ConceptArea.OBSERVABILITY);
+        map.put("grafana", ConceptArea.OBSERVABILITY);
+        map.put("elk", ConceptArea.OBSERVABILITY);
+        map.put("alerting", ConceptArea.OBSERVABILITY);
+        map.put("dashboards", ConceptArea.OBSERVABILITY);
+
+        // Infrastructure as Code
+        map.put("terraform", ConceptArea.INFRASTRUCTURE);
+        map.put("ansible", ConceptArea.INFRASTRUCTURE);
+        map.put("iac", ConceptArea.INFRASTRUCTURE);
+        map.put("infrastructure as code", ConceptArea.INFRASTRUCTURE);
+        map.put("cloudformation", ConceptArea.INFRASTRUCTURE);
+        map.put("pulumi", ConceptArea.INFRASTRUCTURE);
+
+        // Cloud platforms
+        map.put("aws", ConceptArea.INFRASTRUCTURE);
+        map.put("gcp", ConceptArea.INFRASTRUCTURE);
+        map.put("azure", ConceptArea.INFRASTRUCTURE);
+        map.put("cloud", ConceptArea.INFRASTRUCTURE);
+        map.put("ec2", ConceptArea.INFRASTRUCTURE);
+        map.put("s3", ConceptArea.INFRASTRUCTURE);
+        map.put("lambda", ConceptArea.INFRASTRUCTURE);
+
+        // Frameworks
+        map.put("spring boot", ConceptArea.ARCHITECTURE);
+        map.put("spring-boot", ConceptArea.ARCHITECTURE);
+        map.put("react", ConceptArea.ARCHITECTURE);
+        map.put("angular", ConceptArea.ARCHITECTURE);
+        map.put("vue", ConceptArea.ARCHITECTURE);
+        map.put("vuejs", ConceptArea.ARCHITECTURE);
+        map.put("nextjs", ConceptArea.ARCHITECTURE);
+        map.put("next.js", ConceptArea.ARCHITECTURE);
+        map.put("express", ConceptArea.API_DESIGN);
+        map.put("expressjs", ConceptArea.API_DESIGN);
+        map.put("django", ConceptArea.ARCHITECTURE);
+        map.put("flask", ConceptArea.API_DESIGN);
+        map.put("hibernate", ConceptArea.DATABASES);
+        map.put("jpa", ConceptArea.DATABASES);
+        map.put("orm", ConceptArea.DATABASES);
+        map.put("nodejs", ConceptArea.ARCHITECTURE);
+        map.put("node.js", ConceptArea.ARCHITECTURE);
+
+        // Messaging & data stores
+        map.put("kafka", ConceptArea.DISTRIBUTED_SYSTEMS);
+        map.put("rabbitmq", ConceptArea.DISTRIBUTED_SYSTEMS);
+        map.put("redis", ConceptArea.DATABASES);
+        map.put("mongodb", ConceptArea.DATABASES);
+        map.put("nosql", ConceptArea.DATABASES);
+        map.put("elasticsearch", ConceptArea.DATABASES);
+        map.put("mysql", ConceptArea.DATABASES);
+        map.put("dynamodb", ConceptArea.DATABASES);
+
+        // Testing tools
+        map.put("mockito", ConceptArea.TESTING);
+        map.put("selenium", ConceptArea.TESTING);
+        map.put("cypress", ConceptArea.TESTING);
+        map.put("pytest", ConceptArea.TESTING);
+        map.put("testcontainers", ConceptArea.TESTING);
+        map.put("e2e", ConceptArea.TESTING);
+        map.put("end-to-end", ConceptArea.TESTING);
 
         // Security
         map.put("security", ConceptArea.WEB_SECURITY);
@@ -276,6 +336,36 @@ public final class KeywordIndex {
         map.put("gradient descent", ConceptArea.DEEP_LEARNING);
         map.put("backpropagation", ConceptArea.DEEP_LEARNING);
         map.put("transformers", ConceptArea.DEEP_LEARNING);
+
+        // Personal development
+        map.put("self-improvement", ConceptArea.SELF_IMPROVEMENT);
+        map.put("self improvement", ConceptArea.SELF_IMPROVEMENT);
+        map.put("personal development", ConceptArea.SELF_IMPROVEMENT);
+        map.put("personal growth", ConceptArea.SELF_IMPROVEMENT);
+        map.put("habits", ConceptArea.SELF_IMPROVEMENT);
+        map.put("atomic habits", ConceptArea.SELF_IMPROVEMENT);
+        map.put("mindset", ConceptArea.SELF_IMPROVEMENT);
+        map.put("growth mindset", ConceptArea.SELF_IMPROVEMENT);
+        map.put("motivation", ConceptArea.SELF_IMPROVEMENT);
+        map.put("discipline", ConceptArea.SELF_IMPROVEMENT);
+        map.put("self-help", ConceptArea.SELF_IMPROVEMENT);
+        map.put("reading list", ConceptArea.SELF_IMPROVEMENT);
+        map.put("communication", ConceptArea.COMMUNICATION_SKILLS);
+        map.put("public speaking", ConceptArea.COMMUNICATION_SKILLS);
+        map.put("writing", ConceptArea.COMMUNICATION_SKILLS);
+        map.put("storytelling", ConceptArea.COMMUNICATION_SKILLS);
+        map.put("presentation", ConceptArea.COMMUNICATION_SKILLS);
+        map.put("soft skills", ConceptArea.COMMUNICATION_SKILLS);
+        map.put("financial literacy", ConceptArea.FINANCIAL_LITERACY);
+        map.put("personal finance", ConceptArea.FINANCIAL_LITERACY);
+        map.put("budgeting", ConceptArea.FINANCIAL_LITERACY);
+        map.put("investing", ConceptArea.FINANCIAL_LITERACY);
+        map.put("tax", ConceptArea.FINANCIAL_LITERACY);
+        map.put("deep work", ConceptArea.PRODUCTIVITY_HABITS);
+        map.put("time management", ConceptArea.PRODUCTIVITY_HABITS);
+        map.put("focus", ConceptArea.PRODUCTIVITY_HABITS);
+        map.put("pomodoro", ConceptArea.PRODUCTIVITY_HABITS);
+        map.put("routine", ConceptArea.PRODUCTIVITY_HABITS);
         return Map.copyOf(map);
     }
 
@@ -368,6 +458,66 @@ public final class KeywordIndex {
         map.put("3blue1brown", ResourceCategory.AI_ML);
         map.put("3b1b", ResourceCategory.AI_ML);
         map.put("linear algebra", ResourceCategory.AI_ML);
+        // Cloud
+        map.put("aws", ResourceCategory.CLOUD);
+        map.put("amazon web services", ResourceCategory.CLOUD);
+        map.put("gcp", ResourceCategory.CLOUD);
+        map.put("google cloud", ResourceCategory.CLOUD);
+        map.put("azure", ResourceCategory.CLOUD);
+        map.put("cloud", ResourceCategory.CLOUD);
+        map.put("terraform", ResourceCategory.CLOUD);
+        map.put("ansible", ResourceCategory.CLOUD);
+        map.put("iac", ResourceCategory.CLOUD);
+        map.put("ec2", ResourceCategory.CLOUD);
+        map.put("s3", ResourceCategory.CLOUD);
+        map.put("lambda", ResourceCategory.CLOUD);
+        // Data stores & messaging
+        map.put("redis", ResourceCategory.DATABASE);
+        map.put("mongodb", ResourceCategory.DATABASE);
+        map.put("nosql", ResourceCategory.DATABASE);
+        map.put("elasticsearch", ResourceCategory.DATABASE);
+        map.put("kafka", ResourceCategory.DATABASE);
+        map.put("mysql", ResourceCategory.DATABASE);
+        map.put("dynamodb", ResourceCategory.DATABASE);
+        map.put("postgresql", ResourceCategory.DATABASE);
+        // Observability
+        map.put("prometheus", ResourceCategory.DEVOPS);
+        map.put("grafana", ResourceCategory.DEVOPS);
+        map.put("monitoring", ResourceCategory.DEVOPS);
+        map.put("elk", ResourceCategory.DEVOPS);
+        // Testing tools
+        map.put("mockito", ResourceCategory.TESTING);
+        map.put("selenium", ResourceCategory.TESTING);
+        map.put("cypress", ResourceCategory.TESTING);
+        map.put("pytest", ResourceCategory.TESTING);
+        map.put("testcontainers", ResourceCategory.TESTING);
+        map.put("e2e", ResourceCategory.TESTING);
+        // Frameworks (additional)
+        map.put("angular", ResourceCategory.JAVASCRIPT);
+        map.put("vue", ResourceCategory.JAVASCRIPT);
+        map.put("vuejs", ResourceCategory.JAVASCRIPT);
+        map.put("nextjs", ResourceCategory.JAVASCRIPT);
+        map.put("expressjs", ResourceCategory.JAVASCRIPT);
+        map.put("spring-boot", ResourceCategory.JAVA);
+        map.put("spring boot", ResourceCategory.JAVA);
+        map.put("hibernate", ResourceCategory.JAVA);
+        map.put("jpa", ResourceCategory.JAVA);
+        // Personal development
+        map.put("personal development", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("self-improvement", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("self-help", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("personal growth", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("habits", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("mindset", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("soft skills", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("communication", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("public speaking", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("financial literacy", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("personal finance", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("budgeting", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("investing", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("deep work", ResourceCategory.PERSONAL_DEVELOPMENT);
+        map.put("time management", ResourceCategory.PERSONAL_DEVELOPMENT);
         return Map.copyOf(map);
     }
 

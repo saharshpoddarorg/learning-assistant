@@ -491,10 +491,20 @@ These files are **never loaded by Copilot**. They exist as reference material fo
 
 | Resource | Link |
 |---|---|
+| **Newbie: 5-Minute Guide** | [copilot-customization-newbie.md](copilot-customization-newbie.md) |
+| **Complete Deep Dive (all 6 types)** | [copilot-customization-deep-dive.md](copilot-customization-deep-dive.md) |
+| **Latest Features (2026)** | [Deep Dive §Part 11](copilot-customization-deep-dive.md#part-11-latest-features--api-updates-2026) |
+| Why not just skills? (FAQ) | [Deep Dive §Part 9](copilot-customization-deep-dive.md#part-9-why-not-just-skills--the-faq) |
+| Migration between types | [Deep Dive §Part 7](copilot-customization-deep-dive.md#part-7-migration--interchange-guide) |
+| MCP vs Skills decision guide | [mcp-vs-skills.md](mcp-vs-skills.md) |
+| Export to work/personal project | [export-guide.md](export-guide.md) |
+| Newbie export walkthrough | [export-newbie-guide.md](export-newbie-guide.md) |
 | Custom Instructions docs | [VS Code docs](https://code.visualstudio.com/docs/copilot/customization/custom-instructions) |
 | Custom Agents docs | [VS Code docs](https://code.visualstudio.com/docs/copilot/customization/custom-agents) |
 | Prompt Files docs | [VS Code docs](https://code.visualstudio.com/docs/copilot/customization/prompt-files) |
-| Agent Skills spec | [agentskills.io](https://agentskills.io/) |
+| Agent Skills docs | [VS Code docs](https://code.visualstudio.com/docs/copilot/customization/agent-skills) |
+| Agent Skills Standard | [agentskills.io](https://agentskills.io/) |
+| MCP Specification | [spec.modelcontextprotocol.io](https://spec.modelcontextprotocol.io/) |
 | Copilot customization overview | [VS Code docs](https://code.visualstudio.com/docs/copilot/customization) |
 
 ---

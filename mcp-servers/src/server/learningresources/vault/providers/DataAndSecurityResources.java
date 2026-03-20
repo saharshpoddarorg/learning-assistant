@@ -13,8 +13,8 @@ import java.time.Instant;
 import java.util.List;
 
 /**
- * Curated data-engineering and security learning resources — databases, indexing,
- * OWASP, and security best practices.
+ * Curated data-engineering, messaging, and security learning resources — databases,
+ * indexing, caching, message brokers, OWASP, and security best practices.
  */
 public final class DataAndSecurityResources implements ResourceProvider {
 
@@ -92,6 +92,90 @@ public final class DataAndSecurityResources implements ResourceProvider {
                         List.of("official", "owasp", "security", "cheat-sheet", "authentication",
                                 "session-management", "cryptography"),
                         "OWASP Foundation",
+                        DifficultyLevel.INTERMEDIATE,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
+                ),
+
+                // ─── NoSQL & Caching ────────────────────────────────────────
+
+                new LearningResource(
+                        "redis-docs",
+                        "Redis Documentation",
+                        "https://redis.io/docs/latest/",
+                        "Official Redis documentation — the most popular in-memory data store. "
+                                + "Covers data types (strings, hashes, lists, sets, sorted sets, "
+                                + "streams), persistence (RDB, AOF), replication, clustering, "
+                                + "Lua scripting, pub/sub, and Redis Stack (JSON, search, time series).",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.DATABASE, ResourceCategory.DEVOPS),
+                        List.of(ConceptArea.DATABASES, ConceptArea.SYSTEM_DESIGN,
+                                ConceptArea.DISTRIBUTED_SYSTEMS),
+                        List.of("official", "redis", "cache", "in-memory", "data-structures",
+                                "pub-sub", "clustering", "replication"),
+                        "Redis Ltd.",
+                        DifficultyLevel.INTERMEDIATE,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
+                ),
+
+                new LearningResource(
+                        "mongodb-docs",
+                        "MongoDB Documentation",
+                        "https://www.mongodb.com/docs/manual/",
+                        "Official MongoDB documentation — the leading document database. "
+                                + "CRUD operations, aggregation pipeline, indexing strategies, "
+                                + "replica sets, sharding, transactions, change streams, and "
+                                + "Atlas (cloud-hosted) deployment.",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.DATABASE),
+                        List.of(ConceptArea.DATABASES, ConceptArea.DISTRIBUTED_SYSTEMS,
+                                ConceptArea.SYSTEM_DESIGN),
+                        List.of("official", "mongodb", "nosql", "document-database",
+                                "aggregation", "sharding", "replica-sets", "atlas"),
+                        "MongoDB Inc.",
+                        DifficultyLevel.INTERMEDIATE,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
+                ),
+
+                // ─── Messaging & Streaming ──────────────────────────────────
+
+                new LearningResource(
+                        "kafka-docs",
+                        "Apache Kafka Documentation",
+                        "https://kafka.apache.org/documentation/",
+                        "Official Apache Kafka documentation — the distributed event streaming "
+                                + "platform. Topics, partitions, consumer groups, producers, Kafka "
+                                + "Streams, Kafka Connect, Schema Registry, exactly-once semantics, "
+                                + "and cluster management.",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.DEVOPS, ResourceCategory.DATABASE),
+                        List.of(ConceptArea.DISTRIBUTED_SYSTEMS, ConceptArea.SYSTEM_DESIGN,
+                                ConceptArea.ARCHITECTURE),
+                        List.of("official", "kafka", "event-streaming", "pub-sub", "topics",
+                                "partitions", "consumer-groups", "kafka-streams"),
+                        "Apache Software Foundation",
+                        DifficultyLevel.INTERMEDIATE,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
+                ),
+
+                new LearningResource(
+                        "elasticsearch-docs",
+                        "Elasticsearch Reference",
+                        "https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html",
+                        "Official Elasticsearch reference — distributed search and analytics "
+                                + "engine. Index management, mapping, analyzers, query DSL, "
+                                + "aggregations, full-text search, vector search, and cluster "
+                                + "administration. Core of the ELK Stack.",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.DATABASE, ResourceCategory.DEVOPS),
+                        List.of(ConceptArea.DATABASES, ConceptArea.DISTRIBUTED_SYSTEMS,
+                                ConceptArea.OBSERVABILITY),
+                        List.of("official", "elasticsearch", "search", "elk-stack",
+                                "full-text-search", "analytics", "aggregations", "vector-search"),
+                        "Elastic",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
                         true, true, LanguageApplicability.MULTI_LANGUAGE, now

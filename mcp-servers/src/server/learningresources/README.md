@@ -1,6 +1,6 @@
 # Learning Resources MCP Server
 
-> **A curated vault of 68+ learning resources with smart discovery, web scraping, and multi-format export.**
+> **A curated vault of 95+ learning resources with smart discovery, web scraping, and multi-format export.**
 
 ---
 
@@ -12,8 +12,8 @@ and can scrape, extract, and summarize content from any URL on the internet.
 
 **What it does:**
 
-- **Vault** — 68+ pre-loaded resources: official docs, tutorials, blogs, books, and interactive
-  tools from Oracle, Mozilla, Baeldung, Spring, OWASP, Docker, and more
+- **Vault** — 95+ pre-loaded resources: official docs, tutorials, blogs, books, and interactive
+  tools from Oracle, Mozilla, Baeldung, Spring, OWASP, Docker, AWS, React, and more
 - **Smart Discovery** — three-mode engine (specific / vague / exploratory) with keyword-to-concept
   inference, fuzzy matching, domain affinity, language-fit scoring, and "did you mean?" suggestions
 - **Search** — full-text search with filters by category, type, difficulty, concept, freshness,

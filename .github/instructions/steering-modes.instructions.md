@@ -32,10 +32,12 @@ on this repo — not just *what to do* on a specific file. It controls:
 The completeness mode is the project's **default**. Every change is treated as a
 "ripple" — you never add something in isolation. When making any change, you:
 
-1. Follow the **Change Completeness Checklist** for the change type (A–F)
-2. Update all related files: vault providers, prompt files, skill files, slash-commands, docs
-3. Ensure the build passes before committing (`.\mcp-servers\build.ps1`)
-4. Use a single, clean Conventional Commit wrapping the logical unit of work
+1. **Ground in industry standards** — consult the Decision-Making Principles and
+   Standards Quick-Reference in `copilot-instructions.md` before choosing an approach
+2. Follow the **Change Completeness Checklist** for the change type (A–F)
+3. Update all related files: vault providers, prompt files, skill files, slash-commands, docs
+4. Ensure the build passes before committing (`.\mcp-servers\build.ps1`)
+5. Use a single, clean Conventional Commit wrapping the logical unit of work
 
 This is the mode that makes this repo iterative and always-consistent.
 
