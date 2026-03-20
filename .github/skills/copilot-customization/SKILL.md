@@ -790,7 +790,63 @@ Full explanation with examples: `.github/docs/copilot-customization-deep-dive.md
 | Prompt Files | [code.visualstudio.com/.../prompt-files](https://code.visualstudio.com/docs/copilot/customization/prompt-files) |
 | Custom Agents | [code.visualstudio.com/.../custom-agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) |
 | Agent Skills | [code.visualstudio.com/.../agent-skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills) |
+| Agent Skills Standard | [agentskills.io](https://agentskills.io/) |
 | MCP Specification | [spec.modelcontextprotocol.io](https://spec.modelcontextprotocol.io/) |
 | GitHub Copilot Docs | [docs.github.com/en/copilot](https://docs.github.com/en/copilot) |
+| Awesome Copilot | [github.com/github/awesome-copilot](https://github.com/github/awesome-copilot) |
+| Anthropic Skills | [github.com/anthropics/skills](https://github.com/anthropics/skills) |
 | 5-Minute Newbie Guide | `.github/docs/copilot-customization-newbie.md` |
 | Full Deep Dive | `.github/docs/copilot-customization-deep-dive.md` |
+| Export to Your Project | `.github/docs/export-guide.md` |
+| Newbie Export Guide | `.github/docs/export-newbie-guide.md` |
+
+---
+
+## Latest Features (2026)
+
+Features from the latest VS Code Copilot documentation (March 2026):
+
+### New Always-On Files
+
+| File | Purpose |
+|---|---|
+| `AGENTS.md` | Multi-agent compatible instructions (read by Copilot, Claude Code, and other agents) |
+| `CLAUDE.md` | Claude Code instructions (Copilot reads for cross-tool compatibility) |
+| `.claude/rules` | Claude Code rules (Copilot reads these too) |
+
+### New Frontmatter Fields
+
+| Field | Applies To | Purpose |
+|---|---|---|
+| `handoffs:` | `.agent.md` | Define agent-to-agent handoff chains |
+| `user-invocable:` | `.agent.md`, `SKILL.md` | Control visibility in dropdowns/commands (default: true) |
+| `disable-model-invocation:` | `.agent.md`, `SKILL.md` | Prevent AI from auto-invoking (default: false) |
+| `argument-hint:` | `.agent.md`, `SKILL.md`, `.prompt.md` | Hint text shown after user selects the item |
+| `target:` | `.agent.md` | Set to `github-copilot` for cloud agents |
+| `mcp-servers:` | `.agent.md` | MCP servers for cloud/coding agents |
+| `description:` | `.instructions.md` | Now used for semantic matching (not just `applyTo`) |
+
+### New Generation Commands
+
+| Command | Creates |
+|---|---|
+| `/init` | Generates `copilot-instructions.md` from workspace analysis |
+| `/create-instruction` | New `.instructions.md` file via AI interview |
+| `/create-agent` | New `.agent.md` file via AI interview |
+| `/create-skill` | New `SKILL.md` file via AI interview |
+| `/create-prompt` | New `.prompt.md` file via AI interview |
+
+### Key Architecture Changes
+
+- **Skills appear as slash commands** — type `/skill-name` to invoke manually
+- **Three-level skill loading** — discovery (name+description) → instructions (body) → resource access (files)
+- **Organization-level sharing** — place customizations in the `.github` org repo
+- **Settings Sync** — prompt and instruction files sync across devices
+- **Chat Customizations editor** — `Chat: Open Chat Customizations` command (Preview)
+- **Configurable locations** — `chat.instructionsFilesLocations`, `chat.agentFilesLocations`, etc.
+- **Agent hooks** (Preview) — pre/post-response hook commands scoped to agents
+- **Agent plugins** — extensions contribute skills via `chatSkills` in `package.json`
+- **`.chatmode.md` → `.agent.md`** — old format renamed (still recognized for back-compat)
+- **Instruction priority** — Personal > Repository > Organization
+
+For full details, see [Part 11 of the Deep Dive](../docs/copilot-customization-deep-dive.md#part-11-latest-features--api-updates-2026).

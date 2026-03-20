@@ -174,7 +174,9 @@ Be specific — cite line numbers.
 | I want to... | Read this |
 |---|---|
 | Understand each type in depth | [Copilot Customization Deep Dive](copilot-customization-deep-dive.md) |
+| See what's new in 2026 (AGENTS.md, handoffs, etc.) | [Deep Dive §Latest Features](copilot-customization-deep-dive.md#part-11-latest-features--api-updates-2026) |
 | Try every type hands-on (30 min) | [Getting Started Tutorial](getting-started.md) |
+| Copy this to my work/personal project | [Newbie Export Guide](export-newbie-guide.md) |
 | See how types work together | [Customization Guide — Architecture](customization-guide.md) |
 | Decide: MCP server or skill? | [MCP vs Skills Guide](mcp-vs-skills.md) |
 | Migrate content between types | [Deep Dive §Migration Guide](copilot-customization-deep-dive.md#part-7-migration--interchange-guide) |
@@ -182,4 +184,4 @@ Be specific — cite line numbers.
 
 ---
 
-**Navigation:** [← START-HERE](START-HERE.md) · [Deep Dive →](copilot-customization-deep-dive.md) · [Getting Started →](getting-started.md)
+**Navigation:** [← START-HERE](START-HERE.md) · [Deep Dive →](copilot-customization-deep-dive.md) · [Getting Started →](getting-started.md) · [Export Guide →](export-newbie-guide.md)

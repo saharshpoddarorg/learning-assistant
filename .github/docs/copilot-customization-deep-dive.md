@@ -7,7 +7,7 @@
 |---|---|
 | 🟢 **Newbie** | [Part 9 — Why Not Just Skills?](#part-9-why-not-just-skills--the-faq) → [Part 1 — The 6 Primitives](#part-1-the-6-primitives) → [Decision Guide](#part-3-decision-guide) |
 | 🟡 **Amateur** | [Comparison Table](#part-2-head-to-head-comparison) → [Composition Basics](#same-type-composition) → [Migration Guide](#part-7-migration--interchange-guide) |
-| 🔴 **Pro** | [Full Stack Compositions](#cross-type-composition) → [Anti-Patterns](#part-5-anti-patterns) → [Official Resources](#part-10-official-resources--standards) |
+| 🔴 **Pro** | [Latest Features](#part-11-latest-features--api-updates-2026) → [Full Stack Compositions](#cross-type-composition) → [Anti-Patterns](#part-5-anti-patterns) → [Official Resources](#part-10-official-resources--standards) |
 
 ---
 
@@ -23,6 +23,7 @@
 8. [Step-by-Step Creation Walkthroughs](#part-8-step-by-step-creation-walkthroughs)
 9. [Why Not Just Skills? — The FAQ](#part-9-why-not-just-skills--the-faq)
 10. [Official Resources & Standards](#part-10-official-resources--standards)
+11. [Latest Features & API Updates (2026)](#part-11-latest-features--api-updates-2026)
 
 ---
 
@@ -1709,3 +1710,385 @@ cues (prompts), and live effects (MCP servers).
 | `.agent.md` | [Custom agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) | Specialist personas with constrained tool access |
 | `SKILL.md` | [Agent skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills) | Domain knowledge activated by semantic relevance |
 | MCP servers | [MCP spec](https://spec.modelcontextprotocol.io/) | Live external data and write operations via tools |
+
+---
+
+## Part 11: Latest Features & API Updates (2026)
+
+> **New features in GitHub Copilot customization as of March 2026.**
+> These are sourced from the official VS Code documentation at
+> [code.visualstudio.com/docs/copilot/customization](https://code.visualstudio.com/docs/copilot/customization).
+
+---
+
+### Always-On Instruction Files — `AGENTS.md` and `CLAUDE.md`
+
+VS Code now recognizes **three** always-on instruction files (not just `copilot-instructions.md`):
+
+| File | Purpose | Audience |
+|---|---|---|
+| `.github/copilot-instructions.md` | Copilot-specific project instructions | GitHub Copilot in VS Code |
+| `AGENTS.md` | Multi-agent compatible instructions (workspace root) | Any AI coding agent that supports the convention |
+| `CLAUDE.md` | Claude Code compatible instructions (workspace root) | Claude Code CLI + VS Code Claude extension |
+
+**All three stack** — if you have all three files, Copilot combines their instructions.
+Priority order: personal settings > repository files > organization files.
+
+**When to use `AGENTS.md`:** When your project is used with multiple AI agents (Copilot,
+Claude Code, Cursor, etc.) and you want a single instruction file all of them respect.
+
+**When to use `CLAUDE.md`:** When team members use both Copilot and Claude Code. Copilot
+recognizes `CLAUDE.md` and `.claude/rules` for cross-tool compatibility.
+
+**Cross-compatibility files Copilot also reads:**
+
+```text
+.claude/rules       ← Claude Code rules (Copilot reads these too)
+.claude/agents      ← Claude Code agent configs (Copilot reads these too)
+```
+
+---
+
+### Organization-Level Sharing
+
+Instructions and agents can now be **shared across all repos in a GitHub organization**:
+
+| Level | Location | Priority |
+|---|---|---|
+| Personal | User settings or `~/.vscode/` | **Highest** — overrides everything |
+| Repository | `.github/` in the repo | **Medium** — project-specific |
+| Organization | `.github` repo in the GitHub org | **Lowest** — org-wide defaults |
+
+**How it works:** Create a `.github` repository in your GitHub organization. Place
+`copilot-instructions.md`, `.instructions.md`, agents, and skills there. Every repo
+in the organization inherits them automatically — unless overridden at the repo level.
+
+**Use case:** Enforce org-wide coding standards, security rules, and approved agent
+personas across 100+ repositories without copying files into each one.
+
+---
+
+### Agent Handoffs
+
+Agents can now **hand off** to other agents mid-conversation using the `handoffs:` frontmatter:
+
+```yaml
+---
+description: Triages incoming requests and routes to specialists.
+tools: ['codebase', 'search']
+handoffs:
+  - agent: security-reviewer
+    label: Security Review
+    prompt: "Please review this code for security vulnerabilities"
+  - agent: debugger
+    label: Debug Issue
+    prompt: "Please investigate this issue"
+---
+You are a triage agent. Analyze the user's request and decide which
+specialist agent should handle it.
+```
+
+**Handoff fields:**
+
+| Field | Required | Purpose |
+|---|---|---|
+| `agent` | Yes | The agent file to hand off to (without `.agent.md` suffix) |
+| `label` | No | Button label shown to the user |
+| `prompt` | No | Initial prompt sent to the target agent |
+| `send` | No | What context to send (`history`, `selected-context`, `nothing`) |
+| `model` | No | Override the model for the handoff target |
+
+**Use case:** Create a "router" agent that triages requests to specialists:
+
+```text
+User → Triage Agent → Security Reviewer → (returns findings)
+                    → Debugger → (returns RCA)
+                    → Designer → (returns architecture review)
+```
+
+---
+
+### Subagents (Experimental)
+
+Custom agents can now invoke other agents as **subagents** — programmatic delegation:
+
+```yaml
+---
+description: Orchestrator agent that delegates subtasks.
+tools: ['codebase', 'search', 'runSubagent']
+---
+```
+
+**Difference from handoffs:** Handoffs transfer control to another agent (user stays
+with the new agent). Subagents run in the background and return results to the calling
+agent, which keeps control.
+
+---
+
+### New Frontmatter Fields
+
+#### `user-invocable` (Skills and Agents)
+
+Controls whether users can directly trigger the skill or agent:
+
+```yaml
+---
+name: internal-helper
+description: Internal tool used by other agents only
+user-invocable: false   # Won't appear in dropdowns or / commands
+---
+```
+
+Default: `true`. Set to `false` for skills/agents designed to be called only by
+other agents (via handoffs or subagents).
+
+#### `disable-model-invocation` (Skills and Agents)
+
+Prevents the AI model from automatically invoking this skill/agent:
+
+```yaml
+---
+name: dangerous-operation
+description: Performs destructive database operations
+disable-model-invocation: true   # Only humans can trigger this
+---
+```
+
+Default: `false`. Set to `true` for high-risk operations that should require explicit
+human invocation.
+
+#### `argument-hint` (Agents, Skills, and Prompts)
+
+Provides a hint for what the user should type after selecting the agent/skill/prompt:
+
+```yaml
+---
+name: debugger
+description: Expert debugger using hypothesis-driven analysis
+argument-hint: Describe the bug or paste the error message
+---
+```
+
+This hint text appears in the VS Code input field after the user selects the item.
+
+---
+
+### Skills as Slash Commands
+
+Skills now appear in the `/` slash command menu alongside prompts. When a user types
+`/my-skill`, it invokes the skill and sends its content as context for the current query.
+
+**Before (2025):** Skills only activated via semantic matching (invisible to users).
+**Now (2026):** Skills are also directly invocable via `/skill-name` in chat.
+
+This means skills have **two activation paths:**
+
+1. **Automatic** — Copilot loads the skill when the conversation matches the description
+2. **Manual** — User types `/skill-name` to explicitly load it
+
+---
+
+### Three-Level Skill Loading
+
+VS Code loads skills in three progressive levels:
+
+| Level | What Loads | When |
+|---|---|---|
+| **Discovery** | `name` + `description` (frontmatter only) | Always — used for semantic matching |
+| **Instructions** | Full SKILL.md body text | When Copilot decides the skill is relevant |
+| **Resource access** | Files referenced by `#file:` in the skill | When the skill needs specific file context |
+
+**Why this matters:** Only the frontmatter is loaded upfront. The full skill body is loaded
+on-demand when relevant. This keeps the context window small when skills aren't needed.
+
+---
+
+### Generation Commands
+
+New VS Code commands for AI-assisted creation of customization files:
+
+| Command | What It Creates | How to Use |
+|---|---|---|
+| `/init` | Generates `copilot-instructions.md` from workspace analysis | Type `/init` in chat — Copilot analyzes your project and writes initial instructions |
+| `/create-instruction` | Creates a new `.instructions.md` file | Type `/create-instruction` — Copilot asks you questions and generates the file |
+| `/create-agent` | Creates a new `.agent.md` file | Type `/create-agent` — Copilot interviews you about the persona |
+| `/create-skill` | Creates a new `SKILL.md` file | Type `/create-skill` — Copilot helps you structure domain knowledge |
+| `/create-prompt` | Creates a new `.prompt.md` file | Type `/create-prompt` — Copilot helps you define the workflow |
+
+**`/init` is particularly useful** for bootstrapping a new project — it reads your code,
+package files, and config to generate tailored instructions automatically.
+
+---
+
+### Chat Customizations Editor (Preview)
+
+A new VS Code command for managing all customizations in one place:
+
+```text
+Ctrl+Shift+P → "Chat: Open Chat Customizations"
+```
+
+This opens a dashboard showing:
+
+- All instruction files and their `applyTo` patterns
+- All prompt files and their descriptions
+- All agent files and their tool lists
+- All skills and their activation keywords
+
+**Use case:** Quickly audit your `.github/` setup without navigating the file tree.
+
+---
+
+### Settings Sync for Customizations
+
+Prompt files and instruction files now sync across devices via VS Code **Settings Sync**.
+This means your personal customizations follow you to any machine.
+
+**What syncs:**
+
+- `.github/prompts/*.prompt.md` files
+- `.github/instructions/*.instructions.md` files
+- VS Code settings related to customization paths
+
+**What does NOT sync:**
+
+- Agent files (`.agent.md`) — these are workspace-specific
+- Skills (`SKILL.md`) — these are workspace-specific
+- MCP server configs (`.vscode/mcp.json`) — contain local paths
+- Secrets and credentials — never synced
+
+---
+
+### Configurable File Locations
+
+VS Code now supports custom directories for customization files:
+
+| Setting | Default | What It Controls |
+|---|---|---|
+| `chat.instructionsFilesLocations` | `[".github/instructions"]` | Where VS Code looks for `.instructions.md` files |
+| `chat.promptFilesLocations` | `[".github/prompts"]` | Where VS Code looks for `.prompt.md` files |
+| `chat.agentFilesLocations` | `[".github/agents"]` | Where VS Code looks for `.agent.md` files |
+| `chat.agentSkillsLocations` | `[".github/skills"]` | Where VS Code looks for `SKILL.md` files |
+| `chat.useCustomizationsInParentRepositories` | `false` | Look for customizations in parent directories |
+
+**Use case for parent repository discovery:** In monorepos, place shared customizations
+in the repository root's `.github/` — child packages inherit them automatically.
+
+---
+
+### Agent Hooks (Preview)
+
+Agents can now define **hook commands** that run at specific points in the agent lifecycle:
+
+- **Pre-response hooks** — run before the agent generates a response
+- **Post-response hooks** — run after the agent generates a response
+
+Use case: Auto-run linters, formatters, or tests after an agent makes code changes.
+
+---
+
+### Agent Plugins (Extensions)
+
+VS Code extensions can contribute skills to agents via `chatSkills` in their `package.json`:
+
+```json
+{
+  "contributes": {
+    "chatSkills": [
+      {
+        "name": "my-extension-skill",
+        "description": "Provides context from my extension"
+      }
+    ]
+  }
+}
+```
+
+This allows extension authors to enrich Copilot with domain-specific knowledge without
+requiring users to create `SKILL.md` files manually.
+
+---
+
+### `.chatmode.md` → `.agent.md` Rename
+
+The previous `.chatmode.md` format has been **renamed** to `.agent.md`. VS Code still
+recognizes the old format for backward compatibility, but new files should use `.agent.md`.
+
+If you have existing `.chatmode.md` files:
+
+```powershell
+# Rename all .chatmode.md files to .agent.md
+Get-ChildItem -Recurse -Filter "*.chatmode.md" | ForEach-Object {
+    $newName = $_.FullName -replace '\.chatmode\.md$', '.agent.md'
+    Rename-Item $_.FullName $newName
+}
+```
+
+---
+
+### Instruction Priority Hierarchy
+
+When instructions come from multiple sources, VS Code applies them in this priority order:
+
+```text
+1. Personal (highest priority)
+   └── User settings, local machine overwrites
+
+2. Repository
+   └── .github/copilot-instructions.md
+   └── .github/instructions/*.instructions.md
+   └── AGENTS.md, CLAUDE.md, .claude/rules
+
+3. Organization (lowest priority)
+   └── .github repo in the GitHub org
+```
+
+**Higher-priority instructions override lower ones.** This means your personal overrides beat
+repository rules, and repository rules beat organization defaults.
+
+---
+
+### Agent Skills Open Standard
+
+Skills follow the **Agent Skills** open standard at
+[agentskills.io](https://agentskills.io/) — meaning skills you write for VS Code Copilot
+are portable to other tools that support the standard (Copilot CLI, coding agent, etc.).
+
+**Community repositories:**
+
+- [github.com/github/awesome-copilot](https://github.com/github/awesome-copilot) —
+  Curated collection of Copilot customizations and examples
+- [github.com/anthropics/skills](https://github.com/anthropics/skills) —
+  Anthropic's reference skills collection
+
+---
+
+### `description` Field Semantic Matching
+
+The `description` field in `.instructions.md` files is now used for **semantic matching**
+(not just `applyTo` glob matching). This means VS Code can activate instruction files based on
+the conversation context, even if the current file doesn't match the `applyTo` pattern.
+
+```yaml
+---
+applyTo: "**/*.java"
+description: >
+  Java best practices including SOLID principles, clean code, and modern
+  Java features like records, sealed classes, and pattern matching.
+---
+```
+
+Both `applyTo` (file glob) and `description` (semantic match) contribute to activation.
+
+---
+
+### Summary: What Changed Per Primitive
+
+| Primitive | New in 2026 |
+|---|---|
+| `copilot-instructions.md` | `AGENTS.md` + `CLAUDE.md` alternatives; org-level sharing; instruction priority hierarchy; `/init` generation; Settings Sync |
+| `.instructions.md` | `description` for semantic matching; configurable locations; Settings Sync |
+| `.prompt.md` | `argument-hint` field; `/create-prompt` generation; configurable locations; Settings Sync |
+| `.agent.md` | `handoffs:` for chaining; subagents; `user-invocable`; `disable-model-invocation`; `argument-hint`; agent hooks; `target: github-copilot`; `.chatmode.md` → `.agent.md` rename; org-level agents; `/create-agent` generation |
+| `SKILL.md` | Skills as slash commands; three-level loading; `user-invocable`; `disable-model-invocation`; `argument-hint`; agent plugins (extensions); Agent Skills open standard; `/create-skill` generation |
+| MCP servers | `mcp-servers` in agent frontmatter (for cloud agents); `servers` key (not `mcpServers`) in Open Preview |

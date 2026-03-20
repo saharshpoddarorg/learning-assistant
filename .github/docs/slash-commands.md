@@ -547,8 +547,10 @@ Use:      Swiss-army tool for all Copilot customization work:
 Example:  /copilot-customization → create-new → skill → devops → amateur
 Output:   A complete, paste-ready .github/skills/devops/SKILL.md file
 File:     .github/prompts/copilot-customization.prompt.md
-Docs:     .github/docs/copilot-customization-deep-dive.md (full reference)
+Docs:     .github/docs/copilot-customization-deep-dive.md (full reference, incl. latest 2026 features)
           .github/skills/copilot-customization/SKILL.md (domain knowledge)
+          .github/docs/export-guide.md (export to work/personal repos)
+          .github/docs/export-newbie-guide.md (newbie export walkthrough)
 Tips:     - Use 'all-types' or 'not-sure' as type when unsure which primitive to use
           - Use 'audit-repo' to get a full inventory of your current customizations
           - Use 'plan-composition' before building a complex stack of multiple types

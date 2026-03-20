@@ -185,6 +185,10 @@ When adding or modifying documentation, skills, or guide files in `.github/docs/
   one other file (either START-HERE, navigation-index, or a related doc's links)
 - [ ] **Official resources** — if a change references new external tools or standards, add
   the official documentation link to the relevant "Resources" or "Further Reading" section
+- [ ] **export-guide.md** — if a new config file, credential, or environment variable was added,
+  update the Config Files and API Keys Reference tables in export-guide.md
+- [ ] **export-newbie-guide.md** — if a new exportable feature was added, verify the newbie
+  export guide covers how to copy it and whether it's safe to skip
 
 ---
 
@@ -236,6 +240,8 @@ When adding or modifying documentation, skills, or guide files in `.github/docs/
 | `USAGE.md` | UPDATE — relevant section |
 | `README.md` (root) | UPDATE if project-level docs changed |
 | `copilot-instructions.md` | UPDATE — skills block, conventions |
+| `.github/docs/export-guide.md` | UPDATE — if new config files, env vars, or credentials added |
+| `.github/docs/export-newbie-guide.md` | UPDATE — if new exportable features added |
 
 ---
 
