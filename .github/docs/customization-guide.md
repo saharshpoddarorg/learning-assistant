@@ -492,8 +492,16 @@ These files are **never loaded by Copilot**. They exist as reference material fo
 | Resource | Link |
 |---|---|
 | **Newbie: 5-Minute Guide** | [copilot-customization-newbie.md](copilot-customization-newbie.md) |
-| **Complete Deep Dive (all 6 types)** | [copilot-customization-deep-dive.md](copilot-customization-deep-dive.md) |
+| **One-Page Cheatsheet** | [primitives-at-a-glance.md](primitives-at-a-glance.md) |
+| **Complete Deep Dive (18 parts)** | [copilot-customization-deep-dive.md](copilot-customization-deep-dive.md) |
 | **Latest Features (2026)** | [Deep Dive §Part 11](copilot-customization-deep-dive.md#part-11-latest-features--api-updates-2026) |
+| Side-by-side: same task, every primitive | [Deep Dive §Part 12](copilot-customization-deep-dive.md#part-12-side-by-side--same-task-every-primitive) |
+| Token economics and performance | [Deep Dive §Part 13](copilot-customization-deep-dive.md#part-13-token-economics--performance) |
+| Testing customizations | [Deep Dive §Part 14](copilot-customization-deep-dive.md#part-14-testing-your-customizations) |
+| Cross-repo portability | [Deep Dive §Part 15](copilot-customization-deep-dive.md#part-15-cross-repo-portability) |
+| Complete API surface reference | [Deep Dive §Part 16](copilot-customization-deep-dive.md#part-16-complete-api-surface-reference) |
+| Security considerations | [Deep Dive §Part 17](copilot-customization-deep-dive.md#part-17-security-considerations) |
+| Versioning and evolving | [Deep Dive §Part 18](copilot-customization-deep-dive.md#part-18-versioning--evolving-customizations) |
 | Why not just skills? (FAQ) | [Deep Dive §Part 9](copilot-customization-deep-dive.md#part-9-why-not-just-skills--the-faq) |
 | Migration between types | [Deep Dive §Part 7](copilot-customization-deep-dive.md#part-7-migration--interchange-guide) |
 | MCP vs Skills decision guide | [mcp-vs-skills.md](mcp-vs-skills.md) |

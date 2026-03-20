@@ -914,3 +914,206 @@ Features from the latest VS Code Copilot documentation (March 2026):
 - **Instruction priority** — Personal > Repository > Organization
 
 For full details, see [Part 11 of the Deep Dive](../docs/copilot-customization-deep-dive.md#part-11-latest-features--api-updates-2026).
+
+---
+
+## Token Economics — Performance Impact of Stacking
+
+Every customization consumes context window tokens. Budget awareness prevents bloat.
+
+### Token Budget by Primitive
+
+| Primitive | Typical Tokens | Injected When | Budget Rule |
+|---|---|---|---|
+| `copilot-instructions.md` | 200-800 | Every request | Keep under 500 — always-on tax |
+| `.instructions.md` | 100-300 each | File glob matches | Lean rules; scope narrowly |
+| `SKILL.md` | 200-2 000 | Semantic match | OK to be large — loads on-demand |
+| `.agent.md` | 100-400 | Session start | Moderate; session overhead |
+| `.prompt.md` | 50-200 | Per invocation | Lean templates; depth from skills |
+| MCP schemas | 50-200/server | Agent mode active | Concise tool descriptions |
+| MCP results | 100-2 000 | Per tool call | Return summaries, not raw dumps |
+
+### Optimization Quick Rules
+
+- **Move reference blocks** from instructions to skills (always-on → on-demand)
+- **Scope `applyTo`** narrowly — `**/*.java` not `**` unless it's a steering mode
+- **Tables > paragraphs** in skills — more information per token
+- **Thin prompts** that delegate depth to the matching skill
+- **Split large skills** (>500 lines) into focused sub-skills
+
+### Real-World Full-Stack Cost Estimate
+
+```text
+Component                            Tokens    Note
+─────────────────────────────────────────────────────
+Copilot system prompt                ~1 500    Built-in
+copilot-instructions.md              ~400      Your rules
+java.instructions.md                 ~200      Scoped rules
+clean-code.instructions.md           ~150      Scoped rules
+Designer agent persona               ~300      Session
+design-review prompt template        ~100      Invocation
+design-patterns SKILL.md             ~800      On-demand
+GitHub MCP schemas                   ~150      Agent mode
+─────────────────────────────────────────────────────
+Total overhead                       ~3 600    (~3% of 128K context)
+```
+
+Full guide: [Deep Dive Part 13 — Token Economics](../docs/copilot-customization-deep-dive.md#part-13-token-economics--performance)
+
+---
+
+## Testing Customizations
+
+### Quick-Test Checklist by Primitive
+
+| Primitive | How to Test | Pass Criteria |
+|---|---|---|
+| `.instructions.md` | Open matching file → ask Copilot to write code | Rule followed in output |
+| `.instructions.md` (negative) | Open NON-matching file → same question | Rule NOT applied |
+| `SKILL.md` | Ask topic-relevant question | Skill content in response |
+| `SKILL.md` (negative) | Ask unrelated question | Skill NOT in response |
+| `.agent.md` | Select agent → ask domain question | Persona evident in style |
+| `.agent.md` tools | Request action agent can't do | Agent refuses gracefully |
+| `.prompt.md` | Type `/command` | Response follows template |
+| MCP server | Request external data in agent mode | Real data returned |
+
+### Debugging Activation
+
+```text
+Skill not activating?   → Check description keywords match your question
+                        → Try /skill-name to manually invoke (2026)
+Instruction ignored?    → Check applyTo glob at globtester.com
+                        → Check priority: higher source overriding?
+Agent missing?          → Check .agent.md in .github/agents/
+                        → Check description: field exists (required)
+MCP tools missing?      → Must be in Agent mode (not Ask/Edit)
+                        → Check VS Code Output → MCP for errors
+```
+
+Full guide: [Deep Dive Part 14 — Testing](../docs/copilot-customization-deep-dive.md#part-14-testing-your-customizations)
+
+---
+
+## Cross-Repo Portability
+
+### What Ports Easily
+
+| Primitive | Portability | Notes |
+|---|---|---|
+| `SKILL.md` | ✅ High | Domain knowledge is inherently portable |
+| `.agent.md` | ✅ High | Personas are project-agnostic |
+| `.prompt.md` | ✅ High | `${input:}` variables handle project differences |
+| `.instructions.md` | ✅ High | Generic rules port well; globs usually work |
+| `copilot-instructions.md` | ⚠️ Medium | Project-specific references need updating |
+| MCP servers | ❌ Low | Require build setup, deps, credentials |
+
+### Cross-Tool Portability (Agent Skills Standard)
+
+| File Type | VS Code Copilot | Claude Code | Gemini CLI | Others |
+|---|---|---|---|---|
+| `SKILL.md` | ✅ | ✅ | ✅ | ✅ (agentskills.io) |
+| `AGENTS.md` | ✅ | ✅ | — | — |
+| `copilot-instructions.md` | ✅ | — | — | — |
+| `.instructions.md` | ✅ | — | — | — |
+| `CLAUDE.md` | ✅ (compat) | ✅ | — | — |
+
+**Maximum portability investment:** `SKILL.md` + `AGENTS.md` have the broadest tool support.
+
+### Organization-Level Architecture (Pro)
+
+```text
+.github org repo (inherited by all repos):
+  copilot-instructions.md    ← org-wide standards (lowest priority)
+  instructions/security.md   ← org-wide security rules
+  agents/auditor.agent.md    ← shared personas
+  skills/company/SKILL.md    ← company conventions
+
+Per-project repo:
+  .github/                   ← project overrides (medium priority)
+
+Developer machine:
+  VS Code personal settings  ← personal overrides (highest priority)
+```
+
+Full guide: [Deep Dive Part 15 — Cross-Repo Portability](../docs/copilot-customization-deep-dive.md#part-15-cross-repo-portability)
+
+---
+
+## Security Quick Reference
+
+### Agent Tool Restriction Tiers
+
+```text
+Read-Only Agent:   tools: [codebase, search, usages, problems]
+Implementation:    tools: [codebase, search, usages, editFiles]
+Full-Power Agent:  tools: [codebase, search, usages, editFiles, runCommands, fetch]
+```
+
+**Never omit `tools:`** — the default is ALL tools (including `runCommands`).
+
+### MCP Security Rules
+
+- Use `${input:}` with `password: true` for all secrets
+- Add `.vscode/mcp.json` to `.gitignore` if it contains local credentials
+- Validate all MCP tool inputs — they come from the LLM, not the user
+- Return minimal data from tools — don't dump entire DB tables
+
+### `.github/` Code Review Checklist
+
+```text
+☐ No always-on instructions that override security rules
+☐ Agent tool lists are appropriately restricted
+☐ Skill descriptions don't contain prompt injection content
+☐ MCP configuration doesn't expose credentials
+☐ No instructions that disable safety features
+```
+
+Full guide: [Deep Dive Part 17 — Security](../docs/copilot-customization-deep-dive.md#part-17-security-considerations)
+
+---
+
+## Side-by-Side Examples
+
+> **Same task, each primitive — see why the right choice matters.**
+
+### "Enforce `final` on Java local variables"
+
+| Primitive | Verdict | Why |
+|---|---|---|
+| **`.instructions.md`** | **✅ Best** | Scoped to Java files, automatic, zero overhead elsewhere |
+| `copilot-instructions.md` | ⚠️ Works but wasteful | Injected everywhere, even non-Java |
+| `SKILL.md` | ❌ Wrong | Activation unreliable for behavioral enforcement |
+| `.prompt.md` | ❌ Wrong | Requires manual trigger; rules should be automatic |
+| `.agent.md` | ❌ Overkill | Persona for a single rule? |
+| MCP | ❌ Absurd | Building a server to say "use final"? |
+
+### "Explain microservice architecture to new devs"
+
+| Primitive | Verdict | Why |
+|---|---|---|
+| **`SKILL.md`** | **✅ Best** | Loads on-demand, semantic activation, large reference |
+| `copilot-instructions.md` | ❌ Token waste | 200 lines on every request |
+| `.instructions.md` | ❌ Wrong type | Knowledge, not rules |
+| `.prompt.md` | ⚠️ If guided walkthrough | `/architecture` could work as structured tour |
+
+### "Run structured security audit on a class"
+
+| Primitive | Verdict | Why |
+|---|---|---|
+| **`.prompt.md` + `.agent.md`** | **✅ Best** | Workflow structure + expert persona |
+| `SKILL.md` | ⚠️ Complementary | OWASP reference alongside the audit workflow |
+
+### "Let Copilot create PRs and read Jira tickets"
+
+| Primitive | Verdict | Why |
+|---|---|---|
+| **MCP Server** | **✅ Only option** | No `.md` file can make API calls |
+
+Full examples with code: [Deep Dive Part 12 — Side-by-Side](../docs/copilot-customization-deep-dive.md#part-12-side-by-side--same-task-every-primitive)
+
+---
+
+## Primitives Cheatsheet
+
+For a printable one-page rapid reference, see the
+[Primitives At-a-Glance Cheatsheet](../docs/primitives-at-a-glance.md).

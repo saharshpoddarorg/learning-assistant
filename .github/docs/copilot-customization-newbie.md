@@ -173,15 +173,21 @@ Be specific — cite line numbers.
 
 | I want to... | Read this |
 |---|---|
+| See the one-page cheatsheet | [Primitives At-a-Glance](primitives-at-a-glance.md) |
 | Understand each type in depth | [Copilot Customization Deep Dive](copilot-customization-deep-dive.md) |
+| See the same task done with each primitive | [Deep Dive §Side-by-Side Examples](copilot-customization-deep-dive.md#part-12-side-by-side--same-task-every-primitive) |
 | See what's new in 2026 (AGENTS.md, handoffs, etc.) | [Deep Dive §Latest Features](copilot-customization-deep-dive.md#part-11-latest-features--api-updates-2026) |
 | Try every type hands-on (30 min) | [Getting Started Tutorial](getting-started.md) |
 | Copy this to my work/personal project | [Newbie Export Guide](export-newbie-guide.md) |
 | See how types work together | [Customization Guide — Architecture](customization-guide.md) |
 | Decide: MCP server or skill? | [MCP vs Skills Guide](mcp-vs-skills.md) |
+| Understand token costs of stacking | [Deep Dive §Token Economics](copilot-customization-deep-dive.md#part-13-token-economics--performance) |
+| Test that my customizations work | [Deep Dive §Testing](copilot-customization-deep-dive.md#part-14-testing-your-customizations) |
+| Port customizations to another repo | [Deep Dive §Cross-Repo Portability](copilot-customization-deep-dive.md#part-15-cross-repo-portability) |
 | Migrate content between types | [Deep Dive §Migration Guide](copilot-customization-deep-dive.md#part-7-migration--interchange-guide) |
+| Secure my customization setup | [Deep Dive §Security](copilot-customization-deep-dive.md#part-17-security-considerations) |
 | See official Microsoft docs | [Deep Dive §Official Resources](copilot-customization-deep-dive.md#part-10-official-resources--standards) |
 
 ---
 
-**Navigation:** [← START-HERE](START-HERE.md) · [Deep Dive →](copilot-customization-deep-dive.md) · [Getting Started →](getting-started.md) · [Export Guide →](export-newbie-guide.md)
+**Navigation:** [← START-HERE](START-HERE.md) · [Cheatsheet →](primitives-at-a-glance.md) · [Deep Dive →](copilot-customization-deep-dive.md) · [Getting Started →](getting-started.md) · [Export Guide →](export-newbie-guide.md)

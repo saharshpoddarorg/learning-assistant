@@ -531,7 +531,7 @@ Tip:      Use 'analyse' first before committing to migration — some tools MUST
 
 ```yaml
 Inputs:   goal    (create-new / review-existing / compare-types / plan-composition /
-                   explain-concept / audit-repo)
+                   explain-concept / audit-repo / token-audit / test-activation / port-to-repo)
           type    (copilot-instructions / instructions / prompt / agent / skill / mcp /
                    all-types / not-sure)
           domain  (java, security, devops, mcp, git, or any custom topic)
@@ -539,22 +539,29 @@ Inputs:   goal    (create-new / review-existing / compare-types / plan-compositi
 Agent:    Copilot
 Tools:    codebase, editFiles, search
 Use:      Swiss-army tool for all Copilot customization work:
-            - compare-types   → Show the 6-primitive comparison table + decision matrix
-            - create-new      → Scaffold a complete, ready-to-use file of any type
-            - review-existing → Audit an existing customization file for common issues
+            - compare-types    → Show the 6-primitive comparison table + decision matrix
+            - create-new       → Scaffold a complete, ready-to-use file of any type
+            - review-existing  → Audit an existing customization file for common issues
             - plan-composition → Recommend which types to combine for a use case
-            - explain-concept → Teach the 6 primitives at newbie/amateur/pro depth
-            - audit-repo      → Scan .github/ and produce a prioritized action plan
+            - explain-concept  → Teach the 6 primitives at newbie/amateur/pro depth
+            - audit-repo       → Scan .github/ and produce a prioritized action plan
+            - token-audit      → Estimate token cost of your current customization stack
+            - test-activation  → Generate test scripts to verify customizations activate correctly
+            - port-to-repo     → Plan how to copy customizations to a different repository
 Example:  /copilot-customization → create-new → skill → devops → amateur
 Output:   A complete, paste-ready .github/skills/devops/SKILL.md file
 File:     .github/prompts/copilot-customization.prompt.md
-Docs:     .github/docs/copilot-customization-deep-dive.md (full reference, incl. latest 2026 features)
+Docs:     .github/docs/copilot-customization-deep-dive.md (full 18-part reference, incl. latest 2026 features)
+          .github/docs/primitives-at-a-glance.md (one-page cheatsheet)
           .github/skills/copilot-customization/SKILL.md (domain knowledge)
           .github/docs/export-guide.md (export to work/personal repos)
           .github/docs/export-newbie-guide.md (newbie export walkthrough)
 Tips:     - Use 'all-types' or 'not-sure' as type when unsure which primitive to use
           - Use 'audit-repo' to get a full inventory of your current customizations
           - Use 'plan-composition' before building a complex stack of multiple types
+          - Use 'token-audit' to check context window overhead of your stack
+          - Use 'test-activation' to verify skills, instructions, and agents work properly
+          - Use 'port-to-repo' to copy your setup to work or personal repos
 ```
 
 ---
