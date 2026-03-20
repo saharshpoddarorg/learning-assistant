@@ -150,6 +150,29 @@ source: copilot
 | `complexity` | Yes | `high`, `medium` | Complexity signal |
 | `outcomes` | No | List of strings | Key outcomes from the session |
 | `source` | Yes | `copilot` | Always copilot for captures |
+| `scope` | Yes | `global`, `project`, `feature` | Applicability level |
+| `scope-project` | Conditional | `null` or kebab-case | Required when scope is `project` or `feature` |
+| `scope-feature` | Conditional | `null` or kebab-case | Required when scope is `feature` |
+| `scope-transitions` | Yes | List (can be empty) | Scope changes during the session |
+| `scope-refs` | Yes | List (can be empty) | Cross-references to related sessions |
+
+---
+
+## Session Scoping
+
+Sessions operate at one of three scope levels:
+
+| Level | Meaning | Example |
+|---|---|---|
+| `global` | General knowledge — not tied to any project | "How does OAuth 2.0 work?" |
+| `project` | Tied to a specific project | "ABSDevelopment tech stack options" |
+| `feature` | Tied to a feature within a project | "ABSDevelopment login-page auth" |
+
+Scope can change mid-session. Use `/session-scope` to widen (feature → project → global),
+narrow (global → project → feature), switch contexts, or split scope segments into
+separate session files with bidirectional cross-references.
+
+Full scoping protocol: `.github/instructions/session-scoping.instructions.md`
 
 ---
 

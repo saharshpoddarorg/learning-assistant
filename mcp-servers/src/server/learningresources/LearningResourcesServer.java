@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  *
  * <p><strong>Capabilities:</strong>
  * <ul>
- *   <li>Search a curated vault of 48+ famous learning resources</li>
+ *   <li>Search a curated vault of 95+ famous learning resources</li>
  *   <li>Smart discovery with intent classification (specific, vague, exploratory)</li>
  *   <li>Browse resources by category (Java, Python, web, DevOps, etc.)</li>
  *   <li>Scrape and summarize any URL — tutorials, docs, articles</li>

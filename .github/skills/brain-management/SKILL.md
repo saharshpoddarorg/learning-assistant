@@ -375,6 +375,31 @@ work/code-analysis/order-service/
   2026-03-21_..._validate-order.md
 ```
 
+### Session Scoping
+
+Sessions can operate at three scope levels — `global`, `project`, or `feature` — and
+scope can change mid-session. This enables fluid transitions between project-specific
+requirements gathering and general-purpose learning.
+
+| Level | Meaning | Example |
+|---|---|---|
+| `global` | Not tied to any project | "How does OAuth 2.0 work?" |
+| `project` | Tied to a specific project | "ABSDevelopment tech stack options" |
+| `feature` | Tied to a feature within a project | "ABSDevelopment login-page auth flow" |
+
+**Scope operations:**
+
+- **Widen** — feature → project → global (content becomes more reusable)
+- **Narrow** — global → project → feature (content becomes more specific)
+- **Switch** — jump to a different project/feature context entirely
+- **Split** — fork a scope segment into its own session file with cross-references
+
+**Frontmatter fields:** `scope`, `scope-project`, `scope-feature`, `scope-transitions`, `scope-refs`
+
+**Command:** `/session-scope` (status / widen / narrow / switch / split / link / history)
+
+Full protocol: `.github/instructions/session-scoping.instructions.md`
+
 ### Anti-Patterns
 
 | Anti-pattern | Problem | Fix |

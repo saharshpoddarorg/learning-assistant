@@ -7,6 +7,12 @@ description: 'Clean code practices, code smells to avoid, and quality heuristics
 
 # Clean Code Practices
 
+> **Authority:** Grounded in Robert C. Martin's *Clean Code*, Martin Fowler's
+> *Refactoring*, and the SOLID principles (Robert C. Martin). When a specific
+> practice is debatable, prefer the approach endorsed by the broader Java community
+> and established style guides. Cite the principle or source when explaining
+> recommendations.
+
 ## Method Quality
 - Methods do ONE thing — if you need the word "and" to describe it, it does too much
 - Max 30 lines per method — extract helpers when longer

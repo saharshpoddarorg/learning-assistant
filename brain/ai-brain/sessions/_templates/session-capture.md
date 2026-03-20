@@ -13,6 +13,11 @@ parent: null
 complexity: high | medium
 outcomes: []
 source: copilot
+scope: global | project | feature
+scope-project: null
+scope-feature: null
+scope-transitions: []
+scope-refs: []
 ---
 
 # Session Title — Human-Readable Description

@@ -264,7 +264,8 @@ You are the **navigation hub** for all available assistants and learning command
 │        ├── /brain-new ·············· Create a structured note in inbox/ or notes/
 │        ├── /brain-publish ·········· Archive an imported source to library/ + git commit
 │        ├── /brain-search ··········· Search across inbox, notes, library by tag/kind/date
-│        └── /brain-capture-session ·· Convert current AI session into a session note
+│        ├── /brain-capture-session ·· Convert current AI session into a session note
+│        └── /session-scope ·········· Manage session scope (widen/narrow/switch/split/link)
 │
 │    └── /daily-assist ·············· Non-SE daily productivity
 │        ├── finance ················ Budget tracking, investment basics, expense analysis
@@ -380,6 +381,7 @@ Quick Commands:
     /brain-publish           → Archive imported source to library/ + git commit
     /brain-search            → Search by tag, project, kind, date
     /brain-capture-session   → Convert current AI session into a structured note
+    /session-scope           → Manage session scope (widen/narrow/switch/split/link)
     /check-standards         → Audit any file/folder against best practices (brain-naming, frontmatter, java-code, etc.)
 
   Copilot Customization (Preview — March 2026):

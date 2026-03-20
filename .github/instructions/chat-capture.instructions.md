@@ -350,6 +350,16 @@ source: copilot
 | `complexity` | Yes | `high` or `medium` | Complexity signal |
 | `outcomes` | No | List of key outcomes | What was learned/decided/produced |
 | `source` | Yes | `copilot` | Always copilot for captured sessions |
+| `scope` | Yes | `global`, `project`, `feature` | Applicability level — see session-scoping instructions |
+| `scope-project` | Conditional | `null` or kebab-case | Required when scope is `project` or `feature` |
+| `scope-feature` | Conditional | `null` or kebab-case | Required when scope is `feature` |
+| `scope-transitions` | Yes | List (can be empty) | Log of scope changes during the session |
+| `scope-refs` | Yes | List (can be empty) | Cross-references to sessions at different scopes |
+
+> **Session Scoping:** Sessions can operate at global, project, or feature scope.
+> Scope can change mid-session (widen, narrow, switch, or fork). See
+> `.github/instructions/session-scoping.instructions.md` for the full scoping protocol,
+> including transition logging, cross-reference relationships, and the `/session-scope` command.
 
 ---
 

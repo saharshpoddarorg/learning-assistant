@@ -55,6 +55,11 @@ bin/
 # But mcp-servers/.vscode IS committed (portable config for copying to other projects)
 !mcp-servers/.vscode/
 
+# .code-workspace files — ignored because this is a single-root project.
+# Opening the folder directly gives the identical experience.
+# If the project becomes multi-root or gains shared workspace settings, un-ignore this.
+*.code-workspace
+
 # =============================================================================
 # Java Build Artifacts
 # =============================================================================

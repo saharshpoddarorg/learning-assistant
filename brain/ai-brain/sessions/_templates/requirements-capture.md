@@ -13,6 +13,11 @@ parent: null
 complexity: high
 outcomes: []
 source: copilot
+scope: feature
+scope-project: project-name
+scope-feature: feature-slug
+scope-transitions: []
+scope-refs: []
 ---
 
 # Requirements — Project Name: Feature / Epic Title
