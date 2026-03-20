@@ -38,7 +38,7 @@ learning-assistant/
 ├── .github/              ← Copilot customization files (you're learning this!)
 ├── brain/                ← Brain Java module
 │   ├── src/              ← Java entry point + digitalnotetaking package
-│   └── ai-brain/         ← Personal knowledge workspace (inbox, notes, archive)
+│   └── ai-brain/         ← Personal knowledge workspace (inbox, notes, library, sessions)
 ├── mac-os/               ← macOS dev environment learning module
 │   └── docs/             ← Homebrew, JDK, npm, IDEs, Docker, dotfiles guides
 ├── mcp-servers/          ← MCP servers (Java)
@@ -60,7 +60,7 @@ path separators, tool names) or ask if unclear.
 | **Linux** | `java-build` | Bash commands, apt/dnf, SDKMAN! for JDK |
 | **Any** | `digital-notetaking` | Cross-platform: Notion, Obsidian, Logseq |
 | **Any** | `java-build` | JDK version management via SDKMAN! / Temurin |
-| **Any** | `brain-management` | brain/ai-brain/ naming, tier routing, frontmatter, PKM |
+| **Any** | `brain-management` | brain/ai-brain/ naming, tier routing (inbox/notes/library/sessions), frontmatter, PKM |
 | **Any** | `deep-research` | Investigation, spike stories, RCA, trade-off analysis, feasibility studies |
 | **Any** | `requirements-research` | User stories, acceptance criteria, BDD, requirements gathering and analysis |
 | **Any** | `software-development-roles` | PO, Developer, QA/Tester role guidance and workflows |

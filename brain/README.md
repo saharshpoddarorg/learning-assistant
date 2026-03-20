@@ -10,10 +10,11 @@
 
 ```text
 brain/
-├── ai-brain/             ← Live knowledge workspace (notes, inbox, library)
+├── ai-brain/             ← Live knowledge workspace (notes, inbox, library, sessions)
 │   ├── inbox/            ← Quick capture — gitignored, cleared per session
 │   ├── notes/            ← Curated notes — git-tracked, committed to repo
 │   ├── library/          ← Formal reference library — git-tracked, project-organized
+│   ├── sessions/         ← Captured AI chat sessions — git-tracked, domain/category organized
 │   └── scripts/          ← brain.ps1 / brain.sh CLI tools
 ├── digitalnotetaking/    ← Guides & knowledge hub
 │   ├── README.md
@@ -72,19 +73,22 @@ Or use Copilot Chat: `/brain-publish`
 
 | Tier | Folder | Git-tracked? | Purpose |
 |---|---|---|---|
-| **Inbox**   | `ai-brain/inbox/`   | ❌ | Raw capture — fast, temporary, gitignored |
-| **Notes**   | `ai-brain/notes/`   | ✅ | **Your writing** — distilled insights, session logs, decisions you authored |
-| **Library** | `ai-brain/library/` | ✅ | **Imported sources** — external docs, slide decks, reference material you preserved |
+| **Inbox**    | `ai-brain/inbox/`    | ❌ | Raw capture — fast, temporary, gitignored |
+| **Notes**    | `ai-brain/notes/`    | ✅ | **Your writing** — distilled insights, session logs, decisions you authored |
+| **Library**  | `ai-brain/library/`  | ✅ | **Imported sources** — external docs, slide decks, reference material you preserved |
+| **Sessions** | `ai-brain/sessions/` | ✅ | **Captured AI conversations** — research, analysis, learning sessions worth preserving |
 
 The typical lifecycle:
 
 ```text
-inbox/  →  brain-new (your writing)  →  notes/
-inbox/  →  brain publish (external source)  →  library/<project>/<YYYY-MM>/
+inbox/  →  brain-new (your writing)   →  notes/
+inbox/  →  brain publish (external)    →  library/<project>/<YYYY-MM>/
+(auto)  →  AI chat capture             →  sessions/<domain>/<category>/
 ```
 
-**One routing question:** "Did you write this yourself?"
-- Yes → `notes/` | No (imported) → `library/`
+**Routing questions:**
+- Did you write this yourself? → Yes → `notes/` | No (imported) → `library/`
+- Was it a valuable AI conversation? → Yes → `sessions/`
 
 ---
 

@@ -2,43 +2,37 @@
 name: brain-management
 description: >
   Brain workspace management for brain/ai-brain/ — naming conventions, file organisation,
-  frontmatter schema, tier routing (inbox/notes/library), timestamping best practices,
+  frontmatter schema, tier routing (inbox/notes/library/sessions), timestamping best practices,
   PKM (personal knowledge management) industry standards, and structural decisions.
   Use when asked about: where to put a note, how to name a file, what frontmatter to add,
-  when to use notes/ vs library/, how to structure the brain workspace, whether to create
+  when to use notes/ vs library/ vs sessions/, how to structure the brain workspace, whether to create
   a new tier/folder, brain naming conventions, prefix/suffix usage, how to timestamp notes,
-  or any brain/ai-brain/ management question.
+  chat session capture, or any brain/ai-brain/ management question.
 ---
 
 # Brain Management Skill
 
 ---
 
-## Structure Decision — Why 3 Tiers (Not 4)
+## Structure Decision — Why 4 Tiers
 
-The brain/ai-brain/ workspace uses exactly **3 tiers**. Do NOT create `reference/`, `archive/`,
-`sources/`, or any additional tier. Here's why each common request is already covered:
+The brain/ai-brain/ workspace uses exactly **4 tiers**. The original 3 tiers (inbox/notes/library)
+were extended with a `sessions/` tier for capturing valuable AI chat conversations that don't fit
+into the other tiers.
 
-| You might want... | It already lives in... | Reason |
+| Tier | Purpose | Git |
 |---|---|---|
-| A folder for "original sources" | `library/` | library/ IS the sources/reference tier |
-| A "reference/" folder | `library/` | Different name; same concept |
-| An "archive/" for old notes | `notes/` (with date prefix) | Date prefix handles chronology; git preserves history |
-| Completed project notes | `notes/` | Keep them; the date tells you when |
-| Downloaded reference docs | `library/` | That's exactly what library/ is for |
+| `inbox/` | Raw capture — gitignored, cleared each session | ❌ |
+| `notes/` | Your authored writing — insights, decisions, how-tos | ✅ |
+| `library/` | Imported external sources — docs, decks, references | ✅ |
+| `sessions/` | Captured AI conversations — research, analysis, learning | ✅ |
 
-**Decision:** Keep 3 tiers. Distinguish content by frontmatter `kind`, not by folder structure.
+**Extended routing questions:**
 
-```text
-inbox/    TEMP     gitignored — raw capture, cleared each session
-notes/    YOURS    you authored it (insights, sessions, decisions, how-tos)
-library/  SOURCES  you imported it (external docs, slide decks, reference material)
-```
-
-**The one routing question:** _"Did you write it yourself?"_
-- **Yes** → `notes/`
-- **No, it's imported** → `library/`
-- **Not sure yet** → `inbox/`
+- _"Did you write it yourself?"_ → **Yes** → `notes/`
+- _"Did you import it from an external source?"_ → **Yes** → `library/`
+- _"Was it a valuable AI conversation?"_ → **Yes** → `sessions/`
+- _"Not sure yet?"_ → `inbox/`
 
 ---
 
@@ -248,6 +242,139 @@ brain: reorganise library/<project>/<YYYY-MM>/   ← structural change
 
 **Rules:** lowercase-hyphens. Never vary capitalisation or spelling (`mcp-servers` ≠ `MCP-Servers`).
 
+---
+
+## Sessions — Captured AI Chat Conversations
+
+The `sessions/` tier captures valuable AI chat sessions that produce substantive content —
+research, code analysis, complex debugging, learning deep-dives, architecture discussions.
+
+### Session Hierarchy
+
+```text
+sessions/
+  SESSION-LOG.md                      ← append-only index
+  work/                               ← corporate / job-specific
+    code-analysis/
+    debugging/
+    requirements/
+    performance/
+    feature-exploration/
+    documentation/
+    research/
+    general/
+  personal/                           ← personal projects & learning
+    learning/
+    project-dev/
+    financial/
+    research/
+    general/
+  _templates/
+    session-capture.md
+```
+
+### Session Naming Convention
+
+```text
+YYYY-MM-DD_HH-MMtt_<category>_<subject>[_v<N>].md
+```
+
+| Segment | Format | Example |
+|---|---|---|
+| Date | `YYYY-MM-DD` | `2026-03-20` |
+| Time | `HH-MMtt` (12-hour, lowercase am/pm) | `10-30am`, `04-12pm` |
+| Category | kebab-case, matches folder name | `code-analysis` |
+| Subject | kebab-case, 3-8 words | `order-service-calculate-total` |
+| Version | `_v<N>` (v2+ only) | `_v2`, `_v3` |
+
+### Session Frontmatter
+
+```yaml
+---
+date: 2026-03-20
+time: "10:30 AM"
+kind: session-capture
+domain: work
+category: code-analysis
+project: learning-assistant
+subject: order-service-calculate-total
+tags: [java, refactoring, clean-code]
+status: draft
+version: 1
+parent: null
+complexity: high
+outcomes:
+  - identified code smells
+  - proposed refactoring
+source: copilot
+---
+```
+
+### Auto-Capture Policy
+
+Sessions are captured automatically when the conversation involves:
+
+- Research, analysis, or technology evaluation
+- Complex debugging with multi-step investigation
+- Code analysis with architectural depth
+- Requirements gathering or feature scoping
+- Learning deep-dives or concept explanations
+- Performance analysis or optimization strategies
+- Documentation or design discussions
+
+**Not captured:** simple refactoring, one-line fixes, quick questions, build commands,
+routine tasks without analytical depth.
+
+Full policy: `.github/instructions/chat-capture.instructions.md`
+
+### Requirements Sessions (Personal Software Dev)
+
+Requirements gathering for personal projects uses a specialised template
+(`_templates/requirements-capture.md`) with structured sections:
+
+- **Project Overview** — name, domain, target user, stage
+- **Problem Statement** — user-perspective problem description
+- **User Stories** — As/I want/So that with Gherkin acceptance criteria
+- **NFRs** — measurable targets: performance, reliability, usability, security
+- **Scope Definition** — explicit in/out MoSCoW classification
+- **Dependencies & Constraints** — blockers and technical limits
+- **Open Questions** — unresolved items
+
+**When `requirements` vs `project-dev`:**
+
+- Requirements = WHAT to build (stories, scope, criteria, NFRs)
+- Project-dev = HOW to build it (design, implementation, architecture)
+
+**Naming examples:**
+
+```text
+sessions/personal/requirements/
+  2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
+  2026-03-22_10-00am_requirements_task-manager-mvp-scope_v2.md
+  2026-03-25_09-00am_requirements_expense-tracker-budget-rules.md
+```
+
+**Requirements evolve** — use `_v2`, `_v3` suffixes with `parent:` linking.
+
+### Session Versioning
+
+| Scenario | Action |
+|---|---|
+| First session on subject | v1 (no suffix) |
+| Continuing from v1 | `_v2` suffix, `parent:` → v1 file |
+| Same area, different aspect | New file |
+| Same topic, weeks later | New file |
+
+### Sub-Package Escalation
+
+When 5+ files exist for the same subject, group into a sub-directory:
+
+```text
+work/code-analysis/order-service/
+  2026-03-20_10-30am_calculate-total.md
+  2026-03-21_..._validate-order.md
+```
+
 ### Anti-Patterns
 
 | Anti-pattern | Problem | Fix |
@@ -258,9 +385,12 @@ brain: reorganise library/<project>/<YYYY-MM>/   ← structural change
 | Over-tagging (8+ tags) | Tags lose discriminating power | Max 7 tags |
 | No frontmatter | Not searchable or filterable | Always add frontmatter block |
 | One giant note per session | Hard to link; hard to find | Split into atomic notes |
-| Creating archive/ as a 4th tier | Adds complexity with no value | Date prefix + git history handle this |
+| Creating archive/ as a 5th tier | Adds complexity with no value | Date prefix + git history handle archival |
 | Naming by topic only, no date | Topic collisions over time | Always date-prefix unless truly timeless |
 | Inconsistent project names | library/ search breaks | Pick one spelling; enforce it |
+| Capturing trivial sessions | sessions/ fills with noise | Only capture complex, analytical exchanges |
+| No session versioning | Continuation sessions are disconnected | Use `_v<N>` suffix and `parent:` field |
+| Sessions without outcomes | Hard to assess value later | Always list key outcomes in frontmatter |
 
 ---
 

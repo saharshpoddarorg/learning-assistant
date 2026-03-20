@@ -9,10 +9,11 @@ development and learning sessions — with Copilot, MCP servers, or manually.
 
 ```text
 ai-brain/
-  inbox/     TEMP      raw capture — drop anything here, clear when done   [gitignored]
-  notes/     YOURS     your own writing — insights, sessions, decisions     [tracked]
-  library/   SOURCES   imported source materials you want to preserve       [tracked]
-  scripts/   TOOLS     one dispatcher + module + aliases + VS Code tasks
+  inbox/     TEMP       raw capture — drop anything here, clear when done   [gitignored]
+  notes/     YOURS      your own writing — insights, sessions, decisions     [tracked]
+  library/   SOURCES    imported source materials you want to preserve       [tracked]
+  sessions/  CAPTURED   AI conversation captures — research, analysis, etc.  [tracked]
+  scripts/   TOOLS      one dispatcher + module + aliases + VS Code tasks
 ```
 
 ### The one question that routes everything
@@ -22,6 +23,7 @@ ai-brain/
 > - **Inbox** — not ready yet (raw paste, draft, anything goes — gitignored, cleared per session)
 > - **Notes** — yes, I wrote it (your distilled insights, your session logs, your decisions, your how-tos)
 > - **Library** — no, I imported it (external slide decks, presenter guides, external reference docs, AI session outputs you received)
+> - **Sessions** — it was a valuable AI conversation (research, analysis, code review, learning deep-dives worth preserving)
 
 ### Examples
 
@@ -34,6 +36,9 @@ ai-brain/
 | Architecture decision you made | notes | Your decision, your reasoning |
 | External reference guide you imported | library | Not your writing |
 | Your own cheatsheet for a tool | notes | You authored it |
+| Deep code analysis conversation | sessions | AI conversation with analytical depth |
+| Research session on a technology | sessions | AI-assisted exploration worth referencing |
+| Complex debugging investigation | sessions | Multi-step AI-assisted debugging |
 
 ---
 
@@ -102,6 +107,48 @@ library/
 ```
 
 When you run `brain publish`, it asks which project bucket to use (default: `general`).
+
+---
+
+## sessions/ Hierarchy
+
+Session captures are organised by **domain** (work / personal) and **category**:
+
+```text
+sessions/
+  README.md
+  SESSION-LOG.md              ← append-only index of all captures
+  work/
+    code-analysis/
+    debugging/
+    requirements/
+    performance/
+    feature-exploration/
+    documentation/
+    research/
+    general/
+  personal/
+    learning/
+    project-dev/
+    financial/
+    research/
+    general/
+  _templates/
+    session-capture.md
+```
+
+Sessions are **auto-captured** by Copilot when conversations involve research, analysis,
+complex debugging, learning deep-dives, or other substantive exchanges. Simple refactoring
+and routine tasks are not captured. See `.github/instructions/chat-capture.instructions.md`
+for the full capture policy.
+
+### Session naming
+
+```text
+YYYY-MM-DD_HH-MMtt_<category>_<subject>[_v<N>].md
+```
+
+Example: `2026-03-20_10-30am_code-analysis_order-service-calculate-total.md`
 
 ---
 
