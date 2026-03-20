@@ -18,6 +18,7 @@ package server.learningresources.model;
  *   <tr><td>SECURITY</td><td>WEB_SECURITY, CRYPTOGRAPHY</td></tr>
  *   <tr><td>AI_DATA</td><td>MACHINE_LEARNING, LLM_AND_PROMPTING</td></tr>
  *   <tr><td>CAREER_META</td><td>INTERVIEW_PREP, CAREER_DEVELOPMENT, GETTING_STARTED, KNOWLEDGE_MANAGEMENT</td></tr>
+ *   <tr><td>PERSONAL_DEVELOPMENT</td><td>SELF_IMPROVEMENT, COMMUNICATION_SKILLS, FINANCIAL_LITERACY, PRODUCTIVITY_HABITS</td></tr>
  * </table>
  *
  * @see ConceptArea#getDomain()
@@ -46,7 +47,10 @@ public enum ConceptDomain {
     AI_DATA("AI & Data"),
 
     /** Interview prep, career development, getting started. */
-    CAREER_META("Career & Meta");
+    CAREER_META("Career & Meta"),
+
+    /** Self-improvement, communication, financial literacy, productivity habits. */
+    PERSONAL_DEVELOPMENT("Personal Development");
 
     private final String displayName;
 

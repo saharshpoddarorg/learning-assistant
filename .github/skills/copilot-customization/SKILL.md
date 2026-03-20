@@ -843,6 +843,27 @@ Full explanation with examples: `.github/docs/copilot-customization-deep-dive.md
 | [Hannibal046/Awesome-LLM](https://github.com/Hannibal046/Awesome-LLM) | 20k+ | Curated list of LLM papers, tools, frameworks, and resources |
 | [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) | 45k+ | Build a Large Language Model from scratch — step-by-step code and explanations |
 
+### CS Education & Self-Taught Paths
+
+| Repository | Stars | Description |
+|---|---|---|
+| [ossu/computer-science](https://github.com/ossu/computer-science) | 180k+ | Free self-taught CS education — structured like a 4-year degree. Intro, core, advanced, and capstone |
+| [jwasham/coding-interview-university](https://github.com/jwasham/coding-interview-university) | 312k+ | Complete CS study plan to become a software engineer at top companies. Multi-month structured path |
+| [charlax/professional-programming](https://github.com/charlax/professional-programming) | 47k+ | Full-stack resources for programmers — must-read books, articles, and 60+ topics from algorithms to writing |
+| [mtdvio/every-programmer-should-know](https://github.com/mtdvio/every-programmer-should-know) | 86k+ | Technical things every developer should know — algorithms, security, architecture, distributed systems |
+| [sindresorhus/awesome](https://github.com/sindresorhus/awesome) | 447k+ | The master meta-list of awesome lists. Covers every language, framework, platform, and domain |
+| [trimstray/the-book-of-secret-knowledge](https://github.com/trimstray/the-book-of-secret-knowledge) | 211k+ | Inspiring lists, manuals, cheatsheets, CLI/web tools — Linux, networking, security, DevOps |
+| [kamranahmedse/developer-roadmap](https://github.com/kamranahmedse/developer-roadmap) | 310k+ | Interactive roadmaps for every developer role — frontend, backend, DevOps, full-stack, and more |
+
+### Personal Development & Self-Improvement
+
+| Repository | Stars | Description |
+|---|---|---|
+| [hackerkid/Mind-Expanding-Books](https://github.com/hackerkid/Mind-Expanding-Books) | 11k+ | Curated mind-expanding books — startups, philosophy, psychology, economics, self-help |
+| [jyguyomarch/awesome-productivity](https://github.com/jyguyomarch/awesome-productivity) | 2k+ | Productivity resources — time management, focus, habits, deep work, and personal effectiveness |
+| [matteofigus/awesome-speaking](https://github.com/matteofigus/awesome-speaking) | 1k+ | Public speaking resources — presentation skills, storytelling, and conference speaking |
+| [ashishb/awesome-personal-finance](https://github.com/ashishb/awesome-personal-finance) | 300+ | Personal finance resources — budgeting, investing, tax planning for tech professionals |
+
 ---
 
 ## Latest Features (2026)

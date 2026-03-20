@@ -54,7 +54,10 @@ public enum ResourceCategory {
     SYSTEMS("systems"),
 
     /** General or cross-cutting topics. */
-    GENERAL("general");
+    GENERAL("general"),
+
+    /** Self-improvement, personal growth, financial literacy, communication. */
+    PERSONAL_DEVELOPMENT("personal-development");
 
     private final String displayName;
 

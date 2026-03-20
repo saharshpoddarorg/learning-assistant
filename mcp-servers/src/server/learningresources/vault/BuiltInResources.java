@@ -4,14 +4,18 @@ import server.learningresources.model.LearningResource;
 import server.learningresources.vault.providers.AiMlResources;
 import server.learningresources.vault.providers.AlgorithmsResources;
 import server.learningresources.vault.providers.BuildToolsResources;
+import server.learningresources.vault.providers.CloudInfraResources;
 import server.learningresources.vault.providers.DataAndSecurityResources;
 import server.learningresources.vault.providers.DataStructuresResources;
 import server.learningresources.vault.providers.DevOpsResources;
 import server.learningresources.vault.providers.DigitalNotetakingResources;
 import server.learningresources.vault.providers.EngineeringResources;
+import server.learningresources.vault.providers.FrameworksResources;
 import server.learningresources.vault.providers.GeneralResources;
 import server.learningresources.vault.providers.JavaResources;
 import server.learningresources.vault.providers.PythonResources;
+import server.learningresources.vault.providers.SelfDevelopmentResources;
+import server.learningresources.vault.providers.TestingToolsResources;
 import server.learningresources.vault.providers.VcsResources;
 import server.learningresources.vault.providers.WebResources;
 
@@ -43,16 +47,20 @@ public final class BuiltInResources {
             new JavaResources(),
             new WebResources(),
             new PythonResources(),
+            new FrameworksResources(),
             new AlgorithmsResources(),
             new DataStructuresResources(),
             new EngineeringResources(),
             new DevOpsResources(),
             new VcsResources(),
             new BuildToolsResources(),
+            new CloudInfraResources(),
             new DataAndSecurityResources(),
+            new TestingToolsResources(),
             new AiMlResources(),
             new DigitalNotetakingResources(),
-            new GeneralResources()
+            new GeneralResources(),
+            new SelfDevelopmentResources()
     );
 
     private BuiltInResources() {

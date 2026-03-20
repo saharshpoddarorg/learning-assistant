@@ -32,6 +32,12 @@ When adding or expanding a `ResourceProvider` class (e.g., `VcsResources.java`, 
     conceptAreas, tags, author, difficulty, freshness, isOfficial, isFree, languageApplicability, addedAt)
   - IDs are unique, lowercase, hyphenated
   - No duplicate URLs with existing providers (check `VcsResources.java`, `BuildToolsResources.java`, `DevOpsResources.java`, `JavaResources.java`, etc.)
+- [ ] **Web research for accuracy** — before adding or updating learning resources, verify
+  metadata by fetching the source (GitHub repo pages, documentation sites, etc.):
+  - Star counts, descriptions, and author names must reflect current reality
+  - URLs must be valid and reachable (no 404s, no redirects to unrelated pages)
+  - When adding GitHub repos, fetch the repo page to confirm stars, description, and activity
+  - When in doubt about a resource's quality or accuracy, research it — don't guess
 - [ ] **Register in `BuiltInResources.java`** — add `new YourProvider()` to `PROVIDERS` and add `import`
 - [ ] **Enum check** — verify `ConceptArea` and `ResourceCategory` have the values you need;
   if not, add them (and update all enum-related tests/indexes)
@@ -232,11 +238,15 @@ Every commit and push must follow these rules:
 
 - [ ] **Suggest PR title after push** — when pushing to a feature branch (e.g., `saharsh1`),
   always suggest an appropriate PR title and description for merging into the default branch
-- [ ] **PR title format** — use the same Conventional Commits format: `type(scope): description`
+- [ ] **Re-check full commit list** — before suggesting a PR title, run
+  `git log origin/master..HEAD --oneline` (or equivalent for the default branch) to enumerate
+  ALL commits that will be part of the PR — never base the suggestion on only the latest commit
+- [ ] **PR title format** — use the same Conventional Commits format: `type(scope): description`;
+  when the PR spans multiple types, use the dominant type or `feat` and summarise in the subject
 - [ ] **PR description** — include:
-  - Summary of all changes (1-3 sentences)
-  - Bullet list of key modifications
-  - Files changed count
+  - Summary of ALL changes across every commit (1-3 sentences)
+  - Bullet list of key modifications grouped by commit or area
+  - Total files changed count (use `git diff --stat origin/master..HEAD`)
   - Any breaking changes or migration notes
 - [ ] **Branch context** — mention the source and target branches (e.g., `saharsh1 → master`)
 
