@@ -119,10 +119,16 @@ When adding to `ConceptArea`, `ResourceCategory`, `DifficultyLevel`, etc.:
 
 Run this for EVERY category of change:
 
+- [ ] **Industry standards** — verify the approach aligns with established conventions,
+  official documentation, and community best practices before implementing. Consult the
+  Standards Quick-Reference table in `copilot-instructions.md` for authoritative sources
+  per domain. When in doubt, research the standard — don't guess.
 - [ ] **Markdown formatting** — run `.\__md_lint.ps1` from repo root; must exit with **0 issues**
   (see Section G below and `.github/instructions/md-formatting.instructions.md` for full rules)
 - [ ] **Build passes** — `.\mcp-servers\build.ps1` — 0 compile errors, 0 warnings (where possible)
 - [ ] **No regression in existing behaviour** — manually verify existing slash commands still work
+- [ ] **Cross-references complete** — verify all related docs link to each other
+  (see Section H below for the documentation cross-reference checklist)
 - [ ] **Commit message follows Conventional Commits** (`feat:`, `fix:`, `docs:`, `chore:`)
 - [ ] **Commit attribution** — append `— created by gpt` or `— assisted by gpt` as applicable
 - [ ] **Single logical commit** — don't mix unrelated changes
@@ -157,6 +163,31 @@ Before committing ANY change that touches `.md` files:
 
 ---
 
+### H — Documentation Cross-References (applies to doc/skill/guide changes)
+
+When adding or modifying documentation, skills, or guide files in `.github/docs/` or `.github/skills/`:
+
+- [ ] **START-HERE.md** — verify the newbie/amateur/pro reading paths include the new content
+  where appropriate; update the Documentation Map table if a new doc file was created
+- [ ] **Navigation links** — new docs must have a footer navigation linking back to START-HERE
+  and forward to at least one related doc
+- [ ] **Cross-references from existing docs** — if the new content relates to an existing doc,
+  add a link from that doc's "Further Reading" or "What's Next?" table to the new content
+- [ ] **SKILL.md description** — if a skill's coverage area expanded, update its `description`
+  field in YAML frontmatter so it activates on the new keywords
+- [ ] **getting-started.md** — if a new primitive or feature was added, update the "What's Next?"
+  table to point to the relevant detailed doc
+- [ ] **customization-guide.md** — if a new customization primitive or pattern was documented,
+  update the Further Reading table to include it
+- [ ] **copilot-customization-deep-dive.md** — if the change adds new migration paths, official
+  resources, or FAQ entries, update the relevant Part and TOC
+- [ ] **No orphan docs** — every `.md` file in `.github/docs/` must be reachable from at least
+  one other file (either START-HERE, navigation-index, or a related doc's links)
+- [ ] **Official resources** — if a change references new external tools or standards, add
+  the official documentation link to the relevant "Resources" or "Further Reading" section
+
+---
+
 ## 3-Tier Completeness Guide
 
 ### Newbie — "I added a thing, and it works"
@@ -178,7 +209,9 @@ Before committing ANY change that touches `.md` files:
 - 3-tier content in skill and prompt files
 - Vault resource count updated in documentation
 - Cross-references between prompt ↔ skill ↔ vault ↔ keyword index
+- Documentation cross-references verified (Section H checklist complete)
 - No orphan resources (all accessible via at least one discovery path)
+- No orphan docs (all `.md` files reachable from START-HERE or navigation index)
 - Documentation reflects actual capabilities (no false advertising in slash-commands.md)
 - Commit is a clean, standalone logical unit
 

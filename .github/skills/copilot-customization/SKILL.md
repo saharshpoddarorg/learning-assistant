@@ -6,7 +6,9 @@ description: >
   which customization type to use, how to create instructions or prompts or agents or skills,
   differences between customization types, composition of multiple customizations, when to use
   skills vs instructions vs prompts vs agents vs MCP servers, frontmatter syntax, activation rules,
-  stacking order, or building a .github/ customization strategy for a repository.
+  stacking order, building a .github/ customization strategy, why not just use skills for everything,
+  migrating between primitive types, converting instructions to skills, or choosing the right
+  customization approach for a repository.
 ---
 
 # GitHub Copilot Customization — Skill Reference
@@ -748,3 +750,47 @@ SKILL.md                 →  100–500 lines
 ```
 
 If a file drastically exceeds these ranges, it likely needs splitting or migration.
+
+---
+
+## Why Not Just Skills? — Quick Reference
+
+> When users ask "why not just use skills for everything?" refer to this.
+
+**Skills are knowledge packs. They do ONE job well: giving Copilot domain reference
+material when semantically relevant.** They cannot:
+
+| Need | Why skills fail | Correct primitive |
+|---|---|---|
+| Enforce rules on every Java file | Skills only activate when Copilot judges the conversation relevant | `.instructions.md` (auto by file pattern) |
+| Change Copilot's persona | Skills add knowledge, not personality | `.agent.md` |
+| Trigger a workflow with `/command` | Skills have no manual trigger | `.prompt.md` |
+| Access live API data | Skills are static text files | MCP server |
+
+**The 5 sentences to memorize:**
+
+```text
+1. "Copilot must ALWAYS do this"                → instruction
+2. "Copilot should KNOW this when relevant"      → skill
+3. "I want to TRIGGER a specific task"           → prompt
+4. "I want Copilot to BECOME someone different"  → agent
+5. "I need LIVE data from an external system"    → MCP server
+```
+
+Full explanation with examples: `.github/docs/copilot-customization-deep-dive.md` Part 9.
+
+---
+
+## Official Resources
+
+| Resource | URL |
+|---|---|
+| Copilot Customization Overview | [code.visualstudio.com/docs/copilot/customization](https://code.visualstudio.com/docs/copilot/customization) |
+| Custom Instructions | [code.visualstudio.com/.../custom-instructions](https://code.visualstudio.com/docs/copilot/customization/custom-instructions) |
+| Prompt Files | [code.visualstudio.com/.../prompt-files](https://code.visualstudio.com/docs/copilot/customization/prompt-files) |
+| Custom Agents | [code.visualstudio.com/.../custom-agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) |
+| Agent Skills | [code.visualstudio.com/.../agent-skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills) |
+| MCP Specification | [spec.modelcontextprotocol.io](https://spec.modelcontextprotocol.io/) |
+| GitHub Copilot Docs | [docs.github.com/en/copilot](https://docs.github.com/en/copilot) |
+| 5-Minute Newbie Guide | `.github/docs/copilot-customization-newbie.md` |
+| Full Deep Dive | `.github/docs/copilot-customization-deep-dive.md` |

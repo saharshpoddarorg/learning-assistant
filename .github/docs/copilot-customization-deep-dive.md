@@ -5,9 +5,9 @@
 
 | Audience | Start Here |
 |---|---|
-| 🟢 **Newbie** | [Part 1 — The 6 Primitives](#part-1-the-6-primitives) → [Decision Guide](#part-3-decision-guide) |
-| 🟡 **Amateur** | [Comparison Table](#part-2-head-to-head-comparison) → [Composition Basics](#same-type-composition) |
-| 🔴 **Pro** | [Full Stack Compositions](#cross-type-composition) → [Anti-Patterns](#part-5-anti-patterns) |
+| 🟢 **Newbie** | [Part 9 — Why Not Just Skills?](#part-9-why-not-just-skills--the-faq) → [Part 1 — The 6 Primitives](#part-1-the-6-primitives) → [Decision Guide](#part-3-decision-guide) |
+| 🟡 **Amateur** | [Comparison Table](#part-2-head-to-head-comparison) → [Composition Basics](#same-type-composition) → [Migration Guide](#part-7-migration--interchange-guide) |
+| 🔴 **Pro** | [Full Stack Compositions](#cross-type-composition) → [Anti-Patterns](#part-5-anti-patterns) → [Official Resources](#part-10-official-resources--standards) |
 
 ---
 
@@ -21,6 +21,8 @@
 6. [Quick Reference Card](#part-6-quick-reference-card)
 7. [Migration & Interchange Guide](#part-7-migration--interchange-guide)
 8. [Step-by-Step Creation Walkthroughs](#part-8-step-by-step-creation-walkthroughs)
+9. [Why Not Just Skills? — The FAQ](#part-9-why-not-just-skills--the-faq)
+10. [Official Resources & Standards](#part-10-official-resources--standards)
 
 ---
 
@@ -1490,3 +1492,220 @@ Is it a RULE?
         │   └── No (persistent mode) → .agent.md
         └── No → Probably doesn't need a customization file
 ```
+
+---
+
+## Part 9: Why Not Just Skills? — The FAQ
+
+> **"My colleague says skills are the best primitive and we should just use skills for
+> everything. Is that true? If skills can do it all, why do the other 5 primitives exist?"**
+
+This is one of the most common questions. The short answer: **No — skills are great for
+one specific job (domain knowledge), but they fundamentally cannot do what the other
+primitives do.** Here's why.
+
+---
+
+### The Core Misunderstanding
+
+Skills are **knowledge packs**. They answer the question "What does Copilot know?"
+But a good Copilot setup also needs to answer:
+
+| Question | Primitive | Skills can't do this because... |
+|---|---|---|
+| What rules must Copilot **always** follow? | Instructions | Skills only activate when semantically relevant — they can't enforce rules on every request |
+| What **persona** should Copilot adopt? | Agent | Skills have no persona — they can't change Copilot's communication style, tool access, or behavioral constraints |
+| What **workflow** should Copilot execute? | Prompt | Skills are passive reference — they can't define a multi-step task template with user inputs |
+| What **live data** should Copilot access? | MCP Server | Skills are static text files — they can't make API calls, read databases, or fetch real-time data |
+
+---
+
+### FAQ: One Primitive at a Time
+
+#### "Why not put rules in a skill instead of an instruction file?"
+
+**Because skills don't guarantee activation.** Skills activate when Copilot judges
+the conversation is semantically relevant to the skill's description. If you put
+"always use `final` for variables" in a skill, Copilot will only load it when it
+thinks the conversation is about `final` keywords — not when you ask it to write
+a simple getter method.
+
+Instructions with `applyTo: "**/*.java"` activate **every time you edit a Java file**.
+No semantic matching needed. No missed rules.
+
+```text
+Instruction (applyTo: "**/*.java"):  "Use final for variables" → ALWAYS enforced
+Skill (description: "Java best practices"):  "Use final for variables" → only when Copilot loads it
+```
+
+#### "Why not put a persona in a skill instead of an agent?"
+
+**Because skills can't change who Copilot IS.** An agent redefines Copilot's identity:
+its communication style, its tool access, its constraints. A skill just gives Copilot
+more information.
+
+```text
+Agent:  "You are a security auditor. You ONLY look for vulnerabilities. You are
+         skeptical by default. You do NOT write new code — only review."
+         → Changes behavior, tool access, personality
+
+Skill:  "OWASP Top 10: 1. Broken Access Control..."
+         → Adds knowledge. Copilot is still Copilot.
+```
+
+When you select the "Security Auditor" agent in the dropdown, Copilot **becomes** that
+auditor for the entire conversation. A skill can't do that.
+
+#### "Why not put a workflow in a skill instead of a prompt?"
+
+**Because skills can't be invoked.** You can't type `/my-skill` in the chat. Skills
+activate silently in the background. Prompts are explicit triggers — you type `/review`
+and a predefined workflow starts with template variables and structured steps.
+
+```text
+Prompt (/review):   "Review {{file}} focusing on {{focus}}"
+                    → User types /review → fills in variables → structured output
+
+Skill:              (no way to trigger it manually — waits for Copilot to decide it's relevant)
+```
+
+#### "Why not just keep everything in `copilot-instructions.md`?"
+
+**Because context windows are finite.** `copilot-instructions.md` is injected into
+**every single request**. If you put 5000 lines of Java knowledge, Git conventions,
+MCP documentation, and security checklists in there, you'll consume most of Copilot's
+context window before the conversation even starts.
+
+```text
+copilot-instructions.md with 5000 lines → Every request is bloated, slow, and confused
+vs.
+copilot-instructions.md (50 lines)  +  5 instruction files  +  8 skills
+→ Only the relevant content loads per request
+```
+
+#### "If I already have comprehensive skills, do I still need instructions?"
+
+**Yes.** Think of it this way:
+
+- **Skills** = the textbooks on your shelf (you look them up when you need them)
+- **Instructions** = the rules on the wall (you follow them whether you looked them up or not)
+
+You need rules on the wall AND textbooks on the shelf. They serve different purposes.
+
+---
+
+### The "Just Use Skills" Approach — What Goes Wrong
+
+Here's what happens when teams try to put everything in skills:
+
+| What they wanted | What actually happened |
+|---|---|
+| Java rules enforced on every file | Rules only activated when Copilot deemed the conversation "about Java rules" |
+| Consistent commit message format | Skill about commits didn't load when answering "fix this bug" |
+| Security persona for code reviews | Copilot gave knowledge about security but didn't change its behavior |
+| Quick /debug workflow trigger | No way to invoke the skill — users had to describe the debugging workflow every time |
+| Live Jira ticket data in answers | Skill contained stale data from 3 weeks ago |
+
+---
+
+### When Skills ARE the Best Choice
+
+Skills genuinely are the best choice when:
+
+- You have **domain reference material** (API docs, framework guides, cheatsheets)
+- You want Copilot to **answer questions** about a topic (not enforce rules about it)
+- The content is **static** (doesn't change daily)
+- The content is **long** (100-500 lines) — too long for instructions
+- You want content to load **only when relevant** (not on every request)
+
+**The right mental model:**
+
+```text
+Skills are ONE of 6 tools. Each tool has a specific job.
+Using only skills is like putting on a play with only the script.
+You also need actors (agents), stage directions (instructions),
+cues (prompts), and live effects (MCP servers).
+```
+
+---
+
+### The 1-Minute Decision Chart (Newbie-Friendly)
+
+**Memorize these 5 sentences and you'll always pick the right primitive:**
+
+```text
+1. "Copilot must ALWAYS do this"                → instruction
+2. "Copilot should KNOW this when relevant"      → skill
+3. "I want to TRIGGER a specific task"           → prompt
+4. "I want Copilot to BECOME someone different"  → agent
+5. "I need LIVE data from an external system"    → MCP server
+```
+
+---
+
+## Part 10: Official Resources & Standards
+
+> **Authoritative sources for GitHub Copilot customization — official documentation,
+> specifications, and standards referenced throughout this guide.**
+
+### VS Code Copilot Documentation
+
+| Resource | URL | What It Covers |
+|---|---|---|
+| Copilot Customization Overview | [code.visualstudio.com/docs/copilot/customization](https://code.visualstudio.com/docs/copilot/customization) | Entry point for all customization features |
+| Custom Instructions | [code.visualstudio.com/.../custom-instructions](https://code.visualstudio.com/docs/copilot/customization/custom-instructions) | `.instructions.md` format, `applyTo` globs, stacking |
+| Prompt Files | [code.visualstudio.com/.../prompt-files](https://code.visualstudio.com/docs/copilot/customization/prompt-files) | `.prompt.md` format, variables, modes, frontmatter |
+| Custom Agents | [code.visualstudio.com/.../custom-agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) | `.agent.md` format, tool restrictions, personas |
+| Agent Skills | [code.visualstudio.com/.../agent-skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills) | `SKILL.md` format, description-based activation |
+| Copilot Chat Guide | [code.visualstudio.com/docs/copilot/chat](https://code.visualstudio.com/docs/copilot/chat) | Chat modes (ask/agent/edit), tool usage |
+| VS Code Release Notes | [code.visualstudio.com/updates](https://code.visualstudio.com/updates/) | Track when new Copilot features ship |
+
+### GitHub Documentation
+
+| Resource | URL | What It Covers |
+|---|---|---|
+| GitHub Copilot Docs | [docs.github.com/en/copilot](https://docs.github.com/en/copilot) | Product overview, plans, features, billing |
+| Repository Custom Instructions | [docs.github.com/.../adding-repository-custom-instructions](https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot) | `copilot-instructions.md` on GitHub.com (not VS Code) |
+| GitHub Copilot Features | [github.com/features/copilot](https://github.com/features/copilot) | Product page, feature comparison across plans |
+| Awesome Copilot | [github.com/github/awesome-copilot](https://github.com/github/awesome-copilot) | Community examples, custom instructions, integrations |
+
+### Model Context Protocol (MCP)
+
+| Resource | URL | What It Covers |
+|---|---|---|
+| MCP Specification | [spec.modelcontextprotocol.io](https://spec.modelcontextprotocol.io/) | Full protocol spec — transports, capabilities, lifecycle |
+| MCP Official Servers | [github.com/modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) | Reference server implementations |
+| MCP TypeScript SDK | [github.com/modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk) | Build MCP servers in TypeScript/Node.js |
+| MCP Python SDK | [github.com/modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | Build MCP servers in Python |
+| MCP Java SDK | [github.com/modelcontextprotocol/java-sdk](https://github.com/modelcontextprotocol/java-sdk) | Build MCP servers in Java (Spring AI integration) |
+| MCP Inspector | [github.com/modelcontextprotocol/inspector](https://github.com/modelcontextprotocol/inspector) | Debug and test MCP servers interactively |
+
+### LLM Model Documentation
+
+| Resource | URL | What It Covers |
+|---|---|---|
+| OpenAI Platform Docs | [platform.openai.com/docs](https://platform.openai.com/docs/) | GPT-4o, o3-mini capabilities, context limits |
+| Anthropic Claude Docs | [docs.anthropic.com](https://docs.anthropic.com/) | Claude Sonnet/Opus capabilities, context limits |
+| GitHub Copilot Model Selection | [docs.github.com/.../copilot-chat](https://docs.github.com/en/copilot/using-github-copilot/ai-models/changing-the-ai-model-for-github-copilot-chat) | How to switch models in Copilot Chat |
+
+### Related Standards
+
+| Standard | URL | Relevance |
+|---|---|---|
+| Conventional Commits | [conventionalcommits.org](https://www.conventionalcommits.org/) | Commit message format (used in prompt templates) |
+| Semantic Versioning | [semver.org](https://semver.org/) | Version numbering (used in prompt templates) |
+| JSON Schema | [json-schema.org](https://json-schema.org/) | MCP tool input schemas |
+| JSON-RPC 2.0 | [jsonrpc.org/specification](https://www.jsonrpc.org/specification) | MCP transport protocol |
+
+---
+
+### Key Takeaways for Each Primitive — Official Source
+
+| Primitive | Official Doc | Key Design Intent (from Microsoft) |
+|---|---|---|
+| `copilot-instructions.md` | [Repository instructions](https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot) | Project-wide rules, always injected, shared across team |
+| `.instructions.md` | [Custom instructions](https://code.visualstudio.com/docs/copilot/customization/custom-instructions) | File-type-scoped rules, automatic via `applyTo` glob |
+| `.prompt.md` | [Prompt files](https://code.visualstudio.com/docs/copilot/customization/prompt-files) | Reusable workflows, slash commands, team-shared tasks |
+| `.agent.md` | [Custom agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) | Specialist personas with constrained tool access |
+| `SKILL.md` | [Agent skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills) | Domain knowledge activated by semantic relevance |
+| MCP servers | [MCP spec](https://spec.modelcontextprotocol.io/) | Live external data and write operations via tools |
