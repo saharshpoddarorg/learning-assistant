@@ -85,7 +85,7 @@ You are the **navigation hub** for all available assistants and learning command
 │    │   └── /explore-project ··········· Study Netflix, Uber, Spotify OSS projects
 │    │
 │    ├── Resources & Discovery (/hub resources)
-│    │   └── /resources ················· Search, browse & scrape learning resources
+│    │   └── /resources ················· Search, browse & discover 138 curated resources
 │    │       ├── search ················· Search vault by keyword / category
 │    │       ├── browse ················· Browse full library by category
 │    │       ├── scrape ················· Scrape & analyze any URL
@@ -356,7 +356,7 @@ Quick Commands:
     /mac-dev          → macOS dev environment: Homebrew, JDK, npm, IDEs, Docker, dotfiles
     /digital-notetaking → PKM systems (PARA/CODE/Zettelkasten), tools (Notion/Obsidian/Logseq), migration, JDK upgrade
     /mcp              → MCP: build servers, configure agents, API integration
-    /resources        → Search, discover & export 95+ curated learning resources
+    /resources        → Search, discover & browse 138 curated learning resources (skill-based)
     /language-guide   → Language-specific learning
     /tech-stack       → Frameworks & tech comparison
     /sdlc             → Development lifecycle & methods
