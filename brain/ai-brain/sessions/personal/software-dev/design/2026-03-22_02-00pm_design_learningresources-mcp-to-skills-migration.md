@@ -12,10 +12,11 @@ version: 1
 parent: null
 complexity: high
 outcomes:
-  - Complete catalog of 132 resources across 17 providers
+  - Complete catalog of 138 resources across 17 providers
   - Primitive selection analysis covering all 6 GHCP primitives
   - Intent documentation framework created (intent-capture template)
   - Detailed migration guide produced
+  - Migration fully executed — all 138 resources in 10 skill sub-files
 source: copilot
 scope: project
 scope-project: learning-assistant
@@ -27,7 +28,7 @@ scope-refs: []
 # Intent Capture — Learning Resources MCP Server to Skills Migration
 
 > **Context:** The learning-assistant project has a fully-built Learning Resources MCP server
-> (28 Java source files, 17 providers, 132 curated resources, 10 MCP tools, 12-dimensional
+> (28 Java source files, 17 providers, 138 curated resources, 10 MCP tools, 12-dimensional
 > scoring engine). This session evaluates whether the dominant use case (static resource
 > discovery) is better served by a SKILL.md approach, and documents the complete intent
 > so future iterations can build on this analysis without re-discovering the same context.
@@ -36,7 +37,7 @@ scope-refs: []
 
 ## Intent Statement
 
-We want to **migrate the curated learning resource vault** (132 static, hand-picked resources
+We want to **migrate the curated learning resource vault** (138 static, hand-picked resources
 with 5-dimensional metadata) **from a Java MCP server to a SKILL.md-based approach**, because
 the dominant use case — discovering and recommending learning resources — is static knowledge
 retrieval, which is what skills are natively designed for. The MCP server's search engine,
@@ -58,9 +59,9 @@ or delegated to the `fetch` tool available in agents).
 | Aspect | Current Implementation | Notes |
 |---|---|---|
 | Resource storage | 17 Java provider classes returning hardcoded `LearningResource` records | 28 source files total |
-| Resource count | 132 resources across 17 providers | Hand-curated with verified metadata |
+| Resource count | 138 resources across 17 providers | Hand-curated with verified metadata |
 | Search/discovery | ResourceDiscovery + RelevanceScorer + KeywordIndex | 12-dimensional scoring, 3-mode intent classifier |
-| Taxonomy | 7 enums: ResourceCategory(17), ConceptArea(36), ConceptDomain(9), DifficultyLevel(4), ResourceType(13), ContentFreshness(5), LanguageApplicability(6) | Type-safe, exhaustive |
+| Taxonomy | 8 enums: ResourceCategory(17), ConceptArea(40), ConceptDomain(9), DifficultyLevel(4), ResourceType(13), ContentFreshness(5), LanguageApplicability(6), SearchMode(3) | Type-safe, exhaustive |
 | Keyword mappings | ~130 keyword-to-enum entries in KeywordIndex | Maps natural language to structured queries |
 | Web scraping | WebScraper + ContentExtractor + ContentSummarizer + ReadabilityScorer | Full pipeline: HTTP fetch → HTML parse → summarize |
 | Export | ExportHandler with Markdown/PDF/Word output | Requires pandoc for PDF/Word |
@@ -75,7 +76,7 @@ or delegated to the `fetch` tool available in agents).
 | Aspect | Target Implementation | Notes |
 |---|---|---|
 | Resource storage | SKILL.md with structured Markdown tables | Zero infrastructure |
-| Resource count | All 132 resources preserved, organized by domain | Nothing lost |
+| Resource count | All 138 resources preserved, organized by domain | Nothing lost |
 | Search/discovery | LLM native semantic search over structured tables | LLM already does this |
 | Taxonomy | Preserved as section headings and table columns | Human-readable + LLM-parseable |
 | Keyword mappings | Not needed — LLM natively understands synonyms | Eliminated complexity |
@@ -90,7 +91,7 @@ or delegated to the `fetch` tool available in agents).
 
 | Gap | Impact | Priority |
 |---|---|---|
-| Token budget: 132 resources × ~80 tokens = ~10.5K tokens | Too large for single skill activation | HIGH — requires tiered architecture |
+| Token budget: 138 resources × ~80 tokens = ~11K tokens | Too large for single skill activation | HIGH — requires tiered architecture |
 | Web scraping lost | Cannot scrape URLs from a skill | MEDIUM — `fetch` tool in agents covers most cases |
 | PDF/Word export lost | Cannot generate files from a skill | LOW — rarely used |
 | Runtime resource addition lost | Cannot add resources dynamically | LOW — adding = editing skill file |
@@ -104,19 +105,19 @@ or delegated to the `fetch` tool available in agents).
 
 | ID | Capability | Current Location | Migration Target | Status |
 |---|---|---|---|---|
-| C-001 | 132 curated resources with full metadata | 17 provider classes | Skill sub-files organized by domain | Not started |
-| C-002 | 5-dimensional categorization (category, concept, type, difficulty, freshness) | Model enums + LearningResource record | Table columns in skill files | Not started |
-| C-003 | Category browsing | `browse_vault` tool + SearchHandler | Section headings in skill file | Not started |
-| C-004 | Difficulty-based filtering | DifficultyLevel enum + range queries | Difficulty column + LLM filtering | Not started |
-| C-005 | Resource type classification | ResourceType enum (13 values) | Type column with emoji badges | Not started |
-| C-006 | Free/paid and official/community flags | Boolean fields on LearningResource | Badge columns in tables | Not started |
-| C-007 | Language applicability metadata | LanguageApplicability enum (6 values) | Language scope column | Not started |
-| C-008 | Freshness metadata | ContentFreshness enum (5 values) | Freshness column | Not started |
-| C-009 | Tag-based discovery | Tags list on each resource | Tags column or section grouping | Not started |
-| C-010 | ConceptArea-based grouping | ConceptArea enum (36 values) + ConceptDomain (9) | Hierarchical sections by domain | Not started |
-| C-011 | `/resources` slash command UX | resources.prompt.md | Updated prompt referencing skill | Not started |
-| C-012 | Display formatting (badges, icons, difficulty indicators) | Defined in resources.prompt.md | Preserved in prompt instructions | Not started |
-| C-013 | Cross-references to other commands | Defined in resources.prompt.md | Preserved in prompt instructions | Not started |
+| C-001 | 138 curated resources with full metadata | 17 provider classes | Skill sub-files organized by domain | Completed |
+| C-002 | 5-dimensional categorization (category, concept, type, difficulty, freshness) | Model enums + LearningResource record | Table columns in skill files | Completed |
+| C-003 | Category browsing | `browse_vault` tool + SearchHandler | Section headings in skill file | Completed |
+| C-004 | Difficulty-based filtering | DifficultyLevel enum + range queries | Difficulty column + LLM filtering | Completed |
+| C-005 | Resource type classification | ResourceType enum (13 values) | Type column with emoji badges | Completed |
+| C-006 | Free/paid and official/community flags | Boolean fields on LearningResource | Badge columns in tables | Completed |
+| C-007 | Language applicability metadata | LanguageApplicability enum (6 values) | Language scope column | Completed |
+| C-008 | Freshness metadata | ContentFreshness enum (5 values) | Freshness column | Completed |
+| C-009 | Tag-based discovery | Tags list on each resource | Tags column or section grouping | Completed |
+| C-010 | ConceptArea-based grouping | ConceptArea enum (40 values) + ConceptDomain (9) | Hierarchical sections by domain | Completed |
+| C-011 | `/resources` slash command UX | resources.prompt.md | Updated prompt referencing skill | Completed |
+| C-012 | Display formatting (badges, icons, difficulty indicators) | Defined in resources.prompt.md | Preserved in prompt instructions | Completed |
+| C-013 | Cross-references to other commands | Defined in resources.prompt.md | Preserved in prompt instructions | Completed |
 
 ### Capabilities to Enhance (SHOULD improve)
 
@@ -158,7 +159,7 @@ or delegated to the `fetch` tool available in agents).
 
 ### Decision
 
-**Primary: SKILL.md** — The 132 curated resources are **static knowledge** that Copilot should
+**Primary: SKILL.md** — The 138 curated resources are **static knowledge** that Copilot should
 **know when relevant** (sentence 2 of the 5-sentence rule). This is textbook skill territory.
 
 **Companion: .prompt.md** — The `/resources` slash command provides the **workflow trigger**
@@ -178,7 +179,7 @@ be reintroduced with only the scraping tools.
 
 ## Content Inventory
 
-### Resources to Migrate (132 total)
+### Resources to Migrate (138 total)
 
 | Provider | Count | Domain Grouping |
 |---|---|---|
@@ -198,52 +199,55 @@ be reintroduced with only the scraping tools.
 | AiMlResources | 4 | AI & Machine Learning |
 | DigitalNotetakingResources | 15 | Productivity > PKM & Note-Taking |
 | GeneralResources | 5 | General CS & Career |
-| SelfDevelopmentResources | 13 | Personal Development |
-| **TOTAL** | **132** | |
+| SelfDevelopmentResources | 14 | Personal Development |
+| **TOTAL** | **138** | |
 
 ### Mechanisms to Migrate
 
 | # | Mechanism | Current Implementation | Migration Approach | Status |
 |---|---|---|---|---|
-| 1 | Resource catalog | Java records in providers | Markdown tables in skill sub-files | Not started |
-| 2 | Category browsing | `browse_vault` hand-coded logic | Section headings by domain | Not started |
-| 3 | Difficulty indication | DifficultyLevel enum | Emoji badges (green/yellow/red/black) | Not started |
-| 4 | Type classification | ResourceType enum | Type column with descriptive labels | Not started |
-| 5 | Official/free flags | Boolean fields | Badge columns (checkmark/cross) | Not started |
-| 6 | Display formatting | Defined in resources.prompt.md | Preserved and enhanced in prompt | Not started |
+| 1 | Resource catalog | Java records in providers | Markdown tables in skill sub-files | Completed |
+| 2 | Category browsing | `browse_vault` hand-coded logic | Section headings by domain | Completed |
+| 3 | Difficulty indication | DifficultyLevel enum | Emoji badges (green/yellow/red/black) | Completed |
+| 4 | Type classification | ResourceType enum | Type column with descriptive labels | Completed |
+| 5 | Official/free flags | Boolean fields | Badge columns (checkmark/cross) | Completed |
+| 6 | Display formatting | Defined in resources.prompt.md | Preserved and enhanced in prompt | Completed |
 
 ### Metadata / Taxonomy to Migrate
 
 | # | Taxonomy | Values | Migration Target | Status |
 |---|---|---|---|---|
-| 1 | ResourceCategory | 17 values | Section group headings | Not started |
-| 2 | ConceptArea | 36 values | Sub-section headings or tags | Not started |
-| 3 | ConceptDomain | 9 values | Top-level sections in skill | Not started |
-| 4 | DifficultyLevel | 4 values | Emoji column | Not started |
-| 5 | ResourceType | 13 values | Type column | Not started |
-| 6 | ContentFreshness | 5 values | Maintenance column | Not started |
-| 7 | LanguageApplicability | 6 values | Scope column | Not started |
+| 1 | ResourceCategory | 17 values | Section group headings | Completed |
+| 2 | ConceptArea | 40 values | Sub-section headings or tags | Completed |
+| 3 | ConceptDomain | 9 values | Top-level sections in skill | Completed |
+| 4 | DifficultyLevel | 4 values | Emoji column | Completed |
+| 5 | ResourceType | 13 values | Type column | Completed |
+| 6 | ContentFreshness | 5 values | Maintenance column | Completed |
+| 7 | LanguageApplicability | 6 values | Scope column | Completed |
 
 ---
 
 ## Key Outcomes
 
-- Complete catalog of 132 resources across 17 providers documented
+- Complete catalog of 138 resources across 17 providers documented and migrated
 - All 6 GHCP primitives analyzed for fit; SKILL.md selected as primary
 - Intent documentation framework (intent-capture template) created
 - Capability inventory with MUST/SHOULD/DEPRECATE classification
-- Migration phases defined with verification checklist
+- Migration fully executed: 138 resources in 10 skill sub-files with badge system
+- 8 enums (97 total values) documented in taxonomy-reference.md
+- All 10 MCP tools retired with replacement mapping in migration-mapping.md
 
 ---
 
 ## Follow-Up / Next Steps
 
-- [ ] Create the migration guide with step-by-step instructions
-- [ ] Execute Phase 1: Create skill file structure
-- [ ] Execute Phase 2: Migrate all 132 resources to skill tables
-- [ ] Execute Phase 3: Update `/resources` prompt and cross-references
-- [ ] Execute Phase 4: Deprecate MCP server
-- [ ] Execute Phase 5: Build verification and testing
+- [x] Create the migration guide with step-by-step instructions
+- [x] Execute Phase 1: Create skill file structure (SKILL.md + 10 sub-files + taxonomy-reference.md + migration-mapping.md)
+- [x] Execute Phase 2: Migrate all 138 resources to skill tables with badge system
+- [x] Execute Phase 3: Update `/resources` prompt and cross-references
+- [x] Execute Phase 4: Deprecate MCP server (disabled in mcp.json)
+- [x] Execute Phase 5: Build verification and testing
+- [x] Audit and fix count discrepancies (ConceptArea 36→40, ResourceCategory 18→17, total 92→97)
 
 ---
 

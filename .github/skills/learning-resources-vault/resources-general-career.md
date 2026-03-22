@@ -1,4 +1,4 @@
-# General & Career Development Learning Resources (15)
+# General & Career Development Learning Resources (19)
 
 > CS fundamentals, developer roadmaps, curated collections, and self-development resources.
 

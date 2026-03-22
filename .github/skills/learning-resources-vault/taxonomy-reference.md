@@ -16,15 +16,15 @@ language scope, and more.
 | Dimension | Values | Purpose |
 |---|---|---|
 | Concept Domain | 9 | Top-level knowledge area grouping |
-| Concept Area | 36 | Fine-grained topic within a domain |
-| Resource Category | 18 | Technology/ecosystem classification |
+| Concept Area | 40 | Fine-grained topic within a domain |
+| Resource Category | 17 | Technology/ecosystem classification |
 | Difficulty Level | 4 | Prerequisite knowledge required |
 | Resource Type | 13 | Content format (docs, video, book, etc.) |
 | Content Freshness | 5 | Maintenance & currency status |
 | Language Applicability | 6 | Programming language scope |
 | Search Mode | 3 | Query intent classification |
 
-**Total distinct enum values:** 92
+**Total distinct enum values:** 97
 
 ---
 
@@ -46,7 +46,7 @@ Concept Domains are the highest-level grouping. Each domain contains 2-6 Concept
 
 ---
 
-## 2. Concept Areas (36)
+## 2. Concept Areas (40)
 
 Each Concept Area belongs to exactly one Domain. Resources list 1-5 concept areas
 to describe what topics they cover.
@@ -138,7 +138,7 @@ to describe what topics they cover.
 
 ---
 
-## 3. Resource Categories (18)
+## 3. Resource Categories (17)
 
 Categories classify resources by **technology ecosystem or topic area**. A resource
 can belong to multiple categories (e.g., a Spring Boot testing guide might be both
@@ -273,7 +273,7 @@ shows what topics and synonyms are covered.
 
 ### Concept Area Keywords (170+ mappings)
 
-These keywords (and their synonyms) map to the 36 Concept Areas above:
+These keywords (and their synonyms) map to the 40 Concept Areas above:
 
 | Topic Cluster | Keywords | Maps To |
 |---|---|---|
