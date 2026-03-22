@@ -24,14 +24,18 @@ import java.util.logging.Logger;
  *   <li>{@code bitbucket_*} → {@link BitbucketHandler}</li>
  * </ul>
  *
- * <p><strong>Registered Tools (27 total):</strong>
+ * <p><strong>Registered Tools (44 total):</strong>
  * <ul>
- *   <li>Jira (11): search_issues, get_issue, create_issue, update_issue, transition_issue,
- *       list_projects, get_sprint, add_comment, get_comments, assign_issue, get_sprint_issues</li>
- *   <li>Confluence (7): search, get_page, create_page, update_page, list_spaces,
- *       get_page_children, delete_page</li>
- *   <li>Bitbucket (8): list_repos, get_repo, list_pull_requests, get_pull_request, search_code,
- *       create_pull_request, list_branches, get_commits</li>
+ *   <li>Jira (17): search_issues, get_issue, create_issue, update_issue, transition_issue,
+ *       list_projects, get_sprint, add_comment, get_comments, assign_issue, get_sprint_issues,
+ *       get_transitions, delete_issue, search_users, link_issues, add_worklog, get_boards</li>
+ *   <li>Confluence (11): search, get_page, create_page, update_page, list_spaces,
+ *       get_page_children, delete_page, get_page_labels, add_page_label,
+ *       get_page_comments, add_page_comment</li>
+ *   <li>Bitbucket (15): list_repos, get_repo, list_pull_requests, get_pull_request, search_code,
+ *       create_pull_request, list_branches, get_commits, get_pull_request_diff,
+ *       get_pr_comments, add_pr_comment, approve_pull_request, decline_pull_request,
+ *       merge_pull_request, get_file_content</li>
  *   <li>Cross-product (1): atlassian_unified_search</li>
  * </ul>
  */
@@ -127,6 +131,12 @@ public class ToolHandler {
             case "jira_get_comments"    -> jiraHandler.getComments(arguments);
             case "jira_assign_issue"    -> jiraHandler.assignIssue(arguments);
             case "jira_get_sprint_issues" -> jiraHandler.getSprintIssues(arguments);
+            case "jira_get_transitions"  -> jiraHandler.getTransitions(arguments);
+            case "jira_delete_issue"     -> jiraHandler.deleteIssue(arguments);
+            case "jira_search_users"     -> jiraHandler.searchUsers(arguments);
+            case "jira_link_issues"      -> jiraHandler.linkIssues(arguments);
+            case "jira_add_worklog"      -> jiraHandler.addWorklog(arguments);
+            case "jira_get_boards"       -> jiraHandler.listBoards(arguments);
 
             // Confluence tools
             case "confluence_search"      -> confluenceHandler.searchPages(arguments);
@@ -136,6 +146,10 @@ public class ToolHandler {
             case "confluence_list_spaces" -> confluenceHandler.listSpaces();
             case "confluence_get_page_children" -> confluenceHandler.getPageChildren(arguments);
             case "confluence_delete_page"       -> confluenceHandler.deletePage(arguments);
+            case "confluence_get_page_labels"   -> confluenceHandler.getPageLabels(arguments);
+            case "confluence_add_page_label"    -> confluenceHandler.addPageLabel(arguments);
+            case "confluence_get_page_comments" -> confluenceHandler.getPageComments(arguments);
+            case "confluence_add_page_comment"  -> confluenceHandler.addPageComment(arguments);
 
             // Bitbucket tools
             case "bitbucket_list_repos"         -> bitbucketHandler.listRepositories(arguments);
@@ -146,6 +160,13 @@ public class ToolHandler {
             case "bitbucket_create_pull_request" -> bitbucketHandler.createPullRequest(arguments);
             case "bitbucket_list_branches"       -> bitbucketHandler.listBranches(arguments);
             case "bitbucket_get_commits"         -> bitbucketHandler.getCommits(arguments);
+            case "bitbucket_get_pull_request_diff"  -> bitbucketHandler.getPullRequestDiff(arguments);
+            case "bitbucket_get_pr_comments"        -> bitbucketHandler.getPrComments(arguments);
+            case "bitbucket_add_pr_comment"         -> bitbucketHandler.addPrComment(arguments);
+            case "bitbucket_approve_pull_request"    -> bitbucketHandler.approvePullRequest(arguments);
+            case "bitbucket_decline_pull_request"    -> bitbucketHandler.declinePullRequest(arguments);
+            case "bitbucket_merge_pull_request"      -> bitbucketHandler.mergePullRequest(arguments);
+            case "bitbucket_get_file_content"        -> bitbucketHandler.getFileContent(arguments);
 
             // Cross-product tools
             case "atlassian_unified_search" -> unifiedSearchHandler.search(arguments);
@@ -165,20 +186,28 @@ public class ToolHandler {
      */
     public String[] listToolNames() {
         return new String[]{
-                // Jira (11)
+                // Jira (17)
                 "jira_search_issues", "jira_get_issue", "jira_create_issue",
                 "jira_update_issue", "jira_transition_issue", "jira_list_projects",
                 "jira_get_sprint", "jira_add_comment", "jira_get_comments",
                 "jira_assign_issue", "jira_get_sprint_issues",
-                // Confluence (7)
+                "jira_get_transitions", "jira_delete_issue", "jira_search_users",
+                "jira_link_issues", "jira_add_worklog", "jira_get_boards",
+                // Confluence (11)
                 "confluence_search", "confluence_get_page", "confluence_create_page",
                 "confluence_update_page", "confluence_list_spaces",
                 "confluence_get_page_children", "confluence_delete_page",
-                // Bitbucket (8)
+                "confluence_get_page_labels", "confluence_add_page_label",
+                "confluence_get_page_comments", "confluence_add_page_comment",
+                // Bitbucket (15)
                 "bitbucket_list_repos", "bitbucket_get_repo",
                 "bitbucket_list_pull_requests", "bitbucket_get_pull_request",
                 "bitbucket_search_code", "bitbucket_create_pull_request",
                 "bitbucket_list_branches", "bitbucket_get_commits",
+                "bitbucket_get_pull_request_diff", "bitbucket_get_pr_comments",
+                "bitbucket_add_pr_comment", "bitbucket_approve_pull_request",
+                "bitbucket_decline_pull_request", "bitbucket_merge_pull_request",
+                "bitbucket_get_file_content",
                 // Cross-product (1)
                 "atlassian_unified_search"
         };

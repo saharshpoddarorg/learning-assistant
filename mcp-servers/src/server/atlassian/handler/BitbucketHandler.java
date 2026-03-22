@@ -341,6 +341,338 @@ public class BitbucketHandler {
         }
     }
 
+    /**
+     * Gets the diff for a Bitbucket pull request.
+     *
+     * @param arguments the tool arguments ({@code workspace}, {@code repoSlug}, {@code prId})
+     * @return the tool response with the PR diff
+     */
+    public ToolResponse getPullRequestDiff(final Map<String, String> arguments) {
+        final var workspace = arguments.get("workspace");
+        final var repoSlug = arguments.get("repoSlug");
+        final var prIdStr = arguments.get("prId");
+
+        if (workspace == null || workspace.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_pull_request_diff",
+                    "Missing required argument: 'workspace'");
+        }
+        if (repoSlug == null || repoSlug.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_pull_request_diff",
+                    "Missing required argument: 'repoSlug'");
+        }
+        if (prIdStr == null || prIdStr.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_pull_request_diff",
+                    "Missing required argument: 'prId'");
+        }
+
+        try {
+            final int prId = Integer.parseInt(prIdStr);
+            final var response = bitbucketClient.getPullRequestDiff(workspace, repoSlug, prId);
+            final var content = "## Diff for PR #" + prId + " (" + workspace + "/" + repoSlug + ")\n\n"
+                    + "```diff\n" + HandlerUtils.truncate(response, 8000) + "\n```\n";
+            return ToolResponse.success(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_pull_request_diff", content);
+        } catch (NumberFormatException numberException) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_pull_request_diff",
+                    "Invalid prId — must be a number: " + prIdStr);
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING,
+                    "Failed to get diff for PR #" + prIdStr, exception);
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_pull_request_diff",
+                    "Failed to get diff: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Gets comments on a Bitbucket pull request.
+     *
+     * @param arguments the tool arguments ({@code workspace}, {@code repoSlug}, {@code prId})
+     * @return the tool response with PR comments
+     */
+    public ToolResponse getPrComments(final Map<String, String> arguments) {
+        final var workspace = arguments.get("workspace");
+        final var repoSlug = arguments.get("repoSlug");
+        final var prIdStr = arguments.get("prId");
+
+        if (workspace == null || workspace.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_pr_comments",
+                    "Missing required argument: 'workspace'");
+        }
+        if (repoSlug == null || repoSlug.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_pr_comments",
+                    "Missing required argument: 'repoSlug'");
+        }
+        if (prIdStr == null || prIdStr.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_pr_comments",
+                    "Missing required argument: 'prId'");
+        }
+
+        try {
+            final int prId = Integer.parseInt(prIdStr);
+            final var response = bitbucketClient.getPrComments(workspace, repoSlug, prId);
+            return ToolResponse.success(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_pr_comments",
+                    formatPrCommentsFromJson(prId, response));
+        } catch (NumberFormatException numberException) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_pr_comments",
+                    "Invalid prId — must be a number: " + prIdStr);
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING,
+                    "Failed to get comments for PR #" + prIdStr, exception);
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_pr_comments",
+                    "Failed to get PR comments: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Adds a comment to a Bitbucket pull request.
+     *
+     * @param arguments the tool arguments ({@code workspace}, {@code repoSlug},
+     *                  {@code prId}, {@code content})
+     * @return the tool response
+     */
+    public ToolResponse addPrComment(final Map<String, String> arguments) {
+        final var workspace = arguments.get("workspace");
+        final var repoSlug = arguments.get("repoSlug");
+        final var prIdStr = arguments.get("prId");
+        final var content = arguments.get("content");
+
+        if (workspace == null || workspace.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_add_pr_comment",
+                    "Missing required argument: 'workspace'");
+        }
+        if (repoSlug == null || repoSlug.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_add_pr_comment",
+                    "Missing required argument: 'repoSlug'");
+        }
+        if (prIdStr == null || prIdStr.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_add_pr_comment",
+                    "Missing required argument: 'prId'");
+        }
+        if (content == null || content.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_add_pr_comment",
+                    "Missing required argument: 'content'");
+        }
+
+        try {
+            final int prId = Integer.parseInt(prIdStr);
+            bitbucketClient.addPrComment(workspace, repoSlug, prId, content);
+            return ToolResponse.success(AtlassianProduct.BITBUCKET,
+                    "bitbucket_add_pr_comment",
+                    "Comment added to PR #" + prId + " in " + workspace + "/" + repoSlug + ".");
+        } catch (NumberFormatException numberException) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_add_pr_comment",
+                    "Invalid prId — must be a number: " + prIdStr);
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING,
+                    "Failed to add comment to PR #" + prIdStr, exception);
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_add_pr_comment",
+                    "Failed to add PR comment: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Approves a Bitbucket pull request.
+     *
+     * @param arguments the tool arguments ({@code workspace}, {@code repoSlug}, {@code prId})
+     * @return the tool response
+     */
+    public ToolResponse approvePullRequest(final Map<String, String> arguments) {
+        final var workspace = arguments.get("workspace");
+        final var repoSlug = arguments.get("repoSlug");
+        final var prIdStr = arguments.get("prId");
+
+        if (workspace == null || workspace.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_approve_pull_request",
+                    "Missing required argument: 'workspace'");
+        }
+        if (repoSlug == null || repoSlug.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_approve_pull_request",
+                    "Missing required argument: 'repoSlug'");
+        }
+        if (prIdStr == null || prIdStr.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_approve_pull_request",
+                    "Missing required argument: 'prId'");
+        }
+
+        try {
+            final int prId = Integer.parseInt(prIdStr);
+            bitbucketClient.approvePullRequest(workspace, repoSlug, prId);
+            return ToolResponse.success(AtlassianProduct.BITBUCKET,
+                    "bitbucket_approve_pull_request",
+                    "PR #" + prId + " approved in " + workspace + "/" + repoSlug + ".");
+        } catch (NumberFormatException numberException) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_approve_pull_request",
+                    "Invalid prId — must be a number: " + prIdStr);
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING,
+                    "Failed to approve PR #" + prIdStr, exception);
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_approve_pull_request",
+                    "Failed to approve PR: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Declines a Bitbucket pull request.
+     *
+     * @param arguments the tool arguments ({@code workspace}, {@code repoSlug}, {@code prId})
+     * @return the tool response
+     */
+    public ToolResponse declinePullRequest(final Map<String, String> arguments) {
+        final var workspace = arguments.get("workspace");
+        final var repoSlug = arguments.get("repoSlug");
+        final var prIdStr = arguments.get("prId");
+
+        if (workspace == null || workspace.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_decline_pull_request",
+                    "Missing required argument: 'workspace'");
+        }
+        if (repoSlug == null || repoSlug.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_decline_pull_request",
+                    "Missing required argument: 'repoSlug'");
+        }
+        if (prIdStr == null || prIdStr.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_decline_pull_request",
+                    "Missing required argument: 'prId'");
+        }
+
+        try {
+            final int prId = Integer.parseInt(prIdStr);
+            bitbucketClient.declinePullRequest(workspace, repoSlug, prId);
+            return ToolResponse.success(AtlassianProduct.BITBUCKET,
+                    "bitbucket_decline_pull_request",
+                    "PR #" + prId + " declined in " + workspace + "/" + repoSlug + ".");
+        } catch (NumberFormatException numberException) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_decline_pull_request",
+                    "Invalid prId — must be a number: " + prIdStr);
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING,
+                    "Failed to decline PR #" + prIdStr, exception);
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_decline_pull_request",
+                    "Failed to decline PR: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Merges a Bitbucket pull request.
+     *
+     * @param arguments the tool arguments ({@code workspace}, {@code repoSlug}, {@code prId})
+     * @return the tool response
+     */
+    public ToolResponse mergePullRequest(final Map<String, String> arguments) {
+        final var workspace = arguments.get("workspace");
+        final var repoSlug = arguments.get("repoSlug");
+        final var prIdStr = arguments.get("prId");
+
+        if (workspace == null || workspace.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_merge_pull_request",
+                    "Missing required argument: 'workspace'");
+        }
+        if (repoSlug == null || repoSlug.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_merge_pull_request",
+                    "Missing required argument: 'repoSlug'");
+        }
+        if (prIdStr == null || prIdStr.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_merge_pull_request",
+                    "Missing required argument: 'prId'");
+        }
+
+        try {
+            final int prId = Integer.parseInt(prIdStr);
+            bitbucketClient.mergePullRequest(workspace, repoSlug, prId);
+            return ToolResponse.success(AtlassianProduct.BITBUCKET,
+                    "bitbucket_merge_pull_request",
+                    "PR #" + prId + " merged in " + workspace + "/" + repoSlug + ".");
+        } catch (NumberFormatException numberException) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_merge_pull_request",
+                    "Invalid prId — must be a number: " + prIdStr);
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING,
+                    "Failed to merge PR #" + prIdStr, exception);
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_merge_pull_request",
+                    "Failed to merge PR: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Gets the content of a file from a Bitbucket repository.
+     *
+     * @param arguments the tool arguments ({@code workspace}, {@code repoSlug},
+     *                  {@code filePath}, optional {@code branch})
+     * @return the tool response with file content
+     */
+    public ToolResponse getFileContent(final Map<String, String> arguments) {
+        final var workspace = arguments.get("workspace");
+        final var repoSlug = arguments.get("repoSlug");
+        final var filePath = arguments.get("filePath");
+
+        if (workspace == null || workspace.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_file_content",
+                    "Missing required argument: 'workspace'");
+        }
+        if (repoSlug == null || repoSlug.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_file_content",
+                    "Missing required argument: 'repoSlug'");
+        }
+        if (filePath == null || filePath.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_file_content",
+                    "Missing required argument: 'filePath'");
+        }
+
+        final var branch = arguments.get("branch");
+
+        try {
+            final var response = bitbucketClient.getFileContent(
+                    workspace, repoSlug, filePath, branch);
+            final var header = "## " + filePath + " (" + workspace + "/" + repoSlug;
+            final var branchLabel = (branch != null && !branch.isBlank()) ? ", branch: " + branch : "";
+            return ToolResponse.success(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_file_content",
+                    header + branchLabel + ")\n\n```\n"
+                    + HandlerUtils.truncate(response, 10000) + "\n```\n");
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING,
+                    "Failed to get file content: " + filePath, exception);
+            return ToolResponse.error(AtlassianProduct.BITBUCKET,
+                    "bitbucket_get_file_content",
+                    "Failed to get file: " + exception.getMessage());
+        }
+    }
+
     // ── Formatter helpers ────────────────────────────────────────────────────
 
     /**
@@ -397,6 +729,31 @@ public class BitbucketHandler {
               .append(" | ").append(author)
               .append(" | ").append(source).append(" → ").append(target)
               .append(" |\n");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Formats PR comments into readable markdown.
+     */
+    private String formatPrCommentsFromJson(final int prId, final String json) {
+        final var comments = JsonExtractor.arrayBlocks(json, "values");
+        if (comments.isEmpty()) {
+            return "PR #" + prId + " has no comments.";
+        }
+
+        final var sb = new StringBuilder();
+        sb.append("## Comments on PR #").append(prId)
+          .append(" (").append(comments.size()).append(")\n\n");
+
+        for (final var comment : comments) {
+            final var author = JsonExtractor.navigate(comment, "user", "display_name").orElse("?");
+            final var created = JsonExtractor.stringOrDefault(comment, "created_on", "");
+            final var rawContent = JsonExtractor.navigate(comment, "content", "raw").orElse("");
+
+            sb.append("**").append(author).append("** — ").append(created).append("\n");
+            if (!rawContent.isBlank()) sb.append(rawContent).append("\n");
+            sb.append("\n");
         }
         return sb.toString();
     }

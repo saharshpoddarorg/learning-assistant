@@ -353,6 +353,163 @@ public class JiraHandler {
         }
     }
 
+    /**
+     * Lists available transitions for a Jira issue.
+     *
+     * @param arguments the tool arguments ({@code issueKey})
+     * @return the tool response with available transitions
+     */
+    public ToolResponse getTransitions(final Map<String, String> arguments) {
+        final var issueKey = arguments.get("issueKey");
+        if (issueKey == null || issueKey.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.JIRA, "jira_get_transitions",
+                    "Missing required argument: 'issueKey'");
+        }
+
+        try {
+            final var response = jiraClient.getTransitions(issueKey);
+            return ToolResponse.success(AtlassianProduct.JIRA, "jira_get_transitions",
+                    formatTransitionsFromJson(issueKey, response));
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING, "Failed to get transitions for: " + issueKey, exception);
+            return ToolResponse.error(AtlassianProduct.JIRA, "jira_get_transitions",
+                    "Failed to get transitions: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Deletes a Jira issue.
+     *
+     * @param arguments the tool arguments ({@code issueKey})
+     * @return the tool response
+     */
+    public ToolResponse deleteIssue(final Map<String, String> arguments) {
+        final var issueKey = arguments.get("issueKey");
+        if (issueKey == null || issueKey.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.JIRA, "jira_delete_issue",
+                    "Missing required argument: 'issueKey'");
+        }
+
+        try {
+            jiraClient.deleteIssue(issueKey);
+            return ToolResponse.success(AtlassianProduct.JIRA, "jira_delete_issue",
+                    "Issue " + issueKey + " deleted successfully.");
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING, "Failed to delete issue: " + issueKey, exception);
+            return ToolResponse.error(AtlassianProduct.JIRA, "jira_delete_issue",
+                    "Failed to delete " + issueKey + ": " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Searches for Jira users by display name, email, or username.
+     *
+     * @param arguments the tool arguments ({@code query}, optional {@code maxResults})
+     * @return the tool response with matched users
+     */
+    public ToolResponse searchUsers(final Map<String, String> arguments) {
+        final var query = arguments.get("query");
+        if (query == null || query.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.JIRA, "jira_search_users",
+                    "Missing required argument: 'query'");
+        }
+
+        final int maxResults = HandlerUtils.parseMaxResults(arguments.get("maxResults"));
+
+        try {
+            final var response = jiraClient.searchUsers(query, maxResults);
+            return ToolResponse.success(AtlassianProduct.JIRA, "jira_search_users",
+                    formatUsersFromJson(response));
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING, "Failed to search users: " + query, exception);
+            return ToolResponse.error(AtlassianProduct.JIRA, "jira_search_users",
+                    "User search failed: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Links two Jira issues together.
+     *
+     * @param arguments the tool arguments ({@code inwardIssueKey}, {@code outwardIssueKey}, {@code linkType})
+     * @return the tool response
+     */
+    public ToolResponse linkIssues(final Map<String, String> arguments) {
+        final var inwardKey = arguments.get("inwardIssueKey");
+        final var outwardKey = arguments.get("outwardIssueKey");
+        final var linkType = arguments.getOrDefault("linkType", "Relates");
+
+        if (inwardKey == null || inwardKey.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.JIRA, "jira_link_issues",
+                    "Missing required argument: 'inwardIssueKey'");
+        }
+        if (outwardKey == null || outwardKey.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.JIRA, "jira_link_issues",
+                    "Missing required argument: 'outwardIssueKey'");
+        }
+
+        try {
+            jiraClient.linkIssues(inwardKey, outwardKey, linkType);
+            return ToolResponse.success(AtlassianProduct.JIRA, "jira_link_issues",
+                    "Issues linked: " + inwardKey + " → " + outwardKey
+                    + " (type: " + linkType + ").");
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING, "Failed to link issues", exception);
+            return ToolResponse.error(AtlassianProduct.JIRA, "jira_link_issues",
+                    "Failed to link issues: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Adds a worklog entry to a Jira issue.
+     *
+     * @param arguments the tool arguments ({@code issueKey}, {@code timeSpent}, optional {@code comment})
+     * @return the tool response
+     */
+    public ToolResponse addWorklog(final Map<String, String> arguments) {
+        final var issueKey = arguments.get("issueKey");
+        final var timeSpent = arguments.get("timeSpent");
+
+        if (issueKey == null || issueKey.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.JIRA, "jira_add_worklog",
+                    "Missing required argument: 'issueKey'");
+        }
+        if (timeSpent == null || timeSpent.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.JIRA, "jira_add_worklog",
+                    "Missing required argument: 'timeSpent' (e.g., '2h 30m', '1d')");
+        }
+
+        final var comment = arguments.get("comment");
+
+        try {
+            final var response = jiraClient.addWorklog(issueKey, timeSpent, comment);
+            return ToolResponse.success(AtlassianProduct.JIRA, "jira_add_worklog",
+                    "Worklog added to " + issueKey + ": " + timeSpent);
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING, "Failed to add worklog to: " + issueKey, exception);
+            return ToolResponse.error(AtlassianProduct.JIRA, "jira_add_worklog",
+                    "Failed to add worklog: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Lists agile boards.
+     *
+     * @return the tool response with board list
+     */
+    public ToolResponse listBoards(final Map<String, String> arguments) {
+        final int maxResults = HandlerUtils.parseMaxResults(arguments.get("maxResults"));
+
+        try {
+            final var response = jiraClient.listBoards(maxResults);
+            return ToolResponse.success(AtlassianProduct.JIRA, "jira_get_boards",
+                    formatBoardsFromJson(response));
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING, "Failed to list boards", exception);
+            return ToolResponse.error(AtlassianProduct.JIRA, "jira_get_boards",
+                    "Failed to list boards: " + exception.getMessage());
+        }
+    }
+
     // ── Formatter helpers ────────────────────────────────────────────────────
 
     /**
@@ -455,6 +612,109 @@ public class JiraHandler {
             sb.append("**").append(author).append("** — ").append(created).append("\n");
             if (!text.isBlank()) sb.append(text).append("\n");
             sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Formats the available transitions for a Jira issue as readable markdown.
+     */
+    private String formatTransitionsFromJson(final String issueKey, final String json) {
+        final var transitions = JsonExtractor.arrayBlocks(json, "transitions");
+        if (transitions.isEmpty()) {
+            return "No transitions available for " + issueKey + ".";
+        }
+
+        final var sb = new StringBuilder();
+        sb.append("## Available Transitions for ").append(issueKey)
+          .append(" (").append(transitions.size()).append(")\n\n");
+        sb.append("| ID | Name | Target Status |\n");
+        sb.append("|----|------|---------------|\n");
+
+        for (final var transition : transitions) {
+            final var id   = JsonExtractor.stringOrDefault(transition, "id", "?");
+            final var name = JsonExtractor.stringOrDefault(transition, "name", "?");
+            final var statusName = JsonExtractor.navigate(transition, "to", "name").orElse("-");
+            sb.append("| ").append(id)
+              .append(" | ").append(name)
+              .append(" | ").append(statusName)
+              .append(" |\n");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Formats a Jira user search response into readable markdown.
+     */
+    private String formatUsersFromJson(final String json) {
+        // The user search API returns an array at top level — we parse it
+        // by looking for individual object blocks within the array.
+        final var trimmed = json.strip();
+        if (trimmed.equals("[]") || trimmed.isBlank()) {
+            return "No users found.";
+        }
+
+        // Extract user objects from the array
+        final var sb = new StringBuilder();
+        sb.append("## Users Found\n\n");
+        sb.append("| Display Name | Email | Account ID |\n");
+        sb.append("|-------------|-------|------------|\n");
+
+        // Simple approach: split the array by finding each top-level object
+        int count = 0;
+        int pos = trimmed.indexOf('{');
+        while (pos >= 0 && pos < trimmed.length()) {
+            int depth = 0;
+            int start = pos;
+            for (int i = pos; i < trimmed.length(); i++) {
+                final char ch = trimmed.charAt(i);
+                if (ch == '{') depth++;
+                else if (ch == '}') depth--;
+                if (depth == 0) {
+                    final var userJson = trimmed.substring(start, i + 1);
+                    final var displayName = JsonExtractor.stringOrDefault(userJson, "displayName", "-");
+                    final var email       = JsonExtractor.stringOrDefault(userJson, "emailAddress", "-");
+                    final var accountId   = JsonExtractor.stringOrDefault(userJson, "accountId", "-");
+                    sb.append("| ").append(displayName)
+                      .append(" | ").append(email)
+                      .append(" | ").append(accountId)
+                      .append(" |\n");
+                    count++;
+                    pos = trimmed.indexOf('{', i + 1);
+                    break;
+                }
+            }
+            if (depth != 0) break;
+        }
+
+        if (count == 0) {
+            return "No users found.";
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Formats a boards list response into readable markdown.
+     */
+    private String formatBoardsFromJson(final String json) {
+        final var boards = JsonExtractor.arrayBlocks(json, "values");
+        if (boards.isEmpty()) {
+            return "No boards found.";
+        }
+
+        final var sb = new StringBuilder();
+        sb.append("## Agile Boards (").append(boards.size()).append(")\n\n");
+        sb.append("| ID | Name | Type |\n");
+        sb.append("|----|------|------|\n");
+
+        for (final var board : boards) {
+            final var id   = JsonExtractor.intValue(board, "id", 0);
+            final var name = JsonExtractor.stringOrDefault(board, "name", "-");
+            final var type = JsonExtractor.stringOrDefault(board, "type", "-");
+            sb.append("| ").append(id)
+              .append(" | ").append(name)
+              .append(" | ").append(type)
+              .append(" |\n");
         }
         return sb.toString();
     }

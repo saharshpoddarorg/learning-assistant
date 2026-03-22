@@ -23,15 +23,19 @@ import java.util.logging.Logger;
  * Protocol, enabling AI assistants to manage issues, documentation, and
  * code collaboration.
  *
- * <p><strong>Capabilities (27 tools):</strong>
+ * <p><strong>Capabilities (44 tools):</strong>
  * <ul>
- *   <li><strong>Jira (11):</strong> search issues (JQL/text), get issue, create,
+ *   <li><strong>Jira (17):</strong> search issues (JQL/text), get issue, create,
  *       update, transition, list projects, get active sprint, add comment, get comments,
- *       assign issue, get sprint issues</li>
- *   <li><strong>Confluence (7):</strong> search pages (CQL/text), get page,
- *       create page, update page, list spaces, get page children, delete page</li>
- *   <li><strong>Bitbucket (8):</strong> list repos, get repo, list PRs,
- *       get PR details, search code, create PR, list branches, get commits</li>
+ *       assign issue, get sprint issues, get transitions, delete issue, search users,
+ *       link issues, add worklog, get boards</li>
+ *   <li><strong>Confluence (11):</strong> search pages (CQL/text), get page,
+ *       create page, update page, list spaces, get page children, delete page,
+ *       get page labels, add page label, get page comments, add page comment</li>
+ *   <li><strong>Bitbucket (15):</strong> list repos, get repo, list PRs,
+ *       get PR details, search code, create PR, list branches, get commits,
+ *       get PR diff, get PR comments, add PR comment, approve PR, decline PR,
+ *       merge PR, get file content</li>
  *   <li><strong>Cross-product (1):</strong> unified search across Jira + Confluence + Bitbucket</li>
  * </ul>
  *
@@ -117,7 +121,7 @@ public class AtlassianServer {
         // Use LinkedHashMap to preserve insertion order for stable tools/list output.
         final var tools = new LinkedHashMap<String, String>();
 
-        // Jira (11)
+        // Jira (17)
         tools.put("jira_search_issues",
                 "Search Jira issues using JQL or free text. Args: query, maxResults (opt), projectKey (opt)");
         tools.put("jira_get_issue",
@@ -140,8 +144,20 @@ public class AtlassianServer {
                 "Assign a Jira issue to a user. Args: issueKey, accountId (omit to unassign)");
         tools.put("jira_get_sprint_issues",
                 "Get all issues in a sprint. Args: boardId, maxResults (opt)");
+        tools.put("jira_get_transitions",
+                "Get available transitions for a Jira issue. Args: issueKey");
+        tools.put("jira_delete_issue",
+                "Delete a Jira issue permanently. Args: issueKey");
+        tools.put("jira_search_users",
+                "Search for Jira users by name or email. Args: query, maxResults (opt)");
+        tools.put("jira_link_issues",
+                "Create a link between two Jira issues. Args: inwardIssueKey, outwardIssueKey, linkType");
+        tools.put("jira_add_worklog",
+                "Log time spent on a Jira issue. Args: issueKey, timeSpent, comment (opt)");
+        tools.put("jira_get_boards",
+                "List Jira boards (Scrum/Kanban). Args: maxResults (opt)");
 
-        // Confluence (7)
+        // Confluence (11)
         tools.put("confluence_search",
                 "Search Confluence pages using CQL or free text. Args: query, maxResults (opt)");
         tools.put("confluence_get_page",
@@ -156,8 +172,16 @@ public class AtlassianServer {
                 "Get child pages of a Confluence page. Args: pageId, maxResults (opt)");
         tools.put("confluence_delete_page",
                 "Delete a Confluence page. Args: pageId");
+        tools.put("confluence_get_page_labels",
+                "Get labels on a Confluence page. Args: pageId");
+        tools.put("confluence_add_page_label",
+                "Add a label to a Confluence page. Args: pageId, label");
+        tools.put("confluence_get_page_comments",
+                "Get comments on a Confluence page. Args: pageId, maxResults (opt)");
+        tools.put("confluence_add_page_comment",
+                "Add a comment to a Confluence page. Args: pageId, comment");
 
-        // Bitbucket (8)
+        // Bitbucket (15)
         tools.put("bitbucket_list_repos",
                 "List repositories in a Bitbucket workspace. Args: workspace");
         tools.put("bitbucket_get_repo",
@@ -174,6 +198,20 @@ public class AtlassianServer {
                 "List branches in a repository. Args: workspace, repoSlug, maxResults (opt)");
         tools.put("bitbucket_get_commits",
                 "Get recent commits in a repository. Args: workspace, repoSlug, branch (opt), maxResults (opt)");
+        tools.put("bitbucket_get_pull_request_diff",
+                "Get the diff of a Bitbucket pull request. Args: workspace, repoSlug, pullRequestId");
+        tools.put("bitbucket_get_pr_comments",
+                "Get comments on a Bitbucket pull request. Args: workspace, repoSlug, pullRequestId");
+        tools.put("bitbucket_add_pr_comment",
+                "Add a comment to a Bitbucket pull request. Args: workspace, repoSlug, pullRequestId, content");
+        tools.put("bitbucket_approve_pull_request",
+                "Approve a Bitbucket pull request. Args: workspace, repoSlug, pullRequestId");
+        tools.put("bitbucket_decline_pull_request",
+                "Decline a Bitbucket pull request. Args: workspace, repoSlug, pullRequestId");
+        tools.put("bitbucket_merge_pull_request",
+                "Merge a Bitbucket pull request. Args: workspace, repoSlug, pullRequestId");
+        tools.put("bitbucket_get_file_content",
+                "Get the content of a file from a Bitbucket repository. Args: workspace, repoSlug, filePath, branch (opt)");
 
         // Cross-product (1)
         tools.put("atlassian_unified_search",
@@ -227,7 +265,7 @@ public class AtlassianServer {
     }
 
     /**
-     * Handles the MCP {@code tools/list} request by returning all 27 tool schemas.
+     * Handles the MCP {@code tools/list} request by returning all 44 tool schemas.
      *
      * @param id the JSON-RPC request id
      * @return a JSON-RPC response containing the tools array
@@ -414,17 +452,17 @@ public class AtlassianServer {
         System.out.println("Atlassian MCP Server v" + SERVER_VERSION
                 + " — Available Tools (" + defs.size() + ")\n");
 
-        System.out.println("=== Jira (11) ===");
+        System.out.println("=== Jira (17) ===");
         defs.entrySet().stream()
                 .filter(e -> e.getKey().startsWith("jira_"))
                 .forEach(e -> System.out.println("  " + e.getKey() + "\n    " + e.getValue() + "\n"));
 
-        System.out.println("=== Confluence (7) ===");
+        System.out.println("=== Confluence (11) ===");
         defs.entrySet().stream()
                 .filter(e -> e.getKey().startsWith("confluence_"))
                 .forEach(e -> System.out.println("  " + e.getKey() + "\n    " + e.getValue() + "\n"));
 
-        System.out.println("=== Bitbucket (8) ===");
+        System.out.println("=== Bitbucket (15) ===");
         defs.entrySet().stream()
                 .filter(e -> e.getKey().startsWith("bitbucket_"))
                 .forEach(e -> System.out.println("  " + e.getKey() + "\n    " + e.getValue() + "\n"));
