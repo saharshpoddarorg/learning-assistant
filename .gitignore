@@ -110,6 +110,8 @@ mcp-servers/user-config/mcp-config.local.properties
 # Server-specific local config files (credentials, instance URLs)
 # Pattern covers all servers under user-config/servers/**/
 mcp-servers/user-config/servers/**/*.local.properties
+# OAuth credential stores (tokens, refresh tokens — sensitive)
+mcp-servers/user-config/servers/**/credentials/*.properties
 
 # Local build environment file (machine-specific JDK path, never commit)
 mcp-servers/build.env.local

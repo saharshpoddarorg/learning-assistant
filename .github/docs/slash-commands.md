@@ -76,7 +76,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 24 | `/debug` | Code Quality | Systematic bug investigation | Debugger |
 | 25 | `/impact` | Code Quality | Change impact & ripple effect analysis | Impact-Analyzer |
 | 26 | `/explore-project` | Domain | Learn from open-source project architecture | Learning-Mentor |
-| 27 | `/resources` | Domain | Search, browse & scrape curated learning resources | Learning-Mentor |
+| 27 | `/resources` | Domain | Search, browse & discover 138 curated learning resources | Learning-Mentor |
 | 28 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
 | 29 | `/brain-new` | Brain Workspace | Create a new knowledge note (inbox or notes tier) | Copilot |
 | 30 | `/brain-publish` | Brain Workspace | Publish an imported source to library/ with tag prompting and git commit | Copilot |
@@ -309,29 +309,24 @@ Output:   Repository overview → architecture map → key patterns → lessons
 #### `/resources` — Learning Resource Vault
 
 ```yaml
-Inputs:   action (search/browse/scrape/recommend/add/details/discover/export), topic/URL, filters (optional)
+Inputs:   action (search/browse/scrape/recommend/details/discover), topic/URL, filters (optional)
 Agent:    Learning-Mentor
 Tools:    codebase, fetch
 Example:  /resources → search → java concurrency
           /resources → discover → learn testing → (auto: exploratory mode)
-          /resources → discover → mode=specific → "JUnit 5 docs"
-          /resources → discover → domain=core-cs
-          /resources → export → java → format=pdf
-Actions:  search (keyword/tag), browse (by category), scrape (any URL),
-          recommend (topic-based), add (new resource), details (deep-dive),
-          discover (3 modes: specific/vague/exploratory), export (md/pdf/word)
-Vault:    ~100+ curated resources across Java, Python, Web, AI/ML, DevOps,
-          Git/VCS, build tools, algorithms & data structures (8 DS-specific
-          resources: Java Collections, OpenDSA, VisuAlgo, Neetcode, MIT 6.006,
-          GeeksforGeeks, Python DS docs, Algorithm Design Manual),
-          engineering, databases, security,
-          digital note-taking & PKM (15 resources incl. BASB, PARA, Zettelkasten,
-          Obsidian, Notion, Logseq, Foam, GTD, Progressive Summarization), and more
-MCP:      Backed by 10 MCP tools: search_resources, browse_vault, get_resource,
-          list_categories, discover_resources, scrape_url, read_url, add_resource,
-          add_resource_from_url, export_results
-Enums:    ResourceType (11 types incl. PLAYLIST), SearchMode (specific/vague/exploratory),
-          ConceptDomain (8 domains), ConceptArea (36 concepts), DifficultyLevel, LanguageApplicability
+          /resources → browse → devops
+          /resources → recommend → beginner java
+Actions:  search (keyword/tag), browse (by domain), scrape (any URL via fetch),
+          recommend (topic-based), details (deep-dive), discover (smart 3-mode)
+Vault:    138 curated resources across 10 domains: Java (20), Web/JS/TS (12),
+          Python (6), Algorithms & DS (11), Software Engineering & Testing (11),
+          DevOps/VCS/Build (25), Cloud/Infra/Data (15), AI/ML (4),
+          PKM & Note-Taking (15), General & Career (19)
+Skill:    Backed by learning-resources-vault skill (.github/skills/learning-resources-vault/)
+          with 10 domain sub-files loaded on demand by semantic match.
+          Works in ALL Copilot modes (Ask, Edit, Agent) — no MCP server required.
+Badges:   🟢Beginner 🟡Intermediate 🔴Advanced ⚫Expert | 📖Docs 📝Tutorial
+          📰Blog 📚Book 🎓Course 🎮Interactive 📋API Ref 💻Repo
 ```
 
 #### `/git-vcs` — Git & Version Control
