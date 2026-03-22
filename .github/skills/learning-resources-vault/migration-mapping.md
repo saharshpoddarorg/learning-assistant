@@ -9,11 +9,11 @@
 
 | MCP Component | Files | Skill Equivalent | Status |
 |---|---|---|---|
-| 17 Provider classes (132 resources) | `vault/providers/*.java` | 10 sub-files (138 resources) | ✅ Migrated |
+| 17 Provider classes (138 resources) | `vault/providers/*.java` | 10 sub-files (138 resources) | ✅ Migrated |
 | `LearningResource` record (15 fields) | `model/LearningResource.java` | Table columns + Tags Index | ✅ Migrated |
-| `ConceptArea` enum (36 values) | `model/ConceptArea.java` | taxonomy-reference.md §2 + "Concepts" column | ✅ Documented |
+| `ConceptArea` enum (40 values) | `model/ConceptArea.java` | taxonomy-reference.md §2 + "Concepts" column | ✅ Documented |
 | `ConceptDomain` enum (9 values) | `model/ConceptDomain.java` | taxonomy-reference.md §1 + SKILL.md domains table | ✅ Documented |
-| `ResourceCategory` enum (18 values) | `model/ResourceCategory.java` | taxonomy-reference.md §3 + sub-file routing | ✅ Documented |
+| `ResourceCategory` enum (17 values) | `model/ResourceCategory.java` | taxonomy-reference.md §3 + sub-file routing | ✅ Documented |
 | `DifficultyLevel` enum (4 values) | `model/DifficultyLevel.java` | taxonomy-reference.md §4 + "Diff" column badges | ✅ Documented |
 | `ResourceType` enum (13 values) | `model/ResourceType.java` | taxonomy-reference.md §5 + "Type" column badges | ✅ Documented |
 | `ContentFreshness` enum (5 values) | `model/ContentFreshness.java` | taxonomy-reference.md §6 + "Fresh" column badges | ✅ Documented |
@@ -38,25 +38,24 @@ The MCP server had 17 Java provider classes. Resources were redistributed into
 |---|---|---|---|
 | `JavaResources` | 17 | resources-java.md | 17 |
 | `FrameworksResources` (Java portion) | 3 | resources-java.md | 3 |
-| `FrameworksResources` (Web portion) | 5 | resources-web-javascript.md | 5 |
+| `FrameworksResources` (Web portion) | 6 | resources-web-javascript.md | 6 |
 | `FrameworksResources` (Python portion) | 2 | resources-python.md | 2 |
 | `WebResources` | 5 | resources-web-javascript.md | 5 |
-| `JavaScriptResources` | 2 | resources-web-javascript.md | 2 |
+| `BuildToolsResources` (npm-docs) | 1 | resources-web-javascript.md | 1 |
 | `PythonResources` | 4 | resources-python.md | 4 |
 | `AlgorithmsResources` | 3 | resources-algorithms-ds.md | 3 |
 | `DataStructuresResources` | 8 | resources-algorithms-ds.md | 8 |
 | `EngineeringResources` | 6 | resources-software-engineering.md | 6 |
-| `TestingResources` | 5 | resources-software-engineering.md | 5 |
+| `TestingToolsResources` | 5 | resources-software-engineering.md | 5 |
 | `DevOpsResources` | 6 | resources-devops-vcs-build.md | 6 |
 | `VcsResources` | 9 | resources-devops-vcs-build.md | 9 |
 | `BuildToolsResources` | 10 | resources-devops-vcs-build.md | 10 |
 | `CloudInfraResources` | 7 | resources-cloud-infra.md | 7 |
 | `DataAndSecurityResources` | 8 | resources-cloud-infra.md | 8 |
 | `AiMlResources` | 4 | resources-ai-ml.md | 4 |
-| `ProductivityPkmResources` | 15 | resources-productivity-pkm.md | 15 |
+| `DigitalNotetakingResources` | 15 | resources-productivity-pkm.md | 15 |
 | `GeneralResources` | 5 | resources-general-career.md | 5 |
-| `SelfDevelopmentResources` | 13 | resources-general-career.md | 13 |
-| *(Testing Trophy in career)* | 1 | resources-general-career.md | 1 |
+| `SelfDevelopmentResources` | 14 | resources-general-career.md | 14 |
 | **Total** | **138** | **10 files** | **138** |
 
 ### 2. LearningResource Record (15 Fields → Table Columns + Tags Index)
@@ -221,8 +220,8 @@ Everything. Every resource, every metadata field, every categorization dimension
 every keyword synonym, and every scoring priority is documented in the skill files:
 
 - **138 resources** with all 15 metadata fields → 10 sub-files
-- **36 concept areas** in 9 domains → taxonomy-reference.md §1-2
-- **18 resource categories** → taxonomy-reference.md §3
+- **40 concept areas** in 9 domains → taxonomy-reference.md §1-2
+- **17 resource categories** → taxonomy-reference.md §3
 - **4 difficulty levels** with ordinal scale → taxonomy-reference.md §4
 - **13 resource types** → taxonomy-reference.md §5
 - **5 freshness values** → taxonomy-reference.md §6
@@ -238,7 +237,7 @@ every keyword synonym, and every scoring priority is documented in the skill fil
 
 - [x] All 138 resources present across 10 sub-files
 - [x] All 15 LearningResource fields mapped to table columns or Tags Index
-- [x] All 8 enum types (92 values) documented in taxonomy-reference.md
+- [x] All 8 enum types (97 values) documented in taxonomy-reference.md
 - [x] All 170+ concept keyword mappings documented
 - [x] All 120+ category keyword mappings documented
 - [x] All 13 difficulty keywords documented
