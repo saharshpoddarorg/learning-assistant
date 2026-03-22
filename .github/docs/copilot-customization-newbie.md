@@ -173,6 +173,7 @@ Be specific — cite line numbers.
 
 | I want to... | Read this |
 |---|---|
+| Compare all 6 types side-by-side | [Primitives Crosswalk](copilot-primitives-crosswalk.md) |
 | See the one-page cheatsheet | [Primitives At-a-Glance](primitives-at-a-glance.md) |
 | Understand each type in depth | [Copilot Customization Deep Dive](copilot-customization-deep-dive.md) |
 | See the same task done with each primitive | [Deep Dive §Side-by-Side Examples](copilot-customization-deep-dive.md#part-12-side-by-side--same-task-every-primitive) |

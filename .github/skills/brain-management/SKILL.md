@@ -7,7 +7,10 @@ description: >
   Use when asked about: where to put a note, how to name a file, what frontmatter to add,
   when to use notes/ vs library/ vs sessions/, how to structure the brain workspace, whether to create
   a new tier/folder, brain naming conventions, prefix/suffix usage, how to timestamp notes,
-  chat session capture, or any brain/ai-brain/ management question.
+  chat session capture, session scoping (global/project/feature scope levels, widening/narrowing),
+  software-dev umbrella structure (requirements/design/implementation/testing/devops activities),
+  project-aware sessions, cross-referencing sessions at different scopes, or any brain/ai-brain/
+  management question.
 ---
 
 # Brain Management Skill
@@ -264,13 +267,22 @@ sessions/
     research/
     general/
   personal/                           ← personal projects & learning
+    software-dev/                     ← umbrella for all s/w dev activities
+      requirements/
+      research/
+      design/
+      implementation/
+      testing/
+      code-review/
+      devops/
+      general/
     learning/
-    project-dev/
     financial/
     research/
     general/
   _templates/
     session-capture.md
+    requirements-capture.md
 ```
 
 ### Session Naming Convention
@@ -340,18 +352,22 @@ Requirements gathering for personal projects uses a specialised template
 - **Dependencies & Constraints** — blockers and technical limits
 - **Open Questions** — unresolved items
 
-**When `requirements` vs `project-dev`:**
+**When `requirements` vs `design` vs `implementation`:**
 
 - Requirements = WHAT to build (stories, scope, criteria, NFRs)
-- Project-dev = HOW to build it (design, implementation, architecture)
+- Design = HOW to structure it (architecture, API contracts, schemas)
+- Implementation = Building it (coding, debugging, feature work)
+
+All live under `personal/software-dev/<activity>/`.
 
 **Naming examples:**
 
 ```text
-sessions/personal/requirements/
+sessions/personal/software-dev/requirements/
   2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
   2026-03-22_10-00am_requirements_task-manager-mvp-scope_v2.md
-  2026-03-25_09-00am_requirements_expense-tracker-budget-rules.md
+sessions/personal/software-dev/design/
+  2026-03-20_03-00pm_design_task-manager-api-endpoints.md
 ```
 
 **Requirements evolve** — use `_v2`, `_v3` suffixes with `parent:` linking.
@@ -399,6 +415,34 @@ requirements gathering and general-purpose learning.
 **Command:** `/session-scope` (status / widen / narrow / switch / split / link / history)
 
 Full protocol: `.github/instructions/session-scoping.instructions.md`
+
+### Project-Aware Sessions
+
+Sessions tied to personal software development projects support automatic project detection
+and activity-based routing.
+
+**Auto-detection triggers:**
+
+| Signal | Action |
+|---|---|
+| Mentions a GitHub repo name | Set `scope: project`, `scope-project:` to repo name |
+| Names a project explicitly | Set `scope: project`, route to `software-dev/<activity>/` |
+| Uses keywords: MVP, feature, epic | Set `scope: feature` if specific enough |
+
+**Activity context switching:**
+
+Sessions naturally move between activities (requirements → design → implementation).
+Use `scope-transitions` to log when you shift activities within a project session.
+Fork to a new file when the new activity becomes substantial (3+ exchanges with depth).
+
+**Tagging:** Every session uses 3-7 tags. Project-scoped sessions always include
+`project:<project-name>` and optionally `gh:<owner/repo>`. Mix activity + technology tags
+for discoverability.
+
+**Project sub-packages:** When 3+ sessions exist for the same project within an activity
+folder, create a project sub-directory (e.g., `software-dev/requirements/task-manager/`).
+
+Full protocol: `.github/instructions/chat-capture.instructions.md`
 
 ### Anti-Patterns
 

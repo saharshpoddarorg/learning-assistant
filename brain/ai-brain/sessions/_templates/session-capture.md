@@ -3,10 +3,13 @@ date: YYYY-MM-DD
 time: "HH:MM AM/PM"
 kind: session-capture
 domain: work | personal
-category: code-analysis | debugging | requirements | performance | feature-exploration | documentation | research | learning | project-dev | requirements | financial | general
+category: code-analysis | debugging | requirements | performance | feature-exploration | documentation | research | learning | financial | general | design | implementation | testing | code-review | devops
 project: project-name
 subject: kebab-case-subject-slug
 tags: [tag1, tag2, tag3]
+  # Tag guidance: 3-7 tags. Include project:<name> when project-scoped.
+  # Include gh:<owner/repo> when tied to a GitHub repository.
+  # Mix activity tags (requirements, api-design) + technology tags (java, react).
 status: draft
 version: 1
 parent: null

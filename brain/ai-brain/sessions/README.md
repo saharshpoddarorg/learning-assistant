@@ -85,6 +85,7 @@ YYYY-MM-DD_HH-MMtt_<category>_<subject>[_v<N>].md
 ### Examples
 
 ```text
+# Work domain (flat categories)
 sessions/work/code-analysis/
   2026-03-20_10-30am_code-analysis_order-service-calculate-total.md
   2026-03-21_02-15pm_code-analysis_order-service-calculate-total_v2.md
@@ -92,12 +93,52 @@ sessions/work/code-analysis/
 sessions/work/research/
   2026-03-20_02-15pm_research_mcp-transport-sse-vs-stdio.md
 
+# Personal domain — software-dev umbrella (category = leaf folder name)
+sessions/personal/software-dev/requirements/
+  2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
+
+sessions/personal/software-dev/design/
+  2026-03-20_03-00pm_design_task-manager-api-endpoints.md
+
+sessions/personal/software-dev/implementation/
+  2026-03-20_11-00am_implementation_task-manager-crud-endpoints.md
+
+# Personal domain — stand-alone categories
 sessions/personal/learning/
   2026-03-20_05-00pm_learning_java-virtual-threads-deep-dive.md
 
 sessions/personal/financial/
   2026-03-20_01-30pm_financial_tax-optimization-freelance-income.md
 ```
+
+---
+
+## Tagging and Cross-Referencing
+
+Tags enable cross-cutting discoverability (folders organize by activity, tags search
+across activities). Every session uses **3-7 tags** in these categories:
+
+| Tag type | Format | Example |
+|---|---|---|
+| **Project** | `project:<name>` | `project:task-manager` |
+| **GitHub** | `gh:<owner/repo>` | `gh:saharshpoddarorg/task-manager` |
+| **Activity** | plain kebab-case | `requirements`, `api-design`, `trade-off-analysis` |
+| **Technology** | plain kebab-case | `java`, `spring-boot`, `react`, `docker` |
+
+Cross-references between related sessions use `scope-refs` in frontmatter with
+bidirectional links. See `.github/instructions/session-scoping.instructions.md`.
+
+---
+
+## Project-Aware Sessions
+
+When starting a chat about a personal software project (including GitHub repos), the
+system automatically detects the project and routes to `software-dev/<activity>/`.
+Within a single session, activity can switch (requirements → design → implementation)
+with transitions logged in `scope-transitions`.
+
+See `.github/instructions/chat-capture.instructions.md` for the full project-aware
+session protocol, automatic detection triggers, and context-switching rules.
 
 ---
 
@@ -192,6 +233,11 @@ When continuing analysis on the same subject from a previous session:
 
 ## Sub-Package Escalation
 
+Sessions naturally cluster around shared subjects or projects. Two escalation patterns
+keep folders navigable as volume grows.
+
+### Pattern 1 — Subject-Based Sub-Package (5+ files)
+
 When **5+ files** accumulate for the same subject within a category, group them
 into a sub-directory:
 
@@ -212,6 +258,55 @@ work/code-analysis/order-service/
 
 Inside sub-packages, filenames drop the category and subject prefix (already implied
 by the folder path).
+
+### Pattern 2 — Project-Based Sub-Package (3+ files in same activity for same project)
+
+Within `personal/software-dev/<activity>/`, when **3+ sessions** relate to the **same
+project**, create a project sub-folder:
+
+```text
+# Before (flat)
+personal/software-dev/requirements/
+  2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
+  2026-03-21_10-00am_requirements_task-manager-recurring-tasks.md
+  2026-03-22_04-30pm_requirements_task-manager-notification-rules.md
+  2026-03-25_09-00am_requirements_expense-tracker-budget-rules.md
+
+# After (project sub-package)
+personal/software-dev/requirements/task-manager/
+  2026-03-20_02-15pm_mvp-scope.md
+  2026-03-21_10-00am_recurring-tasks.md
+  2026-03-22_04-30pm_notification-rules.md
+
+personal/software-dev/requirements/
+  2026-03-25_09-00am_requirements_expense-tracker-budget-rules.md
+```
+
+**Rules:**
+
+- Threshold is **3+ files** (lower than subject escalation — project cohesion is stronger)
+- Project sub-package name = kebab-case project name (e.g., `task-manager`)
+- Files inside drop the category and project prefix (implied by folder path)
+- Add a `README.md` to the sub-package listing its contents
+- Move existing files when escalating (update SESSION-LOG.md paths)
+
+### Cross-Cutting Project Index
+
+When a personal project spans **3+ activity categories** under `software-dev/`, create
+a project index file at `personal/software-dev/<project-name>-INDEX.md`:
+
+```markdown
+# task-manager — Session Index
+
+| Activity | Sessions | Latest |
+|---|---|---|
+| requirements | 3 | [notification-rules](requirements/task-manager/...) |
+| design | 2 | [api-endpoints](design/task-manager/...) |
+| implementation | 4 | [crud-endpoints-v2](implementation/task-manager/...) |
+| testing | 1 | [e2e-strategy](testing/...) |
+```
+
+This provides a single entry point for all sessions related to one project.
 
 ---
 
@@ -279,14 +374,14 @@ specialised template (`_templates/requirements-capture.md`) that includes:
 - **Dependencies & Constraints** — blockers, technical constraints
 - **Open Questions** — unresolved items
 
-### When to use `requirements` vs `project-dev`
+### Activity routing within software-dev
 
-| Requirements | Project-Dev |
-|---|---|
-| Defining WHAT to build | Deciding HOW to build it |
-| User stories, acceptance criteria | Design patterns, architecture |
-| Feature scoping (MoSCoW) | Code implementation |
-| BDD scenarios | Debugging, optimization |
+| `software-dev/requirements` | `software-dev/design` | `software-dev/implementation` |
+|---|---|---|
+| Defining WHAT to build | Architecture, patterns | Writing code, building features |
+| User stories, acceptance criteria | Component design, HLD/LLD | Debugging during dev |
+| Feature scoping (MoSCoW) | ADRs, API contracts | POC or prototype implementation |
+| BDD scenarios | Database schema design | Optimising existing code |
 
 ### Requirements versioning
 

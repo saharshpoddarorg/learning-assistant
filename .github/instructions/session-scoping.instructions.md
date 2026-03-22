@@ -92,7 +92,7 @@ scope-transitions:
 
 ```yaml
 scope-refs:
-  - file: "personal/requirements/2026-03-20_02-15pm_requirements_abs-mvp-scope.md"
+  - file: "personal/software-dev/requirements/2026-03-20_02-15pm_requirements_abs-mvp-scope.md"
     relationship: origin
     note: "requirements session that spawned this research"
   - file: "personal/learning/2026-03-20_04-00pm_learning_spring-boot-deep-dive.md"
@@ -191,10 +191,10 @@ scope-refs:
 **Example:**
 
 ```text
-Original:  personal/requirements/2026-03-20_02-15pm_requirements_abs-mvp-scope.md
+Original:  personal/software-dev/requirements/2026-03-20_02-15pm_requirements_abs-mvp-scope.md
            scope: feature, scope-project: abs-development, scope-feature: mvp-scope
 
-Forked:    personal/research/2026-03-20_03-00pm_research_spring-vs-quarkus.md
+Forked:    personal/software-dev/research/2026-03-20_03-00pm_research_spring-vs-quarkus.md
            scope: global (widened from project research)
            scope-refs: [{ file: "../requirements/2026-03-20_...", relationship: origin }]
 ```
@@ -361,7 +361,7 @@ scope-transitions:
 
 **Option B — Fork a new session:**
 
-New file at `personal/research/2026-03-20_..._research_abs-tech-stack.md`
+New file at `personal/software-dev/research/2026-03-20_..._research_abs-tech-stack.md`
 with `scope-refs` linking back to the requirements session.
 
 ### Step 3 — Widening to General Learning (global scope)
@@ -393,7 +393,7 @@ Requirements file:
 
 ```yaml
 scope-refs:
-  - file: "personal/research/2026-03-20_research_spring-vs-quarkus.md"
+  - file: "personal/software-dev/research/2026-03-20_research_spring-vs-quarkus.md"
     relationship: spawned
     note: "tech stack research that grew out of this requirements session"
 ```
@@ -402,7 +402,7 @@ Research file:
 
 ```yaml
 scope-refs:
-  - file: "personal/requirements/2026-03-20_requirements_abs-mvp-scope.md"
+  - file: "personal/software-dev/requirements/2026-03-20_requirements_abs-mvp-scope.md"
     relationship: origin
     note: "started as ABSDevelopment requirements, widened to general research"
 ```
@@ -460,6 +460,49 @@ When a scope shift is detected:
 3. **Act** — If confirmed, log the transition and update the scope fields.
 
 Do NOT silently change scope. Always surface the change so the user can confirm or correct.
+
+---
+
+## Activity-Phase Transitions (software-dev sessions)
+
+Beyond scope level (global/project/feature), `software-dev` sessions also track
+**activity phase** — the kind of work being done. Activity transitions happen
+frequently within project-scoped sessions.
+
+### Activity Transition Logging
+
+Activity transitions are logged alongside scope transitions in `scope-transitions`:
+
+```yaml
+scope-transitions:
+  - at: "Exchange 3"
+    from: "feature:task-manager/mvp-requirements"
+    to: "feature:task-manager/mvp-requirements"
+    activity-from: "requirements"
+    activity-to: "design"
+    reason: "shifted from scoping to API design within the same feature"
+```
+
+### Activity Detection Signals
+
+| Signal | Activity detected |
+|---|---|
+| "what should we build", "user stories", "acceptance criteria" | requirements |
+| "what does the competitor do", "is there demand", "what tech to use" | research |
+| "how should we design", "architecture", "API endpoints", "schema" | design |
+| "let's code this", "implement", "build the feature" | implementation |
+| "write tests", "test strategy", "TDD" | testing |
+| "review the code", "refactor" | code-review |
+| "deploy", "CI/CD", "Docker", "infrastructure" | devops |
+
+### When to Fork vs. Continue
+
+| Situation | Action |
+|---|---|
+| Brief tangent (1-2 exchanges) then back | Continue in same file, log transition |
+| Extended work in new activity (3+ exchanges) | Fork to new file, cross-reference both |
+| Different project entirely | Always fork — different scope |
+| Same project, recurring back-and-forth | Continue in same file, frequent transitions expected |
 
 ---
 

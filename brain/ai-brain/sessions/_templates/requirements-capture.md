@@ -24,6 +24,8 @@ scope-refs: []
 
 > **Context:** Brief description of the personal project and what feature or
 > capability is being scoped in this session.
+>
+> **Path:** `sessions/personal/software-dev/requirements/`
 
 ---
 
