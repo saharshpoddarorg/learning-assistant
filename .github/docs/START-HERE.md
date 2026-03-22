@@ -190,6 +190,7 @@ You ask Copilot a question
 | **[Getting Started Tutorial](getting-started.md)** | 🟢🟡 | Hands-on: try every primitive (~30 min) |
 | **[Customization 5-Min Guide](copilot-customization-newbie.md)** | 🟢 | Plain-language intro to all 6 types + "why not just skills?" FAQ |
 | **[Primitives At-a-Glance](primitives-at-a-glance.md)** | 🟢🟡🔴 | One-page cheatsheet: comparison, decision flowchart, token budget |
+| **[Primitives Crosswalk](copilot-primitives-crosswalk.md)** | 🟢🟡🔴 | Quick comparison: diff, similarities, when to use, converting between types |
 | **[Customization Guide](customization-guide.md)** | 🟡🔴 | Architecture deep-dive: how the 6 primitives connect |
 | **[Customization Deep Dive](copilot-customization-deep-dive.md)** | 🟡🔴 | 18-part reference: comparison, migration, testing, security, cross-repo |
 | **[MCP vs Skills](mcp-vs-skills.md)** | 🟡🔴 | Decision guide: MCP server or Copilot skill? Migration playbook |

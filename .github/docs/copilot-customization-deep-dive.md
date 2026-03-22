@@ -913,6 +913,7 @@ Repeatable compound workflow                → prompt with #file: references
 
 | Topic | File |
 |---|---|
+| Quick crosswalk & comparison | [copilot-primitives-crosswalk.md](copilot-primitives-crosswalk.md) |
 | Architecture overview | [customization-guide.md](customization-guide.md) |
 | All slash commands | [slash-commands.md](slash-commands.md) |
 | MCP open preview changelog | [copilot-mcp-preview.md](copilot-mcp-preview.md) |

@@ -13,6 +13,10 @@ description: >
 
 # GitHub Copilot Customization — Skill Reference
 
+> **Quick Comparison:** For a side-by-side comparison of all 6 primitives, a decision
+> flowchart, and migration paths, see [Primitives Crosswalk](../../docs/copilot-primitives-crosswalk.md).
+> This skill file provides **detailed reference**; the crosswalk provides **quick decisions**.
+
 ---
 
 ## 🟢 Quick Decision Card

@@ -493,6 +493,7 @@ These files are **never loaded by Copilot**. They exist as reference material fo
 |---|---|
 | **Newbie: 5-Minute Guide** | [copilot-customization-newbie.md](copilot-customization-newbie.md) |
 | **One-Page Cheatsheet** | [primitives-at-a-glance.md](primitives-at-a-glance.md) |
+| **Quick Crosswalk & Comparison** | [copilot-primitives-crosswalk.md](copilot-primitives-crosswalk.md) |
 | **Complete Deep Dive (18 parts)** | [copilot-customization-deep-dive.md](copilot-customization-deep-dive.md) |
 | **Latest Features (2026)** | [Deep Dive §Part 11](copilot-customization-deep-dive.md#part-11-latest-features--api-updates-2026) |
 | Side-by-side: same task, every primitive | [Deep Dive §Part 12](copilot-customization-deep-dive.md#part-12-side-by-side--same-task-every-primitive) |

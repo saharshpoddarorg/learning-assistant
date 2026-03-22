@@ -552,6 +552,7 @@ Example:  /copilot-customization → create-new → skill → devops → amateur
 Output:   A complete, paste-ready .github/skills/devops/SKILL.md file
 File:     .github/prompts/copilot-customization.prompt.md
 Docs:     .github/docs/copilot-customization-deep-dive.md (full 18-part reference, incl. latest 2026 features)
+          .github/docs/copilot-primitives-crosswalk.md (quick side-by-side comparison + decision flowchart)
           .github/docs/primitives-at-a-glance.md (one-page cheatsheet)
           .github/skills/copilot-customization/SKILL.md (domain knowledge)
           .github/docs/export-guide.md (export to work/personal repos)

@@ -96,17 +96,157 @@ Within each domain, sessions are filed into a **category** folder:
 
 ### Personal Categories
 
+#### Top-Level Personal Categories
+
 | Category | Folder | Use for |
 |---|---|---|
-| `learning` | `personal/learning/` | Concept deep-dives, tutorials, skill-building, interview prep |
-| `project-dev` | `personal/project-dev/` | Personal project development, side-project architecture |
-| `requirements` | `personal/requirements/` | User stories, acceptance criteria, BDD, feature scoping for personal projects |
+| `software-dev` | `personal/software-dev/` | **Umbrella** — all personal software development projects (see sub-categories below) |
+| `learning` | `personal/learning/` | Concept deep-dives, tutorials, skill-building, interview prep (not tied to a specific project) |
 | `financial` | `personal/financial/` | Budgeting, investment analysis, tax strategies, financial planning |
-| `research` | `personal/research/` | Personal interest research, tool evaluation, comparison analysis |
+| `research` | `personal/research/` | Personal interest research NOT about software development (hobbies, tools, life decisions) |
 | `general` | `personal/general/` | Anything that doesn't fit the above categories |
+
+#### Software Development Sub-Categories (`personal/software-dev/`)
+
+Personal software development is an umbrella that covers the full lifecycle. Sessions
+are filed by **activity phase**, not by project name:
+
+| Sub-Category | Folder | Use for |
+|---|---|---|
+| `requirements` | `software-dev/requirements/` | User stories, acceptance criteria, BDD, feature scoping, discovery sessions |
+| `research` | `software-dev/research/` | Technology evaluation, library comparison, feasibility spikes for s/w projects |
+| `design` | `software-dev/design/` | Architecture, component design, HLD/LLD, system design, pattern selection, ADRs |
+| `implementation` | `software-dev/implementation/` | Coding sessions, feature building, complex debugging during dev |
+| `testing` | `software-dev/testing/` | Test strategy, TDD/BDD setup, test plans, quality assurance |
+| `code-review` | `software-dev/code-review/` | Code analysis, refactoring review, pattern identification |
+| `devops` | `software-dev/devops/` | CI/CD, deployment, infrastructure, containerisation for personal projects |
+| `general` | `software-dev/general/` | Software dev sessions not fitting the above activities |
+
+**Routing heuristic for software-dev:** If the session is about building, designing,
+testing, or researching something *for a personal software project*, it belongs under
+`software-dev/<activity>`. If it's pure concept learning with no project context, it
+belongs in `personal/learning/`.
 
 **New categories can be created** when 3+ sessions don't fit existing ones. Follow
 kebab-case naming and add a README.md to the new folder.
+
+---
+
+## Project-Aware Session Protocol
+
+### Automatic Project Detection
+
+When a user starts a chat that references a **personal software development project**,
+the AI assistant should automatically detect and scope the session. Detection triggers:
+
+| Signal | Example | Action |
+|---|---|---|
+| Mentions a GitHub repo name | "let's work on ABSDevelopment" | Set `scope: project`, `scope-project: abs-development` |
+| Mentions a GitHub org/user repo | "my repo saharshpoddarorg/task-manager" | Set `scope: project`, `scope-project: task-manager` |
+| Names a project explicitly | "for my expense tracker project" | Set `scope: project`, `scope-project: expense-tracker` |
+| Describes a new project idea | "I want to build a recipe sharing app" | Set `scope: project`, `scope-project: recipe-sharing-app` |
+| References existing session project | "back to the task-manager" | Inherit scope from prior sessions |
+| Uses keywords: MVP, feature, epic | "let's scope the MVP for ..." | Set `scope: feature` if specific enough |
+
+**Protocol when a project is detected:**
+
+1. Set `scope: project` (or `feature` if a specific feature is named)
+2. Set `scope-project` to kebab-case project name
+3. Route to `personal/software-dev/<activity>/` based on the conversation's focus
+4. If activity is ambiguous, ask: "Are we doing requirements, design, or implementation?"
+5. Create the project index file (`<project>-INDEX.md`) if it doesn't already exist and
+   the project has 3+ sessions across different activities
+
+### Activity Context Switching Within a Project
+
+Real conversations naturally move between activities. When the user context-switches
+within the same project session:
+
+| User says | Activity transition | Action |
+|---|---|---|
+| "now let's design the API" | requirements → design | Log `scope-transition`, continue in same file |
+| "let's start coding this" | design → implementation | Log `scope-transition`, consider fork/split |
+| "wait, I need to rethink the requirements" | implementation → requirements | Log `scope-transition`, continue |
+| "what does the competitor do?" | any → research | Log `scope-transition`, widen if general |
+| "let's write tests for this" | implementation → testing | Log `scope-transition` |
+| "how should we deploy this?" | any → devops | Log `scope-transition` |
+| "let me review what we have" | any → code-review | Log `scope-transition` |
+
+**Context-switch protocol:**
+
+1. **Log the transition** in `scope-transitions` with exchange number, from/to, and reason
+2. **Annotate** with a scope boundary marker in the session body (see session-scoping instructions)
+3. **Don't fork immediately** — keep the conversation in one file unless:
+   - The new activity segment becomes substantial (3+ exchanges with depth)
+   - The activity switch is to a completely different project
+   - The user explicitly requests splitting
+4. **Update the category field** to reflect the dominant activity when the session ends
+5. **Cross-reference** — if a fork happens, add bidirectional `scope-refs` in both files
+
+### Additional Activity Types for Project Work
+
+Beyond the standard software-dev activities, project sessions may involve:
+
+| Activity | Route to | Examples |
+|---|---|---|
+| Competitor analysis | `software-dev/research/` | "What does Todoist do differently?" |
+| Customer requirements | `software-dev/requirements/` | "What do users expect from..." |
+| Market research | `software-dev/research/` | "Is there demand for..." |
+| Technology spikes | `software-dev/research/` | "Can we use WebSockets for..." |
+| Architecture decisions | `software-dev/design/` | "Should we use microservices or monolith?" |
+| Database schema design | `software-dev/design/` | "How should we model the data?" |
+| API design | `software-dev/design/` | "What endpoints do we need?" |
+| Security planning | `software-dev/design/` | "How do we handle auth?" |
+| Performance planning | `software-dev/design/` | "How do we handle 10k concurrent users?" |
+| Deployment strategy | `software-dev/devops/` | "Docker vs Kubernetes for this?" |
+| Cost analysis | `software-dev/research/` | "What's the cloud hosting cost?" |
+
+### Tagging and Keyword System
+
+Every captured session uses tags for cross-cutting discoverability. Tags complement the
+folder hierarchy — folders organize by activity, tags enable search across activities.
+
+#### Tag Vocabulary by Domain
+
+**Project tags** (always include when project-scoped):
+
+```text
+project:<project-name>    ← mandatory for project-scoped sessions
+gh:<owner/repo>           ← when linked to a GitHub repository
+```
+
+**Activity tags** (2-3 per session, describing what was done):
+
+```text
+requirements, user-stories, acceptance-criteria, bdd, nfr, scope, discovery,
+story-mapping, prioritisation, stakeholder-analysis, domain-modelling,
+event-storming, spike, competitor-analysis, market-research, customer-needs,
+architecture, system-design, hld, lld, api-design, database-design, adr,
+component-design, pattern-selection, security-design, performance-design,
+implementation, coding, feature-building, debugging, refactoring, integration,
+tdd, bdd-testing, test-strategy, e2e-testing, unit-testing, test-plan,
+code-review, code-analysis, refactoring-review, pattern-identification,
+ci-cd, docker, kubernetes, deployment, infrastructure, monitoring,
+tech-evaluation, library-comparison, feasibility, trade-off-analysis,
+cost-analysis, poc, prototype
+```
+
+**Technology tags** (specific technologies discussed):
+
+```text
+java, spring-boot, react, typescript, python, docker, kubernetes,
+postgresql, mongodb, redis, graphql, rest, grpc, websockets, oauth,
+jwt, terraform, github-actions, etc.
+```
+
+#### Tag Rules
+
+1. **3-7 tags per session** — enough for discoverability, not so many they lose meaning
+2. **Always include `project:<name>`** when the session is project-scoped
+3. **Include `gh:<owner/repo>`** when linked to a GitHub repository
+4. **Mix activity + technology tags** — e.g., `[project:task-manager, requirements, api-design, rest, java]`
+5. **Use the standard vocabulary** above — avoid inventing synonyms
+6. **Tags are lowercase kebab-case** — no spaces, no camelCase
 
 ---
 
@@ -119,17 +259,18 @@ NFRs, and scope definitions.
 
 ### When Is a Session a Requirements Session?
 
-A session is classified as `requirements` (not `project-dev`) when the primary focus is
-understanding **WHAT to build** rather than **HOW to build it**:
+A session is classified as `requirements` when the primary focus is understanding
+**WHAT to build** rather than **HOW to build it**. All personal software development
+categories live under the `software-dev/` umbrella:
 
-| Requirements (`requirements`) | Development (`project-dev`) |
-|---|---|
-| Defining user stories and acceptance criteria | Implementing a feature |
-| Scoping a feature (in/out, MoSCoW) | Choosing between design patterns |
-| Writing BDD scenarios (Given/When/Then) | Writing code, debugging |
-| Identifying NFRs (performance, security) | Optimising existing code |
-| Story mapping or user journey analysis | Architecture or component design |
-| Discovery sessions (problem exploration) | POC or prototype implementation |
+| `software-dev/requirements` | `software-dev/design` | `software-dev/implementation` |
+|---|---|---|
+| Defining user stories and acceptance criteria | Architecture, component design | Writing code, building features |
+| Scoping a feature (in/out, MoSCoW) | Choosing between design patterns | Debugging during development |
+| Writing BDD scenarios (Given/When/Then) | System design, HLD/LLD | Implementing a POC or prototype |
+| Identifying NFRs (performance, security) | ADRs, pattern selection | Optimising existing code |
+| Story mapping or user journey analysis | API contract design | Integration work |
+| Discovery sessions (problem exploration) | Database schema design | Refactoring implementation |
 
 ### Requirements Capture Structure
 
@@ -158,7 +299,7 @@ Tags: requirements, user-stories, acceptance-criteria, bdd, nfr, scope,
 ### Requirements Session Naming Examples
 
 ```text
-sessions/personal/requirements/
+sessions/personal/software-dev/requirements/
   2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
   2026-03-21_10-00am_requirements_task-manager-recurring-tasks.md
   2026-03-22_04-30pm_requirements_expense-tracker-budget-rules.md
@@ -232,25 +373,42 @@ YYYY-MM-DD_HH-MMtt_<category>_<subject>[_v<N>].md
 ### Full Examples
 
 ```text
+# Work domain (flat categories)
 2026-03-20_10-30am_code-analysis_order-service-calculate-total.md
 2026-03-20_02-15pm_research_mcp-transport-sse-vs-stdio.md
 2026-03-20_04-12pm_requirements_user-auth-flow-oauth2.md
 2026-03-20_11-00am_performance_database-query-n-plus-one.md
 2026-03-20_03-45pm_feature-exploration_chat-session-capture-system.md
 2026-03-20_09-15am_debugging_npe-in-config-loader-init.md
+2026-03-21_10-00am_code-analysis_order-service-calculate-total_v2.md
+
+# Personal domain — software-dev umbrella (category = leaf folder name)
+2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
+2026-03-20_03-00pm_design_task-manager-api-endpoints.md
+2026-03-20_11-00am_implementation_task-manager-crud-endpoints.md
+2026-03-20_01-00pm_testing_task-manager-e2e-strategy.md
+2026-03-20_04-30pm_research_react-vs-svelte-frontend-choice.md
+2026-03-21_09-00am_code-review_task-manager-service-layer-patterns.md
+2026-03-21_02-00pm_devops_task-manager-docker-compose-setup.md
+
+# Personal domain — stand-alone categories
 2026-03-20_01-30pm_financial_tax-optimization-freelance-income.md
 2026-03-20_05-00pm_learning_java-virtual-threads-deep-dive.md
-2026-03-21_10-00am_code-analysis_order-service-calculate-total_v2.md
 ```
 
 ---
 
 ## Sub-Package Escalation
 
+Sessions naturally cluster around shared subjects or projects. Two escalation patterns
+keep folders navigable as volume grows.
+
+### Pattern 1 — Subject-Based Sub-Package (5+ files)
+
 When **5+ session files** accumulate for the **same subject** within a category, create
 a sub-package (sub-directory) to group them:
 
-### Before escalation (flat)
+#### Before escalation (flat)
 
 ```text
 work/code-analysis/
@@ -261,7 +419,7 @@ work/code-analysis/
   2026-03-24_10-00am_code-analysis_order-service-cancel-order.md
 ```
 
-### After escalation (sub-package)
+#### After escalation (sub-package)
 
 ```text
 work/code-analysis/order-service/
@@ -278,6 +436,61 @@ work/code-analysis/order-service/
 - Files inside drop the category and subject prefix (already implied by folder)
 - Add a `README.md` to the sub-package listing its contents
 - Move existing files when escalating (update SESSION-LOG.md paths)
+
+### Pattern 2 — Project-Based Sub-Package (3+ files in same activity for same project)
+
+Within `personal/software-dev/<activity>/`, when **3+ sessions** relate to the **same
+project**, create a project sub-folder:
+
+#### Before escalation (flat)
+
+```text
+personal/software-dev/requirements/
+  2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
+  2026-03-21_10-00am_requirements_task-manager-recurring-tasks.md
+  2026-03-22_04-30pm_requirements_task-manager-notification-rules.md
+  2026-03-25_09-00am_requirements_expense-tracker-budget-rules.md
+```
+
+#### After escalation (project sub-package)
+
+```text
+personal/software-dev/requirements/task-manager/
+  2026-03-20_02-15pm_mvp-scope.md
+  2026-03-21_10-00am_recurring-tasks.md
+  2026-03-22_04-30pm_notification-rules.md
+
+personal/software-dev/requirements/
+  2026-03-25_09-00am_requirements_expense-tracker-budget-rules.md
+```
+
+**Rules:**
+
+- Project sub-package name = kebab-case project name (e.g., `task-manager`)
+- Files inside drop the category and project prefix (implied by folder path)
+- Add a `README.md` to the project sub-package listing its contents
+- Threshold is **3+ files** (lower than subject escalation because project cohesion
+  is a stronger grouping signal)
+- Move existing files when escalating (update SESSION-LOG.md paths)
+
+### Cross-Cutting Project Index
+
+When a personal project spans **3+ activity categories** under `software-dev/`, create
+a project index file at `personal/software-dev/<project-name>-INDEX.md`:
+
+```markdown
+# task-manager — Session Index
+
+| Activity | Sessions | Latest |
+|---|---|---|
+| requirements | 3 | [notification-rules](requirements/task-manager/...) |
+| design | 2 | [api-endpoints](design/task-manager/...) |
+| implementation | 4 | [crud-endpoints-v2](implementation/task-manager/...) |
+| testing | 1 | [e2e-strategy](testing/...) |
+```
+
+This index provides a single entry point for all sessions related to one project,
+without duplicating files across folders.
 
 ---
 

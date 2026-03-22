@@ -192,6 +192,10 @@ You should see tools like `search_resources`, `browse_vault`, `discover_resource
 
 > This is what separates this repo from a simple code editor. Copilot is transformed from a
 > generic assistant into a specialized learning tutor, code reviewer, architect, and debugger.
+>
+> **Can't decide which customization primitive to use?** See the
+> [Primitives Crosswalk](.github/docs/copilot-primitives-crosswalk.md) for a decision
+> flowchart and quick comparison table.
 
 ### 4.1 Slash Commands (36 commands)
 
