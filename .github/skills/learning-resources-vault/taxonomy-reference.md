@@ -318,7 +318,7 @@ These keywords (and their synonyms) map to the 40 Concept Areas above:
 
 ### Category Keywords (120+ mappings)
 
-These keywords map to the 18 Resource Categories:
+These keywords map to the 17 Resource Categories:
 
 | Topic Cluster | Keywords | Maps To |
 |---|---|---|
@@ -402,7 +402,8 @@ table columns with badge notation:
 
 | Field | Column Header | Values | Purpose |
 |---|---|---|---|
-| Title | Title | Markdown link `[name](url)` | Resource name + URL |
+| Title | Title | Markdown link `[name](url)` | Resource name |
+| URL | Title | Embedded in Markdown link | Canonical resource URL |
 | Type | Type | Badge (📖, 📝, 📰, etc.) | Content format |
 | Difficulty | Diff | Badge (🟢, 🟡, 🔴, ⚫) | Prerequisite level |
 | Concept Areas | Concepts | Comma-separated names | Topics covered |

@@ -107,7 +107,7 @@ description: >
 
 ---
 
-## Concept Domains & Areas (9 Domains, 36 Areas)
+## Concept Domains & Areas (9 Domains, 40 Areas)
 
 Each resource is tagged with 1-5 **concept areas**. Each area belongs to one **domain**.
 
@@ -123,7 +123,7 @@ Each resource is tagged with 1-5 **concept areas**. Each area belongs to one **d
 | Career & Meta | 4 | Interview prep, Career development, Getting started, Knowledge management |
 | Personal Development | 4 | Self-improvement, Communication skills, Financial literacy, Productivity habits |
 
-## Resource Categories (18)
+## Resource Categories (17)
 
 Categories classify by **technology ecosystem**. A resource can have multiple categories.
 
@@ -171,7 +171,7 @@ Combine any dimensions:
 
 ### Comprehensive References
 
-- [taxonomy-reference.md](taxonomy-reference.md) — full enum taxonomy (92 values), keyword index (300+ mappings), scoring weights, search mode guide
+- [taxonomy-reference.md](taxonomy-reference.md) — full enum taxonomy (97 values), keyword index (300+ mappings), scoring weights, search mode guide
 - [migration-mapping.md](migration-mapping.md) — how every MCP server component maps to this skill
 
 ### Cross-References
