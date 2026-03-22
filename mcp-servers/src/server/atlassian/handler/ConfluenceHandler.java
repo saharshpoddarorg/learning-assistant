@@ -266,6 +266,118 @@ public class ConfluenceHandler {
         }
     }
 
+    /**
+     * Gets labels attached to a Confluence page.
+     *
+     * @param arguments the tool arguments ({@code pageId})
+     * @return the tool response with page labels
+     */
+    public ToolResponse getPageLabels(final Map<String, String> arguments) {
+        final var pageId = arguments.get("pageId");
+        if (pageId == null || pageId.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.CONFLUENCE, "confluence_get_page_labels",
+                    "Missing required argument: 'pageId'");
+        }
+
+        try {
+            final var response = confluenceClient.getPageLabels(pageId);
+            return ToolResponse.success(AtlassianProduct.CONFLUENCE,
+                    "confluence_get_page_labels", formatLabelsFromJson(pageId, response));
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING, "Failed to get labels for page: " + pageId, exception);
+            return ToolResponse.error(AtlassianProduct.CONFLUENCE, "confluence_get_page_labels",
+                    "Failed to get labels: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Adds a label to a Confluence page.
+     *
+     * @param arguments the tool arguments ({@code pageId}, {@code label})
+     * @return the tool response
+     */
+    public ToolResponse addPageLabel(final Map<String, String> arguments) {
+        final var pageId = arguments.get("pageId");
+        final var label = arguments.get("label");
+
+        if (pageId == null || pageId.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.CONFLUENCE, "confluence_add_page_label",
+                    "Missing required argument: 'pageId'");
+        }
+        if (label == null || label.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.CONFLUENCE, "confluence_add_page_label",
+                    "Missing required argument: 'label'");
+        }
+
+        try {
+            confluenceClient.addPageLabel(pageId, label);
+            return ToolResponse.success(AtlassianProduct.CONFLUENCE,
+                    "confluence_add_page_label",
+                    "Label '" + label + "' added to page " + pageId + ".");
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING, "Failed to add label to page: " + pageId, exception);
+            return ToolResponse.error(AtlassianProduct.CONFLUENCE, "confluence_add_page_label",
+                    "Failed to add label: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Gets comments on a Confluence page.
+     *
+     * @param arguments the tool arguments ({@code pageId}, optional {@code maxResults})
+     * @return the tool response with page comments
+     */
+    public ToolResponse getPageComments(final Map<String, String> arguments) {
+        final var pageId = arguments.get("pageId");
+        if (pageId == null || pageId.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.CONFLUENCE, "confluence_get_page_comments",
+                    "Missing required argument: 'pageId'");
+        }
+
+        final int maxResults = HandlerUtils.parseMaxResults(arguments.get("maxResults"));
+
+        try {
+            final var response = confluenceClient.getPageComments(pageId, maxResults);
+            return ToolResponse.success(AtlassianProduct.CONFLUENCE,
+                    "confluence_get_page_comments", formatPageCommentsFromJson(pageId, response));
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING, "Failed to get comments for page: " + pageId, exception);
+            return ToolResponse.error(AtlassianProduct.CONFLUENCE, "confluence_get_page_comments",
+                    "Failed to get comments: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Adds a comment to a Confluence page.
+     *
+     * @param arguments the tool arguments ({@code pageId}, {@code comment})
+     * @return the tool response
+     */
+    public ToolResponse addPageComment(final Map<String, String> arguments) {
+        final var pageId = arguments.get("pageId");
+        final var comment = arguments.get("comment");
+
+        if (pageId == null || pageId.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.CONFLUENCE, "confluence_add_page_comment",
+                    "Missing required argument: 'pageId'");
+        }
+        if (comment == null || comment.isBlank()) {
+            return ToolResponse.error(AtlassianProduct.CONFLUENCE, "confluence_add_page_comment",
+                    "Missing required argument: 'comment'");
+        }
+
+        try {
+            confluenceClient.addPageComment(pageId, comment);
+            return ToolResponse.success(AtlassianProduct.CONFLUENCE,
+                    "confluence_add_page_comment",
+                    "Comment added to page " + pageId + ".");
+        } catch (IOException | InterruptedException exception) {
+            LOGGER.log(Level.WARNING, "Failed to add comment to page: " + pageId, exception);
+            return ToolResponse.error(AtlassianProduct.CONFLUENCE, "confluence_add_page_comment",
+                    "Failed to add comment: " + exception.getMessage());
+        }
+    }
+
     // ── Formatter helpers ────────────────────────────────────────────────────
 
     /**
@@ -356,6 +468,53 @@ public class ConfluenceHandler {
                 .replace("&gt;", ">").replace("&quot;", "\"")
                 .replace("&#39;", "'").replace("&nbsp;", " ")
                 .replaceAll("\\s{2,}", " ").trim();
+    }
+
+    /**
+     * Formats page labels into readable markdown.
+     */
+    private String formatLabelsFromJson(final String pageId, final String json) {
+        final var labels = JsonExtractor.arrayBlocks(json, "results");
+        if (labels.isEmpty()) {
+            return "Page " + pageId + " has no labels.";
+        }
+
+        final var sb = new StringBuilder();
+        sb.append("## Labels on Page ").append(pageId).append("\n\n");
+        for (final var label : labels) {
+            final var name   = JsonExtractor.stringOrDefault(label, "name", "-");
+            final var prefix = JsonExtractor.stringOrDefault(label, "prefix", "global");
+            sb.append("- **").append(name).append("** (").append(prefix).append(")\n");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Formats page comments into readable markdown.
+     */
+    private String formatPageCommentsFromJson(final String pageId, final String json) {
+        final var comments = JsonExtractor.arrayBlocks(json, "results");
+        if (comments.isEmpty()) {
+            return "Page " + pageId + " has no comments.";
+        }
+
+        final var sb = new StringBuilder();
+        sb.append("## Comments on Page ").append(pageId)
+          .append(" (").append(comments.size()).append(")\n\n");
+
+        for (final var comment : comments) {
+            final var authorId = JsonExtractor.stringOrDefault(comment, "authorId", "?");
+            final var created  = JsonExtractor.stringOrDefault(comment, "createdAt", "");
+            final var bodyBlock = JsonExtractor.block(comment, "body").orElse("");
+            final var bodyHtml  = bodyBlock.isBlank() ? ""
+                    : JsonExtractor.stringOrDefault(bodyBlock, "value", "");
+            final var bodyText  = stripHtml(bodyHtml);
+
+            sb.append("**").append(authorId).append("** — ").append(created).append("\n");
+            if (!bodyText.isBlank()) sb.append(bodyText).append("\n");
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     /**

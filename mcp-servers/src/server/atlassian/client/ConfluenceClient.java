@@ -166,4 +166,69 @@ public class ConfluenceClient {
         LOGGER.info("Getting labels for Confluence page: " + pageId);
         return restClient.get(path);
     }
+
+    /**
+     * Adds a label to a Confluence page.
+     *
+     * @param pageId the page ID
+     * @param label  the label name to add
+     * @return the raw JSON response with the added label
+     * @throws IOException          if the API call fails
+     * @throws InterruptedException if the call is interrupted
+     */
+    public String addPageLabel(final String pageId, final String label)
+            throws IOException, InterruptedException {
+        Objects.requireNonNull(pageId, "Page ID must not be null");
+        Objects.requireNonNull(label, "Label must not be null");
+        final var path = API_V1_BASE + "/content/" + pageId + "/label";
+        final var body = "[{\"prefix\":\"global\",\"name\":\""
+                + label.replace("\\", "\\\\").replace("\"", "\\\"") + "\"}]";
+        LOGGER.info("Adding label '" + label + "' to Confluence page: " + pageId);
+        return restClient.post(path, body);
+    }
+
+    /**
+     * Gets comments on a Confluence page.
+     *
+     * @param pageId     the page ID
+     * @param maxResults maximum number of comments to return
+     * @return the raw JSON response with comments
+     * @throws IOException          if the API call fails
+     * @throws InterruptedException if the call is interrupted
+     */
+    public String getPageComments(final String pageId, final int maxResults)
+            throws IOException, InterruptedException {
+        Objects.requireNonNull(pageId, "Page ID must not be null");
+        final var path = API_V2_BASE + "/pages/" + pageId + "/footer-comments?limit=" + maxResults;
+        LOGGER.info("Getting comments for Confluence page: " + pageId);
+        return restClient.get(path);
+    }
+
+    /**
+     * Adds a comment to a Confluence page.
+     *
+     * @param pageId  the page ID
+     * @param comment the comment text (stored as storage-format HTML)
+     * @return the raw JSON response with the created comment
+     * @throws IOException          if the API call fails
+     * @throws InterruptedException if the call is interrupted
+     */
+    public String addPageComment(final String pageId, final String comment)
+            throws IOException, InterruptedException {
+        Objects.requireNonNull(pageId, "Page ID must not be null");
+        Objects.requireNonNull(comment, "Comment must not be null");
+        final var path = API_V2_BASE + "/pages/" + pageId + "/footer-comments";
+        final var escapedComment = comment.replace("\\", "\\\\").replace("\"", "\\\"")
+                .replace("\n", "\\n").replace("\r", "\\r");
+        final var body = """
+                {
+                  "body": {
+                    "representation": "storage",
+                    "value": "<p>%s</p>"
+                  }
+                }
+                """.formatted(escapedComment);
+        LOGGER.info("Adding comment to Confluence page: " + pageId);
+        return restClient.post(path, body);
+    }
 }

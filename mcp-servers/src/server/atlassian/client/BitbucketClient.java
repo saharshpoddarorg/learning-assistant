@@ -240,4 +240,146 @@ public class BitbucketClient {
         LOGGER.info("Getting diff for PR #" + prId + " in " + workspace + "/" + repoSlug);
         return restClient.get(path);
     }
+
+    /**
+     * Gets comments on a pull request.
+     *
+     * @param workspace the workspace slug
+     * @param repoSlug  the repository slug
+     * @param prId      the pull request ID
+     * @return the raw JSON response with PR comments
+     * @throws IOException          if the API call fails
+     * @throws InterruptedException if the call is interrupted
+     */
+    public String getPrComments(final String workspace,
+                                final String repoSlug,
+                                final int prId)
+            throws IOException, InterruptedException {
+        Objects.requireNonNull(workspace, "Workspace must not be null");
+        Objects.requireNonNull(repoSlug, "Repository slug must not be null");
+        final var path = API_BASE + "/repositories/" + workspace + "/" + repoSlug
+                + "/pullrequests/" + prId + "/comments";
+        LOGGER.info("Getting comments for PR #" + prId + " in " + workspace + "/" + repoSlug);
+        return restClient.get(path);
+    }
+
+    /**
+     * Adds a comment to a pull request.
+     *
+     * @param workspace the workspace slug
+     * @param repoSlug  the repository slug
+     * @param prId      the pull request ID
+     * @param content   the comment text (raw markup)
+     * @return the raw JSON response with the created comment
+     * @throws IOException          if the API call fails
+     * @throws InterruptedException if the call is interrupted
+     */
+    public String addPrComment(final String workspace,
+                               final String repoSlug,
+                               final int prId,
+                               final String content)
+            throws IOException, InterruptedException {
+        Objects.requireNonNull(workspace, "Workspace must not be null");
+        Objects.requireNonNull(repoSlug, "Repository slug must not be null");
+        Objects.requireNonNull(content, "Comment content must not be null");
+        final var path = API_BASE + "/repositories/" + workspace + "/" + repoSlug
+                + "/pullrequests/" + prId + "/comments";
+        final var escapedContent = content.replace("\\", "\\\\").replace("\"", "\\\"")
+                .replace("\n", "\\n").replace("\r", "\\r");
+        final var body = "{\"content\":{\"raw\":\"" + escapedContent + "\"}}";
+        LOGGER.info("Adding comment to PR #" + prId + " in " + workspace + "/" + repoSlug);
+        return restClient.post(path, body);
+    }
+
+    /**
+     * Approves a pull request.
+     *
+     * @param workspace the workspace slug
+     * @param repoSlug  the repository slug
+     * @param prId      the pull request ID
+     * @return the raw JSON response
+     * @throws IOException          if the API call fails
+     * @throws InterruptedException if the call is interrupted
+     */
+    public String approvePullRequest(final String workspace,
+                                     final String repoSlug,
+                                     final int prId)
+            throws IOException, InterruptedException {
+        Objects.requireNonNull(workspace, "Workspace must not be null");
+        Objects.requireNonNull(repoSlug, "Repository slug must not be null");
+        final var path = API_BASE + "/repositories/" + workspace + "/" + repoSlug
+                + "/pullrequests/" + prId + "/approve";
+        LOGGER.info("Approving PR #" + prId + " in " + workspace + "/" + repoSlug);
+        return restClient.post(path, "{}");
+    }
+
+    /**
+     * Declines (rejects) a pull request.
+     *
+     * @param workspace the workspace slug
+     * @param repoSlug  the repository slug
+     * @param prId      the pull request ID
+     * @return the raw JSON response
+     * @throws IOException          if the API call fails
+     * @throws InterruptedException if the call is interrupted
+     */
+    public String declinePullRequest(final String workspace,
+                                     final String repoSlug,
+                                     final int prId)
+            throws IOException, InterruptedException {
+        Objects.requireNonNull(workspace, "Workspace must not be null");
+        Objects.requireNonNull(repoSlug, "Repository slug must not be null");
+        final var path = API_BASE + "/repositories/" + workspace + "/" + repoSlug
+                + "/pullrequests/" + prId + "/decline";
+        LOGGER.info("Declining PR #" + prId + " in " + workspace + "/" + repoSlug);
+        return restClient.post(path, "{}");
+    }
+
+    /**
+     * Merges a pull request.
+     *
+     * @param workspace the workspace slug
+     * @param repoSlug  the repository slug
+     * @param prId      the pull request ID
+     * @return the raw JSON response with the merged PR details
+     * @throws IOException          if the API call fails
+     * @throws InterruptedException if the call is interrupted
+     */
+    public String mergePullRequest(final String workspace,
+                                   final String repoSlug,
+                                   final int prId)
+            throws IOException, InterruptedException {
+        Objects.requireNonNull(workspace, "Workspace must not be null");
+        Objects.requireNonNull(repoSlug, "Repository slug must not be null");
+        final var path = API_BASE + "/repositories/" + workspace + "/" + repoSlug
+                + "/pullrequests/" + prId + "/merge";
+        LOGGER.info("Merging PR #" + prId + " in " + workspace + "/" + repoSlug);
+        return restClient.post(path, "{}");
+    }
+
+    /**
+     * Gets the content of a file from a repository.
+     *
+     * @param workspace the workspace slug
+     * @param repoSlug  the repository slug
+     * @param filePath  the file path within the repository
+     * @param branch    the branch or commit to read from (null for default branch)
+     * @return the raw file content as a string
+     * @throws IOException          if the API call fails
+     * @throws InterruptedException if the call is interrupted
+     */
+    public String getFileContent(final String workspace,
+                                 final String repoSlug,
+                                 final String filePath,
+                                 final String branch)
+            throws IOException, InterruptedException {
+        Objects.requireNonNull(workspace, "Workspace must not be null");
+        Objects.requireNonNull(repoSlug, "Repository slug must not be null");
+        Objects.requireNonNull(filePath, "File path must not be null");
+        var path = API_BASE + "/repositories/" + workspace + "/" + repoSlug
+                + "/src/" + (branch != null && !branch.isBlank() ? branch : "HEAD")
+                + "/" + filePath;
+        LOGGER.info("Getting file content: " + workspace + "/" + repoSlug + "/" + filePath);
+        return restClient.get(path);
+    }
 }

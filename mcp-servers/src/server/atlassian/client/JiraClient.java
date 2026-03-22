@@ -287,6 +287,79 @@ public class JiraClient {
     }
 
     /**
+     * Lists all agile boards accessible to the user.
+     *
+     * @param maxResults maximum number of boards to return
+     * @return the raw JSON response with board list
+     * @throws IOException          if the API call fails
+     * @throws InterruptedException if the call is interrupted
+     */
+    public String listBoards(final int maxResults)
+            throws IOException, InterruptedException {
+        final var path = "/rest/agile/1.0/board?maxResults=" + maxResults;
+        LOGGER.info("Listing agile boards");
+        return restClient.get(path);
+    }
+
+    /**
+     * Links two Jira issues together.
+     *
+     * @param inwardIssueKey  the inward issue key (e.g., "PROJ-123")
+     * @param outwardIssueKey the outward issue key (e.g., "PROJ-456")
+     * @param linkType        the link type name (e.g., "Blocks", "Relates", "Duplicate")
+     * @return the raw response (usually empty for 201)
+     * @throws IOException          if the API call fails
+     * @throws InterruptedException if the call is interrupted
+     */
+    public String linkIssues(final String inwardIssueKey,
+                             final String outwardIssueKey,
+                             final String linkType)
+            throws IOException, InterruptedException {
+        Objects.requireNonNull(inwardIssueKey, "Inward issue key must not be null");
+        Objects.requireNonNull(outwardIssueKey, "Outward issue key must not be null");
+        Objects.requireNonNull(linkType, "Link type must not be null");
+        final var path = API_BASE + "/issueLink";
+        final var body = """
+                {
+                  "type": { "name": %s },
+                  "inwardIssue": { "key": %s },
+                  "outwardIssue": { "key": %s }
+                }
+                """.formatted(toJsonString(linkType),
+                toJsonString(inwardIssueKey), toJsonString(outwardIssueKey));
+        LOGGER.info("Linking issues: " + inwardIssueKey + " → " + outwardIssueKey
+                + " (type: " + linkType + ")");
+        return restClient.post(path, body);
+    }
+
+    /**
+     * Adds a worklog entry to an issue.
+     *
+     * @param issueKey  the issue key (e.g., "PROJ-123")
+     * @param timeSpent the time spent in Jira format (e.g., "2h 30m", "1d")
+     * @param comment   an optional comment describing the work (may be null)
+     * @return the raw JSON response with the created worklog
+     * @throws IOException          if the API call fails
+     * @throws InterruptedException if the call is interrupted
+     */
+    public String addWorklog(final String issueKey,
+                             final String timeSpent,
+                             final String comment)
+            throws IOException, InterruptedException {
+        Objects.requireNonNull(issueKey, "Issue key must not be null");
+        Objects.requireNonNull(timeSpent, "Time spent must not be null");
+        final var path = API_BASE + "/issue/" + issueKey + "/worklog";
+        final var body = comment == null || comment.isBlank()
+                ? "{\"timeSpent\": " + toJsonString(timeSpent) + "}"
+                : "{\"timeSpent\": " + toJsonString(timeSpent)
+                  + ", \"comment\": {\"type\":\"doc\",\"version\":1,"
+                  + "\"content\":[{\"type\":\"paragraph\",\"content\":"
+                  + "[{\"type\":\"text\",\"text\":" + toJsonString(comment) + "}]}]}}";
+        LOGGER.info("Adding worklog to " + issueKey + ": " + timeSpent);
+        return restClient.post(path, body);
+    }
+
+    /**
      * Wraps a string value in JSON quotes with proper escaping.
      */
     private String toJsonString(final String value) {
