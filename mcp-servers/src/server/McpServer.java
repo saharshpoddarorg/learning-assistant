@@ -25,8 +25,11 @@ import java.util.Map;
  * <h2>Versioning</h2>
  * <p>When a second version of a server is introduced the convention is:
  * <ul>
- *   <li>Original code stays in its current package (e.g. {@code server.atlassian})</li>
- *   <li>New version lives in a sibling package (e.g. {@code server.atlassian.v2})</li>
+ *   <li>Both versions live as siblings under the server package
+ *       (e.g. {@code server.atlassian.v1}, {@code server.atlassian.v2})</li>
+ *   <li>Shared utilities go in {@code server.&lt;name&gt;.common}</li>
+ *   <li>A version enum ({@code AtlassianServerVersion}) and factory
+ *       ({@code AtlassianServerFactory}) live at the parent package level</li>
  *   <li>{@link McpServerRegistry} selects the active version via a simple name look-up</li>
  * </ul>
  * See {@code versioning-guide.md} in {@code .github/docs/} for the full guide.

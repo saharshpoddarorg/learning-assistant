@@ -29,9 +29,8 @@ import java.util.logging.Logger;
  *
  * <pre>{@code
  * var registry = new McpServerRegistry();
- * registry.register(new AtlassianServer(config));      // v1 — active
- * // ... later, when colleague's v2 is available:
- * registry.register(new AtlassianServerV2(config));    // v2 overwrites v1
+ * registry.register(AtlassianServerFactory.create(AtlassianServerVersion.V1)); // v1
+ * registry.register(AtlassianServerFactory.createLatest());                    // v2 overwrites v1
  * }</pre>
  *
  * <h2>Starting All Servers</h2>

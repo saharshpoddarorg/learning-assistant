@@ -46,31 +46,50 @@
   // --------------------------------------------------------------------------
   "servers": {
 
-    // ── Learning Resources ────────────────────────────────────────────────────
-    // Curated vault of ~100+ learning resources (Java, Spring, Docker, MDN, etc.)
-    // Tools: search, browse, scrape, summarize, export, discover
-    // No credentials required — works out of the box.
-    // REQUIREMENT: Run "mcp-servers: build" task first.
+    // ── Learning Resources (DEPRECATED — migrated to skill) ─────────────────
+    // Migrated to learning-resources-vault skill (.github/skills/learning-resources-vault/).
+    // 138 curated resources now live as structured Markdown tables in 10 sub-files.
+    // The skill works in ALL Copilot modes (Ask, Edit, Agent) with zero infrastructure.
+    // Code preserved as MCP server reference implementation.
+    // To re-enable: set "disabled": false below.
     "learning-resources": {
       "type": "stdio",
       "command": "java",
       "args": ["-cp", "out", "server.learningresources.LearningResourcesServer"],
-      "cwd": "${workspaceFolder}/mcp-servers"
+      "cwd": "${workspaceFolder}/mcp-servers",
+      "disabled": true
     },
 
-    // ── Atlassian (Jira + Confluence + Bitbucket) ─────────────────────────────
-    // 27 tools: create/search issues, update pages, list PRs, unified search, etc.
-    // REQUIREMENT: Run "mcp-servers: build" task first.
-    // CREDENTIALS: Fill in mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties
-    //   (copy from atlassian-config.local.example.properties — see mcp-server-setup.md §4)
-    // DISABLED by default — uncomment "disabled": false once credentials are set.
+    // ── Atlassian v1 (DEPRECATED — use atlassian-v2 below) ─────────────────
+    // Original 44-tool server. Kept for backward compatibility.
+    // Use atlassian-v2 for the full 93-tool experience with OAuth support.
     "atlassian": {
       "type": "stdio",
       "command": "java",
-      "args": ["-cp", "out", "server.atlassian.AtlassianServer"],
+      "args": ["-cp", "out", "server.atlassian.v1.AtlassianServerV1"],
       "cwd": "${workspaceFolder}/mcp-servers",
       "env": {
         "ATLASSIAN_CONFIG_DIR": "${workspaceFolder}/mcp-servers/user-config/servers/atlassian"
+      },
+      "disabled": true
+    },
+
+    // ── Atlassian v2 (Jira + Confluence + Bitbucket) ──────────────────────────
+    // 93 tools: comprehensive Jira, Confluence, Bitbucket support with typed
+    // input schemas, pipelines, environments, components, versions, watchers,
+    // templates, restrictions, and more.
+    // AUTH: Option A — Browser OAuth 2.0 | Option B — API token / PAT
+    // REQUIREMENT: Run "mcp-servers: build" task first.
+    // CREDENTIALS: Fill in mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.local.properties
+    //   (copy from atlassian-v2-config.local.example.properties)
+    // DISABLED by default — set "disabled": false once credentials are configured.
+    "atlassian-v2": {
+      "type": "stdio",
+      "command": "java",
+      "args": ["-cp", "out", "server.atlassian.v2.AtlassianServerV2"],
+      "cwd": "${workspaceFolder}/mcp-servers",
+      "env": {
+        "ATLASSIAN_V2_CONFIG_DIR": "${workspaceFolder}/mcp-servers/user-config/servers/atlassian-v2"
       },
       "disabled": true
     },

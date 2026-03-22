@@ -5,7 +5,7 @@
 .DESCRIPTION
     Controls the two Java MCP server processes in this workspace:
       learning-resources  →  server.learningresources.LearningResourcesServer
-      atlassian           →  server.atlassian.AtlassianServer
+      atlassian           →  server.atlassian.v1.AtlassianServerV1
 
     Each running process is tracked by a PID file under scripts/.pids/.
     The servers run as background processes; their stdout/stderr are piped to
@@ -84,8 +84,13 @@ $SERVERS = [ordered]@{
         RequiresCredentials = $false
     }
     "atlassian" = @{
-        MainClass   = "server.atlassian.AtlassianServer"
-        Description = "Atlassian — Jira + Confluence + Bitbucket (27 tools)"
+        MainClass   = "server.atlassian.v1.AtlassianServerV1"
+        Description = "Atlassian v1 (DEPRECATED) — Jira + Confluence + Bitbucket (44 tools)"
+        RequiresCredentials = $true
+    }
+    "atlassian-v2" = @{
+        MainClass   = "server.atlassian.v2.AtlassianServerV2"
+        Description = "Atlassian v2 — Jira + Confluence + Bitbucket (93 tools, OAuth + token auth)"
         RequiresCredentials = $true
     }
 }

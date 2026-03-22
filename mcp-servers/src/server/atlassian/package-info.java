@@ -1,58 +1,46 @@
 /**
- * Atlassian MCP Server — unified gateway to Jira, Confluence, and Bitbucket
- * through the Model Context Protocol.
+ * Atlassian MCP Server family — unified gateway to Jira, Confluence, and
+ * Bitbucket through the Model Context Protocol.
  *
- * <p>Package structure:
+ * <p>This top-level package hosts the <strong>versioning framework</strong>
+ * that manages multiple server generations. Version-specific code lives in
+ * sibling sub-packages; shared utilities live in {@code common/}.
+ *
+ * <h2>Package Structure</h2>
  * <pre>
  *   server.atlassian
- *   ├── {@link server.atlassian.AtlassianServer}                          — STDIO server entry point
- *   ├── model/                                                             — Shared and product-specific models
- *   │   ├── {@link server.atlassian.model.AtlassianProduct}               — Product enum (JIRA, CONFLUENCE, BITBUCKET)
- *   │   ├── {@link server.atlassian.model.AtlassianCredentials}           — Auth credentials record
- *   │   ├── {@link server.atlassian.model.ConnectionConfig}               — Base URL, auth, timeout settings
- *   │   ├── {@link server.atlassian.model.ToolResponse}                   — Standardized tool response wrapper
- *   │   ├── jira/                                                          — Jira-specific models
- *   │   │   ├── {@link server.atlassian.model.jira.JiraIssue}             — Jira issue record
- *   │   │   ├── {@link server.atlassian.model.jira.JiraProject}           — Jira project record
- *   │   │   ├── {@link server.atlassian.model.jira.IssueType}             — Issue type enum
- *   │   │   ├── {@link server.atlassian.model.jira.IssuePriority}         — Priority enum
- *   │   │   └── {@link server.atlassian.model.jira.IssueStatusCategory}   — Status category enum
- *   │   ├── confluence/                                                    — Confluence-specific models
- *   │   │   ├── {@link server.atlassian.model.confluence.ConfluencePage}   — Page record
- *   │   │   └── {@link server.atlassian.model.confluence.ConfluenceSpace}  — Space record
- *   │   └── bitbucket/                                                     — Bitbucket-specific models
- *   │       ├── {@link server.atlassian.model.bitbucket.BitbucketRepository}    — Repository record
- *   │       ├── {@link server.atlassian.model.bitbucket.BitbucketPullRequest}   — Pull request record
- *   │       └── {@link server.atlassian.model.bitbucket.PullRequestState}       — PR state enum
- *   ├── client/                                                            — REST API clients
- *   │   ├── {@link server.atlassian.client.AtlassianRestClient}           — Shared HTTP client
- *   │   ├── {@link server.atlassian.client.JiraClient}                    — Jira REST API v3
- *   │   ├── {@link server.atlassian.client.ConfluenceClient}              — Confluence REST API v2
- *   │   └── {@link server.atlassian.client.BitbucketClient}               — Bitbucket REST API 2.0
- *   ├── handler/                                                           — MCP tool dispatch
- *   │   ├── {@link server.atlassian.handler.ToolHandler}                  — Central tool router
- *   │   ├── {@link server.atlassian.handler.JiraHandler}                  — Jira tool implementations
- *   │   ├── {@link server.atlassian.handler.ConfluenceHandler}            — Confluence tool implementations
- *   │   └── {@link server.atlassian.handler.BitbucketHandler}             — Bitbucket tool implementations
- *   └── formatter/                                                         — Response formatting
- *       ├── {@link server.atlassian.formatter.IssueFormatter}             — Jira issue → readable text
- *       ├── {@link server.atlassian.formatter.PageFormatter}              — Confluence page → text
- *       └── {@link server.atlassian.formatter.PullRequestFormatter}       — Bitbucket PR → text
+ *   ├── {@link server.atlassian.AtlassianServerVersion}   — version enum (V1, V2, …)
+ *   ├── {@link server.atlassian.AtlassianServerFactory}   — version-aware factory
+ *   ├── common/                                           — shared cross-version utilities
+ *   │   └── {@link server.atlassian.common.JsonExtractor} — JSON field extraction helper
+ *   ├── v1/                                               — version 1 (27 tools, API token/PAT)
+ *   │   └── {@link server.atlassian.v1.AtlassianServerV1} — v1 entry point [DEPRECATED]
+ *   └── v2/                                               — version 2 (93 tools, OAuth 2.0 + token)
+ *       └── {@link server.atlassian.v2.AtlassianServerV2} — v2 entry point
  * </pre>
  *
- * <p>This server exposes 27 MCP tools across three Atlassian products,
- * connected via a shared REST client with Basic or Bearer auth.
+ * <h2>Versioning Model</h2>
+ * <p>Each version is a self-contained implementation of {@link server.McpServer}
+ * with its own client, handler, model, and config layers. Versions are true
+ * siblings — neither depends on the other. The only shared dependency is the
+ * {@code common} package.
  *
- * <h2>Versioning</h2>
- * <p>This package ({@code server.atlassian}) represents <strong>v1</strong> — the current
- * stable implementation. When a v2 implementation becomes available it will live in
- * {@code server.atlassian.v2} and implement {@link server.McpServer} with the same
- * server name {@code "atlassian"} so the {@link server.McpServerRegistry} can
- * automatically adopt it.
+ * <p>Use {@link AtlassianServerVersion} to enumerate available versions and
+ * check deprecation status. Use {@link AtlassianServerFactory} to create a
+ * server instance for a specific version or for the latest non-deprecated one.
  *
- * <p>See {@code .github/docs/versioning-guide.md} for the full versioning strategy.
+ * <h2>Quick Start</h2>
+ * <pre>{@code
+ * // Always use the latest version
+ * McpServer server = AtlassianServerFactory.createLatest();
+ * server.start();
  *
- * @see server.atlassian.AtlassianServer
+ * // Or request a specific version
+ * McpServer v1 = AtlassianServerFactory.create(AtlassianServerVersion.V1);
+ * }</pre>
+ *
+ * @see server.atlassian.AtlassianServerVersion
+ * @see server.atlassian.AtlassianServerFactory
  * @see server.McpServer
  */
 package server.atlassian;
