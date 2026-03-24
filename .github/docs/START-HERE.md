@@ -168,6 +168,7 @@ You ask Copilot a question
 | Run demo mode | `Terminal → Run Task` → `mcp-servers: demo (learning-resources)` | [server.ps1](../../mcp-servers/scripts/server.ps1) |
 | List all MCP tools | `Terminal → Run Task` → `mcp-servers: list-tools (atlassian)` | [server.sh](../../mcp-servers/scripts/server.sh) |
 | Create a knowledge note | `/brain-new` in Chat | [Brain README](../../brain/ai-brain/README.md) |
+| Understand how chat sessions are captured | Read [Session Capture Guide](session-capture-guide.md) | [Session Capture](session-capture-guide.md) |
 | Set up macOS dev environment | `/mac-dev` in Chat — or read [mac-os/docs/START-HERE](../../mac-os/docs/START-HERE.md) | [mac-os module](../../mac-os/docs/START-HERE.md) |
 | Add Copilot rules to another project | [Export Guide §1](export-guide.md#1-copilot-customization-github) | [Export Guide](export-guide.md) |
 | Not lose work when chaining instructions | [Copilot Workflow](copilot-workflow.md) | [Workflow Tips](copilot-workflow.md) |
@@ -196,6 +197,7 @@ You ask Copilot a question
 | **[MCP vs Skills](mcp-vs-skills.md)** | 🟡🔴 | Decision guide: MCP server or Copilot skill? Migration playbook |
 | **[Navigation Index](navigation-index.md)** | 🟡🔴 | Master lookup: all commands, agents, skills, files |
 | **[Slash Commands](slash-commands.md)** | 🟡🔴 | All 42 commands: aliases, inputs, composition |
+| **[Session Capture Guide](session-capture-guide.md)** | 🟢🟡 | How AI chat sessions are saved, templates, naming, tagging |
 | **[File Reference](file-reference.md)** | 🟡🔴 | Which files Copilot reads vs. developer docs |
 
 ---

@@ -238,6 +238,7 @@
     ├── local-setup-guide.md         👤 What's gitignored + how to set it up — config files, secrets, 3-tier onboarding (🟢/🟡/🔴)
     ├── versioning-guide.md          👤 Server versioning strategy (McpServer interface, registry, package-per-version pattern)
     ├── search-engine.md             👤 Search engine developer guide (🟢 Newbie / 🟡 Amateur / 🔴 Pro)
+    ├── session-capture-guide.md     👤 How AI chat sessions are saved — templates, naming, tagging, scope
     ├── search-engine-algorithms.md  👤 BM25, TextMatchScorer, FuzzyMatcher, QueryClassifier deep-dive
     ├── mcp-vs-skills.md             👤 MCP vs Skill decision guide + 6-step migration playbook
     ├── mcp-server-dev-guide.md      👤 MCP server development 3-tier guide — add tools, Java pattern, TypeScript, security, testing
@@ -343,6 +344,7 @@ brain/
 | **Understand CODE method (Capture/Organize/Distill/Express)** | [brain/digitalnotetaking/code-method.md](../../brain/digitalnotetaking/code-method.md) | Doc |
 | **Link AI sessions to your PKM / note workspace** | [brain/digitalnotetaking/ai-brain-integration.md](../../brain/digitalnotetaking/ai-brain-integration.md) | Doc |
 | **Capture current AI session as a structured note** | `/brain-capture-session` | Brain |
+| **Understand how session capture works** | [Session Capture Guide](session-capture-guide.md) | Doc |
 | **Audit a file or folder against best practices** | `/check-standards` → target → domain | Prompt |
 | **Decide whether to keep MCP or migrate to skill** | [docs/mcp-vs-skills.md](mcp-vs-skills.md) | Doc |
 | **Migrate an MCP tool to a Copilot Skill** | `/mcp-to-skill` → server → full | Prompt |
