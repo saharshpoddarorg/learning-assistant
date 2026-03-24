@@ -28,7 +28,9 @@ A session is captured when the conversation involves **research, analysis, compl
 architecture decisions, learning deep-dives, or any exchange producing substantive content**
 worth referencing later. Simple refactoring, quick fixes, and routine tasks are NOT captured.
 
-See `.github/instructions/chat-capture.instructions.md` for the full capture gate criteria.
+See `.github/instructions/chat-capture.instructions.md` for the full capture gate criteria,
+or read the [Session Capture Guide](../../../.github/docs/session-capture-guide.md) for a
+friendly overview of the entire system.
 
 ---
 

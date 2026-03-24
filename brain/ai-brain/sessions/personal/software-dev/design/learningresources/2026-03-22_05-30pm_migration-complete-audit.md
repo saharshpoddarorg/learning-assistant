@@ -9,7 +9,7 @@ subject: learningresources-migration-complete-audit
 tags: [project:learning-assistant, migration, mcp-server, skill, enums, learning-resources, audit]
 status: final
 version: 1
-parent: 2026-03-22_02-00pm_design_learningresources-mcp-to-skills-migration.md
+parent: 2026-03-22_02-00pm_mcp-to-skills-migration.md
 complexity: high
 outcomes:
   - Full audit confirming 138 resources successfully migrated across 10 skill sub-files
@@ -23,7 +23,7 @@ scope-project: learning-assistant
 scope-feature: null
 scope-transitions: []
 scope-refs:
-  - file: "personal/software-dev/design/2026-03-22_02-00pm_design_learningresources-mcp-to-skills-migration.md"
+  - file: "personal/software-dev/design/learningresources/2026-03-22_02-00pm_mcp-to-skills-migration.md"
     relationship: continuation
     note: "original intent-capture session; this session audits and verifies the completed migration"
 ---

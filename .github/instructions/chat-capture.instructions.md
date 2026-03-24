@@ -361,6 +361,10 @@ YYYY-MM-DD_HH-MMtt_<category>_<subject>[_v<N>].md
 | Subject | kebab-case, descriptive (3-8 words) | `OrderService-calculateTotal` |
 | Version | `_v<N>` suffix, only for continuations (v2+) | `_v2`, `_v3` |
 
+> **Timestamp must be real.** Always query the system clock (`Get-Date` / `date`) before
+> naming a file. Never guess or round the time. See **Timestamp Accuracy** under
+> Capture Execution Protocol for the full rules.
+
 ### Subject Naming Rules
 
 1. **Lowercase kebab-case** — `order-service-validation`, not `OrderService_Validation`
@@ -436,6 +440,41 @@ work/code-analysis/order-service/
 - Files inside drop the category and subject prefix (already implied by folder)
 - Add a `README.md` to the sub-package listing its contents
 - Move existing files when escalating (update SESSION-LOG.md paths)
+
+### Automatic Escalation Protocol
+
+The AI assistant MUST proactively check escalation thresholds **every time a session
+file is created**. Do not wait for the user to notice or request escalation.
+
+**Escalation checklist (run after every session capture):**
+
+1. **Count files** — count how many session files exist in the target category folder
+   that share the same subject grouping (look at the subject slug prefix)
+2. **Check Pattern 1 threshold** — if the count (including the new file) reaches **5+**
+   files for the same subject, trigger subject-based sub-package escalation immediately
+3. **Check Pattern 2 threshold** — if inside `personal/software-dev/<activity>/` and the
+   count reaches **3+** files for the same project, trigger project-based sub-package
+   escalation immediately
+4. **Execute escalation** — when triggered:
+   - Create the sub-directory
+   - Move ALL matching files into the sub-directory with shortened names
+   - Create `README.md` listing the sub-package contents
+   - Update `SESSION-LOG.md` with new paths
+   - Update all `scope-refs`, `parent`, and inline links in the moved files
+   - Update any cross-references in files OUTSIDE the sub-package that point to moved files
+5. **Log the escalation** — inform the user that escalation was performed
+
+**Timing:** Escalation should happen in the same turn as the session capture. Do not
+create a file in a flat folder and plan to escalate later — check and escalate immediately.
+
+**Cross-reference updates are mandatory.** When files are moved during escalation, ALL of
+the following must be updated:
+
+- `parent` field in frontmatter (if pointing to a moved file)
+- `scope-refs[].file` entries in frontmatter (paths to moved files)
+- Inline markdown links `[text](path)` that reference moved files
+- `SESSION-LOG.md` link paths
+- Any `README.md` files that list or link to the moved files
 
 ### Pattern 2 — Project-Based Sub-Package (3+ files in same activity for same project)
 
@@ -676,10 +715,29 @@ When the Capture Gate triggers, execute these steps:
 
 1. **Classify** — determine domain + category from conversation context
 2. **Name** — construct filename using the naming protocol
-3. **Create directory** — ensure the category folder exists under the domain
-4. **Write file** — create the session capture file with frontmatter + content structure
-5. **Log** — append entry to SESSION-LOG.md
-6. **Notify** — briefly inform the user: "Session captured to `sessions/<path>`"
+3. **Timestamp** — obtain the **actual current local time** (see Timestamp Accuracy below)
+4. **Create directory** — ensure the category folder exists under the domain
+5. **Escalation check** — check if this file triggers sub-package escalation (see below)
+6. **Write file** — create the session capture file with frontmatter + content structure
+7. **Log** — append entry to SESSION-LOG.md
+8. **Notify** — briefly inform the user: "Session captured to `sessions/<path>`"
+
+### Timestamp Accuracy
+
+**The date and time in session filenames and frontmatter MUST reflect the actual current
+local time when the file is created.** Never guess, estimate, or use a placeholder time.
+
+- **Always query the system clock** before naming a session file (e.g., `Get-Date` on
+  PowerShell, `date` on bash) to obtain the real local time
+- **Filename timestamp** uses 12-hour format: `HH-MMtt` (e.g., `09-21pm`, `10-30am`)
+- **Frontmatter `time` field** uses quoted 12-hour format: `"09:21 PM"`, `"10:30 AM"`
+- **Frontmatter `date` field** uses ISO 8601: `YYYY-MM-DD`
+- **Never round or approximate** — if the time is 9:21 PM, use `09-21pm`, not `09-00pm`
+  or `10-00pm`
+- **When updating an existing file's timestamp** (e.g., fixing an error), rename the file
+  to match the corrected timestamp and update the frontmatter accordingly
+- **Multi-exchange sessions** — use the timestamp of the first qualifying exchange as the
+  session start time; do not update the timestamp when appending later exchanges
 
 ### Timing
 
