@@ -74,6 +74,7 @@ Result:      Structured explanation of Main.java
 | `/career-roles` | [`career-roles.prompt.md`](career-roles.prompt.md) | Learning-Mentor | Job roles, skills, pay, career roadmaps |
 | `/multi-session` | [`multi-session.prompt.md`](multi-session.prompt.md) | Agent | Manage state across multiple chat sessions |
 | `/resources` | [`resources.prompt.md`](resources.prompt.md) | Learning-Mentor | Search, browse & scrape curated learning resources |
+| `/backlog` | [`backlog.prompt.md`](backlog.prompt.md) | Copilot | Manage backlog — items, ideas, brainstorms, notes, GHCP guides |
 
 ---
 

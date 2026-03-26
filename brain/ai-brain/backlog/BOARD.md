@@ -4,10 +4,15 @@
 
 ---
 
+## Notes
+
+| ID | Title | Created |
+|---|---|---|
+
 ## Ideas
 
-| ID | Title | Status | Created | Tags |
-|---|---|---|---|---|
+| ID | Title | Type | Status | Created | Tags |
+|---|---|---|---|---|---|
 
 ## Backlog
 
@@ -30,6 +35,11 @@
 
 | ID | Title | Type | Completed |
 |---|---|---|---|
+
+## Guides
+
+| ID | Title | Status | Scope | Created |
+|---|---|---|---|---|
 
 ## Epics
 

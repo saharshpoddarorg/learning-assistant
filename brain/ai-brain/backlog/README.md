@@ -44,15 +44,22 @@ backlog/
 ├── README.md               ← This file
 ├── BOARD.md                ← Kanban board — at-a-glance status view
 ├── _templates/
-│   ├── item.md             ← Template for backlog items (features, bugs, tasks)
-│   ├── idea.md             ← Template for raw ideas (brainstorming, whiteboard)
-│   └── epic.md             ← Template for epics (grouping related items)
+│   ├── item.md             ← Template: backlog items (features, bugs, tasks)
+│   ├── idea.md             ← Template: raw ideas with refinement trail
+│   ├── brainstorm.md       ← Template: whiteboard-style free-form thinking
+│   ├── epic.md             ← Template: epics (grouping related items)
+│   ├── note.md             ← Template: ultra-lightweight quick captures
+│   └── guide.md            ← Template: GHCP context guides / playbooks
 ├── items/
 │   └── (BLI-NNN_title.md)  ← Backlog items
 ├── ideas/
-│   └── (IDEA-NNN_title.md) ← Raw ideas with refinement history
-└── epics/
-    └── (EPIC-NNN_title.md) ← Epics grouping related items
+│   └── (IDEA-NNN_title.md) ← Raw ideas and brainstorms with refinement history
+├── epics/
+│   └── (EPIC-NNN_title.md) ← Epics grouping related items
+├── notes/
+│   └── (NOTE-NNN_title.md) ← Quick plain-text captures
+└── guides/
+    └── (GUIDE-NNN_title.md) ← Context guides for GHCP
 ```
 
 ---
@@ -95,6 +102,33 @@ Larger themes grouping related backlog items.
 
 **File naming:** `EPIC-NNN_short-title.md` (e.g., `EPIC-001_atlassian-v2-migration.md`)
 
+### Notes (`notes/`)
+
+Ultra-lightweight quick captures. Plain English, minimal structure.
+No priority, no status — just text. If a note grows important, promote it
+to an item or idea.
+
+**File naming:** `NOTE-NNN_short-title.md` (e.g., `NOTE-001_check-api-rate-limits.md`)
+
+### Brainstorms (in `ideas/`)
+
+Whiteboard-style free-form thinking sessions. Brainstorms use the brainstorm
+template but live in `ideas/` with an `IDEA-NNN` ID and `type: brainstorm`.
+They include sections for Possibilities, Constraints, Wild Ideas, and
+Emerging Direction.
+
+### Guides (`guides/`)
+
+Structured context documents written **for GHCP** to use as reference material.
+Think of them as lightweight playbooks — rules, examples, and anti-patterns
+that teach GHCP how to handle specific situations in your project.
+
+| Field | Values |
+|---|---|
+| **Status** | `draft` · `active` · `archived` · `superseded` |
+
+**File naming:** `GUIDE-NNN_short-title.md` (e.g., `GUIDE-001_error-message-conventions.md`)
+
 ---
 
 ## Workflows
@@ -126,6 +160,23 @@ Larger themes grouping related backlog items.
 3. Update BOARD.md
 ```
 
+### Jot a Quick Note
+
+```text
+1. Create a file in notes/ using the note template
+2. Write plain text — no structure required
+3. Done. If it becomes important later, promote to an item or idea.
+```
+
+### Create a GHCP Guide
+
+```text
+1. Create a file in guides/ using the guide template
+2. Write the context, rules, examples, and anti-patterns
+3. Set status: draft (→ active when ready for GHCP to use)
+4. Update BOARD.md
+```
+
 ### Update Status
 
 ```text
@@ -136,6 +187,25 @@ Larger themes grouping related backlog items.
 
 ---
 
+## Slash Command
+
+Use `/backlog` in Copilot Chat to manage the backlog without remembering file
+paths or templates. It supports all actions:
+
+| Action | What it does |
+|---|---|
+| `add` | Create a backlog item (feature, bug, task) |
+| `idea` | Capture a raw idea exactly as-is |
+| `brainstorm` | Open a whiteboard-style thinking session |
+| `note` | Jot a quick plain-text note |
+| `guide` | Create a GHCP context guide |
+| `refine` | Add a refinement pass to an idea |
+| `promote` | Promote a refined idea to a backlog item |
+| `board` | Show the current board status |
+| `update` | Change status or priority of any entry |
+
+---
+
 ## ID Assignment
 
 IDs are sequential within each type:
@@ -143,6 +213,8 @@ IDs are sequential within each type:
 - `BLI-001`, `BLI-002`, ... (backlog items)
 - `IDEA-001`, `IDEA-002`, ... (ideas)
 - `EPIC-001`, `EPIC-002`, ... (epics)
+- `NOTE-001`, `NOTE-002`, ... (notes)
+- `GUIDE-001`, `GUIDE-002`, ... (guides)
 
 To find the next ID, check BOARD.md or count existing files.
 
@@ -157,6 +229,8 @@ To find the next ID, check BOARD.md or count existing files.
 | **ideas/** → **items/** | An idea becomes actionable | Promote (status: promoted, create BLI) |
 | **notes/** → **backlog/** | A note identifies a gap | Create an item referencing the note |
 | **inbox/** → **ideas/** | A raw capture is an idea | Move to ideas, fill in the template |
+| **backlog/notes/** → **items/** | A note becomes actionable | Promote to a backlog item |
+| **backlog/guides/** → **.github/instructions/** | A guide becomes permanent | Graduate to an instruction file |
 
 ---
 
@@ -168,4 +242,32 @@ backlog(ideas): Capture IDEA-NNN — short title
 backlog(ideas): Refine IDEA-NNN — v2 refinement
 backlog(ideas): Promote IDEA-NNN → BLI-NNN
 backlog(board): Update board — 2 items moved to done
+backlog(notes): Add NOTE-NNN — short title
+backlog(guides): Add GUIDE-NNN — short title
+backlog(guides): Activate GUIDE-NNN — now in use
 ```
+
+---
+
+## Entry Complexity Spectrum
+
+Entries range from dead-simple to richly structured. Use the lightest-weight
+format that fits:
+
+```text
+Simplest                                                  Most Detailed
+   │                                                           │
+   ▼                                                           ▼
+  NOTE         IDEA         BRAINSTORM       ITEM        GUIDE / EPIC
+  (plain       (raw +       (structured      (priority,  (context,
+   text)       refine)      exploration)     AC, type)   rules, examples)
+```
+
+| Format | When to use | Detail level |
+|---|---|---|
+| Note | Quick thought, reminder, observation | 1-2 sentences |
+| Idea | Something you might want to do someday | A paragraph + refinement |
+| Brainstorm | Need to think through options | Multi-section exploration |
+| Item | Concrete task with defined outcome | Full AC + priority |
+| Guide | GHCP needs to learn a pattern | Rules + examples + anti-patterns |
+| Epic | Group of related items | Vision + linked items |

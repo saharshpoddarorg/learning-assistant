@@ -269,7 +269,17 @@ You are the **navigation hub** for all available assistants and learning command
 │        ├── /brain-publish ·········· Archive an imported source to library/ + git commit
 │        ├── /brain-search ··········· Search across inbox, notes, library by tag/kind/date
 │        ├── /brain-capture-session ·· Convert current AI session into a session note
-│        └── /session-scope ·········· Manage session scope (widen/narrow/switch/split/link)
+│        ├── /session-scope ·········· Manage session scope (widen/narrow/switch/split/link)
+│        └── /backlog ················ Manage backlog — add items, ideas, brainstorms, notes, guides
+│            ├── add ·················· Create a todo/task/feature/bug (BLI-NNN)
+│            ├── idea ················· Capture a raw idea as-is (IDEA-NNN)
+│            ├── brainstorm ··········· Whiteboard-style exploration (IDEA-NNN)
+│            ├── note ················· Quick plain-text capture (NOTE-NNN)
+│            ├── guide ················ GHCP context guide / playbook (GUIDE-NNN)
+│            ├── refine ··············· Add refinement pass to an idea
+│            ├── promote ·············· Promote idea → backlog item
+│            ├── board ················ Show backlog board status
+│            └── update ··············· Change status or priority
 │
 │    └── /daily-assist ·············· Non-SE daily productivity
 │        ├── finance ················ Budget tracking, investment basics, expense analysis
@@ -386,6 +396,7 @@ Quick Commands:
     /brain-search            → Search by tag, project, kind, date
     /brain-capture-session   → Convert current AI session into a structured note
     /session-scope           → Manage session scope (widen/narrow/switch/split/link)
+    /backlog                 → Manage backlog (add/idea/brainstorm/note/guide/refine/promote/board/update)
     /check-standards         → Audit any file/folder against best practices (brain-naming, frontmatter, java-code, etc.)
 
   Copilot Customization (Preview — March 2026):

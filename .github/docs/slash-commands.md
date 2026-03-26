@@ -46,7 +46,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (42 commands)
+### Quick Lookup (43 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -83,15 +83,17 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 31 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
 | 32 | `/brain-capture-session` | Brain Workspace | Convert current AI session into a structured session note | Copilot |
 | 33 | `/session-scope` | Brain Workspace | Manage session scope — widen, narrow, switch, split, cross-reference | Copilot |
-| 34 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
-| 35 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
-| 36 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
-| 37 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
-| 38 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
-| 39 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
-| 40 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
-| 41 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
-| 42 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
+| 34 | `/backlog` | Brain Workspace | Manage backlog — add items, capture ideas, brainstorm, jot notes, write GHCP guides | Copilot |
+| 34 | `/backlog` | Brain Workspace | Manage backlog — add items, capture ideas, brainstorm, jot notes, write GHCP guides | Copilot |
+| 35 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
+| 36 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
+| 37 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
+| 38 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
+| 39 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
+| 40 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
+| 41 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
+| 42 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
+| 43 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
 
 > **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
 > VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
@@ -717,6 +719,33 @@ File:     .github/prompts/session-scope.prompt.md
 Ref:      .github/instructions/session-scoping.instructions.md
 Tip:      Use when requirements gathering naturally evolves into general research —
           widen the scope so the learning is discoverable beyond the original project
+```
+
+#### `/backlog` — Manage the Backlog
+
+```yaml
+Inputs:   action (add / idea / brainstorm / note / guide / refine / promote / board / update),
+          text (what to capture or the ID to act on)
+Agent:    Copilot
+Tools:    editFiles, codebase
+Use:      Unified entry point for the backlog system — create items, capture ideas,
+          brainstorm, jot quick notes, write GHCP context guides, refine ideas,
+          promote ideas to items, view the board, or update status/priority.
+Actions:  add — todo/task/feature/bug | idea — raw capture as-is |
+          brainstorm — whiteboard-style exploration | note — quick plain text |
+          guide — GHCP context/playbook | refine — add refinement to idea |
+          promote — idea→item | board — show status | update — change status/priority
+Example:  /backlog → add → "Fix search bug in vault"
+          /backlog → idea → "Voice search for resource discovery"
+          /backlog → brainstorm → "How should we handle auth?"
+          /backlog → note → "Remember to check API rate limits"
+          /backlog → guide → "How GHCP should format error messages"
+          /backlog → board
+          /backlog → update → "BLI-003 done"
+File:     .github/prompts/backlog.prompt.md
+Ref:      .github/instructions/backlog.instructions.md
+Tip:      Use the simplest entry type that fits — note for quick text,
+          idea for vague thoughts, add for concrete tasks
 ```
 
 ---
