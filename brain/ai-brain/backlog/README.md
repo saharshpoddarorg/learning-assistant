@@ -5,13 +5,27 @@
 
 ---
 
+## Quick Start — 3 Commands
+
+| Command | What it does | Example |
+|---|---|---|
+| `/jot` | Capture any thought instantly | `/jot "voice search for vault?"` |
+| `/todo` | Add a concrete task | `/todo "fix search bug in vault"` |
+| `/todos` | View board, mark done, find items | `/todos` or `/todos "done BLI-003"` |
+
+That's it for daily use. For advanced operations (brainstorm, refine, promote, guide,
+epic), use `/backlog`.
+
+---
+
 ## What Is This Tier?
 
 The `backlog/` tier is a **personal kanban + ideation system** that lives in
 the repo alongside your notes, library, and sessions. It tracks:
 
+- **Ideas** — raw, unrefined thoughts captured exactly as-is, with a refinement trail
 - **Backlog items** — concrete tasks, features, bugs, improvements with priority and status
-- **Ideas** — raw, unrefined thoughts captured as-is, with a refinement trail
+- **Guides** — structured context docs written for GHCP to reference
 - **Epics** — larger themes that group related items
 
 Unlike external issue trackers, everything here is version-controlled and
@@ -48,7 +62,6 @@ backlog/
 │   ├── idea.md             ← Template: raw ideas with refinement trail
 │   ├── brainstorm.md       ← Template: whiteboard-style free-form thinking
 │   ├── epic.md             ← Template: epics (grouping related items)
-│   ├── note.md             ← Template: ultra-lightweight quick captures
 │   └── guide.md            ← Template: GHCP context guides / playbooks
 ├── items/
 │   └── (BLI-NNN_title.md)  ← Backlog items
@@ -56,8 +69,6 @@ backlog/
 │   └── (IDEA-NNN_title.md) ← Raw ideas and brainstorms with refinement history
 ├── epics/
 │   └── (EPIC-NNN_title.md) ← Epics grouping related items
-├── notes/
-│   └── (NOTE-NNN_title.md) ← Quick plain-text captures
 └── guides/
     └── (GUIDE-NNN_title.md) ← Context guides for GHCP
 ```
@@ -80,7 +91,9 @@ Concrete, actionable work with defined acceptance criteria.
 
 ### Ideas (`ideas/`)
 
-Raw, unrefined thoughts with a built-in refinement trail.
+Raw, unrefined thoughts with a built-in refinement trail. This is where
+**everything vague goes** — quick one-liners, half-formed thoughts, "what if"
+questions, reminders. Capture first, refine later.
 
 | Field | Values |
 |---|---|
@@ -92,6 +105,8 @@ Ideas preserve the original thought verbatim and track refinement history.
 When an idea becomes actionable, it's **promoted** to a backlog item (the idea
 file gets `status: promoted` and `promoted-to: BLI-NNN`).
 
+> **Quick capture:** Use `/jot` to create an idea in one step with zero overhead.
+
 ### Epics (`epics/`)
 
 Larger themes grouping related backlog items.
@@ -101,14 +116,6 @@ Larger themes grouping related backlog items.
 | **Status** | `draft` · `active` · `done` · `archived` |
 
 **File naming:** `EPIC-NNN_short-title.md` (e.g., `EPIC-001_atlassian-v2-migration.md`)
-
-### Notes (`notes/`)
-
-Ultra-lightweight quick captures. Plain English, minimal structure.
-No priority, no status — just text. If a note grows important, promote it
-to an item or idea.
-
-**File naming:** `NOTE-NNN_short-title.md` (e.g., `NOTE-001_check-api-rate-limits.md`)
 
 ### Brainstorms (in `ideas/`)
 
@@ -133,76 +140,82 @@ that teach GHCP how to handle specific situations in your project.
 
 ## Workflows
 
-### Capture a Vague Idea
+### Jot a Quick Thought
 
 ```text
-1. Create a file in ideas/ using the idea template
-2. Write the raw thought in "Raw Idea" section — unedited, as-is
-3. Status: raw
-4. Later, add refinement passes as new subsections (v1, v2, ...)
-5. When actionable, promote to a backlog item
+1. Type /jot "your thought here"
+2. Done. It's captured as IDEA-NNN with status: raw.
+3. Later, refine with /backlog refine IDEA-NNN
 ```
 
 ### Create a Backlog Item
 
 ```text
-1. Create a file in items/ using the item template
-2. Set status, priority, and type
-3. Write acceptance criteria
-4. Update BOARD.md
+1. Type /todo "describe the task"
+2. Done. It's created as BLI-NNN with priority and type.
+3. View it with /todos
+```
+
+### Work Through Your Backlog
+
+```text
+1. Type /todos to see the board
+2. "start BLI-003" to begin work
+3. "done BLI-003" when finished
+4. BOARD.md is updated automatically
 ```
 
 ### Promote an Idea to a Backlog Item
 
 ```text
-1. Create the backlog item in items/ (set origin: IDEA-NNN)
-2. Update the idea: status → promoted, promoted-to → BLI-NNN
-3. Update BOARD.md
+1. /backlog promote IDEA-NNN
+2. A new BLI-NNN is created with origin link
+3. The idea is marked "promoted"
 ```
 
 ### Jot a Quick Note
 
 ```text
-1. Create a file in notes/ using the note template
-2. Write plain text — no structure required
-3. Done. If it becomes important later, promote to an item or idea.
+Just type /jot — same as capturing a vague idea, but emphasises speed.
+No template, no fields — your words go in verbatim.
 ```
 
 ### Create a GHCP Guide
 
 ```text
-1. Create a file in guides/ using the guide template
-2. Write the context, rules, examples, and anti-patterns
+1. /backlog guide "topic"
+2. Fill in context, rules, examples, anti-patterns
 3. Set status: draft (→ active when ready for GHCP to use)
-4. Update BOARD.md
 ```
 
 ### Update Status
 
 ```text
-1. Change the status field in the item's frontmatter
-2. Set updated date
-3. Move the row in BOARD.md to the new status column
+/todos "done BLI-003"    or    /todos "start BLI-005"
 ```
 
 ---
 
-## Slash Command
+## Slash Commands
 
-Use `/backlog` in Copilot Chat to manage the backlog without remembering file
-paths or templates. It supports all actions:
+### Daily Use (simple, fast)
 
-| Action | What it does |
-|---|---|
-| `add` | Create a backlog item (feature, bug, task) |
-| `idea` | Capture a raw idea exactly as-is |
-| `brainstorm` | Open a whiteboard-style thinking session |
-| `note` | Jot a quick plain-text note |
-| `guide` | Create a GHCP context guide |
-| `refine` | Add a refinement pass to an idea |
-| `promote` | Promote a refined idea to a backlog item |
-| `board` | Show the current board status |
-| `update` | Change status or priority of any entry |
+| Command | What it does | When to use |
+|---|---|---|
+| `/jot` | Capture a thought instantly | Any vague idea, reminder, "what if" |
+| `/todo` | Add a concrete task | Work you can define with a clear outcome |
+| `/todos` | View board, update status, find items | Daily standup, mark done, check progress |
+
+### Advanced (full management)
+
+| Command | What it does | When to use |
+|---|---|---|
+| `/backlog brainstorm` | Whiteboard-style exploration | Need to think through options |
+| `/backlog guide` | Create a GHCP context guide | Teach GHCP rules/patterns/examples |
+| `/backlog refine` | Add refinement pass to an idea | Sharpen a raw idea |
+| `/backlog promote` | Promote idea → backlog item | Idea is now actionable |
+| `/backlog epic` | Create an epic grouping | Group related items |
+| `/backlog update` | Change status/priority | Any metadata update |
 
 ---
 
@@ -210,11 +223,10 @@ paths or templates. It supports all actions:
 
 IDs are sequential within each type:
 
-- `BLI-001`, `BLI-002`, ... (backlog items)
-- `IDEA-001`, `IDEA-002`, ... (ideas)
-- `EPIC-001`, `EPIC-002`, ... (epics)
-- `NOTE-001`, `NOTE-002`, ... (notes)
-- `GUIDE-001`, `GUIDE-002`, ... (guides)
+- `IDEA-001`, `IDEA-002`, ... (ideas and brainstorms — everything in ideas/)
+- `BLI-001`, `BLI-002`, ... (backlog items — concrete work)
+- `EPIC-001`, `EPIC-002`, ... (epics — grouping themes)
+- `GUIDE-001`, `GUIDE-002`, ... (guides — GHCP context)
 
 To find the next ID, check BOARD.md or count existing files.
 
@@ -229,7 +241,6 @@ To find the next ID, check BOARD.md or count existing files.
 | **ideas/** → **items/** | An idea becomes actionable | Promote (status: promoted, create BLI) |
 | **notes/** → **backlog/** | A note identifies a gap | Create an item referencing the note |
 | **inbox/** → **ideas/** | A raw capture is an idea | Move to ideas, fill in the template |
-| **backlog/notes/** → **items/** | A note becomes actionable | Promote to a backlog item |
 | **backlog/guides/** → **.github/instructions/** | A guide becomes permanent | Graduate to an instruction file |
 
 ---
@@ -242,7 +253,6 @@ backlog(ideas): Capture IDEA-NNN — short title
 backlog(ideas): Refine IDEA-NNN — v2 refinement
 backlog(ideas): Promote IDEA-NNN → BLI-NNN
 backlog(board): Update board — 2 items moved to done
-backlog(notes): Add NOTE-NNN — short title
 backlog(guides): Add GUIDE-NNN — short title
 backlog(guides): Activate GUIDE-NNN — now in use
 ```
@@ -251,23 +261,30 @@ backlog(guides): Activate GUIDE-NNN — now in use
 
 ## Entry Complexity Spectrum
 
-Entries range from dead-simple to richly structured. Use the lightest-weight
-format that fits:
+Use the lightest-weight format that fits your thought:
 
 ```text
-Simplest                                                  Most Detailed
-   │                                                           │
-   ▼                                                           ▼
-  NOTE         IDEA         BRAINSTORM       ITEM        GUIDE / EPIC
-  (plain       (raw +       (structured      (priority,  (context,
-   text)       refine)      exploration)     AC, type)   rules, examples)
+Simplest                                                    Most Detailed
+   │                                                              │
+   ▼                                                              ▼
+  /jot               /backlog brainstorm       /todo         /backlog guide
+   │                        │                    │                │
+ IDEA-NNN              IDEA-NNN              BLI-NNN        GUIDE-NNN
+ (1 sentence,          (structured            (priority,    (rules,
+  raw capture)          exploration)           AC, type)     examples)
 ```
 
-| Format | When to use | Detail level |
-|---|---|---|
-| Note | Quick thought, reminder, observation | 1-2 sentences |
-| Idea | Something you might want to do someday | A paragraph + refinement |
-| Brainstorm | Need to think through options | Multi-section exploration |
-| Item | Concrete task with defined outcome | Full AC + priority |
-| Guide | GHCP needs to learn a pattern | Rules + examples + anti-patterns |
-| Epic | Group of related items | Vision + linked items |
+| What you have | Use | Creates | Detail level |
+|---|---|---|---|
+| Quick thought / reminder | `/jot` | IDEA-NNN | 1-2 sentences, raw |
+| Need to explore options | `/backlog brainstorm` | IDEA-NNN | Multi-section whiteboard |
+| Concrete task with outcome | `/todo` | BLI-NNN | Acceptance criteria + priority |
+| GHCP needs to learn a pattern | `/backlog guide` | GUIDE-NNN | Rules + examples + anti-patterns |
+| Group of related items | `/backlog epic` | EPIC-NNN | Vision + linked items |
+
+### The Lifecycle
+
+```text
+/jot "what if..."   →   /backlog refine IDEA-001   →   /backlog promote IDEA-001   →   /todos "done BLI-001"
+     (capture)               (sharpen)                     (make actionable)              (complete)
+```

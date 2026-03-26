@@ -1,25 +1,30 @@
 ```prompt
 ---
 name: backlog
-description: 'Manage your backlog — add items, capture ideas, brainstorm, jot notes, write guides, update status'
+description: 'Advanced backlog management — brainstorm, guide, refine, promote, epic operations'
 agent: copilot
 tools: ['editFiles', 'codebase']
 ---
 
 ## What do you want to do?
 
-${input:action:Pick an action: add (todo/task) | idea (capture raw) | brainstorm (whiteboard) | note (quick text) | guide (GHCP context) | refine (refine idea) | promote (idea→item) | board (show status) | update (change status/priority)}
+${input:action:Pick an action: brainstorm (whiteboard) | guide (GHCP context) | refine (refine idea) | promote (idea→item) | epic (group items) | update (change status/priority) | board (show status)}
 
 ## Details
 
-${input:text:Describe what to capture, or the ID to act on (e.g., "Add search to vault", "IDEA-001", "BLI-003 done")}
+${input:text:Describe what to capture, or the ID to act on (e.g., "How should we handle auth?", "IDEA-001", "BLI-003 done")}
 
 ---
 
 ## Instructions
 
 You are a **backlog management assistant** for the `brain/ai-brain/backlog/` workspace.
-Your job is to create, update, and organise backlog entries based on the user's intent.
+Your job is to handle advanced backlog operations that go beyond quick captures.
+
+> **Quick shortcuts:** For everyday use, prefer these focused commands:
+> - `/jot` — capture a thought in one step (fastest path)
+> - `/todo` — add a concrete task
+> - `/todos` — view board, mark done, locate items
 
 Read the backlog instructions at `.github/instructions/backlog.instructions.md` and the
 backlog README at `brain/ai-brain/backlog/README.md` for the full protocol, templates,
@@ -32,6 +37,8 @@ Based on `${input:action}`, do the following:
 ---
 
 ### `add` — Create a Backlog Item
+
+> **Shortcut:** Use `/todo` instead for the fastest path.
 
 The user has **concrete, actionable work** to track (a feature, bug, task, improvement).
 
@@ -49,6 +56,8 @@ The user has **concrete, actionable work** to track (a feature, bug, task, impro
 ---
 
 ### `idea` — Capture a Raw Idea
+
+> **Shortcut:** Use `/jot` instead for zero-overhead capture.
 
 The user has a **vague, half-formed, or exploratory thought**. Capture it exactly as-is.
 
@@ -77,20 +86,6 @@ The user wants to **think through a problem** with open-ended exploration.
 8. Create the file at `brain/ai-brain/backlog/ideas/IDEA-NNN_kebab-title.md`
 9. Add a row to BOARD.md Ideas table with status `raw`
 10. Tell the user: "Created brainstorm IDEA-NNN: title"
-
----
-
-### `note` — Quick Plain-Text Capture
-
-The user wants to **jot something down** with minimal overhead. No priority, no status.
-Just text.
-
-1. Read the template at `brain/ai-brain/backlog/_templates/note.md`
-2. Assign the next sequential `NOTE-NNN` ID
-3. Write `${input:text}` as plain text — keep it simple
-4. Create the file at `brain/ai-brain/backlog/notes/NOTE-NNN_kebab-title.md`
-5. Add a row to BOARD.md Notes table
-6. Tell the user: "Noted NOTE-NNN: title"
 
 ---
 
@@ -140,15 +135,32 @@ The user wants to turn a **refined idea into an actionable task**.
 
 ### `board` — Show the Board
 
+> **Shortcut:** Use `/todos` instead for a richer board view with status updates.
+
 Display the current status of all tracked work.
 
 1. Read `brain/ai-brain/backlog/BOARD.md`
 2. Present the board to the user in a readable format
-3. Optionally summarise: X items, Y ideas, Z notes, W guides
+3. Optionally summarise: X items, Y ideas, Z guides
+
+---
+
+### `epic` — Create or Manage an Epic
+
+The user wants to **group related items** under a theme.
+
+1. Read the template at `brain/ai-brain/backlog/_templates/epic.md`
+2. Assign the next sequential `EPIC-NNN` ID
+3. Parse `${input:text}` for the epic's vision and scope
+4. Create the file at `brain/ai-brain/backlog/epics/EPIC-NNN_kebab-title.md`
+5. Add a row to BOARD.md Epics table
+6. Tell the user: "Created EPIC-NNN: title"
 
 ---
 
 ### `update` — Update Status or Priority
+
+> **Shortcut:** Use `/todos` for quick status changes like "done BLI-003".
 
 The user wants to **change the status, priority, or other metadata** of an existing entry.
 
@@ -175,13 +187,14 @@ The user wants to **change the status, priority, or other metadata** of an exist
 
 | User says | Action | Result |
 |---|---|---|
-| "add a todo to fix the search bug" | `add` | BLI-NNN with type: bug |
-| "I should eventually add voice search" | `idea` | IDEA-NNN, raw capture |
 | "brainstorm: how should we handle auth?" | `brainstorm` | IDEA-NNN with brainstorm template |
-| "note: remember to check the API limits" | `note` | NOTE-NNN, plain text |
 | "guide: how GHCP should handle error messages" | `guide` | GUIDE-NNN, context guide |
 | "refine IDEA-001" | `refine` | Adds v1 refinement pass |
 | "promote IDEA-001" | `promote` | Creates BLI-NNN from idea |
-| "board" | `board` | Shows current BOARD.md |
-| "BLI-003 done" | `update` | Status → done |
+| "epic: Atlassian v2 migration" | `epic` | EPIC-NNN grouping |
+
+> **For everyday use, prefer the shortcuts:**
+> - `/jot "some thought"` — fastest capture
+> - `/todo "fix the bug"` — add a task
+> - `/todos` — view board, mark done, locate items
 ```

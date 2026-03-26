@@ -1,13 +1,10 @@
 # Backlog Board
 
 > At-a-glance status of all tracked work. Updated whenever items change status.
+>
+> **Quick commands:** `/jot` (capture thought) | `/todo` (add task) | `/todos` (this board)
 
 ---
-
-## Notes
-
-| ID | Title | Created |
-|---|---|---|
 
 ## Ideas
 

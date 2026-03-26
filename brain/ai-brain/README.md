@@ -41,11 +41,10 @@ ai-brain/
 | Deep code analysis conversation | sessions | AI conversation with analytical depth |
 | Research session on a technology | sessions | AI-assisted exploration worth referencing |
 | Complex debugging investigation | sessions | Multi-step AI-assisted debugging |
-| "Add filtering to search tool" | backlog/items | Concrete work to track |
-| "What if vault had voice search..." | backlog/ideas | Vague idea to capture and refine |
-| "Eventually refactor the v1 handlers" | backlog/ideas | Future intent, not yet actionable |
-| "Remember to check API rate limits" | backlog/notes | Quick reminder, no structure needed |
-| "How should we handle auth?" | backlog/ideas | Brainstorm — explore options |
+| "Add filtering to search tool" | backlog/items | Concrete work to track — use `/todo` |
+| "What if vault had voice search..." | backlog/ideas | Vague idea to capture — use `/jot` |
+| "Eventually refactor the v1 handlers" | backlog/ideas | Future intent, not yet actionable — use `/jot` |
+| "How should we handle auth?" | backlog/ideas | Brainstorm — use `/backlog` → brainstorm |
 | "GHCP should format errors like..." | backlog/guides | Context guide for GHCP to follow |
 
 ---
@@ -162,7 +161,7 @@ Example: `2026-03-20_10-30am_code-analysis_order-service-calculate-total.md`
 
 ## backlog/ Hierarchy
 
-The backlog tier tracks todos, features, ideas, brainstorming, quick notes, and GHCP guides:
+The backlog tier tracks todos, features, ideas, brainstorming, and GHCP guides:
 
 ```text
 backlog/
@@ -171,18 +170,32 @@ backlog/
   items/                      ← concrete work (BLI-NNN_title.md)
   ideas/                      ← raw ideas & brainstorms (IDEA-NNN_title.md)
   epics/                      ← grouping themes (EPIC-NNN_title.md)
-  notes/                      ← quick plain-text captures (NOTE-NNN_title.md)
   guides/                     ← GHCP context guides (GUIDE-NNN_title.md)
   _templates/
     item.md                   ← feature / bug / task template
     idea.md                   ← raw idea with refinement trail
     brainstorm.md             ← whiteboard-style exploration
     epic.md                   ← epic grouping template
-    note.md                   ← ultra-lightweight quick capture
     guide.md                  ← GHCP context guide / playbook
 ```
 
-Use `/backlog` in Copilot Chat to manage all entry types via a single command.
+### Quick Commands (daily use)
+
+| Command | What it does | Creates |
+|---|---|---|
+| `/jot` | Capture a thought instantly | IDEA-NNN |
+| `/todo` | Add a concrete task | BLI-NNN |
+| `/todos` | View board, mark done, find items | — |
+
+### Advanced Commands
+
+| Command | What it does |
+|---|---|
+| `/backlog` → brainstorm | Whiteboard-style exploration |
+| `/backlog` → guide | Create GHCP context guide |
+| `/backlog` → refine | Add refinement pass to an idea |
+| `/backlog` → promote | Promote idea → backlog item |
+| `/backlog` → epic | Group related items |
 
 See `brain/ai-brain/backlog/README.md` for the full system documentation and
 `.github/instructions/backlog.instructions.md` for the AI-assisted management protocol.

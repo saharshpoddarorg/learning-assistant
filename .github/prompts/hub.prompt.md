@@ -270,14 +270,15 @@ You are the **navigation hub** for all available assistants and learning command
 │        ├── /brain-search ··········· Search across inbox, notes, library by tag/kind/date
 │        ├── /brain-capture-session ·· Convert current AI session into a session note
 │        ├── /session-scope ·········· Manage session scope (widen/narrow/switch/split/link)
-│        └── /backlog ················ Manage backlog — add items, ideas, brainstorms, notes, guides
-│            ├── add ·················· Create a todo/task/feature/bug (BLI-NNN)
-│            ├── idea ················· Capture a raw idea as-is (IDEA-NNN)
+│        ├── /jot ···················· Capture a thought instantly (→ IDEA-NNN)
+│        ├── /todo ··················· Add a concrete task (→ BLI-NNN)
+│        ├── /todos ·················· View board, mark done, find items
+│        └── /backlog ················ Advanced backlog mgmt — brainstorm, guide, refine, promote, epic
 │            ├── brainstorm ··········· Whiteboard-style exploration (IDEA-NNN)
-│            ├── note ················· Quick plain-text capture (NOTE-NNN)
 │            ├── guide ················ GHCP context guide / playbook (GUIDE-NNN)
 │            ├── refine ··············· Add refinement pass to an idea
 │            ├── promote ·············· Promote idea → backlog item
+│            ├── epic ················· Group related items (EPIC-NNN)
 │            ├── board ················ Show backlog board status
 │            └── update ··············· Change status or priority
 │
@@ -396,7 +397,10 @@ Quick Commands:
     /brain-search            → Search by tag, project, kind, date
     /brain-capture-session   → Convert current AI session into a structured note
     /session-scope           → Manage session scope (widen/narrow/switch/split/link)
-    /backlog                 → Manage backlog (add/idea/brainstorm/note/guide/refine/promote/board/update)
+    /jot                     → Capture a thought instantly (→ IDEA-NNN)
+    /todo                    → Add a concrete task (→ BLI-NNN)
+    /todos                   → View board, mark done, find items
+    /backlog                 → Advanced backlog mgmt (brainstorm/guide/refine/promote/epic/board/update)
     /check-standards         → Audit any file/folder against best practices (brain-naming, frontmatter, java-code, etc.)
 
   Copilot Customization (Preview — March 2026):

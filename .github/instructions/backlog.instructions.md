@@ -15,13 +15,12 @@ This instruction activates whenever the user:
 
 - Asks to create a todo, task, feature request, or work item
 - Shares a vague idea, brainstorm, or "I should eventually..." thought
-- Wants to jot a quick note or reminder
 - Wants to brainstorm or think through options
 - Wants to create a context guide for GHCP to reference
 - Asks to update the status or priority of a backlog item
 - Requests a board view or status summary
 - Mentions promoting an idea to a concrete task
-- Uses `/backlog` or related commands
+- Uses `/jot`, `/todo`, `/todos`, `/backlog`, or related commands
 
 ---
 
@@ -68,17 +67,21 @@ If the user describes something **vague, half-formed, or exploratory**:
 | "Here's a rough thought..." | **idea** (status: raw) |
 | "Research whether..." | **item** (type: research) |
 | "Eventually I'd like to..." | **idea** (status: raw) |
-| "Remember to check..." | **note** (quick capture) |
+| "Remember to check..." | **idea** (status: raw, quick capture via `/jot`) |
 | "How should we handle X?" | **brainstorm** (idea with brainstorm template) |
 | "GHCP should follow these rules for..." | **guide** (context for GHCP) |
 | Clear acceptance criteria given | **item** |
 | No clear scope or outcome | **idea** |
-| Just a quick reminder | **note** |
 | Needs exploration of options | **brainstorm** |
 | Written FOR the AI to reference | **guide** |
 
 **When in doubt, create an idea.** Ideas can be promoted; items can't be demoted.
-**When it's just a sentence, create a note.** Notes can become anything later.
+
+> **Slash command shortcuts:**
+> - `/jot` — fastest idea capture (zero overhead)
+> - `/todo` — fastest item creation
+> - `/todos` — view board, mark done, locate items
+> - `/backlog` — advanced operations (brainstorm, refine, promote, guide, epic)
 
 ---
 
@@ -139,22 +142,6 @@ When an idea is refined enough to be actionable:
 
 ---
 
-## Creating Notes
-
-When the user wants to jot something quick — a reminder, observation, or thought:
-
-1. Read the template at `brain/ai-brain/backlog/_templates/note.md`
-2. Assign the next sequential `NOTE-NNN` ID
-3. Write the text as plain English — keep it simple, no structure required
-4. Create the file at `brain/ai-brain/backlog/notes/NOTE-NNN_kebab-title.md`
-5. Add a row to BOARD.md Notes table
-6. Inform the user: "Noted NOTE-NNN: title"
-
-Notes are the simplest entries. They have no status or priority. If a note
-becomes important, promote it to an idea or item.
-
----
-
 ## Creating Brainstorms
 
 When the user wants to think through a problem with open-ended exploration:
@@ -208,7 +195,6 @@ It must be updated whenever:
 
 ```text
 Ideas           ← all ideas and brainstorms (raw, refining, refined)
-Notes           ← quick plain-text captures
 Backlog         ← todo items split by priority tier
 In Progress     ← items currently being worked on
 Done            ← completed items
@@ -235,7 +221,6 @@ To determine the next ID:
 | Item | `BLI-NNN_kebab-title.md` | `BLI-001_add-search-filters.md` |
 | Idea | `IDEA-NNN_kebab-title.md` | `IDEA-001_voice-search-for-vault.md` |
 | Epic | `EPIC-NNN_kebab-title.md` | `EPIC-001_atlassian-v2-migration.md` |
-| Note | `NOTE-NNN_kebab-title.md` | `NOTE-001_check-api-limits.md` |
 | Guide | `GUIDE-NNN_kebab-title.md` | `GUIDE-001_error-message-conventions.md` |
 
 ---
@@ -263,10 +248,11 @@ When the user provides multiple items or ideas at once:
 | "start BLI-NNN" | Set status to in-progress |
 | "done BLI-NNN" | Set status to done |
 | "prioritise BLI-NNN high" | Change priority |
-| `/backlog add "fix search bug"` | Create a backlog item via slash command |
-| `/backlog idea "voice search"` | Capture a raw idea via slash command |
+| `/jot "quick thought"` | Capture via slash command (fastest path) |
+| `/todo "fix search bug"` | Create item via slash command |
+| `/todos` | View the board |
+| `/todos "done BLI-003"` | Update status via slash command |
 | `/backlog brainstorm "auth approach"` | Open a brainstorm via slash command |
-| `/backlog note "check API limits"` | Quick note via slash command |
 | `/backlog guide "error conventions"` | Create a GHCP guide via slash command |
-| `/backlog board` | Show the board |
-| `/backlog update "BLI-003 done"` | Update status via slash command |
+| `/backlog refine IDEA-001` | Refine an idea via slash command |
+| `/backlog promote IDEA-001` | Promote idea to item via slash command |

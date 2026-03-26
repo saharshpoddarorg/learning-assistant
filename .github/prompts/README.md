@@ -74,7 +74,10 @@ Result:      Structured explanation of Main.java
 | `/career-roles` | [`career-roles.prompt.md`](career-roles.prompt.md) | Learning-Mentor | Job roles, skills, pay, career roadmaps |
 | `/multi-session` | [`multi-session.prompt.md`](multi-session.prompt.md) | Agent | Manage state across multiple chat sessions |
 | `/resources` | [`resources.prompt.md`](resources.prompt.md) | Learning-Mentor | Search, browse & scrape curated learning resources |
-| `/backlog` | [`backlog.prompt.md`](backlog.prompt.md) | Copilot | Manage backlog — items, ideas, brainstorms, notes, GHCP guides |
+| `/jot` | [`jot.prompt.md`](jot.prompt.md) | Copilot | Capture a thought instantly → IDEA-NNN |
+| `/todo` | [`todo.prompt.md`](todo.prompt.md) | Copilot | Add a concrete task → BLI-NNN |
+| `/todos` | [`todos.prompt.md`](todos.prompt.md) | Copilot | View board, mark done, find items |
+| `/backlog` | [`backlog.prompt.md`](backlog.prompt.md) | Copilot | Advanced backlog — brainstorm, guide, refine, promote, epic |
 
 ---
 

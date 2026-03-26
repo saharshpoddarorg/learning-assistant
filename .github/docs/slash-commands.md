@@ -46,7 +46,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (43 commands)
+### Quick Lookup (46 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -83,17 +83,19 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 31 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
 | 32 | `/brain-capture-session` | Brain Workspace | Convert current AI session into a structured session note | Copilot |
 | 33 | `/session-scope` | Brain Workspace | Manage session scope — widen, narrow, switch, split, cross-reference | Copilot |
-| 34 | `/backlog` | Brain Workspace | Manage backlog — add items, capture ideas, brainstorm, jot notes, write GHCP guides | Copilot |
-| 34 | `/backlog` | Brain Workspace | Manage backlog — add items, capture ideas, brainstorm, jot notes, write GHCP guides | Copilot |
-| 35 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
-| 36 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
-| 37 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
-| 38 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
-| 39 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
-| 40 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
-| 41 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
-| 42 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
-| 43 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
+| 34 | `/jot` | Backlog | Capture a thought instantly — zero overhead | Copilot |
+| 35 | `/todo` | Backlog | Add a concrete task to the backlog | Copilot |
+| 36 | `/todos` | Backlog | View board, mark done, find items, check status | Copilot |
+| 37 | `/backlog` | Backlog | Advanced: brainstorm, guide, refine, promote, epic | Copilot |
+| 38 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
+| 39 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
+| 40 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
+| 41 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
+| 42 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
+| 43 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
+| 44 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
+| 45 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
+| 46 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
 
 > **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
 > VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
@@ -640,7 +642,7 @@ Topics:   Budget, investments, habit tracking, time mgmt, tech news, web researc
 
 ### Brain Workspace
 
-Commands for managing the `brain/ai-brain/` personal knowledge workspace — three-tier note system (inbox → notes → library).
+Commands for managing the `brain/ai-brain/` personal knowledge workspace — five-tier system (inbox → notes → library → sessions → backlog).
 
 #### `/brain-new` — Create a Note
 
@@ -724,28 +726,85 @@ Tip:      Use when requirements gathering naturally evolves into general researc
 #### `/backlog` — Manage the Backlog
 
 ```yaml
-Inputs:   action (add / idea / brainstorm / note / guide / refine / promote / board / update),
+Inputs:   action (brainstorm / guide / refine / promote / epic / update / board),
           text (what to capture or the ID to act on)
 Agent:    Copilot
 Tools:    editFiles, codebase
-Use:      Unified entry point for the backlog system — create items, capture ideas,
-          brainstorm, jot quick notes, write GHCP context guides, refine ideas,
-          promote ideas to items, view the board, or update status/priority.
-Actions:  add — todo/task/feature/bug | idea — raw capture as-is |
-          brainstorm — whiteboard-style exploration | note — quick plain text |
-          guide — GHCP context/playbook | refine — add refinement to idea |
-          promote — idea→item | board — show status | update — change status/priority
-Example:  /backlog → add → "Fix search bug in vault"
-          /backlog → idea → "Voice search for resource discovery"
-          /backlog → brainstorm → "How should we handle auth?"
-          /backlog → note → "Remember to check API rate limits"
+Use:      Advanced backlog operations — brainstorm, create guides, refine ideas,
+          promote ideas to items, manage epics, update metadata.
+          For everyday use, prefer the shortcuts: /jot, /todo, /todos
+Actions:  brainstorm — whiteboard-style exploration | guide — GHCP context doc |
+          refine — add refinement to idea | promote — idea→item |
+          epic — group items | update — change status/priority | board — show status
+Example:  /backlog → brainstorm → "How should we handle auth?"
           /backlog → guide → "How GHCP should format error messages"
-          /backlog → board
-          /backlog → update → "BLI-003 done"
+          /backlog → refine → "IDEA-001"
+          /backlog → promote → "IDEA-001"
+          /backlog → epic → "Atlassian v2 migration"
 File:     .github/prompts/backlog.prompt.md
 Ref:      .github/instructions/backlog.instructions.md
-Tip:      Use the simplest entry type that fits — note for quick text,
-          idea for vague thoughts, add for concrete tasks
+Tip:      Use the simplest command that fits — /jot for ideas, /todo for tasks,
+          /todos for the board. Use /backlog only for advanced operations.
+```
+
+---
+
+### Backlog — Quick Commands
+
+Daily-use shortcuts for the backlog system. These are the commands you'll use 90% of the time.
+
+#### `/jot` — Capture a Thought Instantly
+
+```yaml
+Inputs:   thought (just type it — any idea, reminder, observation)
+Agent:    Copilot
+Tools:    editFiles, codebase
+Use:      Fastest possible capture. Zero overhead. Your words go in verbatim as
+          a raw idea (IDEA-NNN). No forms, no decisions — just capture.
+Example:  /jot → "voice search for resource discovery"
+          /jot → "remember to check API rate limits"
+          /jot → "what if we added dark mode?"
+Output:   "Jotted IDEA-NNN: voice-search-for-discovery"
+File:     .github/prompts/jot.prompt.md
+Tip:      If you have multiple thoughts, give them as a numbered list — each
+          becomes a separate IDEA-NNN
+```
+
+#### `/todo` — Add a Concrete Task
+
+```yaml
+Inputs:   task (describe what needs to be done)
+Agent:    Copilot
+Tools:    editFiles, codebase
+Use:      Add actionable work to the backlog. Infers type (feature/bug/chore)
+          and priority (medium default) from your description.
+Example:  /todo → "Fix search bug in vault"
+          /todo → "Add dark mode to dashboard"
+          /todo → "Research WebSocket options for real-time updates"
+Output:   "Created BLI-NNN: fix-search-bug (type: bug, priority: medium)"
+File:     .github/prompts/todo.prompt.md
+Tip:      For multiple tasks, give a numbered list — each becomes a separate BLI-NNN
+```
+
+#### `/todos` — View Board & Manage Status
+
+```yaml
+Inputs:   action (board by default, or a status command like "done BLI-003")
+Agent:    Copilot
+Tools:    editFiles, codebase
+Use:      Your daily dashboard. View all tracked work, mark items done,
+          start items, block items, search for entries.
+Commands: board — show full status | done BLI-NNN — mark complete |
+          start BLI-NNN — begin work | block BLI-NNN — mark blocked |
+          archive BLI-NNN — archive | prioritise BLI-NNN high — change priority |
+          park IDEA-NNN — shelve idea | find <text> — search entries
+Example:  /todos                          (show the board)
+          /todos → "done BLI-003"         (mark complete)
+          /todos → "start BLI-005"        (begin work)
+          /todos → "done BLI-003, BLI-004" (batch update)
+File:     .github/prompts/todos.prompt.md
+Tip:      Use at the start of a work session to see what's next, and at the end
+          to mark what's done
 ```
 
 ---
