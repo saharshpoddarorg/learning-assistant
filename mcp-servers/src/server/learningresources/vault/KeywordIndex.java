@@ -101,9 +101,87 @@ public final class KeywordIndex {
         map.put("complexity", ConceptArea.COMPLEXITY_ANALYSIS);
         map.put("time complexity", ConceptArea.COMPLEXITY_ANALYSIS);
         map.put("memory", ConceptArea.MEMORY_MANAGEMENT);
-        map.put("garbage collection", ConceptArea.MEMORY_MANAGEMENT);
-        map.put("jvm", ConceptArea.MEMORY_MANAGEMENT);
         map.put("heap", ConceptArea.MEMORY_MANAGEMENT);
+
+        // JVM internals (umbrella)
+        map.put("jvm", ConceptArea.JVM_INTERNALS);
+        map.put("jvm internals", ConceptArea.JVM_INTERNALS);
+        map.put("jvm-internals", ConceptArea.JVM_INTERNALS);
+        map.put("bytecode", ConceptArea.JVM_INTERNALS);
+        map.put("jit", ConceptArea.JVM_INTERNALS);
+        map.put("jit compiler", ConceptArea.JVM_INTERNALS);
+        map.put("jit compilation", ConceptArea.JVM_INTERNALS);
+        map.put("hotspot", ConceptArea.JVM_INTERNALS);
+        map.put("jmx", ConceptArea.JVM_INTERNALS);
+        map.put("safepoint", ConceptArea.JVM_INTERNALS);
+        map.put("safepoints", ConceptArea.JVM_INTERNALS);
+        map.put("tlab", ConceptArea.JVM_INTERNALS);
+        map.put("metaspace", ConceptArea.JVM_INTERNALS);
+        map.put("jvm tuning", ConceptArea.JVM_INTERNALS);
+        map.put("jvm performance", ConceptArea.JVM_INTERNALS);
+        map.put("mechanical sympathy", ConceptArea.JVM_INTERNALS);
+
+        // Garbage collection (sub-concept of JVM_INTERNALS)
+        map.put("garbage collection", ConceptArea.GARBAGE_COLLECTION);
+        map.put("gc", ConceptArea.GARBAGE_COLLECTION);
+        map.put("gc tuning", ConceptArea.GARBAGE_COLLECTION);
+        map.put("g1", ConceptArea.GARBAGE_COLLECTION);
+        map.put("zgc", ConceptArea.GARBAGE_COLLECTION);
+        map.put("shenandoah", ConceptArea.GARBAGE_COLLECTION);
+        map.put("gc roots", ConceptArea.GARBAGE_COLLECTION);
+        map.put("gc logging", ConceptArea.GARBAGE_COLLECTION);
+        map.put("gc pause", ConceptArea.GARBAGE_COLLECTION);
+        map.put("gc algorithm", ConceptArea.GARBAGE_COLLECTION);
+        map.put("generational gc", ConceptArea.GARBAGE_COLLECTION);
+        map.put("young generation", ConceptArea.GARBAGE_COLLECTION);
+        map.put("old generation", ConceptArea.GARBAGE_COLLECTION);
+        map.put("serial gc", ConceptArea.GARBAGE_COLLECTION);
+        map.put("parallel gc", ConceptArea.GARBAGE_COLLECTION);
+        map.put("epsilon gc", ConceptArea.GARBAGE_COLLECTION);
+        map.put("gc ergonomics", ConceptArea.GARBAGE_COLLECTION);
+
+        // Class loading (sub-concept of JVM_INTERNALS)
+        map.put("class loading", ConceptArea.CLASS_LOADING);
+        map.put("classloader", ConceptArea.CLASS_LOADING);
+        map.put("class-loading", ConceptArea.CLASS_LOADING);
+        map.put("class loader", ConceptArea.CLASS_LOADING);
+        map.put("bootstrap classloader", ConceptArea.CLASS_LOADING);
+        map.put("delegation model", ConceptArea.CLASS_LOADING);
+        map.put("dynamic loading", ConceptArea.CLASS_LOADING);
+        map.put("class linking", ConceptArea.CLASS_LOADING);
+        map.put("class initialization", ConceptArea.CLASS_LOADING);
+
+        // Serialization (sub-concept of JVM_INTERNALS)
+        map.put("serialization", ConceptArea.SERIALIZATION);
+        map.put("deserialization", ConceptArea.SERIALIZATION);
+        map.put("serializable", ConceptArea.SERIALIZATION);
+        map.put("externalizable", ConceptArea.SERIALIZATION);
+        map.put("serialVersionUID", ConceptArea.SERIALIZATION);
+        map.put("object stream", ConceptArea.SERIALIZATION);
+        map.put("transient", ConceptArea.SERIALIZATION);
+        map.put("writeObject", ConceptArea.SERIALIZATION);
+        map.put("readObject", ConceptArea.SERIALIZATION);
+        map.put("java serialization", ConceptArea.SERIALIZATION);
+
+        // JVM languages (sub-concept of JVM_INTERNALS)
+        map.put("kotlin", ConceptArea.JVM_LANGUAGES);
+        map.put("scala", ConceptArea.JVM_LANGUAGES);
+        map.put("groovy", ConceptArea.JVM_LANGUAGES);
+        map.put("clojure", ConceptArea.JVM_LANGUAGES);
+        map.put("jvm languages", ConceptArea.JVM_LANGUAGES);
+        map.put("jvm-languages", ConceptArea.JVM_LANGUAGES);
+        map.put("jvm language", ConceptArea.JVM_LANGUAGES);
+        map.put("polyglot jvm", ConceptArea.JVM_LANGUAGES);
+        map.put("coroutines", ConceptArea.JVM_LANGUAGES);
+
+        // GraalVM (spans JVM_INTERNALS umbrella — architecture + native image)
+        map.put("graalvm", ConceptArea.JVM_INTERNALS);
+        map.put("native image", ConceptArea.JVM_INTERNALS);
+
+        // JVM profiling tools
+        map.put("jfr", ConceptArea.JVM_INTERNALS);
+        map.put("java flight recorder", ConceptArea.JVM_INTERNALS);
+        map.put("jmh", ConceptArea.JVM_INTERNALS);
 
         // Software engineering
         map.put("design patterns", ConceptArea.DESIGN_PATTERNS);
@@ -502,6 +580,19 @@ public final class KeywordIndex {
         map.put("spring boot", ResourceCategory.JAVA);
         map.put("hibernate", ResourceCategory.JAVA);
         map.put("jpa", ResourceCategory.JAVA);
+        // JVM languages & ecosystem
+        map.put("kotlin", ResourceCategory.JAVA);
+        map.put("scala", ResourceCategory.JAVA);
+        map.put("groovy", ResourceCategory.JAVA);
+        map.put("clojure", ResourceCategory.JAVA);
+        map.put("graalvm", ResourceCategory.JAVA);
+        map.put("jvm languages", ResourceCategory.JAVA);
+        map.put("jvm-languages", ResourceCategory.JAVA);
+        map.put("hotspot", ResourceCategory.JAVA);
+        map.put("bytecode", ResourceCategory.JAVA);
+        map.put("jfr", ResourceCategory.JAVA);
+        map.put("jmh", ResourceCategory.JAVA);
+        map.put("native image", ResourceCategory.JAVA);
         // Personal development
         map.put("personal development", ResourceCategory.PERSONAL_DEVELOPMENT);
         map.put("self-improvement", ResourceCategory.PERSONAL_DEVELOPMENT);

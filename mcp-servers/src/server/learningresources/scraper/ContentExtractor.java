@@ -1,5 +1,7 @@
 package server.learningresources.scraper;
 
+import util.HtmlUtils;
+
 import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -134,19 +136,8 @@ public class ContentExtractor {
      * @return text with entities decoded
      */
     private String decodeEntities(final String text) {
-        var decoded = text;
-        decoded = decoded.replace("&amp;", "&");
-        decoded = decoded.replace("&lt;", "<");
-        decoded = decoded.replace("&gt;", ">");
-        decoded = decoded.replace("&quot;", "\"");
-        decoded = decoded.replace("&apos;", "'");
-        decoded = decoded.replace("&nbsp;", " ");
-        decoded = decoded.replace("&#39;", "'");
-        decoded = decoded.replace("&#34;", "\"");
-
-        // Remove any remaining entities
-        decoded = ENTITY_PATTERN.matcher(decoded).replaceAll("");
-
-        return decoded;
+        final var decoded = HtmlUtils.decodeEntities(text);
+        // Remove any remaining entities not covered by the standard set
+        return ENTITY_PATTERN.matcher(decoded).replaceAll("");
     }
 }

@@ -5,7 +5,7 @@ development and learning sessions — with Copilot, MCP servers, or manually.
 
 ---
 
-## Three Tiers
+## Five Tiers
 
 ```text
 ai-brain/
@@ -13,17 +13,19 @@ ai-brain/
   notes/     YOURS      your own writing — insights, sessions, decisions     [tracked]
   library/   SOURCES    imported source materials you want to preserve       [tracked]
   sessions/  CAPTURED   AI conversation captures — research, analysis, etc.  [tracked]
+  backlog/   TRACKED    todos, ideas, features, brainstorming — kanban board [tracked]
   scripts/   TOOLS      one dispatcher + module + aliases + VS Code tasks
 ```
 
-### The one question that routes everything
+### The routing question
 
-> **Did you write it yourself?**
+> **What kind of content is this?**
 >
 > - **Inbox** — not ready yet (raw paste, draft, anything goes — gitignored, cleared per session)
 > - **Notes** — yes, I wrote it (your distilled insights, your session logs, your decisions, your how-tos)
 > - **Library** — no, I imported it (external slide decks, presenter guides, external reference docs, AI session outputs you received)
 > - **Sessions** — it was a valuable AI conversation (research, analysis, code review, learning deep-dives worth preserving)
+> - **Backlog** — it's work to track (todos, features, ideas, brainstorming, requirements)
 
 ### Examples
 
@@ -39,6 +41,11 @@ ai-brain/
 | Deep code analysis conversation | sessions | AI conversation with analytical depth |
 | Research session on a technology | sessions | AI-assisted exploration worth referencing |
 | Complex debugging investigation | sessions | Multi-step AI-assisted debugging |
+| "Add filtering to search tool" | backlog/items | Concrete work to track — use `/todo` |
+| "What if vault had voice search..." | backlog/ideas | Vague idea to capture — use `/jot` |
+| "Eventually refactor the v1 handlers" | backlog/ideas | Future intent, not yet actionable — use `/jot` |
+| "How should we handle auth?" | backlog/ideas | Brainstorm — use `/backlog` → brainstorm |
+| "GHCP should format errors like..." | backlog/guides | Context guide for GHCP to follow |
 
 ---
 
@@ -149,6 +156,49 @@ YYYY-MM-DD_HH-MMtt_<category>_<subject>[_v<N>].md
 ```
 
 Example: `2026-03-20_10-30am_code-analysis_order-service-calculate-total.md`
+
+---
+
+## backlog/ Hierarchy
+
+The backlog tier tracks todos, features, ideas, brainstorming, and GHCP guides:
+
+```text
+backlog/
+  README.md
+  BOARD.md                    ← kanban board — at-a-glance status view
+  items/                      ← concrete work (BLI-NNN_title.md)
+  ideas/                      ← raw ideas & brainstorms (IDEA-NNN_title.md)
+  epics/                      ← grouping themes (EPIC-NNN_title.md)
+  guides/                     ← GHCP context guides (GUIDE-NNN_title.md)
+  _templates/
+    item.md                   ← feature / bug / task template
+    idea.md                   ← raw idea with refinement trail
+    brainstorm.md             ← whiteboard-style exploration
+    epic.md                   ← epic grouping template
+    guide.md                  ← GHCP context guide / playbook
+```
+
+### Quick Commands (daily use)
+
+| Command | What it does | Creates |
+|---|---|---|
+| `/jot` | Capture a thought instantly | IDEA-NNN |
+| `/todo` | Add a concrete task | BLI-NNN |
+| `/todos` | View board, mark done, find items | — |
+
+### Advanced Commands
+
+| Command | What it does |
+|---|---|
+| `/backlog` → brainstorm | Whiteboard-style exploration |
+| `/backlog` → guide | Create GHCP context guide |
+| `/backlog` → refine | Add refinement pass to an idea |
+| `/backlog` → promote | Promote idea → backlog item |
+| `/backlog` → epic | Group related items |
+
+See `brain/ai-brain/backlog/README.md` for the full system documentation and
+`.github/instructions/backlog.instructions.md` for the AI-assisted management protocol.
 
 ---
 

@@ -129,10 +129,8 @@ public enum LanguageApplicability {
      * @throws IllegalArgumentException if no match is found
      */
     public static LanguageApplicability fromString(final String value) {
-        if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException("LanguageApplicability must not be null or blank");
-        }
-        final var normalized = value.strip().toLowerCase();
+        EnumParseUtils.requireNonBlank(value, "LanguageApplicability");
+        final var normalized = EnumParseUtils.normalize(value);
 
         for (final LanguageApplicability level : values()) {
             if (level.displayName.equals(normalized) || level.name().equalsIgnoreCase(normalized)) {

@@ -62,12 +62,11 @@ public enum ContentFreshness {
      * @throws IllegalArgumentException if no match is found
      */
     public static ContentFreshness fromString(final String value) {
-        if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException("Freshness must not be null or blank");
-        }
-        final var normalized = value.strip().toLowerCase().replace(' ', '-');
+        EnumParseUtils.requireNonBlank(value, "Freshness");
+        final var normalized = EnumParseUtils.toHyphenated(value);
         for (final ContentFreshness freshness : values()) {
-            if (freshness.displayName.equals(normalized) || freshness.name().equalsIgnoreCase(value.strip())) {
+            if (freshness.displayName.equals(normalized)
+                    || freshness.name().equalsIgnoreCase(value.strip())) {
                 return freshness;
             }
         }

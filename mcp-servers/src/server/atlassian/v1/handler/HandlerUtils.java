@@ -1,5 +1,8 @@
 package server.atlassian.v1.handler;
 
+import server.atlassian.common.JsonUtils;
+import util.StringUtils;
+
 /**
  * Shared utility methods for Atlassian MCP handler classes.
  *
@@ -10,6 +13,8 @@ package server.atlassian.v1.handler;
  *   <li>{@link #escapeJson(String)} — escape a string for safe JSON embedding</li>
  *   <li>{@link #truncate(String, int)} — truncate with ellipsis for display tables</li>
  *   <li>{@link #parseMaxResults(String, int)} — parse an int arg with a safe default</li>
+ *   <li>{@link #looksLikeJql(String)} — heuristic: does the query look like raw JQL?</li>
+ *   <li>{@link #looksLikeCql(String)} — heuristic: does the query look like raw CQL?</li>
  * </ul>
  */
 final class HandlerUtils {
@@ -29,12 +34,7 @@ final class HandlerUtils {
      * @return the JSON-safe escaped string
      */
     static String escapeJson(final String text) {
-        if (text == null) return "";
-        return text.replace("\\", "\\\\")
-                   .replace("\"", "\\\"")
-                   .replace("\n", "\\n")
-                   .replace("\r", "\\r")
-                   .replace("\t", "\\t");
+        return JsonUtils.escapeJson(text);
     }
 
     /**
@@ -46,9 +46,7 @@ final class HandlerUtils {
      * @return the truncated string
      */
     static String truncate(final String text, final int maxLength) {
-        if (text == null) return "";
-        if (text.length() <= maxLength) return text;
-        return text.substring(0, maxLength - 3) + "...";
+        return StringUtils.truncate(text, maxLength);
     }
 
     /**
@@ -81,5 +79,33 @@ final class HandlerUtils {
         } catch (NumberFormatException ignored) {
             return defaultValue;
         }
+    }
+
+    /**
+     * Heuristic: does the query string look like raw JQL (vs. free text)?
+     *
+     * @param query the user's search query
+     * @return {@code true} if it appears to be JQL
+     */
+    static boolean looksLikeJql(final String query) {
+        final var upper = query.toUpperCase();
+        return upper.contains("=") || upper.contains("~")
+                || upper.contains(" AND ") || upper.contains(" OR ")
+                || upper.contains("ORDER BY") || upper.contains("PROJECT ")
+                || upper.contains("STATUS ");
+    }
+
+    /**
+     * Heuristic: does the query string look like raw CQL (vs. free text)?
+     *
+     * @param query the user's search query
+     * @return {@code true} if it appears to be CQL
+     */
+    static boolean looksLikeCql(final String query) {
+        final var upper = query.toUpperCase();
+        return upper.contains("=") || upper.contains("~")
+                || upper.contains(" AND ") || upper.contains(" OR ")
+                || upper.contains("ORDER BY") || upper.contains("TYPE ")
+                || upper.contains("SPACE ");
     }
 }

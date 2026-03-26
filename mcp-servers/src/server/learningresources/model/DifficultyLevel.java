@@ -68,10 +68,8 @@ public enum DifficultyLevel {
      * @throws IllegalArgumentException if no match is found
      */
     public static DifficultyLevel fromString(final String value) {
-        if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException("Difficulty level must not be null or blank");
-        }
-        final var normalized = value.strip().toLowerCase();
+        EnumParseUtils.requireNonBlank(value, "Difficulty level");
+        final var normalized = EnumParseUtils.normalize(value);
         for (final DifficultyLevel level : values()) {
             if (level.displayName.equals(normalized) || level.name().equalsIgnoreCase(normalized)) {
                 return level;

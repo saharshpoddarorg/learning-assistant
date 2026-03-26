@@ -4,6 +4,7 @@ import server.atlassian.v1.client.JiraClient;
 import server.atlassian.v1.model.AtlassianProduct;
 import server.atlassian.v1.model.ToolResponse;
 import server.atlassian.common.JsonExtractor;
+import server.atlassian.common.JsonUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -734,11 +735,7 @@ public class JiraHandler {
      * @return {@code true} if it appears to be JQL
      */
     private boolean looksLikeJql(final String query) {
-        final var upper = query.toUpperCase();
-        return upper.contains("=") || upper.contains("~")
-                || upper.contains(" AND ") || upper.contains(" OR ")
-                || upper.contains("ORDER BY") || upper.contains("PROJECT ")
-                || upper.contains("STATUS ");
+        return HandlerUtils.looksLikeJql(query);
     }
 
     /**
@@ -748,7 +745,7 @@ public class JiraHandler {
      * @return the escaped text
      */
     private String escapeJql(final String text) {
-        return text.replace("\\", "\\\\").replace("\"", "\\\"");
+        return JsonUtils.escapeQueryLiteral(text);
     }
 
     /**

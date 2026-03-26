@@ -4,6 +4,8 @@ import server.atlassian.v1.client.ConfluenceClient;
 import server.atlassian.v1.model.AtlassianProduct;
 import server.atlassian.v1.model.ToolResponse;
 import server.atlassian.common.JsonExtractor;
+import server.atlassian.common.JsonUtils;
+import util.HtmlUtils;
 
 import java.io.IOException;
 import java.util.Map;
@@ -194,18 +196,14 @@ public class ConfluenceHandler {
      * Heuristic: does the query look like raw CQL?
      */
     private boolean looksLikeCql(final String query) {
-        final var upper = query.toUpperCase();
-        return upper.contains("=") || upper.contains("~")
-                || upper.contains(" AND ") || upper.contains(" OR ")
-                || upper.contains("ORDER BY") || upper.contains("TYPE ")
-                || upper.contains("SPACE ");
+        return HandlerUtils.looksLikeCql(query);
     }
 
     /**
      * Escapes special characters for CQL text search.
      */
     private String escapeCql(final String text) {
-        return text.replace("\\", "\\\\").replace("\"", "\\\"");
+        return JsonUtils.escapeQueryLiteral(text);
     }
 
     /**
@@ -463,10 +461,7 @@ public class ConfluenceHandler {
      */
     private String stripHtml(final String html) {
         if (html == null || html.isBlank()) return "";
-        return html.replaceAll("<[^>]+>", "")
-                .replace("&amp;", "&").replace("&lt;", "<")
-                .replace("&gt;", ">").replace("&quot;", "\"")
-                .replace("&#39;", "'").replace("&nbsp;", " ")
+        return HtmlUtils.stripTags(html)
                 .replaceAll("\\s{2,}", " ").trim();
     }
 

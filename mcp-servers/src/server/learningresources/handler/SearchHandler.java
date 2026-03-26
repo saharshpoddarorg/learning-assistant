@@ -6,6 +6,7 @@ import server.learningresources.model.ResourceCategory;
 import server.learningresources.model.ResourceQuery;
 import server.learningresources.model.ResourceType;
 import server.learningresources.vault.ResourceVault;
+import util.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -196,10 +197,6 @@ public class SearchHandler {
      * @return truncated description (max 120 chars)
      */
     private String truncateDescription(final String description) {
-        final int maxLength = 120;
-        if (description.length() <= maxLength) {
-            return description;
-        }
-        return description.substring(0, maxLength - 3) + "...";
+        return StringUtils.truncate(description, 120);
     }
 }

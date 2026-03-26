@@ -1,7 +1,7 @@
 ---
 name: learning-resources-vault
 description: >
-  Curated vault of 138 learning resources covering Java (Oracle tutorials, JDK Javadoc, JLS,
+  Curated vault of 156 learning resources covering Java (Oracle tutorials, JDK Javadoc, JLS,
   Inside.java, Baeldung, Jenkov, Effective Java, JCIP, Spring Boot guides, Guava, JUnit 5,
   JDK 25, SDKMAN, Temurin), Python (official docs, PEP index, Real Python), JavaScript and
   TypeScript (MDN, javascript.info, TypeScript Handbook), web development and frameworks
@@ -32,12 +32,12 @@ description: >
   recommendations, curated lists, or educational materials.
 ---
 
-# Learning Resources Vault — 138 Curated Resources
+# Learning Resources Vault — 156 Curated Resources
 
 > Discovery index for high-quality learning resources across software engineering domains.
-> For deep-reference content, see the `java-learning-resources` and
-> `software-engineering-resources` skills. This vault provides **structured resource
-> metadata** for discovery and recommendation.
+> For deep-reference content, see the `java-learning-resources`,
+> `software-engineering-resources`, and `jvm-platform` skills. This vault provides
+> **structured resource metadata** for discovery and recommendation.
 
 ---
 
@@ -55,7 +55,7 @@ description: >
 | AI & Machine Learning | 4 | [resources-ai-ml.md](resources-ai-ml.md) |
 | Digital Note-Taking & PKM | 15 | [resources-productivity-pkm.md](resources-productivity-pkm.md) |
 | General & Career Development | 19 | [resources-general-career.md](resources-general-career.md) |
-| **Total** | **138** | |
+| **Total** | **156** | |
 
 ---
 
@@ -107,14 +107,15 @@ description: >
 
 ---
 
-## Concept Domains & Areas (9 Domains, 40 Areas)
+## Concept Domains & Areas (9 Domains, 45 Areas)
 
 Each resource is tagged with 1-5 **concept areas**. Each area belongs to one **domain**.
+Areas can form a sub-hierarchy (e.g., GARBAGE_COLLECTION is a child of JVM_INTERNALS).
 
 | Domain | Areas | Concept Areas |
 |---|---|---|
 | Programming Fundamentals | 5 | Language basics, OOP, Functional programming, Generics, Language features |
-| Core CS | 6 | Concurrency, Data structures, Algorithms, Mathematics, Complexity analysis, Memory management |
+| Core CS | 11 | Concurrency, Data structures, Algorithms, Mathematics, Complexity analysis, Memory management, JVM internals (→ Garbage collection, Class loading, Serialization, JVM languages) |
 | Software Engineering | 5 | Design patterns, Clean code, Testing, API design, Architecture |
 | System Design | 5 | System design, Databases, Distributed systems, Networking, Operating systems |
 | DevOps & Tooling | 6 | CI/CD, Containers, Version control, Build tools, Infrastructure, Observability |

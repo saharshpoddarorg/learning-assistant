@@ -1,5 +1,6 @@
 package server.atlassian.v1.client;
 
+import server.atlassian.common.JsonUtils;
 import server.atlassian.v1.model.ConnectionConfig;
 
 import java.io.IOException;
@@ -364,11 +365,6 @@ public class JiraClient {
      */
     private String toJsonString(final String value) {
         if (value == null) return "null";
-        return "\"" + value
-                .replace("\\", "\\\\")
-                .replace("\"", "\\\"")
-                .replace("\n", "\\n")
-                .replace("\r", "\\r")
-                .replace("\t", "\\t") + "\"";
+        return "\"" + JsonUtils.escapeJson(value) + "\"";
     }
 }

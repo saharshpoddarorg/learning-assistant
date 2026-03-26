@@ -1,6 +1,7 @@
 package server.atlassian.v1.formatter;
 
 import server.atlassian.v1.model.jira.JiraIssue;
+import util.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -78,7 +79,6 @@ public class IssueFormatter {
      * Truncates text to a maximum length with ellipsis.
      */
     private String truncate(final String text, final int maxLength) {
-        if (text.length() <= maxLength) return text;
-        return text.substring(0, maxLength - 3) + "...";
+        return StringUtils.truncate(text, maxLength);
     }
 }

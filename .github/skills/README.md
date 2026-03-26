@@ -58,6 +58,7 @@ Skills are also an **open standard** ([agentskills.io](https://agentskills.io/))
 | Skill | Folder | Triggers On | What It Provides |
 |---|---|---|---|
 | [`java-build`](java-build/SKILL.md) | `skills/java-build/` | Compile, run, build | Compile commands, common errors |
+| [`jvm-platform`](jvm-platform/SKILL.md) | `skills/jvm-platform/` | JVM internals, GC, class loading, serialization, JVM languages | JVM sub-hierarchy reference, GC tuning, profiling |
 | [`design-patterns`](design-patterns/SKILL.md) | `skills/design-patterns/` | Design patterns, SOLID | Pattern decision guide, SOLID reference |
 | [`java-debugging`](java-debugging/SKILL.md) | `skills/java-debugging/` | Exceptions, debugging | Exception diagnosis, fix patterns |
 | [`java-learning-resources`](java-learning-resources/SKILL.md) | `skills/java-learning-resources/` | Learning, tutorials, docs, resources | Curated index of Java-specific docs, tutorials, blogs, OSS projects |

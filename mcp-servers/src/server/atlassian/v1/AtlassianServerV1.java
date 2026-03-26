@@ -5,6 +5,7 @@ import server.atlassian.v1.config.AtlassianServerConfig;
 import server.atlassian.v1.handler.ToolHandler;
 import server.atlassian.v1.model.ToolResponse;
 import server.atlassian.common.JsonExtractor;
+import server.atlassian.common.JsonUtils;
 import server.McpServer;
 
 import java.io.BufferedReader;
@@ -387,9 +388,7 @@ public class AtlassianServerV1 implements McpServer {
      * @return the JSON-safe escaped string
      */
     private static String escapeJson(final String raw) {
-        if (raw == null) return "";
-        return raw.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n")
-                  .replace("\r", "\\r").replace("\t", "\\t");
+        return JsonUtils.escapeJson(raw);
     }
 
     /**
