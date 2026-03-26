@@ -1,6 +1,8 @@
 package server.atlassian.v1.formatter;
 
 import server.atlassian.v1.model.confluence.ConfluencePage;
+import util.HtmlUtils;
+import util.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -85,14 +87,8 @@ public class PageFormatter {
      * @return the plain text content
      */
     private String stripHtmlTags(final String html) {
-        return html.replaceAll("<[^>]+>", "")
-                .replace("&amp;", "&")
-                .replace("&lt;", "<")
-                .replace("&gt;", ">")
-                .replace("&quot;", "\"")
-                .replace("&#39;", "'")
-                .replace("&nbsp;", " ")
-                .replaceAll("\\s+\n", "\n")
+        return HtmlUtils.stripTags(html)
+                .replaceAll("\\s+\\n", "\n")
                 .trim();
     }
 
@@ -100,7 +96,6 @@ public class PageFormatter {
      * Truncates text to a maximum length with ellipsis.
      */
     private String truncate(final String text, final int maxLength) {
-        if (text.length() <= maxLength) return text;
-        return text.substring(0, maxLength - 3) + "...";
+        return StringUtils.truncate(text, maxLength);
     }
 }

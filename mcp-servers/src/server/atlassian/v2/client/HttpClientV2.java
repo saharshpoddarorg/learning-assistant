@@ -2,6 +2,7 @@ package server.atlassian.v2.client;
 
 import server.atlassian.v2.auth.AuthException;
 import server.atlassian.v2.auth.AuthManager;
+import util.StringUtils;
 
 import java.io.IOException;
 import java.net.URI;
@@ -143,6 +144,6 @@ public class HttpClientV2 {
 
     private static String truncate(final String body) {
         if (body == null) return "(empty)";
-        return body.length() > 500 ? body.substring(0, 500) + "..." : body;
+        return StringUtils.truncate(body, 500);
     }
 }

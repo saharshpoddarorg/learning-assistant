@@ -1,6 +1,7 @@
 package server.atlassian.v1.client;
 
 import server.atlassian.v1.model.ConnectionConfig;
+import util.StringUtils;
 
 import java.io.IOException;
 import java.net.URI;
@@ -205,6 +206,6 @@ public class AtlassianRestClient {
         if (body == null || body.length() <= maxLength) {
             return body;
         }
-        return body.substring(0, maxLength) + "... (truncated)";
+        return StringUtils.truncate(body, maxLength, "... (truncated)");
     }
 }

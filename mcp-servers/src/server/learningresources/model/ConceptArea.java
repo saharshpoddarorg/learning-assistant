@@ -356,12 +356,11 @@ public enum ConceptArea
      */
     public static ConceptArea fromString(final String value)
     {
-        if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException("Concept area must not be null or blank");
-        }
-        final var normalized = value.strip().toLowerCase().replace(' ', '-');
+        EnumParseUtils.requireNonBlank(value, "Concept area");
+        final var normalized = EnumParseUtils.toHyphenated(value);
         for (final ConceptArea area : values()) {
-            if (area.displayName.equals(normalized) || area.name().equalsIgnoreCase(value.strip().replace('-', '_'))) {
+            if (area.displayName.equals(normalized)
+                    || area.name().equalsIgnoreCase(EnumParseUtils.toEnumName(value))) {
                 return area;
             }
         }

@@ -18,5 +18,6 @@
  *
  * <p>All models are Java records — immutable and with defensive copies of collections.
  * Enums support {@code fromString()} for flexible case-insensitive parsing.
+ * Shared parsing logic is centralised in {@link server.learningresources.model.EnumParseUtils}.
  */
 package server.learningresources.model;

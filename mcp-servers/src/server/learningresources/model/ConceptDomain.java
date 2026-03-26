@@ -79,10 +79,8 @@ public enum ConceptDomain {
      * @throws IllegalArgumentException if no match is found
      */
     public static ConceptDomain fromString(final String value) {
-        if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException("Concept domain must not be null or blank");
-        }
-        final var normalized = value.strip().toLowerCase().replace(' ', '_').replace('-', '_').replace("&", "");
+        EnumParseUtils.requireNonBlank(value, "Concept domain");
+        final var normalized = EnumParseUtils.toUnderscored(value).replace("&", "");
         for (final ConceptDomain domain : values()) {
             if (domain.name().equalsIgnoreCase(normalized)
                     || domain.displayName.equalsIgnoreCase(value.strip())) {
@@ -90,8 +88,9 @@ public enum ConceptDomain {
             }
         }
         // Try partial match on display name
+        final var lowerInput = EnumParseUtils.normalize(value);
         for (final ConceptDomain domain : values()) {
-            if (domain.displayName.toLowerCase().contains(value.strip().toLowerCase())) {
+            if (domain.displayName.toLowerCase().contains(lowerInput)) {
                 return domain;
             }
         }

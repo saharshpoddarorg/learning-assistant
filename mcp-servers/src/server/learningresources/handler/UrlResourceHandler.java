@@ -8,6 +8,7 @@ import server.learningresources.model.LearningResource;
 import server.learningresources.model.ResourceCategory;
 import server.learningresources.model.ResourceType;
 import server.learningresources.scraper.ContentExtractor;
+import util.StringUtils;
 import server.learningresources.scraper.ScraperException;
 import server.learningresources.scraper.WebScraper;
 import server.learningresources.vault.ResourceVault;
@@ -443,9 +444,6 @@ public final class UrlResourceHandler {
     }
 
     private String truncate(final String text, final int maxLength) {
-        if (text.length() <= maxLength) {
-            return text;
-        }
-        return text.substring(0, maxLength - 3) + "...";
+        return StringUtils.truncate(text, maxLength);
     }
 }

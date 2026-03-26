@@ -14,6 +14,7 @@ import server.atlassian.v2.handler.JiraToolHandler;
 import server.atlassian.v2.handler.ToolDispatcher;
 import server.atlassian.v2.model.ToolResult;
 import server.atlassian.common.JsonExtractor;
+import server.atlassian.common.JsonUtils;
 import server.McpServer;
 
 import java.io.BufferedReader;
@@ -316,9 +317,7 @@ public final class AtlassianServerV2 implements McpServer {
     }
 
     private static String escapeJson(final String raw) {
-        if (raw == null) return "";
-        return raw.replace("\\", "\\\\").replace("\"", "\\\"")
-                  .replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t");
+        return JsonUtils.escapeJson(raw);
     }
 
     // ── CLI Entry Point ──────────────────────────────────────────────────────

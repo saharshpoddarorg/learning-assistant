@@ -81,10 +81,8 @@ public enum SearchMode {
      * @throws IllegalArgumentException if no match is found
      */
     public static SearchMode fromString(final String value) {
-        if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException("Search mode must not be null or blank");
-        }
-        final var normalized = value.strip().toLowerCase();
+        EnumParseUtils.requireNonBlank(value, "Search mode");
+        final var normalized = EnumParseUtils.normalize(value);
         for (final SearchMode mode : values()) {
             if (mode.displayName.equals(normalized) || mode.name().equalsIgnoreCase(normalized)) {
                 return mode;

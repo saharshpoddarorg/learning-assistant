@@ -6,6 +6,8 @@ import server.atlassian.v1.client.JiraClient;
 import server.atlassian.v1.model.AtlassianProduct;
 import server.atlassian.v1.model.ToolResponse;
 import server.atlassian.common.JsonExtractor;
+import server.atlassian.common.JsonUtils;
+import util.StringUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -243,33 +245,22 @@ public class UnifiedSearchHandler {
     // ──────────────────────────────────────────────────────────────────────────
 
     private boolean looksLikeJql(final String query) {
-        final var upper = query.toUpperCase();
-        return upper.contains("=") || upper.contains("~")
-                || upper.contains(" AND ") || upper.contains(" OR ")
-                || upper.contains("ORDER BY") || upper.contains("PROJECT ")
-                || upper.contains("STATUS ");
+        return HandlerUtils.looksLikeJql(query);
     }
 
     private String escapeJql(final String text) {
-        return text.replace("\\", "\\\\").replace("\"", "\\\"");
+        return JsonUtils.escapeQueryLiteral(text);
     }
 
     private String escapeCql(final String text) {
-        return text.replace("\\", "\\\\").replace("\"", "\\\"");
+        return JsonUtils.escapeQueryLiteral(text);
     }
 
     private String truncate(final String text, final int maxLength) {
-        if (text == null) return "";
-        if (text.length() <= maxLength) return text;
-        return text.substring(0, maxLength - 3) + "...";
+        return StringUtils.truncate(text, maxLength);
     }
 
     private int parseMaxResults(final String value) {
-        if (value == null || value.isBlank()) return DEFAULT_MAX_RESULTS;
-        try {
-            return Integer.parseInt(value);
-        } catch (NumberFormatException ignored) {
-            return DEFAULT_MAX_RESULTS;
-        }
+        return HandlerUtils.parseMaxResults(value, DEFAULT_MAX_RESULTS);
     }
 }

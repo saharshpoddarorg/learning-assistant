@@ -6,5 +6,6 @@
  * versions). Changes here must be backwards-compatible.
  *
  * @see server.atlassian.common.JsonExtractor
+ * @see server.atlassian.common.JsonUtils
  */
 package server.atlassian.common;
