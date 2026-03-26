@@ -1,5 +1,11 @@
-# ideas/ — Raw Ideas & Brainstorming
+# ideas/ — Raw Ideas & Brainstorming (0)
 
 Unrefined thoughts captured as-is, with a refinement trail showing how they evolved.
 
-See [BOARD.md](../BOARD.md) for the current status of all ideas.
+## Current Inventory
+
+*No ideas captured yet. Use `/jot` to capture your first thought.*
+
+**Next ID:** IDEA-001
+
+See [BOARD.md](../BOARD.md) for the full board view.

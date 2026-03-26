@@ -63,14 +63,17 @@ backlog/
 │   ├── brainstorm.md       ← Template: whiteboard-style free-form thinking
 │   ├── epic.md             ← Template: epics (grouping related items)
 │   └── guide.md            ← Template: GHCP context guides / playbooks
-├── items/
-│   └── (BLI-NNN_title.md)  ← Backlog items
-├── ideas/
-│   └── (IDEA-NNN_title.md) ← Raw ideas and brainstorms with refinement history
-├── epics/
-│   └── (EPIC-NNN_title.md) ← Epics grouping related items
-└── guides/
-    └── (GUIDE-NNN_title.md) ← Context guides for GHCP
+├── items/                  ← 6 items (BLI-001 through BLI-006)
+│   ├── BLI-001_build-production-atlassian-mcp-server.md
+│   ├── BLI-002_hybrid-skills-mcp-primitives-combo.md
+│   ├── BLI-003_module-hierarchies-learning-resources.md
+│   ├── BLI-004_brain-integration-learning-resources.md
+│   ├── BLI-005_chat-session-orchestration.md
+│   └── BLI-006_code-formatting-instructions-skill.md
+├── ideas/                  ← 0 ideas
+├── epics/                  ← 1 epic
+│   └── EPIC-001_full-fledged-learning-resources-system.md
+└── guides/                 ← 0 guides
 ```
 
 ---
