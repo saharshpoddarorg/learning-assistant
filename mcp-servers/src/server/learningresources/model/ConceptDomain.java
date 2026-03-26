@@ -11,7 +11,7 @@ package server.learningresources.model;
  * <table>
  *   <tr><th>Domain</th><th>Concepts</th></tr>
  *   <tr><td>PROGRAMMING_FUNDAMENTALS</td><td>LANGUAGE_BASICS, OOP, FUNCTIONAL_PROGRAMMING, LANGUAGE_FEATURES, GENERICS</td></tr>
- *   <tr><td>CORE_CS</td><td>CONCURRENCY, DATA_STRUCTURES, ALGORITHMS, COMPLEXITY_ANALYSIS, MEMORY_MANAGEMENT</td></tr>
+ *   <tr><td>CORE_CS</td><td>CONCURRENCY, DATA_STRUCTURES, ALGORITHMS, COMPLEXITY_ANALYSIS, MEMORY_MANAGEMENT, JVM_INTERNALS</td></tr>
  *   <tr><td>SOFTWARE_ENGINEERING</td><td>DESIGN_PATTERNS, CLEAN_CODE, TESTING, API_DESIGN, ARCHITECTURE</td></tr>
  *   <tr><td>SYSTEM_DESIGN</td><td>SYSTEM_DESIGN, DATABASES, DISTRIBUTED_SYSTEMS, NETWORKING, OPERATING_SYSTEMS</td></tr>
  *   <tr><td>DEVOPS_TOOLING</td><td>CI_CD, CONTAINERS, VERSION_CONTROL, BUILD_TOOLS, INFRASTRUCTURE, OBSERVABILITY</td></tr>
@@ -28,7 +28,7 @@ public enum ConceptDomain {
     /** Language syntax, OOP, FP, generics, language features. */
     PROGRAMMING_FUNDAMENTALS("Programming Fundamentals"),
 
-    /** Algorithms, data structures, complexity, concurrency, memory. */
+    /** Algorithms, data structures, complexity, concurrency, memory, JVM internals. */
     CORE_CS("Core CS"),
 
     /** Design patterns, clean code, testing, API design, architecture. */

@@ -13,6 +13,7 @@ import server.learningresources.vault.providers.EngineeringResources;
 import server.learningresources.vault.providers.FrameworksResources;
 import server.learningresources.vault.providers.GeneralResources;
 import server.learningresources.vault.providers.JavaResources;
+import server.learningresources.vault.providers.JvmResources;
 import server.learningresources.vault.providers.PythonResources;
 import server.learningresources.vault.providers.SelfDevelopmentResources;
 import server.learningresources.vault.providers.TestingToolsResources;
@@ -45,6 +46,7 @@ public final class BuiltInResources {
     /** All registered resource providers, ordered by domain. */
     private static final List<ResourceProvider> PROVIDERS = List.of(
             new JavaResources(),
+            new JvmResources(),
             new WebResources(),
             new PythonResources(),
             new FrameworksResources(),

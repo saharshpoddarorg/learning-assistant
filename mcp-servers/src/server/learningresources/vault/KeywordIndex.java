@@ -102,8 +102,43 @@ public final class KeywordIndex {
         map.put("time complexity", ConceptArea.COMPLEXITY_ANALYSIS);
         map.put("memory", ConceptArea.MEMORY_MANAGEMENT);
         map.put("garbage collection", ConceptArea.MEMORY_MANAGEMENT);
-        map.put("jvm", ConceptArea.MEMORY_MANAGEMENT);
         map.put("heap", ConceptArea.MEMORY_MANAGEMENT);
+
+        // JVM internals
+        map.put("jvm", ConceptArea.JVM_INTERNALS);
+        map.put("jvm internals", ConceptArea.JVM_INTERNALS);
+        map.put("jvm-internals", ConceptArea.JVM_INTERNALS);
+        map.put("bytecode", ConceptArea.JVM_INTERNALS);
+        map.put("class loading", ConceptArea.JVM_INTERNALS);
+        map.put("classloader", ConceptArea.JVM_INTERNALS);
+        map.put("class-loading", ConceptArea.JVM_INTERNALS);
+        map.put("jit", ConceptArea.JVM_INTERNALS);
+        map.put("jit compiler", ConceptArea.JVM_INTERNALS);
+        map.put("jit compilation", ConceptArea.JVM_INTERNALS);
+        map.put("hotspot", ConceptArea.JVM_INTERNALS);
+        map.put("graalvm", ConceptArea.JVM_INTERNALS);
+        map.put("native image", ConceptArea.JVM_INTERNALS);
+        map.put("gc tuning", ConceptArea.JVM_INTERNALS);
+        map.put("jfr", ConceptArea.JVM_INTERNALS);
+        map.put("java flight recorder", ConceptArea.JVM_INTERNALS);
+        map.put("jmx", ConceptArea.JVM_INTERNALS);
+        map.put("jmh", ConceptArea.JVM_INTERNALS);
+        map.put("safepoint", ConceptArea.JVM_INTERNALS);
+        map.put("safepoints", ConceptArea.JVM_INTERNALS);
+        map.put("tlab", ConceptArea.JVM_INTERNALS);
+        map.put("g1", ConceptArea.JVM_INTERNALS);
+        map.put("zgc", ConceptArea.JVM_INTERNALS);
+        map.put("shenandoah", ConceptArea.JVM_INTERNALS);
+        map.put("kotlin", ConceptArea.JVM_INTERNALS);
+        map.put("scala", ConceptArea.JVM_INTERNALS);
+        map.put("groovy", ConceptArea.JVM_INTERNALS);
+        map.put("clojure", ConceptArea.JVM_INTERNALS);
+        map.put("jvm languages", ConceptArea.JVM_INTERNALS);
+        map.put("jvm-languages", ConceptArea.JVM_INTERNALS);
+        map.put("metaspace", ConceptArea.JVM_INTERNALS);
+        map.put("jvm tuning", ConceptArea.JVM_INTERNALS);
+        map.put("jvm performance", ConceptArea.JVM_INTERNALS);
+        map.put("mechanical sympathy", ConceptArea.JVM_INTERNALS);
 
         // Software engineering
         map.put("design patterns", ConceptArea.DESIGN_PATTERNS);
@@ -502,6 +537,19 @@ public final class KeywordIndex {
         map.put("spring boot", ResourceCategory.JAVA);
         map.put("hibernate", ResourceCategory.JAVA);
         map.put("jpa", ResourceCategory.JAVA);
+        // JVM languages & ecosystem
+        map.put("kotlin", ResourceCategory.JAVA);
+        map.put("scala", ResourceCategory.JAVA);
+        map.put("groovy", ResourceCategory.JAVA);
+        map.put("clojure", ResourceCategory.JAVA);
+        map.put("graalvm", ResourceCategory.JAVA);
+        map.put("jvm languages", ResourceCategory.JAVA);
+        map.put("jvm-languages", ResourceCategory.JAVA);
+        map.put("hotspot", ResourceCategory.JAVA);
+        map.put("bytecode", ResourceCategory.JAVA);
+        map.put("jfr", ResourceCategory.JAVA);
+        map.put("jmh", ResourceCategory.JAVA);
+        map.put("native image", ResourceCategory.JAVA);
         // Personal development
         map.put("personal development", ResourceCategory.PERSONAL_DEVELOPMENT);
         map.put("self-improvement", ResourceCategory.PERSONAL_DEVELOPMENT);

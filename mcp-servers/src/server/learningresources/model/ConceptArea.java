@@ -55,6 +55,9 @@ public enum ConceptArea {
     /** Memory management, garbage collection, allocation strategies. */
     MEMORY_MANAGEMENT("memory-management", ConceptDomain.CORE_CS),
 
+    /** JVM internals: architecture, bytecode, class loading, JIT compilation, GC tuning, JVM languages. */
+    JVM_INTERNALS("jvm-internals", ConceptDomain.CORE_CS),
+
     // ─── Software Engineering ───────────────────────────────────────
 
     /** Design patterns: creational, structural, behavioral (GoF, enterprise). */
