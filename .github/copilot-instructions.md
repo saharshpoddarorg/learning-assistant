@@ -100,6 +100,7 @@ path separators, tool names) or ask if unclear.
 | **Linux** | `java-build` | Bash commands, apt/dnf, SDKMAN! for JDK |
 | **Any** | `digital-notetaking` | Cross-platform: Notion, Obsidian, Logseq |
 | **Any** | `java-build` | JDK version management via SDKMAN! / Temurin |
+| **Any** | `jvm-platform` | JVM internals, GC, class loading, serialization, JVM languages, GraalVM |
 | **Any** | `brain-management` | brain/ai-brain/ naming, tier routing (inbox/notes/library/sessions), frontmatter, PKM |
 | **Any** | `deep-research` | Investigation, spike stories, RCA, trade-off analysis, feasibility studies |
 | **Any** | `requirements-research` | User stories, acceptance criteria, BDD, requirements gathering and analysis |

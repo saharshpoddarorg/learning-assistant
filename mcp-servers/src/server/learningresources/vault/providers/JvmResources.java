@@ -1,12 +1,6 @@
 package server.learningresources.vault.providers;
 
-import server.learningresources.model.ConceptArea;
-import server.learningresources.model.ContentFreshness;
-import server.learningresources.model.DifficultyLevel;
-import server.learningresources.model.LanguageApplicability;
-import server.learningresources.model.LearningResource;
-import server.learningresources.model.ResourceCategory;
-import server.learningresources.model.ResourceType;
+import server.learningresources.model.*;
 import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
@@ -15,14 +9,16 @@ import java.util.List;
 /**
  * Curated JVM internals, performance, and ecosystem learning resources.
  *
- * <p>Covers the full spectrum of JVM knowledge beyond the Java language itself:
+ * <p>Covers the full spectrum of JVM knowledge beyond the Java language itself,
+ * organized into a sub-hierarchy under {@link ConceptArea#JVM_INTERNALS}:
  * <ul>
- *   <li>JVM specification and architecture (class loading, bytecode, operand stack)</li>
- *   <li>Garbage collection: algorithms (G1, ZGC, Shenandoah), tuning, diagnostics</li>
- *   <li>JIT compilation: HotSpot C1/C2, GraalVM Graal compiler, tiered compilation</li>
- *   <li>JVM performance: JMH benchmarking, JFR/JMC profiling, memory analysis</li>
- *   <li>JVM languages: Kotlin, Scala, Groovy, Clojure — polyglot on the JVM</li>
- *   <li>GraalVM: native image, polyglot runtime, ahead-of-time compilation</li>
+ *   <li><b>JVM architecture</b> ({@link ConceptArea#JVM_INTERNALS}): specification, bytecode, JIT compilation, runtime data areas</li>
+ *   <li><b>Garbage collection</b> ({@link ConceptArea#GARBAGE_COLLECTION}): algorithms (G1, ZGC, Shenandoah), tuning, diagnostics</li>
+ *   <li><b>Class loading</b> ({@link ConceptArea#CLASS_LOADING}): bootstrap/extension/app loaders, delegation model, linking</li>
+ *   <li><b>Serialization</b> ({@link ConceptArea#SERIALIZATION}): ObjectOutputStream, Externalizable, serialVersionUID</li>
+ *   <li><b>JVM performance</b>: JMH benchmarking, JFR/JMC profiling, memory analysis</li>
+ *   <li><b>JVM languages</b> ({@link ConceptArea#JVM_LANGUAGES}): Kotlin, Scala, Groovy, Clojure — polyglot on the JVM</li>
+ *   <li><b>GraalVM</b>: native image, polyglot runtime, ahead-of-time compilation</li>
  * </ul>
  *
  * <p>Resources span all difficulty tiers:
@@ -53,7 +49,9 @@ public final class JvmResources implements ResourceProvider {
                                 + "Essential for understanding how the JVM executes code.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVA, ResourceCategory.SYSTEMS),
-                        List.of(ConceptArea.JVM_INTERNALS, ConceptArea.MEMORY_MANAGEMENT,
+                        List.of(ConceptArea.JVM_INTERNALS,
+                                ConceptArea.CLASS_LOADING,
+                                ConceptArea.MEMORY_MANAGEMENT,
                                 ConceptArea.LANGUAGE_FEATURES),
                         List.of("official", "jvms", "specification", "bytecode", "class-file",
                                 "class-loading", "instruction-set", "verification"),
@@ -74,7 +72,9 @@ public final class JvmResources implements ResourceProvider {
                                 + "The gold standard for JVM internals education.",
                         ResourceType.ARTICLE,
                         List.of(ResourceCategory.JAVA, ResourceCategory.SYSTEMS),
-                        List.of(ConceptArea.JVM_INTERNALS, ConceptArea.MEMORY_MANAGEMENT,
+                        List.of(ConceptArea.JVM_INTERNALS,
+                                ConceptArea.GARBAGE_COLLECTION,
+                                ConceptArea.MEMORY_MANAGEMENT,
                                 ConceptArea.CONCURRENCY),
                         List.of("jvm-internals", "hotspot", "tlab", "safepoints", "gc",
                                 "jit", "compressed-oops", "lock-elision", "scalar-replacement"),
@@ -97,7 +97,9 @@ public final class JvmResources implements ResourceProvider {
                                 + "production GC tuning.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVA, ResourceCategory.SYSTEMS),
-                        List.of(ConceptArea.JVM_INTERNALS, ConceptArea.MEMORY_MANAGEMENT),
+                        List.of(ConceptArea.GARBAGE_COLLECTION,
+                                ConceptArea.JVM_INTERNALS,
+                                ConceptArea.MEMORY_MANAGEMENT),
                         List.of("official", "gc", "garbage-collection", "g1", "zgc",
                                 "gc-tuning", "heap", "pause-time", "gc-logging"),
                         "Oracle",
@@ -116,7 +118,9 @@ public final class JvmResources implements ResourceProvider {
                                 + "GC, and how to choose the right collector for your workload.",
                         ResourceType.ARTICLE,
                         List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.JVM_INTERNALS, ConceptArea.MEMORY_MANAGEMENT),
+                        List.of(ConceptArea.GARBAGE_COLLECTION,
+                                ConceptArea.JVM_INTERNALS,
+                                ConceptArea.MEMORY_MANAGEMENT),
                         List.of("gc", "garbage-collection", "g1", "zgc", "shenandoah",
                                 "serial-gc", "parallel-gc", "generational", "gc-roots"),
                         "Baeldung",
@@ -157,7 +161,9 @@ public final class JvmResources implements ResourceProvider {
                                 + "diagnostic options. A handy reference for JVM tuning.",
                         ResourceType.ARTICLE,
                         List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.JVM_INTERNALS, ConceptArea.MEMORY_MANAGEMENT),
+                        List.of(ConceptArea.JVM_INTERNALS,
+                                ConceptArea.GARBAGE_COLLECTION,
+                                ConceptArea.MEMORY_MANAGEMENT),
                         List.of("jvm-flags", "jvm-parameters", "heap-size", "xmx", "xms",
                                 "gc-flags", "metaspace", "jvm-tuning"),
                         "Baeldung",
@@ -176,7 +182,9 @@ public final class JvmResources implements ResourceProvider {
                                 + "stored, and common OutOfMemoryError scenarios.",
                         ResourceType.ARTICLE,
                         List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.JVM_INTERNALS, ConceptArea.MEMORY_MANAGEMENT),
+                        List.of(ConceptArea.JVM_INTERNALS,
+                                ConceptArea.MEMORY_MANAGEMENT,
+                                ConceptArea.GARBAGE_COLLECTION),
                         List.of("stack", "heap", "method-area", "runtime-data-areas",
                                 "memory-structure", "oom", "out-of-memory"),
                         "Baeldung",
@@ -221,8 +229,11 @@ public final class JvmResources implements ResourceProvider {
                                 + "increasingly popular for server-side JVM applications.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVA, ResourceCategory.GENERAL),
-                        List.of(ConceptArea.JVM_INTERNALS, ConceptArea.LANGUAGE_FEATURES,
-                                ConceptArea.CONCURRENCY, ConceptArea.FUNCTIONAL_PROGRAMMING),
+                        List.of(ConceptArea.JVM_LANGUAGES,
+                                ConceptArea.JVM_INTERNALS,
+                                ConceptArea.LANGUAGE_FEATURES,
+                                ConceptArea.CONCURRENCY,
+                                ConceptArea.FUNCTIONAL_PROGRAMMING),
                         List.of("kotlin", "jvm-language", "coroutines", "null-safety",
                                 "android", "jetbrains", "java-interop"),
                         "JetBrains",
@@ -242,8 +253,11 @@ public final class JvmResources implements ResourceProvider {
                                 + "engineering (Apache Spark) and distributed systems (Akka).",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVA, ResourceCategory.GENERAL),
-                        List.of(ConceptArea.JVM_INTERNALS, ConceptArea.LANGUAGE_FEATURES,
-                                ConceptArea.FUNCTIONAL_PROGRAMMING, ConceptArea.OOP),
+                        List.of(ConceptArea.JVM_LANGUAGES,
+                                ConceptArea.JVM_INTERNALS,
+                                ConceptArea.LANGUAGE_FEATURES,
+                                ConceptArea.FUNCTIONAL_PROGRAMMING,
+                                ConceptArea.OOP),
                         List.of("scala", "jvm-language", "functional", "pattern-matching",
                                 "akka", "spark", "type-system"),
                         "Scala Center / EPFL",
@@ -262,7 +276,9 @@ public final class JvmResources implements ResourceProvider {
                                 + "framework. Seamless Java interop with concise syntax.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVA, ResourceCategory.GENERAL),
-                        List.of(ConceptArea.JVM_INTERNALS, ConceptArea.LANGUAGE_FEATURES,
+                        List.of(ConceptArea.JVM_LANGUAGES,
+                                ConceptArea.JVM_INTERNALS,
+                                ConceptArea.LANGUAGE_FEATURES,
                                 ConceptArea.BUILD_TOOLS),
                         List.of("groovy", "jvm-language", "dynamic", "gradle-dsl",
                                 "jenkins", "spock", "scripting"),
@@ -283,8 +299,11 @@ public final class JvmResources implements ResourceProvider {
                                 + "data-driven applications and interactive development (REPL).",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVA, ResourceCategory.GENERAL),
-                        List.of(ConceptArea.JVM_INTERNALS, ConceptArea.LANGUAGE_FEATURES,
-                                ConceptArea.FUNCTIONAL_PROGRAMMING, ConceptArea.CONCURRENCY),
+                        List.of(ConceptArea.JVM_LANGUAGES,
+                                ConceptArea.JVM_INTERNALS,
+                                ConceptArea.LANGUAGE_FEATURES,
+                                ConceptArea.FUNCTIONAL_PROGRAMMING,
+                                ConceptArea.CONCURRENCY),
                         List.of("clojure", "jvm-language", "lisp", "functional",
                                 "immutability", "repl", "persistent-data-structures"),
                         "Rich Hickey / Nubank",
@@ -306,7 +325,9 @@ public final class JvmResources implements ResourceProvider {
                                 + "networking (Netty, Aeron), and metaprogramming. 2.2k+ stars.",
                         ResourceType.REPOSITORY,
                         List.of(ResourceCategory.JAVA, ResourceCategory.SYSTEMS),
-                        List.of(ConceptArea.JVM_INTERNALS, ConceptArea.MEMORY_MANAGEMENT,
+                        List.of(ConceptArea.JVM_INTERNALS,
+                                ConceptArea.GARBAGE_COLLECTION,
+                                ConceptArea.MEMORY_MANAGEMENT,
                                 ConceptArea.CONCURRENCY),
                         List.of("awesome-list", "jvm", "performance", "profiling",
                                 "bytecode", "gc", "netty", "jvm-languages"),
@@ -370,9 +391,58 @@ public final class JvmResources implements ResourceProvider {
                                 + "/ NoClassDefFoundError troubleshooting.",
                         ResourceType.ARTICLE,
                         List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.JVM_INTERNALS),
+                        List.of(ConceptArea.CLASS_LOADING,
+                                ConceptArea.JVM_INTERNALS),
                         List.of("class-loading", "classloader", "bootstrap-classloader",
                                 "delegation-model", "class-not-found", "linking"),
+                        "Baeldung",
+                        DifficultyLevel.INTERMEDIATE,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        false, true, LanguageApplicability.JAVA_SPECIFIC, now
+                ),
+
+                // ─── Serialization / Deserialization ────────────────────────
+
+                new LearningResource(
+                        "java-serialization-spec",
+                        "Java Object Serialization Specification — SE 21",
+                        "https://docs.oracle.com/en/java/javase/21/docs/specs/serialization/index.html",
+                        "The formal specification for Java object serialization. Covers "
+                                + "the Serializable and Externalizable interfaces, "
+                                + "ObjectOutputStream / ObjectInputStream, class descriptors, "
+                                + "serialVersionUID, stream protocol, versioning of serializable "
+                                + "objects, and security considerations. The authoritative "
+                                + "reference for understanding Java's built-in serialization.",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.JAVA, ResourceCategory.SYSTEMS),
+                        List.of(ConceptArea.SERIALIZATION,
+                                ConceptArea.JVM_INTERNALS,
+                                ConceptArea.WEB_SECURITY),
+                        List.of("official", "serialization", "deserialization", "serializable",
+                                "externalizable", "serialVersionUID", "object-stream",
+                                "versioning"),
+                        "Oracle",
+                        DifficultyLevel.ADVANCED,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        true, true, LanguageApplicability.JAVA_SPECIFIC, now
+                ),
+
+                new LearningResource(
+                        "baeldung-java-serialization",
+                        "Introduction to Java Serialization — Baeldung",
+                        "https://www.baeldung.com/java-serialization",
+                        "Practical guide to Java serialization: implementing Serializable, "
+                                + "using ObjectOutputStream and ObjectInputStream, handling "
+                                + "serialVersionUID, transient fields, custom serialization "
+                                + "with writeObject/readObject, Externalizable interface, "
+                                + "serialization proxies, and common pitfalls. Includes "
+                                + "security considerations for deserialization.",
+                        ResourceType.ARTICLE,
+                        List.of(ResourceCategory.JAVA),
+                        List.of(ConceptArea.SERIALIZATION, ConceptArea.JVM_INTERNALS),
+                        List.of("serialization", "deserialization", "serializable",
+                                "transient", "serialVersionUID", "writeObject", "readObject",
+                                "externalizable"),
                         "Baeldung",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
