@@ -6,7 +6,7 @@ priority: high
 type: feature
 created: 2026-03-28
 updated: 2026-03-28
-epic: EPIC-003
+epic: EPIC-002
 parent: null
 sub-items: []
 origin: null

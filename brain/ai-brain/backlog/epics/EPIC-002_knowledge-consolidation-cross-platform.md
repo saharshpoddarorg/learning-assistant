@@ -22,9 +22,12 @@ source of truth, with connectors pulling from and pushing to external platforms.
 
 ## Items
 
+> **Folder:** `features/` — learning-assistant enhancements
+
 | ID | Title | Status | Priority |
-|---|---|---|---|
+|---|---|---|
 | BLI-007 | Cross-platform note integration mechanism | todo | high |
+| BLI-009 | Third-party libs, JDK 26, SDK tools & annotations | todo | medium |
 | BLI-010 | Personal Confluence — migrate office resources | todo | medium |
 | BLI-011 | Brain consolidation — tabs, bookmarks, workspace, notes | todo | high |
 | BLI-012 | Enhanced web scraping & search engine | todo | high |

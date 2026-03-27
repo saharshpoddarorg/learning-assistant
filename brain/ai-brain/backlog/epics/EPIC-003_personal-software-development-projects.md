@@ -20,13 +20,14 @@ for new technologies, architectures, and engineering practices.
 
 ## Items
 
+> **Folder:** `projects/` — standalone personal software projects
+
 | ID | Title | Status | Priority |
-|---|---|---|---|
+|---|---|---|
 | BLI-008 | Scheduler, calendar, timeline & todo tracking | todo | high |
-| BLI-009 | Third-party libs, JDK 26, SDK tools & annotations | todo | high |
-| BLI-014 | Media manager — YouTube, Spotify consolidation | todo | medium |
+| BLI-014 | Media manager — YouTube, Spotify consolidation | todo | low |
 | BLI-015 | Family tree application | todo | low |
-| BLI-016 | Cloud & ebook reader | todo | medium |
+| BLI-016 | Cloud & ebook reader | todo | low |
 | BLI-017 | Developer productivity dashboard | todo | low |
 | BLI-018 | Code snippet & template manager | todo | low |
 
