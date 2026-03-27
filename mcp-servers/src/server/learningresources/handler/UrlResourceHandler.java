@@ -15,9 +15,11 @@ import server.learningresources.vault.ResourceVault;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -156,7 +158,7 @@ public final class UrlResourceHandler {
 
             final var resource = new LearningResource(
                     resourceId, title, url, description, type,
-                    List.of(category), inferConcepts(extractedText, category),
+                    Set.of(category), inferConcepts(extractedText, category),
                     tags, author, difficulty,
                     ContentFreshness.ACTIVELY_MAINTAINED,
                     isOfficial, true, langApplicability, Instant.now()
@@ -304,13 +306,13 @@ public final class UrlResourceHandler {
         return OFFICIAL_DOMAINS.keySet().stream().anyMatch(url::contains);
     }
 
-    private List<String> resolveTags(final Map<String, String> args, String url) {
+    private Set<String> resolveTags(final Map<String, String> args, String url) {
         if (args.containsKey("tags")) {
-            return java.util.Arrays.stream(args.get("tags").split(","))
+            return Set.copyOf(java.util.Arrays.stream(args.get("tags").split(","))
                     .map(String::strip)
-                    .toList();
+                    .toList());
         }
-        final var tags = new ArrayList<String>();
+        final var tags = new LinkedHashSet<String>();
         tags.add("user-added");
         if (isOfficialDomain(url)) {
             tags.add("official");
@@ -318,8 +320,8 @@ public final class UrlResourceHandler {
         return tags;
     }
 
-    private List<ConceptArea> inferConcepts(final String text, final ResourceCategory category) {
-        final var concepts = new ArrayList<ConceptArea>();
+    private Set<ConceptArea> inferConcepts(final String text, final ResourceCategory category) {
+        final var concepts = new LinkedHashSet<ConceptArea>();
         final var lowerText = text.toLowerCase();
 
         if (lowerText.contains("concurrency") || lowerText.contains("thread")) {

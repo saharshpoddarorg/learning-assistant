@@ -1,7 +1,7 @@
 package server.learningresources.model;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Criteria for searching and filtering learning resources in the vault.
@@ -36,20 +36,20 @@ import java.util.Objects;
 public record ResourceQuery(
         String searchText,
         ResourceType type,
-        List<ResourceCategory> categories,
+        Set<ResourceCategory> categories,
         ConceptArea conceptArea,
         DifficultyLevel minDifficulty,
         DifficultyLevel maxDifficulty,
         ContentFreshness freshness,
         boolean officialOnly,
-        List<String> tags,
+        Set<String> tags,
         boolean freeOnly,
         int maxResults
 ) {
 
     /** Default query that returns all resources. */
     public static final ResourceQuery ALL = new ResourceQuery(
-            "", null, List.of(), null, null, null, null, false, List.of(), false, 0);
+            "", null, Set.of(), null, null, null, null, false, Set.of(), false, 0);
 
     private static final int DEFAULT_MAX_RESULTS = 25;
 
@@ -58,15 +58,15 @@ public record ResourceQuery(
      */
     public ResourceQuery {
         Objects.requireNonNull(searchText, "Search text must not be null (use empty string for no filter)");
-        Objects.requireNonNull(categories, "Categories must not be null (use empty list for no filter)");
-        Objects.requireNonNull(tags, "Tags list must not be null (use empty list for no filter)");
+        Objects.requireNonNull(categories, "Categories must not be null (use empty set for no filter)");
+        Objects.requireNonNull(tags, "Tags set must not be null (use empty set for no filter)");
 
         if (maxResults < 0) {
             throw new IllegalArgumentException("maxResults cannot be negative: " + maxResults);
         }
 
-        categories = List.copyOf(categories);
-        tags = List.copyOf(tags);
+        categories = Set.copyOf(categories);
+        tags = Set.copyOf(tags);
     }
 
     /**
@@ -76,8 +76,8 @@ public record ResourceQuery(
      * @return a query filtered by the search text
      */
     public static ResourceQuery byText(final String searchText) {
-        return new ResourceQuery(searchText, null, List.of(), null, null, null,
-                null, false, List.of(), false, DEFAULT_MAX_RESULTS);
+        return new ResourceQuery(searchText, null, Set.of(), null, null, null,
+                null, false, Set.of(), false, DEFAULT_MAX_RESULTS);
     }
 
     /**
@@ -87,8 +87,8 @@ public record ResourceQuery(
      * @return a query filtered by category
      */
     public static ResourceQuery byCategory(final ResourceCategory category) {
-        return new ResourceQuery("", null, List.of(category), null, null, null,
-                null, false, List.of(), false, DEFAULT_MAX_RESULTS);
+        return new ResourceQuery("", null, Set.of(category), null, null, null,
+                null, false, Set.of(), false, DEFAULT_MAX_RESULTS);
     }
 
     /**
@@ -98,8 +98,8 @@ public record ResourceQuery(
      * @return a query filtered by type
      */
     public static ResourceQuery byType(final ResourceType type) {
-        return new ResourceQuery("", type, List.of(), null, null, null,
-                null, false, List.of(), false, DEFAULT_MAX_RESULTS);
+        return new ResourceQuery("", type, Set.of(), null, null, null,
+                null, false, Set.of(), false, DEFAULT_MAX_RESULTS);
     }
 
     /**
@@ -109,8 +109,8 @@ public record ResourceQuery(
      * @return a query filtered by concept
      */
     public static ResourceQuery byConcept(final ConceptArea concept) {
-        return new ResourceQuery("", null, List.of(), concept, null, null,
-                null, false, List.of(), false, DEFAULT_MAX_RESULTS);
+        return new ResourceQuery("", null, Set.of(), concept, null, null,
+                null, false, Set.of(), false, DEFAULT_MAX_RESULTS);
     }
 
     /**

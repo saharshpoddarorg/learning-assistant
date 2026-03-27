@@ -11,6 +11,7 @@ import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated AI, machine learning, and LLM/prompt-engineering learning resources.
@@ -30,9 +31,9 @@ public final class AiMlResources implements ResourceProvider {
                                 + "approach. Covers image classification, NLP, tabular data, "
                                 + "and collaborative filtering using PyTorch and the fastai library.",
                         ResourceType.VIDEO_COURSE,
-                        List.of(ResourceCategory.AI_ML),
-                        List.of(ConceptArea.MACHINE_LEARNING, ConceptArea.GETTING_STARTED),
-                        List.of("deep-learning", "pytorch", "nlp", "image-classification",
+                        Set.of(ResourceCategory.AI_ML),
+                        Set.of(ConceptArea.MACHINE_LEARNING, ConceptArea.GETTING_STARTED),
+                        Set.of("deep-learning", "pytorch", "nlp", "image-classification",
                                 "practical", "free-course"),
                         "Jeremy Howard & Rachel Thomas",
                         DifficultyLevel.INTERMEDIATE,
@@ -48,9 +49,9 @@ public final class AiMlResources implements ResourceProvider {
                                 + "Covers zero-shot, few-shot, chain-of-thought, self-consistency, "
                                 + "ReAct, and model-specific strategies.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.AI_ML),
-                        List.of(ConceptArea.LLM_AND_PROMPTING),
-                        List.of("prompt-engineering", "llm", "gpt", "chain-of-thought",
+                        Set.of(ResourceCategory.AI_ML),
+                        Set.of(ConceptArea.LLM_AND_PROMPTING),
+                        Set.of("prompt-engineering", "llm", "gpt", "chain-of-thought",
                                 "few-shot", "zero-shot", "techniques"),
                         "DAIR.AI",
                         DifficultyLevel.BEGINNER,
@@ -66,9 +67,9 @@ public final class AiMlResources implements ResourceProvider {
                                 + "fine-tuning, function calling, assistants API, and best practices "
                                 + "for building LLM-powered applications.",
                         ResourceType.API_REFERENCE,
-                        List.of(ResourceCategory.AI_ML),
-                        List.of(ConceptArea.LLM_AND_PROMPTING, ConceptArea.API_DESIGN),
-                        List.of("official", "openai", "gpt", "api", "function-calling",
+                        Set.of(ResourceCategory.AI_ML),
+                        Set.of(ConceptArea.LLM_AND_PROMPTING, ConceptArea.API_DESIGN),
+                        Set.of("official", "openai", "gpt", "api", "function-calling",
                                 "embeddings", "fine-tuning", "assistants"),
                         "OpenAI",
                         DifficultyLevel.INTERMEDIATE,
@@ -87,9 +88,9 @@ public final class AiMlResources implements ResourceProvider {
                                 + "intuition instead of dense math. Ideal starting point before "
                                 + "diving into fast.ai or a full ML course.",
                         ResourceType.PLAYLIST,
-                        List.of(ResourceCategory.AI_ML),
-                        List.of(ConceptArea.MACHINE_LEARNING, ConceptArea.DEEP_LEARNING),
-                        List.of("3blue1brown", "neural-networks", "deep-learning",
+                        Set.of(ResourceCategory.AI_ML),
+                        Set.of(ConceptArea.MACHINE_LEARNING, ConceptArea.DEEP_LEARNING),
+                        Set.of("3blue1brown", "neural-networks", "deep-learning",
                                 "gradient-descent", "backpropagation", "transformers",
                                 "attention", "llm", "visualizations", "intuition",
                                 "beginner", "grant-sanderson"),

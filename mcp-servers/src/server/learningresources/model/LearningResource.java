@@ -1,7 +1,6 @@
 package server.learningresources.model;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -47,9 +46,9 @@ public record LearningResource(
         String url,
         String description,
         ResourceType type,
-        List<ResourceCategory> categories,
-        List<ConceptArea> conceptAreas,
-        List<String> tags,
+        Set<ResourceCategory> categories,
+        Set<ConceptArea> conceptAreas,
+        Set<String> tags,
         String author,
         DifficultyLevel difficulty,
         ContentFreshness freshness,
@@ -91,9 +90,9 @@ public record LearningResource(
             throw new IllegalArgumentException("Resource URL must not be blank");
         }
 
-        categories = List.copyOf(categories);
-        conceptAreas = List.copyOf(conceptAreas);
-        tags = List.copyOf(tags);
+        categories = Set.copyOf(categories);
+        conceptAreas = Set.copyOf(conceptAreas);
+        tags = Set.copyOf(tags);
         resourceAuthors = Set.copyOf(resourceAuthors);
     }
 
@@ -111,9 +110,9 @@ public record LearningResource(
             final String url,
             final String description,
             final ResourceType type,
-            final List<ResourceCategory> categories,
-            final List<ConceptArea> conceptAreas,
-            final List<String> tags,
+            final Set<ResourceCategory> categories,
+            final Set<ConceptArea> conceptAreas,
+            final Set<String> tags,
             final String author,
             final DifficultyLevel difficulty,
             final ContentFreshness freshness,
@@ -140,9 +139,9 @@ public record LearningResource(
             final String url,
             final String description,
             final ResourceType type,
-            final List<ResourceCategory> categories,
-            final List<ConceptArea> conceptAreas,
-            final List<String> tags,
+            final Set<ResourceCategory> categories,
+            final Set<ConceptArea> conceptAreas,
+            final Set<String> tags,
             final String author,
             final DifficultyLevel difficulty,
             final ContentFreshness freshness,
