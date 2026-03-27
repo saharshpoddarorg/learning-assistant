@@ -225,6 +225,53 @@ To determine the next ID:
 
 ---
 
+## Sub-Items (Parent–Child Hierarchy)
+
+Backlog items can be decomposed into **sub-items** for large or multi-faceted work.
+Sub-items are regular BLI files that reference their parent via frontmatter.
+
+### When to Use Sub-Items
+
+| Situation | Approach |
+|---|---|
+| Quick checklist of steps | Use acceptance criteria checkboxes (no sub-items) |
+| 3+ distinct workstreams within one item | Create sub-items (separate BLI files) |
+| Work is large enough that sub-parts need their own status tracking | Create sub-items |
+| Mixed priorities within one item | Create sub-items with individual priorities |
+
+### Creating Sub-Items
+
+1. Create the parent item first (or update an existing item to be a parent)
+2. Add `sub-items: [BLI-NNN, BLI-NNN]` to the parent's frontmatter
+3. Add a **Sub-Items** table section in the parent item's body
+4. Create each sub-item file with `parent: BLI-NNN` in its frontmatter
+5. Sub-items get their own sequential BLI IDs — they are full items
+6. Sub-items appear in BOARD.md indented under their parent (or grouped in the epic)
+
+### Frontmatter Fields
+
+**Parent item:**
+
+```yaml
+sub-items: [BLI-010, BLI-011, BLI-012]
+```
+
+**Child item:**
+
+```yaml
+parent: BLI-007
+```
+
+### Rules
+
+- A sub-item inherits the parent's `epic` if it has none of its own
+- Sub-items can have different priorities and statuses from their parent
+- When all sub-items are `done`, suggest marking the parent as `done`
+- Sub-items can themselves have sub-items (max 2 levels deep to avoid complexity)
+- The parent's Sub-Items table must stay in sync with the sub-item files
+
+---
+
 ## Batch Operations
 
 When the user provides multiple items or ideas at once:
