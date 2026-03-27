@@ -8,10 +8,48 @@
 # =============================================================================
 # IDE — IntelliJ IDEA
 # =============================================================================
-# The entire .idea/ directory is ignored — it contains machine-specific paths,
-# local tool configs, and plugin state that vary per developer.
-.idea/
-*.iml
+# Selective .idea/ tracking following JetBrains' official recommendation:
+#   https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+#
+# Strategy: ignore everything in .idea/, then un-ignore shareable project configs.
+# This ensures new plugin/state files are ignored by default (safe baseline),
+# while team-relevant settings (code style, inspections, SDK level) are committed.
+
+# --- Ignore all .idea/ contents by default ---
+.idea/*
+
+# --- Un-ignore shareable project-level configs ---
+# IntelliJ's own .gitignore (ignores workspace.xml, shelf/, etc.)
+!.idea/.gitignore
+# Code style / formatting settings (project-level)
+!.idea/codeStyles/
+# Inspection profiles (project-level)
+!.idea/inspectionProfiles/
+# Project SDK and language level
+!.idea/misc.xml
+# Module list (which .iml files compose the project)
+!.idea/modules.xml
+# VCS integration (Git root mappings)
+!.idea/vcs.xml
+# Shared run/debug configurations (when stored in .idea/)
+!.idea/runConfigurations/
+# Custom scopes (shareable named file scopes)
+!.idea/scopes/
+# Compiler settings (annotation processors, bytecode version)
+!.idea/compiler.xml
+# File encoding settings
+!.idea/encodings.xml
+# Copyright profile headers
+!.idea/copyright/
+
+# --- Remaining user/machine-specific files stay ignored via .idea/* ---
+# workspace.xml, shelf/, tasks.xml, usage.statistics.xml, plugin state XMLs,
+# dataSources/, httpRequests/, dictionaries/ — all covered by the wildcard.
+
+# Module definition files — contain source roots, dependencies, and output paths.
+# Committed because this project uses manual compilation (no Maven/Gradle).
+# If a build tool is adopted later, add *.iml back to .gitignore.
+# *.iml  ← intentionally tracked (see above)
 *.iws
 *.ipr
 out/

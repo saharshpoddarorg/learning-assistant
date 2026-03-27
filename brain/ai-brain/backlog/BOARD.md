@@ -18,10 +18,10 @@
 
 | Status | Count |
 |---|---|
-| todo | 6 |
+| todo | 5 |
 | draft (epic) | 1 |
 | in-progress | 0 |
-| done | 0 |
+| done | 1 |
 
 ---
 
@@ -45,7 +45,7 @@
 | ID | Title | Type | Priority | Status | Created |
 |---|---|---|---|---|---|
 | BLI-001 | Build production Atlassian MCP server | feature | high | todo | 2026-03-26 |
-| BLI-006 | Create code formatting instructions and skill | feature | medium | todo | 2026-03-26 |
+| BLI-006 | Create code formatting instructions and skill | feature | medium | done | 2026-03-26 |
 
 ---
 
@@ -63,6 +63,7 @@
 
 | ID | Title | Type | Completed |
 |---|---|---|---|
+| BLI-006 | Create code formatting instructions and skill | feature | 2026-03-27 |
 
 ## Guides
 
@@ -71,4 +72,4 @@
 
 ---
 
-> **Last updated:** 2026-03-26
+> **Last updated:** 2026-03-27

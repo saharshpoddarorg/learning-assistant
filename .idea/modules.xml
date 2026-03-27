@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/brain/brain.iml" filepath="$PROJECT_DIR$/brain/brain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/learning-assistant.iml" filepath="$PROJECT_DIR$/learning-assistant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mac-os/mac-os.iml" filepath="$PROJECT_DIR$/mac-os/mac-os.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mcp-servers/mcp-servers.iml" filepath="$PROJECT_DIR$/mcp-servers/mcp-servers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/search-engine/search-engine.iml" filepath="$PROJECT_DIR$/search-engine/search-engine.iml" />
+    </modules>
+  </component>
+</project>
