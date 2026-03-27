@@ -1,16 +1,19 @@
 package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
+import server.learningresources.model.ContentFormat;
 import server.learningresources.model.ContentFreshness;
 import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LearningResource;
+import server.learningresources.model.ResourceAuthor;
 import server.learningresources.model.ResourceCategory;
 import server.learningresources.model.ResourceType;
 import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated Java ecosystem learning resources — official docs, community, books, OSS.
@@ -192,7 +195,9 @@ public final class JavaResources implements ResourceProvider {
                         "Joshua Bloch",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.EVERGREEN,
-                        false, false, LanguageApplicability.JAVA_CENTRIC, now
+                        false, false, LanguageApplicability.JAVA_CENTRIC, now,
+                        ContentFormat.PUBLISHED_BOOK,
+                        Set.of(ResourceAuthor.JOSHUA_BLOCH)
                 ),
 
                 new LearningResource(
@@ -211,7 +216,9 @@ public final class JavaResources implements ResourceProvider {
                         "Brian Goetz et al.",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.EVERGREEN,
-                        false, false, LanguageApplicability.JAVA_CENTRIC, now
+                        false, false, LanguageApplicability.JAVA_CENTRIC, now,
+                        ContentFormat.PUBLISHED_BOOK,
+                        Set.of(ResourceAuthor.BRIAN_GOETZ, ResourceAuthor.JOSHUA_BLOCH)
                 ),
 
                 // ─── Open Source Projects ───────────────────────────────────

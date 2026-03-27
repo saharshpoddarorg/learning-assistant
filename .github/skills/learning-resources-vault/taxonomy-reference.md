@@ -9,22 +9,24 @@
 
 ## Overview
 
-The vault uses **8 classification dimensions** to describe each resource.
+The vault uses **10 classification dimensions** to describe each resource.
 Together they enable multi-faceted discovery — by topic, difficulty, format, freshness,
-language scope, and more.
+language scope, content format, author, and more.
 
 | Dimension | Values | Purpose |
 |---|---|---|
 | Concept Domain | 9 | Top-level knowledge area grouping |
-| Concept Area | 40 | Fine-grained topic within a domain |
+| Concept Area | 48 | Fine-grained topic within a domain |
 | Resource Category | 17 | Technology/ecosystem classification |
 | Difficulty Level | 4 | Prerequisite knowledge required |
 | Resource Type | 13 | Content format (docs, video, book, etc.) |
 | Content Freshness | 5 | Maintenance & currency status |
 | Language Applicability | 6 | Programming language scope |
 | Search Mode | 3 | Query intent classification |
+| Content Format | 3 | Publication/authoring format (web, published book, open book) |
+| Resource Author | 13 | Notable known authors for cross-referencing and discovery |
 
-**Total distinct enum values:** 97
+**Total distinct enum values:** 121
 
 ---
 
@@ -36,8 +38,8 @@ Concept Domains are the highest-level grouping. Each domain contains 2-6 Concept
 |---|---|---|---|
 | `PROGRAMMING_FUNDAMENTALS` | Programming Fundamentals | 5 | Language syntax, OOP, FP, generics, features |
 | `CORE_CS` | Core CS | 6 | Data structures, algorithms, math, concurrency, complexity, memory |
-| `SOFTWARE_ENGINEERING` | Software Engineering | 5 | Design patterns, clean code, testing, API design, architecture |
-| `SYSTEM_DESIGN` | System Design & Infrastructure | 5 | System design, databases, distributed systems, networking, OS |
+| `SOFTWARE_ENGINEERING` | Software Engineering | 6 | Design patterns, clean code, testing, API design, architecture, async messaging |
+| `SYSTEM_DESIGN` | System Design & Infrastructure | 12 | System design, databases, distributed systems, networking, OS (+ 7 sub-concepts) |
 | `DEVOPS_TOOLING` | DevOps & Tooling | 6 | CI/CD, containers, VCS, build tools, infrastructure, observability |
 | `SECURITY` | Security | 2 | Web security, cryptography |
 | `AI_DATA` | AI & Data | 3 | Machine learning, deep learning, LLMs & prompting |
@@ -46,7 +48,7 @@ Concept Domains are the highest-level grouping. Each domain contains 2-6 Concept
 
 ---
 
-## 2. Concept Areas (40)
+## 2. Concept Areas (48)
 
 Each Concept Area belongs to exactly one Domain. Resources list 1-5 concept areas
 to describe what topics they cover.
@@ -72,7 +74,7 @@ to describe what topics they cover.
 | `COMPLEXITY_ANALYSIS` | complexity-analysis | Big-O notation, time/space complexity, benchmarking |
 | `MEMORY_MANAGEMENT` | memory-management | GC, heap allocation, memory models |
 
-### Software Engineering (5 areas)
+### Software Engineering (6 areas)
 
 | Concept Area | Slug | Description |
 |---|---|---|
@@ -81,16 +83,24 @@ to describe what topics they cover.
 | `TESTING` | testing | Unit, integration, TDD, BDD, mocking, test pyramids |
 | `API_DESIGN` | api-design | REST, GraphQL, gRPC, WebSocket, OpenAPI |
 | `ARCHITECTURE` | architecture | Layers, hexagonal, microservices, monolith |
+| `ASYNC_MESSAGING` | async-messaging | Message queues, event-driven architecture, pub/sub, CQRS, event sourcing, saga, Kafka, RabbitMQ |
 
-### System Design & Infrastructure (5 areas)
+### System Design & Infrastructure (12 areas)
 
-| Concept Area | Slug | Description |
-|---|---|---|
-| `SYSTEM_DESIGN` | system-design | Scalability, load balancing, caching, CDN, sharding |
-| `DATABASES` | databases | SQL, NoSQL, indexing, optimization, replication, schemas |
-| `DISTRIBUTED_SYSTEMS` | distributed-systems | Consensus, CAP theorem, consistency, leader election |
-| `NETWORKING` | networking | TCP/IP, HTTP, DNS, TLS, sockets |
-| `OPERATING_SYSTEMS` | operating-systems | Processes, scheduling, file systems, I/O |
+| Concept Area | Slug | Parent | Description |
+|---|---|---|---|
+| `SYSTEM_DESIGN` | system-design | — | Scalability, load balancing, caching, CDN, sharding |
+| `HIGH_LEVEL_DESIGN` | high-level-design | SYSTEM_DESIGN | HLD: architecture decisions, component decomposition, capacity planning, API gateway, service mesh |
+| `LOW_LEVEL_DESIGN` | low-level-design | SYSTEM_DESIGN | LLD: class/object design, OOD, UML, SOLID in context, state machines |
+| `DATABASES` | databases | — | SQL, NoSQL, indexing, optimization, replication, schemas |
+| `DATABASE_INTERNALS` | database-internals | DATABASES | Storage engines, B-trees, LSM trees, WAL, MVCC, query planning |
+| `DATABASE_SCALING` | database-scaling | DATABASES | Sharding, partitioning, replication, read replicas, connection pooling |
+| `DISTRIBUTED_SYSTEMS` | distributed-systems | — | Consensus, CAP theorem, consistency, leader election |
+| `CONSENSUS_COORDINATION` | consensus-coordination | DISTRIBUTED_SYSTEMS | Raft, Paxos, ZooKeeper, etcd, leader election, distributed locks, 2PC |
+| `RELIABILITY_PATTERNS` | reliability-patterns | DISTRIBUTED_SYSTEMS | Circuit breaker, retry, bulkhead, rate limiting, chaos engineering, SRE, SLOs |
+| `NETWORKING` | networking | — | TCP/IP, HTTP, DNS, TLS, sockets |
+| `PROTOCOLS` | protocols | NETWORKING | HTTP/2, HTTP/3, QUIC, gRPC, WebSocket, protobuf, TLS handshake |
+| `OPERATING_SYSTEMS` | operating-systems | — | Processes, scheduling, file systems, I/O |
 
 ### DevOps & Tooling (6 areas)
 
@@ -150,7 +160,7 @@ can belong to multiple categories (e.g., a Spring Boot testing guide might be bo
 | `PYTHON` | python | resources-python.md | CPython, Django, Flask, pip |
 | `JAVASCRIPT` | javascript | resources-web-javascript.md | JS, TS, Node.js, React, Angular, Vue, npm |
 | `WEB` | web | resources-web-javascript.md | HTML, CSS, frontend, browser APIs |
-| `DATABASE` | database | resources-cloud-infra.md | SQL, PostgreSQL, MongoDB, Redis, Elasticsearch |
+| `DATABASE` | database | resources-system-design.md | SQL, PostgreSQL, MongoDB, Redis, Elasticsearch |
 | `DEVOPS` | devops | resources-devops-vcs-build.md | Docker, Kubernetes, Git, CI/CD, Monitoring |
 | `CLOUD` | cloud | resources-cloud-infra.md | AWS, GCP, Azure, IaC |
 | `ALGORITHMS` | algorithms | resources-algorithms-ds.md | DSA, competitive programming, visualizations |
@@ -160,7 +170,7 @@ can belong to multiple categories (e.g., a Spring Boot testing guide might be bo
 | `AI_ML` | ai-ml | resources-ai-ml.md | Machine learning, deep learning, LLMs |
 | `TOOLS` | tools | resources-devops-vcs-build.md | Build tools, package managers, dev utilities |
 | `PRODUCTIVITY` | productivity | resources-productivity-pkm.md | Note-taking, PKM, GTD, time management |
-| `SYSTEMS` | systems | resources-cloud-infra.md | Distributed systems, networking, OS |
+| `SYSTEMS` | systems | resources-system-design.md | Distributed systems, networking, OS |
 | `GENERAL` | general | resources-general-career.md | Roadmaps, curated lists, CS50, cross-cutting |
 | `PERSONAL_DEVELOPMENT` | personal-development | resources-general-career.md | Self-help, habits, communication, finance |
 
@@ -271,9 +281,9 @@ user intent from natural language. With the skill-based approach, the LLM's nati
 language understanding replaces this lookup — but the keyword vocabulary below
 shows what topics and synonyms are covered.
 
-### Concept Area Keywords (170+ mappings)
+### Concept Area Keywords (250+ mappings)
 
-These keywords (and their synonyms) map to the 40 Concept Areas above:
+These keywords (and their synonyms) map to the 48 Concept Areas above:
 
 | Topic Cluster | Keywords | Maps To |
 |---|---|---|
@@ -286,14 +296,22 @@ These keywords (and their synonyms) map to the 40 Concept Areas above:
 | Complexity | big-o, complexity, time complexity | `COMPLEXITY_ANALYSIS` |
 | Memory | memory, garbage collection, heap, jvm | `MEMORY_MANAGEMENT` |
 | Design Patterns | design patterns, patterns, singleton, factory, observer, strategy | `DESIGN_PATTERNS` |
-| Clean Code | clean code, refactoring, best practices, solid | `CLEAN_CODE` |
-| Testing | testing, unit test, tdd, junit, mocking, mockito, selenium, cypress, pytest, testcontainers, e2e, end-to-end | `TESTING` |
+| Clean Code | clean code, refactoring, best practices, solid, clean architecture, uncle bob, robert c martin, code smells, code forensics, crime scene, complexity management, clean agile | `CLEAN_CODE` |
+| Testing | testing, unit test, unit testing, tdd, junit, mocking, mockito, selenium, cypress, pytest, testcontainers, e2e, end-to-end, test pyramid, test anti-patterns, vladimir khorikov | `TESTING` |
 | API Design | api, rest, graphql, express, expressjs, flask | `API_DESIGN` |
-| Architecture | architecture, microservices, hexagonal, spring boot, react, angular, vue, django, nodejs | `ARCHITECTURE` |
+| Architecture | architecture, microservices, hexagonal, spring boot, react, angular, vue, django, nodejs, enterprise patterns, poeaa, ports and adapters, onion architecture, volatility-based decomposition, volatility decomposition, righting software, juval lowy, service decomposition | `ARCHITECTURE` |
+| Async Messaging | messaging, message queue, message broker, event-driven, eda, pub/sub, publish-subscribe, cqrs, event sourcing, saga, kafka, rabbitmq, amqp, sqs, sns, eventbridge, enterprise integration | `ASYNC_MESSAGING` |
 | System Design | system design, scalability, load balancing | `SYSTEM_DESIGN` |
+| High-Level Design | hld, high level design, high-level design, capacity planning, back-of-envelope, trade-off analysis, api gateway, service mesh, horizontal scaling, vertical scaling, cdn, content delivery network, reverse proxy, caching, cache invalidation, bytebytego | `HIGH_LEVEL_DESIGN` |
+| Low-Level Design | lld, low level design, low-level design, ood, object-oriented design, class design, class diagram, uml, sequence diagram, state machine, machine coding, component interface, deep module, information hiding | `LOW_LEVEL_DESIGN` |
 | Databases | database, sql, postgresql, indexing, hibernate, jpa, orm, redis, mongodb, nosql, elasticsearch, mysql, dynamodb | `DATABASES` |
-| Distributed Systems | distributed, consensus, kafka, rabbitmq | `DISTRIBUTED_SYSTEMS` |
+| Database Internals | database internals, storage engine, storage engines, b-tree, b-trees, lsm tree, lsm-tree, write-ahead log, wal, mvcc, query planning, query optimizer, buffer pool | `DATABASE_INTERNALS` |
+| Database Scaling | database scaling, database sharding, sharding, partitioning, replication, read replica, read replicas, master-slave, master-master, connection pooling, federation, denormalization | `DATABASE_SCALING` |
+| Distributed Systems | distributed, consensus | `DISTRIBUTED_SYSTEMS` |
+| Consensus & Coordination | raft, raft consensus, paxos, zookeeper, etcd, leader election, distributed lock, distributed locks, two-phase commit, 2pc, distributed consensus, distributed coordination | `CONSENSUS_COORDINATION` |
+| Reliability Patterns | circuit breaker, circuit-breaker, retry, retry pattern, exponential backoff, bulkhead, bulkhead pattern, rate limiting, rate limiter, rate-limiting, fault tolerance, chaos engineering, chaos monkey, sre, site reliability, site reliability engineering, slo, sli, sla, graceful degradation, failover, cloud design patterns | `RELIABILITY_PATTERNS` |
 | Networking | networking, http, tcp, dns | `NETWORKING` |
+| Protocols | http2, http/2, http3, http/3, quic, grpc, websocket, websockets, protobuf, protocol buffers, tls handshake, rest vs rpc, udp | `PROTOCOLS` |
 | Operating Systems | operating systems, processes | `OPERATING_SYSTEMS` |
 | CI/CD | ci/cd, ci-cd, pipeline, github actions | `CI_CD` |
 | Containers | docker, kubernetes, k8s, containers | `CONTAINERS` |
@@ -328,11 +346,11 @@ These keywords map to the 17 Resource Categories:
 | Web | web, html, css, frontend | `WEB` |
 | DevOps | devops, docker, kubernetes, git, maven, gradle, bazel, prometheus, grafana, monitoring, elk | `DEVOPS` |
 | Security | security, owasp | `SECURITY` |
-| Database | data, database, sql, redis, mongodb, nosql, elasticsearch, kafka, mysql, dynamodb, postgresql | `DATABASE` |
+| Database | data, database, sql, redis, mongodb, nosql, elasticsearch, mysql, dynamodb, postgresql | `DATABASE` |
 | AI/ML | ai, ml, machine learning, deep learning, 3blue1brown, 3b1b, linear algebra | `AI_ML` |
 | Algorithms | algorithm, algorithms, data structures, data-structures, ds, dsa, linked list, trees, graphs, heaps, trie, hash table, neetcode | `ALGORITHMS` |
 | Testing | testing, junit, mockito, selenium, cypress, pytest, testcontainers, e2e | `TESTING` |
-| Engineering | engineering | `SOFTWARE_ENGINEERING` |
+| Engineering | engineering, messaging, event-driven, cqrs, pub-sub, amqp, kafka, rabbitmq, software engineering book, clean architecture, refactoring book, poeaa, uncle bob, martin fowler, adam tornhill, ebook | `SOFTWARE_ENGINEERING` |
 | Cloud | aws, amazon web services, gcp, google cloud, azure, cloud, terraform, ansible, iac, ec2, s3, lambda | `CLOUD` |
 | Productivity | notion, obsidian, onenote, logseq, pkm, note-taking, productivity, gtd, para, second-brain, todoist, foam, zettelkasten | `PRODUCTIVITY` |
 | General | cs50, harvard, playlist, video series | `GENERAL` |
@@ -397,7 +415,7 @@ When recommending resources, the LLM should naturally apply similar priorities:
 
 ## Resource Record Structure
 
-Each resource in the vault tables has these 15 metadata fields, represented as
+Each resource in the vault tables has these 18 metadata fields, represented as
 table columns with badge notation:
 
 | Field | Column Header | Values | Purpose |
@@ -412,6 +430,8 @@ table columns with badge notation:
 | Is Official | Off | ✅ or ➖ | Authoritative source? |
 | Is Free | Free | ✅ or 💰 | Freely accessible? |
 | Language Applicability | Lang | Badge (🌐, 🔤, ☕, 🐍, 🌐✦) | Language scope |
+| Content Format | Format | Badge (🌐, 📚, 📖) | Publication format (web/published/open) |
+| Resource Author | *(structured)* | Set of enum values (can be empty) | Notable known author cross-references |
 | ID | *(in Tags Index)* | URL-safe slug | Unique identifier |
 | Description | *(in Tags Index)* | Text | Brief summary |
 | Categories | *(in Tags Index)* | Comma-separated slugs | Ecosystem categories |
@@ -432,7 +452,7 @@ This table shows how the three main classification axes relate:
 |---|---|---|
 | Programming Fundamentals | Language basics, OOP, FP, Generics, Features | JAVA, PYTHON, JAVASCRIPT |
 | Core CS | Concurrency, DS, Algorithms, Math, Complexity, Memory | ALGORITHMS, JAVA, GENERAL |
-| Software Engineering | Patterns, Clean code, Testing, API design, Architecture | SOFTWARE_ENGINEERING, TESTING |
+| Software Engineering | Patterns, Clean code, Testing, API design, Architecture, Async messaging | SOFTWARE_ENGINEERING, TESTING |
 | System Design | System design, DBs, Distributed, Networking, OS | DATABASE, SYSTEMS, CLOUD |
 | DevOps & Tooling | CI/CD, Containers, VCS, Build, Infra, Observability | DEVOPS, TOOLS, CLOUD |
 | Security | Web security, Cryptography | SECURITY |
@@ -462,6 +482,96 @@ Combine dimensions for precise filtering:
 - **By type:** "Java books" → 📚 Book type in `JAVA` category
 - **By freshness:** "actively maintained Python docs" → 🔄 freshness in `PYTHON` category
 - **By language:** "universal design resources" → 🌐 applicability in `SOFTWARE_ENGINEERING`
+
+---
+
+## 9. Content Format (3)
+
+Classifies the **publication or authoring format** of a resource, orthogonal to
+ResourceType. Most resources default to `WEB_RESOURCE`. Book-type resources use
+`PUBLISHED_BOOK` or `OPEN_BOOK` to distinguish commercially published works from
+freely available full-text content.
+
+| Format | Badge | Description | Example |
+|---|---|---|---|
+| `WEB_RESOURCE` | 🌐 Web | Web-native content — articles, docs, tutorials, videos, repos | MDN, Baeldung, Refactoring Guru |
+| `PUBLISHED_BOOK` | 📚 Published | Commercially published; typically requires purchase | Effective Java, Clean Architecture, DDIA |
+| `OPEN_BOOK` | 📖 Open | Full text freely available online as web book or PDF | Pro Git, Google SRE Book |
+
+### Content Format Usage
+
+- **Default:** All resources without an explicit content format are `WEB_RESOURCE`
+- **PUBLISHED_BOOK:** 14 resources — Effective Java, JCIP (multi-author: Goetz + Bloch),
+  Algorithm Design Manual, DDIA, Clean Code, Clean Architecture, Refactoring, PoEAA,
+  Crime Scene, Philosophy of Software Design, Clean Agile, Righting Software, Unit Testing
+- **OPEN_BOOK:** 3 resources — Pro Git, Git Internals deep-dive, Google SRE Book
+
+### How to Filter by Content Format
+
+- "Show me all published books" → filter for 📚 Published format
+- "Free book resources" → filter for 📖 Open format
+- "Ebook recommendations" → show both PUBLISHED_BOOK and OPEN_BOOK
+
+---
+
+## 10. Resource Author (13) — Notable Known Authors
+
+Structured enum for notable authors whose works appear in the vault, enabling
+cross-referencing, filtering by author, and improved search discoverability.
+Each author can optionally carry a personal website and/or blog URL.
+
+**Set field on LearningResource.** `resourceAuthors` is a `Set<ResourceAuthor>`
+(empty set when no known author applies). A resource can have multiple authors
+(e.g., Java Concurrency in Practice has both Brian Goetz and Joshua Bloch).
+Order is irrelevant — `Set` enforces uniqueness and expresses unordered semantics.
+
+| Author Enum | Display Name | Alias | Website | Resources |
+|---|---|---|---|---|
+| `ROBERT_C_MARTIN` | Robert C. Martin | Uncle Bob | [cleancoder.com](https://cleancoder.com) | Clean Code, Clean Architecture, Clean Agile |
+| `MARTIN_FOWLER` | Martin Fowler | — | [martinfowler.com](https://martinfowler.com) | Refactoring, PoEAA, Architecture blog |
+| `JOSHUA_BLOCH` | Joshua Bloch | — | — | Effective Java, JCIP (co-author) |
+| `BRIAN_GOETZ` | Brian Goetz | — | — | Java Concurrency in Practice |
+| `MARTIN_KLEPPMANN` | Martin Kleppmann | — | [martin.kleppmann.com](https://martin.kleppmann.com) | Designing Data-Intensive Applications |
+| `JUVAL_LOWY` | Juval Löwy | — | — | Righting Software |
+| `ADAM_TORNHILL` | Adam Tornhill | — | — | Your Code as a Crime Scene |
+| `JOHN_OUSTERHOUT` | John Ousterhout | — | [stanford.edu/~ouster](https://web.stanford.edu/~ouster/cgi-bin/home.php) | A Philosophy of Software Design |
+| `VLADIMIR_KHORIKOV` | Vladimir Khorikov | — | [enterprisecraftsmanship.com](https://enterprisecraftsmanship.com) | Unit Testing |
+| `SCOTT_CHACON` | Scott Chacon | — | [scottchacon.com](https://scottchacon.com) | Pro Git, Git Internals |
+| `STEVEN_SKIENA` | Steven S. Skiena | — | [cs.stonybrook.edu/~skiena](https://www3.cs.stonybrook.edu/~skiena/) | The Algorithm Design Manual |
+| `ALEXANDER_SHVETS` | Alexander Shvets | — | [refactoring.guru](https://refactoring.guru) | Refactoring.Guru |
+| `GRANT_SANDERSON` | Grant Sanderson | 3Blue1Brown | [3blue1brown.com](https://www.3blue1brown.com) | Essence of Linear Algebra |
+
+### ResourceAuthor Fields
+
+| Field | Type | Required | Purpose |
+|---|---|---|---|
+| `displayName` | String | Yes | Full canonical name (e.g., "Robert C. Martin") |
+| `alias` | String | No | Common alias (e.g., "Uncle Bob", "3Blue1Brown") |
+| `website` | String | No | Personal or professional website URL |
+| `blog` | String | No | Blog URL (only when separate from the website) |
+
+Two constructors are available:
+
+- **1-param:** `ResourceAuthor(displayName)` — for authors with no alias, website, or blog
+- **4-param:** `ResourceAuthor(displayName, alias, website, blog)` — when optional metadata applies
+
+### When to Assign a Resource Author
+
+| Resource Type | Assign Author? | Rationale |
+|---|---|---|
+| Published books (📚) | Always | Author is core metadata for books |
+| Multi-author books | Set all known authors in enum | e.g., JCIP → `Set.of(BRIAN_GOETZ, JOSHUA_BLOCH)` |
+| Blogs by a notable author | When the author is a discovery signal | e.g., Martin Fowler's architecture blog |
+| Video series by a known creator | When the creator is the brand | e.g., 3Blue1Brown |
+| Official documentation | Typically empty set | Authored by organisations, not individuals |
+| Community content | Typically empty set | Unknown or collective authorship |
+
+### How to Search by Author
+
+- "Show me all Robert C. Martin books" → filter by `ROBERT_C_MARTIN`
+- "Martin Fowler resources" → filter by `MARTIN_FOWLER` (books + blog)
+- "Uncle Bob" → alias resolves to `ROBERT_C_MARTIN`
+- "3Blue1Brown" → alias resolves to `GRANT_SANDERSON`
 - **By concept + difficulty:** "advanced concurrency resources" → 🔴 + `CONCURRENCY` concept
 
 ### For Learning Paths

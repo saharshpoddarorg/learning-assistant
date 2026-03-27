@@ -118,20 +118,69 @@ Long lines are wrapped automatically. Prefer breaking at logical boundaries
 
 ### 2.3 Method Call Chain Wrapping
 
-Method chains wrap with each call on its own line (IntelliJ `METHOD_CALL_CHAIN_WRAP = 2`).
+When chaining method calls (pipelines, fluent APIs, currying, stream operations, builder
+patterns), **each chained `.method()` call should go on its own line**, indented one level
+from the source (IntelliJ `METHOD_CALL_CHAIN_WRAP = 2` — chop if long).
+
+**Short chains exception:** A chain of **≤ 3 calls** that fits comfortably within the
+120-char soft margin may stay on one line when the intent is immediately obvious.
 
 ```java
-// Correct — each chained call on its own line
+// Correct — each chained call on its own line (always preferred for 4+ calls)
 var result = orders.stream()
     .filter(order -> order.isActive())
     .map(Order::getTotal)
     .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+// Acceptable — short chain (≤ 3 calls), fits in 120 chars, intent is clear
+var first = items.stream().filter(Item::isActive).findFirst();
+var name = optional.map(User::getName).orElse("Unknown");
+var list = names.stream().sorted().toList();
 ```
 
 ```java
-// Wrong — chained calls on same line
+// Wrong — long chain crammed onto one line
 var result = orders.stream().filter(order -> order.isActive()).map(Order::getTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+// Wrong — grouping two calls on the same line in a longer chain
+var result = orders.stream().filter(order -> order.isActive())
+    .map(Order::getTotal)
+    .reduce(BigDecimal.ZERO, BigDecimal::add);
 ```
+
+#### General Method Chaining (non-stream)
+
+The same rule applies to **any** fluent API, utility chain, or curried function application:
+
+```java
+// Correct — general method chaining
+var response = client.target(baseUrl)
+    .path("api")
+    .path("users")
+    .queryParam("active", true)
+    .request(MediaType.APPLICATION_JSON)
+    .get();
+
+// Correct — assertion chains
+assertThat(result)
+    .isNotNull()
+    .hasSize(3)
+    .contains("alpha");
+
+// Correct — curried / composed function application
+var transform = normalize
+    .andThen(validate)
+    .andThen(persist);
+```
+
+```java
+// Wrong — chaining on same line
+var response = client.target(baseUrl).path("api").path("users").request(MediaType.APPLICATION_JSON).get();
+```
+
+> **Rule of thumb:** If the chain has 4+ calls, or exceeds 120 chars, every `.` that
+> calls a method on the result of a previous call starts a new line. Short, obvious
+> chains (≤ 3 calls within the margin) may stay on one line.
 
 ### 2.4 Stream Pipeline Formatting
 
@@ -416,7 +465,8 @@ BRACES        .  next-line (Allman) for classes and methods
               .  always required — even for single-line if/for/while
 ELSE/CATCH    .  own line, not cuddled with }
 LINE LENGTH   .  120 chars soft margin
-CHAINS        .  each .method() on its own line (streams, builders, Optional)
+CHAINS        .  each chained .method() on its own line (streams, builders, Optional, currying)
+              .  short chains (≤ 3 calls, ≤ 120 chars, obvious intent) may stay on one line
 OPERATORS     .  && || on START of next line, not end of previous
 LAMBDAS       .  simple → one line; multi-statement → braces
 SWITCH EXPR   .  no forced wrapping

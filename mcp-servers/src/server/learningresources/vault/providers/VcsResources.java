@@ -1,16 +1,19 @@
 package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
+import server.learningresources.model.ContentFormat;
 import server.learningresources.model.ContentFreshness;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.LearningResource;
+import server.learningresources.model.ResourceAuthor;
 import server.learningresources.model.ResourceCategory;
 import server.learningresources.model.ResourceType;
 import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated resources for Version Control Systems and Git workflows.
@@ -227,7 +230,9 @@ public final class VcsResources implements ResourceProvider {
                         "Scott Chacon & Ben Straub",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.EVERGREEN,
-                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now,
+                        ContentFormat.OPEN_BOOK,
+                        Set.of(ResourceAuthor.SCOTT_CHACON)
                 )
         );
     }

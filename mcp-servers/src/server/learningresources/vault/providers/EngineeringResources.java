@@ -1,25 +1,27 @@
 package server.learningresources.vault.providers;
 
-import server.learningresources.model.ConceptArea;
-import server.learningresources.model.ContentFreshness;
-import server.learningresources.model.LanguageApplicability;
-import server.learningresources.model.DifficultyLevel;
-import server.learningresources.model.LearningResource;
-import server.learningresources.model.ResourceCategory;
-import server.learningresources.model.ResourceType;
+import server.learningresources.model.*;
 import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated software engineering resources — design patterns, clean code,
- * architecture, and system design.
+ * architecture, and mathematics foundations.
+ *
+ * <p>System design resources (HLD, LLD, databases, distributed systems)
+ * have been moved to {@link SystemDesignResources}.
+ *
+ * @see SystemDesignResources
  */
-public final class EngineeringResources implements ResourceProvider {
+public final class EngineeringResources implements ResourceProvider
+{
 
     @Override
-    public List<LearningResource> resources() {
+    public List<LearningResource> resources()
+    {
         final var now = Instant.now();
         return List.of(
 
@@ -38,7 +40,9 @@ public final class EngineeringResources implements ResourceProvider {
                         "Alexander Shvets",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.EVERGREEN,
-                        false, true, LanguageApplicability.UNIVERSAL, now
+                        false, true, LanguageApplicability.UNIVERSAL, now,
+                        ContentFormat.WEB_RESOURCE,
+                        Set.of(ResourceAuthor.ALEXANDER_SHVETS)
                 ),
 
                 new LearningResource(
@@ -68,33 +72,15 @@ public final class EngineeringResources implements ResourceProvider {
                                 + "build/release/run, processes, port binding, and more.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.SOFTWARE_ENGINEERING, ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.ARCHITECTURE, ConceptArea.SYSTEM_DESIGN,
-                                ConceptArea.CI_CD, ConceptArea.CONTAINERS),
+                        List.of(ConceptArea.ARCHITECTURE,
+                                ConceptArea.SYSTEM_DESIGN,
+                                ConceptArea.CI_CD,
+                                ConceptArea.CONTAINERS),
                         List.of("saas", "cloud-native", "microservices", "config", "twelve-factor",
                                 "deployment", "scalability"),
                         "Adam Wiggins / Heroku",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.EVERGREEN,
-                        false, true, LanguageApplicability.UNIVERSAL, now
-                ),
-
-                new LearningResource(
-                        "system-design-primer",
-                        "The System Design Primer",
-                        "https://github.com/donnemartin/system-design-primer",
-                        "Comprehensive guide to system design interviews and real-world "
-                                + "architecture. Covers scalability, load balancing, caching, "
-                                + "databases, async processing, CDNs, and microservices.",
-                        ResourceType.REPOSITORY,
-                        List.of(ResourceCategory.SOFTWARE_ENGINEERING, ResourceCategory.GENERAL),
-                        List.of(ConceptArea.SYSTEM_DESIGN, ConceptArea.DISTRIBUTED_SYSTEMS,
-                                ConceptArea.DATABASES, ConceptArea.NETWORKING,
-                                ConceptArea.INTERVIEW_PREP),
-                        List.of("system-design", "scalability", "load-balancing", "caching",
-                                "databases", "microservices", "interview"),
-                        "Donne Martin",
-                        DifficultyLevel.ADVANCED,
-                        ContentFreshness.PERIODICALLY_UPDATED,
                         false, true, LanguageApplicability.UNIVERSAL, now
                 ),
 
@@ -107,15 +93,25 @@ public final class EngineeringResources implements ResourceProvider {
                                 + "design, refactoring, and enterprise integration patterns.",
                         ResourceType.BLOG,
                         List.of(ResourceCategory.SOFTWARE_ENGINEERING),
-                        List.of(ConceptArea.ARCHITECTURE, ConceptArea.DESIGN_PATTERNS,
-                                ConceptArea.SYSTEM_DESIGN),
+                        List.of(ConceptArea.ARCHITECTURE,
+                                ConceptArea.DESIGN_PATTERNS,
+                                ConceptArea.SYSTEM_DESIGN,
+                                ConceptArea.HIGH_LEVEL_DESIGN,
+                                ConceptArea.RELIABILITY_PATTERNS,
+                                ConceptArea.ASYNC_MESSAGING),
                         List.of("microservices", "ddd", "event-driven", "refactoring",
-                                "enterprise-patterns", "continuous-delivery"),
+                                "enterprise-patterns", "continuous-delivery",
+                                "async-messaging", "integration-patterns",
+                                "circuit-breaker", "hld"),
                         "Martin Fowler",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        false, true, LanguageApplicability.UNIVERSAL, now
+                        false, true, LanguageApplicability.UNIVERSAL, now,
+                        ContentFormat.WEB_RESOURCE,
+                        Set.of(ResourceAuthor.MARTIN_FOWLER)
                 ),
+
+                // ─── Mathematics & Foundations ──────────────────────────────
 
                 new LearningResource(
                         "3b1b-linear-algebra",
@@ -137,7 +133,9 @@ public final class EngineeringResources implements ResourceProvider {
                         "Grant Sanderson (3Blue1Brown)",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.EVERGREEN,
-                        false, true, LanguageApplicability.UNIVERSAL, now
+                        false, true, LanguageApplicability.UNIVERSAL, now,
+                        ContentFormat.WEB_RESOURCE,
+                        Set.of(ResourceAuthor.GRANT_SANDERSON)
                 )
         );
     }

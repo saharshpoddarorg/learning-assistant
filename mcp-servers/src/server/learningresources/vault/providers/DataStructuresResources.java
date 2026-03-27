@@ -1,16 +1,19 @@
 package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
+import server.learningresources.model.ContentFormat;
 import server.learningresources.model.ContentFreshness;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.LearningResource;
+import server.learningresources.model.ResourceAuthor;
 import server.learningresources.model.ResourceCategory;
 import server.learningresources.model.ResourceType;
 import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated data-structures learning resources — from interactive visualizers
@@ -195,7 +198,9 @@ public final class DataStructuresResources implements ResourceProvider {
                         "Steven S. Skiena",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.EVERGREEN,
-                        false, false, LanguageApplicability.UNIVERSAL, now
+                        false, false, LanguageApplicability.UNIVERSAL, now,
+                        ContentFormat.PUBLISHED_BOOK,
+                        Set.of(ResourceAuthor.STEVEN_SKIENA)
                 )
         );
     }

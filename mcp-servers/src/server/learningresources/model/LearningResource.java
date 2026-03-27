@@ -3,6 +3,7 @@ package server.learningresources.model;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A curated learning resource with rich metadata for discovery and consumption.
@@ -37,6 +38,8 @@ import java.util.Objects;
  * @param isFree                 whether the resource is freely accessible
  * @param languageApplicability  how the resource relates to programming languages
  * @param addedAt                when this resource was added to the vault
+ * @param contentFormat          publication/authoring format (web, published book, open book)
+ * @param resourceAuthors        structured author references (empty set if no known authors)
  */
 public record LearningResource(
         String id,
@@ -53,7 +56,9 @@ public record LearningResource(
         boolean isOfficial,
         boolean isFree,
         LanguageApplicability languageApplicability,
-        Instant addedAt
+        Instant addedAt,
+        ContentFormat contentFormat,
+        Set<ResourceAuthor> resourceAuthors
 ) {
 
     /**
@@ -73,6 +78,8 @@ public record LearningResource(
         Objects.requireNonNull(freshness, "Freshness must not be null");
         Objects.requireNonNull(languageApplicability, "Language applicability must not be null");
         Objects.requireNonNull(addedAt, "AddedAt timestamp must not be null");
+        Objects.requireNonNull(contentFormat, "Content format must not be null");
+        Objects.requireNonNull(resourceAuthors, "Resource authors must not be null (use Set.of())");
 
         if (id.isBlank()) {
             throw new IllegalArgumentException("Resource ID must not be blank");
@@ -87,6 +94,67 @@ public record LearningResource(
         categories = List.copyOf(categories);
         conceptAreas = List.copyOf(conceptAreas);
         tags = List.copyOf(tags);
+        resourceAuthors = Set.copyOf(resourceAuthors);
+    }
+
+    /**
+     * Backward-compatible constructor that defaults {@code contentFormat}
+     * to {@link ContentFormat#WEB_RESOURCE} and {@code resourceAuthors} to an empty set.
+     *
+     * <p>All existing provider code calling the 15-parameter constructor
+     * continues to work unchanged; only new resources that are published
+     * books or open books need the full 17-parameter canonical constructor.
+     */
+    public LearningResource(
+            final String id,
+            final String title,
+            final String url,
+            final String description,
+            final ResourceType type,
+            final List<ResourceCategory> categories,
+            final List<ConceptArea> conceptAreas,
+            final List<String> tags,
+            final String author,
+            final DifficultyLevel difficulty,
+            final ContentFreshness freshness,
+            final boolean isOfficial,
+            final boolean isFree,
+            final LanguageApplicability languageApplicability,
+            final Instant addedAt)
+    {
+        this(id, title, url, description, type, categories, conceptAreas, tags,
+                author, difficulty, freshness, isOfficial, isFree,
+                languageApplicability, addedAt, ContentFormat.WEB_RESOURCE, Set.of());
+    }
+
+    /**
+     * Backward-compatible constructor that defaults {@code resourceAuthors}
+     * to an empty set.
+     *
+     * <p>Existing provider code that explicitly sets {@link ContentFormat}
+     * (e.g., for book resources) continues to work unchanged.
+     */
+    public LearningResource(
+            final String id,
+            final String title,
+            final String url,
+            final String description,
+            final ResourceType type,
+            final List<ResourceCategory> categories,
+            final List<ConceptArea> conceptAreas,
+            final List<String> tags,
+            final String author,
+            final DifficultyLevel difficulty,
+            final ContentFreshness freshness,
+            final boolean isOfficial,
+            final boolean isFree,
+            final LanguageApplicability languageApplicability,
+            final Instant addedAt,
+            final ContentFormat contentFormat)
+    {
+        this(id, title, url, description, type, categories, conceptAreas, tags,
+                author, difficulty, freshness, isOfficial, isFree,
+                languageApplicability, addedAt, contentFormat, Set.of());
     }
 
     /**
@@ -143,6 +211,8 @@ public record LearningResource(
         tags.forEach(tag -> builder.append(tag).append(' '));
         conceptAreas.forEach(area -> builder.append(area.getDisplayName()).append(' '));
         categories.forEach(cat -> builder.append(cat.getDisplayName()).append(' '));
+        builder.append(contentFormat.getDisplayName());
+        resourceAuthors.forEach(ra -> builder.append(' ').append(ra.getSearchableNames()));
         return builder.toString().toLowerCase();
     }
 }

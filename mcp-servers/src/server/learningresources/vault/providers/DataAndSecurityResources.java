@@ -1,46 +1,28 @@
 package server.learningresources.vault.providers;
 
-import server.learningresources.model.ConceptArea;
-import server.learningresources.model.ContentFreshness;
-import server.learningresources.model.DifficultyLevel;
-import server.learningresources.model.LanguageApplicability;
-import server.learningresources.model.LearningResource;
-import server.learningresources.model.ResourceCategory;
-import server.learningresources.model.ResourceType;
+import server.learningresources.model.*;
 import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
 
 /**
- * Curated data-engineering, messaging, and security learning resources — databases,
- * indexing, caching, message brokers, OWASP, and security best practices.
+ * Curated messaging and security learning resources — message brokers,
+ * async messaging patterns, OWASP, and security best practices.
+ *
+ * <p>Database resources (SQL, NoSQL, search engines) have been moved to
+ * {@link SystemDesignResources.DatabaseResources}.
+ *
+ * @see SystemDesignResources
  */
-public final class DataAndSecurityResources implements ResourceProvider {
+public final class DataAndSecurityResources implements ResourceProvider
+{
 
     @Override
-    public List<LearningResource> resources() {
+    public List<LearningResource> resources()
+    {
         final var now = Instant.now();
         return List.of(
-
-                new LearningResource(
-                        "use-the-index-luke",
-                        "Use The Index, Luke — SQL Indexing & Tuning",
-                        "https://use-the-index-luke.com/",
-                        "Comprehensive guide to SQL indexing. Covers B-tree structure, "
-                                + "WHERE clause optimization, joins, sorting, partial indexes, "
-                                + "and database-specific advice for Oracle, PostgreSQL, MySQL, "
-                                + "and SQL Server.",
-                        ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.DATABASE, ResourceCategory.SOFTWARE_ENGINEERING),
-                        List.of(ConceptArea.DATABASES, ConceptArea.COMPLEXITY_ANALYSIS),
-                        List.of("sql", "indexing", "performance", "b-tree", "query-optimization",
-                                "postgresql", "mysql"),
-                        "Markus Winand",
-                        DifficultyLevel.INTERMEDIATE,
-                        ContentFreshness.EVERGREEN,
-                        false, true, LanguageApplicability.MULTI_LANGUAGE, now
-                ),
 
                 new LearningResource(
                         "owasp-top-ten",
@@ -57,24 +39,6 @@ public final class DataAndSecurityResources implements ResourceProvider {
                         "OWASP Foundation",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.PERIODICALLY_UPDATED,
-                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
-                ),
-
-                new LearningResource(
-                        "postgresql-docs",
-                        "PostgreSQL Official Documentation",
-                        "https://www.postgresql.org/docs/current/",
-                        "Complete PostgreSQL reference — SQL syntax, administration, "
-                                + "performance tuning, replication, extensions, JSON/JSONB, "
-                                + "full-text search, and PL/pgSQL.",
-                        ResourceType.API_REFERENCE,
-                        List.of(ResourceCategory.DATABASE),
-                        List.of(ConceptArea.DATABASES, ConceptArea.API_DESIGN),
-                        List.of("official", "postgresql", "sql", "database", "replication",
-                                "json", "full-text-search"),
-                        "PostgreSQL Global Development Group",
-                        DifficultyLevel.INTERMEDIATE,
-                        ContentFreshness.ACTIVELY_MAINTAINED,
                         true, true, LanguageApplicability.MULTI_LANGUAGE, now
                 ),
 
@@ -97,48 +61,6 @@ public final class DataAndSecurityResources implements ResourceProvider {
                         true, true, LanguageApplicability.MULTI_LANGUAGE, now
                 ),
 
-                // ─── NoSQL & Caching ────────────────────────────────────────
-
-                new LearningResource(
-                        "redis-docs",
-                        "Redis Documentation",
-                        "https://redis.io/docs/latest/",
-                        "Official Redis documentation — the most popular in-memory data store. "
-                                + "Covers data types (strings, hashes, lists, sets, sorted sets, "
-                                + "streams), persistence (RDB, AOF), replication, clustering, "
-                                + "Lua scripting, pub/sub, and Redis Stack (JSON, search, time series).",
-                        ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DATABASE, ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.DATABASES, ConceptArea.SYSTEM_DESIGN,
-                                ConceptArea.DISTRIBUTED_SYSTEMS),
-                        List.of("official", "redis", "cache", "in-memory", "data-structures",
-                                "pub-sub", "clustering", "replication"),
-                        "Redis Ltd.",
-                        DifficultyLevel.INTERMEDIATE,
-                        ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
-                ),
-
-                new LearningResource(
-                        "mongodb-docs",
-                        "MongoDB Documentation",
-                        "https://www.mongodb.com/docs/manual/",
-                        "Official MongoDB documentation — the leading document database. "
-                                + "CRUD operations, aggregation pipeline, indexing strategies, "
-                                + "replica sets, sharding, transactions, change streams, and "
-                                + "Atlas (cloud-hosted) deployment.",
-                        ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DATABASE),
-                        List.of(ConceptArea.DATABASES, ConceptArea.DISTRIBUTED_SYSTEMS,
-                                ConceptArea.SYSTEM_DESIGN),
-                        List.of("official", "mongodb", "nosql", "document-database",
-                                "aggregation", "sharding", "replica-sets", "atlas"),
-                        "MongoDB Inc.",
-                        DifficultyLevel.INTERMEDIATE,
-                        ContentFreshness.ACTIVELY_MAINTAINED,
-                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
-                ),
-
                 // ─── Messaging & Streaming ──────────────────────────────────
 
                 new LearningResource(
@@ -150,11 +72,14 @@ public final class DataAndSecurityResources implements ResourceProvider {
                                 + "Streams, Kafka Connect, Schema Registry, exactly-once semantics, "
                                 + "and cluster management.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.DATABASE),
-                        List.of(ConceptArea.DISTRIBUTED_SYSTEMS, ConceptArea.SYSTEM_DESIGN,
+                        List.of(ResourceCategory.DEVOPS, ResourceCategory.SOFTWARE_ENGINEERING),
+                        List.of(ConceptArea.ASYNC_MESSAGING,
+                                ConceptArea.DISTRIBUTED_SYSTEMS,
+                                ConceptArea.SYSTEM_DESIGN,
                                 ConceptArea.ARCHITECTURE),
                         List.of("official", "kafka", "event-streaming", "pub-sub", "topics",
-                                "partitions", "consumer-groups", "kafka-streams"),
+                                "partitions", "consumer-groups", "kafka-streams",
+                                "message-broker", "async-communication"),
                         "Apache Software Foundation",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
@@ -162,23 +87,102 @@ public final class DataAndSecurityResources implements ResourceProvider {
                 ),
 
                 new LearningResource(
-                        "elasticsearch-docs",
-                        "Elasticsearch Reference",
-                        "https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html",
-                        "Official Elasticsearch reference — distributed search and analytics "
-                                + "engine. Index management, mapping, analyzers, query DSL, "
-                                + "aggregations, full-text search, vector search, and cluster "
-                                + "administration. Core of the ELK Stack.",
+                        "rabbitmq-docs",
+                        "RabbitMQ Documentation",
+                        "https://www.rabbitmq.com/docs",
+                        "Official RabbitMQ documentation — the most widely-deployed open-source "
+                                + "message broker. Covers AMQP 0-9-1 protocol, exchanges (direct, "
+                                + "fanout, topic, headers), queues, bindings, acknowledgements, "
+                                + "publisher confirms, dead-letter exchanges, clustering, quorum "
+                                + "queues, streams, and shovel/federation for multi-site setups. "
+                                + "Supported by Broadcom/VMware Tanzu.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DATABASE, ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.DATABASES, ConceptArea.DISTRIBUTED_SYSTEMS,
-                                ConceptArea.OBSERVABILITY),
-                        List.of("official", "elasticsearch", "search", "elk-stack",
-                                "full-text-search", "analytics", "aggregations", "vector-search"),
-                        "Elastic",
+                        List.of(ResourceCategory.SOFTWARE_ENGINEERING, ResourceCategory.DEVOPS),
+                        List.of(ConceptArea.ASYNC_MESSAGING,
+                                ConceptArea.DISTRIBUTED_SYSTEMS,
+                                ConceptArea.ARCHITECTURE),
+                        List.of("official", "rabbitmq", "amqp", "message-broker", "queues",
+                                "exchanges", "pub-sub", "dead-letter", "clustering",
+                                "async-communication", "event-driven"),
+                        "Broadcom / VMware Tanzu",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
                         true, true, LanguageApplicability.MULTI_LANGUAGE, now
+                ),
+
+                new LearningResource(
+                        "enterprise-integration-patterns",
+                        "Enterprise Integration Patterns — Gregor Hohpe & Bobby Woolf",
+                        "https://www.enterpriseintegrationpatterns.com/",
+                        "The foundational pattern language for asynchronous messaging — 65 "
+                                + "integration patterns covering message channels, message "
+                                + "construction, routing, transformation, and endpoints. Patterns "
+                                + "like Publish-Subscribe Channel, Content-Based Router, Message "
+                                + "Filter, Aggregator, and Splitter are used in Apache Camel, "
+                                + "Spring Integration, MuleSoft, and modern event-driven "
+                                + "microservices. Now includes modern examples with AWS Step "
+                                + "Functions and GCP Workflows.",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.SOFTWARE_ENGINEERING),
+                        List.of(ConceptArea.ASYNC_MESSAGING,
+                                ConceptArea.ARCHITECTURE,
+                                ConceptArea.DESIGN_PATTERNS,
+                                ConceptArea.DISTRIBUTED_SYSTEMS),
+                        List.of("eip", "enterprise-integration", "messaging-patterns",
+                                "pub-sub", "content-based-router", "aggregator", "splitter",
+                                "gregor-hohpe", "async-messaging", "event-driven"),
+                        "Gregor Hohpe & Bobby Woolf",
+                        DifficultyLevel.ADVANCED,
+                        ContentFreshness.EVERGREEN,
+                        false, true, LanguageApplicability.UNIVERSAL, now
+                ),
+
+                new LearningResource(
+                        "microservices-io-messaging",
+                        "Microservices.io — Messaging & Event-Driven Patterns",
+                        "https://microservices.io/patterns/communication-style/messaging.html",
+                        "Chris Richardson's pattern catalog for asynchronous inter-service "
+                                + "communication. Covers messaging styles (request/response, "
+                                + "notifications, publish/subscribe, request/async response), "
+                                + "Saga pattern for distributed transactions, CQRS for query "
+                                + "separation, Transactional Outbox for reliable messaging, and "
+                                + "Domain Events. Essential reference for microservice architects.",
+                        ResourceType.DOCUMENTATION,
+                        List.of(ResourceCategory.SOFTWARE_ENGINEERING),
+                        List.of(ConceptArea.ASYNC_MESSAGING,
+                                ConceptArea.ARCHITECTURE,
+                                ConceptArea.DISTRIBUTED_SYSTEMS,
+                                ConceptArea.DESIGN_PATTERNS),
+                        List.of("microservices", "messaging", "saga", "cqrs", "event-sourcing",
+                                "transactional-outbox", "domain-events", "pub-sub",
+                                "chris-richardson", "async-communication"),
+                        "Chris Richardson",
+                        DifficultyLevel.INTERMEDIATE,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        false, true, LanguageApplicability.UNIVERSAL, now
+                ),
+
+                new LearningResource(
+                        "confluent-developer",
+                        "Confluent Developer — Kafka & Flink Learning",
+                        "https://developer.confluent.io/",
+                        "Confluent's developer learning hub for Apache Kafka and Apache Flink. "
+                                + "Free video courses (Kafka 101, Kafka Connect 101, Kafka Streams "
+                                + "101, Flink 101), event streaming design patterns, full-code "
+                                + "tutorials in Java/Python/Go/.NET/Node.js, and Kafka internals "
+                                + "deep-dives. Built by the Kafka co-creators.",
+                        ResourceType.VIDEO_COURSE,
+                        List.of(ResourceCategory.SOFTWARE_ENGINEERING, ResourceCategory.DEVOPS),
+                        List.of(ConceptArea.ASYNC_MESSAGING,
+                                ConceptArea.DISTRIBUTED_SYSTEMS,
+                                ConceptArea.SYSTEM_DESIGN),
+                        List.of("confluent", "kafka", "flink", "event-streaming", "kafka-streams",
+                                "kafka-connect", "schema-registry", "free-courses",
+                                "async-communication", "message-broker"),
+                        "Confluent / Kafka Co-Creators",
+                        DifficultyLevel.BEGINNER,
+                        ContentFreshness.ACTIVELY_MAINTAINED,
+                        false, true, LanguageApplicability.MULTI_LANGUAGE, now
                 )
         );
     }

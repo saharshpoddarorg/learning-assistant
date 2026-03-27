@@ -1,6 +1,8 @@
-# Cloud, Infrastructure & Data Learning Resources (15)
+# Cloud, Infrastructure & Data Learning Resources (14)
 
-> Cloud platforms, IaC, monitoring, databases, security, and event streaming.
+> Cloud platforms, IaC, monitoring, async messaging, and security.
+> Database resources (SQL, NoSQL, search engines) are in
+> [resources-system-design.md](resources-system-design.md).
 
 ## Cloud Platforms
 
@@ -24,16 +26,18 @@
 | [Prometheus Documentation](https://prometheus.io/docs/introduction/overview/) | 📖 Docs | 🟡 | Observability, Infrastructure, Distributed systems | CNCF / Prometheus Authors | 🔄 | ✅ | ✅ | 🔤 |
 | [Grafana Documentation](https://grafana.com/docs/grafana/latest/) | 📖 Docs | 🟡 | Observability, Infrastructure | Grafana Labs | 🔄 | ✅ | ✅ | 🔤 |
 
-## Databases
+## Async Messaging & Event-Driven Architecture
 
 | Title | Type | Diff | Concepts | Author | Fresh | Off | Free | Lang |
 |---|---|---|---|---|---|---|---|---|
-| [Use The Index, Luke — SQL Indexing & Tuning](https://use-the-index-luke.com/) | 📝 Tutorial | 🟡 | Databases, Complexity analysis | Markus Winand | ♾️ | ➖ | ✅ | 🔤 |
-| [PostgreSQL Official Documentation](https://www.postgresql.org/docs/current/) | 📋 API Ref | 🟡 | Databases, API design | PostgreSQL Global Development Group | 🔄 | ✅ | ✅ | 🔤 |
-| [Redis Documentation](https://redis.io/docs/latest/) | 📖 Docs | 🟡 | Databases, System design, Distributed systems | Redis Ltd. | 🔄 | ✅ | ✅ | 🔤 |
-| [MongoDB Documentation](https://www.mongodb.com/docs/manual/) | 📖 Docs | 🟡 | Databases, Distributed systems, System design | MongoDB Inc. | 🔄 | ✅ | ✅ | 🔤 |
-| [Apache Kafka Documentation](https://kafka.apache.org/documentation/) | 📖 Docs | 🟡 | Distributed systems, System design, Architecture | Apache Software Foundation | 🔄 | ✅ | ✅ | 🔤 |
-| [Elasticsearch Reference](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html) | 📖 Docs | 🟡 | Databases, Distributed systems, Observability | Elastic | 🔄 | ✅ | ✅ | 🔤 |
+| [Apache Kafka Documentation](https://kafka.apache.org/documentation/) | 📖 Docs | 🟡 | Async messaging, Distributed systems, System design, Architecture | Apache Software Foundation | 🔄 | ✅ | ✅ | 🔤 |
+
+| Title | Type | Diff | Concepts | Author | Fresh | Off | Free | Lang |
+|---|---|---|---|---|---|---|---|---|
+| [RabbitMQ Documentation](https://www.rabbitmq.com/docs) | 📖 Docs | 🟡 | Async messaging, Distributed systems, Architecture | Broadcom / RabbitMQ Team | 🔄 | ✅ | ✅ | 🔤 |
+| [Enterprise Integration Patterns — Gregor Hohpe & Bobby Woolf](https://www.enterpriseintegrationpatterns.com/) | 📚 Book | 🔴 | Async messaging, Architecture, Design patterns | Gregor Hohpe & Bobby Woolf | ♾️ | ➖ | ✅ | 🌐 |
+| [Microservices.io — Messaging & Event-Driven Patterns](https://microservices.io/patterns/communication-style/messaging.html) | 📝 Tutorial | 🟡 | Async messaging, Architecture, Distributed systems | Chris Richardson | 🔄 | ➖ | ✅ | 🌐 |
+| [Confluent Developer — Kafka & Flink Learning](https://developer.confluent.io/) | 📝 Tutorial | 🟡 | Async messaging, Distributed systems, System design | Confluent / Kafka Co-Creators | 🔄 | ➖ | ✅ | 🔤 |
 
 ## Security
 
@@ -47,7 +51,8 @@
 ```text
 aws, gcp, azure, cloud, ec2, s3, lambda, terraform, ansible, iac,
 prometheus, grafana, monitoring, observability, promql, dashboards,
-postgresql, sql, redis, mongodb, kafka, elasticsearch, nosql,
-owasp, security, authentication, cryptography, indexing, replication,
-sharding, event-streaming, pub-sub, full-text-search
+kafka, event-streaming, owasp, security, authentication, cryptography,
+rabbitmq, amqp, message-broker, message-queue, event-driven,
+cqrs, event-sourcing, saga, enterprise-integration, confluent,
+async-messaging, messaging-patterns, microservices-io, flink
 ```

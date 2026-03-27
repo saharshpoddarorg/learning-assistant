@@ -137,27 +137,81 @@ public enum ConceptArea
      */
     ARCHITECTURE("architecture", ConceptDomain.SOFTWARE_ENGINEERING),
 
+    /**
+     * Asynchronous messaging, event-driven architecture, message queues, pub/sub,
+     * CQRS, event sourcing, saga pattern, message brokers (Kafka, RabbitMQ, SQS/SNS).
+     */
+    ASYNC_MESSAGING("async-messaging", ConceptDomain.SOFTWARE_ENGINEERING),
+
     // ─── System Design & Infrastructure ─────────────────────────────
 
     /**
      * High-level system design: scalability, load balancing, caching, CDN, sharding.
+     * Parent of HIGH_LEVEL_DESIGN and LOW_LEVEL_DESIGN sub-concepts.
      */
     SYSTEM_DESIGN("system-design", ConceptDomain.SYSTEM_DESIGN),
 
     /**
+     * High-level design (HLD): architecture decisions, component decomposition,
+     * capacity planning, back-of-envelope estimation, trade-off analysis,
+     * scalability patterns (horizontal/vertical), API gateway, service mesh.
+     */
+    HIGH_LEVEL_DESIGN("high-level-design", ConceptDomain.SYSTEM_DESIGN, SYSTEM_DESIGN),
+
+    /**
+     * Low-level design (LLD): class/object design, OOD interview problems,
+     * component interfaces, code-level design, UML diagrams, SOLID applied to
+     * class structure, design patterns in context, state machines.
+     */
+    LOW_LEVEL_DESIGN("low-level-design", ConceptDomain.SYSTEM_DESIGN, SYSTEM_DESIGN),
+
+    /**
      * Databases: SQL, NoSQL, indexing, query optimization, replication, schemas.
+     * Parent of DATABASE_INTERNALS and DATABASE_SCALING sub-concepts.
      */
     DATABASES("databases", ConceptDomain.SYSTEM_DESIGN),
 
     /**
+     * Database internals: storage engines, B-trees, LSM trees, write-ahead log (WAL),
+     * MVCC, indexing internals, query planning and optimization, buffer pools.
+     */
+    DATABASE_INTERNALS("database-internals", ConceptDomain.SYSTEM_DESIGN, DATABASES),
+
+    /**
+     * Database scaling: sharding strategies, partitioning, replication (master-slave,
+     * master-master), read replicas, connection pooling, federation, denormalization.
+     */
+    DATABASE_SCALING("database-scaling", ConceptDomain.SYSTEM_DESIGN, DATABASES),
+
+    /**
      * Distributed systems: consensus, CAP, eventual consistency, leader election.
+     * Parent of CONSENSUS_COORDINATION and RELIABILITY_PATTERNS sub-concepts.
      */
     DISTRIBUTED_SYSTEMS("distributed-systems", ConceptDomain.SYSTEM_DESIGN),
 
     /**
+     * Consensus and coordination: Raft, Paxos, ZooKeeper, etcd, leader election,
+     * distributed locks, distributed transactions, two-phase commit, three-phase commit.
+     */
+    CONSENSUS_COORDINATION("consensus-coordination", ConceptDomain.SYSTEM_DESIGN, DISTRIBUTED_SYSTEMS),
+
+    /**
+     * Reliability patterns: circuit breaker, retry with backoff, bulkhead, rate limiting,
+     * fault tolerance, chaos engineering, SRE practices, SLOs/SLIs/SLAs, graceful degradation.
+     */
+    RELIABILITY_PATTERNS("reliability-patterns", ConceptDomain.SYSTEM_DESIGN, DISTRIBUTED_SYSTEMS),
+
+    /**
      * Networking: TCP/IP, HTTP, DNS, TLS, sockets, protocols.
+     * Parent of PROTOCOLS sub-concept.
      */
     NETWORKING("networking", ConceptDomain.SYSTEM_DESIGN),
+
+    /**
+     * Network protocols: HTTP/1.1, HTTP/2, HTTP/3 (QUIC), gRPC, WebSocket,
+     * protocol buffers, TLS handshake, DNS resolution, REST vs RPC.
+     */
+    PROTOCOLS("protocols", ConceptDomain.SYSTEM_DESIGN, NETWORKING),
 
     /**
      * Operating systems: processes, scheduling, file systems, I/O, kernels.

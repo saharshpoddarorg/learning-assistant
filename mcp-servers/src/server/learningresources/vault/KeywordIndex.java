@@ -194,8 +194,19 @@ public final class KeywordIndex {
         map.put("refactoring", ConceptArea.CLEAN_CODE);
         map.put("best practices", ConceptArea.CLEAN_CODE);
         map.put("solid", ConceptArea.CLEAN_CODE);
+        map.put("clean architecture", ConceptArea.CLEAN_CODE);
+        map.put("uncle bob", ConceptArea.CLEAN_CODE);
+        map.put("robert c martin", ConceptArea.CLEAN_CODE);
+        map.put("code smells", ConceptArea.CLEAN_CODE);
+        map.put("code forensics", ConceptArea.CLEAN_CODE);
+        map.put("crime scene", ConceptArea.CLEAN_CODE);
+        map.put("complexity management", ConceptArea.CLEAN_CODE);
         map.put("testing", ConceptArea.TESTING);
         map.put("unit test", ConceptArea.TESTING);
+        map.put("unit testing", ConceptArea.TESTING);
+        map.put("test pyramid", ConceptArea.TESTING);
+        map.put("test anti-patterns", ConceptArea.TESTING);
+        map.put("vladimir khorikov", ConceptArea.TESTING);
         map.put("tdd", ConceptArea.TESTING);
         map.put("junit", ConceptArea.TESTING);
         map.put("mocking", ConceptArea.TESTING);
@@ -205,21 +216,152 @@ public final class KeywordIndex {
         map.put("architecture", ConceptArea.ARCHITECTURE);
         map.put("microservices", ConceptArea.ARCHITECTURE);
         map.put("hexagonal", ConceptArea.ARCHITECTURE);
+        map.put("enterprise patterns", ConceptArea.ARCHITECTURE);
+        map.put("poeaa", ConceptArea.ARCHITECTURE);
+        map.put("ports and adapters", ConceptArea.ARCHITECTURE);
+        map.put("onion architecture", ConceptArea.ARCHITECTURE);
+        map.put("volatility-based decomposition", ConceptArea.ARCHITECTURE);
+        map.put("volatility decomposition", ConceptArea.ARCHITECTURE);
+        map.put("righting software", ConceptArea.ARCHITECTURE);
+        map.put("juval lowy", ConceptArea.ARCHITECTURE);
+        map.put("service decomposition", ConceptArea.ARCHITECTURE);
+        map.put("clean agile", ConceptArea.CLEAN_CODE);
 
         // System design & infra
         map.put("system design", ConceptArea.SYSTEM_DESIGN);
         map.put("scalability", ConceptArea.SYSTEM_DESIGN);
         map.put("load balancing", ConceptArea.SYSTEM_DESIGN);
+
+        // High-level design (sub-concept of SYSTEM_DESIGN)
+        map.put("hld", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("high level design", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("high-level design", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("capacity planning", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("back-of-envelope", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("back of envelope", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("trade-off analysis", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("api gateway", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("service mesh", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("horizontal scaling", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("vertical scaling", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("cdn", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("content delivery network", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("reverse proxy", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("caching", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("cache invalidation", ConceptArea.HIGH_LEVEL_DESIGN);
+        map.put("bytebytego", ConceptArea.HIGH_LEVEL_DESIGN);
+
+        // Low-level design (sub-concept of SYSTEM_DESIGN)
+        map.put("lld", ConceptArea.LOW_LEVEL_DESIGN);
+        map.put("low level design", ConceptArea.LOW_LEVEL_DESIGN);
+        map.put("low-level design", ConceptArea.LOW_LEVEL_DESIGN);
+        map.put("ood", ConceptArea.LOW_LEVEL_DESIGN);
+        map.put("object-oriented design", ConceptArea.LOW_LEVEL_DESIGN);
+        map.put("class design", ConceptArea.LOW_LEVEL_DESIGN);
+        map.put("class diagram", ConceptArea.LOW_LEVEL_DESIGN);
+        map.put("uml", ConceptArea.LOW_LEVEL_DESIGN);
+        map.put("sequence diagram", ConceptArea.LOW_LEVEL_DESIGN);
+        map.put("state machine", ConceptArea.LOW_LEVEL_DESIGN);
+        map.put("machine coding", ConceptArea.LOW_LEVEL_DESIGN);
+        map.put("component interface", ConceptArea.LOW_LEVEL_DESIGN);
+        map.put("deep module", ConceptArea.LOW_LEVEL_DESIGN);
+        map.put("information hiding", ConceptArea.LOW_LEVEL_DESIGN);
+
         map.put("database", ConceptArea.DATABASES);
         map.put("sql", ConceptArea.DATABASES);
         map.put("postgresql", ConceptArea.DATABASES);
         map.put("indexing", ConceptArea.DATABASES);
+
+        // Database internals (sub-concept of DATABASES)
+        map.put("database internals", ConceptArea.DATABASE_INTERNALS);
+        map.put("storage engine", ConceptArea.DATABASE_INTERNALS);
+        map.put("storage engines", ConceptArea.DATABASE_INTERNALS);
+        map.put("b-tree", ConceptArea.DATABASE_INTERNALS);
+        map.put("b-trees", ConceptArea.DATABASE_INTERNALS);
+        map.put("lsm tree", ConceptArea.DATABASE_INTERNALS);
+        map.put("lsm-tree", ConceptArea.DATABASE_INTERNALS);
+        map.put("write-ahead log", ConceptArea.DATABASE_INTERNALS);
+        map.put("wal", ConceptArea.DATABASE_INTERNALS);
+        map.put("mvcc", ConceptArea.DATABASE_INTERNALS);
+        map.put("query planning", ConceptArea.DATABASE_INTERNALS);
+        map.put("query optimizer", ConceptArea.DATABASE_INTERNALS);
+        map.put("buffer pool", ConceptArea.DATABASE_INTERNALS);
+
+        // Database scaling (sub-concept of DATABASES)
+        map.put("database scaling", ConceptArea.DATABASE_SCALING);
+        map.put("database sharding", ConceptArea.DATABASE_SCALING);
+        map.put("sharding", ConceptArea.DATABASE_SCALING);
+        map.put("partitioning", ConceptArea.DATABASE_SCALING);
+        map.put("replication", ConceptArea.DATABASE_SCALING);
+        map.put("read replica", ConceptArea.DATABASE_SCALING);
+        map.put("read replicas", ConceptArea.DATABASE_SCALING);
+        map.put("master-slave", ConceptArea.DATABASE_SCALING);
+        map.put("master-master", ConceptArea.DATABASE_SCALING);
+        map.put("connection pooling", ConceptArea.DATABASE_SCALING);
+        map.put("federation", ConceptArea.DATABASE_SCALING);
+        map.put("denormalization", ConceptArea.DATABASE_SCALING);
+
         map.put("distributed", ConceptArea.DISTRIBUTED_SYSTEMS);
         map.put("consensus", ConceptArea.DISTRIBUTED_SYSTEMS);
+
+        // Consensus & coordination (sub-concept of DISTRIBUTED_SYSTEMS)
+        map.put("raft", ConceptArea.CONSENSUS_COORDINATION);
+        map.put("raft consensus", ConceptArea.CONSENSUS_COORDINATION);
+        map.put("paxos", ConceptArea.CONSENSUS_COORDINATION);
+        map.put("zookeeper", ConceptArea.CONSENSUS_COORDINATION);
+        map.put("etcd", ConceptArea.CONSENSUS_COORDINATION);
+        map.put("leader election", ConceptArea.CONSENSUS_COORDINATION);
+        map.put("distributed lock", ConceptArea.CONSENSUS_COORDINATION);
+        map.put("distributed locks", ConceptArea.CONSENSUS_COORDINATION);
+        map.put("two-phase commit", ConceptArea.CONSENSUS_COORDINATION);
+        map.put("2pc", ConceptArea.CONSENSUS_COORDINATION);
+        map.put("distributed consensus", ConceptArea.CONSENSUS_COORDINATION);
+        map.put("distributed coordination", ConceptArea.CONSENSUS_COORDINATION);
+
+        // Reliability patterns (sub-concept of DISTRIBUTED_SYSTEMS)
+        map.put("circuit breaker", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("circuit-breaker", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("retry", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("retry pattern", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("exponential backoff", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("bulkhead", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("bulkhead pattern", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("rate limiting", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("rate limiter", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("rate-limiting", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("fault tolerance", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("chaos engineering", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("chaos monkey", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("sre", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("site reliability", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("site reliability engineering", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("slo", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("sli", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("sla", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("graceful degradation", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("failover", ConceptArea.RELIABILITY_PATTERNS);
+        map.put("cloud design patterns", ConceptArea.RELIABILITY_PATTERNS);
+
         map.put("networking", ConceptArea.NETWORKING);
         map.put("http", ConceptArea.NETWORKING);
         map.put("tcp", ConceptArea.NETWORKING);
         map.put("dns", ConceptArea.NETWORKING);
+
+        // Protocols (sub-concept of NETWORKING)
+        map.put("http2", ConceptArea.PROTOCOLS);
+        map.put("http/2", ConceptArea.PROTOCOLS);
+        map.put("http3", ConceptArea.PROTOCOLS);
+        map.put("http/3", ConceptArea.PROTOCOLS);
+        map.put("quic", ConceptArea.PROTOCOLS);
+        map.put("grpc", ConceptArea.PROTOCOLS);
+        map.put("websocket", ConceptArea.PROTOCOLS);
+        map.put("websockets", ConceptArea.PROTOCOLS);
+        map.put("protobuf", ConceptArea.PROTOCOLS);
+        map.put("protocol buffers", ConceptArea.PROTOCOLS);
+        map.put("tls handshake", ConceptArea.PROTOCOLS);
+        map.put("rest vs rpc", ConceptArea.PROTOCOLS);
+        map.put("udp", ConceptArea.PROTOCOLS);
+
         map.put("operating systems", ConceptArea.OPERATING_SYSTEMS);
         map.put("processes", ConceptArea.OPERATING_SYSTEMS);
 
@@ -310,9 +452,39 @@ public final class KeywordIndex {
         map.put("nodejs", ConceptArea.ARCHITECTURE);
         map.put("node.js", ConceptArea.ARCHITECTURE);
 
-        // Messaging & data stores
-        map.put("kafka", ConceptArea.DISTRIBUTED_SYSTEMS);
-        map.put("rabbitmq", ConceptArea.DISTRIBUTED_SYSTEMS);
+        // Async messaging & event-driven architecture
+        map.put("messaging", ConceptArea.ASYNC_MESSAGING);
+        map.put("message queue", ConceptArea.ASYNC_MESSAGING);
+        map.put("message-queue", ConceptArea.ASYNC_MESSAGING);
+        map.put("message broker", ConceptArea.ASYNC_MESSAGING);
+        map.put("message-broker", ConceptArea.ASYNC_MESSAGING);
+        map.put("event-driven", ConceptArea.ASYNC_MESSAGING);
+        map.put("event driven", ConceptArea.ASYNC_MESSAGING);
+        map.put("event-driven architecture", ConceptArea.ASYNC_MESSAGING);
+        map.put("eda", ConceptArea.ASYNC_MESSAGING);
+        map.put("pub/sub", ConceptArea.ASYNC_MESSAGING);
+        map.put("pub-sub", ConceptArea.ASYNC_MESSAGING);
+        map.put("publish-subscribe", ConceptArea.ASYNC_MESSAGING);
+        map.put("cqrs", ConceptArea.ASYNC_MESSAGING);
+        map.put("event sourcing", ConceptArea.ASYNC_MESSAGING);
+        map.put("event-sourcing", ConceptArea.ASYNC_MESSAGING);
+        map.put("saga pattern", ConceptArea.ASYNC_MESSAGING);
+        map.put("saga", ConceptArea.ASYNC_MESSAGING);
+        map.put("kafka", ConceptArea.ASYNC_MESSAGING);
+        map.put("rabbitmq", ConceptArea.ASYNC_MESSAGING);
+        map.put("amqp", ConceptArea.ASYNC_MESSAGING);
+        map.put("sqs", ConceptArea.ASYNC_MESSAGING);
+        map.put("sns", ConceptArea.ASYNC_MESSAGING);
+        map.put("eventbridge", ConceptArea.ASYNC_MESSAGING);
+        map.put("event streaming", ConceptArea.ASYNC_MESSAGING);
+        map.put("event-streaming", ConceptArea.ASYNC_MESSAGING);
+        map.put("integration patterns", ConceptArea.ASYNC_MESSAGING);
+        map.put("enterprise integration", ConceptArea.ASYNC_MESSAGING);
+        map.put("transactional outbox", ConceptArea.ASYNC_MESSAGING);
+        map.put("async communication", ConceptArea.ASYNC_MESSAGING);
+        map.put("asynchronous messaging", ConceptArea.ASYNC_MESSAGING);
+
+        // Data stores
         map.put("redis", ConceptArea.DATABASES);
         map.put("mongodb", ConceptArea.DATABASES);
         map.put("nosql", ConceptArea.DATABASES);
@@ -513,6 +685,21 @@ public final class KeywordIndex {
         map.put("testing", ResourceCategory.TESTING);
         map.put("junit", ResourceCategory.TESTING);
         map.put("engineering", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("software engineering book", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("clean architecture", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("refactoring book", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("poeaa", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("uncle bob", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("martin fowler", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("adam tornhill", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("juval lowy", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("vladimir khorikov", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("righting software", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("volatility decomposition", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("clean agile", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("clean code book", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("unit testing book", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("ebook", ResourceCategory.SOFTWARE_ENGINEERING);
         map.put("notion", ResourceCategory.PRODUCTIVITY);
         map.put("obsidian", ResourceCategory.PRODUCTIVITY);
         map.put("onenote", ResourceCategory.PRODUCTIVITY);
@@ -549,15 +736,27 @@ public final class KeywordIndex {
         map.put("ec2", ResourceCategory.CLOUD);
         map.put("s3", ResourceCategory.CLOUD);
         map.put("lambda", ResourceCategory.CLOUD);
-        // Data stores & messaging
+        // Data stores
         map.put("redis", ResourceCategory.DATABASE);
         map.put("mongodb", ResourceCategory.DATABASE);
         map.put("nosql", ResourceCategory.DATABASE);
         map.put("elasticsearch", ResourceCategory.DATABASE);
-        map.put("kafka", ResourceCategory.DATABASE);
         map.put("mysql", ResourceCategory.DATABASE);
         map.put("dynamodb", ResourceCategory.DATABASE);
         map.put("postgresql", ResourceCategory.DATABASE);
+        // Messaging & event-driven
+        map.put("kafka", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("rabbitmq", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("messaging", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("message queue", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("event-driven", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("cqrs", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("event sourcing", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("pub-sub", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("amqp", ResourceCategory.SOFTWARE_ENGINEERING);
+        map.put("sqs", ResourceCategory.CLOUD);
+        map.put("sns", ResourceCategory.CLOUD);
+        map.put("eventbridge", ResourceCategory.CLOUD);
         // Observability
         map.put("prometheus", ResourceCategory.DEVOPS);
         map.put("grafana", ResourceCategory.DEVOPS);

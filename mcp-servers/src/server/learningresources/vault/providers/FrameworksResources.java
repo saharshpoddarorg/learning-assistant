@@ -1,12 +1,6 @@
 package server.learningresources.vault.providers;
 
-import server.learningresources.model.ConceptArea;
-import server.learningresources.model.ContentFreshness;
-import server.learningresources.model.DifficultyLevel;
-import server.learningresources.model.LanguageApplicability;
-import server.learningresources.model.LearningResource;
-import server.learningresources.model.ResourceCategory;
-import server.learningresources.model.ResourceType;
+import server.learningresources.model.*;
 import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
@@ -31,10 +25,12 @@ import java.util.List;
  * @see WebResources
  * @see PythonResources
  */
-public final class FrameworksResources implements ResourceProvider {
+public final class FrameworksResources implements ResourceProvider
+{
 
     @Override
-    public List<LearningResource> resources() {
+    public List<LearningResource> resources()
+    {
         final var now = Instant.now();
         return List.of(
 
@@ -50,8 +46,10 @@ public final class FrameworksResources implements ResourceProvider {
                                 + "and Spring Expression Language (SpEL).",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVA, ResourceCategory.WEB),
-                        List.of(ConceptArea.ARCHITECTURE, ConceptArea.API_DESIGN,
-                                ConceptArea.DESIGN_PATTERNS, ConceptArea.TESTING),
+                        List.of(ConceptArea.ARCHITECTURE,
+                                ConceptArea.API_DESIGN,
+                                ConceptArea.DESIGN_PATTERNS,
+                                ConceptArea.TESTING),
                         List.of("official", "spring", "spring-framework", "dependency-injection",
                                 "ioc", "aop", "mvc", "webflux", "transaction"),
                         "VMware / Broadcom",
@@ -70,10 +68,13 @@ public final class FrameworksResources implements ResourceProvider {
                                 + "security, data access, messaging, and deployment.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVA, ResourceCategory.WEB),
-                        List.of(ConceptArea.ARCHITECTURE, ConceptArea.API_DESIGN,
-                                ConceptArea.GETTING_STARTED, ConceptArea.CI_CD),
+                        List.of(ConceptArea.ARCHITECTURE,
+                                ConceptArea.API_DESIGN,
+                                ConceptArea.GETTING_STARTED,
+                                ConceptArea.CI_CD,
+                                ConceptArea.ASYNC_MESSAGING),
                         List.of("official", "spring-boot", "auto-configuration", "actuator",
-                                "embedded-server", "profiles", "microservices"),
+                                "embedded-server", "profiles", "microservices", "messaging"),
                         "VMware / Broadcom",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
@@ -89,7 +90,8 @@ public final class FrameworksResources implements ResourceProvider {
                                 + "Criteria API, caching, batching, and performance tuning.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVA, ResourceCategory.DATABASE),
-                        List.of(ConceptArea.DATABASES, ConceptArea.DESIGN_PATTERNS,
+                        List.of(ConceptArea.DATABASES,
+                                ConceptArea.DESIGN_PATTERNS,
                                 ConceptArea.ARCHITECTURE),
                         List.of("official", "hibernate", "jpa", "orm", "entity-mapping",
                                 "hql", "jpql", "caching", "persistence"),
@@ -111,8 +113,10 @@ public final class FrameworksResources implements ResourceProvider {
                                 + "escape hatches. Includes interactive code examples.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVASCRIPT, ResourceCategory.WEB),
-                        List.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.ARCHITECTURE,
-                                ConceptArea.DESIGN_PATTERNS, ConceptArea.GETTING_STARTED),
+                        List.of(ConceptArea.LANGUAGE_FEATURES,
+                                ConceptArea.ARCHITECTURE,
+                                ConceptArea.DESIGN_PATTERNS,
+                                ConceptArea.GETTING_STARTED),
                         List.of("official", "react", "hooks", "components", "state-management",
                                 "jsx", "server-components", "frontend"),
                         "Meta (Facebook)",
@@ -130,7 +134,8 @@ public final class FrameworksResources implements ResourceProvider {
                                 + "(SSG), API routes, middleware, image optimization, and deployment.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVASCRIPT, ResourceCategory.WEB),
-                        List.of(ConceptArea.ARCHITECTURE, ConceptArea.API_DESIGN,
+                        List.of(ConceptArea.ARCHITECTURE,
+                                ConceptArea.API_DESIGN,
                                 ConceptArea.GETTING_STARTED),
                         List.of("official", "nextjs", "next.js", "ssr", "ssg", "react",
                                 "app-router", "fullstack", "vercel"),
@@ -149,7 +154,8 @@ public final class FrameworksResources implements ResourceProvider {
                                 + "forms, HTTP client, RxJS observables, testing, and CLI tooling.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVASCRIPT, ResourceCategory.WEB),
-                        List.of(ConceptArea.ARCHITECTURE, ConceptArea.DESIGN_PATTERNS,
+                        List.of(ConceptArea.ARCHITECTURE,
+                                ConceptArea.DESIGN_PATTERNS,
                                 ConceptArea.TESTING),
                         List.of("official", "angular", "typescript", "components", "rxjs",
                                 "dependency-injection", "cli", "routing"),
@@ -169,7 +175,8 @@ public final class FrameworksResources implements ResourceProvider {
                                 + "and TypeScript support.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVASCRIPT, ResourceCategory.WEB),
-                        List.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.ARCHITECTURE,
+                        List.of(ConceptArea.LANGUAGE_FEATURES,
+                                ConceptArea.ARCHITECTURE,
                                 ConceptArea.GETTING_STARTED),
                         List.of("official", "vue", "vuejs", "composition-api", "reactivity",
                                 "pinia", "vue-router", "frontend"),
@@ -188,7 +195,8 @@ public final class FrameworksResources implements ResourceProvider {
                                 + "event loop, async patterns, ESM/CJS modules, and worker threads.",
                         ResourceType.API_REFERENCE,
                         List.of(ResourceCategory.JAVASCRIPT, ResourceCategory.WEB),
-                        List.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.CONCURRENCY,
+                        List.of(ConceptArea.LANGUAGE_FEATURES,
+                                ConceptArea.CONCURRENCY,
                                 ConceptArea.NETWORKING),
                         List.of("official", "nodejs", "node", "server-side", "event-loop",
                                 "streams", "modules", "runtime"),
@@ -207,7 +215,8 @@ public final class FrameworksResources implements ResourceProvider {
                                 + "template engines, error handling, and API best practices.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.JAVASCRIPT, ResourceCategory.WEB),
-                        List.of(ConceptArea.API_DESIGN, ConceptArea.ARCHITECTURE,
+                        List.of(ConceptArea.API_DESIGN,
+                                ConceptArea.ARCHITECTURE,
                                 ConceptArea.GETTING_STARTED),
                         List.of("official", "express", "expressjs", "node", "middleware",
                                 "routing", "rest-api", "backend"),
@@ -228,8 +237,10 @@ public final class FrameworksResources implements ResourceProvider {
                                 + "authentication, middleware, and security best practices.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.PYTHON, ResourceCategory.WEB),
-                        List.of(ConceptArea.ARCHITECTURE, ConceptArea.API_DESIGN,
-                                ConceptArea.DATABASES, ConceptArea.WEB_SECURITY),
+                        List.of(ConceptArea.ARCHITECTURE,
+                                ConceptArea.API_DESIGN,
+                                ConceptArea.DATABASES,
+                                ConceptArea.WEB_SECURITY),
                         List.of("official", "django", "python", "orm", "admin", "templates",
                                 "authentication", "web-framework"),
                         "Django Software Foundation",
@@ -247,7 +258,8 @@ public final class FrameworksResources implements ResourceProvider {
                                 + "extensions, testing, and deployment patterns.",
                         ResourceType.DOCUMENTATION,
                         List.of(ResourceCategory.PYTHON, ResourceCategory.WEB),
-                        List.of(ConceptArea.API_DESIGN, ConceptArea.ARCHITECTURE,
+                        List.of(ConceptArea.API_DESIGN,
+                                ConceptArea.ARCHITECTURE,
                                 ConceptArea.GETTING_STARTED),
                         List.of("official", "flask", "python", "micro-framework", "jinja2",
                                 "blueprints", "rest-api", "lightweight"),
