@@ -18,6 +18,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -113,10 +114,10 @@ public class ToolHandler {
         final var officialArg = arguments.getOrDefault("official_only", "false");
         final var freeOnlyArg = arguments.getOrDefault("free_only", "false");
 
-        List<ResourceCategory> categories = List.of();
+        Set<ResourceCategory> categories = Set.of();
         if (categoryArg != null && !categoryArg.isBlank()) {
             try {
-                categories = List.of(ResourceCategory.fromDisplayName(categoryArg));
+                categories = Set.of(ResourceCategory.fromDisplayName(categoryArg));
             } catch (IllegalArgumentException ignored) {
                 return "Invalid category: '" + categoryArg + "'";
             }
@@ -171,7 +172,7 @@ public class ToolHandler {
                 searchText, type, categories, concept,
                 minDifficulty, maxDifficulty, freshness,
                 Boolean.parseBoolean(officialArg),
-                List.of(), Boolean.parseBoolean(freeOnlyArg), 25
+                Set.of(), Boolean.parseBoolean(freeOnlyArg), 25
         );
 
         return searchHandler.search(query);
@@ -261,8 +262,8 @@ public class ToolHandler {
             final var langArg = arguments.getOrDefault("language_applicability", "universal");
             final var langApplicability = LanguageApplicability.fromString(langArg);
             final var tagsArg = arguments.getOrDefault("tags", "");
-            final var tags = tagsArg.isBlank() ? List.<String>of()
-                    : java.util.Arrays.stream(tagsArg.split(",")).map(String::strip).toList();
+            final var tags = tagsArg.isBlank() ? Set.<String>of()
+                    : Set.copyOf(java.util.Arrays.stream(tagsArg.split(",")).map(String::strip).toList());
 
             final var resource = new LearningResource(
                     arguments.get("id"),
@@ -270,8 +271,8 @@ public class ToolHandler {
                     arguments.get("url"),
                     arguments.get("description"),
                     type,
-                    List.of(category),
-                    List.of(),
+                    Set.of(category),
+                    Set.of(),
                     tags,
                     arguments.getOrDefault("author", ""),
                     difficulty,

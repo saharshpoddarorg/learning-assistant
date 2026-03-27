@@ -11,6 +11,7 @@ import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated web-development learning resources — official docs, language references,
@@ -30,10 +31,10 @@ public final class WebResources implements ResourceProvider {
                         "Mozilla's comprehensive reference for HTML, CSS, JavaScript, Web APIs, "
                                 + "and HTTP. The de-facto standard documentation for web technologies.",
                         ResourceType.API_REFERENCE,
-                        List.of(ResourceCategory.WEB, ResourceCategory.JAVASCRIPT),
-                        List.of(ConceptArea.LANGUAGE_BASICS, ConceptArea.API_DESIGN,
+                        Set.of(ResourceCategory.WEB, ResourceCategory.JAVASCRIPT),
+                        Set.of(ConceptArea.LANGUAGE_BASICS, ConceptArea.API_DESIGN,
                                 ConceptArea.WEB_SECURITY, ConceptArea.NETWORKING),
-                        List.of("official", "html", "css", "javascript", "web-api", "http",
+                        Set.of("official", "html", "css", "javascript", "web-api", "http",
                                 "reference", "accessibility"),
                         "Mozilla",
                         DifficultyLevel.BEGINNER,
@@ -49,10 +50,10 @@ public final class WebResources implements ResourceProvider {
                                 + "advanced topics: closures, prototypes, async/await, DOM, events, "
                                 + "network requests, and browser internals.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.JAVASCRIPT, ResourceCategory.WEB),
-                        List.of(ConceptArea.LANGUAGE_BASICS, ConceptArea.OOP,
+                        Set.of(ResourceCategory.JAVASCRIPT, ResourceCategory.WEB),
+                        Set.of(ConceptArea.LANGUAGE_BASICS, ConceptArea.OOP,
                                 ConceptArea.FUNCTIONAL_PROGRAMMING, ConceptArea.CONCURRENCY),
-                        List.of("javascript", "closures", "prototypes", "async", "dom",
+                        Set.of("javascript", "closures", "prototypes", "async", "dom",
                                 "events", "promises"),
                         "Ilya Kantor",
                         DifficultyLevel.BEGINNER,
@@ -67,10 +68,10 @@ public final class WebResources implements ResourceProvider {
                         "Official TypeScript handbook — type system, generics, classes, modules, "
                                 + "utility types, declaration files, and project configuration.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.JAVASCRIPT, ResourceCategory.WEB),
-                        List.of(ConceptArea.LANGUAGE_BASICS, ConceptArea.GENERICS,
+                        Set.of(ResourceCategory.JAVASCRIPT, ResourceCategory.WEB),
+                        Set.of(ConceptArea.LANGUAGE_BASICS, ConceptArea.GENERICS,
                                 ConceptArea.OOP, ConceptArea.LANGUAGE_FEATURES),
-                        List.of("official", "typescript", "type-system", "generics", "modules"),
+                        Set.of("official", "typescript", "type-system", "generics", "modules"),
                         "Microsoft",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
@@ -84,9 +85,9 @@ public final class WebResources implements ResourceProvider {
                         "The World Wide Web Consortium maintains standards for HTML, CSS, "
                                 + "accessibility (WCAG), SVG, and more. The definitive specs.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.WEB),
-                        List.of(ConceptArea.API_DESIGN, ConceptArea.NETWORKING),
-                        List.of("official", "standards", "html", "css", "accessibility", "wcag",
+                        Set.of(ResourceCategory.WEB),
+                        Set.of(ConceptArea.API_DESIGN, ConceptArea.NETWORKING),
+                        Set.of("official", "standards", "html", "css", "accessibility", "wcag",
                                 "svg", "specification"),
                         "W3C",
                         DifficultyLevel.ADVANCED,
@@ -101,10 +102,10 @@ public final class WebResources implements ResourceProvider {
                         "Google's guidance for modern web development. Performance, "
                                 + "accessibility, PWAs, Core Web Vitals, best practices, and case studies.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.WEB),
-                        List.of(ConceptArea.ARCHITECTURE, ConceptArea.TESTING,
+                        Set.of(ResourceCategory.WEB),
+                        Set.of(ConceptArea.ARCHITECTURE, ConceptArea.TESTING,
                                 ConceptArea.OBSERVABILITY),
-                        List.of("performance", "pwa", "core-web-vitals", "lighthouse",
+                        Set.of("performance", "pwa", "core-web-vitals", "lighthouse",
                                 "accessibility", "best-practices"),
                         "Google Chrome Team",
                         DifficultyLevel.INTERMEDIATE,

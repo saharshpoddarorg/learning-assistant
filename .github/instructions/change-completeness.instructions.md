@@ -29,9 +29,16 @@ When adding or expanding a `ResourceProvider` class (e.g., `VcsResources.java`, 
 - [ ] **New provider class** in `mcp-servers/src/server/learningresources/vault/providers/`
   - Implements `ResourceProvider`, returns `List<LearningResource>`
   - Each resource: all required fields (id, title, url, description, type, categories,
-    conceptAreas, tags, author, difficulty, freshness, isOfficial, isFree, languageApplicability, addedAt)
+    conceptAreas, tags, author, difficulty, freshness, isOfficial, isFree, languageApplicability,
+    addedAt, contentFormat, resourceAuthors)
   - IDs are unique, lowercase, hyphenated
   - No duplicate URLs with existing providers (check `VcsResources.java`, `BuildToolsResources.java`, `DevOpsResources.java`, `JavaResources.java`, etc.)
+  - **ContentFormat is set correctly** — book-type resources must use `PUBLISHED_BOOK` or
+    `OPEN_BOOK`; web-native resources default to `WEB_RESOURCE`
+  - **ResourceAuthor is set when applicable** — books always set `resourceAuthors`
+    (use `Set.of(ResourceAuthor.X)` or `Set.of(A, B)` for multi-author works); blogs
+    and video series by notable authors should set it; official docs and community content
+    typically use `Set.of()` (empty)
 - [ ] **Web research for accuracy** — before adding or updating learning resources, verify
   metadata by fetching the source (GitHub repo pages, documentation sites, etc.):
   - Star counts, descriptions, and author names must reflect current reality
@@ -317,6 +324,36 @@ When editing existing files, protect existing content:
 
 ---
 
+### N — Cohesive Resource Placement (applies to learning resource changes)
+
+When adding, moving, or updating learning resources, ensure content is placed cohesively:
+
+- [ ] **Provider cohesion** — each provider class should contain resources that share a logical
+  domain. Don't scatter related resources across unrelated providers (e.g., all SE books
+  belong in `SoftwareEngineeringBooksResources`, not split across `EngineeringResources`
+  and `GeneralResources`)
+- [ ] **Skill sub-file cohesion** — resources in each skill sub-file (e.g.,
+  `resources-software-engineering.md`) should follow a logical grouping (SE tools, SE books,
+  testing frameworks) with clear section headers separating them
+- [ ] **Enum cross-referencing** — every book-type resource (`ResourceType.BOOK`) must set
+  `ContentFormat` (PUBLISHED_BOOK or OPEN_BOOK) and `resourceAuthors` set (when authors are
+  known notable authors in the `ResourceAuthor` enum — use `Set.of(A, B)` for multi-author).
+  Blog/tutorial resources by notable authors should also set `resourceAuthors`
+- [ ] **No orphan enum values** — every `ResourceAuthor` value must be referenced by at least
+  one resource; every `ContentFormat` value must be documented; new enum values must have
+  corresponding keyword mappings in `KeywordIndex.java`
+- [ ] **Consistent metadata** — resources by the same author should use the same String for
+  the `author` field (e.g., always "Robert C. Martin (Uncle Bob)", not sometimes "Uncle Bob"
+  and sometimes "Robert Martin")
+- [ ] **Skill sub-file sections match provider structure** — if a provider has inner classes
+  or logical groupings (e.g., `SystemDesignResources` has HLD, LLD, Database, Distributed),
+  the corresponding skill sub-file should mirror this structure with matching section headers
+- [ ] **Resource count accuracy** — after adding resources, update ALL count references:
+  SKILL.md Quick Index, SKILL.md description frontmatter, SKILL.md title, sub-file title,
+  taxonomy-reference.md ContentFormat/ResourceAuthor counts
+
+---
+
 ## 3-Tier Completeness Guide
 
 ### Newbie — "I added a thing, and it works"
@@ -348,6 +385,7 @@ When editing existing files, protect existing content:
 - All cross-references, numbers, and links verified (Section K complete)
 - Semantic build safety verified (Section L complete)
 - No regression or information loss (Section M complete)
+- Cohesive resource placement verified (Section N complete)
 - Commit is a clean, standalone logical unit
 
 ---

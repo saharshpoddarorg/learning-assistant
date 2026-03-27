@@ -1,18 +1,14 @@
-# items/ — Backlog Items (6)
+# items/ — General Backlog Items (1)
 
-Structured, actionable work items with priority, status, and acceptance criteria.
+General backlog items that don't fit into `features/` (learning-assistant enhancements)
+or `projects/` (standalone personal software projects).
 
 ## Current Inventory
 
 | ID | Title | Priority | Status | Epic |
 |---|---|---|---|---|
-| BLI-001 | Build production Atlassian MCP server | high | todo | — |
-| BLI-002 | Hybrid skills + MCP server + 5 primitives combo | high | todo | EPIC-001 |
-| BLI-003 | Module hierarchies for learning resources | high | todo | EPIC-001 |
-| BLI-004 | Brain integration with learning resources | medium | todo | EPIC-001 |
-| BLI-005 | Chat session orchestration — scoped sessions, agents | medium | todo | EPIC-001 |
-| BLI-006 | Create code formatting instructions and skill | medium | todo | — |
+| BLI-006 | Create code formatting instructions and skill | medium | done | — |
 
-**Next ID:** BLI-007
+**Next ID:** BLI-019
 
 See [BOARD.md](../BOARD.md) for the full board view.

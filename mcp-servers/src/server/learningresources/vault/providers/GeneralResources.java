@@ -11,6 +11,7 @@ import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Cross-cutting, language-agnostic resources — roadmaps, testing, meta-learning,
@@ -31,9 +32,9 @@ public final class GeneralResources implements ResourceProvider {
                                 + "trophy' model — static, unit, integration, and e2e tests — as an "
                                 + "alternative to the testing pyramid.",
                         ResourceType.BLOG,
-                        List.of(ResourceCategory.SOFTWARE_ENGINEERING, ResourceCategory.TESTING),
-                        List.of(ConceptArea.TESTING, ConceptArea.CLEAN_CODE),
-                        List.of("testing", "testing-trophy", "integration-tests", "unit-tests",
+                        Set.of(ResourceCategory.SOFTWARE_ENGINEERING, ResourceCategory.TESTING),
+                        Set.of(ConceptArea.TESTING, ConceptArea.CLEAN_CODE),
+                        Set.of("testing", "testing-trophy", "integration-tests", "unit-tests",
                                 "e2e", "testing-strategy"),
                         "Kent C. Dodds",
                         DifficultyLevel.INTERMEDIATE,
@@ -49,9 +50,9 @@ public final class GeneralResources implements ResourceProvider {
                                 + "frontend, backend, DevOps, full-stack, Android, AI/ML, "
                                 + "and more. Great for orientation and goal setting.",
                         ResourceType.INTERACTIVE,
-                        List.of(ResourceCategory.SOFTWARE_ENGINEERING),
-                        List.of(ConceptArea.GETTING_STARTED, ConceptArea.CAREER_DEVELOPMENT),
-                        List.of("roadmap", "career", "learning-path", "frontend", "backend",
+                        Set.of(ResourceCategory.SOFTWARE_ENGINEERING),
+                        Set.of(ConceptArea.GETTING_STARTED, ConceptArea.CAREER_DEVELOPMENT),
+                        Set.of("roadmap", "career", "learning-path", "frontend", "backend",
                                 "devops", "full-stack", "interactive"),
                         "Kamran Ahmed / roadmap.sh",
                         DifficultyLevel.BEGINNER,
@@ -67,9 +68,9 @@ public final class GeneralResources implements ResourceProvider {
                                 + "resources organized by language and topic. A meta-resource for "
                                 + "finding learning materials.",
                         ResourceType.REPOSITORY,
-                        List.of(ResourceCategory.SOFTWARE_ENGINEERING),
-                        List.of(ConceptArea.GETTING_STARTED, ConceptArea.CAREER_DEVELOPMENT),
-                        List.of("free", "books", "courses", "curated-list", "meta-resource",
+                        Set.of(ResourceCategory.SOFTWARE_ENGINEERING),
+                        Set.of(ConceptArea.GETTING_STARTED, ConceptArea.CAREER_DEVELOPMENT),
+                        Set.of("free", "books", "courses", "curated-list", "meta-resource",
                                 "open-source"),
                         "Ebook Foundation / Community",
                         DifficultyLevel.BEGINNER,
@@ -86,11 +87,11 @@ public final class GeneralResources implements ResourceProvider {
                                 + "algorithms, math, OS, networking, databases, languages, and "
                                 + "distributed systems.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.GENERAL, ResourceCategory.SOFTWARE_ENGINEERING),
-                        List.of(ConceptArea.GETTING_STARTED, ConceptArea.ALGORITHMS,
+                        Set.of(ResourceCategory.GENERAL, ResourceCategory.SOFTWARE_ENGINEERING),
+                        Set.of(ConceptArea.GETTING_STARTED, ConceptArea.ALGORITHMS,
                                 ConceptArea.OPERATING_SYSTEMS, ConceptArea.NETWORKING,
                                 ConceptArea.DATABASES, ConceptArea.DISTRIBUTED_SYSTEMS),
-                        List.of("self-study", "cs-curriculum", "books", "video-lectures",
+                        Set.of("self-study", "cs-curriculum", "books", "video-lectures",
                                 "computer-science", "learning-path"),
                         "Bradfield School of Computer Science",
                         DifficultyLevel.BEGINNER,
@@ -109,11 +110,11 @@ public final class GeneralResources implements ResourceProvider {
                                 + "via edX. Suitable for complete beginners — two thirds of enrolled "
                                 + "students have never programmed before.",
                         ResourceType.VIDEO_COURSE,
-                        List.of(ResourceCategory.GENERAL, ResourceCategory.ALGORITHMS,
+                        Set.of(ResourceCategory.GENERAL, ResourceCategory.ALGORITHMS,
                                 ResourceCategory.SOFTWARE_ENGINEERING),
-                        List.of(ConceptArea.GETTING_STARTED, ConceptArea.ALGORITHMS,
+                        Set.of(ConceptArea.GETTING_STARTED, ConceptArea.ALGORITHMS,
                                 ConceptArea.DATA_STRUCTURES, ConceptArea.LANGUAGE_BASICS),
-                        List.of("cs50", "harvard", "computer-science", "beginner", "c",
+                        Set.of("cs50", "harvard", "computer-science", "beginner", "c",
                                 "python", "sql", "algorithms", "data-structures", "free-course",
                                 "david-malan", "opencourseware", "edx"),
                         "David J. Malan, Harvard University",

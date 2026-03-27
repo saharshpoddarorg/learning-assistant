@@ -63,18 +63,36 @@ backlog/
 │   ├── brainstorm.md       ← Template: whiteboard-style free-form thinking
 │   ├── epic.md             ← Template: epics (grouping related items)
 │   └── guide.md            ← Template: GHCP context guides / playbooks
-├── items/                  ← 6 items (BLI-001 through BLI-006)
-│   ├── BLI-001_build-production-atlassian-mcp-server.md
-│   ├── BLI-002_hybrid-skills-mcp-primitives-combo.md
-│   ├── BLI-003_module-hierarchies-learning-resources.md
-│   ├── BLI-004_brain-integration-learning-resources.md
-│   ├── BLI-005_chat-session-orchestration.md
-│   └── BLI-006_code-formatting-instructions-skill.md
+├── features/               ← 11 features (learning-assistant enhancements)
+│   ├── BLI-001 through BLI-005 (EPIC-001)
+│   └── BLI-007, BLI-009 through BLI-013 (EPIC-002)
+├── projects/               ← 6 projects (standalone personal software)
+│   ├── BLI-008 (EPIC-003) — scheduler/calendar
+│   └── BLI-014 through BLI-018 (EPIC-003)
+├── items/                  ← 1 general item (BLI-006, done)
 ├── ideas/                  ← 0 ideas
-├── epics/                  ← 1 epic
-│   └── EPIC-001_full-fledged-learning-resources-system.md
+├── epics/                  ← 3 epics
+│   ├── EPIC-001_full-fledged-learning-resources-system.md
+│   ├── EPIC-002_knowledge-consolidation-cross-platform.md
+│   └── EPIC-003_personal-software-development-projects.md
 └── guides/                 ← 0 guides
 ```
+
+## ID Prefix Convention
+
+All backlog items use the **BLI** prefix regardless of which folder they live in.
+
+| Prefix | Stands for | Used in |
+|---|---|---|
+| **BLI** | **B**ack**L**og **I**tem | `features/`, `projects/`, `items/` |
+| **IDEA** | Idea | `ideas/` |
+| **EPIC** | Epic | `epics/` |
+| **GUIDE** | Guide | `guides/` |
+
+**BLI** = **B**ack**L**og **I**tem — a universal prefix for any actionable work item
+(feature, bug, task, research). The folder (`features/`, `projects/`, or `items/`)
+provides the organizational context; the BLI ID provides stable, unique identity.
+IDs are never reused, even if an item is moved between folders.
 
 ---
 

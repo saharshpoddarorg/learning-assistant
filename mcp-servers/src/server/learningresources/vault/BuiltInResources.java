@@ -16,6 +16,8 @@ import server.learningresources.vault.providers.JavaResources;
 import server.learningresources.vault.providers.JvmResources;
 import server.learningresources.vault.providers.PythonResources;
 import server.learningresources.vault.providers.SelfDevelopmentResources;
+import server.learningresources.vault.providers.SoftwareEngineeringBooksResources;
+import server.learningresources.vault.providers.SystemDesignResources;
 import server.learningresources.vault.providers.TestingToolsResources;
 import server.learningresources.vault.providers.VcsResources;
 import server.learningresources.vault.providers.WebResources;
@@ -53,6 +55,8 @@ public final class BuiltInResources {
             new AlgorithmsResources(),
             new DataStructuresResources(),
             new EngineeringResources(),
+            new SoftwareEngineeringBooksResources(),
+            new SystemDesignResources(),
             new DevOpsResources(),
             new VcsResources(),
             new BuildToolsResources(),

@@ -11,6 +11,7 @@ import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated algorithms and data-structures learning resources — visualizers,
@@ -31,9 +32,9 @@ public final class AlgorithmsResources implements ResourceProvider {
                                 + "algorithms. Excellent for building intuition about how "
                                 + "algorithms work step by step.",
                         ResourceType.INTERACTIVE,
-                        List.of(ResourceCategory.ALGORITHMS, ResourceCategory.GENERAL),
-                        List.of(ConceptArea.ALGORITHMS, ConceptArea.DATA_STRUCTURES),
-                        List.of("visualization", "sorting", "searching", "graph", "tree",
+                        Set.of(ResourceCategory.ALGORITHMS, ResourceCategory.GENERAL),
+                        Set.of(ConceptArea.ALGORITHMS, ConceptArea.DATA_STRUCTURES),
+                        Set.of("visualization", "sorting", "searching", "graph", "tree",
                                 "interactive"),
                         "Steven Halim",
                         DifficultyLevel.BEGINNER,
@@ -49,10 +50,10 @@ public final class AlgorithmsResources implements ResourceProvider {
                                 + "and data structures. Includes comparison charts and a clear "
                                 + "complexity table for sorting algorithms.",
                         ResourceType.CHEAT_SHEET,
-                        List.of(ResourceCategory.ALGORITHMS, ResourceCategory.GENERAL),
-                        List.of(ConceptArea.COMPLEXITY_ANALYSIS, ConceptArea.ALGORITHMS,
+                        Set.of(ResourceCategory.ALGORITHMS, ResourceCategory.GENERAL),
+                        Set.of(ConceptArea.COMPLEXITY_ANALYSIS, ConceptArea.ALGORITHMS,
                                 ConceptArea.DATA_STRUCTURES),
-                        List.of("big-o", "complexity", "time-complexity", "space-complexity",
+                        Set.of("big-o", "complexity", "time-complexity", "space-complexity",
                                 "sorting", "cheat-sheet"),
                         "Eric Rowell",
                         DifficultyLevel.BEGINNER,
@@ -69,10 +70,10 @@ public final class AlgorithmsResources implements ResourceProvider {
                                 + "and implementations in C++. Covers graph theory, number theory, "
                                 + "geometry, strings, and more.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.ALGORITHMS, ResourceCategory.GENERAL),
-                        List.of(ConceptArea.ALGORITHMS, ConceptArea.DATA_STRUCTURES,
+                        Set.of(ResourceCategory.ALGORITHMS, ResourceCategory.GENERAL),
+                        Set.of(ConceptArea.ALGORITHMS, ConceptArea.DATA_STRUCTURES,
                                 ConceptArea.COMPLEXITY_ANALYSIS),
-                        List.of("competitive-programming", "graph-theory", "number-theory",
+                        Set.of("competitive-programming", "graph-theory", "number-theory",
                                 "dynamic-programming", "geometry", "string-algorithms"),
                         "CP-Algorithms Contributors",
                         DifficultyLevel.ADVANCED,

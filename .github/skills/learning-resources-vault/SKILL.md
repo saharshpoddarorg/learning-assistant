@@ -1,23 +1,27 @@
 ---
 name: learning-resources-vault
 description: >
-  Curated vault of 156 learning resources covering Java (Oracle tutorials, JDK Javadoc, JLS,
+  Curated vault of 176 learning resources covering Java (Oracle tutorials, JDK Javadoc, JLS,
   Inside.java, Baeldung, Jenkov, Effective Java, JCIP, Spring Boot guides, Guava, JUnit 5,
   JDK 25, SDKMAN, Temurin), Python (official docs, PEP index, Real Python), JavaScript and
   TypeScript (MDN, javascript.info, TypeScript Handbook), web development and frameworks
   (Spring Framework, Spring Boot, Hibernate, React, Next.js, Angular, Vue.js, Node.js,
   Express.js, Django, Flask), algorithms and data structures (VisuAlgo, Big-O cheatsheet,
   CP-Algorithms, OpenDSA, Neetcode, GeeksforGeeks, MIT 6.006), software engineering
-  (Refactoring Guru, Clean Code, Twelve-Factor App, System Design Primer, Martin Fowler,
-  3Blue1Brown linear algebra), testing (JUnit 5, Mockito, Testcontainers, Selenium, Cypress,
+  (Refactoring Guru, Clean Code, Twelve-Factor App, Martin Fowler,
+  3Blue1Brown linear algebra, published SE books — Clean Code, Clean Architecture, Refactoring, PoEAA,
+  Crime Scene, Philosophy of Software Design, Clean Agile, Righting Software, Unit Testing), system design (System Design Primer, ByteByteGo, High Scalability,
+  Google SRE, Azure Cloud Patterns, Raft Consensus, databases — PostgreSQL, Redis, MongoDB,
+  Elasticsearch, DDIA, Use The Index Luke), async messaging and event-driven architecture (RabbitMQ,
+  Enterprise Integration Patterns, Microservices.io messaging, Confluent Developer, Kafka),
+  testing (JUnit 5, Mockito, Testcontainers, Selenium, Cypress,
   pytest), DevOps and CI/CD (Docker, Kubernetes, Pro Git, GitHub Skills, GitHub Actions, Gradle),
   version control and Git (Learn Git Branching, git-scm reference, Atlassian tutorials, GitFlow,
   GitHub Flow, trunk-based development, Conventional Commits, SemVer, git internals),
   build tools (Maven getting started, POM reference, lifecycle, dependencies, Gradle Kotlin DSL,
   Gradle dependencies, Gradle multi-project, Makefile tutorial, Bazel, npm), cloud and
-  infrastructure (AWS, GCP, Azure, Terraform, Ansible, Prometheus, Grafana), databases and
-  security (SQL indexing, OWASP Top 10, PostgreSQL, OWASP cheat sheets, Redis, MongoDB, Kafka,
-  Elasticsearch), AI and machine learning (fast.ai, Prompt Engineering Guide, OpenAI API,
+  infrastructure (AWS, GCP, Azure, Terraform, Ansible, Prometheus, Grafana), security
+  (OWASP Top 10, OWASP cheat sheets), AI and machine learning (fast.ai, Prompt Engineering Guide, OpenAI API,
   3Blue1Brown neural networks), digital note-taking and PKM (Building a Second Brain, PARA,
   CODE method, Zettelkasten, Obsidian, Notion, Logseq, OneNote, Foam, GTD, Todoist, progressive
   summarization), and general career and self-development resources (roadmap.sh, free programming
@@ -26,13 +30,15 @@ description: >
   Each resource has: title, URL, description, type (docs/tutorial/blog/book/video/playlist/
   course/interactive/API-ref/cheatsheet/repo), difficulty (beginner/intermediate/advanced/expert),
   categories, concept areas, tags, author, freshness, official/community, free/paid, and
-  language applicability. Use when asked about learning resources, tutorials, documentation,
+  language applicability, content format (web resource, published book, open book),
+  and structured author references with website/blog URLs (supports multiple authors per resource).
+  Use when asked about learning resources, tutorials, documentation,
   books, courses, videos, where to learn a topic, best resources for a topic, beginner or
   advanced resources, official docs, free resources, study plans, learning paths, resource
   recommendations, curated lists, or educational materials.
 ---
 
-# Learning Resources Vault — 156 Curated Resources
+# Learning Resources Vault — 176 Curated Resources
 
 > Discovery index for high-quality learning resources across software engineering domains.
 > For deep-reference content, see the `java-learning-resources`,
@@ -49,13 +55,14 @@ description: >
 | Web / JavaScript / TypeScript | 12 | [resources-web-javascript.md](resources-web-javascript.md) |
 | Python | 6 | [resources-python.md](resources-python.md) |
 | Algorithms & Data Structures | 11 | [resources-algorithms-ds.md](resources-algorithms-ds.md) |
-| Software Engineering & Testing | 11 | [resources-software-engineering.md](resources-software-engineering.md) |
+| Software Engineering & Testing | 19 | [resources-software-engineering.md](resources-software-engineering.md) |
+| System Design | 13 | [resources-system-design.md](resources-system-design.md) |
 | DevOps, VCS & Build Tools | 25 | [resources-devops-vcs-build.md](resources-devops-vcs-build.md) |
-| Cloud, Infrastructure & Data | 15 | [resources-cloud-infra.md](resources-cloud-infra.md) |
+| Cloud, Infrastructure & Data | 14 | [resources-cloud-infra.md](resources-cloud-infra.md) |
 | AI & Machine Learning | 4 | [resources-ai-ml.md](resources-ai-ml.md) |
 | Digital Note-Taking & PKM | 15 | [resources-productivity-pkm.md](resources-productivity-pkm.md) |
 | General & Career Development | 19 | [resources-general-career.md](resources-general-career.md) |
-| **Total** | **156** | |
+| **Total** | **176** | |
 
 ---
 
@@ -107,7 +114,7 @@ description: >
 
 ---
 
-## Concept Domains & Areas (9 Domains, 45 Areas)
+## Concept Domains & Areas (9 Domains, 53 Areas)
 
 Each resource is tagged with 1-5 **concept areas**. Each area belongs to one **domain**.
 Areas can form a sub-hierarchy (e.g., GARBAGE_COLLECTION is a child of JVM_INTERNALS).
@@ -116,8 +123,8 @@ Areas can form a sub-hierarchy (e.g., GARBAGE_COLLECTION is a child of JVM_INTER
 |---|---|---|
 | Programming Fundamentals | 5 | Language basics, OOP, Functional programming, Generics, Language features |
 | Core CS | 11 | Concurrency, Data structures, Algorithms, Mathematics, Complexity analysis, Memory management, JVM internals (→ Garbage collection, Class loading, Serialization, JVM languages) |
-| Software Engineering | 5 | Design patterns, Clean code, Testing, API design, Architecture |
-| System Design | 5 | System design, Databases, Distributed systems, Networking, Operating systems |
+| Software Engineering | 6 | Design patterns, Clean code, Testing, API design, Architecture, Async messaging |
+| System Design | 12 | System design (→ HLD, LLD), Databases (→ Database internals, Database scaling), Distributed systems (→ Consensus & coordination, Reliability patterns), Networking (→ Protocols), Operating systems |
 | DevOps & Tooling | 6 | CI/CD, Containers, Version control, Build tools, Infrastructure, Observability |
 | Security | 2 | Web security, Cryptography |
 | AI & Data | 3 | Machine learning, Deep learning, LLM & Prompting |

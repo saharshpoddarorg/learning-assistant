@@ -11,6 +11,7 @@ import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated resources for build automation tools across major ecosystems.
@@ -50,9 +51,9 @@ public final class BuildToolsResources implements ResourceProvider {
                                 + "compile → test → package → install lifecycle, dependency management, "
                                 + "plugin configuration, resource filtering, and multi-module builds.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
-                        List.of(ConceptArea.BUILD_TOOLS, ConceptArea.GETTING_STARTED),
-                        List.of("official", "maven", "pom", "build", "dependency-management",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
+                        Set.of(ConceptArea.BUILD_TOOLS, ConceptArea.GETTING_STARTED),
+                        Set.of("official", "maven", "pom", "build", "dependency-management",
                                 "lifecycle", "archetype", "compile", "package", "install",
                                 "multi-module", "java"),
                         "Apache Maven Project",
@@ -69,9 +70,9 @@ public final class BuildToolsResources implements ResourceProvider {
                                 + "in five commands. Perfect starting point for developers new to Maven "
                                 + "who want to hit the ground running before reading deeper documentation.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
-                        List.of(ConceptArea.BUILD_TOOLS, ConceptArea.GETTING_STARTED),
-                        List.of("official", "maven", "quickstart", "pom", "mvn",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
+                        Set.of(ConceptArea.BUILD_TOOLS, ConceptArea.GETTING_STARTED),
+                        Set.of("official", "maven", "quickstart", "pom", "mvn",
                                 "beginner", "5-minutes", "java"),
                         "Apache Maven Project",
                         DifficultyLevel.BEGINNER,
@@ -89,9 +90,9 @@ public final class BuildToolsResources implements ResourceProvider {
                                 + "repositories, distributionManagement, properties, reporting, "
                                 + "parent POM inheritance, and BOM (Bill of Materials) usage.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
-                        List.of(ConceptArea.BUILD_TOOLS),
-                        List.of("official", "maven", "pom.xml", "pom", "dependency-management",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
+                        Set.of(ConceptArea.BUILD_TOOLS),
+                        Set.of("official", "maven", "pom.xml", "pom", "dependency-management",
                                 "bom", "parent-pom", "plugins", "profiles", "properties", "java"),
                         "Apache Maven Project",
                         DifficultyLevel.INTERMEDIATE,
@@ -109,9 +110,9 @@ public final class BuildToolsResources implements ResourceProvider {
                                 + "configure plugin execution in specific phases, and how the "
                                 + "lifecycle connects to CI/CD pipelines.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
-                        List.of(ConceptArea.BUILD_TOOLS, ConceptArea.CI_CD),
-                        List.of("official", "maven", "lifecycle", "phases", "goals",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
+                        Set.of(ConceptArea.BUILD_TOOLS, ConceptArea.CI_CD),
+                        Set.of("official", "maven", "lifecycle", "phases", "goals",
                                 "compile", "test", "package", "install", "deploy", "java"),
                         "Apache Maven Project",
                         DifficultyLevel.INTERMEDIATE,
@@ -129,9 +130,9 @@ public final class BuildToolsResources implements ResourceProvider {
                                 + "dependency trees (mvn dependency:tree), and BOM imports for "
                                 + "centralized version management across multi-module projects.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
-                        List.of(ConceptArea.BUILD_TOOLS),
-                        List.of("official", "maven", "dependency", "transitive", "scope",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
+                        Set.of(ConceptArea.BUILD_TOOLS),
+                        Set.of("official", "maven", "dependency", "transitive", "scope",
                                 "bom", "exclusion", "version-conflict", "classpath", "java"),
                         "Apache Maven Project",
                         DifficultyLevel.INTERMEDIATE,
@@ -150,9 +151,9 @@ public final class BuildToolsResources implements ResourceProvider {
                                 + "extension functions, precompiled script plugins, and migration "
                                 + "from Groovy DSL to Kotlin DSL. Modern default for new projects.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
-                        List.of(ConceptArea.BUILD_TOOLS),
-                        List.of("official", "gradle", "kotlin-dsl", "build.gradle.kts",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
+                        Set.of(ConceptArea.BUILD_TOOLS),
+                        Set.of("official", "gradle", "kotlin-dsl", "build.gradle.kts",
                                 "type-safe", "ide-support", "groovy", "migration"),
                         "Gradle Inc.",
                         DifficultyLevel.INTERMEDIATE,
@@ -169,9 +170,9 @@ public final class BuildToolsResources implements ResourceProvider {
                                 + "dependency verification, and Bill of Materials (BOM) support. "
                                 + "Covers multi-project dependency sharing and dependency constraints.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
-                        List.of(ConceptArea.BUILD_TOOLS),
-                        List.of("official", "gradle", "dependency-management", "version-catalog",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
+                        Set.of(ConceptArea.BUILD_TOOLS),
+                        Set.of("official", "gradle", "dependency-management", "version-catalog",
                                 "libs.versions.toml", "bom", "configurations", "resolution"),
                         "Gradle Inc.",
                         DifficultyLevel.INTERMEDIATE,
@@ -188,9 +189,9 @@ public final class BuildToolsResources implements ResourceProvider {
                                 + "convention plugins, composite builds, and sharing build logic. "
                                 + "Essential for microservice mono-repos and large Java/Kotlin projects.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
-                        List.of(ConceptArea.BUILD_TOOLS, ConceptArea.ARCHITECTURE),
-                        List.of("official", "gradle", "multi-project", "multi-module",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
+                        Set.of(ConceptArea.BUILD_TOOLS, ConceptArea.ARCHITECTURE),
+                        Set.of("official", "gradle", "multi-project", "multi-module",
                                 "subproject", "composite", "mono-repo", "java"),
                         "Gradle Inc.",
                         DifficultyLevel.ADVANCED,
@@ -210,9 +211,9 @@ public final class BuildToolsResources implements ResourceProvider {
                                 + "examples. Essential for understanding legacy C/C++ projects and "
                                 + "many DevOps/infrastructure automation scripts.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
-                        List.of(ConceptArea.BUILD_TOOLS, ConceptArea.INFRASTRUCTURE),
-                        List.of("make", "makefile", "gnu-make", "build-automation",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
+                        Set.of(ConceptArea.BUILD_TOOLS, ConceptArea.INFRASTRUCTURE),
+                        Set.of("make", "makefile", "gnu-make", "build-automation",
                                 "c", "cpp", "targets", "variables", "devops"),
                         "Chase Lambert",
                         DifficultyLevel.INTERMEDIATE,
@@ -232,9 +233,9 @@ public final class BuildToolsResources implements ResourceProvider {
                                 + "and incremental builds. Used at massive scale by Google, Stripe, "
                                 + "and other large engineering organizations.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
-                        List.of(ConceptArea.BUILD_TOOLS, ConceptArea.INFRASTRUCTURE),
-                        List.of("official", "bazel", "starlark", "build", "monorepo",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
+                        Set.of(ConceptArea.BUILD_TOOLS, ConceptArea.INFRASTRUCTURE),
+                        Set.of("official", "bazel", "starlark", "build", "monorepo",
                                 "remote-execution", "caching", "google", "multi-language"),
                         "Google / Bazel Community",
                         DifficultyLevel.ADVANCED,
@@ -253,9 +254,9 @@ public final class BuildToolsResources implements ResourceProvider {
                                 + "npm workspaces, npx, versioning, publishing packages, and npm CI "
                                 + "for reproducible installs. Also covers yarn and pnpm alternatives.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.JAVASCRIPT),
-                        List.of(ConceptArea.BUILD_TOOLS, ConceptArea.INFRASTRUCTURE),
-                        List.of("official", "npm", "package-manager", "package.json",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.JAVASCRIPT),
+                        Set.of(ConceptArea.BUILD_TOOLS, ConceptArea.INFRASTRUCTURE),
+                        Set.of("official", "npm", "package-manager", "package.json",
                                 "node", "workspaces", "javascript", "typescript",
                                 "yarn", "pnpm", "scripts"),
                         "npm, Inc.",

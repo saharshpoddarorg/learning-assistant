@@ -29,7 +29,7 @@
 | [Baeldung — Java Tutorials & Guides](https://www.baeldung.com/) | 📝 Tutorial | 🟡 | Language features, Testing, API design, Concurrency | Baeldung / Eugen Paraschiv | 🔄 | ➖ | ✅ | ☕ |
 | [Jenkov.com — Java & Web Tutorials](https://jenkov.com/tutorials/java/index.html) | 📝 Tutorial | 🟡 | Concurrency, Networking, Databases, Language features | Jakob Jenkov | 📅 | ➖ | ✅ | ☕ |
 | [Effective Java (3rd Edition)](https://www.oreilly.com/library/view/effective-java/9780134686097/) | 📚 Book | 🟡 | Clean code, Design patterns, Concurrency, Generics | Joshua Bloch | ♾️ | ➖ | 💰 | ☕ |
-| [Java Concurrency in Practice (JCIP)](https://jcip.net/) | 📚 Book | 🔴 | Concurrency, Memory, Design patterns | Brian Goetz et al. | ♾️ | ➖ | 💰 | ☕ |
+| [Java Concurrency in Practice (JCIP)](https://jcip.net/) | 📚 Book | 🔴 | Concurrency, Memory, Design patterns | Brian Goetz, Joshua Bloch et al. | ♾️ | ➖ | 💰 | ☕ |
 
 ## Frameworks & Ecosystem
 

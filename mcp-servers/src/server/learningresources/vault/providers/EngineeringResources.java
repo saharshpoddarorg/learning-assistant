@@ -1,25 +1,27 @@
 package server.learningresources.vault.providers;
 
-import server.learningresources.model.ConceptArea;
-import server.learningresources.model.ContentFreshness;
-import server.learningresources.model.LanguageApplicability;
-import server.learningresources.model.DifficultyLevel;
-import server.learningresources.model.LearningResource;
-import server.learningresources.model.ResourceCategory;
-import server.learningresources.model.ResourceType;
+import server.learningresources.model.*;
 import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated software engineering resources — design patterns, clean code,
- * architecture, and system design.
+ * architecture, and mathematics foundations.
+ *
+ * <p>System design resources (HLD, LLD, databases, distributed systems)
+ * have been moved to {@link SystemDesignResources}.
+ *
+ * @see SystemDesignResources
  */
-public final class EngineeringResources implements ResourceProvider {
+public final class EngineeringResources implements ResourceProvider
+{
 
     @Override
-    public List<LearningResource> resources() {
+    public List<LearningResource> resources()
+    {
         final var now = Instant.now();
         return List.of(
 
@@ -31,14 +33,16 @@ public final class EngineeringResources implements ResourceProvider {
                                 + "includes UML diagrams, intent, applicability, code examples in "
                                 + "multiple languages, and real-world analogies.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.SOFTWARE_ENGINEERING),
-                        List.of(ConceptArea.DESIGN_PATTERNS, ConceptArea.CLEAN_CODE, ConceptArea.OOP),
-                        List.of("design-patterns", "refactoring", "gang-of-four", "oop", "solid",
+                        Set.of(ResourceCategory.SOFTWARE_ENGINEERING),
+                        Set.of(ConceptArea.DESIGN_PATTERNS, ConceptArea.CLEAN_CODE, ConceptArea.OOP),
+                        Set.of("design-patterns", "refactoring", "gang-of-four", "oop", "solid",
                                 "code-smells"),
                         "Alexander Shvets",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.EVERGREEN,
-                        false, true, LanguageApplicability.UNIVERSAL, now
+                        false, true, LanguageApplicability.UNIVERSAL, now,
+                        ContentFormat.WEB_RESOURCE,
+                        Set.of(ResourceAuthor.ALEXANDER_SHVETS)
                 ),
 
                 new LearningResource(
@@ -49,9 +53,9 @@ public final class EngineeringResources implements ResourceProvider {
                                 + "'Clean Code'. Covers naming, functions, comments, formatting, "
                                 + "error handling, and object vs. data structures.",
                         ResourceType.CHEAT_SHEET,
-                        List.of(ResourceCategory.SOFTWARE_ENGINEERING),
-                        List.of(ConceptArea.CLEAN_CODE, ConceptArea.DESIGN_PATTERNS),
-                        List.of("clean-code", "naming", "functions", "formatting", "solid",
+                        Set.of(ResourceCategory.SOFTWARE_ENGINEERING),
+                        Set.of(ConceptArea.CLEAN_CODE, ConceptArea.DESIGN_PATTERNS),
+                        Set.of("clean-code", "naming", "functions", "formatting", "solid",
                                 "error-handling", "best-practices"),
                         "Community (Wojtek Lukaszuk)",
                         DifficultyLevel.BEGINNER,
@@ -67,34 +71,16 @@ public final class EngineeringResources implements ResourceProvider {
                                 + "Twelve principles covering config, dependencies, backing services, "
                                 + "build/release/run, processes, port binding, and more.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.SOFTWARE_ENGINEERING, ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.ARCHITECTURE, ConceptArea.SYSTEM_DESIGN,
-                                ConceptArea.CI_CD, ConceptArea.CONTAINERS),
-                        List.of("saas", "cloud-native", "microservices", "config", "twelve-factor",
+                        Set.of(ResourceCategory.SOFTWARE_ENGINEERING, ResourceCategory.DEVOPS),
+                        Set.of(ConceptArea.ARCHITECTURE,
+                                ConceptArea.SYSTEM_DESIGN,
+                                ConceptArea.CI_CD,
+                                ConceptArea.CONTAINERS),
+                        Set.of("saas", "cloud-native", "microservices", "config", "twelve-factor",
                                 "deployment", "scalability"),
                         "Adam Wiggins / Heroku",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.EVERGREEN,
-                        false, true, LanguageApplicability.UNIVERSAL, now
-                ),
-
-                new LearningResource(
-                        "system-design-primer",
-                        "The System Design Primer",
-                        "https://github.com/donnemartin/system-design-primer",
-                        "Comprehensive guide to system design interviews and real-world "
-                                + "architecture. Covers scalability, load balancing, caching, "
-                                + "databases, async processing, CDNs, and microservices.",
-                        ResourceType.REPOSITORY,
-                        List.of(ResourceCategory.SOFTWARE_ENGINEERING, ResourceCategory.GENERAL),
-                        List.of(ConceptArea.SYSTEM_DESIGN, ConceptArea.DISTRIBUTED_SYSTEMS,
-                                ConceptArea.DATABASES, ConceptArea.NETWORKING,
-                                ConceptArea.INTERVIEW_PREP),
-                        List.of("system-design", "scalability", "load-balancing", "caching",
-                                "databases", "microservices", "interview"),
-                        "Donne Martin",
-                        DifficultyLevel.ADVANCED,
-                        ContentFreshness.PERIODICALLY_UPDATED,
                         false, true, LanguageApplicability.UNIVERSAL, now
                 ),
 
@@ -106,16 +92,26 @@ public final class EngineeringResources implements ResourceProvider {
                                 + "Covers microservices, event-driven architecture, domain-driven "
                                 + "design, refactoring, and enterprise integration patterns.",
                         ResourceType.BLOG,
-                        List.of(ResourceCategory.SOFTWARE_ENGINEERING),
-                        List.of(ConceptArea.ARCHITECTURE, ConceptArea.DESIGN_PATTERNS,
-                                ConceptArea.SYSTEM_DESIGN),
-                        List.of("microservices", "ddd", "event-driven", "refactoring",
-                                "enterprise-patterns", "continuous-delivery"),
+                        Set.of(ResourceCategory.SOFTWARE_ENGINEERING),
+                        Set.of(ConceptArea.ARCHITECTURE,
+                                ConceptArea.DESIGN_PATTERNS,
+                                ConceptArea.SYSTEM_DESIGN,
+                                ConceptArea.HIGH_LEVEL_DESIGN,
+                                ConceptArea.RELIABILITY_PATTERNS,
+                                ConceptArea.ASYNC_MESSAGING),
+                        Set.of("microservices", "ddd", "event-driven", "refactoring",
+                                "enterprise-patterns", "continuous-delivery",
+                                "async-messaging", "integration-patterns",
+                                "circuit-breaker", "hld"),
                         "Martin Fowler",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.ACTIVELY_MAINTAINED,
-                        false, true, LanguageApplicability.UNIVERSAL, now
+                        false, true, LanguageApplicability.UNIVERSAL, now,
+                        ContentFormat.WEB_RESOURCE,
+                        Set.of(ResourceAuthor.MARTIN_FOWLER)
                 ),
+
+                // ─── Mathematics & Foundations ──────────────────────────────
 
                 new LearningResource(
                         "3b1b-linear-algebra",
@@ -128,16 +124,18 @@ public final class EngineeringResources implements ResourceProvider {
                                 + "memorization. Essential prerequisite for ML/deep learning and "
                                 + "a gold-standard example of visual mathematical teaching.",
                         ResourceType.PLAYLIST,
-                        List.of(ResourceCategory.SOFTWARE_ENGINEERING,
+                        Set.of(ResourceCategory.SOFTWARE_ENGINEERING,
                                 ResourceCategory.AI_ML),
-                        List.of(ConceptArea.MATHEMATICS, ConceptArea.MACHINE_LEARNING),
-                        List.of("3blue1brown", "linear-algebra", "vectors", "matrices",
+                        Set.of(ConceptArea.MATHEMATICS, ConceptArea.MACHINE_LEARNING),
+                        Set.of("3blue1brown", "linear-algebra", "vectors", "matrices",
                                 "eigenvalues", "eigenvectors", "determinants", "transformations",
                                 "math", "visualizations", "grant-sanderson", "ml-prerequisites"),
                         "Grant Sanderson (3Blue1Brown)",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.EVERGREEN,
-                        false, true, LanguageApplicability.UNIVERSAL, now
+                        false, true, LanguageApplicability.UNIVERSAL, now,
+                        ContentFormat.WEB_RESOURCE,
+                        Set.of(ResourceAuthor.GRANT_SANDERSON)
                 )
         );
     }

@@ -9,7 +9,12 @@ description: >
   DevOps & CI/CD (Jenkins, GitHub Actions, GitLab CI, deployment strategies, GitOps, feature flags),
   containers & orchestration (Docker, Kubernetes, Docker Compose, Dockerfile best practices),
   infrastructure as code (Terraform, Ansible), cloud platforms (AWS, GCP, Azure), monitoring & observability,
-  distributed systems (replication, consensus, consistency models, CAP theorem),
+  distributed systems (replication, consensus, consistency models, CAP theorem, Raft, Paxos,
+  ZooKeeper, leader election, distributed locks, 2PC),
+  reliability & SRE (circuit breakers, retry, bulkhead, rate limiting, chaos engineering,
+  SLOs/SLIs/SLAs, Google SRE Book, Azure Cloud Design Patterns),
+  database internals & scaling (storage engines, B-trees, LSM trees, WAL, MVCC, sharding,
+  partitioning, replication, read replicas, connection pooling, DDIA),
   industry-used concepts & real-world systems (rate limiting, circuit breakers, event-driven architecture,
   microservices patterns, Twelve-Factor App, Netflix/Google/Amazon/Uber/Spotify engineering practices),
   security (OWASP, zero trust, supply chain, secrets management),
@@ -474,7 +479,7 @@ Rule of thumb for interview constraint → expected complexity:
 | Resource | URL | Best For |
 |---|---|---|
 | **System Design Primer** | `https://github.com/donnemartin/system-design-primer` | Comprehensive free guide |
-| **ByteByteGo** | `https://bytebytego.com/` | Visual system design explanations |
+| **ByteByteGo** | `https://blog.bytebytego.com/` | Visual system design explanations |
 | **Grokking System Design** | `https://www.designgurus.io/course/grokking-the-system-design-interview` | Interview-focused designs |
 | **High Scalability** | `http://highscalability.com/` | Real-world architecture case studies |
 | **Martin Fowler's Blog** | `https://martinfowler.com/` | Architectural patterns, enterprise design |
@@ -482,6 +487,10 @@ Rule of thumb for interview constraint → expected complexity:
 | **Awesome System Design** | `https://github.com/madd86/awesome-system-design` | Curated links, papers, talks |
 | **System Design 101 (ByteByteGo)** | `https://github.com/ByteByteGoHq/system-design-101` | Visual cheat sheets for system design topics |
 | **Educative.io System Design** | `https://www.educative.io/courses/grokking-modern-system-design-interview-for-engineers-managers` | Modern interactive system design course |
+| **Google SRE Book** | `https://sre.google/sre-book/table-of-contents/` | SRE, SLOs/SLIs, reliability, incident response (free) |
+| **Azure Cloud Design Patterns** | `https://learn.microsoft.com/en-us/azure/architecture/patterns/` | 40+ cloud-native design patterns (CQRS, Circuit Breaker, etc.) |
+| **DDIA (Designing Data-Intensive Apps)** | `https://dataintensive.net/` | Storage engines, replication, consensus, stream processing |
+| **Raft Consensus Visualization** | `https://thesecretlivesofdata.com/raft/` | Interactive animated Raft consensus walkthrough |
 
 #### System Design Topics Map
 
@@ -589,6 +598,51 @@ Event Streaming:
 | **Saga Pattern** | Distributed transaction via compensating events | Cross-service workflows |
 | **Dead Letter Queue** | Failed messages go to DLQ for inspection | Error handling, debugging |
 
+##### Async Communication Deep-Dive
+
+**Synchronous vs Asynchronous Communication:**
+
+| Aspect | Synchronous (Request/Response) | Asynchronous (Messaging) |
+|---|---|---|
+| **Coupling** | Tight — caller waits for response | Loose — fire and forget (or async reply) |
+| **Availability** | Both sides must be up | Producer can succeed even if consumer is down |
+| **Latency** | Bounded (timeout) | Variable (queue depth dependent) |
+| **Ordering** | Natural (sequential calls) | Requires explicit ordering guarantees |
+| **Debugging** | Stack traces, request IDs | Correlation IDs, distributed tracing |
+| **Examples** | REST, gRPC, GraphQL | Kafka, RabbitMQ, SQS, Redis Streams |
+
+**Message Broker Comparison:**
+
+| Broker | Protocol | Model | Ordering | Replay | Use Case |
+|---|---|---|---|---|---|
+| **Apache Kafka** | Custom (TCP) | Log-based pub/sub | Per-partition | Yes (retention) | Event streaming, audit, analytics |
+| **RabbitMQ** | AMQP 0-9-1 | Queue + exchange routing | Per-queue | No (consumed) | Task distribution, RPC, routing |
+| **AWS SQS** | HTTP API | Queue (standard/FIFO) | FIFO optional | No | Serverless decoupling, simple queues |
+| **AWS SNS** | HTTP API | Pub/sub fan-out | No | No | Notifications, fan-out to SQS/Lambda |
+| **Redis Streams** | RESP | Log-based + consumer groups | Per-stream | Yes | Lightweight streaming, caching + messaging |
+| **Apache Pulsar** | Custom (TCP) | Multi-tenant pub/sub | Per-partition | Yes (tiered) | Multi-tenant, geo-replication |
+
+**Key Async Patterns — When to Use:**
+
+| Pattern | Problem It Solves | When to Use | When NOT to Use |
+|---|---|---|---|
+| **Pub/Sub** | Multiple consumers need same event | Event broadcasting, notifications | Single consumer, ordered processing |
+| **Point-to-Point Queue** | One consumer per message | Task distribution, work queues | Multiple consumers need same event |
+| **CQRS** | Read/write models have different needs | Read-heavy, complex queries, separate scaling | Simple CRUD, small data |
+| **Event Sourcing** | Need full audit trail + temporal queries | Financial systems, compliance, undo/redo | Simple state, no audit needs |
+| **Saga (Choreography)** | Distributed txn via events | Simple workflows, 2-4 services | Complex ordering, many services |
+| **Saga (Orchestration)** | Distributed txn via central coordinator | Complex workflows, many services | Simple 2-service interactions |
+| **Transactional Outbox** | Reliable event publishing with DB | Exactly-once semantics needed | Simple at-least-once is acceptable |
+| **Dead Letter Queue** | Handle processing failures | Poison messages, debugging | All failures are retryable |
+
+**Key learning resources for async messaging:**
+
+- [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/) — Hohpe & Woolf (the foundational 65-pattern catalog)
+- [Microservices.io patterns](https://microservices.io/patterns/communication-style/messaging.html) — Chris Richardson
+- [Apache Kafka docs](https://kafka.apache.org/documentation/) — event streaming reference
+- [RabbitMQ docs](https://www.rabbitmq.com/docs) — AMQP message broker reference
+- [Confluent Developer](https://developer.confluent.io/) — free Kafka/Flink courses
+
 ##### Microservices Architecture
 
 | Concept | Description |
@@ -624,6 +678,53 @@ Event Streaming:
 | **Failover** | Active-passive or active-active redundancy | Database failover, DNS failover |
 | **Graceful Degradation** | Reduce features instead of total failure | Show cached data when DB is down |
 | **Health Checks** | Liveness (alive?) + Readiness (ready to serve?) | K8s probes, ELB health checks |
+
+**Key reliability resources:**
+
+- [Google SRE Book](https://sre.google/sre-book/table-of-contents/) — SLOs, incident response, on-call, load balancing
+- [Azure Cloud Design Patterns](https://learn.microsoft.com/en-us/azure/architecture/patterns/) — 40+ patterns: Circuit Breaker, Retry, Bulkhead, Cache-Aside, etc.
+
+##### Consensus & Coordination
+
+| Concept | Description | Example |
+|---|---|---|
+| **Raft** | Leader-based consensus: leader election → log replication → commit | etcd, CockroachDB, Consul |
+| **Paxos** | Classic quorum-based consensus (complex, foundational) | Google Chubby, Spanner |
+| **ZooKeeper (ZAB)** | Centralized coordination service for config, naming, locking | Kafka (old), Hadoop, HBase |
+| **etcd** | Distributed key-value store using Raft consensus | Kubernetes control plane |
+| **Leader Election** | One node leads; others follow; re-elect on leader failure | Raft term/vote, ZK ephemeral nodes |
+| **Distributed Locks** | Mutual exclusion across nodes | Redlock (Redis), ZK recipes, etcd leases |
+| **2PC (Two-Phase Commit)** | Prepare → commit/abort; strong but blocking | XA transactions, database clusters |
+| **3PC** | Non-blocking variant of 2PC (adds pre-commit phase) | Rarely used in practice |
+| **Quorum (W+R>N)** | Write/read quorums ensure consistency | Dynamo-style databases, Cassandra |
+| **Crdt (Conflict-Free Replicated Data Types)** | Eventually converge without coordination | Riak, Redis CRDT, collaborative editors |
+
+**Key consensus resources:**
+
+- [Raft Consensus Visualization](https://thesecretlivesofdata.com/raft/) — interactive animated walkthrough
+- [DDIA Ch. 8-9](https://dataintensive.net/) — consensus, fault tolerance, distributed transactions
+- [Google SRE Book Ch. 23](https://sre.google/sre-book/table-of-contents/) — managing critical state, consensus at Google
+
+##### Database Internals & Scaling
+
+| Concept | Description | Example |
+|---|---|---|
+| **B-Tree** | Balanced tree; pages/blocks; default for most RDBMS indexes | PostgreSQL, MySQL InnoDB |
+| **LSM Tree** | Log-Structured Merge; write-optimized; compaction | RocksDB, LevelDB, Cassandra |
+| **WAL (Write-Ahead Log)** | Durability: log before apply; crash recovery | All major RDBMS |
+| **MVCC** | Multi-Version Concurrency Control; readers don't block writers | PostgreSQL, MySQL InnoDB, Oracle |
+| **Buffer Pool** | In-memory page cache for disk-resident data | InnoDB buffer pool, PG shared_buffers |
+| **Query Planner** | Cost-based optimization; chooses access path, join order | EXPLAIN ANALYZE (PG), EXPLAIN (MySQL) |
+| **Sharding** | Horizontal split by shard key across database instances | MongoDB, Vitess, CockroachDB |
+| **Partitioning** | Divide table data (hash, range, list) within one DB | PostgreSQL partitions, Oracle partitions |
+| **Replication** | Copy data across nodes; leader-follower or multi-leader | PG streaming, MySQL replication |
+| **Read Replicas** | Scale reads by directing queries to follower replicas | AWS RDS read replicas |
+| **Connection Pooling** | Reuse DB connections; reduce overhead | PgBouncer, HikariCP, ProxySQL |
+
+**Key database resources:**
+
+- [DDIA](https://dataintensive.net/) — storage engines, replication, partitioning, transactions
+- [Use The Index, Luke](https://use-the-index-luke.com/) — SQL indexing deep-dive, B-tree internals
 
 #### LLD — Low-Level Design Patterns (Deep Dive)
 

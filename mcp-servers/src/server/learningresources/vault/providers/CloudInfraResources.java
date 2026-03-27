@@ -11,6 +11,7 @@ import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated resources for cloud platforms, infrastructure as code, and observability.
@@ -48,10 +49,10 @@ public final class CloudInfraResources implements ResourceProvider {
                                 + "ECS/EKS, SQS/SNS, and 200+ services with getting-started guides, "
                                 + "API references, and architecture best practices.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.CLOUD, ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.INFRASTRUCTURE, ConceptArea.SYSTEM_DESIGN,
+                        Set.of(ResourceCategory.CLOUD, ResourceCategory.DEVOPS),
+                        Set.of(ConceptArea.INFRASTRUCTURE, ConceptArea.SYSTEM_DESIGN,
                                 ConceptArea.DISTRIBUTED_SYSTEMS, ConceptArea.NETWORKING),
-                        List.of("official", "aws", "amazon", "ec2", "s3", "lambda", "rds",
+                        Set.of("official", "aws", "amazon", "ec2", "s3", "lambda", "rds",
                                 "dynamodb", "iam", "vpc", "cloud"),
                         "Amazon Web Services",
                         DifficultyLevel.INTERMEDIATE,
@@ -68,10 +69,10 @@ public final class CloudInfraResources implements ResourceProvider {
                                 + "Pub/Sub, Spanner, Firebase, and AI/ML services (Vertex AI). "
                                 + "Includes quickstarts, tutorials, and architecture guides.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.CLOUD, ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.INFRASTRUCTURE, ConceptArea.SYSTEM_DESIGN,
+                        Set.of(ResourceCategory.CLOUD, ResourceCategory.DEVOPS),
+                        Set.of(ConceptArea.INFRASTRUCTURE, ConceptArea.SYSTEM_DESIGN,
                                 ConceptArea.CONTAINERS, ConceptArea.MACHINE_LEARNING),
-                        List.of("official", "gcp", "google-cloud", "bigquery", "gke",
+                        Set.of("official", "gcp", "google-cloud", "bigquery", "gke",
                                 "cloud-run", "cloud-functions", "vertex-ai"),
                         "Google Cloud",
                         DifficultyLevel.INTERMEDIATE,
@@ -88,10 +89,10 @@ public final class CloudInfraResources implements ResourceProvider {
                                 + "Azure Active Directory (Entra ID), and AI services. Includes "
                                 + "learning paths, quickstarts, and architecture center.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.CLOUD, ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.INFRASTRUCTURE, ConceptArea.SYSTEM_DESIGN,
+                        Set.of(ResourceCategory.CLOUD, ResourceCategory.DEVOPS),
+                        Set.of(ConceptArea.INFRASTRUCTURE, ConceptArea.SYSTEM_DESIGN,
                                 ConceptArea.CI_CD, ConceptArea.DATABASES),
-                        List.of("official", "azure", "microsoft", "app-service", "azure-functions",
+                        Set.of("official", "azure", "microsoft", "app-service", "azure-functions",
                                 "cosmos-db", "aks", "azure-devops"),
                         "Microsoft",
                         DifficultyLevel.INTERMEDIATE,
@@ -110,9 +111,9 @@ public final class CloudInfraResources implements ResourceProvider {
                                 + "management, workspaces, Terraform Cloud, import, and best practices "
                                 + "for managing cloud infrastructure declaratively.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.CLOUD),
-                        List.of(ConceptArea.INFRASTRUCTURE, ConceptArea.SYSTEM_DESIGN),
-                        List.of("official", "terraform", "iac", "infrastructure-as-code",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.CLOUD),
+                        Set.of(ConceptArea.INFRASTRUCTURE, ConceptArea.SYSTEM_DESIGN),
+                        Set.of("official", "terraform", "iac", "infrastructure-as-code",
                                 "hcl", "providers", "modules", "state", "hashicorp"),
                         "HashiCorp",
                         DifficultyLevel.INTERMEDIATE,
@@ -129,9 +130,9 @@ public final class CloudInfraResources implements ResourceProvider {
                                 + "and Ansible Vault for secrets. Used for configuration management, "
                                 + "application deployment, and orchestration.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.CLOUD),
-                        List.of(ConceptArea.INFRASTRUCTURE, ConceptArea.CI_CD),
-                        List.of("official", "ansible", "automation", "playbooks", "roles",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.CLOUD),
+                        Set.of(ConceptArea.INFRASTRUCTURE, ConceptArea.CI_CD),
+                        Set.of("official", "ansible", "automation", "playbooks", "roles",
                                 "configuration-management", "iac", "red-hat"),
                         "Red Hat / Ansible Community",
                         DifficultyLevel.INTERMEDIATE,
@@ -150,10 +151,10 @@ public final class CloudInfraResources implements ResourceProvider {
                                 + "gauge, histogram, summary), scraping, alerting rules, service "
                                 + "discovery, and federation. CNCF graduated project.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.CLOUD),
-                        List.of(ConceptArea.OBSERVABILITY, ConceptArea.INFRASTRUCTURE,
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.CLOUD),
+                        Set.of(ConceptArea.OBSERVABILITY, ConceptArea.INFRASTRUCTURE,
                                 ConceptArea.DISTRIBUTED_SYSTEMS),
-                        List.of("official", "prometheus", "monitoring", "promql", "metrics",
+                        Set.of("official", "prometheus", "monitoring", "promql", "metrics",
                                 "alerting", "cncf", "cloud-native"),
                         "CNCF / Prometheus Authors",
                         DifficultyLevel.INTERMEDIATE,
@@ -170,9 +171,9 @@ public final class CloudInfraResources implements ResourceProvider {
                                 + "(Prometheus, Loki, Elasticsearch), alerting, variables, and "
                                 + "annotations. Pairs with Prometheus for full observability.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
-                        List.of(ConceptArea.OBSERVABILITY, ConceptArea.INFRASTRUCTURE),
-                        List.of("official", "grafana", "dashboards", "visualization",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
+                        Set.of(ConceptArea.OBSERVABILITY, ConceptArea.INFRASTRUCTURE),
+                        Set.of("official", "grafana", "dashboards", "visualization",
                                 "monitoring", "data-sources", "alerting"),
                         "Grafana Labs",
                         DifficultyLevel.INTERMEDIATE,

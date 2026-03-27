@@ -11,6 +11,7 @@ import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated resources for testing frameworks and tools across languages.
@@ -51,10 +52,10 @@ public final class TestingToolsResources implements ResourceProvider {
                                 + "argument matchers, BDD-style API (given/when/then), annotations, "
                                 + "and integration with JUnit 5.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.TESTING, ResourceCategory.JAVA),
-                        List.of(ConceptArea.TESTING, ConceptArea.CLEAN_CODE,
+                        Set.of(ResourceCategory.TESTING, ResourceCategory.JAVA),
+                        Set.of(ConceptArea.TESTING, ConceptArea.CLEAN_CODE,
                                 ConceptArea.DESIGN_PATTERNS),
-                        List.of("official", "mockito", "mocking", "java", "junit",
+                        Set.of("official", "mockito", "mocking", "java", "junit",
                                 "stubbing", "verification", "bdd"),
                         "Mockito Contributors",
                         DifficultyLevel.INTERMEDIATE,
@@ -71,11 +72,11 @@ public final class TestingToolsResources implements ResourceProvider {
                                 + "Covers PostgreSQL, MySQL, Kafka, Redis, Elasticsearch modules, "
                                 + "and custom container definitions. Java, Node.js, Go, and .NET SDKs.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.TESTING, ResourceCategory.JAVA,
+                        Set.of(ResourceCategory.TESTING, ResourceCategory.JAVA,
                                 ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.TESTING, ConceptArea.CONTAINERS,
+                        Set.of(ConceptArea.TESTING, ConceptArea.CONTAINERS,
                                 ConceptArea.DATABASES),
-                        List.of("official", "testcontainers", "integration-testing", "docker",
+                        Set.of("official", "testcontainers", "integration-testing", "docker",
                                 "postgresql", "kafka", "redis", "java", "containers"),
                         "AtomicJar / Docker",
                         DifficultyLevel.INTERMEDIATE,
@@ -94,9 +95,9 @@ public final class TestingToolsResources implements ResourceProvider {
                                 + "object model, Selenium Grid, and cross-browser testing with "
                                 + "Java, Python, JavaScript, C#, and Ruby bindings.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.TESTING, ResourceCategory.WEB),
-                        List.of(ConceptArea.TESTING, ConceptArea.DESIGN_PATTERNS),
-                        List.of("official", "selenium", "webdriver", "browser-testing",
+                        Set.of(ResourceCategory.TESTING, ResourceCategory.WEB),
+                        Set.of(ConceptArea.TESTING, ConceptArea.DESIGN_PATTERNS),
+                        Set.of("official", "selenium", "webdriver", "browser-testing",
                                 "e2e", "page-object", "grid", "cross-browser"),
                         "Selenium Project",
                         DifficultyLevel.INTERMEDIATE,
@@ -113,10 +114,10 @@ public final class TestingToolsResources implements ResourceProvider {
                                 + "reloads, network stubbing, component testing, and Cypress Cloud "
                                 + "for CI integration.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.TESTING, ResourceCategory.JAVASCRIPT,
+                        Set.of(ResourceCategory.TESTING, ResourceCategory.JAVASCRIPT,
                                 ResourceCategory.WEB),
-                        List.of(ConceptArea.TESTING, ConceptArea.CI_CD),
-                        List.of("official", "cypress", "e2e", "end-to-end", "component-testing",
+                        Set.of(ConceptArea.TESTING, ConceptArea.CI_CD),
+                        Set.of("official", "cypress", "e2e", "end-to-end", "component-testing",
                                 "javascript", "frontend-testing", "time-travel"),
                         "Cypress.io",
                         DifficultyLevel.BEGINNER,
@@ -135,9 +136,9 @@ public final class TestingToolsResources implements ResourceProvider {
                                 + "introspection, and configuration. Scales from simple unit tests "
                                 + "to complex integration suites.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.TESTING, ResourceCategory.PYTHON),
-                        List.of(ConceptArea.TESTING, ConceptArea.CLEAN_CODE),
-                        List.of("official", "pytest", "python", "fixtures", "parametrize",
+                        Set.of(ResourceCategory.TESTING, ResourceCategory.PYTHON),
+                        Set.of(ConceptArea.TESTING, ConceptArea.CLEAN_CODE),
+                        Set.of("official", "pytest", "python", "fixtures", "parametrize",
                                 "markers", "plugins", "unit-testing"),
                         "pytest Contributors",
                         DifficultyLevel.BEGINNER,

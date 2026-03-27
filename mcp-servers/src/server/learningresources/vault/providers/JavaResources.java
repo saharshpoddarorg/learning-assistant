@@ -1,16 +1,19 @@
 package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
+import server.learningresources.model.ContentFormat;
 import server.learningresources.model.ContentFreshness;
 import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LearningResource;
+import server.learningresources.model.ResourceAuthor;
 import server.learningresources.model.ResourceCategory;
 import server.learningresources.model.ResourceType;
 import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated Java ecosystem learning resources — official docs, community, books, OSS.
@@ -35,11 +38,11 @@ public final class JavaResources implements ResourceProvider {
                                 + "lambdas, streams, collections, modules, records, sealed classes, "
                                 + "pattern matching, and more. The authoritative starting point for Java.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.LANGUAGE_BASICS, ConceptArea.OOP, ConceptArea.GENERICS,
+                        Set.of(ResourceCategory.JAVA),
+                        Set.of(ConceptArea.LANGUAGE_BASICS, ConceptArea.OOP, ConceptArea.GENERICS,
                                 ConceptArea.FUNCTIONAL_PROGRAMMING, ConceptArea.LANGUAGE_FEATURES,
                                 ConceptArea.GETTING_STARTED),
-                        List.of("official", "language-basics", "oop", "generics", "streams", "modules",
+                        Set.of("official", "language-basics", "oop", "generics", "streams", "modules",
                                 "records", "sealed-classes", "pattern-matching"),
                         "Oracle / dev.java",
                         DifficultyLevel.BEGINNER,
@@ -54,10 +57,10 @@ public final class JavaResources implements ResourceProvider {
                         "Official JDK 21 API documentation — the complete reference for every "
                                 + "class, method, and package in the standard library.",
                         ResourceType.API_REFERENCE,
-                        List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.CONCURRENCY,
+                        Set.of(ResourceCategory.JAVA),
+                        Set.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.CONCURRENCY,
                                 ConceptArea.DATA_STRUCTURES),
-                        List.of("official", "api", "javadoc", "reference", "jdk21"),
+                        Set.of("official", "api", "javadoc", "reference", "jdk21"),
                         "Oracle",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
@@ -72,10 +75,10 @@ public final class JavaResources implements ResourceProvider {
                                 + "Defines the syntax, type system, and semantics. Essential for "
                                 + "understanding edge cases and language guarantees.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.OOP, ConceptArea.GENERICS,
+                        Set.of(ResourceCategory.JAVA),
+                        Set.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.OOP, ConceptArea.GENERICS,
                                 ConceptArea.CONCURRENCY, ConceptArea.MEMORY_MANAGEMENT),
-                        List.of("official", "specification", "jls", "formal", "type-system"),
+                        Set.of("official", "specification", "jls", "formal", "type-system"),
                         "Oracle",
                         DifficultyLevel.EXPERT,
                         ContentFreshness.ACTIVELY_MAINTAINED,
@@ -90,10 +93,10 @@ public final class JavaResources implements ResourceProvider {
                                 + "deep dives into new features, performance analysis, and interviews "
                                 + "with JDK engineers.",
                         ResourceType.BLOG,
-                        List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.CONCURRENCY,
+                        Set.of(ResourceCategory.JAVA),
+                        Set.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.CONCURRENCY,
                                 ConceptArea.MEMORY_MANAGEMENT),
-                        List.of("official", "blog", "jep", "new-features", "performance",
+                        Set.of("official", "blog", "jep", "new-features", "performance",
                                 "virtual-threads", "project-loom", "project-amber"),
                         "Oracle Java Team",
                         DifficultyLevel.INTERMEDIATE,
@@ -109,9 +112,9 @@ public final class JavaResources implements ResourceProvider {
                                 + "format, bytecode instructions, linking, loading, and execution. "
                                 + "Essential for understanding JVM internals and performance tuning.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.MEMORY_MANAGEMENT, ConceptArea.LANGUAGE_FEATURES),
-                        List.of("official", "jvm", "bytecode", "class-file", "specification"),
+                        Set.of(ResourceCategory.JAVA),
+                        Set.of(ConceptArea.MEMORY_MANAGEMENT, ConceptArea.LANGUAGE_FEATURES),
+                        Set.of("official", "jvm", "bytecode", "class-file", "specification"),
                         "Oracle",
                         DifficultyLevel.EXPERT,
                         ContentFreshness.ACTIVELY_MAINTAINED,
@@ -126,9 +129,9 @@ public final class JavaResources implements ResourceProvider {
                                 + "follow Project Loom (virtual threads), Amber (language features), "
                                 + "Valhalla (value types), and Panama (native interop).",
                         ResourceType.REPOSITORY,
-                        List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.CONCURRENCY),
-                        List.of("official", "open-source", "jep", "loom", "amber", "valhalla", "panama"),
+                        Set.of(ResourceCategory.JAVA),
+                        Set.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.CONCURRENCY),
+                        Set.of("official", "open-source", "jep", "loom", "amber", "valhalla", "panama"),
                         "OpenJDK Community",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.ACTIVELY_MAINTAINED,
@@ -145,10 +148,10 @@ public final class JavaResources implements ResourceProvider {
                                 + "persistence, security, and modern Java features. Practical, "
                                 + "well-organized, and frequently updated.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.TESTING,
+                        Set.of(ResourceCategory.JAVA),
+                        Set.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.TESTING,
                                 ConceptArea.API_DESIGN, ConceptArea.CONCURRENCY),
-                        List.of("spring", "testing", "persistence", "security", "rest-api",
+                        Set.of("spring", "testing", "persistence", "security", "rest-api",
                                 "hibernate", "maven", "gradle"),
                         "Baeldung / Eugen Paraschiv",
                         DifficultyLevel.INTERMEDIATE,
@@ -164,10 +167,10 @@ public final class JavaResources implements ResourceProvider {
                                 + "JDBC, and web technologies. Excellent for deep-diving into "
                                 + "specific Java APIs.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.CONCURRENCY, ConceptArea.NETWORKING,
+                        Set.of(ResourceCategory.JAVA),
+                        Set.of(ConceptArea.CONCURRENCY, ConceptArea.NETWORKING,
                                 ConceptArea.DATABASES, ConceptArea.LANGUAGE_FEATURES),
-                        List.of("concurrency", "nio", "networking", "jdbc", "threads"),
+                        Set.of("concurrency", "nio", "networking", "jdbc", "threads"),
                         "Jakob Jenkov",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.PERIODICALLY_UPDATED,
@@ -184,15 +187,17 @@ public final class JavaResources implements ResourceProvider {
                                 + "creation, generics, enums, lambdas, streams, concurrency, and "
                                 + "serialization. Written by a JDK architect.",
                         ResourceType.BOOK,
-                        List.of(ResourceCategory.JAVA, ResourceCategory.SOFTWARE_ENGINEERING),
-                        List.of(ConceptArea.CLEAN_CODE, ConceptArea.DESIGN_PATTERNS,
+                        Set.of(ResourceCategory.JAVA, ResourceCategory.SOFTWARE_ENGINEERING),
+                        Set.of(ConceptArea.CLEAN_CODE, ConceptArea.DESIGN_PATTERNS,
                                 ConceptArea.CONCURRENCY, ConceptArea.GENERICS),
-                        List.of("best-practices", "design-patterns", "concurrency", "generics",
+                        Set.of("best-practices", "design-patterns", "concurrency", "generics",
                                 "enums", "lambdas", "streams"),
                         "Joshua Bloch",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.EVERGREEN,
-                        false, false, LanguageApplicability.JAVA_CENTRIC, now
+                        false, false, LanguageApplicability.JAVA_CENTRIC, now,
+                        ContentFormat.PUBLISHED_BOOK,
+                        Set.of(ResourceAuthor.JOSHUA_BLOCH)
                 ),
 
                 new LearningResource(
@@ -203,15 +208,17 @@ public final class JavaResources implements ResourceProvider {
                                 + "safety, locks, executors, concurrent collections, the Java Memory "
                                 + "Model, and composing concurrent objects.",
                         ResourceType.BOOK,
-                        List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.CONCURRENCY, ConceptArea.MEMORY_MANAGEMENT,
+                        Set.of(ResourceCategory.JAVA),
+                        Set.of(ConceptArea.CONCURRENCY, ConceptArea.MEMORY_MANAGEMENT,
                                 ConceptArea.DESIGN_PATTERNS),
-                        List.of("concurrency", "threads", "locks", "executors", "java-memory-model",
+                        Set.of("concurrency", "threads", "locks", "executors", "java-memory-model",
                                 "thread-safety", "concurrent-collections"),
                         "Brian Goetz et al.",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.EVERGREEN,
-                        false, false, LanguageApplicability.JAVA_CENTRIC, now
+                        false, false, LanguageApplicability.JAVA_CENTRIC, now,
+                        ContentFormat.PUBLISHED_BOOK,
+                        Set.of(ResourceAuthor.BRIAN_GOETZ, ResourceAuthor.JOSHUA_BLOCH)
                 ),
 
                 // ─── Open Source Projects ───────────────────────────────────
@@ -223,10 +230,10 @@ public final class JavaResources implements ResourceProvider {
                         "Official Spring Boot guides. Quick, hands-on tutorials for REST services, "
                                 + "data access, security, testing, messaging, and more.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.JAVA, ResourceCategory.WEB),
-                        List.of(ConceptArea.API_DESIGN, ConceptArea.TESTING,
+                        Set.of(ResourceCategory.JAVA, ResourceCategory.WEB),
+                        Set.of(ConceptArea.API_DESIGN, ConceptArea.TESTING,
                                 ConceptArea.ARCHITECTURE, ConceptArea.GETTING_STARTED),
-                        List.of("spring", "spring-boot", "rest", "data", "security", "testing"),
+                        Set.of("spring", "spring-boot", "rest", "data", "security", "testing"),
                         "VMware / Broadcom",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
@@ -241,10 +248,10 @@ public final class JavaResources implements ResourceProvider {
                                 + "utilities, strings, I/O, hashing, event bus, and math. "
                                 + "A masterclass in API design.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.DATA_STRUCTURES, ConceptArea.CONCURRENCY,
+                        Set.of(ResourceCategory.JAVA),
+                        Set.of(ConceptArea.DATA_STRUCTURES, ConceptArea.CONCURRENCY,
                                 ConceptArea.CLEAN_CODE),
-                        List.of("guava", "collections", "caching", "concurrency", "utility"),
+                        Set.of("guava", "collections", "caching", "concurrency", "utility"),
                         "Google",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
@@ -259,9 +266,9 @@ public final class JavaResources implements ResourceProvider {
                                 + "Covers annotations, assertions, parameterized tests, extensions, "
                                 + "nested tests, and test lifecycle.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.JAVA, ResourceCategory.TESTING),
-                        List.of(ConceptArea.TESTING, ConceptArea.CLEAN_CODE),
-                        List.of("junit", "testing", "tdd", "unit-tests", "parameterized", "extensions"),
+                        Set.of(ResourceCategory.JAVA, ResourceCategory.TESTING),
+                        Set.of(ConceptArea.TESTING, ConceptArea.CLEAN_CODE),
+                        Set.of("junit", "testing", "tdd", "unit-tests", "parameterized", "extensions"),
                         "JUnit Team",
                         DifficultyLevel.INTERMEDIATE,
                         ContentFreshness.ACTIVELY_MAINTAINED,
@@ -280,9 +287,9 @@ public final class JavaResources implements ResourceProvider {
                                 + "matching enhancements, Panama foreign function/memory API finalization, "
                                 + "and more. The go-to reference before upgrading from JDK 21 or earlier.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.GETTING_STARTED),
-                        List.of("jdk25", "java25", "release-notes", "jep", "lts", "upgrade",
+                        Set.of(ResourceCategory.JAVA),
+                        Set.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.GETTING_STARTED),
+                        Set.of("jdk25", "java25", "release-notes", "jep", "lts", "upgrade",
                                 "openjdk", "new-features", "migration"),
                         "OpenJDK / Oracle",
                         DifficultyLevel.INTERMEDIATE,
@@ -300,9 +307,9 @@ public final class JavaResources implements ResourceProvider {
                                 + "Step-by-step upgrade path from JDK 21 (previous LTS) including "
                                 + "jdeps analysis and multi-release JAR creation.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.JAVA),
-                        List.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.BUILD_TOOLS),
-                        List.of("jdk25", "migration", "upgrade", "java25", "jdk21-to-25",
+                        Set.of(ResourceCategory.JAVA),
+                        Set.of(ConceptArea.LANGUAGE_FEATURES, ConceptArea.BUILD_TOOLS),
+                        Set.of("jdk25", "migration", "upgrade", "java25", "jdk21-to-25",
                                 "incompatibilities", "modules", "deprecated-apis"),
                         "Oracle",
                         DifficultyLevel.INTERMEDIATE,
@@ -321,10 +328,10 @@ public final class JavaResources implements ResourceProvider {
                                 + "per-project JDK pinning — ideal for teams maintaining multiple "
                                 + "Java versions across different microservices.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.JAVA, ResourceCategory.TOOLS),
-                        List.of(ConceptArea.GETTING_STARTED, ConceptArea.BUILD_TOOLS,
+                        Set.of(ResourceCategory.JAVA, ResourceCategory.TOOLS),
+                        Set.of(ConceptArea.GETTING_STARTED, ConceptArea.BUILD_TOOLS,
                                 ConceptArea.LANGUAGE_FEATURES),
-                        List.of("sdkman", "jdk", "version-manager", "java-versions", "temurin",
+                        Set.of("sdkman", "jdk", "version-manager", "java-versions", "temurin",
                                 "graalvm", "corretto", "zulu", "linux", "macos", "wsl", "upgrade"),
                         "SDKMAN! Community",
                         DifficultyLevel.BEGINNER,
@@ -342,9 +349,9 @@ public final class JavaResources implements ResourceProvider {
                                 + "images. Backed by Microsoft, IBM, Google, and Red Hat. The "
                                 + "recommended open-source alternative to Oracle JDK.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.JAVA, ResourceCategory.TOOLS),
-                        List.of(ConceptArea.GETTING_STARTED, ConceptArea.LANGUAGE_FEATURES),
-                        List.of("temurin", "adoptium", "open-source-jdk", "jdk-download",
+                        Set.of(ResourceCategory.JAVA, ResourceCategory.TOOLS),
+                        Set.of(ConceptArea.GETTING_STARTED, ConceptArea.LANGUAGE_FEATURES),
+                        Set.of("temurin", "adoptium", "open-source-jdk", "jdk-download",
                                 "jdk25", "jdk21", "production-ready", "windows", "macos", "linux",
                                 "docker", "openjdk"),
                         "Eclipse Foundation / Adoptium",

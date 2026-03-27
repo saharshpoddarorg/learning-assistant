@@ -1,16 +1,19 @@
 package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
+import server.learningresources.model.ContentFormat;
 import server.learningresources.model.ContentFreshness;
 import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LearningResource;
+import server.learningresources.model.ResourceAuthor;
 import server.learningresources.model.ResourceCategory;
 import server.learningresources.model.ResourceType;
 import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated DevOps, CI/CD, and tooling resources — official docs, books,
@@ -31,10 +34,10 @@ public final class DevOpsResources implements ResourceProvider {
                                 + "Dockerfiles, multi-container apps with Compose, volumes, "
                                 + "networking, and best practices.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.CONTAINERS, ConceptArea.INFRASTRUCTURE,
+                        Set.of(ResourceCategory.DEVOPS),
+                        Set.of(ConceptArea.CONTAINERS, ConceptArea.INFRASTRUCTURE,
                                 ConceptArea.GETTING_STARTED),
-                        List.of("official", "docker", "containers", "dockerfile", "compose",
+                        Set.of("official", "docker", "containers", "dockerfile", "compose",
                                 "volumes", "networking"),
                         "Docker Inc.",
                         DifficultyLevel.BEGINNER,
@@ -50,10 +53,10 @@ public final class DevOpsResources implements ResourceProvider {
                                 + "API reference for container orchestration — pods, services, "
                                 + "deployments, ConfigMaps, secrets, RBAC, and networking.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.CONTAINERS, ConceptArea.INFRASTRUCTURE,
+                        Set.of(ResourceCategory.DEVOPS),
+                        Set.of(ConceptArea.CONTAINERS, ConceptArea.INFRASTRUCTURE,
                                 ConceptArea.NETWORKING, ConceptArea.DISTRIBUTED_SYSTEMS),
-                        List.of("official", "kubernetes", "k8s", "pods", "services",
+                        Set.of("official", "kubernetes", "k8s", "pods", "services",
                                 "deployments", "orchestration"),
                         "CNCF / Kubernetes Community",
                         DifficultyLevel.INTERMEDIATE,
@@ -69,14 +72,16 @@ public final class DevOpsResources implements ResourceProvider {
                                 + "basics, branching, distributed workflows, internals, hooks, "
                                 + "and advanced topics like rebase, cherry-pick, and submodules.",
                         ResourceType.BOOK,
-                        List.of(ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.VERSION_CONTROL, ConceptArea.GETTING_STARTED),
-                        List.of("official", "git", "version-control", "branching", "rebase",
+                        Set.of(ResourceCategory.DEVOPS),
+                        Set.of(ConceptArea.VERSION_CONTROL, ConceptArea.GETTING_STARTED),
+                        Set.of("official", "git", "version-control", "branching", "rebase",
                                 "workflows", "internals"),
                         "Scott Chacon & Ben Straub",
                         DifficultyLevel.BEGINNER,
                         ContentFreshness.EVERGREEN,
-                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now,
+                        ContentFormat.OPEN_BOOK,
+                        Set.of(ResourceAuthor.SCOTT_CHACON)
                 ),
 
                 new LearningResource(
@@ -87,10 +92,10 @@ public final class DevOpsResources implements ResourceProvider {
                                 + "pull requests, code review, Pages, and more through interactive "
                                 + "exercises in real repositories.",
                         ResourceType.INTERACTIVE,
-                        List.of(ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.VERSION_CONTROL, ConceptArea.CI_CD,
+                        Set.of(ResourceCategory.DEVOPS),
+                        Set.of(ConceptArea.VERSION_CONTROL, ConceptArea.CI_CD,
                                 ConceptArea.GETTING_STARTED),
-                        List.of("official", "github", "github-actions", "ci-cd", "pull-requests",
+                        Set.of("official", "github", "github-actions", "ci-cd", "pull-requests",
                                 "code-review", "interactive"),
                         "GitHub",
                         DifficultyLevel.BEGINNER,
@@ -106,10 +111,10 @@ public final class DevOpsResources implements ResourceProvider {
                                 + "runners, reusable workflows, composite actions, secrets, "
                                 + "environments, and marketplace actions.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.CI_CD, ConceptArea.INFRASTRUCTURE,
+                        Set.of(ResourceCategory.DEVOPS),
+                        Set.of(ConceptArea.CI_CD, ConceptArea.INFRASTRUCTURE,
                                 ConceptArea.BUILD_TOOLS),
-                        List.of("official", "github-actions", "ci-cd", "workflows", "automation",
+                        Set.of("official", "github-actions", "ci-cd", "workflows", "automation",
                                 "runners", "yaml"),
                         "GitHub",
                         DifficultyLevel.INTERMEDIATE,
@@ -125,9 +130,9 @@ public final class DevOpsResources implements ResourceProvider {
                                 + "management, task configuration, multi-project builds, and "
                                 + "performance optimization.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
-                        List.of(ConceptArea.BUILD_TOOLS, ConceptArea.CI_CD),
-                        List.of("official", "gradle", "build-tool", "dependency-management",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.JAVA),
+                        Set.of(ConceptArea.BUILD_TOOLS, ConceptArea.CI_CD),
+                        Set.of("official", "gradle", "build-tool", "dependency-management",
                                 "plugins", "groovy", "kotlin-dsl"),
                         "Gradle Inc.",
                         DifficultyLevel.INTERMEDIATE,

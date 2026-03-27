@@ -1,16 +1,19 @@
 package server.learningresources.vault.providers;
 
 import server.learningresources.model.ConceptArea;
+import server.learningresources.model.ContentFormat;
 import server.learningresources.model.ContentFreshness;
 import server.learningresources.model.DifficultyLevel;
 import server.learningresources.model.LanguageApplicability;
 import server.learningresources.model.LearningResource;
+import server.learningresources.model.ResourceAuthor;
 import server.learningresources.model.ResourceCategory;
 import server.learningresources.model.ResourceType;
 import server.learningresources.vault.ResourceProvider;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Curated resources for Version Control Systems and Git workflows.
@@ -51,9 +54,9 @@ public final class VcsResources implements ResourceProvider {
                                 + "Ideal for beginners up to intermediate users who want to "
                                 + "understand git history manipulation visually.",
                         ResourceType.INTERACTIVE,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
-                        List.of(ConceptArea.VERSION_CONTROL, ConceptArea.GETTING_STARTED),
-                        List.of("git", "branching", "rebase", "merge", "cherry-pick",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
+                        Set.of(ConceptArea.VERSION_CONTROL, ConceptArea.GETTING_STARTED),
+                        Set.of("git", "branching", "rebase", "merge", "cherry-pick",
                                 "interactive", "visual", "beginner", "intermediate"),
                         "Peter Cottle",
                         DifficultyLevel.BEGINNER,
@@ -71,9 +74,9 @@ public final class VcsResources implements ResourceProvider {
                                 + "config, and all plumbing commands. The definitive source "
                                 + "for exact flag meanings and behavior.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
-                        List.of(ConceptArea.VERSION_CONTROL),
-                        List.of("official", "git", "reference", "commands", "flags",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
+                        Set.of(ConceptArea.VERSION_CONTROL),
+                        Set.of("official", "git", "reference", "commands", "flags",
                                 "internals", "hooks", "plumbing", "porcelain"),
                         "The Git Project",
                         DifficultyLevel.INTERMEDIATE,
@@ -91,9 +94,9 @@ public final class VcsResources implements ResourceProvider {
                                 + "using branches, comparing workflows (feature branch, gitflow, "
                                 + "forking, trunk-based). Excellent diagrams for branching strategies.",
                         ResourceType.TUTORIAL,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
-                        List.of(ConceptArea.VERSION_CONTROL, ConceptArea.CI_CD),
-                        List.of("git", "tutorial", "branching", "workflow", "gitflow",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
+                        Set.of(ConceptArea.VERSION_CONTROL, ConceptArea.CI_CD),
+                        Set.of("git", "tutorial", "branching", "workflow", "gitflow",
                                 "feature-branch", "forking", "rebase", "merge",
                                 "atlassian", "trunk-based"),
                         "Atlassian",
@@ -114,9 +117,9 @@ public final class VcsResources implements ResourceProvider {
                                 + "versioned software teams. Includes 2020 author reflection on "
                                 + "when to use GitFlow vs simpler workflows (GitHub Flow).",
                         ResourceType.BLOG,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.SOFTWARE_ENGINEERING),
-                        List.of(ConceptArea.VERSION_CONTROL, ConceptArea.CI_CD),
-                        List.of("git", "gitflow", "branching-strategy", "feature-branch",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.SOFTWARE_ENGINEERING),
+                        Set.of(ConceptArea.VERSION_CONTROL, ConceptArea.CI_CD),
+                        Set.of("git", "gitflow", "branching-strategy", "feature-branch",
                                 "hotfix", "release-branch", "workflow", "team"),
                         "Vincent Driessen",
                         DifficultyLevel.INTERMEDIATE,
@@ -134,9 +137,9 @@ public final class VcsResources implements ResourceProvider {
                                 + "continuous deployment. Covers branch creation, commits, pull "
                                 + "requests, review, and merge to main.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.VERSION_CONTROL, ConceptArea.CI_CD),
-                        List.of("official", "github", "github-flow", "pull-requests",
+                        Set.of(ResourceCategory.DEVOPS),
+                        Set.of(ConceptArea.VERSION_CONTROL, ConceptArea.CI_CD),
+                        Set.of("official", "github", "github-flow", "pull-requests",
                                 "continuous-delivery", "workflow", "branching"),
                         "GitHub",
                         DifficultyLevel.BEGINNER,
@@ -154,9 +157,9 @@ public final class VcsResources implements ResourceProvider {
                                 + "branch by abstraction, and how TBD enables continuous integration. "
                                 + "Explains when TBD beats GitFlow for high-frequency deployment teams.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS),
-                        List.of(ConceptArea.VERSION_CONTROL, ConceptArea.CI_CD),
-                        List.of("trunk-based", "tbd", "continuous-integration", "feature-flags",
+                        Set.of(ResourceCategory.DEVOPS),
+                        Set.of(ConceptArea.VERSION_CONTROL, ConceptArea.CI_CD),
+                        Set.of("trunk-based", "tbd", "continuous-integration", "feature-flags",
                                 "branching-strategy", "git", "short-lived-branches"),
                         "Paul Hammant",
                         DifficultyLevel.INTERMEDIATE,
@@ -176,9 +179,9 @@ public final class VcsResources implements ResourceProvider {
                                 + "Enables auto-generated CHANGELOGs and automated versioning. "
                                 + "Widely adopted standard across open-source and enterprise projects.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.SOFTWARE_ENGINEERING),
-                        List.of(ConceptArea.VERSION_CONTROL, ConceptArea.CLEAN_CODE),
-                        List.of("conventional-commits", "commit-message", "semver",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.SOFTWARE_ENGINEERING),
+                        Set.of(ConceptArea.VERSION_CONTROL, ConceptArea.CLEAN_CODE),
+                        Set.of("conventional-commits", "commit-message", "semver",
                                 "changelog", "git", "commit-convention", "feat", "fix",
                                 "breaking-change", "automated-versioning"),
                         "Conventional Commits Community",
@@ -197,9 +200,9 @@ public final class VcsResources implements ResourceProvider {
                                 + "Pairs directly with Conventional Commits for automated "
                                 + "version bumping in CI/CD pipelines.",
                         ResourceType.DOCUMENTATION,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.SOFTWARE_ENGINEERING),
-                        List.of(ConceptArea.VERSION_CONTROL, ConceptArea.BUILD_TOOLS),
-                        List.of("semver", "semantic-versioning", "versioning", "major",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.SOFTWARE_ENGINEERING),
+                        Set.of(ConceptArea.VERSION_CONTROL, ConceptArea.BUILD_TOOLS),
+                        Set.of("semver", "semantic-versioning", "versioning", "major",
                                 "minor", "patch", "release", "changelog", "npm", "maven"),
                         "Tom Preston-Werner",
                         DifficultyLevel.BEGINNER,
@@ -220,14 +223,16 @@ public final class VcsResources implements ResourceProvider {
                                 + "deep level — resolving weird states, writing git hooks, or "
                                 + "building tools on top of git.",
                         ResourceType.BOOK,
-                        List.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
-                        List.of(ConceptArea.VERSION_CONTROL),
-                        List.of("official", "git", "internals", "object-model", "plumbing",
+                        Set.of(ResourceCategory.DEVOPS, ResourceCategory.TOOLS),
+                        Set.of(ConceptArea.VERSION_CONTROL),
+                        Set.of("official", "git", "internals", "object-model", "plumbing",
                                 "sha1", "blobs", "trees", "packfiles", "hooks", "advanced"),
                         "Scott Chacon & Ben Straub",
                         DifficultyLevel.ADVANCED,
                         ContentFreshness.EVERGREEN,
-                        true, true, LanguageApplicability.MULTI_LANGUAGE, now
+                        true, true, LanguageApplicability.MULTI_LANGUAGE, now,
+                        ContentFormat.OPEN_BOOK,
+                        Set.of(ResourceAuthor.SCOTT_CHACON)
                 )
         );
     }

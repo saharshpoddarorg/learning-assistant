@@ -37,12 +37,28 @@ This instruction activates whenever the user:
 
 If the user describes something **concrete and actionable** (a feature, a bug, a task):
 
-1. Create a file in `brain/ai-brain/backlog/items/` using the item template
+1. Route to the correct folder (see **Folder Routing** below)
 2. Assign the next sequential `BLI-NNN` ID
 3. Set appropriate `status`, `priority`, and `type`
 4. Write concise description and acceptance criteria
 5. Add a row to [BOARD.md](../../brain/ai-brain/backlog/BOARD.md) in the correct section
 6. Inform the user: "Created BLI-NNN: title"
+
+### Folder Routing for Items
+
+All actionable items use the **BLI** prefix. The folder determines the context:
+
+| Folder | Route when | Examples |
+|---|---|---|
+| `features/` | Enhancement or feature for the **learning-assistant** project | MCP tools, vault providers, brain features, skill files |
+| `projects/` | **Standalone personal software project** (separate app/product) | Media manager, family tree, ebook reader |
+| `items/` | General work that doesn't fit features/ or projects/ | One-off tasks, misc fixes, cross-cutting chores |
+
+**Decision heuristic:**
+
+- Is it a feature *of this repo*? → `features/`
+- Is it a *separate application* the user wants to build? → `projects/`
+- Neither? → `items/`
 
 ### When the User Shares a Vague Idea
 
@@ -216,12 +232,76 @@ To determine the next ID:
 
 ## File Naming
 
-| Type | Pattern | Example |
+| Type | Pattern | Folder | Example |
+|---|---|---|---|
+| Feature | `BLI-NNN_kebab-title.md` | `features/` | `BLI-007_cross-platform-note-integration.md` |
+| Project | `BLI-NNN_kebab-title.md` | `projects/` | `BLI-014_media-manager.md` |
+| Item | `BLI-NNN_kebab-title.md` | `items/` | `BLI-006_code-formatting-instructions-skill.md` |
+| Idea | `IDEA-NNN_kebab-title.md` | `ideas/` | `IDEA-001_voice-search-for-vault.md` |
+| Epic | `EPIC-NNN_kebab-title.md` | `epics/` | `EPIC-001_atlassian-v2-migration.md` |
+| Guide | `GUIDE-NNN_kebab-title.md` | `guides/` | `GUIDE-001_error-message-conventions.md` |
+
+### ID Prefix Reference
+
+| Prefix | Stands for | Scope |
 |---|---|---|
-| Item | `BLI-NNN_kebab-title.md` | `BLI-001_add-search-filters.md` |
-| Idea | `IDEA-NNN_kebab-title.md` | `IDEA-001_voice-search-for-vault.md` |
-| Epic | `EPIC-NNN_kebab-title.md` | `EPIC-001_atlassian-v2-migration.md` |
-| Guide | `GUIDE-NNN_kebab-title.md` | `GUIDE-001_error-message-conventions.md` |
+| **BLI** | **B**ack**L**og **I**tem | Any actionable work — features, projects, or general items |
+| **IDEA** | Idea | Raw/exploratory thoughts in `ideas/` |
+| **EPIC** | Epic | Grouping themes in `epics/` |
+| **GUIDE** | Guide | GHCP context guides in `guides/` |
+
+**BLI** stands for **B**ack**L**og **I**tem. It is a universal prefix used for all
+actionable work items regardless of which folder they reside in (`features/`,
+`projects/`, or `items/`). The folder provides organizational context (what kind of
+work), while the BLI ID provides stable, unique, never-reused identity across the
+entire backlog.
+
+---
+
+## Sub-Items (Parent–Child Hierarchy)
+
+Backlog items can be decomposed into **sub-items** for large or multi-faceted work.
+Sub-items are regular BLI files that reference their parent via frontmatter.
+
+### When to Use Sub-Items
+
+| Situation | Approach |
+|---|---|
+| Quick checklist of steps | Use acceptance criteria checkboxes (no sub-items) |
+| 3+ distinct workstreams within one item | Create sub-items (separate BLI files) |
+| Work is large enough that sub-parts need their own status tracking | Create sub-items |
+| Mixed priorities within one item | Create sub-items with individual priorities |
+
+### Creating Sub-Items
+
+1. Create the parent item first (or update an existing item to be a parent)
+2. Add `sub-items: [BLI-NNN, BLI-NNN]` to the parent's frontmatter
+3. Add a **Sub-Items** table section in the parent item's body
+4. Create each sub-item file with `parent: BLI-NNN` in its frontmatter
+5. Sub-items get their own sequential BLI IDs — they are full items
+6. Sub-items appear in BOARD.md indented under their parent (or grouped in the epic)
+
+### Frontmatter Fields
+
+**Parent item:**
+
+```yaml
+sub-items: [BLI-010, BLI-011, BLI-012]
+```
+
+**Child item:**
+
+```yaml
+parent: BLI-007
+```
+
+### Rules
+
+- A sub-item inherits the parent's `epic` if it has none of its own
+- Sub-items can have different priorities and statuses from their parent
+- When all sub-items are `done`, suggest marking the parent as `done`
+- Sub-items can themselves have sub-items (max 2 levels deep to avoid complexity)
+- The parent's Sub-Items table must stay in sync with the sub-item files
 
 ---
 

@@ -105,6 +105,7 @@ path separators, tool names) or ask if unclear.
 | **Any** | `deep-research` | Investigation, spike stories, RCA, trade-off analysis, feasibility studies |
 | **Any** | `requirements-research` | User stories, acceptance criteria, BDD, requirements gathering and analysis |
 | **Any** | `software-development-roles` | PO, Developer, QA/Tester role guidance and workflows |
+| **Any** | `java-formatting` | Java code formatting, style, inspections — **opt-in only** (invoke when asked) |
 
 **Key rule:** Never give a macOS-only command (e.g., `brew install`) without noting
 it is macOS-specific, and always provide the Windows/Linux equivalent or reference
