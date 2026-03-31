@@ -1,7 +1,8 @@
-# backlog/ — Project Backlog & Idea Tracker
+# backlog/ — Personal Agile Board & Idea Tracker
 
-> **Tier 5** of the ai-brain workspace. A lightweight, git-tracked backlog for
-> managing work items, capturing raw ideas, and refining them into actionable tasks.
+> **Tier 5** of the ai-brain workspace. A lightweight, git-tracked agile board for
+> managing work items, capturing raw ideas, tracking sprints, and refining them into
+> actionable tasks — like a personal mini-JIRA with kanban and scrum capabilities.
 
 ---
 
@@ -14,19 +15,23 @@
 | `/todos` | View board, mark done, find items | `/todos` or `/todos "done BLI-003"` |
 
 That's it for daily use. For advanced operations (brainstorm, refine, promote, guide,
-epic), use `/backlog`.
+epic, sprint, views), use `/backlog`.
 
 ---
 
 ## What Is This Tier?
 
-The `backlog/` tier is a **personal kanban + ideation system** that lives in
-the repo alongside your notes, library, and sessions. It tracks:
+The `backlog/` tier is a **personal agile board** that lives in the repo alongside
+your notes, library, and sessions. It provides:
 
+- **Kanban board** — visual columns (Backlog | In Progress | Blocked | Review | Done)
+- **Sprint tracking** — optional time-boxed iterations with goals and retrospectives
 - **Ideas** — raw, unrefined thoughts captured exactly as-is, with a refinement trail
-- **Backlog items** — concrete tasks, features, bugs, improvements with priority and status
+- **Backlog items** — concrete tasks with priority, status, time tracking, and cycle time
+- **Multiple views** — by status, by project, by priority
+- **Activity log** — full audit trail of every change (CHANGELOG.md)
 - **Guides** — structured context docs written for GHCP to reference
-- **Epics** — larger themes that group related items
+- **Epics** — larger themes that group related items with progress tracking
 
 Unlike external issue trackers, everything here is version-controlled and
 co-located with the code. You see the full history of every idea and decision.
@@ -41,7 +46,7 @@ co-located with the code. You see the full history of every idea and decision.
 | **notes/** | Did you write it? | Your insights, decisions |
 | **library/** | Did you import it? | External references |
 | **sessions/** | Valuable AI conversation? | Captured research, analysis |
-| **backlog/** | Is it work to track? | Todos, features, ideas, brainstorming |
+| **backlog/** | Is it work to track? | Todos, features, ideas, sprints, brainstorming |
 
 ### When does something go in backlog/?
 
@@ -56,13 +61,22 @@ co-located with the code. You see the full history of every idea and decision.
 ```text
 backlog/
 ├── README.md               ← This file
-├── BOARD.md                ← Kanban board — at-a-glance status view
+├── BOARD.md                ← Main kanban board — dashboard + visual columns
+├── CHANGELOG.md            ← Activity log — audit trail of all changes
 ├── _templates/
-│   ├── item.md             ← Template: backlog items (features, bugs, tasks)
+│   ├── item.md             ← Template: backlog items (with time tracking)
 │   ├── idea.md             ← Template: raw ideas with refinement trail
 │   ├── brainstorm.md       ← Template: whiteboard-style free-form thinking
-│   ├── epic.md             ← Template: epics (grouping related items)
+│   ├── epic.md             ← Template: epics (with progress + burndown)
+│   ├── sprint.md           ← Template: sprint/iteration tracking
 │   └── guide.md            ← Template: GHCP context guides / playbooks
+├── views/                  ← Filtered board views
+│   ├── README.md           ← View index
+│   ├── by-status.md        ← All items grouped by status
+│   ├── by-project.md       ← Per-project mini-boards
+│   └── by-priority.md      ← Items ranked by priority tier
+├── sprints/                ← Sprint/iteration history
+│   └── README.md           ← Sprint index + commands
 ├── features/               ← 11 features (learning-assistant enhancements)
 │   ├── BLI-001 through BLI-005 (EPIC-001)
 │   └── BLI-007, BLI-009 through BLI-013 (EPIC-002)
@@ -78,6 +92,17 @@ backlog/
 └── guides/                 ← 0 guides
 ```
 
+## Quick Navigation
+
+| Destination | Link |
+|---|---|
+| Main board (kanban) | [BOARD.md](BOARD.md) |
+| Activity log | [CHANGELOG.md](CHANGELOG.md) |
+| View: by status | [views/by-status.md](views/by-status.md) |
+| View: by project | [views/by-project.md](views/by-project.md) |
+| View: by priority | [views/by-priority.md](views/by-priority.md) |
+| Sprint history | [sprints/](sprints/) |
+
 ## ID Prefix Convention
 
 All backlog items use the **BLI** prefix regardless of which folder they live in.
@@ -87,6 +112,7 @@ All backlog items use the **BLI** prefix regardless of which folder they live in
 | **BLI** | **B**ack**L**og **I**tem | `features/`, `projects/`, `items/` |
 | **IDEA** | Idea | `ideas/` |
 | **EPIC** | Epic | `epics/` |
+| **SPRINT** | Sprint | `sprints/` |
 | **GUIDE** | Guide | `guides/` |
 
 **BLI** = **B**ack**L**og **I**tem — a universal prefix for any actionable work item
@@ -98,15 +124,18 @@ IDs are never reused, even if an item is moved between folders.
 
 ## Item Types
 
-### Backlog Items (`items/`)
+### Backlog Items (`items/`, `features/`, `projects/`)
 
-Concrete, actionable work with defined acceptance criteria.
+Concrete, actionable work with defined acceptance criteria and full time tracking.
 
 | Field | Values |
 |---|---|
-| **Status** | `todo` · `in-progress` · `blocked` · `done` · `archived` |
+| **Status** | `todo` · `in-progress` · `blocked` · `in-review` · `done` · `archived` |
 | **Priority** | `critical` · `high` · `medium` · `low` |
 | **Type** | `feature` · `bug` · `improvement` · `research` · `spike` · `chore` |
+| **Effort** | `XS` · `S` · `M` · `L` · `XL` (T-shirt sizing) |
+
+**Time tracking fields:** `created`, `started`, `completed`, `blocked-since`, `review-since`
 
 **File naming:** `BLI-NNN_short-title.md` (e.g., `BLI-001_add-search-filters.md`)
 
@@ -130,13 +159,25 @@ file gets `status: promoted` and `promoted-to: BLI-NNN`).
 
 ### Epics (`epics/`)
 
-Larger themes grouping related backlog items.
+Larger themes grouping related backlog items with progress tracking and burndown.
 
 | Field | Values |
 |---|---|
 | **Status** | `draft` · `active` · `done` · `archived` |
 
 **File naming:** `EPIC-NNN_short-title.md` (e.g., `EPIC-001_atlassian-v2-migration.md`)
+
+### Sprints (`sprints/`)
+
+Optional time-boxed iterations for focused, planned work with goals and retrospectives.
+
+| Field | Values |
+|---|---|
+| **Status** | `planned` · `active` · `completed` · `cancelled` |
+
+**File naming:** `SPRINT-NNN_short-title.md` (e.g., `SPRINT-001_mcp-server-buildout.md`)
+
+Only one sprint can be `active` at a time. Sprint history forms the velocity baseline.
 
 ### Brainstorms (in `ideas/`)
 
@@ -173,7 +214,7 @@ that teach GHCP how to handle specific situations in your project.
 
 ```text
 1. Type /todo "describe the task"
-2. Done. It's created as BLI-NNN with priority and type.
+2. Done. It's created as BLI-NNN with priority, type, and timestamp.
 3. View it with /todos
 ```
 
@@ -181,9 +222,28 @@ that teach GHCP how to handle specific situations in your project.
 
 ```text
 1. Type /todos to see the board
-2. "start BLI-003" to begin work
-3. "done BLI-003" when finished
-4. BOARD.md is updated automatically
+2. "start BLI-003" to begin work (records started date)
+3. "done BLI-003" when finished (records completed date + cycle time)
+4. BOARD.md, views/, and CHANGELOG.md are updated automatically
+```
+
+### Run a Sprint
+
+```text
+1. /backlog sprint start "build Atlassian MCP server"
+2. /backlog sprint add BLI-001, BLI-002
+3. Work through items, updating status as you go
+4. /backlog sprint status — check progress
+5. /backlog sprint end — triggers retrospective
+```
+
+### Check Different Views
+
+```text
+/todos status     — all items grouped by lifecycle status
+/todos projects   — per-project mini-boards
+/todos priority   — items ranked by priority
+/todos log        — recent activity (CHANGELOG)
 ```
 
 ### Promote an Idea to a Backlog Item
