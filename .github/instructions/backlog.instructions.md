@@ -105,12 +105,27 @@ If the user describes something **vague, half-formed, or exploratory**:
 
 ### Status Changes
 
-When the user says they're starting, finishing, or blocking an item:
+When the user says they're starting, finishing, blocking, or reviewing an item:
 
 1. Update the `status` field in the item's frontmatter
-2. Update the `updated` date
-3. Move the row in BOARD.md to the correct section
-4. Inform the user of the change
+2. Update the relevant date field (`started`, `completed`, `blocked-since`, `review-since`)
+3. Update the `updated` date
+4. Append an entry to the item's Activity Log section
+5. Move the row in BOARD.md to the correct section
+6. Update the relevant view(s) in `views/`
+7. Append an entry to CHANGELOG.md
+8. Inform the user of the change with timestamp
+
+### Status Values
+
+| Status | Meaning | Date field set |
+|---|---|---|
+| `todo` | Ready to be picked up | `created` |
+| `in-progress` | Actively being worked on | `started` |
+| `blocked` | Cannot proceed — blocker exists | `blocked-since` |
+| `in-review` | Done but awaiting verification | `review-since` |
+| `done` | Completed — all acceptance criteria met | `completed` |
+| `archived` | Removed from active tracking | `updated` |
 
 ### Priority Changes
 
@@ -197,26 +212,70 @@ condition is met. When a guide graduates to a permanent rule, move it to
 
 ---
 
-## BOARD.md Maintenance
+## BOARD.md & Views Maintenance
 
-The [BOARD.md](../../brain/ai-brain/backlog/BOARD.md) file is the kanban view.
+The [BOARD.md](../../brain/ai-brain/backlog/BOARD.md) file is the main kanban board.
 It must be updated whenever:
 
 - A new item or idea is created (add row)
 - Status changes (move row between sections)
 - Priority changes (move between Critical/High and Medium/Low)
 - An item is completed (move to Done with completion date)
+- A sprint is started or ended
 
 ### Board Sections
 
 ```text
+Dashboard       ← ASCII visual summary with counts and progress bars
+Active Sprint   ← current sprint goal, committed items, progress
+Kanban Board    ← ASCII kanban columns (Backlog | In Progress | Blocked | Review | Done)
+Epics           ← epic overview with progress percentages
+Standalone      ← items not in an epic
+In Progress     ← items currently being worked on (with elapsed time)
+Blocked         ← blocked items with blocker description
+In Review       ← items awaiting review/verification
+Done (Recent)   ← last 10 completed items with cycle time
 Ideas           ← all ideas and brainstorms (raw, refining, refined)
-Backlog         ← todo items split by priority tier
-In Progress     ← items currently being worked on
-Done            ← completed items
 Guides          ← GHCP context guides (draft, active)
-Epics           ← epic overview with item counts
+Recent Activity ← last 5 CHANGELOG entries
+Quick Nav       ← links to views/ and CHANGELOG
 ```
+
+### Views (Derived Boards)
+
+Three filtered views live in `views/` — they are derived from BOARD.md and must
+be updated in sync:
+
+| View | File | Shows |
+|---|---|---|
+| By Status | `views/by-status.md` | All items grouped by status (todo/progress/blocked/review/done/archived) |
+| By Project | `views/by-project.md` | Per-project mini-boards with kanban swimlanes |
+| By Priority | `views/by-priority.md` | All items ranked by priority tier |
+
+**Update protocol:** When any status, priority, or item change happens, update:
+
+1. BOARD.md (main board)
+2. The relevant view(s) in `views/`
+3. CHANGELOG.md (activity log entry)
+
+### CHANGELOG.md (Activity Log)
+
+The [CHANGELOG.md](../../brain/ai-brain/backlog/CHANGELOG.md) is an append-only
+audit trail. **Every** status change, priority change, item creation, sprint event,
+or structural change gets a row:
+
+```markdown
+| Date | Time | ID | Action | From | To | Details |
+|---|---|---|---|---|---|---|
+| 2026-03-27 | 10:30 AM | BLI-006 | status | todo | done | Completed code formatting skill |
+```
+
+**Rules:**
+
+- Always query the system clock for the real timestamp
+- Newest entries at the top of each month section
+- Group by month with `## YYYY-MM` headings
+- Update the monthly and cumulative stats at the bottom
 
 ---
 
@@ -239,6 +298,7 @@ To determine the next ID:
 | Item | `BLI-NNN_kebab-title.md` | `items/` | `BLI-006_code-formatting-instructions-skill.md` |
 | Idea | `IDEA-NNN_kebab-title.md` | `ideas/` | `IDEA-001_voice-search-for-vault.md` |
 | Epic | `EPIC-NNN_kebab-title.md` | `epics/` | `EPIC-001_atlassian-v2-migration.md` |
+| Sprint | `SPRINT-NNN_kebab-title.md` | `sprints/` | `SPRINT-001_mcp-server-buildout.md` |
 | Guide | `GUIDE-NNN_kebab-title.md` | `guides/` | `GUIDE-001_error-message-conventions.md` |
 
 ### ID Prefix Reference
@@ -248,6 +308,7 @@ To determine the next ID:
 | **BLI** | **B**ack**L**og **I**tem | Any actionable work — features, projects, or general items |
 | **IDEA** | Idea | Raw/exploratory thoughts in `ideas/` |
 | **EPIC** | Epic | Grouping themes in `epics/` |
+| **SPRINT** | Sprint | Time-boxed iterations in `sprints/` |
 | **GUIDE** | Guide | GHCP context guides in `guides/` |
 
 **BLI** stands for **B**ack**L**og **I**tem. It is a universal prefix used for all
@@ -316,7 +377,133 @@ When the user provides multiple items or ideas at once:
 
 ---
 
+## Time Tracking Protocol
+
+Every backlog item now tracks timestamps for its lifecycle. When a status
+change occurs, update the relevant date fields in the item's frontmatter
+**and** append an entry to the item's Activity Log section.
+
+### Item Frontmatter Fields (Time Tracking)
+
+```yaml
+created: YYYY-MM-DD          # when the item was created
+updated: YYYY-MM-DD          # last modification date
+started: null                 # when work began (status → in-progress)
+completed: null               # when item was marked done
+blocked-since: null           # when item was blocked (cleared on unblock)
+review-since: null            # when item entered review
+sprint: null                  # sprint assignment (SPRINT-NNN or null)
+estimated-effort: null        # T-shirt size: XS, S, M, L, XL
+actual-effort: null           # actual time: "2h", "1d", "3d"
+```
+
+### Status Transitions (State Machine)
+
+```text
+                    ┌──────────┐
+  ┌────────────────→│ ARCHIVED │
+  │                 └──────────┘
+  │                      ▲
+  │    ┌──────┐    ┌─────┴──────┐    ┌───────────┐    ┌──────┐
+  │    │ TODO │ →  │IN PROGRESS │ →  │ IN REVIEW │ →  │ DONE │
+  │    └──────┘    └────────────┘    └───────────┘    └──────┘
+  │                     │ ▲
+  │                     ▼ │
+  │               ┌───────────┐
+  └───────────────│  BLOCKED  │
+                  └───────────┘
+```
+
+| Transition | Set field | Action |
+|---|---|---|
+| → `in-progress` | `started: YYYY-MM-DD` | Begin work |
+| → `blocked` | `blocked-since: YYYY-MM-DD` | Record blocker in notes |
+| `blocked` → `in-progress` | clear `blocked-since` | Blocker resolved |
+| → `in-review` | `review-since: YYYY-MM-DD` | Ready for verification |
+| → `done` | `completed: YYYY-MM-DD` | Calculate cycle time |
+| → `archived` | `updated: YYYY-MM-DD` | Removed from active tracking |
+
+### Cycle Time Calculation
+
+When marking an item `done`:
+
+- **Cycle time** = `completed` date – `started` date
+- Record in the item's Time Tracking section and in the Done table on BOARD.md
+- If the item was never explicitly started, cycle time = `completed` – `created`
+
+### Per-Item Activity Log
+
+Every BLI file has an Activity Log section. Append a row for each event:
+
+```markdown
+| Date | Time | Action | Details |
+|---|---|---|---|
+| 2026-03-27 | 10:30 AM | status → in-progress | Started work |
+| 2026-03-27 | 04:15 PM | status → done | Completed — all acceptance criteria met |
+```
+
+### Effort Estimation
+
+| Size | Meaning | Rough Duration |
+|---|---|---|
+| **XS** | Trivial — config change, typo fix | < 1 hour |
+| **S** | Small — single file, straightforward | 1–4 hours |
+| **M** | Medium — multi-file, some complexity | 0.5–2 days |
+| **L** | Large — significant feature, research needed | 2–5 days |
+| **XL** | Extra large — epic-level, multi-week | 1–3 weeks |
+
+---
+
+## Sprint Management
+
+Sprints are optional time-boxed iterations for focused work. They live in
+`sprints/` and follow the sprint template.
+
+### Sprint Lifecycle
+
+```text
+planned → active → completed
+                 → cancelled (if abandoned mid-sprint)
+```
+
+### Starting a Sprint
+
+1. Create a sprint file in `sprints/` using the sprint template
+2. Assign the next sequential `SPRINT-NNN` ID
+3. Set a clear, measurable sprint goal
+4. Pull items from the backlog into the sprint (update `sprint:` in each item)
+5. Set `status: active` and record start date
+6. Update BOARD.md Active Sprint section
+7. Log `sprint-start` in CHANGELOG.md
+
+### During a Sprint
+
+- Track daily progress in the sprint file (optional but recommended)
+- Update item statuses as work progresses (also updates BOARD.md + views)
+- New items discovered mid-sprint can be added if capacity allows
+- Blocked items should be flagged immediately with blocker description
+
+### Ending a Sprint
+
+1. Review all committed items — mark completed or carry forward
+2. Set `status: completed` on the sprint
+3. Fill in the Retrospective section
+4. Carry-over items get `sprint:` updated to the next sprint (or cleared)
+5. Update BOARD.md, views, and CHANGELOG.md
+6. Calculate velocity (items completed / items committed)
+
+### Rules
+
+- Only **one active sprint** at a time
+- Sprint duration: flexible, 1–2 weeks recommended
+- Sprint ID format: `SPRINT-NNN_kebab-title.md`
+- Sprint files are never deleted — they form the velocity history
+
+---
+
 ## User Commands
+
+### Core Commands
 
 | Command | Effect |
 |---|---|
@@ -325,9 +512,14 @@ When the user provides multiple items or ideas at once:
 | "what's on the board?" | Show BOARD.md summary |
 | "refine IDEA-NNN" | Add a refinement pass |
 | "promote IDEA-NNN" | Promote idea to backlog item |
-| "start BLI-NNN" | Set status to in-progress |
-| "done BLI-NNN" | Set status to done |
+| "start BLI-NNN" | Set status to in-progress, record started date |
+| "done BLI-NNN" | Set status to done, record completed date, calculate cycle time |
+| "block BLI-NNN: reason" | Set status to blocked, record blocker |
+| "unblock BLI-NNN" | Remove blocked status, resume in-progress |
+| "review BLI-NNN" | Set status to in-review |
+| "archive BLI-NNN" | Set status to archived |
 | "prioritise BLI-NNN high" | Change priority |
+| "estimate BLI-NNN M" | Set effort estimate (XS/S/M/L/XL) |
 | `/jot "quick thought"` | Capture via slash command (fastest path) |
 | `/todo "fix search bug"` | Create item via slash command |
 | `/todos` | View the board |
@@ -336,3 +528,24 @@ When the user provides multiple items or ideas at once:
 | `/backlog guide "error conventions"` | Create a GHCP guide via slash command |
 | `/backlog refine IDEA-001` | Refine an idea via slash command |
 | `/backlog promote IDEA-001` | Promote idea to item via slash command |
+
+### View Commands
+
+| Command | Effect |
+|---|---|
+| `/todos status` | Show the By Status view |
+| `/todos projects` | Show the By Project view |
+| `/todos priority` | Show the By Priority view |
+| `/todos log` | Show recent CHANGELOG entries |
+| `/todos stats` | Show velocity and completion metrics |
+
+### Sprint Commands
+
+| Command | Effect |
+|---|---|
+| `/backlog sprint start "goal"` | Create and start a new sprint |
+| `/backlog sprint add BLI-NNN` | Add item to active sprint |
+| `/backlog sprint remove BLI-NNN` | Remove item from active sprint |
+| `/backlog sprint status` | Show active sprint progress |
+| `/backlog sprint end` | Complete sprint, trigger retrospective |
+| `/backlog sprint history` | Show past sprint summaries |

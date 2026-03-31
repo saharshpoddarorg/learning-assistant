@@ -2,26 +2,27 @@
 name: brain-management
 description: >
   Brain workspace management for brain/ai-brain/ — naming conventions, file organisation,
-  frontmatter schema, tier routing (inbox/notes/library/sessions), timestamping best practices,
+  frontmatter schema, tier routing (inbox/notes/library/sessions/backlog), timestamping best practices,
   PKM (personal knowledge management) industry standards, and structural decisions.
   Use when asked about: where to put a note, how to name a file, what frontmatter to add,
-  when to use notes/ vs library/ vs sessions/, how to structure the brain workspace, whether to create
-  a new tier/folder, brain naming conventions, prefix/suffix usage, how to timestamp notes,
-  chat session capture, session scoping (global/project/feature scope levels, widening/narrowing),
+  when to use notes/ vs library/ vs sessions/ vs backlog/, how to structure the brain workspace,
+  whether to create a new tier/folder, brain naming conventions, prefix/suffix usage, how to timestamp
+  notes, chat session capture, session scoping (global/project/feature scope levels, widening/narrowing),
   software-dev umbrella structure (requirements/design/implementation/testing/devops activities),
-  project-aware sessions, cross-referencing sessions at different scopes, or any brain/ai-brain/
-  management question.
+  project-aware sessions, cross-referencing sessions at different scopes, backlog management
+  (kanban board, sprint tracking, item status, views, CHANGELOG, time tracking, effort estimation),
+  or any brain/ai-brain/ management question.
 ---
 
 # Brain Management Skill
 
 ---
 
-## Structure Decision — Why 4 Tiers
+## Structure Decision — Why 5 Tiers
 
-The brain/ai-brain/ workspace uses exactly **4 tiers**. The original 3 tiers (inbox/notes/library)
-were extended with a `sessions/` tier for capturing valuable AI chat conversations that don't fit
-into the other tiers.
+The brain/ai-brain/ workspace uses exactly **5 tiers**. The original 3 tiers (inbox/notes/library)
+were extended with a `sessions/` tier for capturing valuable AI chat conversations and a
+`backlog/` tier for personal agile work tracking.
 
 | Tier | Purpose | Git |
 |---|---|---|
@@ -29,12 +30,14 @@ into the other tiers.
 | `notes/` | Your authored writing — insights, decisions, how-tos | ✅ |
 | `library/` | Imported external sources — docs, decks, references | ✅ |
 | `sessions/` | Captured AI conversations — research, analysis, learning | ✅ |
+| `backlog/` | Personal agile board — todos, features, sprints, ideas | ✅ |
 
 **Extended routing questions:**
 
 - _"Did you write it yourself?"_ → **Yes** → `notes/`
 - _"Did you import it from an external source?"_ → **Yes** → `library/`
 - _"Was it a valuable AI conversation?"_ → **Yes** → `sessions/`
+- _"Is it work to track or plan?"_ → **Yes** → `backlog/`
 - _"Not sure yet?"_ → `inbox/`
 
 ---
@@ -443,6 +446,81 @@ for discoverability.
 folder, create a project sub-directory (e.g., `software-dev/requirements/task-manager/`).
 
 Full protocol: `.github/instructions/chat-capture.instructions.md`
+
+---
+
+## Backlog — Personal Agile Board (Tier 5)
+
+The `backlog/` tier is a personal agile board with kanban columns, sprint tracking,
+multiple views, and full activity logging.
+
+### Backlog Structure
+
+```text
+backlog/
+├── BOARD.md               ← Main kanban board (dashboard + visual columns)
+├── CHANGELOG.md           ← Audit trail of all changes
+├── views/
+│   ├── by-status.md       ← Items grouped by status
+│   ├── by-project.md      ← Per-project mini-boards
+│   └── by-priority.md     ← Items ranked by priority
+├── sprints/               ← Sprint/iteration history
+├── _templates/            ← item, idea, epic, sprint, brainstorm, guide
+├── features/              ← Learning-assistant feature items
+├── projects/              ← Standalone personal s/w projects
+├── items/                 ← General work items
+├── ideas/                 ← Raw ideas + brainstorms
+├── epics/                 ← Grouping themes
+└── guides/                ← GHCP context guides
+```
+
+### Quick Commands
+
+| Command | Effect |
+|---|---|
+| `/jot` | Capture any thought instantly |
+| `/todo` | Add a concrete task with time tracking |
+| `/todos` | View the board |
+| `/todos status` | View by status |
+| `/todos projects` | View by project |
+| `/todos priority` | View by priority |
+| `/todos log` | View recent CHANGELOG |
+| `/backlog sprint start` | Start a sprint |
+| `/backlog sprint end` | End a sprint with retrospective |
+
+### Item Statuses
+
+```text
+todo → in-progress → in-review → done
+                ↕
+            blocked → archived
+```
+
+### Time Tracking
+
+Every item tracks: `created`, `started`, `completed`, `blocked-since`, `review-since`.
+Cycle time = completed − started.
+
+### Effort Estimation
+
+| Size | Duration |
+|---|---|
+| XS | < 1 hour |
+| S | 1–4 hours |
+| M | 0.5–2 days |
+| L | 2–5 days |
+| XL | 1–3 weeks |
+
+### Update Protocol
+
+Every status/priority change must update:
+
+1. Item file (frontmatter + activity log section)
+2. BOARD.md (kanban columns)
+3. Relevant view(s) in `views/`
+4. CHANGELOG.md (append new row)
+
+Full protocol: `.github/instructions/backlog.instructions.md`
 
 ### Anti-Patterns
 

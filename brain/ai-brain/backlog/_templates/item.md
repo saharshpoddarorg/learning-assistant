@@ -6,10 +6,17 @@ priority: medium
 type: feature
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
+started: null
+completed: null
+blocked-since: null
+review-since: null
 epic: null
+sprint: null
 parent: null
 sub-items: []
 origin: null
+estimated-effort: null
+actual-effort: null
 tags: []
 ---
 
@@ -35,6 +42,28 @@ tags: []
 - [ ] Criterion 2
 - [ ] Criterion 3
 
+## Activity Log
+
+<!-- Append-only log of status changes and significant events for this item.
+     Each entry records what happened and when. Never delete entries. -->
+
+| Date | Time | Action | Details |
+|---|---|---|---|
+| YYYY-MM-DD | HH:MM tt | created | Item created |
+
 ## Notes
 
 <!-- Any additional context, research, decisions, or links to sessions/notes. -->
+
+## Time Tracking
+
+<!-- Summary of effort spent. Updated when item is completed. -->
+
+| Metric | Value |
+|---|---|
+| Estimated effort | — |
+| Actual effort | — |
+| Created | YYYY-MM-DD |
+| Started | — |
+| Completed | — |
+| Cycle time | — |
