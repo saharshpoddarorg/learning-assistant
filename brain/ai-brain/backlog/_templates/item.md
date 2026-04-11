@@ -18,6 +18,9 @@ origin: null
 estimated-effort: null
 actual-effort: null
 tags: []
+origin-type: manual
+import-batch: null
+source-file: null
 ---
 
 # BLI-NNN: Short imperative title
@@ -26,6 +29,11 @@ tags: []
 
 <!-- What needs to be done and why. Keep it concise — a paragraph is enough.
      If this was promoted from an idea, link to the origin idea file. -->
+
+### Future Considerations
+
+<!-- Optional. Obvious next steps, follow-on work, or related enhancements
+     that are NOT in scope but worth capturing for later. Remove if empty. -->
 
 ## Sub-Items
 
@@ -42,14 +50,28 @@ tags: []
 - [ ] Criterion 2
 - [ ] Criterion 3
 
+## Attachments & References
+
+<!-- Optional. File paths, URLs, related backlog items, brain notes, sessions.
+     Remove this section if no attachments exist. -->
+
+| Type | Path / URL | Added | Notes |
+|---|---|---|---|
+
+## Related
+
+<!-- Links to related backlog items, ideas, epics, brain notes, or sessions.
+     Cross-references are bidirectional — if this item links to BLI-003,
+     BLI-003 should link back here. Remove if no relations exist. -->
+
 ## Activity Log
 
 <!-- Append-only log of status changes and significant events for this item.
      Each entry records what happened and when. Never delete entries. -->
 
-| Date | Time | Action | Details |
-|---|---|---|---|
-| YYYY-MM-DD | HH:MM tt | created | Item created |
+| Date | Time | Actor | Action | Details |
+|---|---|---|---|---|
+| YYYY-MM-DD | HH:MM tt | system | created | Item created |
 
 ## Notes
 

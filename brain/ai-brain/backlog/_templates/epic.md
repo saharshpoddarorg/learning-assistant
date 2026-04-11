@@ -48,9 +48,9 @@ Remaining:      0
 
 <!-- Key milestones and decisions for this epic. -->
 
-| Date | Event | Details |
-|---|---|---|
-| YYYY-MM-DD | created | Epic created |
+| Date | Time | Actor | Event | Details |
+|---|---|---|---|---|
+| YYYY-MM-DD | HH:MM tt | system | created | Epic created |
 
 ## Notes
 
