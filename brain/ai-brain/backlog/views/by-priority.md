@@ -10,9 +10,9 @@
 
 ```text
 Critical  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0   (0%)
-High      ██████████████████████████████████░░░░░░░░░░   7  (39%)
-Medium    ████████████████████████░░░░░░░░░░░░░░░░░░░░   6  (33%)
-Low       ██████████████████████░░░░░░░░░░░░░░░░░░░░░░   5  (28%)
+High      ██████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░   8  (32%)
+Medium    ██████████████████░░░░░░░░░░░░░░░░░░░░░░░░  10  (40%)
+Low       ████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   7  (28%)
 ```
 
 ---
@@ -28,7 +28,7 @@ Low       ██████████████████████░�
 
 ---
 
-## High (7)
+## High (8)
 
 > Important items to prioritise in the next sprint/iteration.
 
@@ -41,10 +41,11 @@ Low       ██████████████████████░�
 | BLI-008 | Scheduler, calendar, timeline & todo tracking | project | EPIC-003 | todo | projects/ | 2026-03-26 |
 | BLI-011 | Brain consolidation — tabs, bookmarks, workspace, notes | feature | EPIC-002 | todo | features/ | 2026-03-26 |
 | BLI-012 | Enhanced web scraping & search engine | feature | EPIC-002 | todo | features/ | 2026-03-26 |
+| BLI-020 | Build GitHub MCP server | feature | — | todo | features/ | 2026-04-11 |
 
 ---
 
-## Medium (6)
+## Medium (10)
 
 > Standard priority — schedule in upcoming sprints.
 
@@ -56,10 +57,14 @@ Low       ██████████████████████░�
 | BLI-009 | Third-party libs, JDK 26, SDK tools & annotations | feature | EPIC-002 | todo | features/ | 2026-03-26 |
 | BLI-010 | Personal Confluence — migrate office resources | feature | EPIC-002 | todo | features/ | 2026-03-26 |
 | BLI-013 | Book consolidation — PDFs, ebooks, cloud readers | feature | EPIC-002 | todo | features/ | 2026-03-26 |
+| BLI-021 | Reusable content templates system | feature | EPIC-002 | todo | features/ | 2026-04-11 |
+| BLI-022 | Export and migration support for portability | feature | EPIC-002 | todo | features/ | 2026-04-11 |
+| BLI-023 | Cross-repo item merge and sync | feature | EPIC-002 | todo | features/ | 2026-04-11 |
+| BLI-024 | Workflow and terminal conditions framework | feature | EPIC-001 | todo | features/ | 2026-04-11 |
 
 ---
 
-## Low (5)
+## Low (7)
 
 > Nice-to-have — backlog items to consider when capacity allows.
 
@@ -70,6 +75,8 @@ Low       ██████████████████████░�
 | BLI-016 | Cloud & ebook reader | project | EPIC-003 | todo | projects/ | 2026-03-26 |
 | BLI-017 | Developer productivity dashboard | project | EPIC-003 | todo | projects/ | 2026-03-26 |
 | BLI-018 | Code snippet & template manager | project | EPIC-003 | todo | projects/ | 2026-03-26 |
+| BLI-019 | Tally-Vyapaar accounting application | project | EPIC-003 | todo | projects/ | 2026-04-11 |
+| BLI-025 | Library/glossary for abbreviations and aliases | feature | EPIC-001 | todo | features/ | 2026-04-11 |
 
 ---
 
@@ -84,4 +91,4 @@ Low       ██████████████████████░�
 
 ---
 
-> **Last updated:** 2026-03-31
+> **Last updated:** 2026-04-11

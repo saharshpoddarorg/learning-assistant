@@ -15,6 +15,28 @@ and **details** (context). Entries are newest-first within each month.
 
 ---
 
+## 2026-04
+
+| Date | Time | ID | Action | From | To | Details |
+|---|---|---|---|---|---|---|
+| 2026-04-11 | 10:08 PM | IMP-001 | file-import | — | — | Imported `gpt.txt`: 7 BLIs created, 1 IDEA, 4 merged, 2 noted |
+| 2026-04-11 | 10:08 PM | BLI-019 | created | — | todo | Tally-Vyapaar accounting app (IMP-001) |
+| 2026-04-11 | 10:08 PM | BLI-020 | created | — | todo | Build GitHub MCP server (IMP-001) |
+| 2026-04-11 | 10:08 PM | BLI-021 | created | — | todo | Reusable content templates system (IMP-001) |
+| 2026-04-11 | 10:08 PM | BLI-022 | created | — | todo | Export/migration support for portability (IMP-001) |
+| 2026-04-11 | 10:08 PM | BLI-023 | created | — | todo | Cross-repo item merge and sync (IMP-001) |
+| 2026-04-11 | 10:08 PM | BLI-024 | created | — | todo | Workflow and terminal conditions framework (IMP-001) |
+| 2026-04-11 | 10:08 PM | BLI-025 | created | — | todo | Library/glossary for abbreviations and aliases (IMP-001) |
+| 2026-04-11 | 10:08 PM | IDEA-001 | created | — | raw | Standardize purpose headers in prompts/skills (IMP-001) |
+| 2026-04-11 | 10:08 PM | BLI-007 | merged | — | — | IMP-001: added Google Keep, phone/Ike, browser tabs, office laptop ACs |
+| 2026-04-11 | 10:08 PM | BLI-008 | merged | — | — | IMP-001: added kanban/scrum boards, reminder ACs |
+| 2026-04-11 | 10:08 PM | BLI-010 | merged | — | — | IMP-001: added Atlassian-like products context |
+| 2026-04-11 | 10:08 PM | BLI-012 | merged | — | — | IMP-001: added cross-linking, labelling, enums ACs |
+| 2026-04-11 | 10:08 PM | BLI-001 | noted | — | — | IMP-001: "atlassian" mentioned — already covered |
+| 2026-04-11 | 10:08 PM | BLI-014 | noted | — | — | IMP-001: "media manager" mentioned — already covered |
+
+---
+
 ## 2026-03
 
 | Date | Time | ID | Action | From | To | Details |
@@ -55,18 +77,19 @@ and **details** (context). Entries are newest-first within each month.
 
 | Month | Changes | Items Created | Items Completed | Sprint Completions |
 |---|---|---|---|---|
+| 2026-04 | 15 | 8 | 0 | 0 |
 | 2026-03 | 7 | 21 | 1 | 0 |
 
 ### Cumulative
 
 ```text
-Total items created:     21
+Total items created:     29
 Total items completed:    1
-Completion rate:          5%
+Completion rate:          3%
 Active sprints:           0
 Completed sprints:        0
 ```
 
 ---
 
-> **Last updated:** 2026-03-31
+> **Last updated:** 2026-04-11

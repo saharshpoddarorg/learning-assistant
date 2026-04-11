@@ -4,8 +4,8 @@ title: Personal software development projects
 status: draft
 priority: medium
 created: 2026-03-28
-updated: 2026-03-28
-tags: [personal-projects, software-dev, media, family, ebooks]
+updated: 2026-04-11
+tags: [personal-projects, software-dev, media, family, ebooks, accounting]
 ---
 
 # EPIC-003: Personal software development projects
@@ -23,13 +23,14 @@ for new technologies, architectures, and engineering practices.
 > **Folder:** `projects/` — standalone personal software projects
 
 | ID | Title | Status | Priority |
-|---|---|---|
+|---|---|---|---|
 | BLI-008 | Scheduler, calendar, timeline & todo tracking | todo | high |
 | BLI-014 | Media manager — YouTube, Spotify consolidation | todo | low |
 | BLI-015 | Family tree application | todo | low |
 | BLI-016 | Cloud & ebook reader | todo | low |
 | BLI-017 | Developer productivity dashboard | todo | low |
 | BLI-018 | Code snippet & template manager | todo | low |
+| BLI-019 | Tally-Vyapaar accounting application | todo | low |
 
 ## Open Questions
 

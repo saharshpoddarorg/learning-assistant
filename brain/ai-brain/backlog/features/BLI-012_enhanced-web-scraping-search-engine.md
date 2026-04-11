@@ -5,12 +5,12 @@ status: todo
 priority: high
 type: feature
 created: 2026-03-28
-updated: 2026-03-28
+updated: 2026-04-11
 epic: EPIC-002
 parent: null
 sub-items: []
 origin: null
-tags: [web-scraping, search-engine, tagging, indexing, ghcp, crawler]
+tags: [web-scraping, search-engine, tagging, indexing, ghcp, crawler, cross-linking, labelling, enums, skills-prompts]
 ---
 
 # BLI-012: Enhanced web scraping & search engine
@@ -39,6 +39,9 @@ research and resource discovery.
 - [ ] Bookmark-to-resource pipeline — turn browser bookmarks into vault resources
 - [ ] Search API as MCP tool — expose search capabilities to Copilot
 - [ ] Content fingerprinting — detect duplicate or near-duplicate content
+- [ ] Cross-linking system — bidirectional links between related resources, notes, and backlog items
+- [ ] Labelling/enum expansion — enrich tagging with formalized enums for resource types, categories, and concept areas
+- [ ] Skills/prompts auto-creation — when scraping a new domain, suggest creating matching `.prompt.md` and `SKILL.md` files
 
 ## Notes
 
@@ -48,3 +51,15 @@ research and resource discovery.
 - Jsoup library for better HTML parsing (currently using regex-based extraction)
 - The search engine module already exists but needs significant enhancement
 - Consider headless browser (Playwright/Selenium) for JavaScript-rendered pages
+
+## Attachments & References
+
+| Type | Path / URL | Added | Notes |
+|---|---|---|---|
+| Source file | `D:\workdir\MG_FTE\notepad\personal dev\learning-assistant\gpt.txt` | 2026-04-11 | IMP-001: added cross-linking, labelling, enums, skills-prompts |
+
+## Activity Log
+
+| Date | Time | Actor | Action | Details |
+|---|---|---|---|---|
+| 2026-04-11 | 10:08 PM | system | merged | IMP-001: added 3 new ACs (cross-linking, labelling/enums, skills/prompts auto-creation), added tags |

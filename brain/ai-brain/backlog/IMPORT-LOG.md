@@ -12,18 +12,19 @@
 
 | IMP-ID | Date | Time | Source File | BLIs Created | IDEAs Created | Merged | Skipped | Notes |
 |---|---|---|---|---|---|---|---|---|
+| IMP-001 | 2026-04-11 | 10:08 PM | `D:\workdir\MG_FTE\notepad\personal dev\learning-assistant\gpt.txt` | 7 | 1 | 4 | 0 | First import; 2 near-dupes noted (not skipped) |
 
 ---
 
 ## Statistics
 
 ```text
-Total imports:        0
-Total BLIs created:   0
-Total IDEAs created:  0
-Total merged:         0
+Total imports:        1
+Total BLIs created:   7
+Total IDEAs created:  1
+Total merged:         4
 Total skipped:        0
-Last import:          —
+Last import:          IMP-001 (2026-04-11)
 ```
 
 ---
