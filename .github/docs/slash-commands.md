@@ -46,7 +46,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (46 commands)
+### Quick Lookup (47 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -83,19 +83,20 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 31 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
 | 32 | `/brain-capture-session` | Brain Workspace | Convert current AI session into a structured session note | Copilot |
 | 33 | `/session-scope` | Brain Workspace | Manage session scope — widen, narrow, switch, split, cross-reference | Copilot |
-| 34 | `/jot` | Backlog | Capture a thought instantly — zero overhead | Copilot |
-| 35 | `/todo` | Backlog | Add a concrete task to the backlog | Copilot |
-| 36 | `/todos` | Backlog | View board, mark done, find items, check status | Copilot |
-| 37 | `/backlog` | Backlog | Advanced: brainstorm, guide, refine, promote, epic | Copilot |
-| 38 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
-| 39 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
-| 40 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
-| 41 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
-| 42 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
-| 43 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
-| 44 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
-| 45 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
-| 46 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
+| 34 | `/jot` | Backlog | Universal capture — auto-classifies, dedup-checks, enhances, cross-refs, syncs all boards | Copilot |
+| 35 | `/read-file-jot` | Backlog | File-to-backlog — reads file, dedup-checks, extracts items, tracks import batch (IMP-NNN) | Copilot |
+| 36 | `/todo` | Backlog | Alias for `/jot` — routes through unified capture as a task | Copilot |
+| 37 | `/todos` | Backlog | View board, update status — syncs all boards + CHANGELOG | Copilot |
+| 38 | `/backlog` | Backlog | Advanced: brainstorm, guide, refine, promote, epic, sprint — full board sync | Copilot |
+| 39 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
+| 40 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
+| 41 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
+| 42 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
+| 43 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
+| 44 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
+| 45 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
+| 46 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
+| 47 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
 
 > **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
 > VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
@@ -723,28 +724,34 @@ Tip:      Use when requirements gathering naturally evolves into general researc
           widen the scope so the learning is discoverable beyond the original project
 ```
 
-#### `/backlog` — Manage the Backlog
+#### `/backlog` — Manage the Backlog (Advanced Operations)
 
 ```yaml
-Inputs:   action (brainstorm / guide / refine / promote / epic / update / board),
+Inputs:   action (brainstorm / guide / refine / promote / epic / update / sprint / board),
           text (what to capture or the ID to act on)
 Agent:    Copilot
 Tools:    editFiles, codebase
-Use:      Advanced backlog operations — brainstorm, create guides, refine ideas,
-          promote ideas to items, manage epics, update metadata.
-          For everyday use, prefer the shortcuts: /jot, /todo, /todos
-Actions:  brainstorm — whiteboard-style exploration | guide — GHCP context doc |
-          refine — add refinement to idea | promote — idea→item |
-          epic — group items | update — change status/priority | board — show status
+Use:      Advanced backlog operations beyond everyday capture:
+          • brainstorm — whiteboard-style exploration (IDEA-NNN)
+          • guide — GHCP context playbook (GUIDE-NNN)
+          • refine — add refinement pass to an idea
+          • promote — idea→item with full enhancement (tags, AC, effort, epic)
+          • epic — group related items (EPIC-NNN)
+          • update — change status/priority (full board + CHANGELOG sync)
+          • sprint — create, manage, and close sprints
+          Every creation and update syncs: BOARD.md + views/ + CHANGELOG.md
 Example:  /backlog → brainstorm → "How should we handle auth?"
           /backlog → guide → "How GHCP should format error messages"
           /backlog → refine → "IDEA-001"
           /backlog → promote → "IDEA-001"
           /backlog → epic → "Atlassian v2 migration"
+Updates:  BOARD.md, views/by-status.md, views/by-priority.md,
+          views/by-project.md, CHANGELOG.md (entry + stats)
 File:     .github/prompts/backlog.prompt.md
-Ref:      .github/instructions/backlog.instructions.md
-Tip:      Use the simplest command that fits — /jot for ideas, /todo for tasks,
-          /todos for the board. Use /backlog only for advanced operations.
+Ref:      .github/instructions/backlog.instructions.md,
+          brain/ai-brain/backlog/guides/jot-down-guide.md
+Tip:      Use /jot for capture, /todos for the board. Use /backlog only for
+          advanced operations (refine, promote, brainstorm, guide, epic, sprint).
 ```
 
 ---
@@ -753,37 +760,93 @@ Tip:      Use the simplest command that fits — /jot for ideas, /todo for tasks
 
 Daily-use shortcuts for the backlog system. These are the commands you'll use 90% of the time.
 
-#### `/jot` — Capture a Thought Instantly
+#### `/jot` — Universal Capture (Smart Classify + Enhance)
 
 ```yaml
-Inputs:   thought (just type it — any idea, reminder, observation)
+Inputs:   thought (anything — idea, task, file path, URL, batch, or mix)
 Agent:    Copilot
-Tools:    editFiles, codebase
-Use:      Fastest possible capture. Zero overhead. Your words go in verbatim as
-          a raw idea (IDEA-NNN). No forms, no decisions — just capture.
-Example:  /jot → "voice search for resource discovery"
-          /jot → "remember to check API rate limits"
-          /jot → "what if we added dark mode?"
-Output:   "Jotted IDEA-NNN: voice-search-for-discovery"
+Tools:    editFiles, codebase, terminalLastCommand, runInTerminal
+Use:      THE primary backlog capture command. Handles everything:
+          • Auto-classifies: idea vs task vs bug vs research vs brainstorm vs batch
+          • Reads local file paths (C:\notes\spec.txt) and extracts content
+          • Records URLs as linked references
+          • Dedup checks existing backlog before creating (skip/merge/cross-ref)
+          • Enhances tasks with title, type, priority, tags, effort, AC, epic
+          • Auto-breaks down L/XL tasks into sub-items
+          • Cross-references related BLIs, IDEAs, EPICs, notes, sessions
+          • Confirms with user before finalizing, offers refinement
+          • Updates ALL boards: BOARD.md + views/ + CHANGELOG.md
+          • Runs mandatory completeness check before finishing
+Pipeline: Parse → Classify → Dedup/Merge → Enhance → Cross-Ref → Confirm → Sync → Check
+Example:  /jot → "voice search for resource discovery"       (idea)
+          /jot → "fix search bug"                            (task)
+          /jot → "see E:\specs\auth-flow.md"                 (reads file, creates items)
+          /jot → "add docker, CI, and k8s"                   (batch: 3 tasks)
+          /jot → "research auth options https://oauth.net"   (task + URL)
+          /jot → "how should we handle caching?"             (brainstorm)
+Output:   Summary of all created items with classification, refs, and board sync
+Updates:  BOARD.md, views/by-status.md, views/by-priority.md,
+          views/by-project.md (if epic-linked), views/by-source.md,
+          CHANGELOG.md, Epic files, cross-referenced items (bidirectional)
 File:     .github/prompts/jot.prompt.md
-Tip:      If you have multiple thoughts, give them as a numbered list — each
-          becomes a separate IDEA-NNN
+Ref:      brain/ai-brain/backlog/guides/capture-workflow.md,
+          brain/ai-brain/backlog/guides/jot-down-guide.md,
+          .github/instructions/backlog.instructions.md
+Tip:      This is your ONE command for capture. /todo is just an alias.
+          Use /backlog only for advanced ops (refine, promote, etc.)
 ```
 
-#### `/todo` — Add a Concrete Task
+#### `/read-file-jot` — File-to-Backlog Extraction
+
+```yaml
+Inputs:   filepath (full path to a file — Notepad++, text, markdown, code)
+          context (optional — project name, epic, priority override)
+Agent:    Copilot
+Tools:    editFiles, codebase, terminalLastCommand, runInTerminal
+Use:      Dedicated file reading + extraction command:
+          • Reads any local file (text, markdown, code, Notepad++ notes)
+          • Checks IMPORT-LOG.md for re-import detection (warns if previously imported)
+          • Assigns import batch (IMP-NNN) for tracking all items from the file
+          • Parses bullets, numbered lists, headings, TODO markers, paragraphs
+          • Extracts every actionable item and idea from the file content
+          • Dedup checks existing backlog before creating (skip/merge/cross-ref)
+          • Classifies each independently (task/bug/idea/brainstorm/research)
+          • Enhances each with full protocol (title, type, priority, tags, AC)
+          • Sets origin-type: file-import and import-batch: IMP-NNN on all items
+          • Auto-refines: gap analysis, future considerations, grouping analysis
+          • Presents summary — user can confirm, refine, select, or cancel
+          • Creates all items + full board sync + IMPORT-LOG.md + completeness check
+Workflow: Read → Dedup IMPORT-LOG → Parse → Classify → Dedup Backlog → Enhance → Refine → Confirm → Create → Sync → Check
+Example:  /read-file-jot → "C:\notes\project-ideas.txt"
+          /read-file-jot → "E:\specs\auth-requirements.md" + "for EPIC-001, all high"
+          /read-file-jot → "~/todo.txt"
+          /read-file-jot → "D:\code\app.java" (extracts TODO/FIXME comments)
+Output:   Summary of extracted items (new/merged/skipped) with source reference
+Updates:  Same as /jot — all boards, views, CHANGELOG, epics, cross-refs
+          + IMPORT-LOG.md, views/by-source.md (import batch section)
+File:     .github/prompts/read-file-jot.prompt.md
+Ref:      brain/ai-brain/backlog/guides/capture-workflow.md,
+          brain/ai-brain/backlog/guides/jot-down-guide.md,
+          .github/instructions/backlog.instructions.md
+Tip:      Use when you have a file full of ideas or TODOs. For inline text, use /jot.
+```
+
+#### `/todo` — Add a Task (Alias for `/jot`)
 
 ```yaml
 Inputs:   task (describe what needs to be done)
 Agent:    Copilot
-Tools:    editFiles, codebase
-Use:      Add actionable work to the backlog. Infers type (feature/bug/chore)
-          and priority (medium default) from your description.
+Tools:    editFiles, codebase, terminalLastCommand, runInTerminal
+Use:      Alias for /jot — pre-classified as a task. Routes through the unified
+          capture pipeline with full enhancement: type, priority, tags, effort,
+          AC, epic, auto-breakdown, cross-references, and board sync.
+          Use /jot directly for the full experience (auto-classification).
 Example:  /todo → "Fix search bug in vault"
-          /todo → "Add dark mode to dashboard"
-          /todo → "Research WebSocket options for real-time updates"
-Output:   "Created BLI-NNN: fix-search-bug (type: bug, priority: medium)"
+          /todo → "Add docker, CI pipeline, and k8s deploy"
+Updates:  Same as /jot — all boards, views, CHANGELOG, epics, cross-refs
 File:     .github/prompts/todo.prompt.md
-Tip:      For multiple tasks, give a numbered list — each becomes a separate BLI-NNN
+Ref:      .github/prompts/jot.prompt.md
+Tip:      For anything beyond concrete tasks, use /jot instead — it auto-classifies.
 ```
 
 #### `/todos` — View Board & Manage Status
@@ -794,14 +857,22 @@ Agent:    Copilot
 Tools:    editFiles, codebase
 Use:      Your daily dashboard. View all tracked work, mark items done,
           start items, block items, search for entries.
-Commands: board — show full status | done BLI-NNN — mark complete |
+          Every status change updates ALL boards + CHANGELOG + item Activity Log.
+Commands: board — show full status | done BLI-NNN — mark complete (+ cycle time) |
           start BLI-NNN — begin work | block BLI-NNN — mark blocked |
+          unblock BLI-NNN — resume | review BLI-NNN — send to review |
           archive BLI-NNN — archive | prioritise BLI-NNN high — change priority |
-          park IDEA-NNN — shelve idea | find <text> — search entries
+          park IDEA-NNN — shelve idea | find <text> — search entries |
+          status — by-status view | projects — by-project view |
+          priority — by-priority view | log — recent CHANGELOG | stats — velocity
 Example:  /todos                          (show the board)
-          /todos → "done BLI-003"         (mark complete)
-          /todos → "start BLI-005"        (begin work)
-          /todos → "done BLI-003, BLI-004" (batch update)
+          /todos → "done BLI-003"         (mark complete, calc cycle time)
+          /todos → "start BLI-005"        (begin work, record started date)
+          /todos → "done BLI-003, BLI-004" (batch update all boards)
+Updates:  Item file (frontmatter + Activity Log + Time Tracking),
+          BOARD.md, views/by-status.md, views/by-priority.md,
+          views/by-project.md, CHANGELOG.md (entry + stats),
+          Epic progress (if linked)
 File:     .github/prompts/todos.prompt.md
 Tip:      Use at the start of a work session to see what's next, and at the end
           to mark what's done

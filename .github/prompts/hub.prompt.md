@@ -270,17 +270,19 @@ You are the **navigation hub** for all available assistants and learning command
 │        ├── /brain-search ··········· Search across inbox, notes, library by tag/kind/date
 │        ├── /brain-capture-session ·· Convert current AI session into a session note
 │        ├── /session-scope ·········· Manage session scope (widen/narrow/switch/split/link)
-│        ├── /jot ···················· Capture a thought instantly (→ IDEA-NNN)
-│        ├── /todo ··················· Add a concrete task (→ BLI-NNN)
-│        ├── /todos ·················· View board, mark done, find items
-│        └── /backlog ················ Advanced backlog mgmt — brainstorm, guide, refine, promote, epic
+│        ├── /jot ···················· Universal capture — dedup-checks, auto-classifies, enhances, cross-refs
+│        ├── /read-file-jot ·········· File-to-backlog — dedup-checks, import batch (IMP-NNN), extracts items
+│        ├── /todo ··················· Alias for /jot (pre-classified as task)
+│        ├── /todos ·················· View board, update status (syncs all boards + CHANGELOG)
+│        └── /backlog ················ Advanced: brainstorm, guide, refine, promote, epic, sprint
 │            ├── brainstorm ··········· Whiteboard-style exploration (IDEA-NNN)
 │            ├── guide ················ GHCP context guide / playbook (GUIDE-NNN)
 │            ├── refine ··············· Add refinement pass to an idea
-│            ├── promote ·············· Promote idea → backlog item
+│            ├── promote ·············· Promote idea → item (enhanced with AC, tags, effort)
 │            ├── epic ················· Group related items (EPIC-NNN)
+│            ├── sprint ··············· Manage sprints (start/add/remove/status/end)
 │            ├── board ················ Show backlog board status
-│            └── update ··············· Change status or priority
+│            └── update ··············· Change status or priority (full board sync)
 │
 │    └── /daily-assist ·············· Non-SE daily productivity
 │        ├── finance ················ Budget tracking, investment basics, expense analysis
@@ -397,10 +399,11 @@ Quick Commands:
     /brain-search            → Search by tag, project, kind, date
     /brain-capture-session   → Convert current AI session into a structured note
     /session-scope           → Manage session scope (widen/narrow/switch/split/link)
-    /jot                     → Capture a thought instantly (→ IDEA-NNN)
-    /todo                    → Add a concrete task (→ BLI-NNN)
-    /todos                   → View board, mark done, find items
-    /backlog                 → Advanced backlog mgmt (brainstorm/guide/refine/promote/epic/board/update)
+    /jot                     → Universal capture (dedup-checks, auto-classifies, enhances, cross-refs)
+    /read-file-jot           → File-to-backlog (dedup-checks, import batch IMP-NNN, extracts items)
+    /todo                    → Alias for /jot (pre-classified as task)
+    /todos                   → View board, update status (syncs all boards + views + CHANGELOG)
+    /backlog                 → Advanced: brainstorm/guide/refine/promote/epic/sprint (all sync boards)
     /check-standards         → Audit any file/folder against best practices (brain-naming, frontmatter, java-code, etc.)
 
   Copilot Customization (Preview — March 2026):

@@ -5,7 +5,7 @@ status: todo
 priority: low
 type: feature
 created: 2026-03-28
-updated: 2026-03-28
+updated: 2026-04-11
 epic: EPIC-003
 parent: null
 sub-items: []
@@ -47,3 +47,15 @@ categorization, search, and cross-referencing of media across platforms.
 - Alternative: CLI-first approach, add UI later
 - Could integrate with Plex/Jellyfin for self-hosted media management
 - Privacy: store API tokens securely, never commit credentials
+
+## Attachments & References
+
+| Type | Path / URL | Added | Notes |
+|---|---|---|---|
+| Source file | `D:\workdir\MG_FTE\notepad\personal dev\learning-assistant\gpt.txt` | 2026-04-11 | IMP-001: "media manager" mentioned under projects section |
+
+## Activity Log
+
+| Date | Time | Actor | Action | Details |
+|---|---|---|---|---|
+| 2026-04-11 | 10:08 PM | system | noted | IMP-001: "media manager" mentioned in source file — already covered by this BLI, no changes needed |

@@ -21,7 +21,7 @@
 
 ---
 
-## Todo (17)
+## Todo (24)
 
 > Items ready to be picked up. Ordered by priority (high → low), then by ID.
 
@@ -36,6 +36,7 @@
 | BLI-008 | Scheduler, calendar, timeline & todo tracking | project | EPIC-003 | 2026-03-26 | scheduler, calendar |
 | BLI-011 | Brain consolidation — tabs, bookmarks, workspace, notes | feature | EPIC-002 | 2026-03-26 | brain, consolidation |
 | BLI-012 | Enhanced web scraping & search engine | feature | EPIC-002 | 2026-03-26 | search, scraping |
+| BLI-020 | Build GitHub MCP server | feature | — | 2026-04-11 | mcp, github |
 
 ### Medium Priority
 
@@ -46,6 +47,10 @@
 | BLI-009 | Third-party libs, JDK 26, SDK tools & annotations | feature | EPIC-002 | 2026-03-26 | jdk, libraries |
 | BLI-010 | Personal Confluence — migrate office resources | feature | EPIC-002 | 2026-03-26 | confluence, migration |
 | BLI-013 | Book consolidation — PDFs, ebooks, cloud readers | feature | EPIC-002 | 2026-03-26 | books, ebooks |
+| BLI-021 | Reusable content templates system | feature | EPIC-002 | 2026-04-11 | templates, reusable |
+| BLI-022 | Export and migration support for portability | feature | EPIC-002 | 2026-04-11 | export, migration |
+| BLI-023 | Cross-repo item merge and sync | feature | EPIC-002 | 2026-04-11 | merge, cross-repo |
+| BLI-024 | Workflow and terminal conditions framework | feature | EPIC-001 | 2026-04-11 | workflow, automation |
 
 ### Low Priority
 
@@ -56,6 +61,8 @@
 | BLI-016 | Cloud & ebook reader | project | EPIC-003 | 2026-03-26 | ebooks, reader |
 | BLI-017 | Developer productivity dashboard | project | EPIC-003 | 2026-03-26 | productivity, dashboard |
 | BLI-018 | Code snippet & template manager | project | EPIC-003 | 2026-03-26 | snippets, templates |
+| BLI-019 | Tally-Vyapaar accounting application | project | EPIC-003 | 2026-04-11 | accounting, finance |
+| BLI-025 | Library/glossary for abbreviations and aliases | feature | EPIC-001 | 2026-04-11 | glossary, reference |
 
 ---
 

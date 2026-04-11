@@ -14,6 +14,7 @@
 | **By Status** | All items grouped by lifecycle status | [by-status.md](by-status.md) |
 | **By Project** | Per-project mini-boards (EPIC-003 projects + features) | [by-project.md](by-project.md) |
 | **By Priority** | All items ranked by priority tier | [by-priority.md](by-priority.md) |
+| **By Source** | Items grouped by origin — manual capture vs file import (IMP-NNN) | [by-source.md](by-source.md) |
 
 ---
 

@@ -1,4 +1,4 @@
-# guides/ — GHCP Context Guides (0)
+# guides/ — GHCP Context Guides (2)
 
 > Structured reference documents written **for** GitHub Copilot (GHCP) to use as
 > context when working on this project. Think of them as playbooks, decision trees,
@@ -14,7 +14,10 @@
 
 ## Current Inventory
 
-*No guides created yet. Use `/backlog guide "topic"` to create your first guide.*
+| File | Description | Status |
+|---|---|---|
+| [capture-workflow.md](capture-workflow.md) | Complete capture system reference — all Mermaid diagrams, dedup/merge, import tracking | active |
+| [jot-down-guide.md](jot-down-guide.md) | Classification rules, enhancement patterns, cross-referencing conventions | active |
 
 **Next ID:** GUIDE-001
 

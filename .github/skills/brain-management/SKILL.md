@@ -478,15 +478,82 @@ backlog/
 
 | Command | Effect |
 |---|---|
-| `/jot` | Capture any thought instantly |
-| `/todo` | Add a concrete task with time tracking |
+| `/jot` | Universal capture — dedup-checks, auto-classifies, enhances, cross-refs |
+| `/jot "fix bug"` | Auto-classified as task → BLI-NNN with full enhancement |
+| `/jot "what if..."` | Auto-classified as idea → IDEA-NNN, raw capture |
+| `/jot "C:\notes\spec.txt"` | Reads file, extracts content, creates items |
+| `/jot "1. fix X 2. add Y"` | Batch → creates multiple BLI/IDEA with sequential IDs |
+| `/read-file-jot "path"` | File-to-backlog — dedup-checks, import batch (IMP-NNN), extracts items |
+| `/todo` | Alias for `/jot` — pre-classified as task |
 | `/todos` | View the board |
 | `/todos status` | View by status |
 | `/todos projects` | View by project |
 | `/todos priority` | View by priority |
 | `/todos log` | View recent CHANGELOG |
+| `/todos "done BLI-NNN"` | Mark done — updates item, BOARD, views, CHANGELOG, epic |
+| `/todos "start BLI-NNN"` | Start work — records started date, full board sync |
+| `/backlog brainstorm` | Whiteboard-style exploration (IDEA-NNN) |
+| `/backlog promote IDEA-NNN` | Promote idea → BLI with full enhancement |
 | `/backlog sprint start` | Start a sprint |
 | `/backlog sprint end` | End a sprint with retrospective |
+
+### Unified Capture Protocol (`/jot` and `/read-file-jot`)
+
+`/jot` is the **single entry point** for all backlog capture. `/read-file-jot` is
+dedicated to extracting backlog items from external files. Both use a 9-phase pipeline:
+
+1. **Read File** (file-import only) — read file, check IMPORT-LOG.md for re-imports
+2. **Parse & Detect** — scan for file paths, URLs, BLI/IDEA refs, pasted content
+3. **Classify** — idea vs task vs bug vs research vs brainstorm vs batch
+4. **Dedup & Merge Check** — scan existing backlog for duplicates/enhancement opportunities
+5. **Enhance** — title, type, priority, tags, effort, AC, epic, description, breakdown
+6. **Refine** — gap analysis, future considerations, implied dependencies, grouping
+7. **Cross-Reference** — link to related BLIs, IDEAs, EPICs, notes, sessions
+8. **Confirm & Board Sync** — present summary (new/merged/skipped), update all boards
+9. **Completeness Check** — mandatory verification before finishing
+
+Key capabilities:
+
+- **Reads local files** — `C:\notes\spec.txt` → extracts content, enriches the item
+- **File-to-backlog extraction** — `/read-file-jot` reads entire file, extracts all items
+- **Import batch tracking** — file imports tracked as IMP-NNN in IMPORT-LOG.md
+- **Dedup & merge** — checks existing backlog before creating; merges, skips, or cross-refs
+- **Records URLs** — stores as references, infers tags and context
+- **Auto-breakdown** — L/XL tasks decompose into parent + sub-items
+- **Bidirectional cross-refs** — new item links to related items, and they link back
+- **Batch processing** — numbered list or comma-separated → multiple items
+- **Gap analysis** — auto-detects missing AC, NFRs, implied dependencies
+- **Future considerations** — adds follow-on ideas to task descriptions
+- **Completeness check** — verifies all items, boards, and refs before finishing
+
+Full protocol with Mermaid diagrams: `brain/ai-brain/backlog/guides/capture-workflow.md`
+Classification rules and enhancement patterns: `brain/ai-brain/backlog/guides/jot-down-guide.md`
+
+### Smart Enhancement (Auto-Enrichment)
+
+When creating items via `/jot`, the assistant automatically:
+
+1. **Infers type** (feature/bug/improvement/research/spike/chore) from keywords
+2. **Infers priority** (critical/high/medium/low) from urgency signals
+3. **Generates 3-7 tags** matching technologies and domains
+4. **Assigns epic** if the task clearly belongs to an existing one
+5. **Estimates effort** (XS/S/M/L/XL) based on complexity
+6. **Writes rich description** (3-5 sentences: what, why, considerations)
+7. **Writes 3-5 concrete AC** (checkbox format, specific, testable)
+8. **Auto-breaks down** L/XL tasks into sub-items (parent + children)
+9. **Routes to correct folder** (features/ | projects/ | items/)
+
+### Full Board Sync Protocol
+
+Every creation, status change, or priority change updates **ALL** of these:
+
+1. **Item file** — frontmatter + Activity Log + Time Tracking sections
+2. **BOARD.md** — move row, update dashboard counts
+3. **views/by-status.md** — move between status groups
+4. **views/by-priority.md** — update status indicator
+5. **views/by-project.md** — update if project-linked
+6. **CHANGELOG.md** — append entry, update monthly + cumulative stats
+7. **Epic file** — update Progress section (if epic-linked)
 
 ### Item Statuses
 
@@ -513,12 +580,8 @@ Cycle time = completed − started.
 
 ### Update Protocol
 
-Every status/priority change must update:
-
-1. Item file (frontmatter + activity log section)
-2. BOARD.md (kanban columns)
-3. Relevant view(s) in `views/`
-4. CHANGELOG.md (append new row)
+Covered in the **Full Board Sync Protocol** above. Every change to any backlog
+item must propagate through the complete chain. No exceptions.
 
 Full protocol: `.github/instructions/backlog.instructions.md`
 

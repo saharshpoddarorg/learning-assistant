@@ -6,16 +6,15 @@
 
 ---
 
-## Quick Start — 3 Commands
+## Quick Start — 2 Commands
 
 | Command | What it does | Example |
 |---|---|---|
-| `/jot` | Capture any thought instantly | `/jot "voice search for vault?"` |
-| `/todo` | Add a concrete task | `/todo "fix search bug in vault"` |
+| `/jot` | Capture anything — auto-classifies, enhances, reads files | `/jot "fix search bug"` or `/jot "what if voice search?"` |
 | `/todos` | View board, mark done, find items | `/todos` or `/todos "done BLI-003"` |
 
-That's it for daily use. For advanced operations (brainstorm, refine, promote, guide,
-epic, sprint, views), use `/backlog`.
+That's it for daily use. `/todo` is an alias for `/jot`. For advanced operations
+(brainstorm, refine, promote, guide, epic, sprint), use `/backlog`.
 
 ---
 

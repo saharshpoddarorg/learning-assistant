@@ -31,6 +31,116 @@ This instruction activates whenever the user:
 
 ---
 
+## Unified Capture — The `/jot` and `/read-file-jot` Protocol
+
+`/jot` is the **single entry point** for all backlog capture. It replaces the old
+separate idea and task commands. `/todo` is now an alias that routes through `/jot`.
+`/read-file-jot` is a dedicated command for reading external files and extracting
+backlog items from their contents.
+
+For the full protocol (9 phases: Read File (imports only) → Parse & Detect → Classify →
+Dedup & Merge Check → Enhance → Refine & Gap Analysis → Cross-Reference → Confirm →
+Board Sync → Completeness Check), see the **capture workflow** at
+`brain/ai-brain/backlog/guides/capture-workflow.md` (the definitive reference with all
+Mermaid diagrams), and the **jot-down guide** at
+`brain/ai-brain/backlog/guides/jot-down-guide.md` (classification rules and enhancement
+patterns).
+
+### Key Protocol Points
+
+1. **Classify, don't ask** — infer idea vs task from content signals
+2. **Read attached files automatically** — local file paths are read and extracted
+3. **Dedup before creating** — scan existing backlog for duplicates and enhancement
+   opportunities before creating any new item (see Dedup & Merge section below)
+4. **Enhance everything** — tags, priority, effort, epic, AC are always inferred
+5. **Refine automatically** — gap analysis, future considerations, implied dependencies
+6. **Auto-breakdown** — L/XL tasks automatically decompose into sub-items
+7. **Cross-reference aggressively** — link to related BLIs, IDEAs, EPICs, notes, sessions
+8. **Confirm with user** — present summary, offer refinement, then finalize
+9. **Board sync is mandatory** — BOARD.md + views/ + CHANGELOG.md on every creation
+10. **Completeness check is mandatory** — never exit without verifying all items, boards,
+    cross-refs, timestamps, and IDs are correct
+
+### File-to-Backlog Extraction (`/read-file-jot`)
+
+When the user provides a file path via `/read-file-jot`:
+
+1. **Read the file** immediately — don't ask "should I read it?"
+2. **Check IMPORT-LOG.md** — if this file was imported before, warn and offer options
+3. **Assign import batch** — `IMP-NNN` (next sequential from IMPORT-LOG.md)
+4. **Parse for items** — bullets, numbered lists, TODOs, headings, paragraphs
+5. **Classify each item** independently using the standard rules
+6. **Dedup check** — scan existing backlog for duplicates before enhancing
+7. **Enhance each item** with full protocol (title, type, priority, tags, effort, AC)
+8. **Set origin tracking** — `origin-type: file-import`, `import-batch: IMP-NNN`
+9. **Refine** — gap analysis, future considerations, grouping analysis
+10. **Present summary** — show new items, merged items, skipped duplicates
+11. **Create and sync** — create files, update all boards + IMPORT-LOG.md
+12. **Completeness check** — verify all items, boards, import log, and dedup results
+
+### Dedup & Merge Protocol
+
+Before creating ANY new item (via `/jot` or `/read-file-jot`), check for duplicates:
+
+1. **Scan existing items** in `features/`, `items/`, `projects/`, and `ideas/`
+2. **Compare** title keywords (≥ 70% overlap), tags (3+ shared), descriptions
+3. **Classify the match:**
+   - Exact duplicate → skip, note in summary
+   - Partial overlap → create + cross-reference
+   - Enhancement opportunity → merge new details into existing item
+4. **For merges:** add AC, union tags, enrich description, log in Activity Log
+5. **Never lose information** — everything the user provided is preserved
+6. **Present results** with clear new/merged/skipped categories
+
+See `capture-workflow.md` Phase 3 for the full dedup flowchart and decision matrix.
+
+### File Import Tracking
+
+File imports are tracked separately from manual captures:
+
+- **`origin-type`** field in templates: `manual` (from `/jot`) or `file-import`
+  (from `/read-file-jot`)
+- **`import-batch`** field: `IMP-NNN` — groups all items from one file read
+- **IMPORT-LOG.md** — append-only log of all file imports with batch IDs, counts
+- **views/by-source.md** — view items grouped by manual vs file-import origin
+- **Re-import detection** — IMPORT-LOG.md is checked before reading a file to
+  detect if it was previously imported
+
+### Attachments & References
+
+Items can reference external files, URLs, and other backlog/brain artifacts:
+
+- **Local file paths** (e.g., `C:\notes\spec.txt`) — read and extract, store as reference
+- **URLs** (e.g., `https://...`) — record and use for context enrichment
+- **Backlog cross-refs** (e.g., `BLI-003`, `IDEA-001`) — bidirectional linking
+- **Brain notes/sessions** — link when topically related
+
+All references go in the item's `## Attachments & References` section (4-column table:
+Type, Path / URL, Added, Notes). Cross-references are **bidirectional** — when A links
+to B, B links back to A.
+
+### Completeness Check Protocol
+
+Before finishing ANY `/jot` or `/read-file-jot` invocation, verify:
+
+- Every item from the input was classified and created (nothing missed)
+- Every task has all required fields (title, type, priority, tags, effort, AC)
+- Every idea has Raw Idea with user's verbatim text
+- `origin-type` set correctly (`manual` or `file-import`)
+- `import-batch` set for file-import items
+- Existing backlog scanned for duplicates before creating
+- Duplicates handled (skipped, merged, or cross-referenced)
+- Merges logged in Activity Log of existing items
+- All attachments recorded in Attachments & References tables
+- All cross-references are bidirectional
+- All boards updated (BOARD.md, views/, CHANGELOG.md, epic files)
+- IMPORT-LOG.md updated (file-import only)
+- views/by-source.md updated (both manual and file-import)
+- All timestamps from system clock, all IDs sequential
+- Summary presented to user (new / merged / skipped counts)
+
+---
+
 ## Creating Items
 
 ### When the User Describes Work to Do
@@ -40,9 +150,28 @@ If the user describes something **concrete and actionable** (a feature, a bug, a
 1. Route to the correct folder (see **Folder Routing** below)
 2. Assign the next sequential `BLI-NNN` ID
 3. Set appropriate `status`, `priority`, and `type`
-4. Write concise description and acceptance criteria
-5. Add a row to [BOARD.md](../../brain/ai-brain/backlog/BOARD.md) in the correct section
-6. Inform the user: "Created BLI-NNN: title"
+4. **Enhance the user's input** — always infer and populate:
+   - **Rich description** (3-5 sentences): what, why, and key considerations
+   - **3-5 concrete acceptance criteria** (checkbox format, testable, specific)
+   - **3-7 tags** (lowercase kebab-case, matching technologies and domains)
+   - **Effort estimate** (XS/S/M/L/XL — always set, infer from complexity)
+   - **Epic assignment** — check existing epics for a match, set if clear
+5. **Auto-breakdown if large** — if estimated L/XL or 3+ distinct workstreams:
+   - Create parent BLI with `sub-items: [BLI-NNN, ...]` in frontmatter
+   - Create each sub-item as a separate BLI file with `parent: BLI-NNN`
+   - Each sub-item gets its own title, AC, type, priority, effort, and tags
+   - Add a **Sub-Items** table in the parent item body
+6. **Update ALL boards and logs** (mandatory — in this order):
+   a. Add row(s) to [BOARD.md](../../brain/ai-brain/backlog/BOARD.md)
+   b. Add to [views/by-status.md](../../brain/ai-brain/backlog/views/by-status.md) (Todo)
+   c. Add to [views/by-priority.md](../../brain/ai-brain/backlog/views/by-priority.md)
+   d. Add to [views/by-project.md](../../brain/ai-brain/backlog/views/by-project.md) (if epic-linked)
+   e. Add to [views/by-source.md](../../brain/ai-brain/backlog/views/by-source.md) (Manual Capture section)
+   f. Append creation entry to [CHANGELOG.md](../../brain/ai-brain/backlog/CHANGELOG.md),
+      update monthly and cumulative stats
+   f. If epic assigned, update the epic file's Items table
+7. Inform the user with a rich summary:
+   "Created BLI-NNN: title (type, priority, effort, N AC, M sub-items, tags)"
 
 ### Folder Routing for Items
 
@@ -67,10 +196,14 @@ If the user describes something **vague, half-formed, or exploratory**:
 1. Create a file in `brain/ai-brain/backlog/ideas/` using the idea template
 2. Assign the next sequential `IDEA-NNN` ID
 3. Capture the raw idea **exactly as stated** — do not clean up, rephrase, or edit
-4. Set `status: raw`
-5. Add a row to [BOARD.md](../../brain/ai-brain/backlog/BOARD.md) Ideas table
-6. Optionally offer to do a first refinement pass (v1)
-7. Inform the user: "Captured IDEA-NNN: title"
+4. **Infer 2-5 tags** from the content (lowercase, kebab-case)
+5. Set `status: raw`
+6. **Update ALL boards and logs:**
+   a. Add a row to [BOARD.md](../../brain/ai-brain/backlog/BOARD.md) Ideas table
+   b. Append creation entry to [CHANGELOG.md](../../brain/ai-brain/backlog/CHANGELOG.md),
+      update stats
+7. Optionally offer to do a first refinement pass (v1)
+8. Inform the user: "Captured IDEA-NNN: title"
 
 ### Deciding: Item vs Idea
 
@@ -107,14 +240,22 @@ If the user describes something **vague, half-formed, or exploratory**:
 
 When the user says they're starting, finishing, blocking, or reviewing an item:
 
-1. Update the `status` field in the item's frontmatter
-2. Update the relevant date field (`started`, `completed`, `blocked-since`, `review-since`)
-3. Update the `updated` date
-4. Append an entry to the item's Activity Log section
-5. Move the row in BOARD.md to the correct section
-6. Update the relevant view(s) in `views/`
-7. Append an entry to CHANGELOG.md
-8. Inform the user of the change with timestamp
+1. Get current date and time from the system clock
+2. Update the `status` field in the item's frontmatter
+3. Update the relevant date field (`started`, `completed`, `blocked-since`, `review-since`)
+4. Update the `updated` date
+5. Append an entry to the item's Activity Log section
+6. Update the item's Time Tracking section (if marking done — calculate cycle time)
+7. **Update ALL boards and logs** (mandatory):
+   a. Move the row in BOARD.md to the correct section
+   b. Move item in views/by-status.md between status groups
+   c. Update status indicator in views/by-priority.md
+   d. Update status in views/by-project.md (if project-linked)
+   e. Append entry to CHANGELOG.md, update monthly and cumulative stats
+   f. If item has an epic: update the epic file's Progress section
+      (recalculate completed count and percentage)
+8. If marking parent done: check all sub-items are done — warn if not
+9. Inform the user of the change with timestamp and cycle time (if done)
 
 ### Status Values
 
@@ -212,7 +353,10 @@ condition is met. When a guide graduates to a permanent rule, move it to
 
 ---
 
-## BOARD.md & Views Maintenance
+## BOARD.md & Views Maintenance — Full Board Sync Protocol
+
+> **Golden Rule:** No creation, status change, or priority change happens without
+> updating the complete chain: **BOARD.md → views/ → CHANGELOG.md**.
 
 The [BOARD.md](../../brain/ai-brain/backlog/BOARD.md) file is the main kanban board.
 It must be updated whenever:
@@ -252,11 +396,15 @@ be updated in sync:
 | By Project | `views/by-project.md` | Per-project mini-boards with kanban swimlanes |
 | By Priority | `views/by-priority.md` | All items ranked by priority tier |
 
-**Update protocol:** When any status, priority, or item change happens, update:
+**Update protocol:** When any status, priority, or item change happens, update
+**ALL** of the following (no exceptions):
 
-1. BOARD.md (main board)
-2. The relevant view(s) in `views/`
-3. CHANGELOG.md (activity log entry)
+1. **BOARD.md** (main board — move rows, update dashboard counts)
+2. **views/by-status.md** (move item between status groups)
+3. **views/by-priority.md** (update status indicator, or reposition on priority change)
+4. **views/by-project.md** (update if item is epic-linked or project-scoped)
+5. **CHANGELOG.md** (append activity entry, update monthly + cumulative stats)
+6. **Epic file** (if item is epic-linked — update Progress section counts and %)
 
 ### CHANGELOG.md (Activity Log)
 
@@ -507,21 +655,11 @@ planned → active → completed
 
 | Command | Effect |
 |---|---|
-| "add a todo for X" | Create a backlog item |
-| "jot down idea: X" | Create a raw idea |
-| "what's on the board?" | Show BOARD.md summary |
-| "refine IDEA-NNN" | Add a refinement pass |
-| "promote IDEA-NNN" | Promote idea to backlog item |
-| "start BLI-NNN" | Set status to in-progress, record started date |
-| "done BLI-NNN" | Set status to done, record completed date, calculate cycle time |
-| "block BLI-NNN: reason" | Set status to blocked, record blocker |
-| "unblock BLI-NNN" | Remove blocked status, resume in-progress |
-| "review BLI-NNN" | Set status to in-review |
-| "archive BLI-NNN" | Set status to archived |
-| "prioritise BLI-NNN high" | Change priority |
-| "estimate BLI-NNN M" | Set effort estimate (XS/S/M/L/XL) |
-| `/jot "quick thought"` | Capture via slash command (fastest path) |
-| `/todo "fix search bug"` | Create item via slash command |
+| `/jot "thought"` | Capture anything — auto-classifies, enhances, creates items/ideas |
+| `/jot "fix bug, add tests"` | Batch capture — creates multiple items from one input |
+| `/jot "see E:\specs\plan.txt"` | File capture — reads file, extracts, creates items |
+| `/read-file-jot "C:\notes\ideas.txt"` | File-to-backlog — reads file, extracts all items, creates in batch |
+| `/todo "fix search bug"` | Alias for `/jot` — routes through unified capture |
 | `/todos` | View the board |
 | `/todos "done BLI-003"` | Update status via slash command |
 | `/backlog brainstorm "auth approach"` | Open a brainstorm via slash command |

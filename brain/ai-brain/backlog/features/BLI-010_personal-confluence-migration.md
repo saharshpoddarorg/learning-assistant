@@ -5,12 +5,12 @@ status: todo
 priority: medium
 type: feature
 created: 2026-03-28
-updated: 2026-03-28
+updated: 2026-04-11
 epic: EPIC-002
 parent: null
 sub-items: []
 origin: null
-tags: [confluence, migration, office, knowledge-base, atlassian]
+tags: [confluence, migration, office, knowledge-base, atlassian, atlassian-clones, jira-alternatives]
 ---
 
 # BLI-010: Personal Confluence — migrate office resources
@@ -21,6 +21,10 @@ Create a personal Confluence space (or equivalent) and migrate valuable resource
 notes, and documentation from work/office Confluence pages into a personal
 knowledge base. This should preserve structure, formatting, and links while making
 content portable and accessible outside the corporate environment.
+
+Also consider building or evaluating Atlassian-like products (Jira/Confluence
+clones or alternatives) for personal use — self-hosted project management and
+knowledge-base tools that provide similar capabilities without corporate licensing.
 
 ## Acceptance Criteria
 
@@ -41,3 +45,15 @@ content portable and accessible outside the corporate environment.
 - Confluence REST API v2 available; also consider Confluence Cloud export (HTML/PDF)
 - Alternative targets: Notion (via API), Obsidian (as Markdown), or this repo's library tier
 - Consider using the existing `UrlResourceHandler` for scraping public Confluence pages
+
+## Attachments & References
+
+| Type | Path / URL | Added | Notes |
+|---|---|---|---|
+| Source file | `D:\workdir\MG_FTE\notepad\personal dev\learning-assistant\gpt.txt` | 2026-04-11 | IMP-001: added Atlassian-like products context |
+
+## Activity Log
+
+| Date | Time | Actor | Action | Details |
+|---|---|---|---|---|
+| 2026-04-11 | 10:08 PM | system | merged | IMP-001: expanded description with Atlassian-like products / Jira-Confluence clones, added tags |

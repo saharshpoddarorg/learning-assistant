@@ -4,7 +4,7 @@ title: Full-fledged learning resources system
 status: draft
 priority: high
 created: 2026-03-26
-updated: 2026-03-26
+updated: 2026-04-11
 tags: [learning-resources, mcp, skills, brain, sessions]
 ---
 
@@ -27,6 +27,8 @@ orchestrator chats, and specialised agents.
 | BLI-003 | Module hierarchies for learning resources | todo | high |
 | BLI-004 | Brain integration with learning resources | todo | medium |
 | BLI-005 | Chat session orchestration — scoped sessions, agents | todo | medium |
+| BLI-024 | Workflow and terminal conditions framework | todo | medium |
+| BLI-025 | Library/glossary for abbreviations and aliases | todo | low |
 
 ## Open Questions
 

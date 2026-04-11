@@ -1,0 +1,37 @@
+# Import Log — File-to-Backlog Import History
+
+> **Purpose:** Track every `/read-file-jot` invocation — which files were imported,
+> when, how many items were extracted, and the resulting batch ID.
+>
+> **Usage:** Check this log before importing a file to detect re-imports. Use the
+> `IMP-NNN` batch ID to find all items created from a specific file.
+
+---
+
+## Import Batches
+
+| IMP-ID | Date | Time | Source File | BLIs Created | IDEAs Created | Merged | Skipped | Notes |
+|---|---|---|---|---|---|---|---|---|
+| IMP-001 | 2026-04-11 | 10:08 PM | `D:\workdir\MG_FTE\notepad\personal dev\learning-assistant\gpt.txt` | 7 | 1 | 4 | 0 | First import; 2 near-dupes noted (not skipped) |
+
+---
+
+## Statistics
+
+```text
+Total imports:        1
+Total BLIs created:   7
+Total IDEAs created:  1
+Total merged:         4
+Total skipped:        0
+Last import:          IMP-001 (2026-04-11)
+```
+
+---
+
+## Quick Reference
+
+- **Find items from an import:** search for `import-batch: IMP-NNN` in frontmatter
+- **View by source:** see `views/by-source.md` for items grouped by import batch
+- **Re-import detection:** this log is checked in Phase 0 of `/read-file-jot`
+- **IMP-NNN IDs are sequential** and never reused
