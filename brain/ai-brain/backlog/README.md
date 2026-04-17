@@ -46,6 +46,7 @@ co-located with the code. You see the full history of every idea and decision.
 | **library/** | Did you import it? | External references |
 | **sessions/** | Valuable AI conversation? | Captured research, analysis |
 | **backlog/** | Is it work to track? | Todos, features, ideas, sprints, brainstorming |
+| **pkm/** | About where/how I capture knowledge? | Sources, access rules, logging |
 
 ### When does something go in backlog/?
 
@@ -322,6 +323,8 @@ To find the next ID, check BOARD.md or count existing files.
 | **notes/** → **backlog/** | A note identifies a gap | Create an item referencing the note |
 | **inbox/** → **ideas/** | A raw capture is an idea | Move to ideas, fill in the template |
 | **backlog/guides/** → **.github/instructions/** | A guide becomes permanent | Graduate to an instruction file |
+| **pkm/** → **backlog/** | A capture source has actionable content | `/jot` imports from PKM sources |
+| **backlog/** → **pkm/** | A backlog item needs source content | Access policy governs content reads |
 
 ---
 

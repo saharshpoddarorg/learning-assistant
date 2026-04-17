@@ -762,7 +762,7 @@ local time when the file is created.** Never guess, estimate, or use a placehold
 
 ## Integration with Existing Brain Tiers
 
-The `sessions/` tier is the **4th tier** alongside inbox/notes/library:
+The `sessions/` tier is one of **6 tiers** in brain/ai-brain:
 
 ```text
 ai-brain/
@@ -770,6 +770,8 @@ ai-brain/
   notes/       YOURS      your distilled writing — tracked
   library/     SOURCES    imported materials — tracked
   sessions/    CAPTURED   AI conversation captures — tracked
+  backlog/     TRACKED    todos, features, ideas, sprints — tracked
+  pkm/         INFRA      capture sources, access policy, logging — tracked
 ```
 
 ### Routing Extension
@@ -777,6 +779,8 @@ ai-brain/
 > **Did you write it yourself?** → notes/
 > **Did you import it?** → library/
 > **Was it a captured AI conversation worth preserving?** → sessions/
+> **Is it work to track or plan?** → backlog/
+> **Is it about where/how I capture knowledge?** → pkm/
 > **Not ready yet?** → inbox/
 
 ### Promotion Path

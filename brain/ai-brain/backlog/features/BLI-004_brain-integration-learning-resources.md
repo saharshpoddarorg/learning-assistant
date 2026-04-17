@@ -29,6 +29,6 @@ learning resources, and vice versa.
 
 ## Notes
 
-- Brain workspace: `brain/ai-brain/` (5 tiers)
+- Brain workspace: `brain/ai-brain/` (6 tiers: inbox, notes, library, sessions, backlog, pkm)
 - Session captures: `brain/ai-brain/sessions/`
 - Learning resources vault: `mcp-servers/src/server/learningresources/vault/`

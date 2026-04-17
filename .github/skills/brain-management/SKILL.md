@@ -2,27 +2,29 @@
 name: brain-management
 description: >
   Brain workspace management for brain/ai-brain/ — naming conventions, file organisation,
-  frontmatter schema, tier routing (inbox/notes/library/sessions/backlog), timestamping best practices,
+  frontmatter schema, tier routing (inbox/notes/library/sessions/backlog/pkm), timestamping best practices,
   PKM (personal knowledge management) industry standards, and structural decisions.
   Use when asked about: where to put a note, how to name a file, what frontmatter to add,
-  when to use notes/ vs library/ vs sessions/ vs backlog/, how to structure the brain workspace,
+  when to use notes/ vs library/ vs sessions/ vs backlog/ vs pkm/, how to structure the brain workspace,
   whether to create a new tier/folder, brain naming conventions, prefix/suffix usage, how to timestamp
   notes, chat session capture, session scoping (global/project/feature scope levels, widening/narrowing),
   software-dev umbrella structure (requirements/design/implementation/testing/devops activities),
   project-aware sessions, cross-referencing sessions at different scopes, backlog management
   (kanban board, sprint tracking, item status, views, CHANGELOG, time tracking, effort estimation),
-  or any brain/ai-brain/ management question.
+  or any brain/ai-brain/ management question. For PKM source inventory, access control, and
+  content logging, see the pkm-management skill.
 ---
 
 # Brain Management Skill
 
 ---
 
-## Structure Decision — Why 5 Tiers
+## Structure Decision — Why 6 Tiers
 
-The brain/ai-brain/ workspace uses exactly **5 tiers**. The original 3 tiers (inbox/notes/library)
-were extended with a `sessions/` tier for capturing valuable AI chat conversations and a
-`backlog/` tier for personal agile work tracking.
+The brain/ai-brain/ workspace uses exactly **6 tiers**. The original 3 tiers (inbox/notes/library)
+were extended with a `sessions/` tier for capturing valuable AI chat conversations, a
+`backlog/` tier for personal agile work tracking, and a `pkm/` tier for personal knowledge
+management infrastructure (source inventory, access control, logging).
 
 | Tier | Purpose | Git |
 |---|---|---|
@@ -31,6 +33,7 @@ were extended with a `sessions/` tier for capturing valuable AI chat conversatio
 | `library/` | Imported external sources — docs, decks, references | ✅ |
 | `sessions/` | Captured AI conversations — research, analysis, learning | ✅ |
 | `backlog/` | Personal agile board — todos, features, sprints, ideas | ✅ |
+| `pkm/` | PKM infrastructure — source inventory, access policy, logging | ✅ |
 
 **Extended routing questions:**
 
@@ -38,6 +41,7 @@ were extended with a `sessions/` tier for capturing valuable AI chat conversatio
 - _"Did you import it from an external source?"_ → **Yes** → `library/`
 - _"Was it a valuable AI conversation?"_ → **Yes** → `sessions/`
 - _"Is it work to track or plan?"_ → **Yes** → `backlog/`
+- _"Is it about where/how I capture knowledge?"_ → **Yes** → `pkm/`
 - _"Not sure yet?"_ → `inbox/`
 
 ---
@@ -595,12 +599,60 @@ Full protocol: `.github/instructions/backlog.instructions.md`
 | Over-tagging (8+ tags) | Tags lose discriminating power | Max 7 tags |
 | No frontmatter | Not searchable or filterable | Always add frontmatter block |
 | One giant note per session | Hard to link; hard to find | Split into atomic notes |
-| Creating archive/ as a 5th tier | Adds complexity with no value | Date prefix + git history handle archival |
+| Creating archive/ as a 7th tier | Adds complexity with no value | Date prefix + git history handle archival |
 | Naming by topic only, no date | Topic collisions over time | Always date-prefix unless truly timeless |
 | Inconsistent project names | library/ search breaks | Pick one spelling; enforce it |
 | Capturing trivial sessions | sessions/ fills with noise | Only capture complex, analytical exchanges |
 | No session versioning | Continuation sessions are disconnected | Use `_v<N>` suffix and `parent:` field |
 | Sessions without outcomes | Hard to assess value later | Always list key outcomes in frontmatter |
+
+---
+
+## PKM — Personal Knowledge Management Infrastructure (Tier 6)
+
+The `pkm/` tier holds the infrastructure that governs how knowledge flows between
+external capture sources and brain tiers. It answers: _"Where does my knowledge
+come from, and what are the rules for accessing it?"_
+
+> **Delegation:** For detailed PKM operations (access control, sensitivity classification,
+> logging, source inventory), see the **`pkm-management` skill**. This section provides
+> the structural overview only.
+
+### PKM File Structure
+
+```text
+brain/ai-brain/pkm/
+├── README.md                          ← Hub index — start here
+├── sources-work.md                    ← Work tools (Siemens) — 7 sources
+├── sources-personal.md                ← Personal tools — 18 sources
+├── accounts-and-credentials.md        ← Account identifiers (no secrets)
+├── sensitivity-and-access-control.md  ← L0–L3 classification + Do Not Access
+├── workflows.md                       ← 7 cross-source content pipelines
+├── unused-tools.md                    ← 30+ tools not in use + retirement log
+├── access-policy.md                   ← Full access control policy
+├── access-log.md                      ← Append-only audit trail
+└── capture-sources-inventory.md       ← All-in-one consolidated reference
+```
+
+### How PKM Connects to Other Tiers
+
+| Connection | Direction | Mechanism |
+|---|---|---|
+| PKM → Backlog | Source content → work items | `/jot` imports from sources |
+| PKM → Inbox | Source content → raw capture | Paste/fetch → inbox for triage |
+| PKM → Notes | Learning content → authored notes | Distil source content into notes |
+| PKM → Library | Reference docs → archived sources | Import external docs to library |
+| PKM → Sessions | Access events → session capture | Sessions that access sources get logged |
+| All → PKM | Every access → audit trail | `access-log.md` records all content reads |
+
+### PKM Anti-Patterns
+
+| Anti-pattern | Fix |
+|---|---|
+| Putting source details in backlog items | Source info belongs in `pkm/`, not `backlog/` |
+| Skipping access logging | Every content access must be logged in `access-log.md` |
+| Accessing L2/L3 content without checking | Always check `sensitivity-and-access-control.md` first |
+| Duplicating source info across tiers | Single source of truth in `pkm/`; link from elsewhere |
 
 ---
 
@@ -637,3 +689,15 @@ brain clear --force
 | Evergreen notes | https://notes.andymatuschak.org/Evergreen_notes |
 | Building a Second Brain | https://www.buildingasecondbrain.com/ |
 | ISO 8601 date standard | https://www.iso.org/iso-8601-date-and-time-format.html |
+
+---
+
+## Related Skills
+
+| Skill | Relationship |
+|---|---|
+| `pkm-management` | Child skill — capture sources, access control, sensitivity, logging |
+| `digital-notetaking` | PKM methodologies (PARA, CODE, Zettelkasten) and tool features |
+| `deep-research` | Research sessions that may trigger capture source access |
+| `requirements-research` | Requirements gathering that may reference capture sources |
+| `software-development-roles` | Role-based workflows that interact with backlog tier |
