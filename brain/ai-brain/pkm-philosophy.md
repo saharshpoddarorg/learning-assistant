@@ -2,7 +2,7 @@
 
 > **Tier:** Reference doc for `brain/ai-brain/`
 > **Audience:** Anyone new to this workspace, or anyone questioning a structural decision
-> **Companion docs:** [README.md](README.md) (how to use) · [scripts/README.md](scripts/README.md) (commands reference) · [../digitalnotetaking/](../digitalnotetaking/) (PKM methods)
+> **Companion docs:** [README.md](README.md) (how to use) · [scripts/README.md](scripts/README.md) (commands reference) · [../digitalnotetaking/](../digitalnotetaking/) (PKM methods) · [pkm/README.md](pkm/README.md) (capture sources & access control)
 
 ---
 
@@ -15,8 +15,10 @@ This single question routes every piece of content to the correct tier.
 - **Notes** = your own writing: insights, decisions, session logs, cheatsheets
 - **Library** = imported sources: slide decks, guides, AI-generated reference docs you received
 - **Sessions** = captured AI conversations: research, analysis, learning deep-dives worth revisiting
+- **Backlog** = work to track: todos, features, ideas, sprints, brainstorming
+- **PKM** = knowledge infrastructure: capture sources, access control, sensitivity, audit logging
 
-Before asking "where does this go?" ask "did I write it?" If you can't answer yet, it goes in **inbox** until you know. If it was a valuable AI conversation, it goes in **sessions/**.
+Before asking "where does this go?" ask "did I write it?" If you can't answer yet, it goes in **inbox** until you know. If it was a valuable AI conversation, it goes in **sessions/**. If it's about how/where you capture knowledge, it goes in **pkm/**.
 
 ---
 

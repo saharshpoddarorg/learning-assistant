@@ -262,4 +262,5 @@ java --version     # should show 25
 | [brain/digitalnotetaking/para-method.md](../../../brain/digitalnotetaking/para-method.md) | PARA method applied to every tool |
 | [brain/digitalnotetaking/templates.md](../../../brain/digitalnotetaking/templates.md) | ADR, daily log, snippet vault, resource, debug, meeting templates |
 | [brain/digitalnotetaking/migration-guide.md](../../../brain/digitalnotetaking/migration-guide.md) | Notion→Obsidian, OneNote→Notion, Logseq→Obsidian, Any→Markdown |
-| [brain/ai-brain/README.md](../../../brain/ai-brain/README.md) | Live ai-brain workspace (inbox, notes, archive, scripts) |
+| [brain/ai-brain/README.md](../../../brain/ai-brain/README.md) | Live ai-brain workspace (inbox, notes, library, sessions, backlog, pkm) |
+| [brain/ai-brain/pkm/README.md](../../../brain/ai-brain/pkm/README.md) | PKM infrastructure — capture sources, access control, logging |

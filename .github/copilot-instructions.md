@@ -78,7 +78,7 @@ learning-assistant/
 ├── .github/              ← Copilot customization files (you're learning this!)
 ├── brain/                ← Brain Java module
 │   ├── src/              ← Java entry point + digitalnotetaking package
-│   └── ai-brain/         ← Personal knowledge workspace (inbox, notes, library, sessions)
+│   └── ai-brain/         ← Personal knowledge workspace (inbox, notes, library, sessions, backlog, pkm)
 ├── mac-os/               ← macOS dev environment learning module
 │   └── docs/             ← Homebrew, JDK, npm, IDEs, Docker, dotfiles guides
 ├── mcp-servers/          ← MCP servers (Java)
@@ -101,7 +101,8 @@ path separators, tool names) or ask if unclear.
 | **Any** | `digital-notetaking` | Cross-platform: Notion, Obsidian, Logseq |
 | **Any** | `java-build` | JDK version management via SDKMAN! / Temurin |
 | **Any** | `jvm-platform` | JVM internals, GC, class loading, serialization, JVM languages, GraalVM |
-| **Any** | `brain-management` | brain/ai-brain/ naming, tier routing (inbox/notes/library/sessions/backlog), frontmatter, PKM, backlog agile board |
+| **Any** | `brain-management` | brain/ai-brain/ naming, tier routing (inbox/notes/library/sessions/backlog/pkm), frontmatter, PKM, backlog agile board |
+| **Any** | `pkm-management` | PKM capture sources, access control, sensitivity classification, content logging, jot-down integration |
 | **Any** | `deep-research` | Investigation, spike stories, RCA, trade-off analysis, feasibility studies |
 | **Any** | `requirements-research` | User stories, acceptance criteria, BDD, requirements gathering and analysis |
 | **Any** | `software-development-roles` | PO, Developer, QA/Tester role guidance and workflows |

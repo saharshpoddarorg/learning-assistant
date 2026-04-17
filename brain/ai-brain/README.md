@@ -5,7 +5,7 @@ development and learning sessions — with Copilot, MCP servers, or manually.
 
 ---
 
-## Five Tiers
+## Six Tiers
 
 ```text
 ai-brain/
@@ -14,6 +14,7 @@ ai-brain/
   library/   SOURCES    imported source materials you want to preserve       [tracked]
   sessions/  CAPTURED   AI conversation captures — research, analysis, etc.  [tracked]
   backlog/   TRACKED    todos, ideas, features, brainstorming — kanban board [tracked]
+  pkm/       INFRA      capture sources, access policy, sensitivity, logging [tracked]
   scripts/   TOOLS      one dispatcher + module + aliases + VS Code tasks
 ```
 
@@ -26,6 +27,7 @@ ai-brain/
 > - **Library** — no, I imported it (external slide decks, presenter guides, external reference docs, AI session outputs you received)
 > - **Sessions** — it was a valuable AI conversation (research, analysis, code review, learning deep-dives worth preserving)
 > - **Backlog** — it's work to track (todos, features, ideas, brainstorming, requirements)
+> - **PKM** — it's about where/how I capture knowledge (sources, accounts, access rules)
 
 ### Examples
 
