@@ -93,6 +93,9 @@ When the user asks about environment setup, tooling, or shell commands, use the
 skill file appropriate for their OS. Infer OS from context clues (terminal commands,
 path separators, tool names) or ask if unclear.
 
+> **Full taxonomy:** See `.github/skills/TAXONOMY.md` for the hierarchical skill index
+> (4 domains, 10 categories, 21 skills).
+
 | OS | Skill to activate | Notes |
 |---|---|---|
 | **macOS** | `mac-dev` | Homebrew, zsh, Finder paths, macOS JDK install |
@@ -107,6 +110,17 @@ path separators, tool names) or ask if unclear.
 | **Any** | `requirements-research` | User stories, acceptance criteria, BDD, requirements gathering and analysis |
 | **Any** | `software-development-roles` | PO, Developer, QA/Tester role guidance and workflows |
 | **Any** | `java-formatting` | Java code formatting, style, inspections — **opt-in only** (invoke when asked) |
+| **Any** | `github-workflow` | PR management, issues, GitHub CLI (`gh`), PR titles/descriptions, branch ops |
+| **Any** | `git-vcs` | Git commands, branching strategies, Conventional Commits, SemVer |
+| **Any** | `design-patterns` | Design patterns, SOLID, GoF — pattern decision guide |
+| **Any** | `mcp-development` | MCP architecture, building MCP servers, transport, testing |
+| **Any** | `copilot-customization` | Copilot 6 primitives — instructions, prompts, agents, skills, MCP |
+| **Any** | `career-resources` | Tech career paths, roles, skills matrices, compensation, interviews |
+| **Any** | `daily-assistant-resources` | Personal finance, productivity, time management, news sources |
+| **Any** | `learning-resources-vault` | 176 curated resources — master discovery index across 10+ domains |
+| **Any** | `software-engineering-resources` | SE/CS resource index — DSA, system design, OS, networking, DevOps |
+| **Any** | `java-learning-resources` | Java-specific docs, tutorials, blogs, OSS projects |
+| **Any** | `java-debugging` | Exception diagnosis, fix patterns, debugger usage |
 
 **Key rule:** Never give a macOS-only command (e.g., `brew install`) without noting
 it is macOS-specific, and always provide the Windows/Linux equivalent or reference
