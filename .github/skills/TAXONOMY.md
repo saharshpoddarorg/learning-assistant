@@ -141,30 +141,64 @@ Shows which skills relate to or complement each other:
 
 | Skill | Complements | Overlaps With |
 |---|---|---|
-| `java-build` | `java-debugging`, `jvm-platform` | — |
+| `java-build` | `java-debugging`, `jvm-platform`, `java-formatting` | — |
 | `java-debugging` | `java-build`, `jvm-platform` | — |
+| `java-formatting` | `java-build` | — |
+| `java-learning-resources` | `jvm-platform`, `learning-resources-vault` | Java resources overlap with vault |
 | `jvm-platform` | `java-build`, `java-learning-resources` | — |
-| `git-vcs` | `github-workflow` | commit conventions (both cover) |
-| `github-workflow` | `git-vcs`, `copilot-customization` | — |
+| `design-patterns` | `software-engineering-resources` | SOLID basics (both cover) |
 | `deep-research` | `requirements-research` | investigation methods |
 | `requirements-research` | `deep-research`, `software-development-roles` | — |
+| `software-development-roles` | `requirements-research`, `deep-research` | — |
+| `git-vcs` | `github-workflow` | commit conventions (both cover) |
+| `github-workflow` | `git-vcs`, `copilot-customization` | — |
+| `mcp-development` | `copilot-customization` | — |
+| `mac-dev` | `java-build` | JDK setup (both cover macOS) |
+| `copilot-customization` | `mcp-development`, `github-workflow` | — |
+| `software-engineering-resources` | `learning-resources-vault`, `java-learning-resources` | resource overlap with vault |
+| `learning-resources-vault` | `java-learning-resources`, `software-engineering-resources` | master vault covers all |
 | `brain-management` | `pkm-management`, `digital-notetaking` | tier routing |
-| `pkm-management` | `brain-management` | capture sources |
-| `learning-resources-vault` | `java-learning-resources`, `software-engineering-resources` | Java resources |
+| `pkm-management` | `brain-management`, `digital-notetaking` | capture sources |
+| `digital-notetaking` | `brain-management`, `pkm-management` | PKM tools |
+| `career-resources` | `software-development-roles` | role descriptions |
+| `daily-assistant-resources` | — | — |
 
 ---
 
 ## Adding a New Skill
 
-When adding a skill, determine its place in the taxonomy:
+### Quick Checklist
+
+When adding a skill, follow these steps in order:
 
 1. **Pick the domain** (SE, Knowledge Management, Career, Daily Life)
 2. **Pick the category** within that domain (e.g., Languages & Platforms, Design, Process)
 3. **Create the folder** at `.github/skills/<skill-name>/SKILL.md`
-4. **Update this file** — add to the taxonomy tree and the appropriate category table
-5. **Update README.md** — add to the skills table
-6. **Update copilot-instructions.md** — add to skill routing table if it has OS or trigger rules
-7. **Follow completeness checklist** — see `.github/instructions/change-completeness.instructions.md`
+4. **Update TAXONOMY.md** (this file) — add to taxonomy tree + category table + cross-reference matrix
+5. **Update skills README.md** — add to the categorized skills tables
+6. **Update copilot-instructions.md** — add to skill routing table
+7. **Update navigation-index.md** — add to Skills Quick Reference table + File Map
+8. **Update skills-library.md** — add to Current Skills Inventory table
+9. **Create `.prompt.md`** — if the skill warrants a slash command
+10. **Update slash-commands.md** — add to quick lookup + detailed section (if prompt created)
+11. **Update hub.prompt.md** — add to navigation tree + quick reference (if prompt created)
+12. **Run `.\__md_lint.ps1`** — must exit with 0 issues
+13. **Run `.\mcp-servers\build.ps1`** — must succeed
+14. **Follow completeness checklist** — see `.github/instructions/change-completeness.instructions.md`
+
+### Files to Update (reference table)
+
+| File | What to Add |
+|---|---|
+| `.github/skills/<name>/SKILL.md` | The skill file itself |
+| `.github/skills/TAXONOMY.md` | Tree + category table + cross-ref row |
+| `.github/skills/README.md` | Categorized skills table entry |
+| `.github/copilot-instructions.md` | Skill routing table row |
+| `.github/docs/navigation-index.md` | Skills Quick Reference + File Map |
+| `.github/docs/skills-library.md` | Current Skills Inventory table row |
+| `.github/prompts/<name>.prompt.md` | Slash command (if applicable) |
+| `.github/docs/slash-commands.md` | Quick Lookup + detailed entry (if prompt) |
+| `.github/prompts/hub.prompt.md` | Navigation tree + quick ref (if prompt) |
 
 ### Taxonomy Principles
 
@@ -173,3 +207,5 @@ When adding a skill, determine its place in the taxonomy:
 - **Categories are stable** — add skills to existing categories before creating new ones
 - **Discovery via description** — the `description` field in SKILL.md frontmatter drives
   auto-loading; the taxonomy is for human navigation
+- **Extensible by design** — new skills slot into existing categories; new categories only
+  when 3+ skills don't fit existing ones

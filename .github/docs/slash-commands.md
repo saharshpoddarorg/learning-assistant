@@ -47,7 +47,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (57 commands)
+### Quick Lookup (58 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -100,14 +100,15 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 47 | `/brain-remote` | Brain PKM | List all capture sources with sensitivity levels (git remote analogy) | Copilot |
 | 48 | `/brain-consolidate` | Brain PKM | Plan/execute brain consolidation — migrate from external tools to brain | Copilot |
 | 49 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
-| 50 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
-| 51 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
-| 52 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
-| 53 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
-| 54 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
-| 55 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
-| 56 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
-| 57 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
+| 50 | `/github-workflow` | Domain | GitHub PRs, issues, gh CLI, Actions, branch protection, repo management | Learning-Mentor |
+| 51 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
+| 52 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
+| 53 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
+| 54 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
+| 55 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
+| 56 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
+| 57 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
+| 58 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
 
 > **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
 > VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
@@ -359,6 +360,22 @@ Topics:   Git commands, branching, merging, rebasing, stash, cherry-pick,
 Levels:   newbie (commands) → amateur (workflows/conventions) → pro (internals/automation)
 Resources: Learn Git Branching, Atlassian Git Tutorials, Pro Git Ch.10,
            Conventional Commits, GitFlow, Trunk-Based Development
+```
+
+#### `/github-workflow` — GitHub Platform Workflows
+
+```yaml
+Inputs:   topic, goal, level (newbie/amateur/pro)
+Agent:    Learning-Mentor
+Tools:    codebase, fetch
+Example:  /github-workflow → pr-create → do-it-now → newbie
+          /github-workflow → actions → automate → pro
+Topics:   Pull requests (create, review, merge), issues (lifecycle, templates),
+          gh CLI (auth, pr, issue, repo, run), GitHub Actions (workflows, CI),
+          branch protection, CODEOWNERS, releases, repository management
+Levels:   newbie (basic gh commands) → amateur (PR workflow/conventions) → pro (Actions/automation)
+Related:  /git-vcs (local Git), copilot-customization (Copilot + GitHub)
+Resources: GitHub CLI Manual, GitHub Docs (PRs, Issues, Actions)
 ```
 
 #### `/build-tools` — Build Automation

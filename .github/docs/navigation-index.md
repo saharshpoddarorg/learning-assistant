@@ -53,6 +53,8 @@
 | `/language-guide` | Language-specific learning path | Learning-Mentor | `/language-guide` → `Rust` |
 | `/tech-stack` | Frameworks, databases, compare tools | Learning-Mentor | `/tech-stack` → `compare Spring vs FastAPI` |
 | `/sdlc` | SDLC phases, methodologies, E2E lifecycle | Learning-Mentor | `/sdlc` → `testing` |
+| `/git-vcs` | Git workflows, branching, commit conventions | Learning-Mentor | `/git-vcs` → `rebase` → `pro` |
+| `/github-workflow` | GitHub PRs, issues, gh CLI, Actions | Learning-Mentor | `/github-workflow` → `pr-create` → `newbie` |
 | `/mcp` | Learn & build MCP (Model Context Protocol) servers | Learning-Mentor | `/mcp` → `build-server` → `java` |
 | `/interview-prep` | Interview preparation | Learning-Mentor | `/interview-prep` → `DSA` → `sliding window` |
 | `/resources` | Search, browse & scrape learning resources | Learning-Mentor | `/resources` → `search` → `java concurrency` |
@@ -111,19 +113,26 @@
 | Skill | Auto-Triggers On | What It Provides |
 |---|---|---|
 | `java-build` | Compile, run, build | Java compilation commands |
-| `design-patterns` | Patterns, SOLID | Pattern decision guide |
 | `java-debugging` | Exceptions, debugging | Exception diagnosis |
+| `java-formatting` | Code formatting, style, inspections (opt-in) | Formatting rules aligned to project config |
 | `java-learning-resources` | Java tutorials, docs | Java resource index |
-| `software-engineering-resources` | DSA, system design, OS, DevOps, Git, build tools, security, industry, trends | Comprehensive SE/CS resources |
-| `daily-assistant-resources` | Finance, productivity, news | Daily life resources |
-| `career-resources` | Job roles, salaries, career | Career data and roadmaps |
-| `mcp-development` | MCP servers, protocol, tools, agents | MCP server setup, architecture & dev guide (1,980 lines) |
-| `digital-notetaking` | PKM, PARA, Obsidian, Notion, Logseq, Zettelkasten, second brain, note-taking | Tool comparison, note templates (ADR, sprint log, snippet), migration guides, JDK commands |
-| `mac-dev` | Homebrew, JDK on Mac, nvm, Docker Desktop, zsh, dotfiles | macOS dev environment cheatsheets — install, configure, automate |
-| `brain-management` | brain/ai-brain/ naming conventions, tier routing, frontmatter schema, timestamping, PKM standards | Naming rules, frontmatter schema, kind values, 3-tier routing, anti-patterns |
+| `jvm-platform` | JVM internals, GC, class loading, serialization, GraalVM | JVM architecture, tuning, GC guide |
+| `design-patterns` | Patterns, SOLID | Pattern decision guide |
+| `git-vcs` | Git commands, branching, rebasing, commits | Git workflows, conventions, internals |
+| `github-workflow` | PRs, issues, gh CLI, Actions, branch protection | PR/issue lifecycle, gh CLI cheatsheet |
+| `mcp-development` | MCP servers, protocol, tools, agents | MCP server setup, architecture & dev guide |
+| `copilot-customization` | Copilot primitives, instructions, prompts, skills, agents | 6-primitive customization guide |
 | `deep-research` | Investigation, research, spike stories, RCA, trade-off analysis, technology evaluation | 5-step investigation loop, hypothesis-driven framework, ADR template, evaluation rubric |
 | `requirements-research` | Requirements gathering, user stories, BDD/Gherkin, acceptance criteria, stakeholder analysis | INVEST, MoSCoW/RICE, elicitation techniques, DoR/DoD, domain modelling |
 | `software-development-roles` | PO, Developer, QA/Tester role workflows and responsibilities | Three amigos, shift-left, backlog lifecycle, code review checklist, test pyramid |
+| `software-engineering-resources` | DSA, system design, OS, DevOps, Git, build tools, security, industry, trends | Comprehensive SE/CS resources |
+| `learning-resources-vault` | Resource discovery, curated resources across all domains | 176 curated resources — master vault index |
+| `brain-management` | brain/ai-brain/ naming conventions, tier routing, frontmatter schema, timestamping, PKM standards | Naming rules, frontmatter schema, kind values, 3-tier routing, anti-patterns |
+| `pkm-management` | PKM capture sources, git-inspired content ops, brain consolidation, access control | 10 git-inspired commands, consolidation workflows, access policy |
+| `digital-notetaking` | PKM, PARA, Obsidian, Notion, Logseq, Zettelkasten, second brain, note-taking | Tool comparison, note templates (ADR, sprint log, snippet), migration guides |
+| `career-resources` | Job roles, salaries, career | Career data and roadmaps |
+| `daily-assistant-resources` | Finance, productivity, news | Daily life resources |
+| `mac-dev` | Homebrew, JDK on Mac, nvm, Docker Desktop, zsh, dotfiles | macOS dev environment cheatsheets |
 
 ---
 
@@ -183,6 +192,7 @@
 │   ├── career-roles.prompt.md       🤖 /career-roles — job roles & pay
 │   ├── resources.prompt.md          🤖 /resources — learning resource vault
 │   ├── git-vcs.prompt.md            🤖 /git-vcs — Git workflows, branching, conventions
+│   ├── github-workflow.prompt.md    🤖 /github-workflow — GitHub PRs, issues, gh CLI, Actions
 │   ├── build-tools.prompt.md        🤖 /build-tools — Maven, Gradle, Make, Bazel, npm
 │   ├── mac-dev.prompt.md            🤖 /mac-dev — macOS dev environment
 │   ├── digital-notetaking.prompt.md 🤖 /digital-notetaking — PKM, tools, Obsidian, Notion, PARA
