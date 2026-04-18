@@ -102,9 +102,15 @@ The `pkm/` folder and the `backlog/` folder in brain/ai-brain are **siblings, no
 | Integration | Direction | Commands |
 |---|---|---|
 | Jot down from source | Source → Backlog | `/jot`, `/todo`, `/read-file-jot` |
-| Content fetch | Source → Brain tiers | Governed by access-policy.md |
+| Content fetch (first-time) | Source → inbox/ | `/brain fetch <source>` |
+| Content pull (update) | Source → existing brain files | `/brain pull <source>` |
+| Full import (clone) | Source → library/ or notes/ | `/brain clone <source>` |
+| Selective import | Source → inbox/ | `/brain cherry-pick <source> <item>` |
+| Route inbox items | inbox/ → correct tier | `/brain merge <item>` |
+| Content export | brain → external | `/brain push <source>` |
+| Compare versions | brain vs. source | `/brain diff <source>` |
 | Access logging | All → PKM | All access logged in access-log.md |
-| Source sync (future) | Bidirectional | `/fetch-source`, `/push-source` (planned) |
+| List sources | PKM → display | `/brain remote` |
 
 ### Feature Map
 
@@ -112,12 +118,18 @@ The `pkm/` folder and the `backlog/` folder in brain/ai-brain are **siblings, no
 |---|---|---|---|
 | Jot Down | `backlog/` | `/jot`, `/todo`, `/read-file-jot` | ✅ Active |
 | Kanban / Scrum | `backlog/` | `/todos`, `/backlog sprint` | ✅ Active |
-| Source Inventory | `pkm/` | (reference docs) | ✅ Active |
+| Source Inventory | `pkm/` | `/brain remote` | ✅ Active |
 | Access Policy | `pkm/` | (reference doc) | ✅ Active |
 | Access Logging | `pkm/` | (auto-populated) | ✅ Active |
-| Content Fetch | `pkm/` → brain | `/fetch-source` | 📋 Planned |
-| Content Push | brain → external | `/push-source` | 📋 Future |
-| Source Sync | bidirectional | `/sync-source` | 📋 Future |
+| Content Fetch | Source → inbox/ | `/brain fetch` | ✅ Active |
+| Content Pull | Source → update existing | `/brain pull` | ✅ Active |
+| Content Clone | Source → structured import | `/brain clone` | ✅ Active |
+| Cherry-Pick | Source → one specific item | `/brain cherry-pick` | ✅ Active |
+| Content Merge | inbox/ → correct tier | `/brain merge` | ✅ Active |
+| Content Stash | inbox/ → park for later | `/brain stash`, `/brain stash pop` | ✅ Active |
+| Content Diff | brain vs. source comparison | `/brain diff` | ✅ Active |
+| Content Push | brain → external | `/brain push` | ✅ Active |
+| Brain Consolidation | External → brain (migration) | `/brain consolidate` | ✅ Active |
 
 ---
 

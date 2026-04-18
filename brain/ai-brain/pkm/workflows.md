@@ -111,25 +111,35 @@ Sprint planning → items pulled into active sprint
 
 ---
 
-## Workflow 7 — Content Fetch from Capture Sources
+## Workflow 7 — Git-Inspired Content Operations
 
 ```text
-Need to consolidate notes from external tools?
+Need to import or consolidate notes from external tools?
     ↓
-Check access-policy.md → is the source accessible?
-  ├── RESTRICTED → do NOT access (see sensitivity-and-access-control.md)
-  ├── ASK-FIRST → ask user for explicit permission before reading
-  └── OPEN → proceed with fetch
+/brain remote                     ← list sources + sensitivity
     ↓
-Fetch content (web scrape, API, file read)
+Check sensitivity (L0/L1/L2/L3)
+  ├── L2/L3 → DENY (see sensitivity-and-access-control.md)
+  ├── L1 → ASK user for explicit permission
+  └── L0 → proceed
     ↓
-Log access in access-log.md (timestamp, source, what was accessed, why)
+First time? → /brain fetch <source>     ← copies to inbox/
+Full import? → /brain clone <source>    ← structured mirror in library/notes/
+One item? → /brain cherry-pick <source> <item>
     ↓
-Route content:
-  ├── Raw import → brain/ai-brain/inbox/
+Content arrives in brain/ai-brain/inbox/
+    ↓
+/brain merge <item>               ← route to correct tier
   ├── Reference material → brain/ai-brain/library/
-  ├── Actionable items → /jot (creates backlog items)
-  └── Learning notes → brain/ai-brain/notes/
+  ├── Actionable items → /jot → brain/ai-brain/backlog/
+  ├── Learning notes → brain/ai-brain/notes/
+  └── Not ready → /brain stash (park for later)
+    ↓
+Later: /brain diff <source>       ← check what changed
+    ↓
+/brain pull <source>              ← update existing files with changes
+    ↓
+Log everything in access-log.md
 ```
 
 ---
@@ -147,12 +157,15 @@ The existing `/jot` and `/read-file-jot` commands bridge PKM sources and backlog
 | Browser bookmark | `/jot "https://example.com — topic"` | Creates reference-type item |
 | Physical notebook (photo) | Phone photo → `/jot "description"` | Manual description of captured image |
 
-**Future integrations** (not yet implemented — tracked in backlog):
+**Git-inspired content commands** (extending the jot-down workflow):
 
-- Direct Google Keep API access (with permission)
-- Confluence page import
-- Notion database sync
-- Browser bookmark export/import
+| Command | Use case |
+|---|---|
+| `/brain fetch keep` | First-time import of Google Keep notes into inbox/ |
+| `/brain clone notion` | Full structured import of all Notion pages |
+| `/brain cherry-pick confluence-personal "Page Title"` | Import one specific Confluence page |
+| `/brain pick keep` | Interactive: browse Keep labels, select items to jot |
+| `/brain consolidate notion plan` | Create a migration plan for consolidating Notion into brain |
 
 ---
 
