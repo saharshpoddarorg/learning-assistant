@@ -9,7 +9,12 @@
 ## 📑 Table of Contents
 
 - [What Are Agent Skills?](#-what-are-agent-skills)
-- [Skills in This Project](#-skills-in-this-project)
+- [Skills in This Project](#-skills-in-this-project) (21 skills, 4 domains)
+  - [Software Engineering](#1-software-engineering-14-skills)
+  - [Knowledge Management](#2-knowledge-management-3-skills)
+  - [Career & Professional Development](#3-career--professional-development-1-skill)
+  - [Daily Life & Productivity](#4-daily-life--productivity-1-skill)
+- [Hierarchical Taxonomy](TAXONOMY.md) ← full tree + cross-reference matrix
 - [How Skills Differ from Other Primitives](#how-skills-differ-from-other-primitives)
 - [Directory Structure](#-directory-structure)
 - [SKILL.md Format](#-skillmd-format)
@@ -55,17 +60,70 @@ Skills are also an **open standard** ([agentskills.io](https://agentskills.io/))
 
 ## 🗂️ Skills in This Project
 
-| Skill | Folder | Triggers On | What It Provides |
-|---|---|---|---|
-| [`java-build`](java-build/SKILL.md) | `skills/java-build/` | Compile, run, build | Compile commands, common errors |
-| [`jvm-platform`](jvm-platform/SKILL.md) | `skills/jvm-platform/` | JVM internals, GC, class loading, serialization, JVM languages | JVM sub-hierarchy reference, GC tuning, profiling |
-| [`design-patterns`](design-patterns/SKILL.md) | `skills/design-patterns/` | Design patterns, SOLID | Pattern decision guide, SOLID reference |
-| [`java-debugging`](java-debugging/SKILL.md) | `skills/java-debugging/` | Exceptions, debugging | Exception diagnosis, fix patterns |
-| [`java-learning-resources`](java-learning-resources/SKILL.md) | `skills/java-learning-resources/` | Learning, tutorials, docs, resources | Curated index of Java-specific docs, tutorials, blogs, OSS projects |
-| [`software-engineering-resources`](software-engineering-resources/SKILL.md) | `skills/software-engineering-resources/` | DSA, system design, OS, networking, DBMS, testing, DevOps, frameworks, interview, books, SE concepts | Comprehensive SE/CS resource index — books, online resources, patterns, protocols, DevOps tools, frameworks |
-| [`daily-assistant-resources`](daily-assistant-resources/SKILL.md) | `skills/daily-assistant-resources/` | Finance, budgeting, productivity, time management, news, research, daily planning | Curated daily life resources — productivity methods, finance basics, news sources, research tools |
-| [`career-resources`](career-resources/SKILL.md) | `skills/career-resources/` | Job roles, salaries, career, skills matrix, interview, roadmap, tech careers | Tech career resources — role hierarchies, skills matrices, compensation data, interview processes |
-| [`learning-resources-vault`](learning-resources-vault/SKILL.md) | `skills/learning-resources-vault/` | Learning resources, tutorials, docs, books, courses, where to learn, best resources, study plan | **138 curated resources** across 10 domains with structured metadata tables — the discovery index (migrated from MCP server) |
+> **21 skills** across 4 domains — see [TAXONOMY.md](TAXONOMY.md) for the full hierarchical index.
+
+### 1. Software Engineering (14 skills)
+
+#### Languages & Platforms
+
+| Skill | Triggers On | What It Provides |
+|---|---|---|
+| [`java-build`](java-build/SKILL.md) | Compile, run, build, `javac`, classpath | Compile commands, common errors, JDK setup |
+| [`java-debugging`](java-debugging/SKILL.md) | Exceptions, debugging, stack trace, breakpoints | Exception diagnosis, fix patterns, debugger usage |
+| [`java-formatting`](java-formatting/SKILL.md) | Code style, formatting, inspections (**opt-in**) | IntelliJ style rules, brace placement, stream formatting |
+| [`java-learning-resources`](java-learning-resources/SKILL.md) | Java tutorials, docs, blogs, Oracle, Baeldung | Curated index — Oracle docs, dev.java, blogs, OSS projects |
+| [`jvm-platform`](jvm-platform/SKILL.md) | JVM, GC, class loading, bytecode, GraalVM, Kotlin | JVM architecture, GC tuning, profiling, JVM languages |
+| [`mac-dev`](mac-dev/SKILL.md) | macOS, Homebrew, zsh, Mac setup | macOS dev environment — Homebrew, JDK, npm, Docker, dotfiles |
+
+#### Design & Architecture
+
+| Skill | Triggers On | What It Provides |
+|---|---|---|
+| [`design-patterns`](design-patterns/SKILL.md) | Design patterns, SOLID, GoF, creational, structural | Pattern decision guide, SOLID reference, GoF catalog |
+| [`software-development-roles`](software-development-roles/SKILL.md) | PO, Developer, QA, Tester, sprint, role workflows | Role guidance — PO/Dev/QA responsibilities, collaboration |
+
+#### Development Process
+
+| Skill | Triggers On | What It Provides |
+|---|---|---|
+| [`deep-research`](deep-research/SKILL.md) | Investigation, spike, RCA, trade-off, feasibility | Research methodology, evidence synthesis, decision docs |
+| [`requirements-research`](requirements-research/SKILL.md) | User stories, acceptance criteria, BDD, discovery | Elicitation techniques, story mapping, prioritization |
+| [`github-workflow`](github-workflow/SKILL.md) | PR, pull request, issue, GitHub CLI, `gh`, PR title | PR management, issue workflows, `gh` CLI, branch ops |
+
+#### DevOps & Tooling
+
+| Skill | Triggers On | What It Provides |
+|---|---|---|
+| [`git-vcs`](git-vcs/SKILL.md) | Git commands, branching, merge, rebase, GitFlow | Git cheatsheet, branching strategies, Conventional Commits |
+| [`mcp-development`](mcp-development/SKILL.md) | MCP, Model Context Protocol, MCP server, tools | MCP architecture, building servers, transport, testing |
+| [`copilot-customization`](copilot-customization/SKILL.md) | Copilot instructions, prompts, agents, skills, `.github` | 6 customization primitives, activation rules, stacking |
+
+#### Learning Resources
+
+| Skill | Triggers On | What It Provides |
+|---|---|---|
+| [`learning-resources-vault`](learning-resources-vault/SKILL.md) | Learning resources, tutorials, books, courses, study plan | **176 curated resources** across 10+ domains — the master vault |
+| [`software-engineering-resources`](software-engineering-resources/SKILL.md) | DSA, system design, OS, networking, DBMS, testing, DevOps | Comprehensive SE/CS resource index — books, tools, frameworks |
+
+### 2. Knowledge Management (3 skills)
+
+| Skill | Triggers On | What It Provides |
+|---|---|---|
+| [`brain-management`](brain-management/SKILL.md) | brain/, notes, inbox, sessions, backlog, tier routing | brain/ai-brain/ naming, structure, frontmatter, agile board |
+| [`pkm-management`](pkm-management/SKILL.md) | PKM, capture sources, consolidation, access control | Git-inspired content ops, brain consolidation, access policy |
+| [`digital-notetaking`](digital-notetaking/SKILL.md) | Notion, Obsidian, Logseq, PARA, Zettelkasten, notes | Tool comparison, PARA/CODE methods, migration guide |
+
+### 3. Career & Professional Development (1 skill)
+
+| Skill | Triggers On | What It Provides |
+|---|---|---|
+| [`career-resources`](career-resources/SKILL.md) | Job roles, salary, career roadmap, interview, tech career | Role hierarchies, skills matrices, compensation data |
+
+### 4. Daily Life & Productivity (1 skill)
+
+| Skill | Triggers On | What It Provides |
+|---|---|---|
+| [`daily-assistant-resources`](daily-assistant-resources/SKILL.md) | Finance, budgeting, productivity, time management, news | Productivity methods, finance basics, news sources |
 
 ---
 

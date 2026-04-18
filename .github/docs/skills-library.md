@@ -54,25 +54,43 @@ This library organises skills into three axes:
 ```text
 Software Engineering (broadest domain)
 │
-├── Software Development (practice domain)
-│   ├── Requirements (requirements-research/SKILL.md)
-│   ├── Design (design-patterns/SKILL.md)
-│   ├── Implementation (java-build/SKILL.md, java-debugging/SKILL.md)
-│   └── Testing/QA [planned]
+├── Languages & Platforms
+│   ├── Java (java-build, java-debugging, java-formatting)
+│   ├── JVM Platform (jvm-platform)
+│   └── [Other languages — planned: python-build, javascript-build]
 │
-├── Systems & Infrastructure
-│   ├── DevOps & CI/CD [covered via software-engineering-resources]
-│   └── MCP & Agentic AI (mcp-development/SKILL.md)
+├── Design & Architecture
+│   ├── Design Patterns & SOLID (design-patterns)
+│   └── [planned: software-design, api-design]
 │
-├── Version Control (git-vcs/SKILL.md)
+├── Development Process
+│   ├── Requirements (requirements-research)
+│   ├── Roles (software-development-roles)
+│   ├── Deep Research (deep-research)
+│   └── [planned: qa-testing]
 │
-├── Career & Growth
-│   ├── Career Paths (career-resources/SKILL.md)
-│   └── Interview Prep [via career-resources]
+├── DevOps & Tooling
+│   ├── Git VCS (git-vcs)
+│   ├── GitHub Workflow (github-workflow)
+│   ├── MCP Development (mcp-development)
+│   ├── macOS Dev (mac-dev)
+│   └── Copilot Customization (copilot-customization)
 │
-└── Resources & Discovery
-    ├── General SE Resources (software-engineering-resources/SKILL.md)
-    └── Java Resources (java-learning-resources/SKILL.md)
+├── Learning Resources
+│   ├── Learning Resources Vault (learning-resources-vault)
+│   ├── SE Resources (software-engineering-resources)
+│   └── Java Resources (java-learning-resources)
+│
+├── Knowledge Management
+│   ├── Brain Management (brain-management)
+│   ├── PKM Management (pkm-management)
+│   └── Digital Notetaking (digital-notetaking)
+│
+├── Career & Professional Development
+│   └── Career Resources (career-resources)
+│
+└── Daily Life & Productivity
+    └── Daily Assistant (daily-assistant-resources)
 ```
 
 ### Axis 2 — Roles (cross-cutting)
@@ -93,11 +111,13 @@ Research & Analysis Methods (cross-cutting)
 
 Environment & Tooling
 ├── macOS Dev Setup (mac-dev/SKILL.md)
-└── Java Build & Run (java-build/SKILL.md)
+├── Java Build & Run (java-build/SKILL.md)
+└── GitHub Workflow (github-workflow/SKILL.md)
 
 Knowledge Management
 ├── Digital Note-Taking & PKM (digital-notetaking/SKILL.md)
-└── ai-brain Workspace Management (brain-management/SKILL.md)
+├── ai-brain Workspace Management (brain-management/SKILL.md)
+└── PKM Capture & Operations (pkm-management/SKILL.md)
 
 Copilot Customization
 └── Customizing Copilot (copilot-customization/SKILL.md)
@@ -107,26 +127,31 @@ Copilot Customization
 
 ## Current Skills Inventory
 
-| Skill | Domain | Axis | Status | Lines |
-|---|---|---|---|---|
-| `java-build` | Java compilation & execution | Domain/Impl | Active | ~200 |
-| `java-debugging` | Java exceptions & debugging | Domain/Impl | Active | ~300 |
-| `java-learning-resources` | Java resources index | Resources | Active | ~500 |
-| `design-patterns` | OOP patterns (GoF, SOLID) | Domain/Design | Active | ~400 |
-| `software-engineering-resources` | Broad SE/CS resources | Resources | Active | ~600 |
-| `career-resources` | Tech career paths & data | Career | Active | ~400 |
-| `git-vcs` | Git workflows & conventions | VCS | Active | ~350 |
-| `digital-notetaking` | PKM, Obsidian, Notion, PARA | Knowledge Mgmt | Active | ~500 |
-| `mac-dev` | macOS dev environment | Tooling/macOS | Active | ~400 |
-| `mcp-development` | MCP protocol & server dev | MCP/Agentic | Active | ~1,980 |
-| `brain-management` | ai-brain naming & routing | Knowledge Mgmt | Active | ~300 |
-| `copilot-customization` | GitHub Copilot primitives | Copilot | Active | ~500 |
-| `daily-assistant-resources` | Daily productivity & finance | Daily Life | Active | ~300 |
-| `deep-research` | Investigation & analysis methodology | Method (cross-cutting) | Active | ~350 |
-| `requirements-research` | Requirements gathering & analysis | SE > SD > Req | Active | ~400 |
-| `software-development-roles` | PO, Developer, QA workflows | Roles (cross-cutting) | Active | ~500 |
+| # | Skill | Domain | Category | Status | Lines |
+|---|---|---|---|---|---|
+| 1 | `java-build` | SE > Languages & Platforms | Java | Active | ~200 |
+| 2 | `java-debugging` | SE > Languages & Platforms | Java | Active | ~300 |
+| 3 | `java-formatting` | SE > Languages & Platforms | Java (opt-in) | Active | ~250 |
+| 4 | `java-learning-resources` | SE > Learning Resources | Java | Active | ~500 |
+| 5 | `jvm-platform` | SE > Languages & Platforms | JVM | Active | ~400 |
+| 6 | `design-patterns` | SE > Design & Architecture | Patterns | Active | ~400 |
+| 7 | `deep-research` | SE > Development Process | Method (cross-cutting) | Active | ~350 |
+| 8 | `requirements-research` | SE > Development Process | Requirements | Active | ~400 |
+| 9 | `software-development-roles` | SE > Development Process | Roles (cross-cutting) | Active | ~500 |
+| 10 | `git-vcs` | SE > DevOps & Tooling | VCS | Active | ~350 |
+| 11 | `github-workflow` | SE > DevOps & Tooling | GitHub | Active | ~450 |
+| 12 | `mcp-development` | SE > DevOps & Tooling | MCP/Agentic | Active | ~1,980 |
+| 13 | `mac-dev` | SE > DevOps & Tooling | macOS | Active | ~400 |
+| 14 | `copilot-customization` | SE > DevOps & Tooling | Copilot | Active | ~500 |
+| 15 | `software-engineering-resources` | SE > Learning Resources | Broad SE/CS | Active | ~600 |
+| 16 | `learning-resources-vault` | SE > Learning Resources | Master vault | Active | ~800 |
+| 17 | `brain-management` | Knowledge Management | ai-brain workspace | Active | ~300 |
+| 18 | `pkm-management` | Knowledge Management | PKM capture & ops | Active | ~400 |
+| 19 | `digital-notetaking` | Knowledge Management | PKM tools | Active | ~500 |
+| 20 | `career-resources` | Career & Professional Dev | Career paths | Active | ~400 |
+| 21 | `daily-assistant-resources` | Daily Life & Productivity | Productivity/Finance | Active | ~300 |
 
-**Total: 16 skills**
+**Total: 21 skills** — see [TAXONOMY.md](../skills/TAXONOMY.md) for the full hierarchical index.
 
 ---
 
@@ -166,8 +191,12 @@ After creating:
 - [ ] Add to `copilot-instructions.md` OS-Specific Skill Routing table (or general routing)
 - [ ] Add to `navigation-index.md` Skills Quick Reference table + File Map
 - [ ] Add to this file's **Current Skills Inventory** table
+- [ ] Add to `TAXONOMY.md` — taxonomy tree + category table + cross-reference matrix
 - [ ] Add to `hub.prompt.md` navigation tree (appropriate category)
+- [ ] Create a `.prompt.md` slash command if the skill warrants direct invocation
+- [ ] Add to `slash-commands.md` quick lookup table + detailed entry (if prompt created)
 - [ ] Run `.\mcp-servers\build.ps1` to verify no build break
+- [ ] Run `.\__md_lint.ps1` to verify markdown formatting
 
 ---
 
@@ -344,6 +373,22 @@ Skills planned for future creation (in priority order):
 | `cloud-aws` | SE > Infrastructure | AWS services, CDK/CloudFormation, IAM, networking, cost optimisation |
 | `agile-coaching` | Roles > Agile | Scrum, Kanban, SAFe, retrospectives, estimation, velocity |
 
+### Community-Informed (from awesome-copilot, skills.sh research)
+
+These skills were identified from community sources and align with gaps in the current
+taxonomy. Import using the protocol in
+[customization-evolution-guide.md](customization-evolution-guide.md).
+
+| Skill | Domain | Source Inspiration | Import Strategy |
+|---|---|---|---|
+| `spring-boot-testing` | SE > Java > Testing | awesome-copilot `java-springboot` | Import + merge with planned `qa-testing` |
+| `java-junit` | SE > Java > Testing | awesome-copilot `java-junit` | Import new — unit testing specifics |
+| `quality-playbook` | SE > SD > Quality | awesome-copilot `quality-playbook` | Import + merge with planned `software-design` |
+| `security-review` | SE > Security | awesome-copilot `security-review` | Merge with planned `security-engineering` |
+| `agent-governance` | Copilot | awesome-copilot `agent-governance` | Import new — agent security and guardrails |
+| `cloud-design-patterns` | SE > Systems | awesome-copilot `cloud-design-patterns` | Merge with planned `distributed-systems` |
+| `code-tour` | Cross-cutting | awesome-copilot `code-tour` | Import new — codebase walkthrough |
+
 ---
 
 ## Anti-Patterns to Avoid
@@ -358,3 +403,15 @@ Skills planned for future creation (in priority order):
 | **No "Related skills"** | User can't navigate to adjacent knowledge | Add cross-references to related skills in the header |
 | **Hardcoded tool versions** | Skill goes stale | Refer to major versions, not exact (Java 21+, not Java 21.0.2) |
 | **Forgetting copilot-instructions.md update** | Skill exists but Copilot doesn't know to activate it | Always update routing table + navigation-index |
+
+---
+
+## Further Reading
+
+| Document | What It Covers |
+|---|---|
+| [TAXONOMY.md](../skills/TAXONOMY.md) | Hierarchical skill index, cross-refs, adding + importing skills |
+| [customization-evolution-guide.md](customization-evolution-guide.md) | Import, merge, evolve primitives — framework growth guide |
+| [copilot-primitives-crosswalk.md](copilot-primitives-crosswalk.md) | Primitive comparison, conversion paths, edge cases |
+| [navigation-index.md](navigation-index.md) | Master navigation for all files, commands, skills |
+| [change-completeness.instructions.md](../instructions/change-completeness.instructions.md) | Completeness checklist including Section O (Primitive Fitness Review) |

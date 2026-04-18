@@ -354,6 +354,29 @@ When adding, moving, or updating learning resources, ensure content is placed co
 
 ---
 
+### O — Primitive Fitness Review (applies to skills, prompts, MCP, instructions changes)
+
+When adding, importing, or significantly modifying any Copilot customization primitive:
+
+- [ ] **Right primitive type** — confirm the content matches the primitive type:
+  rules → instruction, knowledge → skill, workflow → prompt, persona → agent, live data → MCP
+  (see fitness scorecard in `customization-evolution-guide.md`)
+- [ ] **Dual pattern check** — if adding a skill, does it need a matching prompt (slash command)?
+  If adding a prompt, is it backed by a skill for auto-detection?
+- [ ] **No activation conflicts** — verify no two skills have overlapping `description` trigger
+  keywords that would cause both to activate on the same query
+- [ ] **Source attribution** — if imported from external source (awesome-copilot, colleague,
+  skills.sh), record origin in frontmatter comment or footer
+- [ ] **Regression check** — run the Regression Prevention Checklist from
+  `customization-evolution-guide.md` after any import or merge
+- [ ] **Framework metrics** — after adding primitives, verify counts match in:
+  TAXONOMY.md (skill count), slash-commands.md (command count), skills-library.md (inventory),
+  navigation-index.md (tables)
+- [ ] **Evolution guide consulted** — for imports/merges, follow the Import Protocol or
+  Merge Protocol in `.github/docs/customization-evolution-guide.md`
+
+---
+
 ## 3-Tier Completeness Guide
 
 ### Newbie — "I added a thing, and it works"
@@ -386,6 +409,7 @@ When adding, moving, or updating learning resources, ensure content is placed co
 - Semantic build safety verified (Section L complete)
 - No regression or information loss (Section M complete)
 - Cohesive resource placement verified (Section N complete)
+- Primitive fitness review passed (Section O complete — for skills/prompts/MCP/instructions changes)
 - Commit is a clean, standalone logical unit
 
 ---
@@ -411,6 +435,10 @@ When adding, moving, or updating learning resources, ensure content is placed co
 | `copilot-instructions.md` | UPDATE — skills block, conventions |
 | `.github/docs/export-guide.md` | UPDATE — if new config files, env vars, or credentials added |
 | `.github/docs/export-newbie-guide.md` | UPDATE — if new exportable features added |
+| `.github/docs/customization-evolution-guide.md` | CONSULT — import/merge protocol for external primitives |
+| `.github/skills/TAXONOMY.md` | UPDATE — taxonomy tree, category tables, cross-refs |
+| `.github/docs/skills-library.md` | UPDATE — inventory table, hierarchy, roadmap |
+| `.github/docs/navigation-index.md` | UPDATE — skills table, file map, slash command table |
 
 ---
 

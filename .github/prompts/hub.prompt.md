@@ -69,6 +69,11 @@ You are the **navigation hub** for all available assistants and learning command
 │    │   │   ├── branching ·········· GitFlow, GitHub Flow, trunk-based development
 │    │   │   ├── conventions ········ Conventional Commits, semantic versioning
 │    │   │   └── internals ·········· Git object model, hooks, reflog, bisect
+│    │   ├── /github-workflow ······· GitHub PRs, issues, gh CLI, Actions, branch protection
+│    │   │   ├── pr ················· Create, review, merge, squash, PR titles
+│    │   │   ├── issues ············· Lifecycle, templates, labels, milestones
+│    │   │   ├── gh-cli ············· auth, pr, issue, repo, run commands
+│    │   │   └── actions ············ Workflows, CI/CD, triggers, monitoring
 │    │   └── /build-tools ··········· Build automation: Maven, Gradle, Make, Bazel, npm
 │    │       ├── maven ··············· POM, lifecycle, dependency scopes, BOM
 │    │       ├── gradle ·············· Kotlin DSL, multi-project, version catalogs
@@ -376,6 +381,7 @@ Quick Commands:
     /system-design    → System design (HLD/LLD)
     /devops           → CI/CD, Docker, K8s, cloud, IaC, monitoring
     /git-vcs          → Git workflows, branching strategies, commit conventions, semver
+    /github-workflow  → GitHub PRs, issues, gh CLI, Actions, branch protection, repo management
     /build-tools      → Build automation: Maven, Gradle, Make, Bazel, npm
     /mac-dev          → macOS dev environment: Homebrew, JDK, npm, IDEs, Docker, dotfiles
     /digital-notetaking → PKM systems (PARA/CODE/Zettelkasten), tools (Notion/Obsidian/Logseq), migration, JDK upgrade

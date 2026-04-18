@@ -194,6 +194,8 @@ You ask Copilot a question
 | **[Primitives Crosswalk](copilot-primitives-crosswalk.md)** | 🟢🟡🔴 | Quick comparison: diff, similarities, when to use, converting between types |
 | **[Customization Guide](customization-guide.md)** | 🟡🔴 | Architecture deep-dive: how the 6 primitives connect |
 | **[Customization Deep Dive](copilot-customization-deep-dive.md)** | 🟡🔴 | 18-part reference: comparison, migration, testing, security, cross-repo |
+| **[Skills Library](skills-library.md)** | 🟡🔴 | Skills taxonomy, creation guide, naming conventions, roadmap |
+| **[Evolution Guide](customization-evolution-guide.md)** | 🟡🔴 | Import, merge, evolve primitives — framework growth + audit |
 | **[MCP vs Skills](mcp-vs-skills.md)** | 🟡🔴 | Decision guide: MCP server or Copilot skill? Migration playbook |
 | **[Navigation Index](navigation-index.md)** | 🟡🔴 | Master lookup: all commands, agents, skills, files |
 | **[Slash Commands](slash-commands.md)** | 🟡🔴 | All 42 commands: aliases, inputs, composition |
