@@ -1,0 +1,9 @@
+{
+  "name": "atlassian-tools-skill",
+  "version": "2.0.0",
+  "description": "Jira/Confluence/Bitbucket operations via PAT-authenticated REST APIs. Zero browser dependencies.",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

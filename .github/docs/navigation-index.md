@@ -56,6 +56,7 @@
 | `/git-vcs` | Git workflows, branching, commit conventions | Learning-Mentor | `/git-vcs` → `rebase` → `pro` |
 | `/github-workflow` | GitHub PRs, issues, gh CLI, Actions | Learning-Mentor | `/github-workflow` → `pr-create` → `newbie` |
 | `/mcp` | Learn & build MCP (Model Context Protocol) servers | Learning-Mentor | `/mcp` → `build-server` → `java` |
+| `/read-url` | Read, extract, summarize any webpage URL | Copilot | `/read-url` → `https://example.com` → `summarize` |
 | `/interview-prep` | Interview preparation | Learning-Mentor | `/interview-prep` → `DSA` → `sliding window` |
 | `/resources` | Search, browse & scrape learning resources | Learning-Mentor | `/resources` → `search` → `java concurrency` |
 
@@ -133,6 +134,8 @@
 | `career-resources` | Job roles, salaries, career | Career data and roadmaps |
 | `daily-assistant-resources` | Finance, productivity, news | Daily life resources |
 | `mac-dev` | Homebrew, JDK on Mac, nvm, Docker Desktop, zsh, dotfiles | macOS dev environment cheatsheets |
+| `atlassian-tools` | Jira, Confluence, Bitbucket, JQL, CQL, sprints, PAT CLI | 89-action CLI, JQL/CQL cheatsheet, workflow playbooks |
+| `web-reader` | URL, webpage, fetch page, summarize article, extract content, read link | Webpage reading, content extraction, article summarization |
 
 ---
 
@@ -193,6 +196,8 @@
 │   ├── resources.prompt.md          🤖 /resources — learning resource vault
 │   ├── git-vcs.prompt.md            🤖 /git-vcs — Git workflows, branching, conventions
 │   ├── github-workflow.prompt.md    🤖 /github-workflow — GitHub PRs, issues, gh CLI, Actions
+│   ├── atlassian-tools.prompt.md    🤖 /atlassian-tools — Jira, Confluence, Bitbucket CLI workflows
+│   ├── read-url.prompt.md           🤖 /read-url — Read, extract, summarize webpage content
 │   ├── build-tools.prompt.md        🤖 /build-tools — Maven, Gradle, Make, Bazel, npm
 │   ├── mac-dev.prompt.md            🤖 /mac-dev — macOS dev environment
 │   ├── digital-notetaking.prompt.md 🤖 /digital-notetaking — PKM, tools, Obsidian, Notion, PARA
@@ -232,6 +237,8 @@
 │   ├── deep-research/SKILL.md       🤖 Investigation & analysis methodology (3-tier: hypothesis-driven, RCA, evaluation rubric)
 │   ├── requirements-research/SKILL.md  🤖 Requirements gathering, user stories, BDD, INVEST, MoSCoW, DoR/DoD
 │   └── software-development-roles/SKILL.md  🤖 PO / Developer / QA role workflows, three amigos, shift-left
+│   ├── atlassian-tools/SKILL.md  🤖 Jira/Confluence/Bitbucket PAT CLI (89 actions, JQL/CQL, playbooks)
+│   ├── web-reader/SKILL.md      🤖 Webpage reading, content extraction, article summarization
 │
 └── docs/
     ├── getting-started.md           👤 Hands-on tutorial
