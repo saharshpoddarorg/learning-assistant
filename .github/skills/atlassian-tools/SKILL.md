@@ -2,15 +2,20 @@
 name: atlassian-tools
 description: >
   Jira, Confluence, and Bitbucket operations via the bundled PAT-authenticated Node CLI
-  (87 actions, zero external dependencies). Use whenever the user asks about: Jira tickets,
+  (89 actions, zero external dependencies). Use whenever the user asks about: Jira tickets,
   JQL queries, sprints, boards, epics, worklogs, issue transitions, bulk operations, labels,
   watchers, issue links, subtasks, cloning issues, Confluence pages, wiki content, blogs,
   templates, PDF export, CQL search, page trees, labels, inline comments, page versioning,
   Mermaid diagrams in Confluence, Bitbucket PRs, diffs, file lookups, PR comments, tasks,
   contribution summaries, or any Atlassian Server/Data Center REST API task. Also activates
   when the user mentions JQL, CQL, sprint planning, release management, retrospective
-  documentation, or cross-tool workflows (Jira-to-Confluence, PR-to-Jira). Prefer this
-  skill over browser-driven Atlassian workflows in this repo.
+  documentation, cross-tool workflows (Jira-to-Confluence, PR-to-Jira), cross-account
+  Confluence migration (copy/move pages between instances), resume building from Jira work
+  history, work contribution analysis, Bitbucket-to-GitHub code migration, repo mirroring,
+  PR history export, page tree cloning, bulk page updates, or any cross-platform Atlassian
+  workflow. This skill is the **universal handler for ALL Atlassian-related requests** —
+  if the task involves Jira, Confluence, or Bitbucket in any capacity, this skill applies.
+  Prefer this skill over browser-driven Atlassian workflows in this repo.
 metadata:
   allowed-tools:
     - run_in_terminal
@@ -46,12 +51,53 @@ metadata:
 | Write enterprise-tone content | Read `references/tone-and-disclaimer.md` |
 | Write JQL/CQL queries | Read `references/jql-cql-cheatsheet.md` |
 | Run end-to-end workflows | Read `references/workflow-playbooks.md` |
+| Copy/move pages between Confluence instances | Playbook 9 — cross-account migration |
+| Copy/move pages within same instance | `copy_confluence_page`, `move_confluence_page` |
+| Merge content from multiple pages into one | Playbook 9 Scenario D |
+| Build resume from Jira + Bitbucket history | Playbook 10 — resume / work analysis |
+| Analyse my work contributions | `search_jira_issues` + `summarize_bitbucket_contributions` |
+| Mirror Bitbucket repo to GitHub | Playbook 11 — `git clone --bare` + `git push --mirror` |
+| Copy files from Bitbucket to GitHub | Playbook 11 Scenario B — `fetch_bitbucket_file` + `gh` |
+| Export PR history before migration | Playbook 11 Scenario E — PR archive |
+| Bulk-update Confluence pages by label | Playbook 12 — search-and-update pattern |
+| Analyse sprint velocity | Playbook 13 — sprint velocity analysis |
+| Map issue dependencies | Playbook 13 — `get_jira_issue_links` traversal |
 
 ---
 
 ## Purpose
 
-Use the bundled PAT-authenticated CLI for Jira, Confluence, and Bitbucket operations in this workspace. Keep the main skill lean and read only the reference file that matches the current task.
+This skill is the **universal handler for all Atlassian-related tasks**. Any request involving
+Jira, Confluence, or Bitbucket — regardless of complexity, direction, or number of instances —
+should be routed through this skill and its reference files.
+
+Use the bundled PAT-authenticated CLI for Jira, Confluence, and Bitbucket operations in this
+workspace. Keep the main skill lean and read only the reference file that matches the current task.
+
+### General Routing — How to Handle Any Atlassian Request
+
+When the user asks for something not explicitly listed in the Quick Decision Card:
+
+1. **Identify the services involved** — which of Jira, Confluence, Bitbucket are needed?
+2. **Read `references/action-catalog.md`** — scan the 89 actions to find the closest match
+3. **Check `references/workflow-playbooks.md`** — see if a multi-step playbook already covers it
+4. **Compose a workflow** — chain CLI actions together; if cross-instance, use the multi-instance
+   env-swap pattern from the playbooks
+5. **If the CLI lacks a needed action** — fall back to direct REST API calls via `Invoke-RestMethod`
+   using the same PAT token from `.env` (Bearer auth header)
+
+**The 89 CLI actions and 13 playbooks are starting points, not limits.** The CLI wraps REST APIs,
+and any Atlassian Server REST endpoint can be called directly when the CLI does not have a
+dedicated action. Common extension patterns:
+
+| Need | Approach |
+|---|---|
+| Action not in CLI | `Invoke-RestMethod` with Bearer token from `.env` |
+| Cross-instance operation | Swap env vars between calls (see Multi-Instance Setup) |
+| Cross-platform (Atlassian + GitHub) | Combine CLI with `git`/`gh` CLI |
+| Cross-platform (Atlassian + other) | CLI for Atlassian side, appropriate tool for the other side |
+| Bulk operation not built in | Loop over search results and call per-item actions |
+| Custom reporting / analysis | Fetch data via CLI, process in PowerShell, output markdown |
 
 ## Read Only What You Need
 
@@ -60,7 +106,9 @@ Use the bundled PAT-authenticated CLI for Jira, Confluence, and Bitbucket operat
 - `references/usage-recipes.md`: concrete examples, bulk-operation patterns, server quirks, pagination, troubleshooting
 - `references/tone-and-disclaimer.md`: enterprise tone guidelines, word-choice rules, and AI-generated content disclaimer templates
 - `references/jql-cql-cheatsheet.md`: 30+ JQL templates and 15+ CQL templates for common queries
-- `references/workflow-playbooks.md`: end-to-end workflow patterns (sprint ceremonies, release mgmt, incident docs, status reporting)
+- `references/workflow-playbooks.md`: end-to-end workflow patterns — sprint ceremonies, release mgmt,
+  incident docs, status reporting, cross-account Confluence migration, resume/work analysis,
+  Bitbucket↔GitHub migration, advanced Confluence content ops, Jira deep analysis, and more
 
 ## Architecture
 
@@ -106,6 +154,23 @@ BITBUCKET_BASE_URL=https://ies-iesd-bitbucket.ies.mentorg.com
 ```
 
 If `.env` is missing or a token is absent, stop and tell the user exactly which variable is missing.
+
+### Multi-Instance Setup (Cross-Account Operations)
+
+To operate across two different Atlassian instances (e.g., copy Confluence pages from Account A to
+Account B), swap environment variables between CLI calls. Create separate `.env` files per instance:
+
+```text
+<workspace>/.env                    ← default instance (Account A)
+<workspace>/.env.account-b          ← second instance (Account B)
+```
+
+Use the `Load-EnvFile` helper and env-var swap patterns described in `references/workflow-playbooks.md`
+(Multi-Instance Setup section). Key rules:
+
+- Always restore original credentials after cross-account operations
+- Never log or echo token values
+- Store extra `.env` files in the same gitignored location as `.env`
 
 ## Workspace Scratch Policy
 
@@ -264,6 +329,13 @@ For power users:
 - **CQL advanced queries**: combine space, label, date, contributor, and content type filters
 - **Enterprise tone enforcement**: AI disclaimer templates, professional formatting standards
 - **UTF-8 safety**: always use `contentFile` for non-ASCII content to avoid PowerShell mojibake
+- **Cross-account Confluence migration**: copy/move pages between instances (Playbook 9)
+- **Resume / work analysis**: build resume bullets from Jira + Bitbucket data (Playbook 10)
+- **Bitbucket ↔ GitHub migration**: mirror repos, migrate PRs, export PR history (Playbook 11)
+- **Bulk page operations**: search-and-update by label, clone page trees (Playbook 12)
+- **Sprint velocity analysis**: closed-sprint metrics across boards (Playbook 13)
+- **Issue dependency mapping**: traverse `get_jira_issue_links` graph (Playbook 13)
+- **Multi-instance env switching**: `Load-EnvFile` helper for cross-account workflows
 
 ---
 

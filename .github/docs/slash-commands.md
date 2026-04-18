@@ -47,7 +47,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (59 commands)
+### Quick Lookup (60 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -101,7 +101,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 48 | `/brain-consolidate` | Brain PKM | Plan/execute brain consolidation — migrate from external tools to brain | Copilot |
 | 49 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
 | 50 | `/github-workflow` | Domain | GitHub PRs, issues, gh CLI, Actions, branch protection, repo management | Learning-Mentor |
-| 51 | `/atlassian-tools` | Domain | Jira, Confluence, Bitbucket — JQL, CQL, sprints, wiki, PRs, PAT CLI workflows | Copilot |
+| 51 | `/atlassian-tools` | Domain | Universal handler — Jira, Confluence, Bitbucket, cross-instance migration, work analysis, code migration, any Atlassian task | Copilot |
 | 52 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
 | 53 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
 | 54 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
@@ -110,6 +110,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 57 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
 | 58 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
 | 59 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
+| 60 | `/read-url` | Utility | Read, extract, and summarize webpage content from any URL | Copilot |
 
 > **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
 > VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
@@ -379,21 +380,28 @@ Related:  /git-vcs (local Git), copilot-customization (Copilot + GitHub)
 Resources: GitHub CLI Manual, GitHub Docs (PRs, Issues, Actions)
 ```
 
-#### `/atlassian-tools` — Jira, Confluence & Bitbucket Workflows
+#### `/atlassian-tools` — Universal Atlassian Handler
 
 ```yaml
 Inputs:   task, service (jira/confluence/bitbucket/cross-tool), level (newbie/amateur/pro)
 Agent:    Copilot
 Tools:    codebase, terminal
 Example:  /atlassian-tools → search my open bugs → jira → amateur
-          /atlassian-tools → create sprint review page → cross-tool → pro
-Topics:   Jira (issues, JQL, sprints, epics, bulk ops, worklogs, transitions),
-          Confluence (pages, CQL, blogs, macros, Mermaid, labels, versioning),
-          Bitbucket (PRs, diffs, comments, tasks, file lookup, contributions),
-          Cross-tool (sprint planning, release notes, incident post-mortem, status reports)
-Levels:   newbie (fetch/search basics) → amateur (JQL/CQL, workflows) → pro (bulk ops, playbooks)
-Related:  /github-workflow (GitHub-specific), software-development-roles (role workflows)
-Skill:    Backed by atlassian-tools/SKILL.md (89-action CLI, 6 reference files)
+          /atlassian-tools → migrate pages to another Confluence instance → confluence → pro
+          /atlassian-tools → build resume from my Jira work history → cross-tool → pro
+          /atlassian-tools → mirror Bitbucket repo to GitHub → bitbucket → pro
+Topics:   Jira (issues, JQL, sprints, epics, bulk ops, worklogs, transitions, velocity, dependencies),
+          Confluence (pages, CQL, blogs, macros, Mermaid, labels, versioning, cross-instance migration,
+            page tree copy/move, content merge, bulk label-based updates, PDF export),
+          Bitbucket (PRs, diffs, comments, tasks, file lookup, contributions, repo mirroring,
+            PR history export, selective branch migration, cross-platform to GitHub),
+          Cross-tool (sprint planning, release notes, incident post-mortem, status reports,
+            resume/work analysis, onboarding docs, code review documentation),
+          Cross-platform (Confluence Account A → B migration, Bitbucket ↔ GitHub,
+            any Atlassian + external tool composition)
+Levels:   newbie (fetch/search basics) → amateur (JQL/CQL, workflows) → pro (bulk ops, migration, playbooks)
+Related:  /github-workflow (GitHub-specific), software-development-roles (role workflows), /git-vcs (local Git)
+Skill:    Backed by atlassian-tools/SKILL.md (89-action CLI, 6 reference files, 13 playbooks)
 ```
 
 #### `/build-tools` — Build Automation
@@ -1115,6 +1123,34 @@ Output:   Protocol architecture → primitives (tools/resources/prompts) → ful
           transport configuration → testing with MCP Inspector → deployment
 Skill:    Backed by mcp-development/SKILL.md (1,980 lines of reference material)
 Local:    Project MCP servers live in mcp-servers/ — see mcp-servers/README.md
+```
+
+---
+
+### Utility
+
+#### `/read-url` — Read, Extract, and Summarize Webpage Content
+
+```yaml
+Inputs:   url    (one or more URLs to read),
+          mode   (read / summarize / extract-code / compare),
+          focus  (optional — specific area to focus on, e.g., API docs, code examples)
+Agent:    Copilot
+Tools:    fetch
+Use:      Fetch and process the complete content of any webpage URL pasted by the user.
+          Supports full reading, summarization, code extraction, and multi-URL comparison.
+Modes:
+  read         → Full content extraction as clean markdown
+  summarize    → TL;DR + key points + notable details
+  extract-code → Code examples with context and language tags
+  compare      → Side-by-side comparison of multiple URLs
+Example:  /read-url → https://spring.io/guides/gs/rest-service → read
+          /read-url → https://example.com/blog/post → summarize
+          /read-url → URL1 URL2 → compare
+Output:   Structured markdown with source attribution
+File:     .github/prompts/read-url.prompt.md
+Skill:    Backed by web-reader/SKILL.md
+Tip:      Use 'focus' to narrow extraction — e.g., "API endpoints" or "configuration"
 ```
 
 ---
