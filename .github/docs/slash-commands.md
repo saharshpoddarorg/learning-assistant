@@ -17,6 +17,7 @@
   - [Code Quality & Analysis](#code-quality--analysis)
   - [Career & Interview](#career--interview)
   - [Daily Life](#daily-life)
+  - [Brain PKM](#brain-pkm--git-inspired-content-operations)
   - [Copilot Customization](#copilot-customization)
 - [Aliases & Shortcuts](#-aliases--shortcuts)
 - [Input Parameters Reference](#-input-parameters-reference)
@@ -46,7 +47,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (47 commands)
+### Quick Lookup (57 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -88,15 +89,25 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 36 | `/todo` | Backlog | Alias for `/jot` — routes through unified capture as a task | Copilot |
 | 37 | `/todos` | Backlog | View board, update status — syncs all boards + CHANGELOG | Copilot |
 | 38 | `/backlog` | Backlog | Advanced: brainstorm, guide, refine, promote, epic, sprint — full board sync | Copilot |
-| 39 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
-| 40 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
-| 41 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
-| 42 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
-| 43 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
-| 44 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
-| 45 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
-| 46 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
-| 47 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
+| 39 | `/brain-fetch` | Brain PKM | Fetch content from an external source into inbox/ (git fetch analogy) | Copilot |
+| 40 | `/brain-pull` | Brain PKM | Update previously fetched content from a source (git pull analogy) | Copilot |
+| 41 | `/brain-clone` | Brain PKM | Full structured import of an entire source (git clone analogy) | Copilot |
+| 42 | `/brain-merge` | Brain PKM | Route inbox item to its proper tier (git merge analogy) | Copilot |
+| 43 | `/brain-cherry-pick` | Brain PKM | Import one specific item from a source (git cherry-pick analogy) | Copilot |
+| 44 | `/brain-stash` | Brain PKM | Park inbox content for later processing (git stash analogy) | Copilot |
+| 45 | `/brain-diff` | Brain PKM | Compare brain content vs external source (git diff analogy) | Copilot |
+| 46 | `/brain-push` | Brain PKM | Export brain content to an external source (git push analogy) | Copilot |
+| 47 | `/brain-remote` | Brain PKM | List all capture sources with sensitivity levels (git remote analogy) | Copilot |
+| 48 | `/brain-consolidate` | Brain PKM | Plan/execute brain consolidation — migrate from external tools to brain | Copilot |
+| 49 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
+| 50 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
+| 51 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
+| 52 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
+| 53 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
+| 54 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
+| 55 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
+| 56 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
+| 57 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
 
 > **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
 > VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
@@ -752,6 +763,145 @@ Ref:      .github/instructions/backlog.instructions.md,
           brain/ai-brain/backlog/guides/jot-down-guide.md
 Tip:      Use /jot for capture, /todos for the board. Use /backlog only for
           advanced operations (refine, promote, brainstorm, guide, epic, sprint).
+```
+
+---
+
+### Brain PKM — Git-Inspired Content Operations
+
+Commands for managing content flow between external capture sources (Notion, Keep,
+Confluence, etc.) and brain/ai-brain tiers. Uses git/VCS-inspired verbs.
+
+#### `/brain-fetch` — Fetch Content from Source
+
+```yaml
+Inputs:   source (notion, keep, confluence-personal, etc.), scope (what to fetch)
+Agent:    Copilot
+Tools:    editFiles, codebase, fetch
+Use:      First-time retrieval from an external capture source → lands in inbox/
+Analogy:  git fetch — download without merging
+Example:  /brain-fetch → notion → "all L0 content"
+Output:   Markdown files in brain/ai-brain/inbox/ with origin frontmatter
+Next:     /brain-merge to route items to proper tiers
+File:     .github/prompts/brain-fetch.prompt.md
+```
+
+#### `/brain-pull` — Pull Updates from Source
+
+```yaml
+Inputs:   source (notion, keep, confluence-personal, etc.)
+Agent:    Copilot
+Tools:    editFiles, codebase, fetch
+Use:      Update previously fetched content — re-reads source, merges changes into existing brain files
+Analogy:  git pull — fetch + merge in one step
+Example:  /brain-pull → notion
+Output:   Updated brain files + new items in inbox/
+File:     .github/prompts/brain-pull.prompt.md
+```
+
+#### `/brain-clone` — Full Import of Entire Source
+
+```yaml
+Inputs:   source (notion, confluence-personal, onenote, etc.), tier (library/notes)
+Agent:    Copilot
+Tools:    editFiles, codebase, fetch
+Use:      Full structured import of an entire source — creates a mirror in library/ or notes/
+Analogy:  git clone — complete copy with structure preserved
+Example:  /brain-clone → notion → library
+Output:   brain/ai-brain/library/<source>/ with structured markdown files + README.md index
+File:     .github/prompts/brain-clone.prompt.md
+```
+
+#### `/brain-cherry-pick` — Import One Specific Item
+
+```yaml
+Inputs:   source, item (page title, URL, or identifier)
+Agent:    Copilot
+Tools:    editFiles, codebase, fetch
+Use:      Selectively import ONE specific item from a source into inbox/
+Analogy:  git cherry-pick — select one commit to apply
+Example:  /brain-cherry-pick → confluence-personal → "API Design Notes"
+Output:   Single file in inbox/ with cherry-picked marker
+File:     .github/prompts/brain-cherry-pick.prompt.md
+```
+
+#### `/brain-merge` — Route Inbox Item to Tier
+
+```yaml
+Inputs:   item (filename or "all" to process entire inbox)
+Agent:    Copilot
+Tools:    editFiles, codebase
+Use:      Route inbox items to their proper permanent tier after review
+Analogy:  git merge — integrate changes into a branch
+Example:  /brain-merge → "all"
+Output:   Items moved from inbox/ to notes/, library/, or backlog/ with updated frontmatter
+File:     .github/prompts/brain-merge.prompt.md
+```
+
+#### `/brain-stash` — Park Content for Later
+
+```yaml
+Inputs:   item (filename or "all"), action (stash/pop/list — default: stash)
+Agent:    Copilot
+Tools:    editFiles, codebase
+Use:      Temporarily park inbox content that isn't ready for routing
+Analogy:  git stash — save work-in-progress for later
+Example:  /brain-stash → "some-note.md"
+          /brain-stash → pop
+Output:   Item stays in inbox/ with stashed marker, or unstashed for processing
+File:     .github/prompts/brain-stash.prompt.md
+```
+
+#### `/brain-diff` — Compare Brain vs Source
+
+```yaml
+Inputs:   source (notion, keep, confluence-personal, etc.)
+Agent:    Copilot
+Tools:    editFiles, codebase, fetch
+Use:      Show what's changed between brain content and external source since last pull
+Analogy:  git diff — compare working directory with remote
+Example:  /brain-diff → notion
+Output:   Summary of modified, new, and deleted items (read-only — no changes made)
+File:     .github/prompts/brain-diff.prompt.md
+```
+
+#### `/brain-push` — Export Brain Content to Source
+
+```yaml
+Inputs:   source, content (file path or "all modified since last push")
+Agent:    Copilot
+Tools:    editFiles, codebase, fetch
+Use:      Export brain content back to an external destination
+Analogy:  git push — send local changes to remote
+Example:  /brain-push → notion → "notes/java-streams-cheatsheet.md"
+Output:   Content formatted and exported (or copy-paste instructions provided)
+File:     .github/prompts/brain-push.prompt.md
+```
+
+#### `/brain-remote` — List Capture Sources
+
+```yaml
+Inputs:   (none)
+Agent:    Copilot
+Tools:    codebase
+Use:      List all configured capture sources with sensitivity levels and last-accessed dates
+Analogy:  git remote -v — show all remotes
+Example:  /brain-remote
+Output:   Table of work + personal sources with sensitivity and access status
+File:     .github/prompts/brain-remote.prompt.md
+```
+
+#### `/brain-consolidate` — Brain Consolidation Planner
+
+```yaml
+Inputs:   source (or "all" for overview), mode (plan/execute/status)
+Agent:    Copilot
+Tools:    editFiles, codebase, fetch
+Use:      Plan and execute migration of scattered external notes into brain/ai-brain
+Example:  /brain-consolidate → notion → plan
+          /brain-consolidate → all → status
+Output:   Migration plan, execution progress, or consolidation dashboard
+File:     .github/prompts/brain-consolidate.prompt.md
 ```
 
 ---

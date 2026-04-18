@@ -615,8 +615,8 @@ external capture sources and brain tiers. It answers: _"Where does my knowledge
 come from, and what are the rules for accessing it?"_
 
 > **Delegation:** For detailed PKM operations (access control, sensitivity classification,
-> logging, source inventory), see the **`pkm-management` skill**. This section provides
-> the structural overview only.
+> logging, content operations, brain consolidation), see the **`pkm-management` skill**.
+> This section provides the structural overview only.
 
 ### PKM File Structure
 
@@ -633,6 +633,23 @@ brain/ai-brain/pkm/
 ├── access-log.md                      ← Append-only audit trail
 └── capture-sources-inventory.md       ← All-in-one consolidated reference
 ```
+
+### Git-Inspired Content Operations
+
+The PKM system uses **git/VCS-inspired verbs** for all content operations:
+
+| Operation | Command | Direction |
+|---|---|---|
+| First-time read | `/brain fetch <source>` | Source → inbox/ |
+| Update existing | `/brain pull <source>` | Source → update existing brain files |
+| Full import | `/brain clone <source>` | Source → structured library/notes mirror |
+| Select one item | `/brain cherry-pick <source> <item>` | Source → specific brain file |
+| Route inbox item | `/brain merge <item>` | inbox/ → correct tier |
+| Park for later | `/brain stash <item>` | inbox/ → stashed marker |
+| Export to source | `/brain push <source>` | brain → Source |
+| Compare versions | `/brain diff <source>` | brain vs. source |
+| Access history | `/brain log <source>` | Read access-log.md |
+| List sources | `/brain remote` | Show all capture sources |
 
 ### How PKM Connects to Other Tiers
 
