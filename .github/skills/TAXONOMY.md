@@ -4,15 +4,15 @@
 > Skills remain as flat folders on disk (`.github/skills/<name>/SKILL.md`), but this
 > taxonomy provides the hierarchical view for discovery and navigation.
 >
-> **Total skills:** 21 | **Domains:** 4 | **Categories:** 10
+> **Total skills:** 22 | **Domains:** 4 | **Categories:** 10
 
 ---
 
 ## Taxonomy Tree
 
 ```text
-Skills Library (21 skills)
-├── 1. Software Engineering                           [14 skills]
+Skills Library (22 skills)
+├── 1. Software Engineering                           [15 skills]
 │   ├── 1.1 Languages & Platforms                     [6 skills]
 │   │   ├── java-build
 │   │   ├── java-debugging
@@ -27,10 +27,11 @@ Skills Library (21 skills)
 │   │   ├── deep-research
 │   │   ├── requirements-research
 │   │   └── github-workflow
-│   ├── 1.4 DevOps & Tooling                          [3 skills]
+│   ├── 1.4 DevOps & Tooling                          [4 skills]
 │   │   ├── git-vcs
 │   │   ├── mcp-development
-│   │   └── copilot-customization
+│   │   ├── copilot-customization
+│   │   └── atlassian-tools
 │   └── 1.5 Learning Resources                        [2 skills]  (discovery layer)
 │       ├── learning-resources-vault
 │       └── software-engineering-resources
@@ -91,6 +92,7 @@ Skills for version control, CI/CD tooling, MCP servers, and AI assistant configu
 | [`git-vcs`](git-vcs/SKILL.md) | `git-vcs/` | Git commands, branching, merge, rebase, GitFlow | Git cheatsheet, branching strategies, Conventional Commits |
 | [`mcp-development`](mcp-development/SKILL.md) | `mcp-development/` | MCP, Model Context Protocol, MCP server, tools | MCP architecture, building servers, transport, testing |
 | [`copilot-customization`](copilot-customization/SKILL.md) | `copilot-customization/` | Copilot instructions, prompts, agents, skills, `.github` | 6 customization primitives, activation rules, stacking |
+| [`atlassian-tools`](atlassian-tools/SKILL.md) | `atlassian-tools/` | Jira, Confluence, Bitbucket, JQL, CQL, PAT CLI, sprints | 89-action CLI, JQL/CQL cheatsheet, workflow playbooks |
 
 ### 1.5 Learning Resources
 
@@ -162,6 +164,7 @@ Shows which skills relate to or complement each other:
 | `digital-notetaking` | `brain-management`, `pkm-management` | PKM tools |
 | `career-resources` | `software-development-roles` | role descriptions |
 | `daily-assistant-resources` | — | — |
+| `atlassian-tools` | `github-workflow`, `software-development-roles` | — |
 
 ---
 

@@ -150,8 +150,9 @@ Copilot Customization
 | 19 | `digital-notetaking` | Knowledge Management | PKM tools | Active | ~500 |
 | 20 | `career-resources` | Career & Professional Dev | Career paths | Active | ~400 |
 | 21 | `daily-assistant-resources` | Daily Life & Productivity | Productivity/Finance | Active | ~300 |
+| 22 | `atlassian-tools` | SE > DevOps & Tooling | Atlassian | Active | ~350 |
 
-**Total: 21 skills** — see [TAXONOMY.md](../skills/TAXONOMY.md) for the full hierarchical index.
+**Total: 22 skills** — see [TAXONOMY.md](../skills/TAXONOMY.md) for the full hierarchical index.
 
 ---
 

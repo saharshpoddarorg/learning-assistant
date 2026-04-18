@@ -121,6 +121,7 @@ path separators, tool names) or ask if unclear.
 | **Any** | `software-engineering-resources` | SE/CS resource index — DSA, system design, OS, networking, DevOps |
 | **Any** | `java-learning-resources` | Java-specific docs, tutorials, blogs, OSS projects |
 | **Any** | `java-debugging` | Exception diagnosis, fix patterns, debugger usage |
+| **Any** | `atlassian-tools` | Jira tickets, JQL, sprints, Confluence pages, CQL, Bitbucket PRs, PAT-based Atlassian CLI |
 
 **Key rule:** Never give a macOS-only command (e.g., `brew install`) without noting
 it is macOS-specific, and always provide the Windows/Linux equivalent or reference

@@ -79,6 +79,7 @@ Use the following style for table headers. The colour provides good contrast and
 ```html
 style="background-color: #205081; color: #ffffff; padding: 8px 12px; font-weight: bold;"
 ```
+
 For alternating row shading (optional):
 
 ```html

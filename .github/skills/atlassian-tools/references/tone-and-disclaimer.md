@@ -48,7 +48,7 @@ Yellow `note` macro. Title: `AI-Assisted Content`. No author name. No date. Alwa
 
 **Jira / Bitbucket — append at end of comment:**
 
-```
+```text
 _This content was generated or substantially edited with AI assistance. Please verify critical details independently._
 ```
 

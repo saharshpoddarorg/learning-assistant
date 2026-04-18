@@ -47,7 +47,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (58 commands)
+### Quick Lookup (59 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -101,14 +101,15 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 48 | `/brain-consolidate` | Brain PKM | Plan/execute brain consolidation — migrate from external tools to brain | Copilot |
 | 49 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
 | 50 | `/github-workflow` | Domain | GitHub PRs, issues, gh CLI, Actions, branch protection, repo management | Learning-Mentor |
-| 51 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
-| 52 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
-| 53 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
-| 54 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
-| 55 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
-| 56 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
-| 57 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
-| 58 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
+| 51 | `/atlassian-tools` | Domain | Jira, Confluence, Bitbucket — JQL, CQL, sprints, wiki, PRs, PAT CLI workflows | Copilot |
+| 52 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
+| 53 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
+| 54 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
+| 55 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
+| 56 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
+| 57 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
+| 58 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
+| 59 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
 
 > **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
 > VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
@@ -376,6 +377,23 @@ Topics:   Pull requests (create, review, merge), issues (lifecycle, templates),
 Levels:   newbie (basic gh commands) → amateur (PR workflow/conventions) → pro (Actions/automation)
 Related:  /git-vcs (local Git), copilot-customization (Copilot + GitHub)
 Resources: GitHub CLI Manual, GitHub Docs (PRs, Issues, Actions)
+```
+
+#### `/atlassian-tools` — Jira, Confluence & Bitbucket Workflows
+
+```yaml
+Inputs:   task, service (jira/confluence/bitbucket/cross-tool), level (newbie/amateur/pro)
+Agent:    Copilot
+Tools:    codebase, terminal
+Example:  /atlassian-tools → search my open bugs → jira → amateur
+          /atlassian-tools → create sprint review page → cross-tool → pro
+Topics:   Jira (issues, JQL, sprints, epics, bulk ops, worklogs, transitions),
+          Confluence (pages, CQL, blogs, macros, Mermaid, labels, versioning),
+          Bitbucket (PRs, diffs, comments, tasks, file lookup, contributions),
+          Cross-tool (sprint planning, release notes, incident post-mortem, status reports)
+Levels:   newbie (fetch/search basics) → amateur (JQL/CQL, workflows) → pro (bulk ops, playbooks)
+Related:  /github-workflow (GitHub-specific), software-development-roles (role workflows)
+Skill:    Backed by atlassian-tools/SKILL.md (89-action CLI, 6 reference files)
 ```
 
 #### `/build-tools` — Build Automation
