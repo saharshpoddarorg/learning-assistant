@@ -270,6 +270,17 @@ You are the **navigation hub** for all available assistants and learning command
 │        ├── /brain-search ··········· Search across inbox, notes, library by tag/kind/date
 │        ├── /brain-capture-session ·· Convert current AI session into a session note
 │        ├── /session-scope ·········· Manage session scope (widen/narrow/switch/split/link)
+│        ├── Brain PKM — Git-Inspired Content Operations
+│        │   ├── /brain-fetch ········ First-time retrieval from source → inbox/ (git fetch)
+│        │   ├── /brain-pull ········· Update existing content from source (git pull)
+│        │   ├── /brain-clone ········ Full import of entire source (git clone)
+│        │   ├── /brain-cherry-pick ·· Import one specific item from source (git cherry-pick)
+│        │   ├── /brain-merge ········ Route inbox item to correct tier (git merge)
+│        │   ├── /brain-stash ········ Park inbox content for later (git stash)
+│        │   ├── /brain-diff ········· Compare brain vs source (git diff)
+│        │   ├── /brain-push ········· Export brain content to source (git push)
+│        │   ├── /brain-remote ······· List all capture sources + sensitivity (git remote)
+│        │   └── /brain-consolidate ·· Plan/execute migration from external tools to brain
 │        ├── /jot ···················· Universal capture — dedup-checks, auto-classifies, enhances, cross-refs
 │        ├── /read-file-jot ·········· File-to-backlog — dedup-checks, import batch (IMP-NNN), extracts items
 │        ├── /todo ··················· Alias for /jot (pre-classified as task)
@@ -399,6 +410,20 @@ Quick Commands:
     /brain-search            → Search by tag, project, kind, date
     /brain-capture-session   → Convert current AI session into a structured note
     /session-scope           → Manage session scope (widen/narrow/switch/split/link)
+
+  Brain PKM — Git-Inspired Content Operations:
+    /brain-fetch             → First-time retrieval from source → inbox/ (git fetch)
+    /brain-pull              → Update existing content from source (git pull)
+    /brain-clone             → Full import of entire source (git clone)
+    /brain-cherry-pick       → Import one specific item from source (git cherry-pick)
+    /brain-merge             → Route inbox item to correct tier (git merge)
+    /brain-stash             → Park inbox content for later (git stash / stash pop / stash list)
+    /brain-diff              → Compare brain vs source — read-only (git diff)
+    /brain-push              → Export brain content to source (git push)
+    /brain-remote            → List all capture sources + sensitivity (git remote)
+    /brain-consolidate       → Plan/execute migration from external tools to brain
+
+  Backlog:
     /jot                     → Universal capture (dedup-checks, auto-classifies, enhances, cross-refs)
     /read-file-jot           → File-to-backlog (dedup-checks, import batch IMP-NNN, extracts items)
     /todo                    → Alias for /jot (pre-classified as task)

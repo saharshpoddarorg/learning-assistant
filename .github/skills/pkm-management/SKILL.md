@@ -337,10 +337,10 @@ Periodically review the access log for patterns:
 | **Phase 0** | Inventory + policy + logging framework | (reference docs) | ✅ Done |
 | **Phase 1** | Manual paste-and-jot | `/jot` | ✅ Done |
 | **Phase 2** | File-based import | `/read-file-jot` | ✅ Done |
-| **Phase 3** | User-assisted content operations | `/brain fetch`, `/brain merge`, `/brain stash` | 🔧 In design |
-| **Phase 4** | Brain consolidation from external sources | `/brain clone`, `/brain pull`, `/brain diff` | 📋 Planned |
-| **Phase 5** | Selective item import | `/brain cherry-pick`, `/brain pick` | 📋 Planned |
-| **Phase 6** | Export back to sources | `/brain push` | 📋 Future |
+| **Phase 3** | User-assisted content operations | `/brain fetch`, `/brain merge`, `/brain stash` | ✅ Done |
+| **Phase 4** | Brain consolidation from external sources | `/brain clone`, `/brain pull`, `/brain diff` | ✅ Done |
+| **Phase 5** | Selective item import | `/brain cherry-pick`, `/brain pick` | ✅ Done |
+| **Phase 6** | Export back to sources | `/brain push` | ✅ Done |
 | **Phase 7** | Automated periodic sync with logging | `/brain pull --auto`, `/brain diff --all` | 📋 Future |
 
 ---

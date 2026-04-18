@@ -102,7 +102,7 @@ path separators, tool names) or ask if unclear.
 | **Any** | `java-build` | JDK version management via SDKMAN! / Temurin |
 | **Any** | `jvm-platform` | JVM internals, GC, class loading, serialization, JVM languages, GraalVM |
 | **Any** | `brain-management` | brain/ai-brain/ naming, tier routing (inbox/notes/library/sessions/backlog/pkm), frontmatter, PKM, backlog agile board |
-| **Any** | `pkm-management` | PKM capture sources, access control, sensitivity classification, content logging, jot-down integration |
+| **Any** | `pkm-management` | PKM capture sources, access control, sensitivity classification, git-inspired content operations (fetch, pull, clone, cherry-pick, merge, stash, diff, push, consolidate), brain consolidation from external tools |
 | **Any** | `deep-research` | Investigation, spike stories, RCA, trade-off analysis, feasibility studies |
 | **Any** | `requirements-research` | User stories, acceptance criteria, BDD, requirements gathering and analysis |
 | **Any** | `software-development-roles` | PO, Developer, QA/Tester role guidance and workflows |

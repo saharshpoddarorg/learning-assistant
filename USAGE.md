@@ -838,22 +838,30 @@ public class LanguageFilter<T extends LearningResource> implements SearchFilter<
 
 ## 7. Brain Workspace — Personal Knowledge System
 
-> Your personal knowledge system. Three tiers — inbox is gitignored, notes and library are committed.
+> Your personal knowledge system. Six tiers — inbox is gitignored, all others are committed.
 
 ```text
 brain/ai-brain/
-├── inbox/    ← Draft notes  [GITIGNORED — session-scoped, cleared when done]
-├── notes/    ← Curated knowledge notes  [TRACKED — committed to repo]
-└── library/  ← Permanent reference library  [TRACKED — project-organized, full frontmatter]
+├── inbox/      ← Draft notes  [GITIGNORED — session-scoped, cleared when done]
+├── notes/      ← Curated knowledge notes  [TRACKED — committed to repo]
+├── library/    ← Permanent reference library  [TRACKED — project-organized, full frontmatter]
+├── sessions/   ← AI conversation captures  [TRACKED — auto-captured from qualifying sessions]
+├── backlog/    ← Personal agile board  [TRACKED — kanban, sprints, ideas, epics]
+└── pkm/        ← PKM infrastructure  [TRACKED — capture sources, access policy, workflows]
 ```
 
-**Three-tier summary:**
+**Six-tier summary:**
 
 | Tier | Git-tracked? | When to use |
 |---|---|---|
 | `inbox/` | ❌ | Raw capture — rough ideas, mid-session reasoning, throw-away |
 | `notes/` | ✅ | Reviewed insights worth keeping — committed for sharing |
 | `library/` | ✅ | Formally published: full frontmatter (kind, project, tags, status) |
+| `sessions/` | ✅ | AI conversation captures — auto-generated from qualifying chat sessions |
+| `backlog/` | ✅ | Personal agile board — kanban, sprint tracking, ideas, epics |
+| `pkm/` | ✅ | PKM infrastructure — capture sources, access control, sensitivity, workflows |
+
+### 7.1 Basic Brain Commands
 
 **Via Copilot Chat:**
 
@@ -895,7 +903,50 @@ brain/ai-brain/
 ./brain/ai-brain/scripts/brain.sh search "binary tree"
 ```
 
-**The learning workflow:**
+### 7.2 Brain PKM — Git-Inspired Content Operations
+
+> Import, sync, and consolidate notes from external tools (Notion, Google Keep, Confluence,
+> Apple Notes, etc.) into brain/ai-brain using git/VCS-inspired commands.
+
+**The analogy:** External tools are "remotes" and brain/ai-brain is your "local repo."
+
+| Command | Git analogy | What it does |
+|---|---|---|
+| `/brain-fetch` | `git fetch` | First-time retrieval from a source → lands in `inbox/` for triage |
+| `/brain-pull` | `git pull` | Update previously fetched content (fetch + merge changes) |
+| `/brain-clone` | `git clone` | Full structured import of an entire source into `library/` or `notes/` |
+| `/brain-cherry-pick` | `git cherry-pick` | Import ONE specific item from a source |
+| `/brain-merge` | `git merge` | Route inbox items to their proper tier (notes/library/backlog) |
+| `/brain-stash` | `git stash` | Park inbox items for later processing |
+| `/brain-diff` | `git diff` | Compare brain content vs. external source (read-only) |
+| `/brain-push` | `git push` | Export brain content back to an external source |
+| `/brain-remote` | `git remote` | List all capture sources with sensitivity levels |
+| `/brain-consolidate` | — | Plan/execute brain consolidation (migrate scattered tools to brain) |
+
+**Typical workflow:**
+
+```text
+/brain-remote                          ← see all your sources + sensitivity
+/brain-fetch notion                    ← first import → inbox/
+/brain-merge all                       ← route inbox items to correct tiers
+  ... later ...
+/brain-diff notion                     ← check what's changed
+/brain-pull notion                     ← update existing files with changes
+```
+
+**Brain consolidation** — progressively migrate from scattered tools to brain as single
+source of truth:
+
+```text
+/brain-consolidate notion plan         ← create a migration plan
+/brain-consolidate notion execute      ← run the migration
+/brain-consolidate all status          ← see which sources are consolidated
+```
+
+**Sensitivity rules:** All commands check access policy before proceeding. L2/L3 content
+is never accessed. L1 requires explicit permission. See `brain/ai-brain/pkm/sensitivity-and-access-control.md`.
+
+### 7.3 The Learning Workflow
 
 ```text
 🟢 NEWBIE — Quick capture

@@ -121,15 +121,15 @@ The `pkm/` folder and the `backlog/` folder in brain/ai-brain are **siblings, no
 | Source Inventory | `pkm/` | `/brain remote` | ✅ Active |
 | Access Policy | `pkm/` | (reference doc) | ✅ Active |
 | Access Logging | `pkm/` | (auto-populated) | ✅ Active |
-| Content Fetch | Source → inbox/ | `/brain fetch` | 🔧 In Design |
-| Content Pull | Source → update existing | `/brain pull` | 📋 Planned |
-| Content Clone | Source → structured import | `/brain clone` | 📋 Planned |
-| Cherry-Pick | Source → one specific item | `/brain cherry-pick` | 📋 Planned |
-| Content Merge | inbox/ → correct tier | `/brain merge` | 🔧 In Design |
-| Content Stash | inbox/ → park for later | `/brain stash`, `/brain stash pop` | 📋 Planned |
-| Content Diff | brain vs. source comparison | `/brain diff` | 📋 Planned |
-| Content Push | brain → external | `/brain push` | 📋 Future |
-| Brain Consolidation | External → brain (migration) | `/brain consolidate` | 📋 Planned |
+| Content Fetch | Source → inbox/ | `/brain fetch` | ✅ Active |
+| Content Pull | Source → update existing | `/brain pull` | ✅ Active |
+| Content Clone | Source → structured import | `/brain clone` | ✅ Active |
+| Cherry-Pick | Source → one specific item | `/brain cherry-pick` | ✅ Active |
+| Content Merge | inbox/ → correct tier | `/brain merge` | ✅ Active |
+| Content Stash | inbox/ → park for later | `/brain stash`, `/brain stash pop` | ✅ Active |
+| Content Diff | brain vs. source comparison | `/brain diff` | ✅ Active |
+| Content Push | brain → external | `/brain push` | ✅ Active |
+| Brain Consolidation | External → brain (migration) | `/brain consolidate` | ✅ Active |
 
 ---
 
