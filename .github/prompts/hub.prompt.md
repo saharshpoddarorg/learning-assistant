@@ -80,9 +80,14 @@ You are the **navigation hub** for all available assistants and learning command
 │    │   │   ├── bitbucket ··········· PRs, diffs, comments, tasks, files
 │    │   │   └── jql-cql ············ JQL & CQL query patterns
 │    │   └── /build-tools ··········· Build automation: Maven, Gradle, Make, Bazel, npm
-│    │       ├── maven ··············· POM, lifecycle, dependency scopes, BOM
-│    │       ├── gradle ·············· Kotlin DSL, multi-project, version catalogs
-│    │       └── other ··············· Make, Bazel, npm/yarn/pnpm
+│    │   │   ├── maven ··············· POM, lifecycle, dependency scopes, BOM
+│    │   │   ├── gradle ·············· Kotlin DSL, multi-project, version catalogs
+│    │   │   └── other ··············· Make, Bazel, npm/yarn/pnpm
+│    │   └── /read-url ·············· Read, extract, summarize any webpage URL
+│    │       ├── read ················ Full content extraction as markdown
+│    │       ├── summarize ··········· TL;DR + key points
+│    │       ├── extract-code ········ Code examples with context
+│    │       └── compare ············· Side-by-side multi-URL comparison
 │    │
 │    ├── Industry Concepts & Real-World Systems (/hub industry)
 │    │   ├── /learn-concept rate-limiting · Token bucket, sliding window, Netflix/Stripe

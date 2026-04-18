@@ -60,7 +60,7 @@ Skills are also an **open standard** ([agentskills.io](https://agentskills.io/))
 
 ## 🗂️ Skills in This Project
 
-> **21 skills** across 4 domains — see [TAXONOMY.md](TAXONOMY.md) for the full hierarchical index.
+> **23 skills** across 4 domains — see [TAXONOMY.md](TAXONOMY.md) for the full hierarchical index.
 
 ### 1. Software Engineering (14 skills)
 
@@ -97,6 +97,8 @@ Skills are also an **open standard** ([agentskills.io](https://agentskills.io/))
 | [`git-vcs`](git-vcs/SKILL.md) | Git commands, branching, merge, rebase, GitFlow | Git cheatsheet, branching strategies, Conventional Commits |
 | [`mcp-development`](mcp-development/SKILL.md) | MCP, Model Context Protocol, MCP server, tools | MCP architecture, building servers, transport, testing |
 | [`copilot-customization`](copilot-customization/SKILL.md) | Copilot instructions, prompts, agents, skills, `.github` | 6 customization primitives, activation rules, stacking |
+| [`atlassian-tools`](atlassian-tools/SKILL.md) | Jira, Confluence, Bitbucket, JQL, CQL, PAT CLI, sprints | 89-action CLI, JQL/CQL cheatsheet, workflow playbooks |
+| [`web-reader`](web-reader/SKILL.md) | URL, webpage, fetch page, summarize article, extract content | Webpage reading, content extraction, article summarization |
 
 #### Learning Resources
 

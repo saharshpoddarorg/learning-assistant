@@ -4,15 +4,15 @@
 > Skills remain as flat folders on disk (`.github/skills/<name>/SKILL.md`), but this
 > taxonomy provides the hierarchical view for discovery and navigation.
 >
-> **Total skills:** 22 | **Domains:** 4 | **Categories:** 10
+> **Total skills:** 23 | **Domains:** 4 | **Categories:** 10
 
 ---
 
 ## Taxonomy Tree
 
 ```text
-Skills Library (22 skills)
-├── 1. Software Engineering                           [15 skills]
+Skills Library (23 skills)
+├── 1. Software Engineering                           [16 skills]
 │   ├── 1.1 Languages & Platforms                     [6 skills]
 │   │   ├── java-build
 │   │   ├── java-debugging
@@ -27,11 +27,12 @@ Skills Library (22 skills)
 │   │   ├── deep-research
 │   │   ├── requirements-research
 │   │   └── github-workflow
-│   ├── 1.4 DevOps & Tooling                          [4 skills]
+│   ├── 1.4 DevOps & Tooling                          [5 skills]
 │   │   ├── git-vcs
 │   │   ├── mcp-development
 │   │   ├── copilot-customization
-│   │   └── atlassian-tools
+│   │   ├── atlassian-tools
+│   │   └── web-reader
 │   └── 1.5 Learning Resources                        [2 skills]  (discovery layer)
 │       ├── learning-resources-vault
 │       └── software-engineering-resources
@@ -93,6 +94,7 @@ Skills for version control, CI/CD tooling, MCP servers, and AI assistant configu
 | [`mcp-development`](mcp-development/SKILL.md) | `mcp-development/` | MCP, Model Context Protocol, MCP server, tools | MCP architecture, building servers, transport, testing |
 | [`copilot-customization`](copilot-customization/SKILL.md) | `copilot-customization/` | Copilot instructions, prompts, agents, skills, `.github` | 6 customization primitives, activation rules, stacking |
 | [`atlassian-tools`](atlassian-tools/SKILL.md) | `atlassian-tools/` | Jira, Confluence, Bitbucket, JQL, CQL, PAT CLI, sprints | 89-action CLI, JQL/CQL cheatsheet, workflow playbooks |
+| [`web-reader`](web-reader/SKILL.md) | `web-reader/` | URL, webpage, fetch, read page, summarize article, extract content | Webpage reading, content extraction, article summarization |
 
 ### 1.5 Learning Resources
 
@@ -165,6 +167,7 @@ Shows which skills relate to or complement each other:
 | `career-resources` | `software-development-roles` | role descriptions |
 | `daily-assistant-resources` | — | — |
 | `atlassian-tools` | `github-workflow`, `software-development-roles` | — |
+| `web-reader` | `deep-research`, `learning-resources-vault` | — |
 
 ---
 
