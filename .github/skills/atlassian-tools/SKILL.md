@@ -101,6 +101,8 @@ dedicated action. Common extension patterns:
 
 ## Read Only What You Need
 
+- `GUIDE.md`: **developer setup guide** — single/multi-account `.env` configuration, architecture,
+  quick-start examples, troubleshooting, extending the CLI, FAQ
 - `references/action-catalog.md`: exact action names, required args, optional args, response shapes (87 actions)
 - `references/confluence-formatting.md`: Confluence storage-format rules, macros, Mermaid rendering, HTML payload patterns
 - `references/usage-recipes.md`: concrete examples, bulk-operation patterns, server quirks, pagination, troubleshooting
