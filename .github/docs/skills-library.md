@@ -373,6 +373,22 @@ Skills planned for future creation (in priority order):
 | `cloud-aws` | SE > Infrastructure | AWS services, CDK/CloudFormation, IAM, networking, cost optimisation |
 | `agile-coaching` | Roles > Agile | Scrum, Kanban, SAFe, retrospectives, estimation, velocity |
 
+### Community-Informed (from awesome-copilot, skills.sh research)
+
+These skills were identified from community sources and align with gaps in the current
+taxonomy. Import using the protocol in
+[customization-evolution-guide.md](customization-evolution-guide.md).
+
+| Skill | Domain | Source Inspiration | Import Strategy |
+|---|---|---|---|
+| `spring-boot-testing` | SE > Java > Testing | awesome-copilot `java-springboot` | Import + merge with planned `qa-testing` |
+| `java-junit` | SE > Java > Testing | awesome-copilot `java-junit` | Import new — unit testing specifics |
+| `quality-playbook` | SE > SD > Quality | awesome-copilot `quality-playbook` | Import + merge with planned `software-design` |
+| `security-review` | SE > Security | awesome-copilot `security-review` | Merge with planned `security-engineering` |
+| `agent-governance` | Copilot | awesome-copilot `agent-governance` | Import new — agent security and guardrails |
+| `cloud-design-patterns` | SE > Systems | awesome-copilot `cloud-design-patterns` | Merge with planned `distributed-systems` |
+| `code-tour` | Cross-cutting | awesome-copilot `code-tour` | Import new — codebase walkthrough |
+
 ---
 
 ## Anti-Patterns to Avoid
@@ -387,3 +403,15 @@ Skills planned for future creation (in priority order):
 | **No "Related skills"** | User can't navigate to adjacent knowledge | Add cross-references to related skills in the header |
 | **Hardcoded tool versions** | Skill goes stale | Refer to major versions, not exact (Java 21+, not Java 21.0.2) |
 | **Forgetting copilot-instructions.md update** | Skill exists but Copilot doesn't know to activate it | Always update routing table + navigation-index |
+
+---
+
+## Further Reading
+
+| Document | What It Covers |
+|---|---|
+| [TAXONOMY.md](../skills/TAXONOMY.md) | Hierarchical skill index, cross-refs, adding + importing skills |
+| [customization-evolution-guide.md](customization-evolution-guide.md) | Import, merge, evolve primitives — framework growth guide |
+| [copilot-primitives-crosswalk.md](copilot-primitives-crosswalk.md) | Primitive comparison, conversion paths, edge cases |
+| [navigation-index.md](navigation-index.md) | Master navigation for all files, commands, skills |
+| [change-completeness.instructions.md](../instructions/change-completeness.instructions.md) | Completeness checklist including Section O (Primitive Fitness Review) |

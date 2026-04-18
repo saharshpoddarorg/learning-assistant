@@ -307,4 +307,5 @@ Q3: Does it need LIVE DATA from an external system?
 | [Deep Dive Reference](copilot-customization-deep-dive.md) | 18-part exhaustive reference (14K+ lines) |
 | [MCP vs Skills](mcp-vs-skills.md) | Detailed comparison of when to use MCP vs SKILL.md |
 | [Skills Library](skills-library.md) | Catalog of all skills in this repo |
+| [Evolution Guide](customization-evolution-guide.md) | Import, merge, evolve primitives — framework growth |
 | [Slash Commands](slash-commands.md) | All prompts/commands available |

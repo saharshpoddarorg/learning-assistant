@@ -209,3 +209,27 @@ When adding a skill, follow these steps in order:
   auto-loading; the taxonomy is for human navigation
 - **Extensible by design** — new skills slot into existing categories; new categories only
   when 3+ skills don't fit existing ones
+
+---
+
+## Importing External Skills
+
+When importing skills from [awesome-copilot](https://github.com/github/awesome-copilot),
+[skills.sh](https://skills.sh/), or colleagues, follow the full protocol in
+[customization-evolution-guide.md](../.github/docs/customization-evolution-guide.md).
+
+### Quick Import Summary
+
+1. **Evaluate** — does it overlap with an existing skill?
+2. **Classify** — import new / merge with existing / skip
+3. **Adapt** — rename, rewrite description, add 3-tier depth, add source attribution
+4. **Register** — follow the Files to Update table above
+5. **Verify** — run regression prevention checklist
+
+### External Sources
+
+| Source | URL | Skills Count |
+|---|---|---|
+| awesome-copilot | [github.com/github/awesome-copilot](https://github.com/github/awesome-copilot/tree/main/skills) | 300+ |
+| skills.sh | [skills.sh](https://skills.sh/) | Community ecosystem |
+| Colleague contributions | Internal sharing | Project-specific |
