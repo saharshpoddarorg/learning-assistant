@@ -332,39 +332,158 @@ Example: `iterate List<LineItem> → map to double (price × qty) → reduce via
 
 **`Algorithm`** — The processing logic expressed as pseudo-code or a named pattern.
 This is NOT a restatement of the Java code — it's one level of abstraction higher.
-Write it so a developer can understand the approach without reading the implementation:
+Write it so a developer can understand the approach without reading the implementation.
 
-For simple methods (guard clauses, delegation, single stream):
+##### When to Use One-Liner vs. Pseudo-Code
+
+| Method complexity | Algorithm format | Example |
+|---|---|---|
+| **Simple** — single operation, guard clause, delegation, one-line stream | One-liner naming the pattern | `Guard-clause chain: null → empty → domain rules` |
+| **Medium** — 2-3 sequential steps, single loop, pipeline with filter | 2-3 line summary with step numbers | `1. filter nulls 2. map to price 3. sum` |
+| **Complex** — nested loops, branching within loops, multi-step transformation, recursion | Indented pseudo-code block (3-12 lines) | See examples below |
+
+**Decision rule:** If the developer can understand the algorithm from one sentence +
+the data flow line, use a one-liner. If they'd need to read the actual code to
+understand the logic structure, write pseudo-code.
+
+##### One-Liner Algorithm Examples
+
+For simple methods, name the **pattern** and its key steps on one line:
 
 ```text
 Algorithm: Guard-clause chain with early exits: null → empty → domain rules
 Algorithm: Stream reduce: items.stream().mapToDouble(price × qty).sum()
 Algorithm: Builder pattern: Receipt.builder().subtotal(x).tax(y).build()
+Algorithm: Delegation: forwards to repository.save(order) — no logic here
+Algorithm: Lookup + default: cache.getOrDefault(key, computeDefault())
 ```
 
-For complex methods (loops with branching, multi-step transformations, recursion),
-use **indented pseudo-code** that shows the logic structure without Java syntax noise:
+##### Pseudo-Code Conventions
+
+For complex methods, write **indented pseudo-code** that shows the logic structure
+without Java syntax noise. The pseudo-code is a separate abstraction from the actual
+code fence — it strips away boilerplate and reveals the algorithm's skeleton.
+
+**Pseudo-code style rules:**
+
+| Rule | Do | Don't |
+|---|---|---|
+| **Language** | Plain English verbs + data names | Java syntax (`for (var item : items)`) |
+| **Indentation** | 2-space indent per nesting level | Flat list of steps |
+| **Branching** | `if condition:` / `else:` | `if (condition) {` |
+| **Loops** | `for each item in items:` | `items.forEach(item -> {` |
+| **Annotations** | `// comment` for costs, risks, notes | No annotations |
+| **Data references** | Use variable names from Data structures field | Introduce new unnamed data |
+| **Method calls** | Name the concept: `fetch price from DB` | Restate the call: `priceRepo.findById(sku)` |
+| **Return** | `return result` or `→ result` | Omit the output |
+| **Step length** | 3-12 lines for the pseudo-code body | 1-2 lines (too compressed) or 15+ (too detailed) |
+
+##### Pseudo-Code Examples by Pattern
+
+**Sequential steps with branching (common in business logic):**
 
 ```text
 Algorithm:
-  for each item in order.items:
+  for each item in order.items:                    // O(n) — one pass
     if item.isSpecial:
-      price = lookupSpecialPrice(item.sku)     // DB hit per special item
-      if price not found: fallback to default
+      price = lookupSpecialPrice(item.sku)         // DB hit per special item
+      if price not found: fallback to item.defaultPrice
     else:
       price = item.defaultPrice
-    subtotal += price × item.qty
-  apply volume discount if subtotal > threshold
+    subtotal += price × item.qty                   // subtotal mutated each iteration
+  apply volume discount if subtotal > threshold    // threshold from config (field)
   return subtotal
 ```
 
-The pseudo-code should:
+**Accumulator pattern (building a result object step by step):**
 
-- Use plain English verbs, not Java method calls (unless the method name IS the concept)
-- Show loop and branch structure (indent to show nesting)
-- Annotate costly operations (DB hit, network call, O(n²) step)
-- Name the data flowing through each step
-- Be 3-8 lines for complex methods, 1 line for simple methods
+```text
+Algorithm:
+  receipt = new Receipt.Builder()
+  receipt.subtotal = subtotal (from B2)
+  receipt.discount = discount (from B3)
+  receipt.tax     = taxRate × (subtotal - discount)   // tax on discounted amount
+  receipt.total   = subtotal - discount + receipt.tax
+  persist receipt to DB via repository.save()          // DB write — within transaction
+  publish OrderCompletedEvent(receipt.id) to MQ        // fire-and-forget — NOT in tx
+  this.lastReceiptId = receipt.id                      // field mutation — not thread-safe
+  return receipt
+```
+
+**Filter-map-collect pipeline (common in stream operations):**
+
+```text
+Algorithm:
+  start with order.items (List<LineItem>)
+  filter: remove items where qty ≤ 0               // defensive — shouldn't happen
+  map:    each item → (item.price × item.qty)       // produces DoubleStream
+  sum:    reduce with identity 0.0                   // empty list → 0.0, not null
+  assign to subtotal (local)
+```
+
+**Two-pass algorithm (when one iteration isn't enough):**
+
+```text
+Algorithm:
+  Pass 1 — collect:
+    for each item in items:
+      group items by item.category into Map<Category, List<LineItem>>
+  Pass 2 — compute:
+    for each (category, categoryItems) in grouped map:
+      categoryTotal = sum(categoryItems.price × qty)
+      apply category-specific discount rule           // from discountRules (field)
+      totals.put(category, discountedTotal)
+  return totals (Map<Category, Double>)
+```
+
+**Recursive algorithm:**
+
+```text
+Algorithm:
+  base case: if node is leaf → return node.value
+  recursive: left  = compute(node.left)              // recurse left subtree
+             right = compute(node.right)             // recurse right subtree
+  combine:   return merge(left, right)               // merge strategy depends on node type
+  depth:     max recursion = tree height (O(log n) balanced, O(n) worst)
+```
+
+**State machine / multi-phase processing:**
+
+```text
+Algorithm:
+  phase 1 — validate:  run guard checks (B1 already did this)
+  phase 2 — compute:   subtotal = sum(items × prices)          // B2
+  phase 3 — discount:  discounted = apply rules to subtotal    // B3
+  phase 4 — tax:       tax = rate × discounted                 // B4
+  phase 5 — assemble:  receipt = build from phases 2-4         // B5
+  phase 6 — persist:   save receipt, publish event             // B5 (cont.)
+```
+
+##### How Pseudo-Code Maps to the Code Block
+
+The algorithm pseudo-code and the inline-annotated code block serve **different purposes**
+and operate at **different abstraction levels**. They must be consistent but not redundant:
+
+| Aspect | Code block (````java`) | Algorithm pseudo-code |
+|---|---|---|
+| **Abstraction** | Actual Java — every line visible | One level above Java — logic skeleton only |
+| **Purpose** | Developer reads this to understand the exact implementation | Developer reads this to understand the approach before diving in |
+| **Annotations** | `// ← [B1.3] why this matters` — point-level notes on specific lines | `// DB hit` — cost/risk annotations on algorithm steps |
+| **Boilerplate** | Present (variable declarations, type casts, try-catch) | Stripped — only the logic that matters |
+| **Variable names** | Exact Java names as they appear in source | Same names — must match Data structures field |
+
+**Consistency rule:** Every step in the pseudo-code must correspond to a visible section
+in the code block. If the pseudo-code says "filter items where qty ≤ 0", the code block
+must have that filter with an inline annotation cross-referencing why it's there. If the
+code block has a significant operation that doesn't appear in the pseudo-code, the
+pseudo-code is incomplete.
+
+**Variable name rule:** The pseudo-code must use the **same variable names** as the
+Data structures field and the code block. If Data structures says `double subtotal
+(local, mutated in loop)`, the pseudo-code says `subtotal += price × item.qty`, and
+the code block shows `subtotal += price * item.getQuantity();` — all three refer to
+the same `subtotal`. Never introduce a name in pseudo-code that doesn't appear in
+Data structures.
 
 **`Data flow`** — A single-line pipeline showing how data transforms from input to
 output. Use `──verb──→` arrows between stages:
