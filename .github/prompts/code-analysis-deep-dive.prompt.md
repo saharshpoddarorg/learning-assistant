@@ -23,10 +23,24 @@ ${input:context:Why are you deep-diving? (onboarding / pre-refactoring / code-re
 
 ## Instructions
 
-Perform a **code analysis deep-dive** on the target code. The goal is complete
-understanding — not finding bugs or proposing refactoring (though note them if obvious).
-The output must be a **developer reference document** — someone reading it should
-fully understand the code without ever opening the source file.
+Perform a **code analysis deep-dive** on the target code. The output is a **developer
+reference document** designed to be read **side-by-side with the source file** — source
+on the left, this document on the right. A developer using this document should be able
+to:
+
+1. **Locate any line** — every line range (L*n*) matches the actual source file exactly
+2. **Understand any block** — every code section has a virtual method signature naming
+   its contract, with the real code pasted verbatim below it
+3. **Trace any value** — follow data from entry (Layer 2) through blocks (Layer 4) through
+   mutations (Layer 6) to output or side-effect
+4. **Pinpoint before debugging** — know exactly which lines to breakpoint, which variables
+   to watch, and which edge cases to test, BEFORE opening the debugger
+5. **Assess risk** — see every unhandled edge case (Layer 7) and every tight coupling
+   (Layer 8) at a glance
+
+> **This is a static analysis reference, not a tutorial.** Keep it technical. The reader
+> is a developer who reads Java fluently. Use code, types, and signatures — not prose.
+> Plain-English is for gotchas and non-obvious behaviour only.
 
 Work through these 9 layers systematically. Skip layers that don't apply to the scope.
 
@@ -70,9 +84,19 @@ This section must give a developer the complete picture in under 30 seconds.
 - **Design pattern:** What pattern it implements (Service, Repository, Strategy, Factory, Template Method, Observer, etc.)
 - **Entry points and triggers:** Who calls this code? What event/request/schedule triggers it?
 - **Collaborators:** What other classes/services does it work with? (just names and roles)
-- **One-paragraph narrative:** Write a natural-language paragraph explaining what happens when this code runs,
-  as if describing it to a developer who just joined the team. Include the "why" — why does this code exist
-  in the system, what business problem does it solve?
+
+**Quick Scan — 5 things to know before reading the source:**
+
+```text
+1. Entry:      <who calls it, what triggers it>
+2. Happy path: <input → T1 → T2 → ... → output (one line)>
+3. Key state:  <which fields/variables change during execution>
+4. Danger:     <biggest unhandled edge case — E-ref>
+5. Side-effects: <what changes outside this code — DB/queue/cache>
+```
+
+This quick scan is the first thing the developer reads. It answers: "What am I about
+to look at?" before they scroll through the source file.
 
 ### Layer 2 — Data Flow (Input → Transformation → Output)
 
@@ -129,12 +153,22 @@ Map the complete execution flow as an indented call tree:
 
 Tag each call **C1, C2, C3...** — these IDs are referenced by Layer 4 blocks.
 
-For each call in the tree, provide a detail row including which Layer 4 block contains it:
+For each call in the tree, provide a detail row including which Layer 4 block contains
+it and whether it's worth stepping into during debugging:
 
-| Call | Caller → Callee | Purpose | Returns | Side-Effects | Block(s) | Notes |
+| Call | Caller → Callee | Returns | Side-Effects | Block(s) | Debug | Notes |
 |---|---|---|---|---|---|---|
-| C1 | `Controller.handle` → `Service.process` | Entry from HTTP layer | `ResponseDTO` | None | B1 | Wraps in try-catch for HTTP errors |
-| C4 | `Service.process` → `Repo.findById` | Fetch entity from DB | `Optional<Entity>` | DB read | B3 | Can return empty → 404 |
+| C1 | `Controller.handle` → `Service.process` | `ResponseDTO` | None | B1 | ⏩ step-over | Thin wrapper — logic is inside |
+| C4 | `Service.process` → `Repo.findById` | `Optional<Entity>` | DB read | B3 | 🔍 step-into | Verify query params + result |
+| C5 | `Service.process` → `this.transform` | `Result` | None | B4 | 🔍 step-into | Core logic lives here |
+| C6 | `Service.process` → `Repo.save` | `void` | DB write | B5 | ⏩ step-over | Trust unless save fails |
+| C8 | `Service.process` → `EventBus.publish` | `void` | MQ write | B6 | ⏩ step-over | Fire-and-forget — async |
+
+**Debug column legend:**
+
+- 🔍 **step-into** — contains logic worth tracing (decisions, transformations, state changes)
+- ⏩ **step-over** — treat as black box (delegation, I/O wrappers, logging)
+- 🛑 **breakpoint** — set a breakpoint on this call's return to inspect the result
 
 Annotate in the call tree: recursive calls (⟳), async boundaries (⚡), external I/O (🔌), pure logic (✦).
 
@@ -407,19 +441,26 @@ Layer 4 code fence, so the developer can jump between the code and the explanati
 
 For each key line:
 
-| Line | Block | Sub-ID | Code | What It Does | Why This Way | What If Different |
+| Line | Block | Sub-ID | Code | Why It Matters | Risk If Wrong | 🛑 |
 |---|---|---|---|---|---|---|
-| L42 | B1 | — | `if (order.isValid())` | Guards against invalid orders | Delegates validation to Order — SRP | If removed: NPE on null items at L47 → E1 |
-| L47 | B2 | B3.1 | `var total = items.stream().mapToDouble(...)` | Calculates subtotal via stream | Functional style — immutable intermediate | Could use for-loop but less readable |
-| L49 | B2 | B3.2 | `.sum()` | Aggregates to single value | Stream terminal — identity if empty | Empty list returns 0.0 → E2 |
-| L51 | B3 | B3.3 | `total = applyDiscount(total, discount)` | Applies percentage discount | Mutates local — discount is multiplicative | If additive: different rounding behaviour → E3 |
+| L42 | B1 | — | `if (order.isValid())` | Guards entry — delegates to Order.isValid() | NPE at L47 if removed → E1 | BP |
+| L47 | B2 | B3.1 | `var total = items.stream().mapToDouble(...)` | Subtotal calc — price × qty per item | Empty list → 0.0 (identity) → E2 | |
+| L49 | B2 | B3.2 | `.sum()` | Stream terminal — aggregates to double | Returns 0.0 for empty, not null | |
+| L51 | B3 | B3.3 | `total = applyDiscount(total, discount)` | Multiplicative discount — mutates local | discount > 1.0 → negative total → E3 | BP |
+| L60 | B5 | — | `this.lastProcessedId = order.getId()` | Field mutation — not thread-safe | Concurrent calls → stale ID → E4 | W |
+
+**Column legend:**
+
+- **Why It Matters** — what this line contributes to the method's contract (technical, not prose)
+- **Risk If Wrong** — what breaks if this line is removed, changed, or receives bad input
+- **🛑** — debugging markers: `BP` = set breakpoint here, `W` = add to watch window,
+  blank = safe to step-over
 
 The **Block** column links each line back to its Layer 4 block. The **Sub-ID** column
-links to the inline annotation in Layer 4's code fence (if present). The **What If
-Different** column references Layer 7 edge case IDs (E*n*) where removing or changing
-the line would trigger a failure.
+links to the inline annotation in Layer 4's code fence (if present).
 
 Focus on lines where **the developer's understanding would break** if they skipped it.
+Every line marked `BP` is a recommended breakpoint for debugging this method.
 
 **For very long methods (100+ lines):** Layer 5 must cover key lines from EVERY coarse
 block and its sub-blocks. Prioritise: (1) lines where control flow branches, (2) lines
@@ -429,41 +470,48 @@ braces). A 200-line method should have 30-60 lines in this table.
 
 ### Layer 6 — State Changes
 
-Track every mutation through execution:
+Track every mutation through execution. This layer tells the developer exactly which
+variables to add to the **debugger watch window** and at which lines their values change.
 
 **Local variable lifecycle:**
 
-| Variable | Declared At | Mutated At | Block(s) | Before → After | Why |
-|---|---|---|---|---|---|
-| `total` | L45 | L47, L51, L55 | B2, B3, B4 | `0.0` → `100.0` → `90.0` → `99.0` | Accumulates: subtotal → discounted → taxed |
+| Variable | Type | Declared At | Mutated At | Block(s) | Lifecycle | Watch Expression |
+|---|---|---|---|---|---|---|
+| `total` | `double` | L45 | L47, L51, L55 | B2, B3, B4 | `0.0` → `100.0` → `90.0` → `99.0` | `total` |
+| `discount` | `double` | param | — (read-only) | B3 | `0.10` (constant through method) | `discount` |
 
-The **Block(s)** column shows which Layer 4 blocks are responsible for each mutation —
-a developer can jump directly to the block to see the code that changes this variable.
+The **Watch Expression** column contains the literal expression to paste into your
+debugger's watch/evaluate window. The **Block(s)** column shows which Layer 4 blocks
+are responsible for each mutation — jump to the block to see the code.
 
 **Instance/field state changes:**
 
-| Field | Changed At | Block | Before → After | Scope of Impact |
-|---|---|---|---|---|
-| `this.lastProcessedId` | L60 | B5 | `null` → `"ORD-123"` | Affects subsequent calls — not thread-safe (see E4) |
+| Field | Type | Changed At | Block | Before → After | Watch Expression | Thread-Safe? |
+|---|---|---|---|---|---|---|
+| `this.lastProcessedId` | `String` | L60 | B5 | `null` → `"ORD-123"` | `this.lastProcessedId` | ❌ (see E4) |
 
 **External state changes (side-effects leaving this code):**
 
-| What Changes | Where | When | Block | Reversible? |
-|---|---|---|---|---|
-| DB row updated | `orders` table | L62 | B5 | Yes (within transaction) |
-| Event published | Message queue | L65 | B6 | No — consumers may have already processed |
+| What Changes | Where | When | Block | Reversible? | How to Verify |
+|---|---|---|---|---|---|
+| DB row updated | `orders` table | L62 | B5 | Yes (within transaction) | Query: `SELECT * FROM orders WHERE id = ?` |
+| Event published | Message queue | L65 | B6 | No — consumers may have already processed | Check MQ console / dead-letter queue |
 
 ### Layer 7 — Edge Cases & Error Paths
 
 Enumerate every way this code can fail or behave unexpectedly:
 
-| Edge | Scenario | Location | Input / Condition | What Happens | Handled? | Impact |
-|---|---|---|---|---|---|---|
-| E1 | Null input | B1, L42 | `order == null` | NPE at L42 | ❌ No null-check | Caller gets 500 |
-| E2 | Empty items list | B2, L47 | `order.getItems().isEmpty()` | Returns `0.0` total | ✅ Stream returns identity | Technically correct but may confuse caller |
-| E3 | Negative discount | B3, L51 | `discount > 1.0` | Negative total | ❌ Not validated | Incorrect billing |
-| E4 | Concurrent modification | B5, L60 | Two threads, same order | Race condition on `lastProcessedId` | ❌ Not synchronised | Data corruption |
-| E5 | DB connection failure | B5, L62 | Network issue at L62 | `SQLException` propagates | ✅ Caught in caller | Transaction rolls back |
+| Edge | Scenario | Location | Trigger | What Happens | Handled? | Impact | How to Reproduce |
+|---|---|---|---|---|---|---|---|
+| E1 | Null input | B1, L42 | `order == null` | NPE at L42 | ❌ | Caller gets 500 | Pass `null` to `processOrder()` |
+| E2 | Empty items | B2, L47 | `order.getItems().isEmpty()` | Returns `0.0` | ✅ identity | May confuse caller | Create order with empty items list |
+| E3 | Negative discount | B3, L51 | `discount > 1.0` | Negative total | ❌ | Incorrect billing | Set `discount = 1.5` |
+| E4 | Concurrent mod | B5, L60 | Two threads, same order | Race on `lastProcessedId` | ❌ | Data corruption | Call from 2 threads simultaneously |
+| E5 | DB failure | B5, L62 | Network issue at L62 | `SQLException` propagates | ✅ caught | Transaction rolls back | Kill DB connection mid-call |
+
+**How to Reproduce** tells the developer exactly what input or condition triggers each
+edge case — useful for writing targeted test cases or setting conditional breakpoints
+(e.g., breakpoint at L51 with condition `discount > 1.0` to catch E3).
 
 The **Edge** column (E*n*) is referenced from Layers 4, 5, and 6 — so a developer
 spotting a gotcha in a block can jump here for the full scenario, and vice versa.
@@ -508,12 +556,38 @@ Purpose:     <one-liner from Layer 1>
 Entry:       <who calls it, when — from Layer 1 entry points>
 Happy path:  <T1 → T2 → T3 → ... → output — from Layer 2>
 Error path:  <E1, E3 unhandled — from Layer 7>
-Key blocks:  <B2 (Price Calc), B3 (Discount) — from Layer 4>
+Key blocks:  <B2 (calculateSubtotal), B3 (applyDiscount) — from Layer 4>
 Thread-safe: yes / no / partially — <reference E4 if applicable>
 Testable:    easy / moderate / hard — because <reference Layer 8 verdict>
 ```
 
+**Debugging quick-start** (when opening the debugger for this code):
+
+```text
+Breakpoints:
+  L42  — entry guard (verify order is non-null and valid)
+  L51  — after discount applied (verify total is positive)
+  L60  — field mutation (watch lastProcessedId)
+
+Watch expressions:
+  order, order.getItems().size(), total, discount, this.lastProcessedId
+
+Conditional breakpoints:
+  L51: discount > 1.0        — catches E3 (negative total)
+  L42: order == null          — catches E1 (null input)
+
+Step-into targets (from Layer 3):
+  C4: Repo.findById()        — verify DB query returns expected entity
+  C5: this.transform()       — core logic, worth tracing line-by-line
+
+Step-over (trust these):
+  C1: Controller.handle()    — thin wrapper
+  C8: EventBus.publish()     — async fire-and-forget
+```
+
 The cheat sheet references Layer IDs so a developer can drill into any detail.
+The debugging quick-start is derived from Layers 3 (step-into/over), 5 (breakpoints),
+6 (watch expressions), and 7 (conditional breakpoints from edge case triggers).
 
 ### Output Rules
 
