@@ -1,0 +1,490 @@
+# Configuration Reference
+
+> **The single source of truth** for every config file, environment variable,
+> configurable path, and credential in this project.
+>
+> **Read level:** 🟢 All levels — structured from essentials to advanced.
+
+---
+
+## Table of Contents
+
+- [Quick Start — What Must I Configure?](#quick-start--what-must-i-configure)
+- [Configuration Hierarchy](#configuration-hierarchy)
+- [1. Required Configuration](#1-required-configuration)
+  - [1a. Copilot Instructions](#1a-copilot-instructions)
+- [2. Feature Configuration (enable what you need)](#2-feature-configuration-enable-what-you-need)
+  - [2a. MCP Servers — Build](#2a-mcp-servers--build)
+  - [2b. MCP Servers — Registry](#2b-mcp-servers--registry)
+  - [2c. Brain Workspace — Path](#2c-brain-workspace--path)
+- [3. Optional — Atlassian Integration](#3-optional--atlassian-integration)
+  - [3a. Atlassian v1 (API Token)](#3a-atlassian-v1-api-token)
+  - [3b. Atlassian v2 (OAuth 2.0 / API Token)](#3b-atlassian-v2-oauth-20--api-token)
+- [4. Optional — GitHub MCP Server](#4-optional--github-mcp-server)
+- [5. Optional — MCP Advanced Config](#5-optional--mcp-advanced-config)
+- [6. Config Precedence Rules](#6-config-precedence-rules)
+- [7. Environment Variables — Complete Reference](#7-environment-variables--complete-reference)
+- [8. Config Files — Complete Inventory](#8-config-files--complete-inventory)
+- [9. Security Rules](#9-security-rules)
+- [10. Export Checklist — Migrating to Another Project](#10-export-checklist--migrating-to-another-project)
+
+---
+
+## Quick Start — What Must I Configure?
+
+**If you just want Copilot customization** (no MCP servers, no brain):
+
+| Step | What | Time |
+|---|---|---|
+| 1 | Edit `.github/copilot-instructions.md` for your project | 5 min |
+
+**If you want Copilot + MCP servers:**
+
+| Step | What | Time |
+|---|---|---|
+| 1 | Edit `.github/copilot-instructions.md` for your project | 5 min |
+| 2 | Set `JAVA_HOME` if `java` is not on PATH | 2 min |
+| 3 | Run `.\mcp-servers\build.ps1` | 30 sec |
+| 4 | Enable servers in `.vscode/mcp.json` (`disabled: false`) | 1 min |
+
+**If you want everything:**
+
+| Step | What | Time |
+|---|---|---|
+| 1-4 | All of the above | ~8 min |
+| 5 | Configure brain path (if not at `brain/ai-brain`) | 2 min |
+| 6 | Add Atlassian credentials (if using Jira/Confluence) | 5 min |
+| 7 | Add GitHub PAT (if using GitHub MCP server) | 3 min |
+
+---
+
+## Configuration Hierarchy
+
+All configuration follows a layered hierarchy. Higher layers override lower layers.
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│  LAYER 3 (highest): Environment Variables                    │
+│  MCP_*, BRAIN_PATH, JAVA_HOME, GITHUB_TOKEN                 │
+│  → Set in shell profile, .env, or system settings            │
+├──────────────────────────────────────────────────────────────┤
+│  LAYER 2: Local Config Files (gitignored)                    │
+│  *.local.properties, build.env.local                         │
+│  → User-specific: credentials, machine paths, overrides      │
+├──────────────────────────────────────────────────────────────┤
+│  LAYER 1 (lowest): Committed Config Files                    │
+│  *.properties, .vscode/mcp.json, .vscode/tasks.json          │
+│  → Shared defaults: safe to commit, no secrets                │
+└──────────────────────────────────────────────────────────────┘
+```
+
+**Key principle:** Committed files contain safe defaults. Local files add secrets.
+Environment variables override everything (useful for CI/CD or per-session overrides).
+
+---
+
+## 1. Required Configuration
+
+### 1a. Copilot Instructions
+
+| Item | Value |
+|---|---|
+| **File** | `.github/copilot-instructions.md` |
+| **Purpose** | Project-wide Copilot coding rules, conventions, structure |
+| **Action** | Edit to match your project's language, conventions, and team rules |
+| **Sensitive** | No |
+| **Tracked** | Yes — committed to git |
+
+This is the only truly required configuration. Everything else is opt-in.
+
+---
+
+## 2. Feature Configuration (enable what you need)
+
+### 2a. MCP Servers — Build
+
+**Only needed if you use MCP servers (Atlassian, GitHub, Learning Resources).**
+
+| Item | Value |
+|---|---|
+| **File** | `mcp-servers/build.env.local` |
+| **Template** | `mcp-servers/build.env.example` |
+| **Purpose** | Set `JAVA_HOME` for the MCP server Java build |
+| **When needed** | Only if `java` is not on your system PATH |
+| **Sensitive** | No (filesystem path only) |
+| **Tracked** | No — gitignored |
+
+**Setup:**
+
+```powershell
+Copy-Item mcp-servers\build.env.example mcp-servers\build.env.local
+# Edit build.env.local: set JAVA_HOME=C:\path\to\jdk-21
+```
+
+**Alternative:** Set `JAVA_HOME` as a system environment variable instead.
+
+### 2b. MCP Servers — Registry
+
+| Item | Value |
+|---|---|
+| **File** | `.vscode/mcp.json` |
+| **Purpose** | Registers MCP servers with VS Code — which servers run, their paths, env vars |
+| **Action** | Set `"disabled": false` for servers you want to use |
+| **Sensitive** | No — secrets come from VS Code input prompts, not this file |
+| **Tracked** | Yes — committed to git |
+
+**Servers defined:**
+
+| Server | Default State | Credentials | Enable When |
+|---|---|---|---|
+| `learning-resources` | Disabled | None needed | Always safe to enable |
+| `atlassian` | Disabled | API token in `.local.properties` | When using Jira/Confluence (v1) |
+| `atlassian-v2` | Disabled | OAuth or API token in `.local.properties` | When using Jira/Confluence (v2, recommended) |
+| `github` | Disabled | PAT via VS Code prompt | When using GitHub search/issues |
+
+### 2c. Brain Workspace — Path
+
+| Item | Value |
+|---|---|
+| **Env var** | `BRAIN_PATH` |
+| **Default** | `brain/ai-brain` (relative to repo root) |
+| **Purpose** | Location of the brain knowledge workspace |
+| **When needed** | Only if brain is at a non-default location (e.g., after export) |
+| **Sensitive** | No |
+
+**The brain path affects these files** (all need updating if path changes):
+
+| File | What to change |
+|---|---|
+| `.github/copilot-instructions.md` | Configurable Paths table + Project Structure diagram |
+| `.github/instructions/backlog.instructions.md` | `applyTo` pattern |
+| `.vscode/tasks.json` | Brain task command paths |
+| `.gitignore` | Inbox exclusion pattern |
+
+**Scripts auto-detect:** Brain scripts find their own root from their filesystem location
+via `git rev-parse`. The `BRAIN_PATH` env var is an optional override, not required.
+
+See [copilot-instructions.md § Brain Workspace in Different Project Structures](../copilot-instructions.md)
+for module/package/monorepo scenarios.
+
+---
+
+## 3. Optional — Atlassian Integration
+
+### 3a. Atlassian v1 (API Token)
+
+| Item | Value |
+|---|---|
+| **Config dir** | `mcp-servers/user-config/servers/atlassian/` |
+| **Committed config** | `atlassian-config.properties` (shared defaults) |
+| **Template** | `atlassian-config.local.example.properties` |
+| **Secret file** | `atlassian-config.local.properties` (gitignored) |
+| **Env var (auto)** | `ATLASSIAN_CONFIG_DIR` — set automatically by `.vscode/mcp.json` |
+
+**Setup:**
+
+```powershell
+cd mcp-servers\user-config\servers\atlassian
+Copy-Item atlassian-config.local.example.properties atlassian-config.local.properties
+```
+
+**Required fields in `atlassian-config.local.properties`:**
+
+```properties
+atlassian.jira.baseUrl=https://your-company.atlassian.net
+atlassian.confluence.baseUrl=https://your-company.atlassian.net/wiki
+atlassian.auth.email=your.name@company.com
+atlassian.auth.token=ATATT3xFfGF0...
+```
+
+**Get your token:** [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens)
+
+### 3b. Atlassian v2 (OAuth 2.0 / API Token)
+
+| Item | Value |
+|---|---|
+| **Config dir** | `mcp-servers/user-config/servers/atlassian-v2/` |
+| **Committed config** | `atlassian-v2-config.properties` (shared defaults) |
+| **Template** | `atlassian-v2-config.local.example.properties` |
+| **Secret file** | `atlassian-v2-config.local.properties` (gitignored) |
+| **Env var (auto)** | `ATLASSIAN_V2_CONFIG_DIR` — set automatically by `.vscode/mcp.json` |
+
+**Auth options:**
+
+| Method | Best for | Setup complexity |
+|---|---|---|
+| **API token** | Quick setup, personal use | Low — same as v1 |
+| **OAuth 2.0** | Team use, scoped permissions | Medium — register an app first |
+| **PAT (Data Center)** | Self-managed Atlassian instances | Low |
+
+**Setup (API token — simplest):**
+
+```powershell
+cd mcp-servers\user-config\servers\atlassian-v2
+Copy-Item atlassian-v2-config.local.example.properties atlassian-v2-config.local.properties
+```
+
+**Required fields in `atlassian-v2-config.local.properties`:**
+
+```properties
+atlassian.variant=cloud
+atlassian.jira.baseUrl=https://your-company.atlassian.net
+atlassian.confluence.baseUrl=https://your-company.atlassian.net/wiki
+atlassian.auth.type=token
+atlassian.auth.email=your.name@company.com
+atlassian.auth.token=ATATT3xFfGF0...
+```
+
+---
+
+## 4. Optional — GitHub MCP Server
+
+| Item | Value |
+|---|---|
+| **Credential** | GitHub Personal Access Token (PAT) |
+| **Storage** | VS Code input prompt — never stored in a file |
+| **Enable** | Set `"disabled": false` for `github` in `.vscode/mcp.json` |
+| **Scope** | `public_repo` (public only) or `repo` (all your repos) |
+
+**Get your token:** [github.com/settings/tokens](https://github.com/settings/tokens)
+→ Fine-grained token (recommended).
+
+VS Code prompts for the token at runtime and caches it securely. You do not need
+to create any config files.
+
+---
+
+## 5. Optional — MCP Advanced Config
+
+### Global MCP Overrides
+
+| Item | Value |
+|---|---|
+| **File** | `mcp-servers/user-config/mcp-config.local.properties` |
+| **Template** | `mcp-servers/user-config/mcp-config.local.example.properties` |
+| **Purpose** | Override MCP-wide settings: API keys, browser path, timezone, log level |
+| **Sensitive** | **Yes** — may contain API keys |
+| **Tracked** | No — gitignored |
+
+**Common overrides:**
+
+```properties
+# GitHub PAT (alternative to VS Code input prompt)
+apiKeys.github=ghp_your_token_here
+
+# Browser path (for browser-based MCP tools)
+browser.executable=C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe
+
+# Timezone / location
+location.timezone=America/New_York
+
+# Log verbosity
+preferences.logLevel=DEBUG
+```
+
+### Environment Variable Override Pattern
+
+Any MCP config key can be overridden via an environment variable using the `MCP_` prefix:
+
+| Config key | Environment variable |
+|---|---|
+| `apiKeys.github` | `MCP_APIKEYS_GITHUB` |
+| `browser.executable` | `MCP_BROWSER_EXECUTABLE` |
+| `location.timezone` | `MCP_LOCATION_TIMEZONE` |
+| `preferences.logLevel` | `MCP_PREFERENCES_LOGLEVEL` |
+
+**Rule:** Replace dots with underscores, uppercase everything, prefix with `MCP_`.
+
+---
+
+## 6. Config Precedence Rules
+
+### MCP Global Config
+
+```text
+ENV vars (MCP_*)  >  mcp-config.local.properties  >  mcp-config.properties
+    (highest)              (layer 2)                     (lowest — defaults)
+```
+
+### Atlassian Config (v1 and v2)
+
+```text
+ENV vars (ATLASSIAN_*)  >  *-config.local.properties  >  *-config.properties
+      (highest)                 (layer 2)                   (lowest — defaults)
+```
+
+### Brain Path
+
+```text
+BRAIN_PATH env var  >  auto-detect from script location  >  default (brain/ai-brain)
+    (highest)                   (automatic)                      (fallback)
+```
+
+### Java Build
+
+```text
+build.env.local  >  JAVA_HOME env var  >  java on system PATH  >  common JDK locations
+   (highest)           (layer 2)             (layer 1)               (fallback search)
+```
+
+---
+
+## 7. Environment Variables — Complete Reference
+
+| Variable | Purpose | Required? | Sensitive? | Default | Set Where |
+|---|---|---|---|---|---|
+| `JAVA_HOME` | JDK path for MCP build | Only if `java` not on PATH | No | System search | `build.env.local` or system env |
+| `BRAIN_PATH` | Brain workspace path (relative to repo root) | Only if not at default | No | `brain/ai-brain` | System env or shell profile |
+| `ATLASSIAN_CONFIG_DIR` | Atlassian v1 config directory | Auto-set | No | Set by `.vscode/mcp.json` | Don't set manually |
+| `ATLASSIAN_V2_CONFIG_DIR` | Atlassian v2 config directory | Auto-set | No | Set by `.vscode/mcp.json` | Don't set manually |
+| `GITHUB_TOKEN` | GitHub PAT | Only if using GitHub MCP | **Yes** | VS Code prompts at runtime | VS Code input prompt |
+| `MCP_*` | Any MCP config override | Never required | Varies | None | System env or shell profile |
+| `CLI_JSON_ARGS` | Atlassian CLI tool arguments | Auto-set by Copilot | No | Set at runtime | Don't set manually |
+
+---
+
+## 8. Config Files — Complete Inventory
+
+### Committed (safe — no secrets)
+
+| File | Category | Purpose | Export action |
+|---|---|---|---|
+| `.github/copilot-instructions.md` | copilot | Project-wide Copilot rules | **Edit** for your project |
+| `.github/instructions/*.instructions.md` | copilot | File-type-specific rules | Keep or remove per need |
+| `.vscode/mcp.json` | mcp | MCP server registry | Enable servers you want |
+| `.vscode/tasks.json` | vscode | Build/run task definitions | Update paths if moved |
+| `.vscode/launch.json` | vscode | Debug/run configurations | Update paths if moved |
+| `mcp-servers/build.env.example` | build | Template for `build.env.local` | Copy as-is (reference) |
+| `mcp-servers/user-config/mcp-config.properties` | mcp | Shared MCP defaults | Copy as-is |
+| `mcp-servers/user-config/mcp-config.local.example.properties` | mcp | Template for local overrides | Copy as-is (reference) |
+| `mcp-servers/user-config/servers/atlassian/atlassian-config.properties` | atlassian | Atlassian v1 shared defaults | Copy as-is |
+| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.example.properties` | atlassian | Atlassian v1 template | Copy as-is (reference) |
+| `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.properties` | atlassian | Atlassian v2 shared defaults | Copy as-is |
+| `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.local.example.properties` | atlassian | Atlassian v2 template | Copy as-is (reference) |
+
+### Gitignored (user-created from templates — may contain secrets)
+
+| File | Category | Sensitive? | Template | Export action |
+|---|---|---|---|---|
+| `mcp-servers/build.env.local` | build | No (path only) | `build.env.example` | Recreate from template (machine-specific) |
+| `mcp-servers/user-config/mcp-config.local.properties` | mcp | **Yes** | `mcp-config.local.example.properties` | Recreate from template with your keys |
+| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties` | atlassian | **Yes** | `atlassian-config.local.example.properties` | Recreate from template with your credentials |
+| `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.local.properties` | atlassian | **Yes** | `atlassian-v2-config.local.example.properties` | Recreate from template with your credentials |
+
+---
+
+## 9. Security Rules
+
+- **Never commit** `.local.properties` files — they are gitignored by default
+- **Never commit** API tokens in `.vscode/mcp.json` — use VS Code input variables instead
+- **Never hardcode** secrets in scripts, instructions, or skill files
+- **Rotate tokens** periodically — Atlassian tokens don't expire automatically; GitHub
+  tokens can be set to expire
+- **Minimal scope** — give tokens the minimum permissions needed (read-only where possible)
+- **Template files** (`.example`) are safe to commit — they contain placeholder values only
+
+---
+
+## 10. Export Checklist — Migrating to Another Project
+
+When exporting this project's features to another repo, use this checklist.
+Items are ordered by importance; stop at the level you need.
+
+### Level 1: Copilot Only (1 min)
+
+- [ ] Copy `.github/` folder to target project
+- [ ] Edit `.github/copilot-instructions.md` — update project name, language, conventions
+
+### Level 2: Copilot + MCP Servers (5 min)
+
+- [ ] Level 1 above
+- [ ] Copy `mcp-servers/` folder to target project
+- [ ] Copy `.vscode/mcp.json` and `.vscode/tasks.json` to target
+- [ ] Run `.\mcp-servers\build.ps1` — if it fails, create `build.env.local` with `JAVA_HOME`
+- [ ] In `.vscode/mcp.json`: set `"disabled": false` for servers you want
+- [ ] Add gitignore entries (see [export-guide.md § 5](export-guide.md#5-gitignore-entries-required-in-target-project))
+
+### Level 3: Full Export with Brain (10 min)
+
+- [ ] Level 2 above
+- [ ] Copy `brain/` folder (or just `brain/ai-brain/`) to your preferred location
+- [ ] **If brain is at the default path (`brain/ai-brain`):** no extra config needed
+- [ ] **If brain is at a different path:**
+  - [ ] Set `BRAIN_PATH` env var to the path relative to repo root
+  - [ ] Update `.github/copilot-instructions.md` § Configurable Paths
+  - [ ] Find-replace `brain/ai-brain` in `.vscode/tasks.json` brain task commands
+  - [ ] Update `.gitignore` inbox pattern
+  - [ ] Update `applyTo` in `.github/instructions/backlog.instructions.md`
+- [ ] **If brain is inside a module/package:** exclude from build tool (see
+  [export-guide.md § 3d](export-guide.md#3d-brain-inside-a-module--package--monorepo-package))
+
+### Level 4: Atlassian Integration (+ 5 min)
+
+- [ ] Create `atlassian-config.local.properties` (v1) or
+  `atlassian-v2-config.local.properties` (v2) from the `.example` template
+- [ ] Fill in your instance URL, email, and API token
+- [ ] In `.vscode/mcp.json`: set `"disabled": false` for `atlassian` or `atlassian-v2`
+
+### Level 5: GitHub MCP Server (+ 2 min)
+
+- [ ] In `.vscode/mcp.json`: set `"disabled": false` for `github`
+- [ ] VS Code will prompt for your PAT at runtime — no file to create
+
+### Level 6: Advanced MCP Overrides (optional)
+
+- [ ] Create `mcp-config.local.properties` from the `.example` template
+- [ ] Add API keys, browser path, timezone, or log level overrides
+
+---
+
+## Config File Tree
+
+```text
+project-root/
+├── .github/
+│   ├── copilot-instructions.md          ← REQUIRED: project conventions
+│   └── instructions/
+│       └── backlog.instructions.md      ← UPDATE applyTo if brain path changed
+├── .vscode/
+│   ├── mcp.json                         ← MCP server registry (enable/disable)
+│   ├── tasks.json                       ← Build/run tasks (update brain paths)
+│   └── launch.json                      ← Debug configs (optional)
+├── .gitignore                           ← UPDATE inbox pattern if brain path changed
+├── mcp-servers/
+│   ├── build.env.example                ← Template: JAVA_HOME
+│   ├── build.env.local                  ← YOUR: JAVA_HOME (gitignored)
+│   └── user-config/
+│       ├── mcp-config.properties        ← Shared MCP defaults (committed)
+│       ├── mcp-config.local.example.properties  ← Template: API keys
+│       ├── mcp-config.local.properties  ← YOUR: API keys (gitignored)
+│       └── servers/
+│           ├── atlassian/
+│           │   ├── atlassian-config.properties              ← Shared defaults
+│           │   ├── atlassian-config.local.example.properties ← Template
+│           │   └── atlassian-config.local.properties         ← YOUR credentials (gitignored)
+│           └── atlassian-v2/
+│               ├── atlassian-v2-config.properties            ← Shared defaults
+│               ├── atlassian-v2-config.local.example.properties ← Template
+│               └── atlassian-v2-config.local.properties       ← YOUR credentials (gitignored)
+└── brain/ai-brain/                      ← BRAIN_PATH default (configurable)
+    ├── inbox/                           ← Gitignored scratchpad
+    ├── notes/                           ← Tracked notes
+    ├── library/                         ← Tracked references
+    ├── sessions/                        ← Tracked AI session captures
+    ├── backlog/                         ← Tracked kanban board
+    ├── pkm/                             ← Tracked PKM infra
+    └── scripts/                         ← Brain management scripts
+```
+
+---
+
+## Further Reading
+
+| Topic | Doc |
+|---|---|
+| Full export walkthrough | [Export Guide](export-guide.md) |
+| Simplified 10-minute export | [Export Newbie Guide](export-newbie-guide.md) |
+| Brain path configuration details | [copilot-instructions.md § Configurable Paths](../copilot-instructions.md) |
+| Brain inside a module/package | [Export Guide § 3d](export-guide.md#3d-brain-inside-a-module--package--monorepo-package) |
+| MCP server setup | [MCP Servers SETUP](../../mcp-servers/SETUP.md) |
+| Getting started | [START-HERE](START-HERE.md) |

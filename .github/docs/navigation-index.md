@@ -263,7 +263,8 @@
     ├── copilot-primitives-crosswalk.md  👤 Quick comparison: diff, similarities, when to use, converting between types
     ├── customization-evolution-guide.md 👤 Import, merge, evolve primitives — framework growth + regression prevention
     ├── copilot-internals.md         👤 Context window, loading order, todo processing (3-tier), session continuity
-    └── prompt-composition.md        👤 Prompt chaining patterns + 6 workflow recipes
+    ├── prompt-composition.md        👤 Prompt chaining patterns + 6 workflow recipes
+    └── configuration-reference.md   👤 All config files, env vars, paths, credentials, export checklist
 
 brain/
 │

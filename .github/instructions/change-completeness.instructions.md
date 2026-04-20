@@ -200,6 +200,9 @@ When adding or modifying documentation, skills, or guide files in `.github/docs/
   the official documentation link to the relevant "Resources" or "Further Reading" section
 - [ ] **export-guide.md** — if a new config file, credential, or environment variable was added,
   update the Config Files and API Keys Reference tables in export-guide.md
+- [ ] **configuration-reference.md** — if a new config file, env var, path, or credential was
+  added, update the Configuration Reference (`.github/docs/configuration-reference.md`) —
+  this is the single source of truth for all configuration
 - [ ] **export-newbie-guide.md** — if a new exportable feature was added, verify the newbie
   export guide covers how to copy it and whether it's safe to skip
 
@@ -435,6 +438,7 @@ When adding, importing, or significantly modifying any Copilot customization pri
 | `copilot-instructions.md` | UPDATE — skills block, conventions |
 | `.github/docs/export-guide.md` | UPDATE — if new config files, env vars, or credentials added |
 | `.github/docs/export-newbie-guide.md` | UPDATE — if new exportable features added |
+| `.github/docs/configuration-reference.md` | UPDATE — single source of truth for all config/env/paths/credentials |
 | `.github/docs/customization-evolution-guide.md` | CONSULT — import/merge protocol for external primitives |
 | `.github/skills/TAXONOMY.md` | UPDATE — taxonomy tree, category tables, cross-refs |
 | `.github/docs/skills-library.md` | UPDATE — inventory table, hierarchy, roadmap |

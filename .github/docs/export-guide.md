@@ -27,6 +27,10 @@
 - [11. Verify the Export](#11-verify-the-export)
 - [12. Keep It In Sync](#12-keeping-the-export-in-sync)
 
+> **Looking for the full configuration reference?** See
+> [Configuration Reference](configuration-reference.md) — all config files, env vars,
+> precedence rules, and an export checklist in one place.
+
 > 🟢 **Brand new?** Start with the [Newbie Step-by-Step Export Guide](export-newbie-guide.md)
 > instead — it's a simplified 10-minute walkthrough.
 
@@ -594,7 +598,12 @@ safely omit **without breaking anything**:
 
 ## 8. Config Files & Environment Variables Reference
 
-Every configuration file and environment variable in this project, and whether you need it:
+> **Complete reference:** See the [Configuration Reference](configuration-reference.md)
+> for the full inventory — all config files, environment variables, precedence rules,
+> security guidelines, and a step-by-step export checklist.
+
+The summary below covers the essentials. For advanced topics (MCP override patterns,
+Atlassian v2 OAuth, config precedence layers), see the full reference.
 
 ### Config Files
 
@@ -608,8 +617,11 @@ Every configuration file and environment variable in this project, and whether y
 | `mcp-servers/build.env.example` | Template for `build.env.local` | Reference only — don't edit | No |
 | `mcp-servers/user-config/mcp-config.properties` | Shared (committed) MCP config | Committed — safe | No |
 | `mcp-servers/user-config/mcp-config.local.properties` | Personal MCP config overrides | Only if customizing | **Yes — gitignored** |
-| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties` | Atlassian credentials | Only if using Atlassian MCP | **Yes — gitignored** |
-| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.example.properties` | Template for Atlassian config | Reference only — don't edit | No |
+| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties` | Atlassian v1 credentials | Only if using Atlassian v1 MCP | **Yes — gitignored** |
+| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.example.properties` | Template for Atlassian v1 config | Reference only — don't edit | No |
+| `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.properties` | Shared Atlassian v2 defaults | If using Atlassian v2 | No |
+| `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.local.properties` | Atlassian v2 credentials | Only if using Atlassian v2 MCP | **Yes — gitignored** |
+| `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.local.example.properties` | Template for Atlassian v2 config | Reference only — don't edit | No |
 
 ### Environment Variables
 
@@ -617,8 +629,10 @@ Every configuration file and environment variable in this project, and whether y
 |---|---|---|---|
 | `JAVA_HOME` | `build.env.local` or system PATH | JDK location for MCP server build | Only if `java` not on PATH |
 | `BRAIN_PATH` | System env or shell profile | Brain workspace path relative to repo root (default: `brain/ai-brain`) | Only if brain is at a non-default location |
-| `ATLASSIAN_CONFIG_DIR` | `.vscode/mcp.json` (auto-set) | Path to Atlassian config directory | Auto — don't set manually |
+| `ATLASSIAN_CONFIG_DIR` | `.vscode/mcp.json` (auto-set) | Path to Atlassian v1 config directory | Auto — don't set manually |
+| `ATLASSIAN_V2_CONFIG_DIR` | `.vscode/mcp.json` (auto-set) | Path to Atlassian v2 config directory | Auto — don't set manually |
 | `GITHUB_TOKEN` | VS Code input prompt | GitHub Personal Access Token | Only if using GitHub MCP server |
+| `MCP_*` | System env or shell profile | Override any MCP config key (see [Configuration Reference](configuration-reference.md#5-optional--mcp-advanced-config)) | Never required |
 
 ### How `.vscode/mcp.json` Manages Servers
 

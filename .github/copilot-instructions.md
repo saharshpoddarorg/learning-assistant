@@ -89,6 +89,10 @@ learning-assistant/
 
 ## Configurable Paths
 
+> **Full configuration reference:** See `.github/docs/configuration-reference.md` for the
+> complete inventory of all config files, environment variables, precedence rules, security
+> guidelines, and export checklist.
+
 Some paths in this repo are **configurable** to support exporting features to other projects
 where the directory layout may differ.
 
