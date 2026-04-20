@@ -199,6 +199,11 @@ for the full configuration steps. The short version:
 
 ### Brain Inside a Module or Package?
 
+In `learning-assistant`, the brain workspace (`brain/ai-brain/`) lives inside a Java
+module (`brain/`) that also contains Java source code (`src/digitalnotetaking/`) and PKM
+guides (`digitalnotetaking/`). **You only need to copy `brain/ai-brain/`** — the Java code
+and guides are specific to this repo's learning exercises.
+
 In your target project the brain workspace might live inside a module (Maven/Gradle),
 npm package (monorepo), or Python package. This is fine — the brain folder contains only
 markdown and shell scripts, not compilable code. See the

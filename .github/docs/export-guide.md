@@ -269,11 +269,20 @@ Copy-Item user-config\servers\atlassian\atlassian-config.local.example.propertie
 
 ## 3. Brain Workspace
 
+> **Module note:** In this repo, `brain/` is a Java module containing both Java source
+> code (`src/digitalnotetaking/`) and the knowledge workspace (`ai-brain/`). When
+> exporting, you typically copy only `brain/ai-brain/` (the workspace) — not the Java
+> code, which models note metadata for this repo's learning exercises.
+
 ### 3a. Default Location (brain/ai-brain — zero config)
 
 ```powershell
 $target = "C:\path\to\your-project"
-Copy-Item -Recurse brain "$target\brain"
+
+# Copy only the knowledge workspace (not the Java code)
+Copy-Item -Recurse brain\ai-brain "$target\brain\ai-brain"
+# Or copy the entire module (includes Java code + guides):
+# Copy-Item -Recurse brain "$target\brain"
 ```
 
 **The brain workspace is self-contained** — it has its own scripts, README, and VS Code tasks.
@@ -460,8 +469,10 @@ New-Item -ItemType Directory -Force "$target\.vscode"
 Copy-Item "$source\.vscode\mcp.json"   "$target\.vscode\mcp.json"
 Copy-Item "$source\.vscode\tasks.json" "$target\.vscode\tasks.json"
 
-# 4. Brain workspace (default location)
-Copy-Item -Recurse "$source\brain" "$target\brain"
+# 4. Brain workspace (default location — workspace only, not the Java code)
+Copy-Item -Recurse "$source\brain\ai-brain" "$target\brain\ai-brain"
+# Or copy the entire module (includes Java code + PKM guides):
+# Copy-Item -Recurse "$source\brain" "$target\brain"
 # If using a different brain path, see Section 3b above for configuration steps.
 
 # 5. Build

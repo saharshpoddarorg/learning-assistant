@@ -153,6 +153,12 @@ Copy-Item mcp-servers\build.env.example mcp-servers\build.env.local
 | **Purpose** | Location of the brain knowledge workspace |
 | **When needed** | Only if brain is at a non-default location (e.g., after export) |
 | **Sensitive** | No |
+| **Technology** | Neutral — markdown + shell scripts only (not a Java/npm/Python module) |
+
+> **Module note:** In this repo, the brain workspace lives inside a Java module
+> (`brain/`). When exported, only `brain/ai-brain/` is needed — it is technology-neutral
+> and works in any project structure. See
+> [Export Guide § 3](export-guide.md#3-brain-workspace) for copy instructions.
 
 **The brain path affects these files** (all need updating if path changes):
 
