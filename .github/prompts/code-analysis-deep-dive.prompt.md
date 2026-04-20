@@ -117,3 +117,43 @@ Summarise for future reference:
 - Use the `code-analysis-deep-dive-capture.md` session template for capture
 - If the target method is > 50 lines, the Code Block Breakdown (Layer 4) is mandatory
 - End with one "what to deep-dive next" recommendation
+
+### Session Capture — Auto-Save to Brain
+
+After completing the deep-dive analysis, **automatically capture** the full output as
+a session file. This is mandatory — every deep-dive produces a permanent reference doc.
+
+**Capture steps:**
+
+1. **Get the current timestamp** — run `Get-Date -Format "yyyy-MM-dd_hh-mmtt"` and
+   `Get-Date -Format "yyyy-MM-dd"` and `Get-Date -Format "hh:mm tt"`
+2. **Determine the domain:**
+   - If the code is in this repo or a work project → `work`
+   - If the code is a personal/side project → `personal`
+3. **Build the file path:**
+   - Work domain: `brain/ai-brain/sessions/work/code-analysis/deep-dive/`
+   - Personal domain: `brain/ai-brain/sessions/personal/software-dev/code-review/deep-dive/`
+4. **Build the filename:** `<date>_<time>_<class-method-kebab>.md`
+   - Example: `2026-04-20_09-21pm_order-service-calculate-total.md`
+5. **Use the `code-analysis-deep-dive-capture.md` template** from
+   `brain/ai-brain/sessions/_templates/` — fill in ALL sections:
+   - Frontmatter: date, time, domain, category, project, subject, tags, code-target, deep-dive fields
+   - All 9 layers of analysis (populated from the deep-dive output above)
+   - Key Outcomes, Follow-Up, Session Metadata
+6. **Write the file** to the path determined in step 3
+7. **Check escalation** — count files in the target folder; if 3+ files share the same
+   class prefix, trigger sub-package escalation per chat-capture instructions
+8. **Append to SESSION-LOG.md** — add a row to `brain/ai-brain/sessions/SESSION-LOG.md`
+9. **Report** — tell the user: "Deep-dive captured to `sessions/<path>`"
+
+**Content emphasis for the captured file:**
+
+- **Layer 4 (Code Block Breakdown)** must be thorough — split every non-trivial method
+  into 3-8 functional blocks with actual code snippets and explanations. This is the
+  most valuable section for a developer reading the file later.
+- **Layer 1 (High-Level Overview)** must be immediately understandable — a developer
+  should get the full picture in 30 seconds by reading just this section.
+- **Layer 5 (Line-by-Line)** should cover key decision lines, not boilerplate.
+- The file must be **self-contained** — a developer who has never seen this code should
+  be able to understand it fully by reading only this file.
+- Include actual code blocks (not just descriptions) in Layers 4 and 5.
