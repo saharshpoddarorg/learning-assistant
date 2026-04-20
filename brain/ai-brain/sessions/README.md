@@ -69,6 +69,7 @@ sessions/
 └── _templates/
     ├── session-capture.md              ← Generic frontmatter + content template
     ├── code-analysis-capture.md        ← Code review: findings table, class/method target
+    ├── code-analysis-deep-dive-capture.md ← Code deep-dive: data flow, call stack, line-by-line
     ├── design-capture.md               ← Design: approach/proposal, use cases, criteria
     ├── debugging-capture.md            ← Debugging: hypothesis tracking, RCA, prevention
     ├── requirements-capture.md         ← Requirements: user stories, BDD, NFRs

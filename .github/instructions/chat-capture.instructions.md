@@ -717,6 +717,7 @@ template that matches the session focus:
 |---|---|---|
 | General (research, learning, exploration) | `session-capture.md` | Default — any session not matching a specialised template |
 | Code review, architecture review, pattern identification | `code-analysis-capture.md` | Session analyses specific code (class, method, or codebase area) |
+| Code deep-dive: internals, flow, line-by-line understanding | `code-analysis-deep-dive-capture.md` | Session aims to fully understand how code works — data flow, call stack, code blocks |
 | Architecture, API design, component design, HLD/LLD | `design-capture.md` | Session proposes or evaluates a design (approach, alternatives, trade-offs) |
 | Complex bug investigation, RCA, hypothesis-driven debugging | `debugging-capture.md` | Session investigates an error or unexpected behaviour |
 | User stories, acceptance criteria, BDD, scope definition | `requirements-capture.md` | Session defines WHAT to build (not HOW) |
@@ -763,12 +764,54 @@ sub-package, sessions can also be grouped by analysis focus:
 
 | Focus | Example Subject | Description |
 |---|---|---|
+| Deep-dive | `calculate-total-deep-dive` | Full internals: data flow, call stack, code blocks, line-by-line |
 | Structure | `calculate-total-structure` | Class/method organization, responsibility |
 | Patterns | `calculate-total-patterns` | Design patterns used or proposed |
 | Performance | `calculate-total-performance` | Hotspots, complexity, optimisation |
 | Security | `calculate-total-security` | Input validation, injection risks |
 | Bugs | `calculate-total-null-check` | Specific bug or defect analysis |
 | Refactoring | `calculate-total-extract-method` | Refactoring proposals and impact |
+
+### Code Analysis Deep-Dive Protocol
+
+A **deep-dive** is an intensive code analysis session that aims to understand the
+complete internals, flow, and behaviour of a class, method, or feature. Deep-dives
+produce longer, more structured sessions than regular code analysis.
+
+**When a session is a deep-dive:**
+
+- User asks to "understand", "explain internals", "walk through", "trace the flow"
+- The goal is comprehension (not finding bugs or proposing refactoring)
+- The session covers both high-level abstraction AND line-by-line detail
+
+**Deep-dive analysis structure (use `_templates/code-analysis-deep-dive-capture.md`):**
+
+1. **High-Level Overview** — purpose, responsibility, design role
+2. **Data Flow** — inputs → transformations → outputs, with types
+3. **Call Stack / Method Flow** — sequence of method calls, who calls what
+4. **Code Block Breakdown** — split code into functional blocks by cohesion, explain each
+5. **Line-by-Line Walkthrough** — detailed explanation of key logic (not boilerplate)
+6. **State Changes** — how fields, variables, and external state evolve
+7. **Edge Cases & Error Paths** — what happens on null, empty, overflow, exception
+8. **Dependencies & Coupling** — what this code depends on, and what depends on it
+9. **Key Takeaways** — summary of internals for future reference
+
+**Deep-dive naming convention:**
+
+```text
+# Single method deep-dive
+2026-05-02_03-21pm_code-analysis_order-service-calculate-total-deep-dive.md
+
+# Class-level deep-dive (multiple methods covered)
+2026-05-02_03-21pm_code-analysis_order-service-deep-dive.md
+
+# Feature/flow deep-dive (crosses multiple classes)
+2026-05-02_03-21pm_code-analysis_payment-flow-deep-dive.md
+```
+
+**Deep-dive escalation:** Deep-dives often produce early escalation because the user
+typically plans to analyse multiple methods or classes. Use the Early Escalation rules
+when 2+ methods are named upfront.
 
 ---
 
@@ -819,7 +862,32 @@ tips the scale toward escalation.
 | 3-4 | Same week | No prefix match | **Escalate** (prefix is sufficient) |
 | 3-4 | Spread over weeks | Yes | **Escalate** |
 | 3-4 | Spread over weeks | No match | **Escalate** (3 is the threshold — proceed) |
-| 2 | Any | Any | **Never escalate** (below threshold) |
+| 2 | Same session or day | Strong cohesion | **Early escalate** (see Early Escalation below) |
+| 2 | Spread over weeks | No match | **Hold** — wait for one more file |
+| 1 | Any | Any | **Never escalate** |
+
+### Early Escalation (< 3 files)
+
+In some situations, escalation is justified **before** reaching the standard 3-file
+threshold. This avoids creating files in a flat folder only to immediately reorganise
+them on the next capture.
+
+**Early escalation triggers (any ONE is sufficient):**
+
+| Trigger | Example | Why |
+|---|---|---|
+| **Deep-dive session** with planned multi-part analysis | "Let's deep-dive OrderService — today calculateTotal, tomorrow validateOrder" | Folder will inevitably grow; pre-create to avoid rename churn |
+| **Class + method known upfront** | User names class AND 2+ methods to analyse | The grouping key (class name) is already confirmed |
+| **Existing sub-package for sibling** | `order-service/` already exists under same category for a related class | Consistency — sibling classes should follow the same structure |
+| **User explicitly requests structure** | "Create a folder for this class analysis" | Honour user intent immediately |
+| **Multi-file template** | A template produces 2+ files by design (e.g., deep-dive HLD + LLD) | Template-driven structure is intentional, not emergent |
+
+**Early escalation rules:**
+
+1. Create the sub-directory immediately
+2. Use standard truncated naming (same rules as ≥3 escalation)
+3. Log as `escalation:early:<pattern>` in CAPTURE-LOG.md
+4. Do NOT de-escalate early-created folders — they are intentional
 
 ---
 

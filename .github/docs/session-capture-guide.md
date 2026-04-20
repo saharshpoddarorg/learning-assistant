@@ -393,12 +393,13 @@ scope-refs:
 
 ## Templates
 
-Six templates live in `brain/ai-brain/sessions/_templates/`:
+Seven templates live in `brain/ai-brain/sessions/_templates/`:
 
 | Template | Use For |
 |---|---|
 | [session-capture.md](../../brain/ai-brain/sessions/_templates/session-capture.md) | General sessions — research, analysis, learning, exploration |
 | [code-analysis-capture.md](../../brain/ai-brain/sessions/_templates/code-analysis-capture.md) | Code review — class/method analysis, findings tables, refactoring proposals |
+| [code-analysis-deep-dive-capture.md](../../brain/ai-brain/sessions/_templates/code-analysis-deep-dive-capture.md) | Code deep-dive — internals, data flow, call stack, code blocks, line-by-line |
 | [design-capture.md](../../brain/ai-brain/sessions/_templates/design-capture.md) | Design sessions — approach/proposal alternatives, use cases, acceptance criteria |
 | [debugging-capture.md](../../brain/ai-brain/sessions/_templates/debugging-capture.md) | Debugging — hypothesis tracking, root cause analysis, prevention measures |
 | [requirements-capture.md](../../brain/ai-brain/sessions/_templates/requirements-capture.md) | Requirements gathering — user stories, BDD, NFRs, scope definition |
@@ -410,6 +411,7 @@ Six templates live in `brain/ai-brain/sessions/_templates/`:
 |---|---|
 | Exploring a concept, comparing options, general research | `session-capture.md` |
 | Reviewing code for patterns, smells, bugs, or refactoring | `code-analysis-capture.md` |
+| Understanding code internals — data flow, call stack, line-by-line | `code-analysis-deep-dive-capture.md` |
 | Designing components, APIs, schemas, or evaluating approaches | `design-capture.md` |
 | Investigating a bug, error, or unexpected behaviour | `debugging-capture.md` |
 | Defining WHAT to build (user stories, acceptance criteria, scope) | `requirements-capture.md` |
@@ -640,6 +642,98 @@ Complexity: <high|medium>. Version: v<N>.
 
 ---
 
+## Workflow Diagrams
+
+### Session Capture Lifecycle
+
+```mermaid
+flowchart TD
+    A[User chats with Copilot] --> B{Capture Gate}
+    B -->|Simple fix / quick answer| C[No capture]
+    B -->|Research / analysis / learning / 3+ exchanges| D[Classify domain + category]
+    D --> E[Select template]
+    E --> F[Get timestamp]
+    F --> G[Construct filename]
+    G --> H{Escalation check}
+    H -->|No threshold met| I[Create file in flat folder]
+    H -->|≥3 files same subject| J[Escalate: create sub-folder]
+    H -->|Early escalation trigger| J
+    J --> K[Move existing files + truncate names]
+    K --> L[Create README.md in sub-folder]
+    I --> M[Write session file]
+    L --> M
+    M --> N[Append to SESSION-LOG.md]
+    N --> O[Append to CAPTURE-LOG.md]
+    O --> P[Notify user]
+
+    style B fill:#f9f,stroke:#333
+    style H fill:#ff9,stroke:#333
+    style M fill:#9f9,stroke:#333
+```
+
+### Escalation & De-Escalation Flow
+
+```mermaid
+flowchart TD
+    START[File created or deleted] --> CHECK{Count files with shared prefix}
+
+    CHECK -->|≥3 files| ESC_CHECK{Sub-folder exists?}
+    CHECK -->|2 files + early trigger| ESC_CHECK
+    CHECK -->|< 3 and no trigger| HOLD[Keep flat — no action]
+
+    ESC_CHECK -->|No| ESCALATE[Create sub-folder]
+    ESC_CHECK -->|Yes| NEST_CHECK{Check nested threshold}
+
+    ESCALATE --> MOVE[Move files + truncate names]
+    MOVE --> README[Create README.md]
+    README --> LOG_ESC[Log to CAPTURE-LOG.md]
+
+    NEST_CHECK -->|≥3 at next level| NEST_ESC[Create nested sub-folder]
+    NEST_CHECK -->|< 3| PLACE[Place file in existing sub-folder]
+    NEST_ESC --> MOVE
+
+    START -->|File deleted| DE_CHECK{Sub-folder has < 3 files?}
+    DE_CHECK -->|No| DONE[No action needed]
+    DE_CHECK -->|Yes and not early-created| FLATTEN[Flatten: restore names + move to parent]
+    DE_CHECK -->|Yes but early-created| DONE
+    FLATTEN --> DEL_DIR[Delete empty sub-folder + README]
+    DEL_DIR --> CASCADE{Parent also < 3 files?}
+    CASCADE -->|Yes| FLATTEN
+    CASCADE -->|No| LOG_DE[Log to CAPTURE-LOG.md]
+
+    style ESCALATE fill:#9cf,stroke:#333
+    style FLATTEN fill:#fc9,stroke:#333
+    style LOG_ESC fill:#9f9,stroke:#333
+    style LOG_DE fill:#9f9,stroke:#333
+```
+
+### Template Selection Flow
+
+```mermaid
+flowchart TD
+    A[New session to capture] --> B{What is the session about?}
+
+    B -->|Understanding code internals| C{Deep-dive?}
+    C -->|Yes — flow, call stack, line-by-line| D[code-analysis-deep-dive-capture.md]
+    C -->|No — review, patterns, bugs| E[code-analysis-capture.md]
+
+    B -->|Architecture, API, HLD/LLD| F[design-capture.md]
+    B -->|Bug investigation, RCA| G[debugging-capture.md]
+    B -->|User stories, acceptance criteria| H[requirements-capture.md]
+    B -->|WHY a decision was made| I[intent-capture.md]
+    B -->|Research, learning, general| J[session-capture.md]
+
+    style D fill:#9cf,stroke:#333
+    style E fill:#9cf,stroke:#333
+    style F fill:#f9f,stroke:#333
+    style G fill:#fc9,stroke:#333
+    style H fill:#ff9,stroke:#333
+    style I fill:#cf9,stroke:#333
+    style J fill:#ccc,stroke:#333
+```
+
+---
+
 ## Quick Reference Card
 
 ```text
@@ -655,12 +749,13 @@ FRONTMATTER      17+ fields: date, time, kind, domain, category, project, subjec
                  scope, scope-project, scope-feature, scope-transitions, scope-refs
                  + optional: code-target, design-target, debug-target
 
-TEMPLATES        session-capture.md        → general (research, learning)
-                 code-analysis-capture.md  → code review, patterns, findings
-                 design-capture.md         → architecture, proposals, use cases
-                 debugging-capture.md      → RCA, hypothesis tracking
-                 requirements-capture.md   → user stories, BDD, NFRs
-                 intent-capture.md         → design decisions, migrations
+TEMPLATES        session-capture.md              → general (research, learning)
+                 code-analysis-capture.md        → code review, patterns, findings
+                 code-analysis-deep-dive-capture → code internals, data flow, call stack, line-by-line
+                 design-capture.md               → architecture, proposals, use cases
+                 debugging-capture.md            → RCA, hypothesis tracking
+                 requirements-capture.md         → user stories, BDD, NFRs
+                 intent-capture.md               → design decisions, migrations
 
 TAGS             3-7 per session: project:<name>, activity tags, tech tags
 
