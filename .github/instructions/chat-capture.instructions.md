@@ -710,7 +710,7 @@ precise grouping. When absent, grouping falls back to subject slug prefix analys
 
 ## Template Selection Guide
 
-Six templates live in `brain/ai-brain/sessions/_templates/`. Use the most specific
+Seven templates live in `brain/ai-brain/sessions/_templates/`. Use the most specific
 template that matches the session focus:
 
 | Session Focus | Template | When to Use |
@@ -796,17 +796,52 @@ produce longer, more structured sessions than regular code analysis.
 8. **Dependencies & Coupling** — what this code depends on, and what depends on it
 9. **Key Takeaways** — summary of internals for future reference
 
-**Deep-dive naming convention:**
+**Deep-dive routing — permanent `deep-dive/` sub-folder:**
+
+Deep-dive sessions are **always** routed to a permanent `deep-dive/` sub-folder under
+code-analysis (or code-review for personal software-dev). This sub-folder is structural
+— it is NOT created by the escalation protocol and is NOT subject to de-escalation.
 
 ```text
-# Single method deep-dive
-2026-05-02_03-21pm_code-analysis_order-service-calculate-total-deep-dive.md
+# Work domain
+sessions/work/code-analysis/deep-dive/
+  2026-05-02_03-21pm_order-service-calculate-total.md
+  2026-05-02_03-51pm_order-service-validate-order.md
+  2026-05-02_07-21pm_payment-flow.md
 
-# Class-level deep-dive (multiple methods covered)
-2026-05-02_03-21pm_code-analysis_order-service-deep-dive.md
+# Personal domain
+sessions/personal/software-dev/code-review/deep-dive/
+  2026-05-02_04-00pm_task-manager-crud-service.md
+```
 
-# Feature/flow deep-dive (crosses multiple classes)
-2026-05-02_03-21pm_code-analysis_payment-flow-deep-dive.md
+**Deep-dive naming convention:**
+
+- Files inside `deep-dive/` drop the `code-analysis_` category prefix (implied by parent)
+- The subject describes the target: `<class-or-flow>-<method-or-aspect>.md`
+- No `deep-dive` suffix needed in the filename — the folder provides that context
+
+```text
+# Single method deep-dive (inside deep-dive/)
+2026-05-02_03-21pm_order-service-calculate-total.md
+
+# Class-level deep-dive (inside deep-dive/)
+2026-05-02_03-21pm_order-service-overview.md
+
+# Feature/flow deep-dive (inside deep-dive/)
+2026-05-02_03-21pm_payment-flow.md
+```
+
+**Escalation inside `deep-dive/`:** The standard Pattern 3a (class → method) escalation
+still applies within the `deep-dive/` folder. When 3+ deep-dive sessions target the same
+class, create a class sub-folder:
+
+```text
+sessions/work/code-analysis/deep-dive/
+  order-service/
+    2026-05-02_03-21pm_calculate-total.md
+    2026-05-03_09-00am_validate-order.md
+    2026-05-04_11-00am_process-payment.md
+  2026-05-02_07-21pm_payment-flow.md          ← stays flat (different class)
 ```
 
 **Deep-dive escalation:** Deep-dives often produce early escalation because the user
@@ -906,6 +941,7 @@ to a project type. The active profile is determined by the brain workspace conte
 ```text
 sessions/work/
 ├── code-analysis/         ← Escalates: class → method (Pattern 3a)
+│   └── deep-dive/         ← Permanent sub-folder for code deep-dives (Pattern 3a inside)
 ├── debugging/             ← Escalates: service → issue (Pattern 3c)
 ├── requirements/          ← Escalates: feature → aspect
 ├── performance/           ← Escalates: service → metric
@@ -925,6 +961,7 @@ sessions/personal/software-dev/
 ├── implementation/        ← Escalates: project → class → method (Pattern 3a)
 ├── testing/               ← Escalates: project → test-suite
 ├── code-review/           ← Escalates: project → class (Pattern 3a)
+│   └── deep-dive/         ← Permanent sub-folder for code deep-dives (Pattern 3a inside)
 ├── devops/                ← Escalates: project → tool
 └── general/               ← Flat
 ```

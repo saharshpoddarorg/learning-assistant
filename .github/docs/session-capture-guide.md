@@ -87,6 +87,7 @@ brain/ai-brain/sessions/
 │
 ├── work/                                   ← Job-related conversations
 │   ├── code-analysis/                      ← Code review, architecture review
+│   │   └── deep-dive/                      ← Code internals deep-dive (permanent)
 │   ├── debugging/                          ← Complex bug investigation
 │   ├── requirements/                       ← User stories, acceptance criteria
 │   ├── performance/                        ← Profiling, optimization
@@ -107,6 +108,7 @@ brain/ai-brain/sessions/
         ├── implementation/                 ← Coding sessions, feature building
         ├── testing/                        ← Test strategy, TDD/BDD setup
         ├── code-review/                    ← Code analysis, refactoring review
+        │   └── deep-dive/                  ← Code internals deep-dive (permanent)
         ├── devops/                         ← CI/CD, Docker, deployment
         └── general/                        ← Other software dev activities
 ```
@@ -416,6 +418,63 @@ Seven templates live in `brain/ai-brain/sessions/_templates/`:
 | Investigating a bug, error, or unexpected behaviour | `debugging-capture.md` |
 | Defining WHAT to build (user stories, acceptance criteria, scope) | `requirements-capture.md` |
 | Documenting WHY a design/migration decision was made | `intent-capture.md` |
+
+---
+
+## Code Analysis Deep-Dive
+
+A **deep-dive** is an intensive code analysis session aimed at understanding complete
+internals — data flow, call stack, code blocks, and line-by-line behaviour.
+
+### Permanent `deep-dive/` Sub-Folder
+
+Deep-dive sessions always route to a permanent `deep-dive/` sub-folder:
+
+```text
+# Work domain
+sessions/work/code-analysis/deep-dive/
+  2026-05-02_03-21pm_order-service-calculate-total.md
+  2026-05-02_03-51pm_order-service-validate-order.md
+
+# Personal domain
+sessions/personal/software-dev/code-review/deep-dive/
+  2026-05-02_04-00pm_task-manager-crud-service.md
+```
+
+This folder is **structural** — it is always there, not created by escalation, and not
+subject to de-escalation. Normal Pattern 3a escalation (class → method) still applies
+inside the `deep-dive/` folder.
+
+### When to Use Deep-Dive vs Regular Code Analysis
+
+| Use Case | Template | Folder |
+|---|---|---|
+| Finding bugs, code smells, refactoring opportunities | `code-analysis-capture.md` | `code-analysis/` |
+| Understanding how code works — flow, internals, line-by-line | `code-analysis-deep-dive-capture.md` | `code-analysis/deep-dive/` |
+
+### Naming Inside `deep-dive/`
+
+Files drop the `code-analysis_` prefix (implied by parent):
+
+```text
+2026-05-02_03-21pm_order-service-calculate-total.md    ← method deep-dive
+2026-05-02_03-21pm_order-service-overview.md            ← class-level deep-dive
+2026-05-02_03-21pm_payment-flow.md                      ← cross-class flow
+```
+
+### 9-Layer Analysis Structure
+
+1. High-Level Overview — purpose, responsibility, design role
+2. Data Flow — inputs → transformations → outputs
+3. Call Stack / Method Flow — method call chain
+4. Code Block Breakdown — split by functional cohesion
+5. Line-by-Line Walkthrough — key logic lines
+6. State Changes — how variables and state evolve
+7. Edge Cases & Error Paths — what can go wrong
+8. Dependencies & Coupling — who depends on whom
+9. Key Takeaways — summary for future reference
+
+> **Slash command:** Use `/code-analysis-deep-dive` to start a deep-dive session.
 
 ---
 

@@ -74,6 +74,7 @@
 | `/refactor` | Identify refactoring opportunities | Designer | `/refactor` (with file open) |
 | `/explain` | Beginner-friendly file explanation | Ask | `/explain` (with file open) |
 | `/debug` | Systematic bug investigation | Debugger | `/debug` (with file open) |
+| `/code-analysis-deep-dive` | Deep-dive into code internals | Copilot | `/code-analysis-deep-dive` → `OrderService.calculateTotal` |
 | `/impact` | Change impact analysis | Impact-Analyzer | `/impact` (with file open) |
 | `/explore-project` | Learn from open-source projects | Learning-Mentor | `/explore-project` → `Redis` |
 
@@ -175,6 +176,7 @@
 │   ├── scope.prompt.md              🤖 /scope — generic/specific
 │   ├── multi-session.prompt.md      🤖 /multi-session — cross-session state
 │   ├── steer.prompt.md              🤖 /steer — view or switch steering mode (default: completeness)
+│   ├── request-steering.prompt.md   🤖 /request-steering — route incoming request vs current work
 │   │
 │   │── [Learning & Concepts]
 │   ├── learn-concept.prompt.md      🤖 /learn-concept — any concept
@@ -205,6 +207,7 @@
 │   │── [Code Quality]
 │   ├── design-review.prompt.md      🤖 /design-review — SOLID review
 │   ├── debug.prompt.md              🤖 /debug — bug investigation
+│   ├── code-analysis-deep-dive.prompt.md 🤖 /code-analysis-deep-dive — code internals
 │   ├── impact.prompt.md             🤖 /impact — change analysis
 │   ├── refactor.prompt.md           🤖 /refactor — refactoring
 │   ├── explain.prompt.md            🤖 /explain — file explanation

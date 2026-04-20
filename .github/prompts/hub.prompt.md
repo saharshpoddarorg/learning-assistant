@@ -206,6 +206,7 @@ You are the **navigation hub** for all available assistants and learning command
 │    │
 │    ├── Debugging & Analysis (/hub debug)
 │    │   ├── /debug ················· Systematic bug investigation
+│    │   ├── /code-analysis-deep-dive  Code internals deep-dive
 │    │   ├── /impact ················ Change impact analysis
 │    │   └── /teach ················· Learn concepts from code
 │    │
@@ -423,6 +424,7 @@ Quick Commands:
     /refactor         → Identify refactoring opportunities
     /explain          → Beginner-friendly file explanation
     /debug            → Systematic bug investigation
+    /code-analysis-deep-dive → Code internals deep-dive (data flow, call stack, line-by-line)
     /impact           → Change impact analysis
     /explore-project  → Learn from open-source projects
 

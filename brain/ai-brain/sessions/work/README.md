@@ -10,6 +10,7 @@
 | Category | Folder | Use for |
 |---|---|---|
 | `code-analysis` | `code-analysis/` | Code review, architecture review, pattern identification |
+| `code-analysis/deep-dive` | `code-analysis/deep-dive/` | Code internals deep-dive — data flow, call stack, line-by-line |
 | `debugging` | `debugging/` | Complex bug investigation, root cause analysis |
 | `requirements` | `requirements/` | User stories, acceptance criteria, BDD, feature scoping |
 | `performance` | `performance/` | Profiling, optimization, benchmarking, load testing |

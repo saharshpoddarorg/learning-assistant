@@ -44,6 +44,7 @@ sessions/
 ├── work/                               ← Corporate / job-specific sessions
 │   ├── README.md
 │   ├── code-analysis/                  ← Code review, architecture analysis
+│   │   └── deep-dive/                  ← Code internals deep-dive (permanent)
 │   ├── debugging/                      ← Complex bug investigation, RCA
 │   ├── requirements/                   ← User stories, acceptance criteria, BDD
 │   ├── performance/                    ← Profiling, optimization, benchmarking
@@ -61,6 +62,7 @@ sessions/
 │   │   ├── implementation/             ← Coding sessions, feature building
 │   │   ├── testing/                    ← Test strategy, TDD/BDD setup
 │   │   ├── code-review/               ← Code analysis, refactoring review
+│   │   │   └── deep-dive/             ← Code internals deep-dive (permanent)
 │   │   ├── devops/                     ← CI/CD, Docker, deployment
 │   │   └── general/                    ← Other software dev activities
 │   ├── financial/                      ← Budgeting, investment, tax strategies
