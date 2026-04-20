@@ -140,38 +140,78 @@ Annotate in the call tree: recursive calls (⟳), async boundaries (⚡), extern
 
 ### Layer 4 — Code Block Breakdown (The Core of the Deep-Dive)
 
-This is the **most valuable layer**. Split the code into **cohesive functional blocks**
-based on what each section of code is doing logically. This is NOT about extracting
-methods or proposing refactoring — it's about grouping lines that work together to
-accomplish one logical step, so a developer can understand the code piece by piece.
+This is the **most valuable layer** and the one the developer will use side-by-side
+with the source code. Split the code into **cohesive functional blocks** based on what
+each section is doing logically. A developer with the source file open on the left and
+this document on the right should be able to look at any line range and immediately find
+the matching block that explains it.
 
-**For each block:**
+> **Design principle:** This layer is NOT about extracting methods or proposing
+> refactoring. It groups lines that work together to accomplish one logical step, so a
+> developer can understand complex code piece by piece — from high-level regions down
+> to individual expressions.
 
-1. **Block name** — a descriptive, intention-revealing label (e.g., "Input Validation Guard",
-   "Price Calculation Pipeline", "Error Recovery and Cleanup")
-2. **Line range** — exact lines in the source file (e.g., L42-58)
-3. **The actual code** — paste the real code in a fenced block (with language tag)
+#### 4a — Region Map (Bird's-Eye View)
+
+Before diving into individual blocks, provide a **region map** — a high-level table
+showing how the method's lines are organized into logical regions. This is the first
+thing a developer sees, giving them a mental roadmap before they read any detail.
+
+```text
+## Region Map — <MethodName> (L30-142)
+
+| Region | Lines | Blocks | Purpose (one phrase) |
+|---|---|---|---|
+| Guard & Validation | L30-45 | B1-B2 | Reject invalid inputs early |
+| Core Calculation | L46-89 | B3-B6 | Transform inputs into result |
+| Persistence | L90-110 | B7-B8 | Save result and publish events |
+| Cleanup & Return | L111-142 | B9-B10 | Release resources and return |
+```
+
+For methods under 30 lines, the region map can be omitted — go straight to blocks.
+For methods over 50 lines, the region map is **mandatory**.
+
+#### 4b — Block Breakdown (The Detail)
+
+**For each block, provide:**
+
+1. **Block ID + name** — `BN` ID and a descriptive, intention-revealing label
+   (e.g., "Input Validation Guard", "Price Calculation Pipeline")
+2. **Line range** — exact lines in the source file (e.g., L42-58). These MUST match
+   the actual source so the developer can locate the code instantly
+3. **The actual code** — paste the real source code verbatim in a fenced block. Do NOT
+   paraphrase, summarise, or reformat the code — the developer needs to see exactly
+   what is in the file so they can match it visually
 4. **What it does** — plain-English explanation of the block's purpose and mechanics.
-   Explain the "what" and the "why" — not just restating the code in words
-5. **How it connects** — what data this block receives from the previous block, and what
-   it produces/passes to the next block. Show the data bridge between blocks
+   Explain the "what" and the "why" — not just restating the code in English
+5. **Data bridge** — what this block receives from the previous block, and what it
+   produces for the next. Name the adjacent blocks explicitly (BN-1, BN+1)
 6. **Key decisions** — if the block contains conditionals, loops, or branching, explain
    the decision logic and what each branch means in business terms
-7. **Gotchas** — any subtle behaviour, implicit assumptions, or non-obvious side-effects
+7. **Inline annotations** — for complex blocks (10+ lines or dense logic), add
+   **inline code comments** in the code fence pointing to the key lines. Format:
+   `// ← [B3.1] why this line matters`. These sub-IDs (B3.1, B3.2) let Layer 5
+   reference specific lines within a block
+8. **Gotchas** — subtle behaviour, edge cases — reference E-numbers from Layer 7
+9. **State impact** — which Layer 6 variables are mutated in this block
 
 **Block splitting rules:**
 
 - Split on **logical boundaries**, not arbitrary line counts — each block should do
   exactly one conceptual thing (validate, transform, persist, notify, etc.)
-- Aim for **3-8 blocks per method** — fewer for simple methods, more for complex ones
+- Aim for **3-8 blocks per method** — fewer for simple methods, more for complex ones.
+  For very long methods (100+ lines), 8-15 blocks is acceptable
 - A block can be 1 line (if it's a critical decision) or 20 lines (if they're cohesive)
-- **Overlap is allowed** — if a line serves as both the end of one block and the
-  beginning of another (e.g., a return value that's also a state change), include it
-  in both blocks and annotate the dual role
+- **Overlap is allowed** — if a line serves as both the end of one block and the start
+  of another, include it in both and annotate the dual role
 - **Don't skip code** — every line of the method must appear in at least one block.
-  The blocks together should reconstruct the full method
+  The blocks together should reconstruct the full method. A developer scrolling through
+  the source file must find every single line explained somewhere
 - **Name blocks by intent**, not by implementation — "Customer Eligibility Check" not
   "If-statement on line 42"
+- **Nest blocks for deep logic** — when a block contains a significant inner structure
+  (e.g., a loop body with branching), use sub-blocks: B3a, B3b, B3c. The parent block
+  (B3) shows the full code; sub-blocks zoom into specific segments within it
 
 **Block template:**
 
@@ -179,49 +219,205 @@ accomplish one logical step, so a developer can understand the code piece by pie
 ### Block N (BN) — <Intent-Revealing Name> (L42-58)
 
 Implements: T2-T3 (Layer 2) · Contains: C4, C5 (Layer 3)
+Region: Core Calculation
 ```
 
 ````java
-// paste the actual source code for this block
+// paste the ACTUAL source code verbatim — do not reformat or summarise
+var subtotal = items.stream()
+    .mapToDouble(i -> i.getPrice() * i.getQty()) // ← [B3.1] per-item revenue
+    .sum();                                       // ← [B3.2] aggregate — identity if empty (see E2)
+var discounted = applyDiscount(subtotal, discount); // ← [B3.3] can go negative (see E3)
 ````
 
 ```text
-**What it does:** [plain-English explanation — what business/technical step this accomplishes]
+**What it does:** Calculates the order subtotal by streaming over line items,
+then applies the discount. This is the core arithmetic — upstream blocks validate
+inputs, downstream blocks apply tax and build the receipt.
 
 **Data bridge:**
-  ← Receives from BN-1 (<Previous Block Name>): [what data/state this block gets]
-  → Produces for BN+1 (<Next Block Name>): [what data/state this block passes on]
+  ← Receives from B2 (Input Validation Guard): validated Order with non-null items list
+  → Produces for B4 (Tax Calculation): discounted BigDecimal total — ready for tax
 
-**Key decisions:** [explain any branching, conditionals, or early returns]
+**Key decisions:**
+  - Uses stream().mapToDouble() — functional pipeline, no intermediate collection
+  - applyDiscount is multiplicative (subtotal × (1 - rate)), not subtractive
+  - If items is empty, stream returns 0.0 (identity) — no special-case needed
 
-**Gotchas:** [subtle behaviour, edge cases — reference E-numbers from Layer 7 if known]
+**Gotchas:**
+  - discount > 1.0 produces negative total — not validated (see E3)
+  - Double arithmetic — rounding errors possible on large orders (see E6)
 
-**State impact:** [which Layer 6 variables are mutated in this block, if any]
+**State impact:** Mutates local `total` (Layer 6) — declared at L45, set here at L47
 ```
+
+**Inline annotation sub-IDs** (`B3.1`, `B3.2`, etc.) are referenced by Layer 5 for
+line-by-line detail. A developer seeing `[B3.2]` in the code can jump to Layer 5
+for the full explanation of that specific line.
 
 The cross-references (**T***n*, **C***n*, **B***n*) create a web of links between layers.
 A developer reading Block 3 can jump to T3 in Layer 2 to see where in the pipeline
 this block sits, or to C4 in Layer 3 to see the call detail, or to E2 in Layer 7 to
 see what edge case lurks here.
 
+#### 4c — Handling Complex Code Patterns
+
+Real codebases have god classes, 200-line methods, and multi-caller entry points.
+Use these specialised approaches when the code is complex:
+
+##### God Classes (10+ responsibilities, 500+ lines)
+
+When a class mixes multiple responsibilities (e.g., validation + calculation +
+persistence + notification all in one class):
+
+1. **Responsibility inventory first** — before blocks, list every responsibility the
+   class handles. Group methods by responsibility:
+
+   ```text
+   ## Responsibility Inventory — OrderService (847 lines, 23 methods)
+
+   | # | Responsibility | Methods | Lines | Should Be Separate? |
+   |---|---|---|---|---|
+   | R1 | Input validation | validateOrder, checkStock | L30-120 | Yes — Validator |
+   | R2 | Price calculation | calculateTotal, applyDiscount, applyTax | L121-280 | Yes — Calculator |
+   | R3 | Persistence | saveOrder, updateStatus | L281-390 | Yes — Repository |
+   | R4 | Notification | notifyCustomer, publishEvent | L391-450 | Yes — Notifier |
+   | R5 | Logging & metrics | logOrder, recordMetrics | L451-500 | Maybe — cross-cutting |
+   ```
+
+2. **Deep-dive one responsibility at a time** — treat each responsibility group as a
+   mini-method for Layer 4 purposes. The region map separates them visually
+3. **Cross-responsibility data flow** — show how data passes between responsibility
+   groups (R1 output feeds R2, R2 output feeds R3, etc.)
+4. **God class verdict** — in Layer 9, state clearly: "This class has N responsibilities
+   that could be separated. Suggested decomposition: [list]"
+
+##### Very Long Methods (100+ lines)
+
+When a single method spans 100+ lines:
+
+1. **Two-pass block breakdown:**
+   - **Pass 1 — Coarse blocks** (5-8 blocks covering the full method at region level)
+   - **Pass 2 — Fine blocks** (zoom into each coarse block, split further into 2-4
+     sub-blocks each). Use nested IDs: B3 → B3a, B3b, B3c
+2. **Mandatory region map** — the region map from 4a is not optional for 100+ line methods
+3. **Branch maps for deep nesting** — if the method has 3+ levels of nesting
+   (if inside if inside loop inside try), draw an indentation map:
+
+   ```text
+   L42  if (isValid)
+   L43  ├─ for (item : items)           → B3 (Item Processing Loop)
+   L44  │  ├─ if (item.isSpecial())     → B3a (Special Item Handling)
+   L50  │  │  └─ try { ... }            → B3b (Special Item DB Lookup)
+   L55  │  └─ else                      → B3c (Standard Item Pricing)
+   L60  └─ else                         → B2 (Validation Failure Path)
+   ```
+
+4. **Every line must be reachable** — the two-pass approach ensures no code is missed.
+   A developer scrolling through a 200-line method must find every single line explained
+
+##### Multi-Caller Methods (called from 3+ distinct contexts)
+
+When a method is called from many places with different expectations:
+
+1. **Caller context table** in Layer 1:
+
+   ```text
+   | Caller | Context | Expected Behaviour | Error Handling |
+   |---|---|---|---|
+   | OrderController | HTTP request — user-facing | Fast, throw on invalid | 400/500 mapped |
+   | BatchProcessor | Nightly batch — system | Tolerant, log & skip | Logged, continues |
+   | EventHandler | Async event — internal | Fire-and-forget | Silently retried |
+   | TestHarness | Integration test | Predictable, no side-effects | Asserted |
+   ```
+
+2. **Per-caller path annotations in Layer 4** — when a block behaves differently depending
+   on who called it (e.g., different error handling paths), annotate:
+
+   ```text
+   **Caller-specific behaviour:**
+   - From OrderController: throws OrderValidationException → HTTP 400
+   - From BatchProcessor: catches and logs, returns null → batch continues
+   - From EventHandler: re-throws wrapped in RetryableException
+   ```
+
+3. **Coupling assessment in Layer 8** — for each caller, assess: "If I change this method,
+   does that caller break?"
+
+##### Deeply Nested / Tangled Logic
+
+When the code has complex conditional chains, deeply nested loops, or interleaved
+concerns (e.g., validation mixed with calculation mixed with logging):
+
+1. **Flatten-and-label** — even though the code is nested, the block breakdown should
+   present it as a flat sequence of blocks with nesting annotations:
+
+   ```text
+   B1 — Outer Validation (L30-35)            [nesting: 0]
+   B2 — Item Loop Setup (L36-38)             [nesting: 1]
+   B3 — Special Item Branch (L39-52)         [nesting: 2, inside B2 loop]
+   B4 — Standard Item Branch (L53-58)        [nesting: 2, inside B2 loop]
+   B5 — Loop Accumulator (L59-62)            [nesting: 1, end of B2 loop]
+   B6 — Post-Loop Aggregation (L63-70)       [nesting: 0]
+   ```
+
+2. **Show the full nesting context** — each block's code snippet should include 1-2 lines
+   of surrounding context (the enclosing `if`/`for`/`try`) so the developer can see
+   where in the nesting this block lives:
+
+   ```java
+   // Context: inside for (var item : items) { if (item.isSpecial()) {
+   var specialPrice = lookupSpecialPrice(item.getSku()); // ← [B3.1]
+   if (specialPrice == null) {                            // ← [B3.2] fallback
+       specialPrice = item.getDefaultPrice();
+   }
+   total += specialPrice * item.getQty();                 // ← [B3.3] accumulate
+   // } — end of special-item branch
+   ```
+
+3. **Decision tree for complex conditionals** — when there are 3+ branches, draw an
+   ASCII decision tree showing all paths:
+
+   ```text
+   L42: if (order.type == PREMIUM)
+        ├─ YES → B3 (Premium Pricing) — 15% discount cap
+        └─ NO → L48: if (order.total > 1000)
+                 ├─ YES → B4 (Bulk Discount) — tiered rates
+                 └─ NO → L52: if (customer.isLoyal())
+                          ├─ YES → B5 (Loyalty Discount) — 5% flat
+                          └─ NO → B6 (Standard Pricing) — no discount
+   ```
+
 ### Layer 5 — Line-by-Line Walkthrough (Key Logic Only)
 
 For **decision-making lines, algorithm steps, and non-obvious behaviour** — skip
 boilerplate (imports, standard getters/setters, simple assignments, logging statements).
 
+When Layer 4 uses inline annotation sub-IDs (`B3.1`, `B3.2`), Layer 5 expands on those
+specific lines. The **Sub-ID** column links directly back to the inline annotation in the
+Layer 4 code fence, so the developer can jump between the code and the explanation.
+
 For each key line:
 
-| Line | Block | Code | What It Does | Why This Way | What If Different |
-|---|---|---|---|---|---|
-| L42 | B1 | `if (order.isValid())` | Guards against invalid orders | Delegates validation to Order — SRP | If removed: NPE on null items at L47 → E1 |
-| L47 | B2 | `var total = items.stream().mapToDouble(...)` | Calculates subtotal via stream | Functional style — immutable intermediate | Could use for-loop but less readable |
-| L51 | B3 | `total = applyDiscount(total, discount)` | Applies percentage discount | Mutates local — discount is multiplicative | If additive: different rounding behaviour → E3 |
+| Line | Block | Sub-ID | Code | What It Does | Why This Way | What If Different |
+|---|---|---|---|---|---|---|
+| L42 | B1 | — | `if (order.isValid())` | Guards against invalid orders | Delegates validation to Order — SRP | If removed: NPE on null items at L47 → E1 |
+| L47 | B2 | B3.1 | `var total = items.stream().mapToDouble(...)` | Calculates subtotal via stream | Functional style — immutable intermediate | Could use for-loop but less readable |
+| L49 | B2 | B3.2 | `.sum()` | Aggregates to single value | Stream terminal — identity if empty | Empty list returns 0.0 → E2 |
+| L51 | B3 | B3.3 | `total = applyDiscount(total, discount)` | Applies percentage discount | Mutates local — discount is multiplicative | If additive: different rounding behaviour → E3 |
 
-The **Block** column links each line back to its Layer 4 block. The **What If Different**
-column references Layer 7 edge case IDs (E*n*) where removing or changing the line
-would trigger a failure.
+The **Block** column links each line back to its Layer 4 block. The **Sub-ID** column
+links to the inline annotation in Layer 4's code fence (if present). The **What If
+Different** column references Layer 7 edge case IDs (E*n*) where removing or changing
+the line would trigger a failure.
 
 Focus on lines where **the developer's understanding would break** if they skipped it.
+
+**For very long methods (100+ lines):** Layer 5 must cover key lines from EVERY coarse
+block and its sub-blocks. Prioritise: (1) lines where control flow branches, (2) lines
+where state mutates, (3) lines where external calls happen, (4) lines with non-obvious
+semantics. Skip lines that are purely mechanical (simple assignments, logging, closing
+braces). A 200-line method should have 30-60 lines in this table.
 
 ### Layer 6 — State Changes
 
@@ -319,6 +515,9 @@ The cheat sheet references Layer IDs so a developer can drill into any detail.
 - **Code-first:** Always show actual source code in fenced blocks — never describe code
   without showing it. A developer should be able to read ONLY this document and
   reconstruct the mental model of the code completely
+- **Side-by-side design:** Line ranges (L*n*) in every block MUST match the actual source
+  file. A developer with the source open on the left and this doc on the right should be
+  able to locate any block's code instantly by line number
 - **Type-precise:** Always include types in data flow and call stack tables
 - **Honest:** If something is unclear, surprising, or looks like a bug, say so directly
 - **No refactoring in the analysis** — the block breakdown shows logical groupings
@@ -326,15 +525,38 @@ The cheat sheet references Layer IDs so a developer can drill into any detail.
   takeaways, but do NOT reorganise the code in the analysis itself
 - **Completeness over brevity** — every line of the target code must appear in at least
   one block in Layer 4. No gaps. The blocks together reconstruct the full method
-- If the target method is > 50 lines, Layer 4 (Code Block Breakdown) is mandatory
-- If the target class has > 5 public methods, provide a Layer 4 breakdown for EACH
-  significant method (skip trivial getters/setters/toString)
 - **Cross-layer coherence is mandatory** — every block (B*n*) must reference the
   transformation steps (T*n*) it implements and the calls (C*n*) it contains. Every
   edge case (E*n*) must name its block and line. Every state change must name its block.
   A developer reading any single layer must be able to navigate to every related layer
   via the ID tags. If an ID appears in one layer, it must be defined in its home layer.
 - End with one "what to deep-dive next" recommendation
+
+#### Complexity-Adaptive Thresholds
+
+The depth of analysis scales with the complexity of the target code:
+
+| Target | Layer 4 | Region Map | Sub-Blocks | Multi-Caller Table | Responsibility Inventory |
+|---|---|---|---|---|---|
+| Method ≤ 30 lines | 3-5 blocks | Optional | No | If 3+ callers | N/A |
+| Method 30-100 lines | 5-8 blocks | Recommended | If nested 3+ levels | If 3+ callers | N/A |
+| Method 100+ lines | 8-15 blocks (two-pass) | **Mandatory** | **Mandatory** | If 3+ callers | N/A |
+| Method 200+ lines | 12-20 blocks (two-pass) | **Mandatory** | **Mandatory** | If 3+ callers | N/A |
+| Class ≤ 5 methods | Per-method blocks | Per class | No | Per method if applicable | No |
+| Class 5-10 methods | Per-method blocks | Per class | For complex methods | Per method if applicable | Recommended |
+| God class (10+ methods or 500+ lines) | Per-responsibility then per-method | Per responsibility | **Mandatory** for complex methods | **Mandatory** | **Mandatory** |
+
+**Scaling rules:**
+
+- Method > 50 lines → Layer 4 (Code Block Breakdown) is mandatory with region map
+- Method > 100 lines → two-pass breakdown (coarse + fine) is mandatory
+- Method > 200 lines → Layer 5 (line-by-line) must cover 30+ key lines
+- Class > 5 public methods → Layer 4 breakdown for EACH significant method
+  (skip trivial getters/setters/toString)
+- Class > 10 public methods or > 500 lines → responsibility inventory (section 4c)
+  is mandatory before method-level analysis
+- Method called from 3+ distinct callers → caller context table in Layer 1 is mandatory
+- Nesting depth 3+ levels → branch map / indentation map is mandatory in Layer 4
 
 ### Session Capture — Auto-Save to Brain
 
