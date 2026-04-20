@@ -457,14 +457,22 @@ file is created**. Do not wait for the user to notice or request escalation.
 3. **Check Pattern 2 threshold** — if inside `personal/software-dev/<activity>/` and the
    count reaches **3+** files for the same project, trigger project-based sub-package
    escalation immediately
-4. **Execute escalation** — when triggered:
+4. **Check Pattern 3 threshold** — if the category supports hierarchical escalation
+   (see Domain-Specific Hierarchical Escalation section below):
+   - **3a (code-analysis):** 3+ files referencing the same class → create class sub-package;
+     2+ files within a class sub-package referencing the same method → create method sub-package
+   - **3b (design/feature-exploration):** 3+ files referencing the same component → create
+     component sub-package; 2+ files referencing the same aspect → create aspect sub-package
+   - **3c (debugging):** 3+ files about the same service → create service sub-package;
+     2+ files about the same issue type → create issue sub-package
+5. **Execute escalation** — when triggered:
    - Create the sub-directory
    - Move ALL matching files into the sub-directory with shortened names
    - Create `README.md` listing the sub-package contents
    - Update `SESSION-LOG.md` with new paths
    - Update all `scope-refs`, `parent`, and inline links in the moved files
    - Update any cross-references in files OUTSIDE the sub-package that point to moved files
-5. **Log the escalation** — inform the user that escalation was performed
+6. **Log the escalation** — inform the user that escalation was performed
 
 **Timing:** Escalation should happen in the same turn as the session capture. Do not
 create a file in a flat folder and plan to escalate later — check and escalate immediately.
@@ -532,6 +540,376 @@ a project index file at `personal/software-dev/<project-name>-INDEX.md`:
 
 This index provides a single entry point for all sessions related to one project,
 without duplicating files across folders.
+
+---
+
+## Domain-Specific Hierarchical Escalation (Pattern 3)
+
+Beyond subject-based (Pattern 1) and project-based (Pattern 2) escalation, certain
+categories support **hierarchical sub-packaging** that mirrors the structure of the
+content being analysed.
+
+### Pattern 3a — Code Analysis: Class → Method Hierarchy
+
+Code analysis sessions often cluster around classes and their methods. When this happens,
+create a two-level hierarchy: `class-name/method-name/`.
+
+**Escalation rules:**
+
+| Condition | Action |
+|---|---|
+| **3+ files** reference the same class (any methods) | Create `class-name/` sub-package |
+| **2+ files** in a class sub-package reference the same method | Create `method-name/` sub-package inside the class |
+| **1 file** about a class with no method focus | Keep at category level (no escalation) |
+
+**Detection heuristics** — a session references a class when:
+
+- The subject slug contains the class name (e.g., `order-service-calculate-total`)
+- The `tags` include the class name (e.g., `order-service`)
+- The frontmatter `code-target.class` field is set (see extended frontmatter below)
+
+#### Example: Flat → Class → Class+Method
+
+```text
+# Before escalation (flat — 4 files about OrderService)
+work/code-analysis/
+  2026-04-01_10-30am_code-analysis_order-service-calculate-total.md
+  2026-04-02_02-15pm_code-analysis_order-service-validate-order.md
+  2026-04-03_09-00am_code-analysis_order-service-process-payment.md
+  2026-04-04_11-30am_code-analysis_order-service-cancel-order.md
+  2026-04-05_03-00pm_code-analysis_config-loader-init.md
+
+# After class escalation (3+ OrderService files → sub-package)
+work/code-analysis/order-service/
+  2026-04-01_10-30am_calculate-total.md
+  2026-04-02_02-15pm_validate-order.md
+  2026-04-03_09-00am_process-payment.md
+  2026-04-04_11-30am_cancel-order.md
+work/code-analysis/
+  2026-04-05_03-00pm_code-analysis_config-loader-init.md    ← stays flat (only 1 file)
+
+# After method escalation (2+ files about calculateTotal → method sub-package)
+work/code-analysis/order-service/
+  calculate-total/
+    2026-04-01_10-30am_calculate-total.md
+    2026-04-07_09-00am_calculate-total_v2.md
+    2026-04-10_02-00pm_calculate-total-edge-cases.md
+  2026-04-02_02-15pm_validate-order.md                      ← stays flat (only 1 file)
+  2026-04-03_09-00am_process-payment.md
+  2026-04-04_11-30am_cancel-order.md
+```
+
+### Pattern 3b — Design / Approach: Component → Aspect Hierarchy
+
+Design and architecture sessions cluster around components, features, or architectural
+decisions. Use a similar two-level hierarchy: `component-name/aspect/`.
+
+**Escalation rules:**
+
+| Condition | Action |
+|---|---|
+| **3+ files** reference the same component/feature | Create `component-name/` sub-package |
+| **2+ files** in a component sub-package reference the same aspect | Create `aspect/` sub-package |
+
+**Aspect types** (common second-level groupings):
+
+```text
+api-design, schema, security, performance, patterns, trade-offs,
+hld, lld, adr, alternatives, migration
+```
+
+#### Example
+
+```text
+# After component escalation
+work/feature-exploration/payment-gateway/
+  2026-04-01_10-00am_api-design.md
+  2026-04-02_02-00pm_security-pci-compliance.md
+  2026-04-03_09-00am_stripe-vs-adyen.md
+  2026-04-04_11-00am_error-handling-patterns.md
+
+personal/software-dev/design/task-manager/
+  api-design/
+    2026-04-01_03-00pm_rest-endpoints.md
+    2026-04-02_10-00am_graphql-evaluation.md
+  2026-04-03_09-00am_database-schema.md
+  2026-04-04_02-00pm_auth-flow.md
+```
+
+### Pattern 3c — Debugging: Service → Issue Hierarchy
+
+Debugging sessions cluster around services and recurring issues:
+
+| Condition | Action |
+|---|---|
+| **3+ files** about the same service/component | Create `service-name/` sub-package |
+| **2+ files** about the same error/issue type | Create `issue-slug/` inside the service |
+
+### Pattern 3d — Custom Hierarchical Escalation (extensibility)
+
+New domain-specific hierarchical patterns can be added by following this template:
+
+1. **Define the grouping dimension** (what makes files "related" — class, component, service)
+2. **Set the escalation threshold** (recommend 3+ for first level, 2+ for second level)
+3. **Define detection heuristics** (how to detect grouping from subject, tags, frontmatter)
+4. **Define the naming convention** (kebab-case folder names derived from the grouping key)
+5. **Document with before/after examples**
+
+---
+
+## Extended Frontmatter for Domain-Specific Sessions
+
+Sessions in categories that support hierarchical escalation can include additional
+frontmatter fields to enable accurate grouping:
+
+### Code Analysis Extended Fields
+
+```yaml
+code-target:
+  class: OrderService              # Java/TS class name (PascalCase as-is)
+  method: calculateTotal           # method name (camelCase as-is)
+  package: com.example.order       # optional: full package path
+  file: src/order/OrderService.java  # optional: source file path
+```
+
+### Design Extended Fields
+
+```yaml
+design-target:
+  component: payment-gateway       # component or feature name (kebab-case)
+  aspect: api-design               # aspect: api-design, schema, security, etc.
+  level: hld                       # hld or lld
+```
+
+### Debugging Extended Fields
+
+```yaml
+debug-target:
+  service: order-service           # affected service/component
+  error: NullPointerException      # error type or symptom
+  issue: JIRA-1234                 # linked issue tracker ID (optional)
+```
+
+**These fields are optional.** When present, the escalation protocol uses them for
+precise grouping. When absent, grouping falls back to subject slug prefix analysis.
+
+---
+
+## Cohesion-Based Escalation Heuristics
+
+The automatic escalation protocol uses these heuristics to detect when files should
+be grouped, even without explicit frontmatter fields.
+
+### Subject Prefix Analysis
+
+Files are considered "related" when they share a **subject prefix**:
+
+| File subject | Extracted prefix | Grouping key |
+|---|---|---|
+| `order-service-calculate-total` | `order-service` | `order-service` |
+| `order-service-validate-order` | `order-service` | `order-service` |
+| `order-service-cancel-order` | `order-service` | `order-service` |
+| `config-loader-init` | `config-loader` | `config-loader` |
+
+**Prefix extraction rules:**
+
+1. Split subject on hyphens: `order-service-calculate-total` → `[order, service, calculate, total]`
+2. Try progressively shorter prefixes: `order-service-calculate`, `order-service`, `order`
+3. A prefix is a **grouping key** when 3+ files share it
+4. Prefer the **longest shared prefix** (more specific grouping)
+5. Single-word prefixes (e.g., `order`) are too broad — require 5+ files before escalating
+
+### Tag-Based Grouping
+
+When subject prefixes are ambiguous, check tags:
+
+- Files tagged with the same class/service name → same group
+- Files tagged with the same `project:<name>` → same project group
+- Files tagged with the same technology AND the same component → same group
+
+### Temporal Proximity
+
+Sessions created within the same week about related subjects have stronger cohesion.
+When evaluating borderline escalation (e.g., exactly 3 files), temporal proximity
+tips the scale toward escalation.
+
+### Escalation Decision Matrix
+
+| Files with shared prefix | Temporal proximity | Frontmatter match | Action |
+|---|---|---|---|
+| 5+ | Any | Any | **Always escalate** (Pattern 1) |
+| 3-4 | Same week | Yes | **Escalate** |
+| 3-4 | Same week | No prefix match | **Escalate** (prefix is sufficient) |
+| 3-4 | Spread over weeks | Yes | **Escalate** |
+| 3-4 | Spread over weeks | No match | **Hold** — wait for one more file |
+| 2 | Any | Any | **Never escalate** (below threshold) |
+
+---
+
+## Configurable Workspace Structure
+
+The session capture folder structure can be customized for different project types.
+The defaults work for this repo; adapt them when exporting to other projects.
+
+### Structure Profiles
+
+A **structure profile** is a set of category definitions and escalation rules tailored
+to a project type. The active profile is determined by the brain workspace context.
+
+#### Work Project Profile (default for `sessions/work/`)
+
+```text
+sessions/work/
+├── code-analysis/         ← Escalates: class → method (Pattern 3a)
+├── debugging/             ← Escalates: service → issue (Pattern 3c)
+├── requirements/          ← Escalates: feature → aspect
+├── performance/           ← Escalates: service → metric
+├── feature-exploration/   ← Escalates: component → aspect (Pattern 3b)
+├── documentation/         ← Flat (no hierarchical escalation)
+├── research/              ← Escalates: topic → subtopic (Pattern 1 only)
+└── general/               ← Flat
+```
+
+#### Personal SE Project Profile (default for `sessions/personal/software-dev/`)
+
+```text
+sessions/personal/software-dev/
+├── requirements/          ← Escalates: project → feature (Pattern 2)
+├── research/              ← Escalates: project → topic
+├── design/                ← Escalates: project → component → aspect (Pattern 3b)
+├── implementation/        ← Escalates: project → class → method (Pattern 3a)
+├── testing/               ← Escalates: project → test-suite
+├── code-review/           ← Escalates: project → class (Pattern 3a)
+├── devops/                ← Escalates: project → tool
+└── general/               ← Flat
+```
+
+### Adding Custom Categories
+
+To add a new category to a domain:
+
+1. Add a row to the Work Categories or Personal Categories table in this file
+2. Define its escalation pattern (flat, Pattern 1/2/3, or custom)
+3. Follow kebab-case naming
+4. Create the directory on first use (the AI creates it automatically)
+5. Add a `README.md` if the category will have 5+ sessions
+
+**Example — adding `security-review` to work:**
+
+```text
+| `security-review` | `work/security-review/` | Threat modelling, vulnerability analysis, pen-test review |
+```
+
+Escalation: service → vulnerability-type (Pattern 3c adapted).
+
+### Customizing Escalation Thresholds
+
+The default thresholds balance organization with overhead:
+
+| Threshold | Default | When to lower | When to raise |
+|---|---|---|---|
+| **Pattern 1** (subject grouping) | 5 files | High-volume projects (lower to 3) | Low-volume projects (raise to 7) |
+| **Pattern 2** (project grouping) | 3 files | Never (3 is minimum for cohesion) | Solo developer (raise to 5) |
+| **Pattern 3a** (class grouping) | 3 files | Complex services (lower to 2) | Never (2 is too few for a folder) |
+| **Pattern 3b** (component grouping) | 3 files | Large architecture work (lower to 2) | — |
+| **Method/aspect sub-level** | 2 files | Never (2 is the minimum) | — |
+
+To customize: edit the threshold values in the Automatic Escalation Protocol section
+and the Domain-Specific Hierarchical Escalation section of this file.
+
+---
+
+## Cross-Reference Protocol for Escalated Sessions
+
+When sessions are organized into hierarchical sub-packages, cross-references become
+critical for discoverability. Follow these rules:
+
+### Intra-Category Cross-References
+
+Sessions within the same category but different sub-packages should cross-reference
+when they share context:
+
+```yaml
+# In order-service/calculate-total.md
+scope-refs:
+  - file: "../validate-order.md"
+    relationship: related
+    note: "calculateTotal calls validateOrder — analysis is related"
+```
+
+### Inter-Category Cross-References
+
+Sessions in different categories about the same subject must cross-reference:
+
+```yaml
+# In work/code-analysis/order-service/calculate-total.md
+scope-refs:
+  - file: "../../debugging/order-service/npe-calculate-total.md"
+    relationship: related
+    note: "debugging session for the NPE found during this code analysis"
+  - file: "../../feature-exploration/payment-gateway/api-design.md"
+    relationship: related
+    note: "calculateTotal is being redesigned as part of payment gateway"
+```
+
+### README Index in Sub-Packages
+
+Every sub-package `README.md` should include:
+
+```markdown
+# order-service — Code Analysis Sessions
+
+| Date | Subject | Complexity | Key Outcomes |
+|---|---|---|---|
+| 2026-04-01 | calculate-total | high | 3 code smells, extract-method proposed |
+| 2026-04-02 | validate-order | medium | missing null checks identified |
+
+## Related Sessions
+
+- [Debugging: NPE in calculateTotal](../../debugging/order-service/npe-calculate-total.md)
+- [Design: Payment Gateway API](../../feature-exploration/payment-gateway/api-design.md)
+```
+
+---
+
+## Extensibility — Adding New Escalation Patterns
+
+The escalation framework is designed to be extended. To add a new pattern:
+
+### Step 1 — Define the pattern
+
+```text
+Pattern N: <Name>
+  Domain: <which categories it applies to>
+  Grouping dimension: <what makes files related>
+  Level 1 threshold: <N files> → <folder name convention>
+  Level 2 threshold: <N files> → <sub-folder name convention>
+  Detection: <how to identify grouping — subject prefix, tags, frontmatter>
+```
+
+### Step 2 — Add to the Automatic Escalation Protocol
+
+Add a new check step to the escalation checklist:
+
+```text
+N. **Check Pattern N threshold** — if inside <category>/ and
+   the count reaches <threshold> files for the same <grouping dimension>,
+   trigger <Pattern N> escalation immediately
+```
+
+### Step 3 — Add extended frontmatter fields (if needed)
+
+If the pattern needs domain-specific metadata beyond subject/tags, define new
+frontmatter fields under a `<domain>-target:` key.
+
+### Step 4 — Document with examples
+
+Add a before/after example showing the flat structure and the escalated structure.
+
+### Step 5 — Update the Structure Profile
+
+Add the new pattern to the relevant structure profile (work or personal/software-dev)
+with its escalation annotation.
 
 ---
 
@@ -719,7 +1097,8 @@ When the Capture Gate triggers, execute these steps:
 2. **Name** — construct filename using the naming protocol
 3. **Timestamp** — obtain the **actual current local time** (see Timestamp Accuracy below)
 4. **Create directory** — ensure the category folder exists under the domain
-5. **Escalation check** — check if this file triggers sub-package escalation (see below)
+5. **Escalation check** — check if this file triggers sub-package escalation
+   (Pattern 1, 2, or 3 — see Automatic Escalation Protocol)
 6. **Write file** — create the session capture file with frontmatter + content structure
 7. **Log** — append entry to SESSION-LOG.md
 8. **Notify** — briefly inform the user: "Session captured to `sessions/<path>`"

@@ -198,14 +198,26 @@ full capture protocol.
 |---|---|
 | **Config location** | `.github/instructions/chat-capture.instructions.md` |
 | **Purpose** | Rules for when and how AI sessions are captured to brain |
-| **Key settings** | Domain (work/personal), categories, escalation thresholds, folder structure |
-| **Customizable** | Yes — edit the instruction file to add categories or change thresholds |
+| **Key settings** | Domain (work/personal), categories, escalation thresholds, folder structure, hierarchical grouping |
+| **Customizable** | Yes — edit the instruction file to add categories, change thresholds, or define domain-specific hierarchies |
+
+**Escalation patterns** (auto-organize sessions into sub-folders):
+
+| Pattern | Trigger | Levels | Default Threshold |
+|---|---|---|---|
+| **Pattern 1** — Subject grouping | Same subject prefix | 1 level | 5+ files |
+| **Pattern 2** — Project grouping | Same project in software-dev | 1 level | 3+ files |
+| **Pattern 3a** — Code analysis | Same class, then same method | 2 levels (class → method) | 3+ files / 2+ files |
+| **Pattern 3b** — Design / approach | Same component, then same aspect | 2 levels (component → aspect) | 3+ files / 2+ files |
+| **Pattern 3c** — Debugging | Same service, then same issue | 2 levels (service → issue) | 3+ files / 2+ files |
 
 **Common customizations:**
 
 - **Add categories** — add rows to the work or personal category tables
 - **Change escalation thresholds** — adjust the file count that triggers subfolder creation
 - **Add domain-specific escalation** — define class/method or component/feature hierarchies
+  (Pattern 3d extensibility template in chat-capture instructions)
+- **Change structure profiles** — swap work or personal SE profiles to match your layout
 - **Change naming conventions** — modify the file naming protocol
 
 ---
