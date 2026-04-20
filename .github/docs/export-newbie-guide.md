@@ -184,6 +184,27 @@ After copying, these are **not needed** in your target project:
 | `search-engine/` | Search engine learning module — not needed in a work project |
 | `src/` | Learning-assistant entry point — not your code |
 
+### Brain Workspace at a Different Path?
+
+If you copied the brain workspace but want it at a different location (e.g., `knowledge/workspace`
+instead of `brain/ai-brain`), see the [Export Guide § 3b](export-guide.md#3b-custom-location-different-path--eg-knowledgeworkspace)
+for the full configuration steps. The short version:
+
+1. Move the brain files to your preferred path
+2. Update `.github/copilot-instructions.md` § Configurable Paths with the new path
+3. Find-replace `brain/ai-brain` in `.vscode/tasks.json` brain task commands
+4. Update the `.gitignore` inbox pattern
+
+> The brain scripts auto-detect their location — no code changes needed after moving.
+
+### Brain Inside a Module or Package?
+
+In your target project the brain workspace might live inside a module (Maven/Gradle),
+npm package (monorepo), or Python package. This is fine — the brain folder contains only
+markdown and shell scripts, not compilable code. See the
+[Export Guide § 3d](export-guide.md#3d-brain-inside-a-module--package--monorepo-package)
+for build tool exclusion examples (Gradle, npm, Maven) and module-specific tips.
+
 ---
 
 ## Step 5: Verify It Works

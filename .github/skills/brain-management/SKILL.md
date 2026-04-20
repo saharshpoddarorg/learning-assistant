@@ -17,6 +17,10 @@ description: >
 
 # Brain Management Skill
 
+> **Configurable path:** The brain workspace defaults to `brain/ai-brain/`. If your project
+> uses a different location, see `copilot-instructions.md` § Configurable Paths for the
+> `BRAIN_PATH` setting. All path references in this skill use the default path.
+
 ---
 
 ## Structure Decision — Why 6 Tiers

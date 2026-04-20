@@ -288,6 +288,11 @@
         },
 
         // ── Brain Workspace ──────────────────────────────────────────────────
+        // CONFIGURABLE PATH: The brain workspace lives at "brain/ai-brain" by default.
+        // If you moved it (e.g., to "knowledge/workspace"), find-replace all occurrences
+        // of "brain\\ai-brain" (Windows) and "brain/ai-brain" (Linux/macOS) in this section.
+        // The brain scripts auto-detect their root from their own location, so moving the
+        // folder + updating these task commands is all you need.
         {
             "label": "brain: new note",
             "type": "shell",

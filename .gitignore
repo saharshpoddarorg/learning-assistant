@@ -165,6 +165,12 @@ mcp-servers/build.env.local
 #   inbox/   → GITIGNORED  (raw captures, cleared per session)
 #   notes/   → TRACKED     (reviewed, permanent developer knowledge)
 #   library/ → TRACKED     (formally published with tags + git commit)
+#
+# CONFIGURABLE PATH: If you moved the brain workspace to a different location
+# (e.g., "knowledge/workspace"), update the inbox pattern below accordingly.
+# MODULE NOTE: If the brain workspace lives inside a module (Maven, Gradle, npm,
+# etc.), you can place this pattern here (repo root) or in the module's own
+# .gitignore — whichever is closest to the brain path.
 
 brain/ai-brain/inbox/
 

@@ -2,10 +2,16 @@
 applyTo: "brain/ai-brain/backlog/**"
 ---
 
+<!-- CONFIGURABLE PATH: The applyTo pattern above uses the default brain path.
+     If you moved the brain workspace (see copilot-instructions.md § Configurable Paths),
+     update the applyTo pattern to match your new path, e.g. "knowledge/workspace/backlog/**" -->
+
 # Backlog Management — AI-Assisted Protocol
 
 > **Purpose:** Define how the AI assistant creates, updates, refines, and promotes
 > backlog items and ideas. Applies to all files in `brain/ai-brain/backlog/`.
+> (Default path — see `copilot-instructions.md` § Configurable Paths if your brain
+> workspace is at a different location.)
 
 ---
 

@@ -102,6 +102,7 @@ You understand terminal commands, git, and file structures. You just haven't set
 | Copy `.github/` to another repo | [export-guide.md §Copilot customization](export-guide.md#1-copilot-customization-github) |
 | Quick step-by-step export (newbie) | [Newbie Export Guide](export-newbie-guide.md) |
 | Copy MCP servers to another repo | [export-guide.md §MCP Servers](export-guide.md#2-mcp-servers) |
+| Configure brain workspace path | [export-guide.md §3b Custom Location](export-guide.md#3b-custom-location-different-path--eg-knowledgeworkspace) |
 | Configure Atlassian credentials | [mcp-server-setup.md §5b](mcp-server-setup.md#5b-atlassian-server-jira--confluence--bitbucket) |
 | Queue Copilot instructions | [copilot-workflow.md](copilot-workflow.md) |
 | Chain agents + prompts | [customization-guide.md §Composition](customization-guide.md#-how-to-extend-the-system) |

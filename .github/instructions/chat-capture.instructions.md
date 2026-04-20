@@ -7,6 +7,8 @@ applyTo: "**"
 > **Purpose:** Define when and how AI chat sessions are automatically captured into
 > the `brain/ai-brain/sessions/` tier. This ensures valuable conversations are preserved
 > without cluttering the workspace with trivial interactions.
+> (Default path — see `copilot-instructions.md` § Configurable Paths if your brain
+> workspace is at a different location.)
 >
 > **When active:** Always — this instruction applies to every file via `applyTo: "**"`.
 
