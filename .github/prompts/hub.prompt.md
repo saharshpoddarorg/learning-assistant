@@ -74,6 +74,8 @@ You are the **navigation hub** for all available assistants and learning command
 │    │   │   ├── issues ············· Lifecycle, templates, labels, milestones
 │    │   │   ├── gh-cli ············· auth, pr, issue, repo, run commands
 │    │   │   └── actions ············ Workflows, CI/CD, triggers, monitoring
+│    │   ├── /ship ·················· Commit + push + PR suggestion (lint/build pre-flight)
+│    │   ├── /github-push ··········· Full shipping: cohesive commits + push + create PR via API
 │    │   ├── /atlassian-tools ······· Jira, Confluence, Bitbucket via PAT CLI
 │    │   │   ├── jira ··············· Issues, JQL, sprints, epics, bulk ops
 │    │   │   ├── confluence ·········· Pages, CQL, macros, blogs, Mermaid
@@ -401,6 +403,8 @@ Quick Commands:
     /devops           → CI/CD, Docker, K8s, cloud, IaC, monitoring
     /git-vcs          → Git workflows, branching strategies, commit conventions, semver
     /github-workflow  → GitHub PRs, issues, gh CLI, Actions, branch protection, repo management
+    /ship             → Commit + push + PR suggestion (lint/build pre-flight, Conventional Commits)
+    /github-push      → Full shipping: cohesive commits + push + create PR via GitHub API
     /atlassian-tools  → Jira, Confluence, Bitbucket — JQL, CQL, sprints, wiki, PRs, PAT CLI
     /build-tools      → Build automation: Maven, Gradle, Make, Bazel, npm
     /mac-dev          → macOS dev environment: Homebrew, JDK, npm, IDEs, Docker, dotfiles

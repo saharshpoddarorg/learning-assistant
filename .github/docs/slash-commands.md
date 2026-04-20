@@ -47,7 +47,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (62 commands)
+### Quick Lookup (64 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -113,6 +113,8 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 60 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
 | 61 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
 | 62 | `/read-url` | Utility | Read, extract, and summarize webpage content from any URL | Copilot |
+| 63 | `/ship` | Shipping | Commit, push, or both — with lint, build, PR suggestion, Conventional Commits | Agent |
+| 64 | `/github-push` | Shipping | Cohesive commits, push, and PR creation — full shipping workflow to a GitHub repo | Agent |
 
 > **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
 > VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
@@ -395,8 +397,42 @@ Topics:   Pull requests (create, review, merge), issues (lifecycle, templates),
           gh CLI (auth, pr, issue, repo, run), GitHub Actions (workflows, CI),
           branch protection, CODEOWNERS, releases, repository management
 Levels:   newbie (basic gh commands) → amateur (PR workflow/conventions) → pro (Actions/automation)
-Related:  /git-vcs (local Git), copilot-customization (Copilot + GitHub)
+Related:  /git-vcs (local Git), /ship (commit/push), /github-push (full shipping workflow)
 Resources: GitHub CLI Manual, GitHub Docs (PRs, Issues, Actions)
+```
+
+#### `/ship` — Commit, Push & PR Suggestion
+
+```yaml
+Inputs:   mode (commit/push/both/pr), hint (optional commit description)
+Agent:    Agent
+Tools:    runCommands, codebase, editFiles
+Example:  /ship → both → "added new vault provider"
+          /ship → pr → (auto-generates commit, pushes, suggests PR)
+Workflow: Pre-flight (lint + build) → stage → commit (Conventional Commits)
+          → push → PR title & description suggestion
+Modes:    commit (stage+commit only) | push (push only) | both (commit+push)
+          | pr (commit+push+detailed PR suggestion)
+Safety:   Never uses --force or --no-verify; explicit staging only
+Related:  /github-push (creates PR via API), /git-vcs (local Git)
+File:     .github/prompts/ship.prompt.md
+```
+
+#### `/github-push` — Full Shipping Workflow with PR Creation
+
+```yaml
+Inputs:   repo (GitHub URL), mode (push/ship/full), hint (optional)
+Agent:    Agent
+Tools:    runCommands, codebase, editFiles, githubPR
+Example:  /github-push → https://github.com/owner/repo/tree/master → full
+          /github-push → https://github.com/owner/repo → push
+Workflow: Parse URL → pre-flight → cohesive split → commit → push
+          → create PR via GitHub API
+Modes:    push (push + create PR) | ship (single commit + push + PR)
+          | full (cohesive commit split + push + PR)
+Safety:   Confirms PR title/description before creation; explicit staging only
+Related:  /ship (commit/push without PR creation), /github-workflow (GitHub learning)
+File:     .github/prompts/github-push.prompt.md
 ```
 
 #### `/atlassian-tools` — Universal Atlassian Handler
