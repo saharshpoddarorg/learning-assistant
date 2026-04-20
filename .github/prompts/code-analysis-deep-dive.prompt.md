@@ -2,7 +2,7 @@
 name: code-analysis-deep-dive
 description: 'Deep-dive into code internals — trace data flow, call stack, code blocks, line-by-line understanding of any class, method, or feature'
 agent: ''
-tools: ['codebase', 'fetch']
+tools: ['codebase', 'fetch', 'editFiles', 'runCommands']
 ---
 
 ## Target
@@ -338,8 +338,26 @@ The cheat sheet references Layer IDs so a developer can drill into any detail.
 
 ### Session Capture — Auto-Save to Brain
 
-After completing the deep-dive analysis, **automatically capture** the full output as
-a session file. This is mandatory — every deep-dive produces a permanent reference doc.
+After completing the deep-dive analysis, you **MUST** capture the full output as
+a session file by **actually creating the file** using the `create_file` tool. This is
+not optional — every deep-dive produces a permanent reference document. Do NOT just
+show the analysis in chat and skip the file creation.
+
+#### Workspace Resolution
+
+The session file must be written to the `brain/ai-brain/sessions/` directory in the
+**workspace where the analysed code lives** — NOT necessarily this (learning-assistant)
+repository. Resolve the brain path as follows:
+
+1. **Identify the workspace root** — the root of the VS Code workspace or git repo
+   containing the target code (check `git rev-parse --show-toplevel` if unsure)
+2. **Find the brain directory** — look for `brain/ai-brain/sessions/` under that
+   workspace root. If it does not exist, create the required directory structure:
+   `brain/ai-brain/sessions/work/code-analysis/deep-dive/`
+3. **Use absolute paths** — when calling `create_file`, always use the full absolute
+   path (e.g., `E:\mgcnoscan\iesd-26\brain\ai-brain\sessions\work\code-analysis\deep-dive\<filename>.md`)
+4. **Environment variable override** — if `BRAIN_PATH` is set, use that instead of
+   the default `brain/ai-brain` relative path
 
 #### Capture Workflow
 
@@ -366,28 +384,42 @@ flowchart TD
 
 #### Step-by-Step Protocol
 
-1. **Get the actual current timestamp** — always query the system clock first:
+1. **Get the actual current timestamp** — run this command in the terminal (do NOT guess):
 
    ```powershell
-   Get-Date -Format "yyyy-MM-dd"          # → 2026-04-20  (frontmatter date)
-   Get-Date -Format "hh-mmtt"             # → 09-21pm     (filename time, lowercase am/pm)
-   Get-Date -Format "hh:mm tt"            # → 09:21 PM    (frontmatter time, uppercase)
+   Get-Date -Format "yyyy-MM-dd_hh-mmtt_hh:mm tt"
    ```
 
-   Never guess or round — use the exact values returned.
+   Parse the output to extract:
+   - `yyyy-MM-dd` → frontmatter `date` field (e.g., `2026-04-20`)
+   - `hh-mmtt` → filename timestamp segment, lowercase (e.g., `09-21pm`)
+   - `hh:mm tt` → frontmatter `time` field, quoted (e.g., `"09:21 PM"`)
 
-2. **Determine the domain** from the code being analysed:
-   - Code in this repo or any work project → `work`
+   **You MUST run this command.** Never guess, round, or use a placeholder.
+
+2. **Resolve the workspace root** — identify where the analysed code lives:
+
+   ```powershell
+   git rev-parse --show-toplevel
+   ```
+
+   This gives you the workspace root (e.g., `E:/mgcnoscan/iesd-26`). The brain
+   session path is `<workspace-root>/brain/ai-brain/sessions/`.
+
+3. **Determine the domain** from the code being analysed:
+   - Code in a work project → `work`
    - Code in a personal/side project → `personal`
 
-3. **Build the file path** — deep-dive sessions go to a **permanent `deep-dive/` sub-folder**
-   (not subject to de-escalation):
-   - Work: `brain/ai-brain/sessions/work/code-analysis/deep-dive/`
-   - Personal: `brain/ai-brain/sessions/personal/software-dev/code-review/deep-dive/`
-   - If a class sub-package already exists (e.g., `deep-dive/order-service/`), place the
-     file inside it
+4. **Build the absolute file path** — deep-dive sessions go to a **permanent
+   `deep-dive/` sub-folder** (not subject to de-escalation):
+   - Work: `<workspace-root>/brain/ai-brain/sessions/work/code-analysis/deep-dive/`
+   - Personal: `<workspace-root>/brain/ai-brain/sessions/personal/software-dev/code-review/deep-dive/`
+   - If a class sub-package already exists (e.g., `deep-dive/order-service/`), place
+     the file inside it
+   - **If the directory does not exist, create it** (the `create_file` tool creates
+     parent directories automatically)
 
-4. **Build the filename** following the naming convention. Files inside `deep-dive/`
+5. **Build the filename** following the naming convention. Files inside `deep-dive/`
    carry rich descriptive metadata because the category is implied by the folder path:
 
    ```text
@@ -425,12 +457,12 @@ flowchart TD
    | `OrderService.validateOrder` | `2026-04-20_03-45pm_validate-order-flow.md` |
    | `OrderService` class overview | `2026-04-20_11-00am_overview-onboarding.md` |
 
-5. **Check for existing versions** — before writing, check if a file with the same
-   class+method subject already exists in the target folder:
+6. **Check for existing versions** — list the target directory to check if a file
+   with the same class+method subject already exists:
    - If found → create a versioned continuation: append `_v2`, `_v3`, etc.
    - Set `version: 2` and `parent: <original-filename>` in frontmatter
 
-6. **Read and populate the template** from
+7. **Build the file content** using the template structure from
    `brain/ai-brain/sessions/_templates/code-analysis-deep-dive-capture.md`:
 
    **Frontmatter** — fill every field:
@@ -471,23 +503,30 @@ flowchart TD
    Every layer must contain real, substantive content — not placeholder text.
    Layer 4 (Code Block Breakdown) must reconstruct the full method across all blocks.
 
-7. **Write the file** to the path from step 3.
+8. **WRITE THE FILE** — use the `create_file` tool with the **absolute path** from
+   step 4 + filename from step 5. The file content is the frontmatter + all 9 layers.
+   This step is **mandatory** — do NOT skip it or defer it.
 
-8. **Check escalation** — count session files in the target folder:
+   Example path: `E:\mgcnoscan\iesd-26\brain\ai-brain\sessions\work\code-analysis\deep-dive\2026-04-20_09-21pm_order-service-calculate-total.md`
+
+9. **Check escalation** — count session files in the target folder:
    - If **3+ files** share the same class prefix (e.g., `order-service-*`), create a
      class sub-package per Pattern 3a in chat-capture instructions
    - Move matching files into `<class-kebab>/` and truncate their names
      (drop class prefix — implied by folder)
    - If **2 files** and a multi-part deep-dive is planned, apply early escalation
 
-9. **Append to SESSION-LOG.md** — add a row to `brain/ai-brain/sessions/SESSION-LOG.md`:
+10. **Append to SESSION-LOG.md** — use `replace_string_in_file` or `editFiles` to
+    append a row to `<workspace-root>/brain/ai-brain/sessions/SESSION-LOG.md`
+    (create the file with headers if it doesn't exist):
 
    ```markdown
    | 2026-04-20 | 09:21 PM | work | code-analysis | order-service-calculate-total | v1 | high | draft | [View](work/code-analysis/deep-dive/2026-04-20_09-21pm_order-service-calculate-total.md) |
    ```
 
-10. **Append to CAPTURE-LOG.md** — log the capture operation in
-    `brain/ai-brain/sessions/CAPTURE-LOG.md` (create the file if it doesn't exist):
+11. **Append to CAPTURE-LOG.md** — log the capture operation in
+    `<workspace-root>/brain/ai-brain/sessions/CAPTURE-LOG.md`
+    (create the file with headers if it doesn't exist):
 
     ```markdown
     | 2026-04-20 | 09:21 PM | capture | Deep-dive: OrderService.calculateTotal (method, all) → work/code-analysis/deep-dive/ | 1 file created |
@@ -499,7 +538,8 @@ flowchart TD
     | 2026-04-20 | 09:22 PM | escalation:pattern-3a | Created order-service/ sub-package in deep-dive/ (3+ class files) | N files moved |
     ```
 
-11. **Report** — tell the user: "Deep-dive captured to `sessions/<path>`"
+12. **Report** — tell the user: "Deep-dive captured to `<absolute-path>`"
+    Include the full path so the user can open the file directly.
 
 #### Content Quality Rules
 

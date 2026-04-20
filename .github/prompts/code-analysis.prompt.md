@@ -2,7 +2,7 @@
 name: code-analysis
 description: 'Analyse code for structure, patterns, smells, and improvements — with auto session capture'
 agent: ''
-tools: ['codebase', 'fetch']
+tools: ['codebase', 'fetch', 'editFiles', 'runCommands']
 ---
 
 ## Target
@@ -126,27 +126,41 @@ flowchart TD
 
 #### Step-by-Step Protocol
 
-1. **Get the actual current timestamp** — always query the system clock first:
+1. **Get the actual current timestamp** — run this command in the terminal (do NOT guess):
 
    ```powershell
-   Get-Date -Format "yyyy-MM-dd"          # → 2026-04-20  (frontmatter date)
-   Get-Date -Format "hh-mmtt"             # → 09-21pm     (filename time, lowercase am/pm)
-   Get-Date -Format "hh:mm tt"            # → 09:21 PM    (frontmatter time, uppercase)
+   Get-Date -Format "yyyy-MM-dd_hh-mmtt_hh:mm tt"
    ```
 
-   Never guess or round — use the exact values returned.
+   Parse the output to extract:
+   - `yyyy-MM-dd` → frontmatter `date` field (e.g., `2026-04-20`)
+   - `hh-mmtt` → filename timestamp segment, lowercase (e.g., `09-21pm`)
+   - `hh:mm tt` → frontmatter `time` field, quoted (e.g., `"09:21 PM"`)
 
-2. **Determine the domain** from the code being analysed:
-   - Code in this repo or any work project → `work`
+   **You MUST run this command.** Never guess, round, or use a placeholder.
+
+2. **Resolve the workspace root** — identify where the analysed code lives:
+
+   ```powershell
+   git rev-parse --show-toplevel
+   ```
+
+   This gives you the workspace root (e.g., `E:/mgcnoscan/iesd-26`). The brain
+   session path is `<workspace-root>/brain/ai-brain/sessions/`.
+
+3. **Determine the domain** from the code being analysed:
+   - Code in a work project → `work`
    - Code in a personal/side project → `personal`
 
-3. **Build the file path:**
-   - Work: `brain/ai-brain/sessions/work/code-analysis/`
-   - Personal: `brain/ai-brain/sessions/personal/software-dev/code-review/`
+4. **Build the absolute file path:**
+   - Work: `<workspace-root>/brain/ai-brain/sessions/work/code-analysis/`
+   - Personal: `<workspace-root>/brain/ai-brain/sessions/personal/software-dev/code-review/`
    - If a class sub-package already exists (e.g., `code-analysis/order-service/`),
      place the file inside it
+   - **If the directory does not exist, create it** (the `create_file` tool creates
+     parent directories automatically)
 
-4. **Build the filename** following the naming convention. Files at the top level of
+5. **Build the filename** following the naming convention. Files at the top level of
    `code-analysis/` include the category prefix; files inside sub-packages drop it:
 
    ```text
@@ -184,12 +198,12 @@ flowchart TD
    | `OrderService.validateOrder` | `2026-04-20_03-45pm_validate-order.md` |
    | `OrderService` overview | `2026-04-20_11-00am_overview-refactor.md` |
 
-5. **Check for existing versions** — before writing, check if a file with the same
-   class+method subject already exists in the target folder:
+6. **Check for existing versions** — list the target directory to check if a file
+   with the same class+method subject already exists:
    - If found → create a versioned continuation: append `_v2`, `_v3`, etc.
    - Set `version: 2` and `parent: <original-filename>` in frontmatter
 
-6. **Read and populate the template** from
+7. **Build the file content** using the template structure from
    `brain/ai-brain/sessions/_templates/code-analysis-capture.md`:
 
    **Frontmatter** — fill every field:
@@ -227,23 +241,30 @@ flowchart TD
    Proposed Changes), Key Outcomes, Follow-Up, and Session Metadata from the analysis
    output above. Every section must contain real, substantive content.
 
-7. **Write the file** to the path from step 3.
+8. **WRITE THE FILE** — use the `create_file` tool with the **absolute path** from
+   step 4 + filename from step 5. The file content is the frontmatter + all sections.
+   This step is **mandatory** — do NOT skip it or defer it.
 
-8. **Check escalation** — count session files in the target folder (excluding deep-dive/):
+   Example path: `E:\mgcnoscan\iesd-26\brain\ai-brain\sessions\work\code-analysis\2026-04-20_09-21pm_code-analysis_order-service-calculate-total-review.md`
+
+9. **Check escalation** — count session files in the target folder (excluding deep-dive/):
    - If **3+ files** share the same class prefix (e.g., `code-analysis_order-service-*`),
      create a class sub-package per Pattern 3a in chat-capture instructions
    - Move matching files into `<class-kebab>/` and truncate names (drop
      `code-analysis_<class-kebab>-` prefix — implied by folder path)
    - If **2 files** and more analysis is planned, consider early escalation
 
-9. **Append to SESSION-LOG.md** — add a row to `brain/ai-brain/sessions/SESSION-LOG.md`:
+10. **Append to SESSION-LOG.md** — use `replace_string_in_file` or `editFiles` to
+    append a row to `<workspace-root>/brain/ai-brain/sessions/SESSION-LOG.md`
+    (create the file with headers if it doesn't exist):
 
    ```markdown
    | 2026-04-20 | 09:21 PM | work | code-analysis | order-service-calculate-total-review | v1 | medium | draft | [View](work/code-analysis/2026-04-20_09-21pm_code-analysis_order-service-calculate-total-review.md) |
    ```
 
-10. **Append to CAPTURE-LOG.md** — log the capture operation in
-    `brain/ai-brain/sessions/CAPTURE-LOG.md` (create if it doesn't exist):
+11. **Append to CAPTURE-LOG.md** — log the capture operation in
+    `<workspace-root>/brain/ai-brain/sessions/CAPTURE-LOG.md`
+    (create the file with headers if it doesn't exist):
 
     ```markdown
     | 2026-04-20 | 09:21 PM | capture | Code analysis: OrderService.calculateTotal (review, thorough) → work/code-analysis/ | 1 file created |
@@ -255,7 +276,8 @@ flowchart TD
     | 2026-04-20 | 09:22 PM | escalation:pattern-3a | Created order-service/ sub-package (3+ class files) | N files moved |
     ```
 
-11. **Report** — tell the user: "Analysis captured to `sessions/<path>`"
+12. **Report** — tell the user: "Analysis captured to `<absolute-path>`"
+    Include the full path so the user can open the file directly.
 
 #### Content Quality Rules
 
