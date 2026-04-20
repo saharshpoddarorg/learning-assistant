@@ -155,16 +155,19 @@ mcp-servers/user-config/servers/**/credentials/*.properties
 mcp-servers/build.env.local
 
 # =============================================================================
-# Brain workspace (brain/ directory) -- personal knowledge management
+# Brain workspace (brain/ai-brain/) -- personal knowledge management
 # =============================================================================
-# brain/inbox/   -- session-scoped throwaway (never committed)
-# brain/notes/   -- curated session notes, committed to the repo (tracked git)
-# brain/library/ -- permanent reference library, committed to the repo (tracked git)
+# The brain workspace is technology-neutral (markdown + shell scripts only).
+# In this repo it lives inside a Java module (brain/), but when exported it
+# can live anywhere and does NOT need to be a Java module.
 #
-# Tier tracking:
-#   inbox/   → GITIGNORED  (raw captures, cleared per session)
-#   notes/   → TRACKED     (reviewed, permanent developer knowledge)
-#   library/ → TRACKED     (formally published with tags + git commit)
+# Six-tier tracking:
+#   inbox/    → GITIGNORED  (raw captures, cleared per session)
+#   notes/    → TRACKED     (reviewed, permanent developer knowledge)
+#   library/  → TRACKED     (formally published with tags + git commit)
+#   sessions/ → TRACKED     (captured AI conversations — research, analysis)
+#   backlog/  → TRACKED     (todos, ideas, features, brainstorming — kanban board)
+#   pkm/      → TRACKED     (capture sources, access policy, sensitivity)
 #
 # CONFIGURABLE PATH: If you moved the brain workspace to a different location
 # (e.g., "knowledge/workspace"), update the inbox pattern below accordingly.

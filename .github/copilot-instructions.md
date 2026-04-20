@@ -76,16 +76,23 @@ When uncertain about the right approach:
 ```text
 learning-assistant/
 ├── .github/              ← Copilot customization files (you're learning this!)
-├── brain/                ← Brain Java module
+├── brain/                ← Brain module (Java code + knowledge workspace)
 │   ├── src/              ← Java entry point + digitalnotetaking package
-│   └── ai-brain/         ← Personal knowledge workspace (inbox, notes, library, sessions, backlog, pkm)
+│   ├── ai-brain/         ← Personal knowledge workspace (inbox, notes, library, sessions, backlog, pkm)
+│   └── digitalnotetaking/ ← PKM guides and knowledge hub
 ├── mac-os/               ← macOS dev environment learning module
 │   └── docs/             ← Homebrew, JDK, npm, IDEs, Docker, dotfiles guides
-├── mcp-servers/          ← MCP servers (Java)
+├── mcp-servers/          ← MCP servers (Java) — Learning Resources + Atlassian
+├── search-engine/        ← Search engine learning module
 ├── src/
 │   └── Main.java         ← Entry point
 └── .gitignore
 ```
+
+> **Module note:** The `brain/` directory is a Java module (`brain.iml`) that contains
+> both Java source code (`src/digitalnotetaking/`) AND the knowledge workspace
+> (`ai-brain/`). The Java code models note metadata; the workspace holds actual notes.
+> When exporting, you typically copy only `ai-brain/` — not the Java code.
 
 ## Configurable Paths
 
