@@ -143,24 +143,46 @@ flowchart TD
 3. **Build the file path:**
    - Work: `brain/ai-brain/sessions/work/code-analysis/`
    - Personal: `brain/ai-brain/sessions/personal/software-dev/code-review/`
+   - If a class sub-package already exists (e.g., `code-analysis/order-service/`),
+     place the file inside it
 
-4. **Build the filename** following the naming convention:
+4. **Build the filename** following the naming convention. Files at the top level of
+   `code-analysis/` include the category prefix; files inside sub-packages drop it:
 
    ```text
-   # Standard naming (flat — includes category prefix)
-   <date>_<time>_code-analysis_<class-kebab>-<method-kebab>.md
+   # At top level (flat — includes category prefix)
+   <date>_<time>_code-analysis_<subject-slug>.md
 
-   Examples:
-     2026-04-20_09-21pm_code-analysis_order-service-calculate-total.md
-     2026-04-20_03-45pm_code-analysis_payment-gateway-overview.md
+   Subject slug composition (order matters — most identifying first):
+     <class-kebab>-<method-kebab>[-<goal>]
 
-   # If already inside a class sub-package — drop category + class prefix
-   <date>_<time>_<method-kebab>.md
+   Segment reference:
+     <class-kebab>   — mandatory: kebab-case class name (OrderService → order-service)
+     <method-kebab>  — optional: kebab-case method name (calculateTotal → calculate-total)
+                       omit for class-level, use "overview" instead
+     <goal>          — optional: what goal was used (review / refactor / patterns)
+                       omit when goal = understand (the default)
+
+   # Inside a class sub-package (drop category + class prefix — both implied)
+   <date>_<time>_<method-kebab>[-<goal>].md
    ```
 
-   - **Kebab-case** the class and method names: `OrderService` → `order-service`
-   - **3-8 words** for the subject — most specific first
-   - For class-level analysis, use `<class-kebab>-overview` as the subject
+   **Filename examples:**
+
+   | Level | Target | Goal | Flat Filename |
+   |---|---|---|---|
+   | method | `OrderService.calculateTotal` | review | `2026-04-20_09-21pm_code-analysis_order-service-calculate-total-review.md` |
+   | method | `PaymentGateway.charge` | understand | `2026-04-20_03-45pm_code-analysis_payment-gateway-charge.md` |
+   | class | `OrderService` | refactor | `2026-04-20_11-00am_code-analysis_order-service-overview-refactor.md` |
+   | class | `ConfigLoader` | patterns | `2026-04-20_02-30pm_code-analysis_config-loader-overview-patterns.md` |
+
+   **Inside a class sub-package** (`code-analysis/order-service/`):
+
+   | Target | Filename (no category + class prefix) |
+   |---|---|
+   | `OrderService.calculateTotal` review | `2026-04-20_09-21pm_calculate-total-review.md` |
+   | `OrderService.validateOrder` | `2026-04-20_03-45pm_validate-order.md` |
+   | `OrderService` overview | `2026-04-20_11-00am_overview-refactor.md` |
 
 5. **Check for existing versions** — before writing, check if a file with the same
    class+method subject already exists in the target folder:
@@ -179,12 +201,12 @@ flowchart TD
    domain: work
    category: code-analysis
    project: learning-assistant
-   subject: order-service-calculate-total
-   tags: [project:learning-assistant, code-analysis, java, order-service]
+   subject: order-service-calculate-total-review
+   tags: [project:learning-assistant, code-analysis, review, java, order-service]
    status: draft
    version: 1
    parent: null
-   complexity: medium                    # or high for thorough/large analysis
+   complexity: medium
    outcomes:
      - "Identified 3 code smells in calculateTotal (long method, feature envy, magic number)"
      - "Proposed extract-method refactoring for discount logic"
@@ -203,7 +225,7 @@ flowchart TD
 
    **Body** — populate Target Code, Intent & Purpose, Analysis (Structure + Findings +
    Proposed Changes), Key Outcomes, Follow-Up, and Session Metadata from the analysis
-   output above. Every section must contain real content.
+   output above. Every section must contain real, substantive content.
 
 7. **Write the file** to the path from step 3.
 
@@ -217,14 +239,14 @@ flowchart TD
 9. **Append to SESSION-LOG.md** — add a row to `brain/ai-brain/sessions/SESSION-LOG.md`:
 
    ```markdown
-   | 2026-04-20 | 09:21 PM | work | code-analysis | order-service-calculate-total | v1 | medium | draft | [View](work/code-analysis/2026-04-20_09-21pm_code-analysis_order-service-calculate-total.md) |
+   | 2026-04-20 | 09:21 PM | work | code-analysis | order-service-calculate-total-review | v1 | medium | draft | [View](work/code-analysis/2026-04-20_09-21pm_code-analysis_order-service-calculate-total-review.md) |
    ```
 
 10. **Append to CAPTURE-LOG.md** — log the capture operation in
     `brain/ai-brain/sessions/CAPTURE-LOG.md` (create if it doesn't exist):
 
     ```markdown
-    | 2026-04-20 | 09:21 PM | capture | Code analysis: OrderService.calculateTotal → work/code-analysis/ | 1 file created |
+    | 2026-04-20 | 09:21 PM | capture | Code analysis: OrderService.calculateTotal (review, thorough) → work/code-analysis/ | 1 file created |
     ```
 
     If escalation was triggered, log separately:

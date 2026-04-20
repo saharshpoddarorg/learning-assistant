@@ -25,97 +25,252 @@ ${input:context:Why are you deep-diving? (onboarding / pre-refactoring / code-re
 
 Perform a **code analysis deep-dive** on the target code. The goal is complete
 understanding — not finding bugs or proposing refactoring (though note them if obvious).
+The output must be a **developer reference document** — someone reading it should
+fully understand the code without ever opening the source file.
 
 Work through these 9 layers systematically. Skip layers that don't apply to the scope.
 
-### Layer 1 — High-Level Overview
+### Layer 1 — High-Level Overview (30-Second Understanding)
 
-- **Purpose:** What does this code do? One-sentence responsibility statement
-- **Architecture role:** Where it sits (layer, module, domain boundary)
-- **Design pattern:** What pattern it implements (Service, Repository, Strategy, etc.)
-- **Entry points:** Who calls this code and when?
-- **One-paragraph summary** for someone who has never seen this code
+This section must give a developer the complete picture in under 30 seconds.
 
-### Layer 2 — Data Flow
+- **One-sentence purpose:** What does this code do? (answer in business terms, not code)
+- **Responsibility boundary:** What this code is responsible for — and what it is NOT
+- **Architecture role:** Which layer/module it belongs to (controller → service → repository → infrastructure)
+- **Design pattern:** What pattern it implements (Service, Repository, Strategy, Factory, Template Method, Observer, etc.)
+- **Entry points and triggers:** Who calls this code? What event/request/schedule triggers it?
+- **Collaborators:** What other classes/services does it work with? (just names and roles)
+- **One-paragraph narrative:** Write a natural-language paragraph explaining what happens when this code runs,
+  as if describing it to a developer who just joined the team. Include the "why" — why does this code exist
+  in the system, what business problem does it solve?
 
-Trace data from **inputs → transformations → outputs**:
+### Layer 2 — Data Flow (Input → Transformation → Output)
 
-- List all inputs (parameters, injected dependencies, global state read)
-- Show each transformation step with types
-- List all outputs (return values, side-effects, state mutations, events emitted)
-- Draw a simple flow: `Input A → transform → intermediate → transform → Output B`
+Trace data through the entire execution path:
+
+**Inputs — What enters this code:**
+
+| Parameter / Source | Type | Origin | Description |
+|---|---|---|---|
+| `paramName` | `Type` | caller / DI / config / DB | What this data represents in business terms |
+
+**Transformation pipeline — What happens to the data:**
+
+Number each transformation step. For each step, show the before-type, transformation
+logic, and after-type. Use an ASCII flow diagram to make it visual:
+
+```text
+Input: Order(items, customer, discount)
+  │
+  ├─ Step 1: Validate → throws InvalidOrderException if items empty
+  ├─ Step 2: Calculate subtotal → sum(item.price × item.qty) → BigDecimal
+  ├─ Step 3: Apply discount → subtotal × (1 - discount.rate) → BigDecimal
+  ├─ Step 4: Calculate tax → discounted × taxRate → BigDecimal
+  ├─ Step 5: Build receipt → Receipt(subtotal, discount, tax, total)
+  │
+  Output: Receipt with all line items and totals
+```
+
+**Outputs — What leaves this code:**
+
+| Return / Side-Effect | Type | Consumer | Description |
+|---|---|---|---|
+| Return value | `Type` | Caller class | What the caller uses this for |
+| Side-effect | DB write / event / cache | Downstream system | What changes in the world |
 
 ### Layer 3 — Call Stack / Method Flow
 
-Map the method call chain:
+Map the complete execution flow as an indented call tree:
 
-- Show the complete call tree with indentation (who calls what)
-- For each call: caller, callee, purpose, return type
-- Highlight recursive calls, callbacks, or async boundaries
-- Note any external service calls (DB, HTTP, file I/O)
+```text
+→ EntryPoint.publicMethod(args)
+    → this.validateInput(args)
+        → Validator.check(args)           // returns boolean
+    → this.processCore(validatedArgs)
+        → dependency.fetchData(id)        // DB call — latency point
+        → this.transform(raw)             // pure logic — no side-effects
+        → dependency.save(result)         // DB call — write
+    → this.notifyListeners(result)
+        → EventBus.publish(event)         // async — fire-and-forget
+```
 
-### Layer 4 — Code Block Breakdown
+For each call in the tree, provide a detail row:
 
-Split the code into **functional blocks by cohesion**:
+| # | Caller → Callee | Purpose | Returns | Side-Effects | Notes |
+|---|---|---|---|---|---|
+| 1 | `Controller.handle` → `Service.process` | Entry from HTTP layer | `ResponseDTO` | None | Wraps in try-catch for HTTP errors |
+| 2 | `Service.process` → `Repo.findById` | Fetch entity from DB | `Optional<Entity>` | DB read | Can return empty → 404 |
 
-- Each block: name, line range, purpose, why it exists
-- Show the actual code for each block
-- Explain how blocks connect — what data flows between them
-- Aim for 3-8 blocks per method (break on logical boundaries, not arbitrary line counts)
+Annotate: recursive calls (⟳), async boundaries (⚡), external I/O (🔌), pure logic (✦).
 
-### Layer 5 — Line-by-Line Walkthrough
+### Layer 4 — Code Block Breakdown (The Core of the Deep-Dive)
 
-For **key logic lines** (skip boilerplate):
+This is the **most valuable layer**. Split the code into **cohesive functional blocks**
+based on what each section of code is doing logically. This is NOT about extracting
+methods or proposing refactoring — it's about grouping lines that work together to
+accomplish one logical step, so a developer can understand the code piece by piece.
 
-- What the line does
-- Why it does it that way
-- What would change if this line were different
-- Flag any subtle behaviour (implicit conversions, short-circuit evaluation, side-effects)
+**For each block:**
+
+1. **Block name** — a descriptive, intention-revealing label (e.g., "Input Validation Guard",
+   "Price Calculation Pipeline", "Error Recovery and Cleanup")
+2. **Line range** — exact lines in the source file (e.g., L42-58)
+3. **The actual code** — paste the real code in a fenced block (with language tag)
+4. **What it does** — plain-English explanation of the block's purpose and mechanics.
+   Explain the "what" and the "why" — not just restating the code in words
+5. **How it connects** — what data this block receives from the previous block, and what
+   it produces/passes to the next block. Show the data bridge between blocks
+6. **Key decisions** — if the block contains conditionals, loops, or branching, explain
+   the decision logic and what each branch means in business terms
+7. **Gotchas** — any subtle behaviour, implicit assumptions, or non-obvious side-effects
+
+**Block splitting rules:**
+
+- Split on **logical boundaries**, not arbitrary line counts — each block should do
+  exactly one conceptual thing (validate, transform, persist, notify, etc.)
+- Aim for **3-8 blocks per method** — fewer for simple methods, more for complex ones
+- A block can be 1 line (if it's a critical decision) or 20 lines (if they're cohesive)
+- **Overlap is allowed** — if a line serves as both the end of one block and the
+  beginning of another (e.g., a return value that's also a state change), include it
+  in both blocks and annotate the dual role
+- **Don't skip code** — every line of the method must appear in at least one block.
+  The blocks together should reconstruct the full method
+- **Name blocks by intent**, not by implementation — "Customer Eligibility Check" not
+  "If-statement on line 42"
+
+**Block template:**
+
+```text
+### Block N — <Intent-Revealing Name> (L42-58)
+```
+
+````java
+// paste the actual source code for this block
+````
+
+```text
+**What it does:** [plain-English explanation — what business/technical step this accomplishes]
+
+**Data bridge:**
+  ← Receives: [what data/state this block gets from the previous block]
+  → Produces: [what data/state this block passes to the next block]
+
+**Key decisions:** [explain any branching, conditionals, or early returns]
+
+**Gotchas:** [subtle behaviour, edge cases, implicit assumptions]
+```
+
+### Layer 5 — Line-by-Line Walkthrough (Key Logic Only)
+
+For **decision-making lines, algorithm steps, and non-obvious behaviour** — skip
+boilerplate (imports, standard getters/setters, simple assignments, logging statements).
+
+For each key line:
+
+| Line | Code | What It Does | Why This Way | What If Different |
+|---|---|---|---|---|
+| 42 | `if (order.isValid())` | Guards against invalid orders | Delegates validation to Order — SRP | If removed: NPE on null items at L47 |
+| 47 | `var total = items.stream().mapToDouble(...)` | Calculates subtotal via stream | Functional style — immutable intermediate | Could use for-loop but less readable |
+| 51 | `total = applyDiscount(total, discount)` | Applies percentage discount | Mutates local — discount is multiplicative | If additive: different rounding behaviour |
+
+Focus on lines where **the developer's understanding would break** if they skipped it.
 
 ### Layer 6 — State Changes
 
-Track how state evolves through execution:
+Track every mutation through execution:
 
-- Local variable mutations (before → after → why)
-- Field/instance state changes
-- External state changes (DB writes, cache invalidation, event publication)
-- Thread-safety implications of state changes
+**Local variable lifecycle:**
+
+| Variable | Declared At | Mutated At | Before → After | Why |
+|---|---|---|---|---|
+| `total` | L45 | L47, L51, L55 | `0.0` → `100.0` → `90.0` → `99.0` | Accumulates: subtotal → discounted → taxed |
+
+**Instance/field state changes:**
+
+| Field | Changed At | Before → After | Scope of Impact |
+|---|---|---|---|
+| `this.lastProcessedId` | L60 | `null` → `"ORD-123"` | Affects subsequent calls — not thread-safe |
+
+**External state changes (side-effects leaving this code):**
+
+| What Changes | Where | When | Reversible? |
+|---|---|---|---|
+| DB row updated | `orders` table | L62 | Yes (within transaction) |
+| Event published | Message queue | L65 | No — consumers may have already processed |
 
 ### Layer 7 — Edge Cases & Error Paths
 
-Enumerate what can go wrong:
+Enumerate every way this code can fail or behave unexpectedly:
 
-- Null/empty inputs
-- Boundary conditions (zero, max, overflow)
-- Exception paths (what's caught, what propagates)
-- Concurrency issues (race conditions, deadlocks)
-- Missing validation
+| # | Scenario | Input / Condition | What Happens | Handled? | Impact |
+|---|---|---|---|---|---|
+| 1 | Null input | `order == null` | NPE at L42 | ❌ No null-check | Caller gets 500 |
+| 2 | Empty items list | `order.getItems().isEmpty()` | Returns `0.0` total | ✅ Stream returns identity | Technically correct but may confuse caller |
+| 3 | Negative discount | `discount > 1.0` | Negative total | ❌ Not validated | Incorrect billing |
+| 4 | Concurrent modification | Two threads, same order | Race condition on `lastProcessedId` | ❌ Not synchronised | Data corruption |
+| 5 | DB connection failure | Network issue at L62 | `SQLException` propagates | ✅ Caught in caller | Transaction rolls back |
 
 ### Layer 8 — Dependencies & Coupling
 
-Map the dependency graph:
+**Outgoing dependencies (what this code needs):**
 
-- **Outgoing:** what this code depends on (interfaces vs concrete, loose vs tight)
-- **Incoming:** what depends on this code (callers, consumers)
-- Coupling assessment: is this code easy to change in isolation?
+| Dependency | Type | Interface or Concrete? | Coupling | Testability Impact |
+|---|---|---|---|---|
+| `OrderRepository` | Injected | Interface | Loose | Easy to mock |
+| `DiscountService` | Injected | Concrete class | Tight | Must mock concrete — fragile |
+| `TaxCalculator` | Static call | Static method | Very tight | Cannot mock without PowerMock |
 
-### Layer 9 — Key Takeaways
+**Incoming dependencies (what needs this code):**
 
-Summarise for future reference:
+| Dependent | How It Uses This Code | Frequency | Breakage Risk |
+|---|---|---|---|
+| `OrderController` | Calls `processOrder()` | Per HTTP request | High — controller has no fallback |
+| `BatchProcessor` | Calls in loop | Scheduled nightly | Medium — has retry logic |
 
-- 3-5 bullet points capturing the essential understanding
-- Any surprises or non-obvious behaviour
-- Suggestions for further investigation (related classes, upstream/downstream)
+**Coupling verdict:** How easy is it to change this code without breaking callers?
+Rate as: isolated / manageable / tangled / dangerous.
+
+### Layer 9 — Key Takeaways & Developer Cheat Sheet
+
+Summarise everything for quick future reference:
+
+**In 5 bullet points:**
+
+- What this code does (one sentence)
+- The most important design decision and why
+- The biggest risk/edge case to watch for
+- The key dependency to understand
+- What to deep-dive next if you want to go deeper
+
+**Developer cheat sheet** (copy-pasteable quick-reference):
+
+```text
+Purpose:     <one-liner>
+Entry:       <who calls it, when>
+Happy path:  <input → step → step → output>
+Error path:  <what fails → what happens>
+Thread-safe: yes / no / partially
+Testable:    easy / moderate / hard — because <reason>
+```
 
 ### Output Rules
 
 - **Scope-adaptive:** For `method` scope, all 9 layers apply. For `class`, emphasize
-  Layers 1-3 and 8. For `feature`, emphasize Layers 1-3 and show cross-class flow
-- **Code-first:** Show actual code blocks, not just descriptions
+  Layers 1-4 and 8 (show blocks per method, skip line-by-line). For `feature`,
+  emphasize Layers 1-3 and show cross-class flow with a feature-level block breakdown
+- **Code-first:** Always show actual source code in fenced blocks — never describe code
+  without showing it. A developer should be able to read ONLY this document and
+  reconstruct the mental model of the code completely
 - **Type-precise:** Always include types in data flow and call stack tables
-- **Honest:** If something is unclear or looks like a bug, say so
-- Use the `code-analysis-deep-dive-capture.md` session template for capture
-- If the target method is > 50 lines, the Code Block Breakdown (Layer 4) is mandatory
+- **Honest:** If something is unclear, surprising, or looks like a bug, say so directly
+- **No refactoring in the analysis** — the block breakdown shows logical groupings
+  for understanding. If you see an extract-method opportunity, note it in Layer 9
+  takeaways, but do NOT reorganise the code in the analysis itself
+- **Completeness over brevity** — every line of the target code must appear in at least
+  one block in Layer 4. No gaps. The blocks together reconstruct the full method
+- If the target method is > 50 lines, Layer 4 (Code Block Breakdown) is mandatory
+- If the target class has > 5 public methods, provide a Layer 4 breakdown for EACH
+  significant method (skip trivial getters/setters/toString)
 - End with one "what to deep-dive next" recommendation
 
 ### Session Capture — Auto-Save to Brain
@@ -166,21 +321,46 @@ flowchart TD
    (not subject to de-escalation):
    - Work: `brain/ai-brain/sessions/work/code-analysis/deep-dive/`
    - Personal: `brain/ai-brain/sessions/personal/software-dev/code-review/deep-dive/`
+   - If a class sub-package already exists (e.g., `deep-dive/order-service/`), place the
+     file inside it
 
-4. **Build the filename** following the naming convention:
+4. **Build the filename** following the naming convention. Files inside `deep-dive/`
+   carry rich descriptive metadata because the category is implied by the folder path:
 
    ```text
-   # Inside deep-dive/ — drop the category prefix (implied by parent folders)
-   <date>_<time>_<class-kebab>-<method-kebab>.md
+   # Naming formula for deep-dive/ (no category prefix — implied by folder)
+   <date>_<time>_<subject-slug>.md
 
-   Examples:
-     2026-04-20_09-21pm_order-service-calculate-total.md
-     2026-04-20_03-45pm_payment-gateway-overview.md       (class-level, no method)
+   Subject slug composition (order matters — most identifying first):
+     <class-kebab>-<method-kebab>[-<focus>][-<context>]
+
+   Segment reference:
+     <class-kebab>   — mandatory: kebab-case class name (OrderService → order-service)
+     <method-kebab>  — optional: kebab-case method name (calculateTotal → calculate-total)
+                       omit for class-level, use "overview" instead
+     <focus>         — optional: what aspect was emphasised (internals / flow / state)
+                       omit when focus = all (the default)
+     <context>       — optional: why the deep-dive was done (onboarding / pre-refactoring)
+                       omit when context is general learning
    ```
 
-   - **Kebab-case** the class and method names: `OrderService` → `order-service`
-   - **3-8 words** for the subject — most specific first
-   - For class-level deep-dives, use `<class-kebab>-overview.md`
+   **Filename examples by scope:**
+
+   | Scope | Target | Focus | Context | Filename |
+   |---|---|---|---|---|
+   | method | `OrderService.calculateTotal` | all | — | `2026-04-20_09-21pm_order-service-calculate-total.md` |
+   | method | `PaymentGateway.charge` | flow | debugging | `2026-04-20_03-45pm_payment-gateway-charge-flow-debugging.md` |
+   | class | `OrderService` | all | onboarding | `2026-04-20_11-00am_order-service-overview-onboarding.md` |
+   | class | `ConfigLoader` | internals | — | `2026-04-20_02-30pm_config-loader-overview-internals.md` |
+   | feature | checkout flow | flow | — | `2026-04-20_04-00pm_checkout-flow.md` |
+
+   **Inside a class sub-package** (`deep-dive/order-service/`):
+
+   | Target | Filename (no class prefix — implied by folder) |
+   |---|---|
+   | `OrderService.calculateTotal` | `2026-04-20_09-21pm_calculate-total.md` |
+   | `OrderService.validateOrder` | `2026-04-20_03-45pm_validate-order-flow.md` |
+   | `OrderService` class overview | `2026-04-20_11-00am_overview-onboarding.md` |
 
 5. **Check for existing versions** — before writing, check if a file with the same
    class+method subject already exists in the target folder:
@@ -198,19 +378,19 @@ flowchart TD
    kind: session-capture
    domain: work
    category: code-analysis
-   project: learning-assistant          # kebab-case project name
-   subject: order-service-calculate-total  # matches filename subject
+   project: learning-assistant
+   subject: order-service-calculate-total
    tags: [project:learning-assistant, deep-dive, code-analysis, java, order-service]
    status: draft
    version: 1
    parent: null
-   complexity: high                     # deep-dives are always high
+   complexity: high
    outcomes:
-     - "Mapped data flow for calculateTotal: price × quantity → discount → tax → total"
+     - "Mapped data flow: price × quantity → discount → tax → total"
      - "Identified missing null-check on discount parameter"
    source: copilot
-   scope: project                       # or global/feature as appropriate
-   scope-project: learning-assistant    # required when scope = project or feature
+   scope: project
+   scope-project: learning-assistant
    scope-feature: null
    scope-transitions: []
    scope-refs: []
@@ -225,7 +405,8 @@ flowchart TD
    ```
 
    **Body** — populate ALL 9 layers from the deep-dive analysis output above.
-   Every layer must contain real content — not placeholder text.
+   Every layer must contain real, substantive content — not placeholder text.
+   Layer 4 (Code Block Breakdown) must reconstruct the full method across all blocks.
 
 7. **Write the file** to the path from step 3.
 
@@ -233,6 +414,7 @@ flowchart TD
    - If **3+ files** share the same class prefix (e.g., `order-service-*`), create a
      class sub-package per Pattern 3a in chat-capture instructions
    - Move matching files into `<class-kebab>/` and truncate their names
+     (drop class prefix — implied by folder)
    - If **2 files** and a multi-part deep-dive is planned, apply early escalation
 
 9. **Append to SESSION-LOG.md** — add a row to `brain/ai-brain/sessions/SESSION-LOG.md`:
@@ -245,7 +427,7 @@ flowchart TD
     `brain/ai-brain/sessions/CAPTURE-LOG.md` (create the file if it doesn't exist):
 
     ```markdown
-    | 2026-04-20 | 09:21 PM | capture | Deep-dive: OrderService.calculateTotal → work/code-analysis/deep-dive/ | 1 file created |
+    | 2026-04-20 | 09:21 PM | capture | Deep-dive: OrderService.calculateTotal (method, all) → work/code-analysis/deep-dive/ | 1 file created |
     ```
 
     If escalation was triggered, log that as a separate row:
