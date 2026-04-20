@@ -141,15 +141,23 @@ Annotate in the call tree: recursive calls (⟳), async boundaries (⚡), extern
 ### Layer 4 — Code Block Breakdown (The Core of the Deep-Dive)
 
 This is the **most valuable layer** and the one the developer will use side-by-side
-with the source code. Split the code into **cohesive functional blocks** based on what
-each section is doing logically. A developer with the source file open on the left and
-this document on the right should be able to look at any line range and immediately find
-the matching block that explains it.
+with the source code. Split the code into **cohesive functional blocks** and present
+each block as a **virtual extracted method** — the method signature the block WOULD have
+if you extracted it. This gives the developer a typed contract (inputs → outputs) and an
+intent-revealing name for every section of the code, without actually changing anything.
 
-> **Design principle:** This layer is NOT about extracting methods or proposing
-> refactoring. It groups lines that work together to accomplish one logical step, so a
-> developer can understand complex code piece by piece — from high-level regions down
-> to individual expressions.
+> **Design principle:** Present blocks as if you were doing an extract-method refactoring
+> on paper. Each block gets a method name, parameter list, and return type that describe
+> its contract. This is purely for understanding — **no code is actually changed**. The
+> developer reads the virtual signature to grasp intent, then reads the real code below
+> it to see how it's implemented. Think: "how would I explain this to a senior dev who
+> just joined the team and is reading this method for the first time?"
+
+> **Keep it technical.** Avoid prose-heavy "What it does" paragraphs. Developers read
+> Java, not essays. The virtual method signature IS the explanation. Use brief inline
+> annotations in the code fence for anything non-obvious. Reserve plain-English notes
+> only for gotchas, implicit assumptions, and caller-specific behaviour — things you
+> cannot express in a type signature.
 
 #### 4a — Region Map (Bird's-Eye View)
 
@@ -175,30 +183,33 @@ For methods over 50 lines, the region map is **mandatory**.
 
 **For each block, provide:**
 
-1. **Block ID + name** — `BN` ID and a descriptive, intention-revealing label
-   (e.g., "Input Validation Guard", "Price Calculation Pipeline")
+1. **Block ID + virtual method signature** — `BN` ID and a Java method signature showing
+   what the block WOULD look like if extracted: name, parameters (with types), return
+   type. This is the primary explanation — it tells the developer exactly what data flows
+   in and out, and names the intent
 2. **Line range** — exact lines in the source file (e.g., L42-58). These MUST match
    the actual source so the developer can locate the code instantly
 3. **The actual code** — paste the real source code verbatim in a fenced block. Do NOT
    paraphrase, summarise, or reformat the code — the developer needs to see exactly
    what is in the file so they can match it visually
-4. **What it does** — plain-English explanation of the block's purpose and mechanics.
-   Explain the "what" and the "why" — not just restating the code in English
-5. **Data bridge** — what this block receives from the previous block, and what it
-   produces for the next. Name the adjacent blocks explicitly (BN-1, BN+1)
-6. **Key decisions** — if the block contains conditionals, loops, or branching, explain
-   the decision logic and what each branch means in business terms
-7. **Inline annotations** — for complex blocks (10+ lines or dense logic), add
+4. **Inline annotations** — for complex blocks (10+ lines or dense logic), add
    **inline code comments** in the code fence pointing to the key lines. Format:
    `// ← [B3.1] why this line matters`. These sub-IDs (B3.1, B3.2) let Layer 5
-   reference specific lines within a block
-8. **Gotchas** — subtle behaviour, edge cases — reference E-numbers from Layer 7
-9. **State impact** — which Layer 6 variables are mutated in this block
+   reference specific lines within a block. Keep annotations technical and terse —
+   explain non-obvious behaviour, not what the code literally does
+5. **Contract** — one-line summary of what enters and what leaves this block, expressed
+   as types: `Order (validated, non-null) → double (subtotal, may be 0.0 if empty)`
+6. **Gotchas** — subtle behaviour, edge cases, thread-safety issues — reference E-numbers
+   from Layer 7. Only include if something is genuinely surprising or dangerous
+7. **State impact** — which Layer 6 variables are mutated in this block (if any)
 
 **Block splitting rules:**
 
 - Split on **logical boundaries**, not arbitrary line counts — each block should do
   exactly one conceptual thing (validate, transform, persist, notify, etc.)
+- **Think extract-method:** if you can imagine extracting these lines into a method with
+  a clear name, clear parameters, and a clear return type — that's a block. If you can't
+  name it or can't define its inputs/outputs, the block boundaries are wrong
 - Aim for **3-8 blocks per method** — fewer for simple methods, more for complex ones.
   For very long methods (100+ lines), 8-15 blocks is acceptable
 - A block can be 1 line (if it's a critical decision) or 20 lines (if they're cohesive)
@@ -207,8 +218,8 @@ For methods over 50 lines, the region map is **mandatory**.
 - **Don't skip code** — every line of the method must appear in at least one block.
   The blocks together should reconstruct the full method. A developer scrolling through
   the source file must find every single line explained somewhere
-- **Name blocks by intent**, not by implementation — "Customer Eligibility Check" not
-  "If-statement on line 42"
+- **Name blocks by intent**, not by implementation — "calculateSubtotal" not
+  "streamMapToDouble"
 - **Nest blocks for deep logic** — when a block contains a significant inner structure
   (e.g., a loop body with branching), use sub-blocks: B3a, B3b, B3c. The parent block
   (B3) shows the full code; sub-blocks zoom into specific segments within it
@@ -216,40 +227,36 @@ For methods over 50 lines, the region map is **mandatory**.
 **Block template:**
 
 ```text
-### Block N (BN) — <Intent-Revealing Name> (L42-58)
+### Block B3 — `double calculateSubtotalAndApplyDiscount(List<LineItem> items, double discount)` (L42-58)
 
 Implements: T2-T3 (Layer 2) · Contains: C4, C5 (Layer 3)
 Region: Core Calculation
 ```
 
 ````java
-// paste the ACTUAL source code verbatim — do not reformat or summarise
+// paste the ACTUAL source code verbatim — do not reformat
 var subtotal = items.stream()
-    .mapToDouble(i -> i.getPrice() * i.getQty()) // ← [B3.1] per-item revenue
-    .sum();                                       // ← [B3.2] aggregate — identity if empty (see E2)
-var discounted = applyDiscount(subtotal, discount); // ← [B3.3] can go negative (see E3)
+    .mapToDouble(i -> i.getPrice() * i.getQty()) // ← [B3.1] per-item: price × qty
+    .sum();                                       // ← [B3.2] identity = 0.0 if empty (→ E2)
+var discounted = applyDiscount(subtotal, discount); // ← [B3.3] multiplicative — can go negative (→ E3)
 ````
 
 ```text
-**What it does:** Calculates the order subtotal by streaming over line items,
-then applies the discount. This is the core arithmetic — upstream blocks validate
-inputs, downstream blocks apply tax and build the receipt.
-
-**Data bridge:**
-  ← Receives from B2 (Input Validation Guard): validated Order with non-null items list
-  → Produces for B4 (Tax Calculation): discounted BigDecimal total — ready for tax
-
-**Key decisions:**
-  - Uses stream().mapToDouble() — functional pipeline, no intermediate collection
-  - applyDiscount is multiplicative (subtotal × (1 - rate)), not subtractive
-  - If items is empty, stream returns 0.0 (identity) — no special-case needed
-
-**Gotchas:**
-  - discount > 1.0 produces negative total — not validated (see E3)
-  - Double arithmetic — rounding errors possible on large orders (see E6)
-
-**State impact:** Mutates local `total` (Layer 6) — declared at L45, set here at L47
+Contract: List<LineItem> (non-null, from B2) → double (discounted subtotal, → B4)
+Gotchas: discount > 1.0 → negative total (E3) · double arithmetic → rounding drift on large orders (E6)
+State: mutates local `total` (Layer 6) — declared L45, set L47
 ```
+
+**The virtual method signature IS the documentation.** A developer reading
+`double calculateSubtotalAndApplyDiscount(List<LineItem> items, double discount)` immediately
+understands the block's purpose, inputs, and output — no prose needed. The actual code
+below it shows the implementation. The inline annotations (`[B3.1]`, `[B3.2]`) flag
+non-obvious lines. The contract line confirms the typed data flow between blocks.
+
+**When the block maps to an existing private method call:** If the block is essentially
+`var result = this.somePrivateMethod(args)`, the virtual signature should match or
+refine the actual method signature — don't invent a new name. Instead, annotate what
+the actual method does that isn't obvious from its name.
 
 **Inline annotation sub-IDs** (`B3.1`, `B3.2`, etc.) are referenced by Layer 5 for
 line-by-line detail. A developer seeing `[B3.2]` in the code can jump to Layer 5
@@ -271,18 +278,19 @@ When a class mixes multiple responsibilities (e.g., validation + calculation +
 persistence + notification all in one class):
 
 1. **Responsibility inventory first** — before blocks, list every responsibility the
-   class handles. Group methods by responsibility:
+   class handles. Group methods by responsibility. Show the virtual class each group
+   WOULD belong to if the god class were decomposed:
 
    ```text
    ## Responsibility Inventory — OrderService (847 lines, 23 methods)
 
-   | # | Responsibility | Methods | Lines | Should Be Separate? |
+   | # | Responsibility | Virtual Class | Methods | Lines |
    |---|---|---|---|---|
-   | R1 | Input validation | validateOrder, checkStock | L30-120 | Yes — Validator |
-   | R2 | Price calculation | calculateTotal, applyDiscount, applyTax | L121-280 | Yes — Calculator |
-   | R3 | Persistence | saveOrder, updateStatus | L281-390 | Yes — Repository |
-   | R4 | Notification | notifyCustomer, publishEvent | L391-450 | Yes — Notifier |
-   | R5 | Logging & metrics | logOrder, recordMetrics | L451-500 | Maybe — cross-cutting |
+   | R1 | Input validation | `OrderValidator` | validateOrder, checkStock | L30-120 |
+   | R2 | Price calculation | `PriceCalculator` | calculateTotal, applyDiscount, applyTax | L121-280 |
+   | R3 | Persistence | `OrderRepository` | saveOrder, updateStatus | L281-390 |
+   | R4 | Notification | `OrderNotifier` | notifyCustomer, publishEvent | L391-450 |
+   | R5 | Logging & metrics | (cross-cutting) | logOrder, recordMetrics | L451-500 |
    ```
 
 2. **Deep-dive one responsibility at a time** — treat each responsibility group as a
@@ -520,9 +528,10 @@ The cheat sheet references Layer IDs so a developer can drill into any detail.
   able to locate any block's code instantly by line number
 - **Type-precise:** Always include types in data flow and call stack tables
 - **Honest:** If something is unclear, surprising, or looks like a bug, say so directly
-- **No refactoring in the analysis** — the block breakdown shows logical groupings
-  for understanding. If you see an extract-method opportunity, note it in Layer 9
-  takeaways, but do NOT reorganise the code in the analysis itself
+- **No refactoring in the analysis** — the virtual method signatures and block groupings
+  are for understanding, NOT a refactoring proposal. The code stays exactly as-is. If you
+  see an extract-method opportunity worth calling out, note it in Layer 9 takeaways, but
+  do NOT reorganise or rewrite the actual code in the analysis
 - **Completeness over brevity** — every line of the target code must appear in at least
   one block in Layer 4. No gaps. The blocks together reconstruct the full method
 - **Cross-layer coherence is mandatory** — every block (B*n*) must reference the
