@@ -593,6 +593,10 @@ Output:   9-layer analysis: overview → data flow → call stack → code block
           → state changes → edge cases → dependencies → key takeaways
 Capture:  Auto-saves to brain/ai-brain/sessions/work/code-analysis/deep-dive/
           Uses code-analysis-deep-dive-capture.md session template
+          Naming: <date>_<time>_<class-method-kebab>.md (no category prefix inside deep-dive/)
+          Logging: SESSION-LOG.md + CAPTURE-LOG.md
+          Versioning: detects existing files → appends _v2, _v3
+          Escalation: Pattern 3a (class → method) when 3+ files share a class prefix
 File:     .github/prompts/code-analysis-deep-dive.prompt.md
 ```
 
@@ -611,6 +615,10 @@ Output:   Target summary → structure overview → code block breakdown → fin
           → proposed changes → key takeaways
 Capture:  Auto-saves to brain/ai-brain/sessions/work/code-analysis/
           Uses code-analysis-capture.md session template
+          Naming: <date>_<time>_code-analysis_<class-method-kebab>.md
+          Logging: SESSION-LOG.md + CAPTURE-LOG.md
+          Versioning: detects existing files → appends _v2, _v3
+          Escalation: Pattern 3a (class sub-package) when 3+ files share a class prefix
 Related:  /code-analysis-deep-dive (9-layer internals), /design-review (SOLID/GRASP)
 File:     .github/prompts/code-analysis.prompt.md
 ```

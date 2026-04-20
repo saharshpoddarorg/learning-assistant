@@ -101,30 +101,141 @@ For each finding, suggest a concrete improvement:
 
 After completing the analysis, **automatically capture** the full output as a session file.
 
-**Capture steps:**
+#### Capture Workflow
 
-1. **Get the current timestamp** — run `Get-Date -Format "yyyy-MM-dd_hh-mmtt"` and
-   `Get-Date -Format "yyyy-MM-dd"` and `Get-Date -Format "hh:mm tt"`
-2. **Determine the domain:**
-   - If the code is in this repo or a work project → `work`
-   - If the code is a personal/side project → `personal`
+```mermaid
+flowchart TD
+    A[Code analysis complete] --> B[1. Query system clock]
+    B --> C[2. Classify domain]
+    C --> D{Work or Personal?}
+    D -->|Work| E[sessions/work/code-analysis/]
+    D -->|Personal| F[sessions/personal/software-dev/code-review/]
+    E --> G[3. Build filename]
+    F --> G
+    G --> H[4. Check for existing versions]
+    H --> I[5. Read template + populate]
+    I --> J[6. Write file]
+    J --> K{7. Escalation check}
+    K -->|3+ same class prefix| L[Create class sub-package]
+    K -->|< 3| M[Keep flat]
+    L --> N[8. Append SESSION-LOG.md]
+    M --> N
+    N --> O[9. Append CAPTURE-LOG.md]
+    O --> P[10. Report to user]
+```
+
+#### Step-by-Step Protocol
+
+1. **Get the actual current timestamp** — always query the system clock first:
+
+   ```powershell
+   Get-Date -Format "yyyy-MM-dd"          # → 2026-04-20  (frontmatter date)
+   Get-Date -Format "hh-mmtt"             # → 09-21pm     (filename time, lowercase am/pm)
+   Get-Date -Format "hh:mm tt"            # → 09:21 PM    (frontmatter time, uppercase)
+   ```
+
+   Never guess or round — use the exact values returned.
+
+2. **Determine the domain** from the code being analysed:
+   - Code in this repo or any work project → `work`
+   - Code in a personal/side project → `personal`
+
 3. **Build the file path:**
-   - Work domain: `brain/ai-brain/sessions/work/code-analysis/`
-   - Personal domain: `brain/ai-brain/sessions/personal/software-dev/code-review/`
-4. **Build the filename:** `<date>_<time>_code-analysis_<class-method-kebab>.md`
-   - Example: `2026-04-20_09-21pm_code-analysis_order-service-calculate-total.md`
-5. **Use the `code-analysis-capture.md` template** from
-   `brain/ai-brain/sessions/_templates/` — fill in ALL sections:
-   - Frontmatter: date, time, domain, category, project, subject, tags, code-target
-   - Analysis content from the sections above
-   - Key Outcomes, Follow-Up, Session Metadata
-6. **Write the file** to the path determined in step 3
-7. **Check escalation** — count files in the target folder; if 3+ files share the same
-   class prefix, trigger sub-package escalation per chat-capture instructions
-8. **Append to SESSION-LOG.md** — add a row to `brain/ai-brain/sessions/SESSION-LOG.md`
-9. **Report** — tell the user: "Analysis captured to `sessions/<path>`"
+   - Work: `brain/ai-brain/sessions/work/code-analysis/`
+   - Personal: `brain/ai-brain/sessions/personal/software-dev/code-review/`
 
-**Content emphasis for the captured file:**
+4. **Build the filename** following the naming convention:
+
+   ```text
+   # Standard naming (flat — includes category prefix)
+   <date>_<time>_code-analysis_<class-kebab>-<method-kebab>.md
+
+   Examples:
+     2026-04-20_09-21pm_code-analysis_order-service-calculate-total.md
+     2026-04-20_03-45pm_code-analysis_payment-gateway-overview.md
+
+   # If already inside a class sub-package — drop category + class prefix
+   <date>_<time>_<method-kebab>.md
+   ```
+
+   - **Kebab-case** the class and method names: `OrderService` → `order-service`
+   - **3-8 words** for the subject — most specific first
+   - For class-level analysis, use `<class-kebab>-overview` as the subject
+
+5. **Check for existing versions** — before writing, check if a file with the same
+   class+method subject already exists in the target folder:
+   - If found → create a versioned continuation: append `_v2`, `_v3`, etc.
+   - Set `version: 2` and `parent: <original-filename>` in frontmatter
+
+6. **Read and populate the template** from
+   `brain/ai-brain/sessions/_templates/code-analysis-capture.md`:
+
+   **Frontmatter** — fill every field:
+
+   ```yaml
+   date: 2026-04-20
+   time: "09:21 PM"
+   kind: session-capture
+   domain: work
+   category: code-analysis
+   project: learning-assistant
+   subject: order-service-calculate-total
+   tags: [project:learning-assistant, code-analysis, java, order-service]
+   status: draft
+   version: 1
+   parent: null
+   complexity: medium                    # or high for thorough/large analysis
+   outcomes:
+     - "Identified 3 code smells in calculateTotal (long method, feature envy, magic number)"
+     - "Proposed extract-method refactoring for discount logic"
+   source: copilot
+   scope: project
+   scope-project: learning-assistant
+   scope-feature: null
+   scope-transitions: []
+   scope-refs: []
+   code-target:
+     class: OrderService
+     method: calculateTotal
+     package: com.example.order
+     file: src/order/OrderService.java
+   ```
+
+   **Body** — populate Target Code, Intent & Purpose, Analysis (Structure + Findings +
+   Proposed Changes), Key Outcomes, Follow-Up, and Session Metadata from the analysis
+   output above. Every section must contain real content.
+
+7. **Write the file** to the path from step 3.
+
+8. **Check escalation** — count session files in the target folder (excluding deep-dive/):
+   - If **3+ files** share the same class prefix (e.g., `code-analysis_order-service-*`),
+     create a class sub-package per Pattern 3a in chat-capture instructions
+   - Move matching files into `<class-kebab>/` and truncate names (drop
+     `code-analysis_<class-kebab>-` prefix — implied by folder path)
+   - If **2 files** and more analysis is planned, consider early escalation
+
+9. **Append to SESSION-LOG.md** — add a row to `brain/ai-brain/sessions/SESSION-LOG.md`:
+
+   ```markdown
+   | 2026-04-20 | 09:21 PM | work | code-analysis | order-service-calculate-total | v1 | medium | draft | [View](work/code-analysis/2026-04-20_09-21pm_code-analysis_order-service-calculate-total.md) |
+   ```
+
+10. **Append to CAPTURE-LOG.md** — log the capture operation in
+    `brain/ai-brain/sessions/CAPTURE-LOG.md` (create if it doesn't exist):
+
+    ```markdown
+    | 2026-04-20 | 09:21 PM | capture | Code analysis: OrderService.calculateTotal → work/code-analysis/ | 1 file created |
+    ```
+
+    If escalation was triggered, log separately:
+
+    ```markdown
+    | 2026-04-20 | 09:22 PM | escalation:pattern-3a | Created order-service/ sub-package (3+ class files) | N files moved |
+    ```
+
+11. **Report** — tell the user: "Analysis captured to `sessions/<path>`"
+
+#### Content Quality Rules
 
 - **Code Block Breakdown** must include actual code snippets — a developer reading
   the file should see the code alongside the explanation
