@@ -435,9 +435,9 @@ that serves as a quick-scan index:
 
 As sessions accumulate, escalation patterns auto-organize them into sub-folders.
 
-### Pattern 1 — Subject Escalation (5+ files on same subject)
+### Pattern 1 — Subject Escalation (3+ files on same subject)
 
-When 5+ files relate to the same subject, they move into a sub-folder:
+When 3+ files relate to the same subject, they move into a sub-folder:
 
 ```text
 # Before (flat)
@@ -445,7 +445,7 @@ work/code-analysis/
   2026-03-20_..._order-service-calculate-total.md
   2026-03-21_..._order-service-validate-order.md
   2026-03-22_..._order-service-process-payment.md
-  ... (5+ files about order-service)
+  ... (3+ files about order-service)
 
 # After (grouped)
 work/code-analysis/order-service/
@@ -476,9 +476,9 @@ Certain categories support two-level hierarchies that mirror the content structu
 
 | Pattern | Category | Level 1 | Level 2 | Thresholds |
 |---|---|---|---|---|
-| **3a** | code-analysis, code-review | class name | method name | 3+ / 2+ |
-| **3b** | design, feature-exploration | component | aspect (intent, approach, schema, etc.) | 3+ / 2+ |
-| **3c** | debugging | service | issue type | 3+ / 2+ |
+| **3a** | code-analysis, code-review | class name | method name | 3+ / 3+ |
+| **3b** | design, feature-exploration | component | aspect (intent, approach, schema, etc.) | 3+ / 3+ |
+| **3c** | debugging | service | issue type | 3+ / 3+ |
 
 #### Example: Code Analysis Class → Method Hierarchy
 
@@ -515,6 +515,47 @@ personal/software-dev/task-manager-INDEX.md
 
 This provides a single entry point listing all sessions for that project across
 requirements, design, implementation, testing, and other activities.
+
+### Name Truncation — What Happens to Filenames
+
+When files move into a sub-folder during escalation, redundant parts of the filename
+are dropped (the folder path already carries that information):
+
+```text
+# Original (flat)
+2026-05-02_03-21pm_code-analysis_order-service-calculate-total.md
+
+# After move to code-analysis/order-service/
+2026-05-02_03-21pm_calculate-total.md     ← dropped "code-analysis_order-service-"
+```
+
+**Formula:** `YYYY-MM-DD_HH-MMtt_<category>_<grouping-key>-<distinguisher>.md`
+becomes `YYYY-MM-DD_HH-MMtt_<distinguisher>.md` inside the sub-folder.
+Version suffixes (`_v2`, `_v3`) are always preserved.
+
+### De-Escalation — When Sub-Folders Flatten Back
+
+De-escalation is the reverse of escalation. When a sub-folder drops below **3 session
+files** (e.g., after deletion), its files move back to the parent folder with restored
+full names:
+
+```text
+# Sub-folder has < 3 files after deletion → flatten
+work/code-analysis/order-service/
+  2026-05-02_03-21pm_calculate-total.md
+  2026-05-02_03-51pm_validate-order.md
+  README.md
+
+# After de-escalation (full names restored)
+work/code-analysis/
+  2026-05-02_03-21pm_code-analysis_order-service-calculate-total.md
+  2026-05-02_03-51pm_code-analysis_order-service-validate-order.md
+```
+
+**Cascade rule:** If flattening a nested sub-folder (e.g., method → class) causes the
+parent sub-folder to also drop below threshold, it cascades — both levels flatten.
+
+All de-escalation operations are logged in `CAPTURE-LOG.md`.
 
 ---
 
@@ -626,11 +667,17 @@ TAGS             3-7 per session: project:<name>, activity tags, tech tags
 VERSIONS         Same subject continued = v2, v3...
                  Different aspect = new file
 
-ESCALATION       Pattern 1: 5+ files same subject    → subject sub-folder
+ESCALATION       Pattern 1: 3+ files same subject    → subject sub-folder
                  Pattern 2: 3+ files same project     → project sub-folder
-                 Pattern 3a: 3+ class files / 2+ method → class/method hierarchy
-                 Pattern 3b: 3+ component / 2+ aspect   → component/aspect hierarchy
-                 Pattern 3c: 3+ service / 2+ issue       → service/issue hierarchy
+                 Pattern 3a: 3+ class / 3+ method      → class/method hierarchy
+                 Pattern 3b: 3+ component / 3+ aspect  → component/aspect hierarchy
+                 Pattern 3c: 3+ service / 3+ issue     → service/issue hierarchy
+
+DE-ESCALATION    Sub-folder drops below 3 files        → flatten back to parent
+                 Names restored with full prefix         → cascade if parent also < 3
+
+TRUNCATION       On escalation: drop category + grouping-key prefix from filename
+                 On de-escalation: restore category + grouping-key prefix to filename
 
 LOGGING          SESSION-LOG.md  — every captured session
                  CAPTURE-LOG.md  — every escalation, fork, structural operation

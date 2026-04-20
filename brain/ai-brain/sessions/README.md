@@ -250,9 +250,9 @@ When continuing analysis on the same subject from a previous session:
 Sessions naturally cluster around shared subjects or projects. Three escalation patterns
 keep folders navigable as volume grows.
 
-### Pattern 1 — Subject-Based Sub-Package (5+ files)
+### Pattern 1 — Subject-Based Sub-Package (3+ files)
 
-When **5+ files** accumulate for the same subject within a category, group them
+When **3+ files** accumulate for the same subject within a category, group them
 into a sub-directory:
 
 ```text
@@ -260,7 +260,7 @@ into a sub-directory:
 work/code-analysis/
   2026-03-20_10-30am_code-analysis_order-service-calculate-total.md
   2026-03-21_..._order-service-validate-order.md
-  ... (5+ files about order-service)
+  ... (3+ files about order-service)
 
 # After (sub-package)
 work/code-analysis/order-service/
@@ -271,7 +271,7 @@ work/code-analysis/order-service/
 ```
 
 Inside sub-packages, filenames drop the category and subject prefix (already implied
-by the folder path).
+by the folder path). Version suffixes (`_v2`, `_v3`) are always preserved.
 
 ### Pattern 2 — Project-Based Sub-Package (3+ files in same activity for same project)
 
@@ -291,9 +291,9 @@ Certain categories support two-level sub-folder hierarchies:
 
 | Pattern | Category | Level 1 | Level 2 | Thresholds |
 |---|---|---|---|---|
-| **3a** | code-analysis, code-review | class name | method name | 3+ / 2+ |
-| **3b** | design, feature-exploration | component | aspect | 3+ / 2+ |
-| **3c** | debugging | service | issue type | 3+ / 2+ |
+| **3a** | code-analysis, code-review | class name | method name | 3+ / 3+ |
+| **3b** | design, feature-exploration | component | aspect | 3+ / 3+ |
+| **3c** | debugging | service | issue type | 3+ / 3+ |
 
 **Code analysis example (class → method):**
 
@@ -339,6 +339,28 @@ a project index file at `personal/software-dev/<project-name>-INDEX.md`:
 ```
 
 This provides a single entry point for all sessions related to one project.
+
+### Name Truncation on Escalation
+
+When files move into a sub-folder, redundant prefixes are dropped:
+
+```text
+Original:  YYYY-MM-DD_HH-MMtt_<category>_<grouping-key>-<distinguisher>.md
+Truncated: YYYY-MM-DD_HH-MMtt_<distinguisher>.md
+```
+
+The timestamp and distinguishing suffix are always preserved. On de-escalation
+(flattening), the full name is restored.
+
+### De-Escalation (Flattening)
+
+When a sub-folder drops below **3 session files** (after deletion, move, or
+reclassification), its files are moved back to the parent folder with full names
+restored. Nested sub-packages cascade — if flattening a method-level folder causes
+the parent class-level folder to also drop below threshold, both are flattened.
+
+All escalation and de-escalation operations are logged in
+[CAPTURE-LOG.md](CAPTURE-LOG.md).
 
 ---
 

@@ -409,9 +409,9 @@ YYYY-MM-DD_HH-MMtt_<category>_<subject>[_v<N>].md
 Sessions naturally cluster around shared subjects or projects. Two escalation patterns
 keep folders navigable as volume grows.
 
-### Pattern 1 — Subject-Based Sub-Package (5+ files)
+### Pattern 1 — Subject-Based Sub-Package (3+ files)
 
-When **5+ session files** accumulate for the **same subject** within a category, create
+When **3+ session files** accumulate for the **same subject** within a category, create
 a sub-package (sub-directory) to group them:
 
 #### Before escalation (flat)
@@ -448,11 +448,11 @@ work/code-analysis/order-service/
 The AI assistant MUST proactively check escalation thresholds **every time a session
 file is created**. Do not wait for the user to notice or request escalation.
 
-**Escalation checklist (run after every session capture):**
+**Escalation checklist (run after every session capture or deletion):**
 
 1. **Count files** — count how many session files exist in the target category folder
    that share the same subject grouping (look at the subject slug prefix)
-2. **Check Pattern 1 threshold** — if the count (including the new file) reaches **5+**
+2. **Check Pattern 1 threshold** — if the count (including the new file) reaches **3+**
    files for the same subject, trigger subject-based sub-package escalation immediately
 3. **Check Pattern 2 threshold** — if inside `personal/software-dev/<activity>/` and the
    count reaches **3+** files for the same project, trigger project-based sub-package
@@ -460,19 +460,32 @@ file is created**. Do not wait for the user to notice or request escalation.
 4. **Check Pattern 3 threshold** — if the category supports hierarchical escalation
    (see Domain-Specific Hierarchical Escalation section below):
    - **3a (code-analysis):** 3+ files referencing the same class → create class sub-package;
-     2+ files within a class sub-package referencing the same method → create method sub-package
+     3+ files within a class sub-package referencing the same method → create method sub-package
    - **3b (design/feature-exploration):** 3+ files referencing the same component → create
-     component sub-package; 2+ files referencing the same aspect → create aspect sub-package
+     component sub-package; 3+ files referencing the same aspect → create aspect sub-package
    - **3c (debugging):** 3+ files about the same service → create service sub-package;
-     2+ files about the same issue type → create issue sub-package
-5. **Execute escalation** — when triggered:
+     3+ files about the same issue type → create issue sub-package
+5. **Check de-escalation** — if a file was **deleted** (not moved) and a sub-package now
+   contains **fewer than 3 files** (excluding README.md), trigger de-escalation (flattening)
+   back to the parent folder (see De-Escalation Protocol below)
+6. **Execute escalation** — when triggered:
    - Create the sub-directory
-   - Move ALL matching files into the sub-directory with shortened names
+   - Move ALL matching files into the sub-directory with **truncated names**
+     (see Name Truncation on Move below)
    - Create `README.md` listing the sub-package contents
    - Update `SESSION-LOG.md` with new paths
    - Update all `scope-refs`, `parent`, and inline links in the moved files
    - Update any cross-references in files OUTSIDE the sub-package that point to moved files
-6. **Log the escalation** — inform the user that escalation was performed
+7. **Execute de-escalation** — when triggered (file deletion caused sub-package to drop
+   below threshold):
+   - Move ALL remaining session files back to the parent folder with **restored names**
+     (see Name Restoration on Flatten below)
+   - Delete the now-empty sub-directory and its `README.md`
+   - Update `SESSION-LOG.md` with restored paths
+   - Update all `scope-refs`, `parent`, and inline links in the moved files
+   - Update any cross-references in files OUTSIDE the sub-package that point to moved files
+8. **Log the operation** — log escalation or de-escalation to CAPTURE-LOG.md and inform
+   the user
 
 **Timing:** Escalation should happen in the same turn as the session capture. Do not
 create a file in a flat folder and plan to escalate later — check and escalate immediately.
@@ -559,8 +572,8 @@ create a two-level hierarchy: `class-name/method-name/`.
 | Condition | Action |
 |---|---|
 | **3+ files** reference the same class (any methods) | Create `class-name/` sub-package |
-| **2+ files** in a class sub-package reference the same method | Create `method-name/` sub-package inside the class |
-| **1 file** about a class with no method focus | Keep at category level (no escalation) |
+| **3+ files** in a class sub-package reference the same method | Create `method-name/` sub-package inside the class |
+| **1-2 files** about a class with no method clustering | Keep at category level (no escalation) |
 
 **Detection heuristics** — a session references a class when:
 
@@ -588,7 +601,7 @@ work/code-analysis/order-service/
 work/code-analysis/
   2026-04-05_03-00pm_code-analysis_config-loader-init.md    ← stays flat (only 1 file)
 
-# After method escalation (2+ files about calculateTotal → method sub-package)
+# After method escalation (3+ files about calculateTotal → method sub-package)
 work/code-analysis/order-service/
   calculate-total/
     2026-04-01_10-30am_calculate-total.md
@@ -609,7 +622,7 @@ decisions. Use a similar two-level hierarchy: `component-name/aspect/`.
 | Condition | Action |
 |---|---|
 | **3+ files** reference the same component/feature | Create `component-name/` sub-package |
-| **2+ files** in a component sub-package reference the same aspect | Create `aspect/` sub-package |
+| **3+ files** in a component sub-package reference the same aspect | Create `aspect/` sub-package |
 
 **Aspect types** (common second-level groupings):
 
@@ -643,14 +656,14 @@ Debugging sessions cluster around services and recurring issues:
 | Condition | Action |
 |---|---|
 | **3+ files** about the same service/component | Create `service-name/` sub-package |
-| **2+ files** about the same error/issue type | Create `issue-slug/` inside the service |
+| **3+ files** about the same error/issue type | Create `issue-slug/` inside the service |
 
 ### Pattern 3d — Custom Hierarchical Escalation (extensibility)
 
 New domain-specific hierarchical patterns can be added by following this template:
 
 1. **Define the grouping dimension** (what makes files "related" — class, component, service)
-2. **Set the escalation threshold** (recommend 3+ for first level, 2+ for second level)
+2. **Set the escalation threshold** (3+ for all levels — see Threshold Reference)
 3. **Define detection heuristics** (how to detect grouping from subject, tags, frontmatter)
 4. **Define the naming convention** (kebab-case folder names derived from the grouping key)
 5. **Document with before/after examples**
@@ -739,7 +752,7 @@ aspect types recognised by the escalation protocol:
 
 ### Aspect Escalation Rules
 
-Aspects only become sub-folders when the threshold is met (default: 2+ files for the
+Aspects only become sub-folders when the threshold is met (default: 3+ files for the
 same aspect within a component sub-package). Until then, the aspect is just a tag/field
 in frontmatter — files stay at the component level.
 
@@ -801,11 +814,11 @@ tips the scale toward escalation.
 
 | Files with shared prefix | Temporal proximity | Frontmatter match | Action |
 |---|---|---|---|
-| 5+ | Any | Any | **Always escalate** (Pattern 1) |
+| 5+ | Any | Any | **Always escalate** (Pattern 1 — well above threshold) |
 | 3-4 | Same week | Yes | **Escalate** |
 | 3-4 | Same week | No prefix match | **Escalate** (prefix is sufficient) |
 | 3-4 | Spread over weeks | Yes | **Escalate** |
-| 3-4 | Spread over weeks | No match | **Hold** — wait for one more file |
+| 3-4 | Spread over weeks | No match | **Escalate** (3 is the threshold — proceed) |
 | 2 | Any | Any | **Never escalate** (below threshold) |
 
 ---
@@ -872,11 +885,11 @@ The default thresholds balance organization with overhead:
 
 | Threshold | Default | When to lower | When to raise |
 |---|---|---|---|
-| **Pattern 1** (subject grouping) | 5 files | High-volume projects (lower to 3) | Low-volume projects (raise to 7) |
+| **Pattern 1** (subject grouping) | 3 files | Never (3 is minimum for cohesion) | Low-volume projects (raise to 5) |
 | **Pattern 2** (project grouping) | 3 files | Never (3 is minimum for cohesion) | Solo developer (raise to 5) |
-| **Pattern 3a** (class grouping) | 3 files | Complex services (lower to 2) | Never (2 is too few for a folder) |
-| **Pattern 3b** (component grouping) | 3 files | Large architecture work (lower to 2) | — |
-| **Method/aspect sub-level** | 2 files | Never (2 is the minimum) | — |
+| **Pattern 3** (class/component/service) | 3 files | Never (3 is minimum) | — |
+| **Sub-level** (method/aspect/issue) | 3 files | Never (3 is minimum) | — |
+| **De-escalation** (flattening) | < 3 files | Never | — |
 
 To customize: edit the threshold values in the Automatic Escalation Protocol section
 and the Domain-Specific Hierarchical Escalation section of this file.
@@ -932,6 +945,250 @@ Every sub-package `README.md` should include:
 
 - [Debugging: NPE in calculateTotal](../../debugging/order-service/npe-calculate-total.md)
 - [Design: Payment Gateway API](../../feature-exploration/payment-gateway/api-design.md)
+```
+
+---
+
+## Name Truncation on Move (Escalation)
+
+When files are moved into a sub-package during escalation, redundant segments of the
+filename are **truncated** because the folder path already encodes that information.
+This keeps filenames concise while preserving the essential identity (timestamp + subject).
+
+### Truncation Rules
+
+1. **Drop the category prefix** — the category is implied by the parent folder
+2. **Drop the grouping key prefix** — the subject prefix (class name, project name,
+   component name) is implied by the sub-folder name
+3. **Keep the timestamp** — always preserve `YYYY-MM-DD_HH-MMtt` (never truncate)
+4. **Keep the distinguishing subject suffix** — the part after the grouping key
+5. **Keep the version suffix** — `_v2`, `_v3` are always preserved
+
+### Truncation Examples by Pattern
+
+#### Pattern 1 — Subject Escalation
+
+```text
+# Before (flat — full names)
+work/code-analysis/
+  2026-05-02_03-21pm_code-analysis_order-service-calculate-total.md
+  2026-05-02_03-51pm_code-analysis_order-service-validate-order.md
+  2026-05-02_07-21pm_code-analysis_order-service-process-payment.md
+
+# After (sub-package — truncated names)
+work/code-analysis/order-service/
+  2026-05-02_03-21pm_calculate-total.md         ← dropped "code-analysis_order-service-"
+  2026-05-02_03-51pm_validate-order.md          ← dropped "code-analysis_order-service-"
+  2026-05-02_07-21pm_process-payment.md         ← dropped "code-analysis_order-service-"
+```
+
+**Rule:** Drop `<category>_<grouping-key>-` from the filename.
+
+#### Pattern 2 — Project Escalation
+
+```text
+# Before (flat — full names)
+personal/software-dev/requirements/
+  2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
+  2026-03-21_10-00am_requirements_task-manager-recurring-tasks.md
+  2026-03-22_04-30pm_requirements_task-manager-notification-rules.md
+
+# After (sub-package — truncated names)
+personal/software-dev/requirements/task-manager/
+  2026-03-20_02-15pm_mvp-scope.md               ← dropped "requirements_task-manager-"
+  2026-03-21_10-00am_recurring-tasks.md          ← dropped "requirements_task-manager-"
+  2026-03-22_04-30pm_notification-rules.md       ← dropped "requirements_task-manager-"
+```
+
+#### Pattern 3a — Class → Method Escalation
+
+```text
+# Step 1: Flat → class sub-package (drop category + class prefix)
+work/code-analysis/
+  2026-05-02_03-21pm_code-analysis_order-service-calculate-total.md
+  →
+work/code-analysis/order-service/
+  2026-05-02_03-21pm_calculate-total.md          ← dropped "code-analysis_order-service-"
+
+# Step 2: Class → method sub-package (no further truncation needed)
+work/code-analysis/order-service/calculate-total/
+  2026-05-02_03-21pm_calculate-total.md          ← keeps "calculate-total" (distinguisher)
+  2026-05-07_09-00am_calculate-total_v2.md       ← keeps version suffix
+  2026-05-10_02-00pm_calculate-total-edge-cases.md
+```
+
+#### Pattern 3b — Component → Aspect Escalation
+
+```text
+# Step 1: Flat → component sub-package
+personal/software-dev/design/
+  2026-04-01_03-00pm_design_task-manager-api-endpoints.md
+  →
+personal/software-dev/design/task-manager/
+  2026-04-01_03-00pm_api-endpoints.md            ← dropped "design_task-manager-"
+
+# Step 2: Component → aspect sub-package (no further truncation)
+personal/software-dev/design/task-manager/api-design/
+  2026-04-01_03-00pm_rest-endpoints.md
+  2026-04-02_10-00am_graphql-evaluation.md
+  2026-04-05_11-30am_versioning-strategy.md
+```
+
+### General Truncation Formula
+
+```text
+Original:  YYYY-MM-DD_HH-MMtt_<category>_<grouping-key>-<distinguisher>[_vN].md
+Truncated: YYYY-MM-DD_HH-MMtt_<distinguisher>[_vN].md
+
+Where:
+  <category>      = folder name (code-analysis, design, requirements, etc.)
+  <grouping-key>  = sub-folder name (order-service, task-manager, payment-gateway)
+  <distinguisher>  = what makes THIS file unique within the group
+```
+
+### Edge Cases
+
+- **Subject IS the grouping key** (no distinguisher beyond it) — keep the grouping key
+  as the subject: `2026-05-02_03-21pm_order-service-general.md` → in `order-service/`
+  becomes `2026-05-02_03-21pm_general.md`
+- **Version files** — `_v2`, `_v3` suffixes are always preserved
+- **Files not matching the group** — files that don't share the subject prefix stay in
+  the parent folder with their full original name (never truncated)
+
+---
+
+## Name Restoration on Flatten (De-Escalation)
+
+When files are moved **out** of a sub-package during de-escalation, the full name is
+**restored** by re-adding the category and grouping key prefixes.
+
+### Restoration Formula
+
+```text
+Truncated: YYYY-MM-DD_HH-MMtt_<distinguisher>[_vN].md
+Restored:  YYYY-MM-DD_HH-MMtt_<category>_<grouping-key>-<distinguisher>[_vN].md
+```
+
+### Restoration Example
+
+```text
+# Before de-escalation (sub-package with < 3 files after deletion)
+work/code-analysis/order-service/
+  2026-05-02_03-21pm_calculate-total.md
+  2026-05-02_03-51pm_validate-order.md
+  README.md
+
+# After de-escalation (flattened — restored full names)
+work/code-analysis/
+  2026-05-02_03-21pm_code-analysis_order-service-calculate-total.md
+  2026-05-02_03-51pm_code-analysis_order-service-validate-order.md
+```
+
+### Multi-Level Restoration
+
+When a nested sub-package is flattened (e.g., method level back to class level), only
+one level of prefix is restored:
+
+```text
+# Before: method sub-package under class (< 3 files after deletion)
+work/code-analysis/order-service/calculate-total/
+  2026-05-02_03-21pm_calculate-total.md
+  2026-05-07_09-00am_calculate-total_v2.md
+
+# After: flattened to class level (no category prefix needed — still in sub-package)
+work/code-analysis/order-service/
+  2026-05-02_03-21pm_calculate-total.md          ← stays as-is (class folder still exists)
+  2026-05-07_09-00am_calculate-total_v2.md
+```
+
+---
+
+## De-Escalation (Flattening) Protocol
+
+De-escalation is the **reverse of escalation** — when a sub-package drops below the
+minimum threshold (< 3 session files, excluding README.md), the sub-package is dissolved
+and its files are moved back to the parent folder with restored names.
+
+### When De-Escalation Triggers
+
+De-escalation occurs when **any** of these events reduce file count below threshold:
+
+| Trigger Event | Example |
+|---|---|
+| **File deleted** | User deletes or archives a session file |
+| **File moved out** | Session moved to a different category or domain |
+| **File reclassified** | Session's subject changed, no longer belongs in this group |
+| **Status changed to archived** | File is soft-deleted by marking `status: archived` |
+
+### De-Escalation Rules
+
+| Condition | Action |
+|---|---|
+| Sub-package has **< 3 session files** (excluding README.md) | Flatten to parent |
+| Sub-package has **exactly 0 files** | Delete the empty sub-directory immediately |
+| Nested sub-package (method/aspect) drops below threshold | Flatten to parent sub-package (class/component) |
+| Parent sub-package then also drops below threshold | **Cascade** — flatten parent to category folder |
+| De-escalation would create name conflicts in parent | Add a disambiguation suffix before flattening |
+
+### De-Escalation Process (Step by Step)
+
+1. **Detect** — after a file deletion/move, count remaining session files in the
+   sub-package (exclude README.md, CAPTURE-LOG.md, and other non-session files)
+2. **Check threshold** — if count is < 3, trigger de-escalation
+3. **Restore names** — for each session file in the sub-package, reconstruct the full
+   filename by re-adding the category and grouping key prefixes (see Name Restoration)
+4. **Check for conflicts** — verify no file in the parent folder already has the
+   restored name. If conflict exists, append a timestamp disambiguation
+5. **Move files** — move all session files to the parent folder with restored names
+6. **Delete sub-package** — remove the now-empty sub-directory and its README.md
+7. **Update references** — update SESSION-LOG.md, CAPTURE-LOG.md, scope-refs, parent
+   fields, and all inline links pointing to the moved files
+8. **Check cascade** — if the parent is also a sub-package (e.g., class-level inside
+   code-analysis), check if it now falls below threshold. If so, repeat from step 2
+9. **Log** — append a `de-escalation:pattern-*` entry to CAPTURE-LOG.md
+
+### Cascade De-Escalation Example
+
+```text
+# Initial state: class + method hierarchy
+work/code-analysis/order-service/
+  calculate-total/
+    2026-05-02_03-21pm_calculate-total.md
+    2026-05-07_09-00am_calculate-total_v2.md
+    2026-05-10_02-00pm_calculate-total-edge-cases.md
+  2026-05-02_03-51pm_validate-order.md
+  2026-05-03_09-00am_process-payment.md
+
+# Event: User deletes calculate-total_v2.md AND calculate-total-edge-cases.md
+
+# Step 1: calculate-total/ has < 3 files → flatten method to class
+work/code-analysis/order-service/
+  2026-05-02_03-21pm_calculate-total.md          ← moved out, no rename needed
+  2026-05-02_03-51pm_validate-order.md
+  2026-05-03_09-00am_process-payment.md
+
+# Step 2: order-service/ still has 3 files → NO cascade (threshold met)
+# Done — only method-level de-escalation occurred
+```
+
+```text
+# Alternate scenario: User also deletes process-payment.md
+
+# Step 1: order-service/ now has < 3 files → cascade flatten class to category
+work/code-analysis/
+  2026-05-02_03-21pm_code-analysis_order-service-calculate-total.md    ← full name restored
+  2026-05-02_03-51pm_code-analysis_order-service-validate-order.md     ← full name restored
+```
+
+### De-Escalation Logging
+
+Every de-escalation is logged in CAPTURE-LOG.md:
+
+```markdown
+| Date | Time | Operation | Details | Files Affected |
+|---|---|---|---|---|
+| 2026-05-15 | 03:30 PM | de-escalation:pattern-3a:method | Flattened calculate-total/ (< 3 files after deletion) | 1 file moved |
+| 2026-05-15 | 03:31 PM | de-escalation:pattern-3a | Cascade: flattened order-service/ (< 3 files after method flatten) | 2 files moved |
 ```
 
 ---
@@ -1207,6 +1464,13 @@ All structural operations (escalation, moves, renames) are logged in `CAPTURE-LO
 | `escalation:pattern-3b` | Design component sub-package created |
 | `escalation:pattern-3b:aspect` | Design aspect sub-package created |
 | `escalation:pattern-3c` | Debugging service sub-package created |
+| `de-escalation:pattern-1` | Subject sub-package flattened back to parent |
+| `de-escalation:pattern-2` | Project sub-package flattened back to parent |
+| `de-escalation:pattern-3a` | Code analysis class sub-package flattened |
+| `de-escalation:pattern-3a:method` | Method sub-package flattened back to class |
+| `de-escalation:pattern-3b` | Design component sub-package flattened |
+| `de-escalation:pattern-3b:aspect` | Aspect sub-package flattened back to component |
+| `de-escalation:pattern-3c` | Debugging service sub-package flattened |
 | `version` | Version continuation created (v2, v3) |
 | `fork` | Session forked into new file (scope split) |
 | `cross-ref` | Cross-reference added between sessions |
