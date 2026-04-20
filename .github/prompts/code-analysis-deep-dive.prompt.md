@@ -30,6 +30,36 @@ fully understand the code without ever opening the source file.
 
 Work through these 9 layers systematically. Skip layers that don't apply to the scope.
 
+### Cross-Layer Coherence — How the Layers Interlink
+
+The 9 layers are **not independent sections** — they form a single connected narrative.
+A developer must be able to trace any piece of data from Layer 2 (where it enters)
+through Layer 4 (which block processes it) through Layer 5 (which line transforms it)
+through Layer 6 (how it mutates state) and into Layer 7 (what happens when it's wrong).
+
+**Consistent ID system** — tag items across layers so cross-references are unambiguous:
+
+| Tag | Layer | Example | Purpose |
+|---|---|---|---|
+| **T*n*** | Layer 2 | T1, T2, T3 | Transformation step in the data pipeline |
+| **C*n*** | Layer 3 | C1, C2, C3 | Call in the call stack / method flow |
+| **B*n*** | Layer 4 | B1, B2, B3 | Code block in the block breakdown |
+| **L*n*** | Layer 5 | L42, L47 | Source file line number |
+| **E*n*** | Layer 7 | E1, E2, E3 | Edge case / error scenario |
+
+**Every layer must cross-reference related items in other layers:**
+
+- Layer 3 calls → which Layer 4 block contains them
+- Layer 4 blocks → which Layer 2 transformation steps and Layer 3 calls they implement
+- Layer 5 lines → which Layer 4 block they belong to
+- Layer 6 state changes → which Layer 4 block causes each mutation
+- Layer 7 edge cases → which Layer 4 block and source line they occur at
+- Layer 8 dependencies → which Layer 4 blocks use them
+
+This interlinking makes the document a **navigable reference** — a developer can jump
+from a block to its data flow, from an edge case to the exact line that causes it,
+from a dependency to every block that relies on it.
+
 ### Layer 1 — High-Level Overview (30-Second Understanding)
 
 This section must give a developer the complete picture in under 30 seconds.
@@ -62,14 +92,17 @@ logic, and after-type. Use an ASCII flow diagram to make it visual:
 ```text
 Input: Order(items, customer, discount)
   │
-  ├─ Step 1: Validate → throws InvalidOrderException if items empty
-  ├─ Step 2: Calculate subtotal → sum(item.price × item.qty) → BigDecimal
-  ├─ Step 3: Apply discount → subtotal × (1 - discount.rate) → BigDecimal
-  ├─ Step 4: Calculate tax → discounted × taxRate → BigDecimal
-  ├─ Step 5: Build receipt → Receipt(subtotal, discount, tax, total)
+  ├─ T1: Validate → throws InvalidOrderException if items empty
+  ├─ T2: Calculate subtotal → sum(item.price × item.qty) → BigDecimal
+  ├─ T3: Apply discount → subtotal × (1 - discount.rate) → BigDecimal
+  ├─ T4: Calculate tax → discounted × taxRate → BigDecimal
+  ├─ T5: Build receipt → Receipt(subtotal, discount, tax, total)
   │
   Output: Receipt with all line items and totals
 ```
+
+Tag each step **T1, T2, T3...** — these IDs are referenced by Layer 4 blocks to show
+which transformation steps each block implements.
 
 **Outputs — What leaves this code:**
 
@@ -84,24 +117,26 @@ Map the complete execution flow as an indented call tree:
 
 ```text
 → EntryPoint.publicMethod(args)
-    → this.validateInput(args)
-        → Validator.check(args)           // returns boolean
-    → this.processCore(validatedArgs)
-        → dependency.fetchData(id)        // DB call — latency point
-        → this.transform(raw)             // pure logic — no side-effects
-        → dependency.save(result)         // DB call — write
-    → this.notifyListeners(result)
-        → EventBus.publish(event)         // async — fire-and-forget
+    C1 → this.validateInput(args)
+         C2 → Validator.check(args)           // returns boolean
+    C3 → this.processCore(validatedArgs)
+         C4 → dependency.fetchData(id)        // 🔌 DB read — latency point
+         C5 → this.transform(raw)             // ✦ pure logic — no side-effects
+         C6 → dependency.save(result)         // 🔌 DB write
+    C7 → this.notifyListeners(result)
+         C8 → EventBus.publish(event)         // ⚡ async — fire-and-forget
 ```
 
-For each call in the tree, provide a detail row:
+Tag each call **C1, C2, C3...** — these IDs are referenced by Layer 4 blocks.
 
-| # | Caller → Callee | Purpose | Returns | Side-Effects | Notes |
-|---|---|---|---|---|---|
-| 1 | `Controller.handle` → `Service.process` | Entry from HTTP layer | `ResponseDTO` | None | Wraps in try-catch for HTTP errors |
-| 2 | `Service.process` → `Repo.findById` | Fetch entity from DB | `Optional<Entity>` | DB read | Can return empty → 404 |
+For each call in the tree, provide a detail row including which Layer 4 block contains it:
 
-Annotate: recursive calls (⟳), async boundaries (⚡), external I/O (🔌), pure logic (✦).
+| Call | Caller → Callee | Purpose | Returns | Side-Effects | Block(s) | Notes |
+|---|---|---|---|---|---|---|
+| C1 | `Controller.handle` → `Service.process` | Entry from HTTP layer | `ResponseDTO` | None | B1 | Wraps in try-catch for HTTP errors |
+| C4 | `Service.process` → `Repo.findById` | Fetch entity from DB | `Optional<Entity>` | DB read | B3 | Can return empty → 404 |
+
+Annotate in the call tree: recursive calls (⟳), async boundaries (⚡), external I/O (🔌), pure logic (✦).
 
 ### Layer 4 — Code Block Breakdown (The Core of the Deep-Dive)
 
@@ -141,7 +176,9 @@ accomplish one logical step, so a developer can understand the code piece by pie
 **Block template:**
 
 ```text
-### Block N — <Intent-Revealing Name> (L42-58)
+### Block N (BN) — <Intent-Revealing Name> (L42-58)
+
+Implements: T2-T3 (Layer 2) · Contains: C4, C5 (Layer 3)
 ```
 
 ````java
@@ -152,13 +189,20 @@ accomplish one logical step, so a developer can understand the code piece by pie
 **What it does:** [plain-English explanation — what business/technical step this accomplishes]
 
 **Data bridge:**
-  ← Receives: [what data/state this block gets from the previous block]
-  → Produces: [what data/state this block passes to the next block]
+  ← Receives from BN-1 (<Previous Block Name>): [what data/state this block gets]
+  → Produces for BN+1 (<Next Block Name>): [what data/state this block passes on]
 
 **Key decisions:** [explain any branching, conditionals, or early returns]
 
-**Gotchas:** [subtle behaviour, edge cases, implicit assumptions]
+**Gotchas:** [subtle behaviour, edge cases — reference E-numbers from Layer 7 if known]
+
+**State impact:** [which Layer 6 variables are mutated in this block, if any]
 ```
+
+The cross-references (**T***n*, **C***n*, **B***n*) create a web of links between layers.
+A developer reading Block 3 can jump to T3 in Layer 2 to see where in the pipeline
+this block sits, or to C4 in Layer 3 to see the call detail, or to E2 in Layer 7 to
+see what edge case lurks here.
 
 ### Layer 5 — Line-by-Line Walkthrough (Key Logic Only)
 
@@ -167,11 +211,15 @@ boilerplate (imports, standard getters/setters, simple assignments, logging stat
 
 For each key line:
 
-| Line | Code | What It Does | Why This Way | What If Different |
-|---|---|---|---|---|
-| 42 | `if (order.isValid())` | Guards against invalid orders | Delegates validation to Order — SRP | If removed: NPE on null items at L47 |
-| 47 | `var total = items.stream().mapToDouble(...)` | Calculates subtotal via stream | Functional style — immutable intermediate | Could use for-loop but less readable |
-| 51 | `total = applyDiscount(total, discount)` | Applies percentage discount | Mutates local — discount is multiplicative | If additive: different rounding behaviour |
+| Line | Block | Code | What It Does | Why This Way | What If Different |
+|---|---|---|---|---|---|
+| L42 | B1 | `if (order.isValid())` | Guards against invalid orders | Delegates validation to Order — SRP | If removed: NPE on null items at L47 → E1 |
+| L47 | B2 | `var total = items.stream().mapToDouble(...)` | Calculates subtotal via stream | Functional style — immutable intermediate | Could use for-loop but less readable |
+| L51 | B3 | `total = applyDiscount(total, discount)` | Applies percentage discount | Mutates local — discount is multiplicative | If additive: different rounding behaviour → E3 |
+
+The **Block** column links each line back to its Layer 4 block. The **What If Different**
+column references Layer 7 edge case IDs (E*n*) where removing or changing the line
+would trigger a failure.
 
 Focus on lines where **the developer's understanding would break** if they skipped it.
 
@@ -181,44 +229,51 @@ Track every mutation through execution:
 
 **Local variable lifecycle:**
 
-| Variable | Declared At | Mutated At | Before → After | Why |
-|---|---|---|---|---|
-| `total` | L45 | L47, L51, L55 | `0.0` → `100.0` → `90.0` → `99.0` | Accumulates: subtotal → discounted → taxed |
+| Variable | Declared At | Mutated At | Block(s) | Before → After | Why |
+|---|---|---|---|---|---|
+| `total` | L45 | L47, L51, L55 | B2, B3, B4 | `0.0` → `100.0` → `90.0` → `99.0` | Accumulates: subtotal → discounted → taxed |
+
+The **Block(s)** column shows which Layer 4 blocks are responsible for each mutation —
+a developer can jump directly to the block to see the code that changes this variable.
 
 **Instance/field state changes:**
 
-| Field | Changed At | Before → After | Scope of Impact |
-|---|---|---|---|
-| `this.lastProcessedId` | L60 | `null` → `"ORD-123"` | Affects subsequent calls — not thread-safe |
+| Field | Changed At | Block | Before → After | Scope of Impact |
+|---|---|---|---|---|
+| `this.lastProcessedId` | L60 | B5 | `null` → `"ORD-123"` | Affects subsequent calls — not thread-safe (see E4) |
 
 **External state changes (side-effects leaving this code):**
 
-| What Changes | Where | When | Reversible? |
-|---|---|---|---|
-| DB row updated | `orders` table | L62 | Yes (within transaction) |
-| Event published | Message queue | L65 | No — consumers may have already processed |
+| What Changes | Where | When | Block | Reversible? |
+|---|---|---|---|---|
+| DB row updated | `orders` table | L62 | B5 | Yes (within transaction) |
+| Event published | Message queue | L65 | B6 | No — consumers may have already processed |
 
 ### Layer 7 — Edge Cases & Error Paths
 
 Enumerate every way this code can fail or behave unexpectedly:
 
-| # | Scenario | Input / Condition | What Happens | Handled? | Impact |
-|---|---|---|---|---|---|
-| 1 | Null input | `order == null` | NPE at L42 | ❌ No null-check | Caller gets 500 |
-| 2 | Empty items list | `order.getItems().isEmpty()` | Returns `0.0` total | ✅ Stream returns identity | Technically correct but may confuse caller |
-| 3 | Negative discount | `discount > 1.0` | Negative total | ❌ Not validated | Incorrect billing |
-| 4 | Concurrent modification | Two threads, same order | Race condition on `lastProcessedId` | ❌ Not synchronised | Data corruption |
-| 5 | DB connection failure | Network issue at L62 | `SQLException` propagates | ✅ Caught in caller | Transaction rolls back |
+| Edge | Scenario | Location | Input / Condition | What Happens | Handled? | Impact |
+|---|---|---|---|---|---|---|
+| E1 | Null input | B1, L42 | `order == null` | NPE at L42 | ❌ No null-check | Caller gets 500 |
+| E2 | Empty items list | B2, L47 | `order.getItems().isEmpty()` | Returns `0.0` total | ✅ Stream returns identity | Technically correct but may confuse caller |
+| E3 | Negative discount | B3, L51 | `discount > 1.0` | Negative total | ❌ Not validated | Incorrect billing |
+| E4 | Concurrent modification | B5, L60 | Two threads, same order | Race condition on `lastProcessedId` | ❌ Not synchronised | Data corruption |
+| E5 | DB connection failure | B5, L62 | Network issue at L62 | `SQLException` propagates | ✅ Caught in caller | Transaction rolls back |
+
+The **Edge** column (E*n*) is referenced from Layers 4, 5, and 6 — so a developer
+spotting a gotcha in a block can jump here for the full scenario, and vice versa.
+The **Location** column pinpoints the exact block and line where the edge case manifests.
 
 ### Layer 8 — Dependencies & Coupling
 
 **Outgoing dependencies (what this code needs):**
 
-| Dependency | Type | Interface or Concrete? | Coupling | Testability Impact |
-|---|---|---|---|---|
-| `OrderRepository` | Injected | Interface | Loose | Easy to mock |
-| `DiscountService` | Injected | Concrete class | Tight | Must mock concrete — fragile |
-| `TaxCalculator` | Static call | Static method | Very tight | Cannot mock without PowerMock |
+| Dependency | Type | Interface or Concrete? | Coupling | Used in Blocks | Testability Impact |
+|---|---|---|---|---|---|
+| `OrderRepository` | Injected | Interface | Loose | B4, B5 | Easy to mock |
+| `DiscountService` | Injected | Concrete class | Tight | B3 | Must mock concrete — fragile |
+| `TaxCalculator` | Static call | Static method | Very tight | B4 | Cannot mock without PowerMock |
 
 **Incoming dependencies (what needs this code):**
 
@@ -245,13 +300,16 @@ Summarise everything for quick future reference:
 **Developer cheat sheet** (copy-pasteable quick-reference):
 
 ```text
-Purpose:     <one-liner>
-Entry:       <who calls it, when>
-Happy path:  <input → step → step → output>
-Error path:  <what fails → what happens>
-Thread-safe: yes / no / partially
-Testable:    easy / moderate / hard — because <reason>
+Purpose:     <one-liner from Layer 1>
+Entry:       <who calls it, when — from Layer 1 entry points>
+Happy path:  <T1 → T2 → T3 → ... → output — from Layer 2>
+Error path:  <E1, E3 unhandled — from Layer 7>
+Key blocks:  <B2 (Price Calc), B3 (Discount) — from Layer 4>
+Thread-safe: yes / no / partially — <reference E4 if applicable>
+Testable:    easy / moderate / hard — because <reference Layer 8 verdict>
 ```
+
+The cheat sheet references Layer IDs so a developer can drill into any detail.
 
 ### Output Rules
 
@@ -271,6 +329,11 @@ Testable:    easy / moderate / hard — because <reason>
 - If the target method is > 50 lines, Layer 4 (Code Block Breakdown) is mandatory
 - If the target class has > 5 public methods, provide a Layer 4 breakdown for EACH
   significant method (skip trivial getters/setters/toString)
+- **Cross-layer coherence is mandatory** — every block (B*n*) must reference the
+  transformation steps (T*n*) it implements and the calls (C*n*) it contains. Every
+  edge case (E*n*) must name its block and line. Every state change must name its block.
+  A developer reading any single layer must be able to navigate to every related layer
+  via the ID tags. If an ID appears in one layer, it must be defined in its home layer.
 - End with one "what to deep-dive next" recommendation
 
 ### Session Capture — Auto-Save to Brain
