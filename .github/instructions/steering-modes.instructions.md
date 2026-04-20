@@ -125,6 +125,27 @@ copilot-instructions.md     ← project conventions (always on)
     + /command context      ← only during that chat message
 ```
 
+### Mode Stacking — Visual Flow
+
+```mermaid
+flowchart TD
+    A[copilot-instructions.md<br/>Project conventions] --> B[change-completeness.md<br/>Always on: ** glob]
+    B --> C[steering-modes.md<br/>Always on: ** glob]
+    C --> D[md-formatting.md<br/>Always on: ** glob]
+    D --> E{Editing .java?}
+    E -->|Yes| F[java.instructions.md<br/>+ clean-code.instructions.md]
+    E -->|No| G[Skip file-scoped]
+    F --> H{Agent selected?}
+    G --> H
+    H -->|Yes| I[Agent persona overlay]
+    H -->|No| J[Skip agent]
+    I --> K{Slash command used?}
+    J --> K
+    K -->|Yes| L[/command context<br/>per-message only]
+    K -->|No| M[Final configuration]
+    L --> M
+```
+
 ---
 
 ## Switching Modes
@@ -137,8 +158,47 @@ copilot-instructions.md     ← project conventions (always on)
 | `design` | Chat dropdown → **"Designer"**, or type `/design-review` |
 | `debug` | Chat dropdown → **"Debugger"**, or type `/debug` |
 | `focused` | Type `/scope` → `specific` in the chat before your request |
+| `request-steering` | Type `/request-steering` in chat when a new request arrives mid-task |
 
 Use `/steer` (the slash command) to get a quick summary of available modes and switch.
+
+### Mode Selection — Visual Decision Flow
+
+```mermaid
+flowchart TD
+    A[New task or request] --> B{Making a repo change?}
+    B -->|Yes| C{Complex multi-file<br/>or research needed?}
+    C -->|Yes| D[🧠 beast mode<br/>Deep research agent]
+    C -->|No| E{Tiny isolated<br/>single-file edit?}
+    E -->|Yes| F[📖 focused mode<br/>Skip completeness]
+    E -->|No| G[🟢 completeness mode<br/>Default — always on]
+    B -->|No| H{Learning or studying?}
+    H -->|Yes| I[🎓 learning mode<br/>Theory + exercises]
+    H -->|No| J{Reviewing architecture<br/>or design?}
+    J -->|Yes| K[🏗️ design mode<br/>SOLID/GRASP review]
+    J -->|No| L{Debugging a bug?}
+    L -->|Yes| M[🐛 debug mode<br/>Root cause analysis]
+    L -->|No| G
+```
+
+---
+
+## Request Steering — Mid-Task Request Routing
+
+When a new request arrives while work is in progress, use `/request-steering` to classify
+the relationship and choose a handling strategy:
+
+| Type | When to use | What happens |
+|---|---|---|
+| `independent` | Unrelated to current work (or idle) | Handle as a fresh task |
+| `merge` | Extends current work | Union of both — gap analysis — combined deliverable |
+| `sequential` | Depends on current work finishing | Finish current, then start new |
+| `supersede` | Replaces current approach | Confirm pivot, then restart |
+| `park` | Lower priority | Queue for later, continue current |
+| `split` | Partially overlaps | Decompose into independent + dependent sub-tasks |
+
+> **Command:** `/request-steering` — auto-classifies the relationship or accepts an
+> explicit type. See `.github/prompts/request-steering.prompt.md`.
 
 ---
 

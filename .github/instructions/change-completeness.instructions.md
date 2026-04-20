@@ -142,6 +142,9 @@ Run this for EVERY category of change:
 - [ ] **No regression in existing behaviour** — manually verify existing slash commands still work
 - [ ] **Cross-references complete** — verify all related docs link to each other
   (see Section H below for the documentation cross-reference checklist)
+- [ ] **Mermaid diagrams in sync** — if the change touches any decision logic, workflow,
+  or routing heuristic, verify Mermaid diagrams reflect the updated logic
+  (see Section P below for the Mermaid diagram sync checklist)
 - [ ] **Commit message follows Conventional Commits** (`feat:`, `fix:`, `docs:`, `chore:`)
 - [ ] **Commit attribution** — append `— created by gpt` or `— assisted by gpt` as applicable
 - [ ] **Single logical commit** — don't mix unrelated changes
@@ -200,6 +203,9 @@ When adding or modifying documentation, skills, or guide files in `.github/docs/
   the official documentation link to the relevant "Resources" or "Further Reading" section
 - [ ] **export-guide.md** — if a new config file, credential, or environment variable was added,
   update the Config Files and API Keys Reference tables in export-guide.md
+- [ ] **configuration-reference.md** — if a new config file, env var, path, or credential was
+  added, update the Configuration Reference (`.github/docs/configuration-reference.md`) —
+  this is the single source of truth for all configuration
 - [ ] **export-newbie-guide.md** — if a new exportable feature was added, verify the newbie
   export guide covers how to copy it and whether it's safe to skip
 
@@ -240,6 +246,14 @@ Every commit and push must follow these rules:
   "various changes"; be specific about what was added/changed/fixed
 - [ ] **Attribution footer** — include `— created by gpt` or `— assisted by gpt` as the last line
 - [ ] **Single logical unit** — one commit = one logical change; do not mix unrelated changes
+- [ ] **Cohesion-based splitting** — when a batch of work spans multiple independent concerns
+  (e.g., a new feature + documentation updates + linter fixes), split into multiple commits
+  grouped by cohesion. Each commit should be independently understandable and revertable.
+  Examples of cohesive splits:
+  - `feat(sessions): Add deep-dive template` (template + naming rules)
+  - `docs(sessions): Update capture guide with workflow diagrams` (docs only)
+  - `style: Linter fixes across markdown files` (formatting only)
+  Never combine a feature commit with an unrelated documentation or style commit
 
 #### Pull Request Suggestions
 
@@ -377,6 +391,39 @@ When adding, importing, or significantly modifying any Copilot customization pri
 
 ---
 
+### P — Mermaid Diagram Sync (applies to ALL changes touching decision logic)
+
+When modifying any decision tree, workflow, heuristic, routing rule, or protocol:
+
+- [ ] **Identify affected diagrams** — check if the file contains `mermaid` code blocks
+  that visualize the logic being changed
+- [ ] **Update diagram nodes/edges** — add, remove, or rename nodes to match the new
+  logic; ensure all branches in the text are represented in the diagram
+- [ ] **Add new diagram if missing** — if a new decision workflow or routing heuristic
+  was added and has 3+ decision points, add a Mermaid flowchart visualizing it
+- [ ] **Cross-check text ↔ diagram** — read both the prose description and the Mermaid
+  code; every decision path in prose must appear in the diagram and vice versa
+- [ ] **Enum/value sync** — if enum values, category names, template names, or pattern
+  names changed, update all Mermaid node labels that reference them
+- [ ] **Guide diagrams in sync** — if the instructions file has a companion guide
+  (e.g., `session-capture-guide.md`), verify both files’ diagrams match
+- [ ] **Diagram renders correctly** — verify the diagram renders in VS Code preview
+  (Ctrl+Shift+V) with no syntax errors
+
+### Mermaid Sync — When to Add a New Diagram
+
+A new Mermaid diagram should be added when:
+
+| Condition | Diagram type |
+|---|---|
+| Decision tree with 3+ branches | `flowchart TD` |
+| Sequential workflow with 4+ steps | `flowchart TD` or `flowchart LR` |
+| State machine with transitions | `stateDiagram-v2` |
+| Multi-actor interaction | `sequenceDiagram` |
+| Bidirectional or reversible process | `flowchart LR` with subgraphs |
+
+---
+
 ## 3-Tier Completeness Guide
 
 ### Newbie — "I added a thing, and it works"
@@ -410,6 +457,7 @@ When adding, importing, or significantly modifying any Copilot customization pri
 - No regression or information loss (Section M complete)
 - Cohesive resource placement verified (Section N complete)
 - Primitive fitness review passed (Section O complete — for skills/prompts/MCP/instructions changes)
+- Mermaid diagrams in sync with decision logic (Section P complete)
 - Commit is a clean, standalone logical unit
 
 ---
@@ -435,6 +483,7 @@ When adding, importing, or significantly modifying any Copilot customization pri
 | `copilot-instructions.md` | UPDATE — skills block, conventions |
 | `.github/docs/export-guide.md` | UPDATE — if new config files, env vars, or credentials added |
 | `.github/docs/export-newbie-guide.md` | UPDATE — if new exportable features added |
+| `.github/docs/configuration-reference.md` | UPDATE — single source of truth for all config/env/paths/credentials |
 | `.github/docs/customization-evolution-guide.md` | CONSULT — import/merge protocol for external primitives |
 | `.github/skills/TAXONOMY.md` | UPDATE — taxonomy tree, category tables, cross-refs |
 | `.github/docs/skills-library.md` | UPDATE — inventory table, hierarchy, roadmap |

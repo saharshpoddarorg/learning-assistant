@@ -3,6 +3,16 @@
 A structured workspace for notes, decisions, and references created during
 development and learning sessions — with Copilot, MCP servers, or manually.
 
+> **Configurable path:** This workspace defaults to `brain/ai-brain/` but can be
+> placed anywhere in your project — including inside a module, monorepo package, or
+> standalone directory. Scripts auto-detect their root from their own location.
+> Set the `BRAIN_PATH` env var to override
+> (see `.github/copilot-instructions.md` § Configurable Paths).
+>
+> **Not a build module:** This folder contains only markdown (`.md`) and shell scripts
+> (`.ps1`/`.sh`). Do not add `build.gradle`, `package.json`, `setup.py`, or similar.
+> If your parent module's build tool processes all files, exclude this path from it.
+
 ---
 
 ## Six Tiers

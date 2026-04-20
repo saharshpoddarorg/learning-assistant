@@ -839,6 +839,8 @@ public class LanguageFilter<T extends LearningResource> implements SearchFilter<
 ## 7. Brain Workspace — Personal Knowledge System
 
 > Your personal knowledge system. Six tiers — inbox is gitignored, all others are committed.
+> Default path: `brain/ai-brain/` — configurable via `BRAIN_PATH` env var
+> (see `copilot-instructions.md` § Configurable Paths).
 
 ```text
 brain/ai-brain/

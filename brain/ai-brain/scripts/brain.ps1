@@ -52,10 +52,57 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-# ── Resolve repo root ──────────────────────────────────────────────────────────
+# ── Resolve paths ──────────────────────────────────────────────────────────────
+# Brain root is configurable via BRAIN_PATH env var (relative to repo root, or absolute).
+# Default: auto-detect from script location (scripts/ lives inside brain root).
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$RepoRoot  = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $ScriptDir))
-$BrainRoot    = Join-Path $RepoRoot "brain\ai-brain"
+
+# Find repo root: try git, then walk up looking for .git/
+$RepoRoot = $null
+try { $RepoRoot = (git rev-parse --show-toplevel 2>$null) -replace '/', '\' } catch {}
+if (-not $RepoRoot -or -not (Test-Path $RepoRoot)) {
+    # Fallback: walk up from script dir looking for .git/
+    $candidate = $ScriptDir
+    while ($candidate -and -not (Test-Path (Join-Path $candidate ".git"))) {
+        $candidate = Split-Path -Parent $candidate
+    }
+    $RepoRoot = $candidate
+}
+if (-not $RepoRoot) {
+    Write-Host "WARNING: Could not detect repo root. Some git operations may fail." -ForegroundColor Yellow
+    $RepoRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $ScriptDir))
+}
+
+# Brain root resolution order:
+# 1. BRAIN_PATH env var (absolute or relative to repo root)
+# 2. Auto-detect from script location (parent of scripts/)
+if ($env:BRAIN_PATH) {
+    if ([System.IO.Path]::IsPathRooted($env:BRAIN_PATH)) {
+        $BrainRoot = $env:BRAIN_PATH
+    } else {
+        $BrainRoot = Join-Path $RepoRoot $env:BRAIN_PATH
+    }
+} else {
+    $BrainRoot = Split-Path -Parent $ScriptDir  # scripts/ -> brain-root/
+}
+
+# Session capture path resolution:
+# 1. SESSION_CAPTURE_PATH env var (absolute or relative to brain root)
+# 2. Default: <brain-root>/sessions/
+if ($env:SESSION_CAPTURE_PATH) {
+    if ([System.IO.Path]::IsPathRooted($env:SESSION_CAPTURE_PATH)) {
+        $SessionRoot = $env:SESSION_CAPTURE_PATH
+    } else {
+        $SessionRoot = Join-Path $BrainRoot $env:SESSION_CAPTURE_PATH
+    }
+} else {
+    $SessionRoot = Join-Path $BrainRoot "sessions"
+}
+
+# Compute relative display path (e.g., "brain/ai-brain") for user-facing messages
+$BrainRelPath = if ($RepoRoot -and $BrainRoot.StartsWith($RepoRoot)) {
+    $BrainRoot.Substring($RepoRoot.Length + 1) -replace '\\', '/'
+} else { "brain" }
 
 # ── Valid values ───────────────────────────────────────────────────────────────
 $ValidKinds   = @("note", "decision", "session", "resource", "snippet", "ref")
@@ -178,7 +225,8 @@ function Invoke-Help {
     Write-Host "brain -- personal knowledge workspace" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "USAGE" -ForegroundColor Yellow
-    Write-Host "  .\brain\ai-brain\scripts\brain.ps1 <command> [options]"
+    $scriptRelPath = "$($BrainRelPath -replace '/', '\')\scripts\brain.ps1"
+    Write-Host "  .\$scriptRelPath <command> [options]"
     Write-Host ""
     Write-Host "COMMANDS" -ForegroundColor Yellow
     $cmds = @(
@@ -213,13 +261,15 @@ function Invoke-Help {
     }
     Write-Host ""
     Write-Host "EXAMPLES" -ForegroundColor Yellow
-    Write-Host "  .\brain\ai-brain\scripts\brain.ps1 new"
-    Write-Host "  .\brain\ai-brain\scripts\brain.ps1 new --tier inbox --project mcp-servers --title `"SSE transport`""
-    Write-Host "  .\brain\ai-brain\scripts\brain.ps1 publish brain\ai-brain\inbox\draft.md --project mcp-servers"
-    Write-Host "  .\\brain\\ai-brain\\scripts\\brain.ps1 search java --tag generics --tier library"
-    Write-Host "  .\\brain\\ai-brain\\scripts\\brain.ps1 list --tier library --project mcp-servers"
-    Write-Host "  .\brain\ai-brain\scripts\brain.ps1 clear --force"
-    Write-Host "  .\brain\ai-brain\scripts\brain.ps1 status"
+    $sp = $scriptRelPath
+    $bp = $BrainRelPath -replace '/', '\'
+    Write-Host "  .\$sp new"
+    Write-Host "  .\$sp new --tier inbox --project mcp-servers --title `"SSE transport`""
+    Write-Host "  .\$sp publish $bp\inbox\draft.md --project mcp-servers"
+    Write-Host "  .\$sp search java --tag generics --tier library"
+    Write-Host "  .\$sp list --tier library --project mcp-servers"
+    Write-Host "  .\$sp clear --force"
+    Write-Host "  .\$sp status"
     Write-Host ""
     Write-Host "ALIASES  (after dot-sourcing brain-module.psm1)" -ForegroundColor Yellow
     Write-Host "  brain, brain-new, brain-publish, brain-move, brain-search, brain-list, brain-clear, brain-status"
@@ -275,7 +325,7 @@ source: copilot
     if (-not (Test-Path $destDir)) { New-Item -ItemType Directory -Path $destDir | Out-Null }
     Set-Content $destPath -Value $template -Encoding UTF8
 
-    Write-Ok "Created: brain/ai-brain/$tier/$filename"
+    Write-Ok "Created: $BrainRelPath/$tier/$filename"
 
     if (-not $NoEdit) {
         $open = if ($Force) { $true } else { Prompt-Confirm "Open in editor?" $true }
@@ -290,7 +340,7 @@ function Invoke-Publish {
 
     $sourcePath = $Arg1
     if (-not $sourcePath) {
-        $sourcePath = Prompt-Input "Source file (relative to brain/ai-brain/ or absolute)"
+        $sourcePath = Prompt-Input "Source file (relative to $BrainRelPath/ or absolute)"
     }
 
     # Resolve path
@@ -355,7 +405,7 @@ function Invoke-Publish {
     $destPath  = Join-Path $destDir $filename
 
     Write-Host ""
-    Write-Host "  Destination: brain/ai-brain/library/$project/$yearMonth/$filename" -ForegroundColor Cyan
+    Write-Host "  Destination: $BrainRelPath/library/$project/$yearMonth/$filename" -ForegroundColor Cyan
 
     if (-not $Force) {
         if (-not (Prompt-Confirm "Proceed?" $true)) {
@@ -378,10 +428,10 @@ function Invoke-Publish {
         }
     }
     Move-Item $sourcePath $destPath -Force
-    Write-Ok "Moved: brain/ai-brain/library/$project/$yearMonth/$filename"
+    Write-Ok "Moved: $BrainRelPath/library/$project/$yearMonth/$filename"
 
     # Git operations
-    $gitRelPath = "brain/ai-brain/library/$project/$yearMonth/$filename" -replace '\\', '/'
+    $gitRelPath = "$BrainRelPath/library/$project/$yearMonth/$filename" -replace '\\', '/'
 
     Push-Location $RepoRoot
     try {
@@ -409,7 +459,7 @@ function Invoke-Move {
     Write-Header "Promote file between tiers"
 
     $sourcePath = $Arg1
-    if (-not $sourcePath) { $sourcePath = Prompt-Input "Source (relative to brain/ai-brain/)" }
+    if (-not $sourcePath) { $sourcePath = Prompt-Input "Source (relative to $BrainRelPath/)" }
     $targetTier = if ($Tier) { $Tier } else { Prompt-Input "Target tier (notes|library)" "notes" }
     $subDir     = if ($Project) { $Project } else { Prompt-Input "Subdirectory (optional, Enter for none)" "" }
 
@@ -435,12 +485,12 @@ function Invoke-Move {
     Move-Item $sourcePath $destPath -Force
     $aiRelSrc  = $sourcePath.Substring($BrainRoot.Length + 1)
     $aiRelDest = $destPath.Substring($BrainRoot.Length + 1)
-    Write-Ok "Moved: brain/ai-brain/$aiRelSrc -> brain/ai-brain/$aiRelDest"
+    Write-Ok "Moved: $BrainRelPath/$aiRelSrc -> $BrainRelPath/$aiRelDest"
 
     if ($targetTier -ne "inbox") {
         Push-Location $RepoRoot
         try {
-            $gitPath = "brain/ai-brain/$aiRelDest" -replace '\\', '/'
+            $gitPath = "$BrainRelPath/$aiRelDest" -replace '\\', '/'
             git add $gitPath 2>&1 | Out-Null
             Write-Ok "Staged: $gitPath"
             Write-Info "Run 'git commit' when ready."
@@ -598,7 +648,7 @@ function Invoke-Clear {
 # ── Command: status ────────────────────────────────────────────────────────────
 
 function Invoke-Status {
-    Write-Header "brain/ai-brain/ workspace status"
+    Write-Header "$BrainRelPath/ workspace status"
 
     foreach ($tier in @("inbox","notes","library")) {
         $dir   = Get-TierDir $tier

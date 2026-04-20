@@ -74,6 +74,8 @@ You are the **navigation hub** for all available assistants and learning command
 │    │   │   ├── issues ············· Lifecycle, templates, labels, milestones
 │    │   │   ├── gh-cli ············· auth, pr, issue, repo, run commands
 │    │   │   └── actions ············ Workflows, CI/CD, triggers, monitoring
+│    │   ├── /ship ·················· Commit + push + PR suggestion (lint/build pre-flight)
+│    │   ├── /github-push ··········· Full shipping: cohesive commits + push + create PR via API
 │    │   ├── /atlassian-tools ······· Jira, Confluence, Bitbucket via PAT CLI
 │    │   │   ├── jira ··············· Issues, JQL, sprints, epics, bulk ops
 │    │   │   ├── confluence ·········· Pages, CQL, macros, blogs, Mermaid
@@ -206,6 +208,7 @@ You are the **navigation hub** for all available assistants and learning command
 │    │
 │    ├── Debugging & Analysis (/hub debug)
 │    │   ├── /debug ················· Systematic bug investigation
+│    │   ├── /code-analysis-deep-dive  Code internals deep-dive
 │    │   ├── /impact ················ Change impact analysis
 │    │   └── /teach ················· Learn concepts from code
 │    │
@@ -325,6 +328,13 @@ You are the **navigation hub** for all available assistants and learning command
 │    │   ├── switch ················· Switch to beast / learning / design / debug / focused
 │    │   ├── explain ················ Explain what a mode does
 │    │   └── default ················ Confirm completeness mode is active
+│    ├── /request-steering ·········· Route incoming request vs current work
+│    │   ├── independent ············ Unrelated — handle as fresh task
+│    │   ├── merge ·················· Union of both — gap analysis + combined deliverable
+│    │   ├── sequential ············· Finish current first, then start new
+│    │   ├── supersede ·············· Replace current approach (confirm first)
+│    │   ├── park ··················· Queue for later — continue current work
+│    │   └── split ·················· Decompose into independent + dependent sub-tasks
 │    └── /multi-session ············· Manage state across chat sessions
 │        ├── save-state ············· Save progress + MCP state to session file
 │        ├── resume ················· Resume from checkpoint, verify MCP servers
@@ -377,6 +387,7 @@ Quick Commands:
     /context          → Continue prior conversation or start fresh
     /scope            → Generic learning vs code-specific
     /steer            → View or switch steering mode (default: completeness)
+    /request-steering → Route incoming request vs current work (merge/sequential/park/split)
     /multi-session    → Save/resume state across chat sessions (incl. MCP state)
 
   Learning & Concepts:
@@ -392,6 +403,8 @@ Quick Commands:
     /devops           → CI/CD, Docker, K8s, cloud, IaC, monitoring
     /git-vcs          → Git workflows, branching strategies, commit conventions, semver
     /github-workflow  → GitHub PRs, issues, gh CLI, Actions, branch protection, repo management
+    /ship             → Commit + push + PR suggestion (lint/build pre-flight, Conventional Commits)
+    /github-push      → Full shipping: cohesive commits + push + create PR via GitHub API
     /atlassian-tools  → Jira, Confluence, Bitbucket — JQL, CQL, sprints, wiki, PRs, PAT CLI
     /build-tools      → Build automation: Maven, Gradle, Make, Bazel, npm
     /mac-dev          → macOS dev environment: Homebrew, JDK, npm, IDEs, Docker, dotfiles
@@ -415,6 +428,7 @@ Quick Commands:
     /refactor         → Identify refactoring opportunities
     /explain          → Beginner-friendly file explanation
     /debug            → Systematic bug investigation
+    /code-analysis-deep-dive → Code internals deep-dive (data flow, call stack, line-by-line)
     /impact           → Change impact analysis
     /explore-project  → Learn from open-source projects
 

@@ -199,6 +199,33 @@ Forked:    personal/software-dev/research/2026-03-20_03-00pm_research_spring-vs-
            scope-refs: [{ file: "../requirements/2026-03-20_...", relationship: origin }]
 ```
 
+### Scope Operations — Visual Decision Flow
+
+```mermaid
+flowchart TD
+    A[Scope change detected] --> B{What type of change?}
+    B -->|Broader context| C[Widen]
+    B -->|More specific| D[Narrow]
+    B -->|Different project| E[Switch]
+    B -->|Substantial segment| F[Fork / Split]
+
+    C --> C1{feature?}
+    C1 -->|Yes| C2[feature → project]
+    C1 -->|No| C3[project → global]
+
+    D --> D1{global?}
+    D1 -->|Yes| D2[global → project]
+    D1 -->|No| D3[project → feature]
+
+    E --> E1[Log transition]
+    E1 --> E2{3+ exchanges<br/>in new scope?}
+    E2 -->|Yes| F
+    E2 -->|No| E3[Continue in same file]
+
+    F --> F1[Create new session file]
+    F1 --> F2[Add bidirectional scope-refs]
+```
+
 ---
 
 ## Cross-Reference Relationships
@@ -460,6 +487,27 @@ When a scope shift is detected:
 3. **Act** — If confirmed, log the transition and update the scope fields.
 
 Do NOT silently change scope. Always surface the change so the user can confirm or correct.
+
+### Implicit Detection — Visual Protocol Flow
+
+```mermaid
+flowchart TD
+    A[Exchange received] --> B{Contains scope<br/>shift signal?}
+    B -->|No| C[Continue at current scope]
+    B -->|Yes| D{Signal type?}
+    D -->|Widening words:<br/>in general, any project| E[Suggest widen]
+    D -->|Narrowing words:<br/>specifically, in our case| F[Suggest narrow]
+    D -->|Different project<br/>or domain| G[Suggest switch]
+    E --> H[Acknowledge shift]
+    F --> H
+    G --> H
+    H --> I{User confirms?}
+    I -->|Yes| J[Log transition +<br/>update scope fields]
+    I -->|No| C
+    J --> K{Segment substantial?<br/>3+ exchanges}
+    K -->|Yes| L[Consider fork/split]
+    K -->|No| M[Continue in same file]
+```
 
 ---
 

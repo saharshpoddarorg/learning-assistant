@@ -17,6 +17,10 @@ description: >
 
 # Brain Management Skill
 
+> **Configurable path:** The brain workspace defaults to `brain/ai-brain/`. If your project
+> uses a different location, see `copilot-instructions.md` § Configurable Paths for the
+> `BRAIN_PATH` setting. All path references in this skill use the default path.
+
 ---
 
 ## Structure Decision — Why 6 Tiers
@@ -390,13 +394,18 @@ sessions/personal/software-dev/design/
 
 ### Sub-Package Escalation
 
-When 5+ files exist for the same subject, group into a sub-directory:
+Sessions auto-organize into sub-directories when file counts reach thresholds:
 
-```text
-work/code-analysis/order-service/
-  2026-03-20_10-30am_calculate-total.md
-  2026-03-21_..._validate-order.md
-```
+| Pattern | Trigger | Threshold | Example |
+|---|---|---|---|
+| **Pattern 1** — Subject | Same subject prefix | 5+ files | `order-service/` |
+| **Pattern 2** — Project | Same project in software-dev | 3+ files | `task-manager/` |
+| **Pattern 3a** — Code analysis | Same class → same method | 3+ / 2+ | `order-service/calculate-total/` |
+| **Pattern 3b** — Design | Same component → same aspect | 3+ / 2+ | `payment-gateway/api-design/` |
+| **Pattern 3c** — Debugging | Same service → same issue | 3+ / 2+ | `order-service/npe-issue/` |
+
+Pattern 3 supports two-level hierarchies (e.g., class → method). Thresholds and
+patterns are configurable. See `chat-capture.instructions.md` for the full protocol.
 
 ### Session Scoping
 

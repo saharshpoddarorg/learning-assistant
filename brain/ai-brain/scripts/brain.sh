@@ -37,8 +37,54 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-BRAIN_ROOT="$REPO_ROOT/brain/ai-brain"
+
+# Find repo root: try git, then walk up looking for .git/
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [[ -z "$REPO_ROOT" || ! -d "$REPO_ROOT" ]]; then
+    candidate="$SCRIPT_DIR"
+    while [[ -n "$candidate" && ! -d "$candidate/.git" ]]; do
+        candidate="$(dirname "$candidate")"
+        [[ "$candidate" == "/" ]] && break
+    done
+    REPO_ROOT="$candidate"
+fi
+if [[ -z "$REPO_ROOT" || ! -d "$REPO_ROOT" ]]; then
+    echo "WARNING: Could not detect repo root. Some git operations may fail." >&2
+    REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+fi
+
+# Brain root resolution order:
+# 1. BRAIN_PATH env var (absolute or relative to repo root)
+# 2. Auto-detect from script location (parent of scripts/)
+if [[ -n "${BRAIN_PATH:-}" ]]; then
+    if [[ "$BRAIN_PATH" = /* ]]; then
+        BRAIN_ROOT="$BRAIN_PATH"
+    else
+        BRAIN_ROOT="$REPO_ROOT/$BRAIN_PATH"
+    fi
+else
+    BRAIN_ROOT="$(dirname "$SCRIPT_DIR")"  # scripts/ -> brain-root/
+fi
+
+# Session capture path resolution:
+# 1. SESSION_CAPTURE_PATH env var (absolute or relative to brain root)
+# 2. Default: <brain-root>/sessions/
+if [[ -n "${SESSION_CAPTURE_PATH:-}" ]]; then
+    if [[ "$SESSION_CAPTURE_PATH" = /* ]]; then
+        SESSION_ROOT="$SESSION_CAPTURE_PATH"
+    else
+        SESSION_ROOT="$BRAIN_ROOT/$SESSION_CAPTURE_PATH"
+    fi
+else
+    SESSION_ROOT="$BRAIN_ROOT/sessions"
+fi
+
+# Compute relative display path for user-facing messages
+if [[ "$BRAIN_ROOT" == "$REPO_ROOT"/* ]]; then
+    BRAIN_REL_PATH="${BRAIN_ROOT#"$REPO_ROOT/"}"
+else
+    BRAIN_REL_PATH="brain"
+fi
 
 VALID_KINDS=("note" "decision" "session" "resource" "snippet" "ref")
 VALID_TIERS=("inbox" "notes" "library")
@@ -324,7 +370,7 @@ cmd_publish() {
     local filename; filename="$(basename "$source_path")"
     local dest_dir="$BRAIN_ROOT/library/$project/$year_month"
     local dest_path="$dest_dir/$filename"
-    local git_rel="brain/ai-brain/library/$project/$year_month/$filename"
+    local git_rel="$BRAIN_REL_PATH/library/$project/$year_month/$filename"
 
     echo
     echo -e "  ${CYAN}Destination: $git_rel${RESET}"
@@ -410,11 +456,11 @@ cmd_move() {
     fi
 
     mv "$source_path" "$dest_path"
-    ok "Moved: brain/ai-brain/$target_tier/$subdir${subdir:+/}$filename"
+    ok "Moved: $BRAIN_REL_PATH/$target_tier/$subdir${subdir:+/}$filename"
 
     if [[ "$target_tier" != "inbox" ]]; then
         cd "$REPO_ROOT"
-        local git_rel="brain/ai-brain/$target_tier/${subdir:+$subdir/}$filename"
+        local git_rel="$BRAIN_REL_PATH/$target_tier/${subdir:+$subdir/}$filename"
         git add "$git_rel" 2>/dev/null
         ok "Staged: $git_rel"
         info "Run 'git commit' when ready."
@@ -533,7 +579,7 @@ cmd_clear() {
 # ── Command: status ────────────────────────────────────────────────────────────
 
 cmd_status() {
-    header "brain/ai-brain/ workspace status"
+    header "$BRAIN_REL_PATH/ workspace status"
 
     for tier in inbox notes library; do
         local dir="$BRAIN_ROOT/$tier"
@@ -553,7 +599,7 @@ cmd_status() {
     done
 
     echo
-    local staged; staged="$(git -C "$REPO_ROOT" diff --cached --name-only -- brain/ai-brain/ 2>/dev/null || true)"
+    local staged; staged="$(git -C "$REPO_ROOT" diff --cached --name-only -- "$BRAIN_REL_PATH/" 2>/dev/null || true)"
     if [[ -n "$staged" ]]; then
         echo -e "  ${YELLOW}Staged (ready to commit):${RESET}"
         echo "$staged" | while read -r f; do echo -e "    ${YELLOW}$f${RESET}"; done

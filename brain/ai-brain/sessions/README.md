@@ -40,9 +40,11 @@ friendly overview of the entire system.
 sessions/
 ├── README.md                           ← This file
 ├── SESSION-LOG.md                      ← Append-only index of all captured sessions
+├── CAPTURE-LOG.md                      ← Escalation & structural operations log
 ├── work/                               ← Corporate / job-specific sessions
 │   ├── README.md
 │   ├── code-analysis/                  ← Code review, architecture analysis
+│   │   └── deep-dive/                  ← Code internals deep-dive (permanent)
 │   ├── debugging/                      ← Complex bug investigation, RCA
 │   ├── requirements/                   ← User stories, acceptance criteria, BDD
 │   ├── performance/                    ← Profiling, optimization, benchmarking
@@ -53,14 +55,27 @@ sessions/
 ├── personal/                           ← Personal projects & learning
 │   ├── README.md
 │   ├── learning/                       ← Concept deep-dives, tutorials, skill-building
-│   ├── project-dev/                    ← Personal project development
-│   ├── requirements/                   ← User stories, acceptance criteria, feature scoping
+│   ├── software-dev/                   ← Personal project development (umbrella)
+│   │   ├── requirements/               ← Scoping, user stories for your projects
+│   │   ├── research/                   ← Tech evaluation for your projects
+│   │   ├── design/                     ← Architecture, API design, schemas
+│   │   ├── implementation/             ← Coding sessions, feature building
+│   │   ├── testing/                    ← Test strategy, TDD/BDD setup
+│   │   ├── code-review/               ← Code analysis, refactoring review
+│   │   │   └── deep-dive/             ← Code internals deep-dive (permanent)
+│   │   ├── devops/                     ← CI/CD, Docker, deployment
+│   │   └── general/                    ← Other software dev activities
 │   ├── financial/                      ← Budgeting, investment, tax strategies
 │   ├── research/                       ← Personal interest research, tool evaluation
 │   └── general/                        ← Personal sessions not fitting above
 └── _templates/
     ├── session-capture.md              ← Generic frontmatter + content template
-    └── requirements-capture.md         ← Requirements-specific template (user stories, BDD, NFRs)
+    ├── code-analysis-capture.md        ← Code review: findings table, class/method target
+    ├── code-analysis-deep-dive-capture.md ← Code deep-dive: data flow, call stack, line-by-line
+    ├── design-capture.md               ← Design: approach/proposal, use cases, criteria
+    ├── debugging-capture.md            ← Debugging: hypothesis tracking, RCA, prevention
+    ├── requirements-capture.md         ← Requirements: user stories, BDD, NFRs
+    └── intent-capture.md               ← Intent: design decisions, migrations
 ```
 
 Category folders are created **on demand** — only when the first session of that category
@@ -235,12 +250,12 @@ When continuing analysis on the same subject from a previous session:
 
 ## Sub-Package Escalation
 
-Sessions naturally cluster around shared subjects or projects. Two escalation patterns
+Sessions naturally cluster around shared subjects or projects. Three escalation patterns
 keep folders navigable as volume grows.
 
-### Pattern 1 — Subject-Based Sub-Package (5+ files)
+### Pattern 1 — Subject-Based Sub-Package (3+ files)
 
-When **5+ files** accumulate for the same subject within a category, group them
+When **3+ files** accumulate for the same subject within a category, group them
 into a sub-directory:
 
 ```text
@@ -248,7 +263,7 @@ into a sub-directory:
 work/code-analysis/
   2026-03-20_10-30am_code-analysis_order-service-calculate-total.md
   2026-03-21_..._order-service-validate-order.md
-  ... (5+ files about order-service)
+  ... (3+ files about order-service)
 
 # After (sub-package)
 work/code-analysis/order-service/
@@ -259,7 +274,7 @@ work/code-analysis/order-service/
 ```
 
 Inside sub-packages, filenames drop the category and subject prefix (already implied
-by the folder path).
+by the folder path). Version suffixes (`_v2`, `_v3`) are always preserved.
 
 ### Pattern 2 — Project-Based Sub-Package (3+ files in same activity for same project)
 
@@ -267,30 +282,48 @@ Within `personal/software-dev/<activity>/`, when **3+ sessions** relate to the *
 project**, create a project sub-folder:
 
 ```text
-# Before (flat)
-personal/software-dev/requirements/
-  2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
-  2026-03-21_10-00am_requirements_task-manager-recurring-tasks.md
-  2026-03-22_04-30pm_requirements_task-manager-notification-rules.md
-  2026-03-25_09-00am_requirements_expense-tracker-budget-rules.md
-
-# After (project sub-package)
 personal/software-dev/requirements/task-manager/
   2026-03-20_02-15pm_mvp-scope.md
   2026-03-21_10-00am_recurring-tasks.md
   2026-03-22_04-30pm_notification-rules.md
-
-personal/software-dev/requirements/
-  2026-03-25_09-00am_requirements_expense-tracker-budget-rules.md
 ```
 
-**Rules:**
+### Pattern 3 — Domain-Specific Hierarchical Escalation
 
-- Threshold is **3+ files** (lower than subject escalation — project cohesion is stronger)
-- Project sub-package name = kebab-case project name (e.g., `task-manager`)
-- Files inside drop the category and project prefix (implied by folder path)
-- Add a `README.md` to the sub-package listing its contents
-- Move existing files when escalating (update SESSION-LOG.md paths)
+Certain categories support two-level sub-folder hierarchies:
+
+| Pattern | Category | Level 1 | Level 2 | Thresholds |
+|---|---|---|---|---|
+| **3a** | code-analysis, code-review | class name | method name | 3+ / 3+ |
+| **3b** | design, feature-exploration | component | aspect | 3+ / 3+ |
+| **3c** | debugging | service | issue type | 3+ / 3+ |
+
+**Code analysis example (class → method):**
+
+```text
+work/code-analysis/order-service/
+  calculate-total/
+    2026-04-01_..._calculate-total.md
+    2026-04-07_..._calculate-total_v2.md
+  2026-04-02_..._validate-order.md
+  2026-04-03_..._process-payment.md
+```
+
+**Design example (component → aspect):**
+
+```text
+personal/software-dev/design/task-manager/
+  api-design/
+    2026-04-01_..._rest-endpoints.md
+    2026-04-02_..._graphql-evaluation.md
+  2026-04-03_..._database-schema.md
+```
+
+**Design aspects:** intent, approach, proposal, api-design, schema, use-case, criteria,
+security, performance, patterns, trade-offs, migration, hld, lld.
+
+Extended frontmatter fields (`code-target`, `design-target`, `debug-target`) enable
+precise grouping. See `chat-capture.instructions.md` for the full protocol.
 
 ### Cross-Cutting Project Index
 
@@ -309,6 +342,28 @@ a project index file at `personal/software-dev/<project-name>-INDEX.md`:
 ```
 
 This provides a single entry point for all sessions related to one project.
+
+### Name Truncation on Escalation
+
+When files move into a sub-folder, redundant prefixes are dropped:
+
+```text
+Original:  YYYY-MM-DD_HH-MMtt_<category>_<grouping-key>-<distinguisher>.md
+Truncated: YYYY-MM-DD_HH-MMtt_<distinguisher>.md
+```
+
+The timestamp and distinguishing suffix are always preserved. On de-escalation
+(flattening), the full name is restored.
+
+### De-Escalation (Flattening)
+
+When a sub-folder drops below **3 session files** (after deletion, move, or
+reclassification), its files are moved back to the parent folder with full names
+restored. Nested sub-packages cascade — if flattening a method-level folder causes
+the parent class-level folder to also drop below threshold, both are flattened.
+
+All escalation and de-escalation operations are logged in
+[CAPTURE-LOG.md](CAPTURE-LOG.md).
 
 ---
 
@@ -402,6 +457,9 @@ the same feature scope, with `parent:` linking to the previous version.
 
 All captures are indexed in [SESSION-LOG.md](SESSION-LOG.md) — an append-only table
 for quick lookup and auditing.
+
+All structural operations (escalation, forks, moves) are logged in
+[CAPTURE-LOG.md](CAPTURE-LOG.md) — created automatically on first use.
 
 ---
 

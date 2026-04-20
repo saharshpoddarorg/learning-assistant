@@ -87,6 +87,7 @@ brain/ai-brain/sessions/
 │
 ├── work/                                   ← Job-related conversations
 │   ├── code-analysis/                      ← Code review, architecture review
+│   │   └── deep-dive/                      ← Code internals deep-dive (permanent)
 │   ├── debugging/                          ← Complex bug investigation
 │   ├── requirements/                       ← User stories, acceptance criteria
 │   ├── performance/                        ← Profiling, optimization
@@ -107,6 +108,7 @@ brain/ai-brain/sessions/
         ├── implementation/                 ← Coding sessions, feature building
         ├── testing/                        ← Test strategy, TDD/BDD setup
         ├── code-review/                    ← Code analysis, refactoring review
+        │   └── deep-dive/                  ← Code internals deep-dive (permanent)
         ├── devops/                         ← CI/CD, Docker, deployment
         └── general/                        ← Other software dev activities
 ```
@@ -393,11 +395,15 @@ scope-refs:
 
 ## Templates
 
-Three templates live in `brain/ai-brain/sessions/_templates/`:
+Seven templates live in `brain/ai-brain/sessions/_templates/`:
 
 | Template | Use For |
 |---|---|
-| [session-capture.md](../../brain/ai-brain/sessions/_templates/session-capture.md) | General sessions — research, analysis, debugging, learning |
+| [session-capture.md](../../brain/ai-brain/sessions/_templates/session-capture.md) | General sessions — research, analysis, learning, exploration |
+| [code-analysis-capture.md](../../brain/ai-brain/sessions/_templates/code-analysis-capture.md) | Code review — class/method analysis, findings tables, refactoring proposals |
+| [code-analysis-deep-dive-capture.md](../../brain/ai-brain/sessions/_templates/code-analysis-deep-dive-capture.md) | Code deep-dive — internals, data flow, call stack, code blocks, line-by-line |
+| [design-capture.md](../../brain/ai-brain/sessions/_templates/design-capture.md) | Design sessions — approach/proposal alternatives, use cases, acceptance criteria |
+| [debugging-capture.md](../../brain/ai-brain/sessions/_templates/debugging-capture.md) | Debugging — hypothesis tracking, root cause analysis, prevention measures |
 | [requirements-capture.md](../../brain/ai-brain/sessions/_templates/requirements-capture.md) | Requirements gathering — user stories, BDD, NFRs, scope definition |
 | [intent-capture.md](../../brain/ai-brain/sessions/_templates/intent-capture.md) | Design decisions — intent statements, capability inventories, migrations |
 
@@ -405,9 +411,70 @@ Three templates live in `brain/ai-brain/sessions/_templates/`:
 
 | Session Focus | Template |
 |---|---|
-| Exploring a concept, comparing options, debugging | `session-capture.md` |
+| Exploring a concept, comparing options, general research | `session-capture.md` |
+| Reviewing code for patterns, smells, bugs, or refactoring | `code-analysis-capture.md` |
+| Understanding code internals — data flow, call stack, line-by-line | `code-analysis-deep-dive-capture.md` |
+| Designing components, APIs, schemas, or evaluating approaches | `design-capture.md` |
+| Investigating a bug, error, or unexpected behaviour | `debugging-capture.md` |
 | Defining WHAT to build (user stories, acceptance criteria, scope) | `requirements-capture.md` |
 | Documenting WHY a design/migration decision was made | `intent-capture.md` |
+
+---
+
+## Code Analysis Deep-Dive
+
+A **deep-dive** is an intensive code analysis session aimed at understanding complete
+internals — data flow, call stack, code blocks, and line-by-line behaviour.
+
+### Permanent `deep-dive/` Sub-Folder
+
+Deep-dive sessions always route to a permanent `deep-dive/` sub-folder:
+
+```text
+# Work domain
+sessions/work/code-analysis/deep-dive/
+  2026-05-02_03-21pm_order-service-calculate-total.md
+  2026-05-02_03-51pm_order-service-validate-order.md
+
+# Personal domain
+sessions/personal/software-dev/code-review/deep-dive/
+  2026-05-02_04-00pm_task-manager-crud-service.md
+```
+
+This folder is **structural** — it is always there, not created by escalation, and not
+subject to de-escalation. Normal Pattern 3a escalation (class → method) still applies
+inside the `deep-dive/` folder.
+
+### When to Use Deep-Dive vs Regular Code Analysis
+
+| Use Case | Template | Folder |
+|---|---|---|
+| Finding bugs, code smells, refactoring opportunities | `code-analysis-capture.md` | `code-analysis/` |
+| Understanding how code works — flow, internals, line-by-line | `code-analysis-deep-dive-capture.md` | `code-analysis/deep-dive/` |
+
+### Naming Inside `deep-dive/`
+
+Files drop the `code-analysis_` prefix (implied by parent):
+
+```text
+2026-05-02_03-21pm_order-service-calculate-total.md    ← method deep-dive
+2026-05-02_03-21pm_order-service-overview.md            ← class-level deep-dive
+2026-05-02_03-21pm_payment-flow.md                      ← cross-class flow
+```
+
+### 9-Layer Analysis Structure
+
+1. High-Level Overview — purpose, responsibility, design role
+2. Data Flow — inputs → transformations → outputs
+3. Call Stack / Method Flow — method call chain
+4. Code Block Breakdown — split by functional cohesion
+5. Line-by-Line Walkthrough — key logic lines
+6. State Changes — how variables and state evolve
+7. Edge Cases & Error Paths — what can go wrong
+8. Dependencies & Coupling — who depends on whom
+9. Key Takeaways — summary for future reference
+
+> **Slash command:** Use `/code-analysis-deep-dive` to start a deep-dive session.
 
 ---
 
@@ -427,11 +494,11 @@ that serves as a quick-scan index:
 
 ## Folder Escalation — When Folders Get Full
 
-As sessions accumulate, two escalation patterns keep things navigable:
+As sessions accumulate, escalation patterns auto-organize them into sub-folders.
 
-### Subject Escalation (5+ files on same subject)
+### Pattern 1 — Subject Escalation (3+ files on same subject)
 
-When 5+ files relate to the same subject, they move into a sub-folder:
+When 3+ files relate to the same subject, they move into a sub-folder:
 
 ```text
 # Before (flat)
@@ -439,7 +506,7 @@ work/code-analysis/
   2026-03-20_..._order-service-calculate-total.md
   2026-03-21_..._order-service-validate-order.md
   2026-03-22_..._order-service-process-payment.md
-  ... (5+ files about order-service)
+  ... (3+ files about order-service)
 
 # After (grouped)
 work/code-analysis/order-service/
@@ -448,7 +515,7 @@ work/code-analysis/order-service/
   process-payment.md
 ```
 
-### Project Escalation (3+ files for same project in one activity)
+### Pattern 2 — Project Escalation (3+ files for same project in one activity)
 
 ```text
 # Before
@@ -464,6 +531,41 @@ personal/software-dev/requirements/task-manager/
   notification-rules.md
 ```
 
+### Pattern 3 — Domain-Specific Hierarchical Escalation
+
+Certain categories support two-level hierarchies that mirror the content structure:
+
+| Pattern | Category | Level 1 | Level 2 | Thresholds |
+|---|---|---|---|---|
+| **3a** | code-analysis, code-review | class name | method name | 3+ / 3+ |
+| **3b** | design, feature-exploration | component | aspect (intent, approach, schema, etc.) | 3+ / 3+ |
+| **3c** | debugging | service | issue type | 3+ / 3+ |
+
+#### Example: Code Analysis Class → Method Hierarchy
+
+```text
+work/code-analysis/order-service/
+  calculate-total/
+    2026-04-01_..._calculate-total.md
+    2026-04-07_..._calculate-total_v2.md
+  2026-04-02_..._validate-order.md
+  2026-04-03_..._process-payment.md
+```
+
+#### Example: Design Component → Aspect Hierarchy
+
+```text
+personal/software-dev/design/task-manager/
+  api-design/
+    2026-04-01_..._rest-endpoints.md
+    2026-04-02_..._graphql-evaluation.md
+  2026-04-03_..._database-schema.md
+  2026-04-04_..._auth-flow.md
+```
+
+**Design aspects** include: intent, approach, proposal, api-design, schema, use-case,
+criteria, security, performance, patterns, trade-offs, migration, hld, lld.
+
 ### Cross-Cutting Project Index
 
 When a project spans 3+ activity categories, a project index file is created:
@@ -474,6 +576,81 @@ personal/software-dev/task-manager-INDEX.md
 
 This provides a single entry point listing all sessions for that project across
 requirements, design, implementation, testing, and other activities.
+
+### Name Truncation — What Happens to Filenames
+
+When files move into a sub-folder during escalation, redundant parts of the filename
+are dropped (the folder path already carries that information):
+
+```text
+# Original (flat)
+2026-05-02_03-21pm_code-analysis_order-service-calculate-total.md
+
+# After move to code-analysis/order-service/
+2026-05-02_03-21pm_calculate-total.md     ← dropped "code-analysis_order-service-"
+```
+
+**Formula:** `YYYY-MM-DD_HH-MMtt_<category>_<grouping-key>-<distinguisher>.md`
+becomes `YYYY-MM-DD_HH-MMtt_<distinguisher>.md` inside the sub-folder.
+Version suffixes (`_v2`, `_v3`) are always preserved.
+
+### De-Escalation — When Sub-Folders Flatten Back
+
+De-escalation is the reverse of escalation. When a sub-folder drops below **3 session
+files** (e.g., after deletion), its files move back to the parent folder with restored
+full names:
+
+```text
+# Sub-folder has < 3 files after deletion → flatten
+work/code-analysis/order-service/
+  2026-05-02_03-21pm_calculate-total.md
+  2026-05-02_03-51pm_validate-order.md
+  README.md
+
+# After de-escalation (full names restored)
+work/code-analysis/
+  2026-05-02_03-21pm_code-analysis_order-service-calculate-total.md
+  2026-05-02_03-51pm_code-analysis_order-service-validate-order.md
+```
+
+**Cascade rule:** If flattening a nested sub-folder (e.g., method → class) causes the
+parent sub-folder to also drop below threshold, it cascades — both levels flatten.
+
+All de-escalation operations are logged in `CAPTURE-LOG.md`.
+
+---
+
+## Capture Logging
+
+Two logs track all session capture operations:
+
+| Log | Purpose | Location |
+|---|---|---|
+| `SESSION-LOG.md` | Index of ALL captured sessions | `sessions/SESSION-LOG.md` |
+| `CAPTURE-LOG.md` | Structural operations (escalation, moves, forks) | `sessions/CAPTURE-LOG.md` |
+
+`CAPTURE-LOG.md` tracks every escalation, version continuation, and fork event with
+timestamps and file counts. Created automatically on first use.
+
+---
+
+## Configurable Session Path
+
+The session capture directory defaults to `<brain-root>/sessions/`. To use a different
+location, set the `SESSION_CAPTURE_PATH` environment variable:
+
+```powershell
+# Relative to brain root (default)
+$env:SESSION_CAPTURE_PATH = "sessions"
+
+# Different sub-folder inside brain
+$env:SESSION_CAPTURE_PATH = "captured-sessions"
+
+# Absolute path (outside brain workspace)
+$env:SESSION_CAPTURE_PATH = "C:\my-sessions"
+```
+
+See [configuration-reference.md](configuration-reference.md) for the full config hierarchy.
 
 ---
 
@@ -524,6 +701,98 @@ Complexity: <high|medium>. Version: v<N>.
 
 ---
 
+## Workflow Diagrams
+
+### Session Capture Lifecycle
+
+```mermaid
+flowchart TD
+    A[User chats with Copilot] --> B{Capture Gate}
+    B -->|Simple fix / quick answer| C[No capture]
+    B -->|Research / analysis / learning / 3+ exchanges| D[Classify domain + category]
+    D --> E[Select template]
+    E --> F[Get timestamp]
+    F --> G[Construct filename]
+    G --> H{Escalation check}
+    H -->|No threshold met| I[Create file in flat folder]
+    H -->|≥3 files same subject| J[Escalate: create sub-folder]
+    H -->|Early escalation trigger| J
+    J --> K[Move existing files + truncate names]
+    K --> L[Create README.md in sub-folder]
+    I --> M[Write session file]
+    L --> M
+    M --> N[Append to SESSION-LOG.md]
+    N --> O[Append to CAPTURE-LOG.md]
+    O --> P[Notify user]
+
+    style B fill:#f9f,stroke:#333
+    style H fill:#ff9,stroke:#333
+    style M fill:#9f9,stroke:#333
+```
+
+### Escalation & De-Escalation Flow
+
+```mermaid
+flowchart TD
+    START[File created or deleted] --> CHECK{Count files with shared prefix}
+
+    CHECK -->|≥3 files| ESC_CHECK{Sub-folder exists?}
+    CHECK -->|2 files + early trigger| ESC_CHECK
+    CHECK -->|< 3 and no trigger| HOLD[Keep flat — no action]
+
+    ESC_CHECK -->|No| ESCALATE[Create sub-folder]
+    ESC_CHECK -->|Yes| NEST_CHECK{Check nested threshold}
+
+    ESCALATE --> MOVE[Move files + truncate names]
+    MOVE --> README[Create README.md]
+    README --> LOG_ESC[Log to CAPTURE-LOG.md]
+
+    NEST_CHECK -->|≥3 at next level| NEST_ESC[Create nested sub-folder]
+    NEST_CHECK -->|< 3| PLACE[Place file in existing sub-folder]
+    NEST_ESC --> MOVE
+
+    START -->|File deleted| DE_CHECK{Sub-folder has < 3 files?}
+    DE_CHECK -->|No| DONE[No action needed]
+    DE_CHECK -->|Yes and not early-created| FLATTEN[Flatten: restore names + move to parent]
+    DE_CHECK -->|Yes but early-created| DONE
+    FLATTEN --> DEL_DIR[Delete empty sub-folder + README]
+    DEL_DIR --> CASCADE{Parent also < 3 files?}
+    CASCADE -->|Yes| FLATTEN
+    CASCADE -->|No| LOG_DE[Log to CAPTURE-LOG.md]
+
+    style ESCALATE fill:#9cf,stroke:#333
+    style FLATTEN fill:#fc9,stroke:#333
+    style LOG_ESC fill:#9f9,stroke:#333
+    style LOG_DE fill:#9f9,stroke:#333
+```
+
+### Template Selection Flow
+
+```mermaid
+flowchart TD
+    A[New session to capture] --> B{What is the session about?}
+
+    B -->|Understanding code internals| C{Deep-dive?}
+    C -->|Yes — flow, call stack, line-by-line| D[code-analysis-deep-dive-capture.md]
+    C -->|No — review, patterns, bugs| E[code-analysis-capture.md]
+
+    B -->|Architecture, API, HLD/LLD| F[design-capture.md]
+    B -->|Bug investigation, RCA| G[debugging-capture.md]
+    B -->|User stories, acceptance criteria| H[requirements-capture.md]
+    B -->|WHY a decision was made| I[intent-capture.md]
+    B -->|Research, learning, general| J[session-capture.md]
+
+    style D fill:#9cf,stroke:#333
+    style E fill:#9cf,stroke:#333
+    style F fill:#f9f,stroke:#333
+    style G fill:#fc9,stroke:#333
+    style H fill:#ff9,stroke:#333
+    style I fill:#cf9,stroke:#333
+    style J fill:#ccc,stroke:#333
+```
+
+---
+
 ## Quick Reference Card
 
 ```text
@@ -534,21 +803,41 @@ DOMAINS          work (job stuff)  |  personal (your stuff)
 
 NAMING           YYYY-MM-DD_HH-MMtt_<category>_<subject>.md
 
-FRONTMATTER      17 fields: date, time, kind, domain, category, project, subject,
+FRONTMATTER      17+ fields: date, time, kind, domain, category, project, subject,
                  tags, status, version, parent, complexity, outcomes, source,
                  scope, scope-project, scope-feature, scope-transitions, scope-refs
+                 + optional: code-target, design-target, debug-target
 
-TEMPLATES        session-capture.md     → general
-                 requirements-capture.md → user stories, BDD, NFRs
-                 intent-capture.md      → design decisions, migrations
+TEMPLATES        session-capture.md              → general (research, learning)
+                 code-analysis-capture.md        → code review, patterns, findings
+                 code-analysis-deep-dive-capture → code internals, data flow, call stack, line-by-line
+                 design-capture.md               → architecture, proposals, use cases
+                 debugging-capture.md            → RCA, hypothesis tracking
+                 requirements-capture.md         → user stories, BDD, NFRs
+                 intent-capture.md               → design decisions, migrations
 
 TAGS             3-7 per session: project:<name>, activity tags, tech tags
 
 VERSIONS         Same subject continued = v2, v3...
                  Different aspect = new file
 
-ESCALATION       5+ files same subject → sub-folder
-                 3+ files same project/activity → project sub-folder
+ESCALATION       Pattern 1: 3+ files same subject    → subject sub-folder
+                 Pattern 2: 3+ files same project     → project sub-folder
+                 Pattern 3a: 3+ class / 3+ method      → class/method hierarchy
+                 Pattern 3b: 3+ component / 3+ aspect  → component/aspect hierarchy
+                 Pattern 3c: 3+ service / 3+ issue     → service/issue hierarchy
+
+DE-ESCALATION    Sub-folder drops below 3 files        → flatten back to parent
+                 Names restored with full prefix         → cascade if parent also < 3
+
+TRUNCATION       On escalation: drop category + grouping-key prefix from filename
+                 On de-escalation: restore category + grouping-key prefix to filename
+
+LOGGING          SESSION-LOG.md  — every captured session
+                 CAPTURE-LOG.md  — every escalation, fork, structural operation
+
+CONFIG           BRAIN_PATH              — brain workspace location
+                 SESSION_CAPTURE_PATH    — session capture sub-directory
 
 CONTROLS         "capture this" = force    "don't capture" = suppress
 ```

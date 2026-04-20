@@ -27,6 +27,10 @@
 - [11. Verify the Export](#11-verify-the-export)
 - [12. Keep It In Sync](#12-keeping-the-export-in-sync)
 
+> **Looking for the full configuration reference?** See
+> [Configuration Reference](configuration-reference.md) — all config files, env vars,
+> precedence rules, and an export checklist in one place.
+
 > 🟢 **Brand new?** Start with the [Newbie Step-by-Step Export Guide](export-newbie-guide.md)
 > instead — it's a simplified 10-minute walkthrough.
 
@@ -265,6 +269,8 @@ Copy-Item user-config\servers\atlassian\atlassian-config.local.example.propertie
 
 ## 3. Brain Workspace
 
+### 3a. Default Location (brain/ai-brain — zero config)
+
 ```powershell
 $target = "C:\path\to\your-project"
 Copy-Item -Recurse brain "$target\brain"
@@ -284,6 +290,155 @@ Copy-Item .github\prompts\brain-new.prompt.md    "$target\.github\prompts\"
 Copy-Item .github\prompts\brain-publish.prompt.md "$target\.github\prompts\"
 Copy-Item .github\prompts\brain-search.prompt.md  "$target\.github\prompts\"
 ```
+
+### 3b. Custom Location (different path — e.g., knowledge/workspace)
+
+If you want the brain workspace at a different path in your target project (e.g.,
+`knowledge/workspace` or `docs/brain`), follow these steps:
+
+```powershell
+$target = "C:\path\to\your-project"
+$brainDest = "knowledge\workspace"  # <-- your preferred path
+
+# 1. Copy brain contents to the custom location
+New-Item -ItemType Directory -Force "$target\$brainDest"
+Copy-Item -Recurse brain\ai-brain\* "$target\$brainDest\"
+```
+
+Then configure the path in **4 places**:
+
+| What | Where | Change |
+|---|---|---|
+| **Brain scripts** | Automatic | Scripts auto-detect their root from their own location — no change needed |
+| **Environment variable** | System or `.env` file | Set `BRAIN_PATH=knowledge/workspace` (relative to repo root) |
+| **VS Code tasks** | `.vscode/tasks.json` | Find-replace `brain\ai-brain` → `knowledge\workspace` (Windows) and `brain/ai-brain` → `knowledge/workspace` (Linux/macOS) in all brain task commands |
+| **Gitignore** | `.gitignore` | Change `brain/ai-brain/inbox/` → `knowledge/workspace/inbox/` |
+| **Copilot instructions** | `.github/copilot-instructions.md` | Update `BRAIN_PATH` default in the Configurable Paths table and the Project Structure diagram |
+| **Backlog instruction** | `.github/instructions/backlog.instructions.md` | Update `applyTo` from `brain/ai-brain/backlog/**` → `knowledge/workspace/backlog/**` |
+
+**Environment variable setup (optional — scripts auto-detect without it):**
+
+```powershell
+# PowerShell — set for current session
+$env:BRAIN_PATH = "knowledge/workspace"
+
+# PowerShell — set permanently (user-level)
+[Environment]::SetEnvironmentVariable("BRAIN_PATH", "knowledge/workspace", "User")
+```
+
+```bash
+# Bash — add to ~/.bashrc or ~/.zshrc
+export BRAIN_PATH="knowledge/workspace"
+```
+
+> **Note:** The `BRAIN_PATH` env var is optional. Brain scripts auto-detect their root
+> from their own filesystem location. The env var is only needed if you invoke brain
+> scripts from an unusual location or want to override the auto-detected path.
+
+### 3c. Brain Path Quick-Reference for Exported Projects
+
+After copying `.github/` to your project (with brain at a non-default path), the Copilot
+AI assistant reads `copilot-instructions.md` § Configurable Paths and automatically
+understands where the brain workspace lives. The `.github/` instruction files reference
+`brain/ai-brain/` as the **default** path — the AI resolves the actual path from the
+central configuration.
+
+**Files that reference `brain/ai-brain/` and may need path updates:**
+
+| File | Type | Update needed? |
+|---|---|---|
+| `.github/copilot-instructions.md` § Configurable Paths | Central config | **Yes — update the default value and Project Structure diagram** |
+| `.github/instructions/backlog.instructions.md` | VS Code `applyTo` pattern | **Yes — VS Code reads this literally** |
+| `.github/instructions/chat-capture.instructions.md` | AI instruction | No — AI reads the Configurable Paths section |
+| `.github/instructions/session-scoping.instructions.md` | AI instruction | No — AI reads the Configurable Paths section |
+| `.github/skills/brain-management/SKILL.md` | AI skill | No — AI reads the Configurable Paths section |
+| `.github/prompts/brain-*.prompt.md` | AI prompts | No — AI reads the Configurable Paths section |
+| `.vscode/tasks.json` (brain section) | VS Code tasks | **Yes — command paths are literal** |
+| `.gitignore` | Git pattern | **Yes — gitignore patterns are literal** |
+
+### 3d. Brain Inside a Module / Package / Monorepo Package
+
+In this repo, the brain workspace (`brain/ai-brain/`) lives inside a Java module (`brain/`).
+When exporting to your project, the brain may end up inside an existing module, package, or
+monorepo workspace. This is fine — the brain workspace is **technology-neutral** (only `.md`
+and `.ps1`/`.sh` files) and has no build system dependency.
+
+**Common module/package scenarios:**
+
+| Your project type | Recommended brain location | Example |
+|---|---|---|
+| **Single-module project** (Maven/Gradle/npm) | Top-level sibling directory | `brain/` next to `src/` |
+| **Multi-module project** (Maven/Gradle) | As its own module or inside an existing one | `modules/brain/` or `tools/brain/` |
+| **Monorepo** (npm workspaces, Lerna, Nx) | As a workspace package | `packages/brain/` or `tools/brain/` |
+| **Python project** (pip, Poetry, PDM) | Top-level or inside `docs/` | `brain/` or `docs/brain/` |
+| **Go module** | Top-level or `internal/` | `brain/` or `docs/brain/` |
+| **Full-stack project** (frontend + backend) | Shared top-level directory | `brain/` at project root |
+| **Docs-heavy project** | Inside docs directory | `docs/brain/` |
+
+**Key considerations when brain is inside a module:**
+
+1. **Build tool exclusion** — If the parent module's build tool processes all files
+   (e.g., `npm run lint` scans `.md` files, or a Gradle task copies all resources),
+   exclude the brain path:
+
+   ```groovy
+   // Gradle example — exclude brain from resource processing
+   sourceSets { main { resources { exclude 'brain/**' } } }
+   ```
+
+   ```json
+   // package.json example — exclude from eslint/prettier
+   { "eslintIgnore": ["brain/**"], "prettier": { "ignore": ["brain/**"] } }
+   ```
+
+   ```xml
+   <!-- Maven example — exclude from resource filtering -->
+   <resources>
+     <resource>
+       <directory>src/main/resources</directory>
+       <excludes><exclude>brain/**</exclude></excludes>
+     </resource>
+   </resources>
+   ```
+
+2. **Module `.gitignore`** — Some modules have their own `.gitignore`. Place the inbox
+   exclusion in whichever `.gitignore` is closest to the brain path:
+
+   ```gitignore
+   # In root .gitignore (if brain is at root level)
+   brain/inbox/
+
+   # OR in module-level .gitignore (if brain is inside a module)
+   # e.g., in tools/.gitignore
+   brain/inbox/
+   ```
+
+3. **No build config needed in brain folder** — Do not add `build.gradle`, `package.json`,
+   `setup.py`, `go.mod`, or similar to the brain folder. It is not a compilable module.
+   If your monorepo tool (e.g., Lerna, Nx, Turborepo) auto-discovers packages, configure
+   it to skip the brain directory.
+
+4. **Module-relative vs. repo-relative paths** — Brain scripts use `git rev-parse`
+   to find the repo root (not the module root). The `BRAIN_PATH` env var is always
+   **relative to the repo root**, not to any module boundary. Example:
+
+   ```text
+   my-project/                 ← repo root
+   ├── packages/
+   │   └── tools/
+   │       └── brain/          ← brain workspace
+   │           └── scripts/
+   └── .git/
+
+   # BRAIN_PATH = "packages/tools/brain" (from repo root, not from packages/)
+   ```
+
+5. **VS Code `applyTo` patterns** — These are always relative to the **workspace root**
+   (which is usually the repo root). If your brain is at `packages/tools/brain/`:
+
+   ```yaml
+   applyTo: "packages/tools/brain/backlog/**"
+   ```
 
 ---
 
@@ -305,8 +460,9 @@ New-Item -ItemType Directory -Force "$target\.vscode"
 Copy-Item "$source\.vscode\mcp.json"   "$target\.vscode\mcp.json"
 Copy-Item "$source\.vscode\tasks.json" "$target\.vscode\tasks.json"
 
-# 4. Brain workspace
+# 4. Brain workspace (default location)
 Copy-Item -Recurse "$source\brain" "$target\brain"
+# If using a different brain path, see Section 3b above for configuration steps.
 
 # 5. Build
 Set-Location "$target\mcp-servers"
@@ -347,7 +503,11 @@ mcp-servers/build.env.local
 !mcp-servers/.vscode/
 
 # ── Brain workspace ──────────────────────────────────────────────────────────
-# (No gitignore needed — brain notes are meant to be committed)
+# Inbox is gitignored (session-scoped scratchpad, never committed)
+brain/ai-brain/inbox/
+# If brain is at a custom path, adjust:  <your-path>/inbox/
+# If brain is inside a module, you can put this in the module's own .gitignore.
+# (No other gitignore needed — brain notes are meant to be committed)
 # Optional: keep brain private:
 # brain/
 ```
@@ -438,7 +598,12 @@ safely omit **without breaking anything**:
 
 ## 8. Config Files & Environment Variables Reference
 
-Every configuration file and environment variable in this project, and whether you need it:
+> **Complete reference:** See the [Configuration Reference](configuration-reference.md)
+> for the full inventory — all config files, environment variables, precedence rules,
+> security guidelines, and a step-by-step export checklist.
+
+The summary below covers the essentials. For advanced topics (MCP override patterns,
+Atlassian v2 OAuth, config precedence layers), see the full reference.
 
 ### Config Files
 
@@ -452,16 +617,23 @@ Every configuration file and environment variable in this project, and whether y
 | `mcp-servers/build.env.example` | Template for `build.env.local` | Reference only — don't edit | No |
 | `mcp-servers/user-config/mcp-config.properties` | Shared (committed) MCP config | Committed — safe | No |
 | `mcp-servers/user-config/mcp-config.local.properties` | Personal MCP config overrides | Only if customizing | **Yes — gitignored** |
-| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties` | Atlassian credentials | Only if using Atlassian MCP | **Yes — gitignored** |
-| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.example.properties` | Template for Atlassian config | Reference only — don't edit | No |
+| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties` | Atlassian v1 credentials | Only if using Atlassian v1 MCP | **Yes — gitignored** |
+| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.example.properties` | Template for Atlassian v1 config | Reference only — don't edit | No |
+| `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.properties` | Shared Atlassian v2 defaults | If using Atlassian v2 | No |
+| `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.local.properties` | Atlassian v2 credentials | Only if using Atlassian v2 MCP | **Yes — gitignored** |
+| `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.local.example.properties` | Template for Atlassian v2 config | Reference only — don't edit | No |
 
 ### Environment Variables
 
 | Variable | Set Where | Purpose | Required? |
 |---|---|---|---|
 | `JAVA_HOME` | `build.env.local` or system PATH | JDK location for MCP server build | Only if `java` not on PATH |
-| `ATLASSIAN_CONFIG_DIR` | `.vscode/mcp.json` (auto-set) | Path to Atlassian config directory | Auto — don't set manually |
+| `BRAIN_PATH` | System env or shell profile | Brain workspace path relative to repo root (default: `brain/ai-brain`) | Only if brain is at a non-default location |
+| `SESSION_CAPTURE_PATH` | System env or shell profile | Session capture directory relative to brain root, or absolute (default: `sessions`) | Only if sessions at non-default location |
+| `ATLASSIAN_CONFIG_DIR` | `.vscode/mcp.json` (auto-set) | Path to Atlassian v1 config directory | Auto — don't set manually |
+| `ATLASSIAN_V2_CONFIG_DIR` | `.vscode/mcp.json` (auto-set) | Path to Atlassian v2 config directory | Auto — don't set manually |
 | `GITHUB_TOKEN` | VS Code input prompt | GitHub Personal Access Token | Only if using GitHub MCP server |
+| `MCP_*` | System env or shell profile | Override any MCP config key (see [Configuration Reference](configuration-reference.md#5-optional--mcp-advanced-config)) | Never required |
 
 ### How `.vscode/mcp.json` Manages Servers
 

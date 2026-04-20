@@ -87,6 +87,88 @@ learning-assistant/
 └── .gitignore
 ```
 
+## Configurable Paths
+
+> **Full configuration reference:** See `.github/docs/configuration-reference.md` for the
+> complete inventory of all config files, environment variables, precedence rules, security
+> guidelines, and export checklist.
+
+Some paths in this repo are **configurable** to support exporting features to other projects
+where the directory layout may differ.
+
+| Path | Default | Env Var | What it controls |
+|---|---|---|---|
+| **Brain workspace** | `brain/ai-brain` | `BRAIN_PATH` | Personal knowledge workspace (inbox, notes, library, sessions, backlog, pkm) |
+| **Session capture directory** | `<brain-root>/sessions` | `SESSION_CAPTURE_PATH` | Session capture sub-directory (relative to brain root, or absolute) |
+
+### Brain Workspace Path (`BRAIN_PATH`)
+
+The brain workspace defaults to `brain/ai-brain/` relative to the repo root. All brain
+scripts, instruction files, skill files, and prompts reference this path.
+
+**To use a different path** (e.g., after exporting to another project):
+
+1. **Set the `BRAIN_PATH` environment variable** to the relative path from repo root
+   (e.g., `knowledge/workspace` or `docs/brain`)
+2. **Update `.vscode/tasks.json`** — find-replace `brain/ai-brain` → your new path
+   in the Brain Workspace task section
+3. **Update `.gitignore`** — change `brain/ai-brain/inbox/` to `<your-path>/inbox/`
+4. **No changes needed to brain scripts** — they auto-detect their location from the
+   script file path, with `BRAIN_PATH` env var as an optional override
+
+**For Copilot instructions and skills:** All `.github/` files that reference `brain/ai-brain/`
+use it as the default path. When this path changes in your project, Copilot reads this
+section and understands the actual brain location. Update the Project Structure diagram
+above to reflect your layout.
+
+### Session Capture Directory (`SESSION_CAPTURE_PATH`)
+
+Sessions are captured to `<brain-root>/sessions/` by default. To use a different path
+within the brain workspace (or outside it), set the `SESSION_CAPTURE_PATH` environment
+variable relative to the brain root, or as an absolute path.
+
+```powershell
+# Relative to brain root (custom sub-folder)
+$env:SESSION_CAPTURE_PATH = "captured-sessions"
+
+# Absolute path (outside brain workspace)
+$env:SESSION_CAPTURE_PATH = "C:\my-sessions"
+```
+
+See `.github/docs/configuration-reference.md` § 2e for full session capture configuration.
+
+### Brain Workspace in Different Project Structures
+
+The brain workspace is a **plain folder** containing markdown files and shell scripts — it
+has no build system dependency and no language-specific requirements. In this repo it lives
+inside a Java module (`brain/`), but it can live anywhere in any project structure:
+
+| Target project type | Example brain path | Notes |
+|---|---|---|
+| **Standalone folder** | `brain/` or `knowledge/` | Simplest — just a top-level directory |
+| **Inside a module/package** | `tools/brain/ai-brain/` | The brain folder sits inside an existing module |
+| **As its own module** | `brain-workspace/` | Has its own `README.md` but no build config needed |
+| **Monorepo package** | `packages/brain/` | One package in a multi-package repo |
+| **Deep nesting** | `src/main/resources/brain/` | Inside a build output or resource folder |
+| **Docs directory** | `docs/brain/` | Alongside other documentation |
+
+**Key points when brain lives inside a module/package:**
+
+- **Build tool exclusion:** If the parent module uses Maven, Gradle, npm, or similar, the
+  brain folder contains only `.md` and `.ps1`/`.sh` files. Most build tools ignore these by
+  default. If your build tool scans or lints markdown, you may want to exclude the brain
+  path from that process.
+- **Module `.gitignore`:** Some modules have their own `.gitignore`. Add the inbox exclusion
+  (`<brain-path>/inbox/`) to the most appropriate `.gitignore` file (root or module-level).
+- **Path depth doesn't matter:** Brain scripts find the repo root via `git rev-parse`, not
+  by counting parent directories. They work at any nesting depth.
+- **VS Code `applyTo` patterns:** The `backlog.instructions.md` uses a glob pattern like
+  `brain/ai-brain/backlog/**`. This pattern is relative to the repo root and must match your
+  actual brain path — update it when moving the workspace.
+- **No Java/Node/Python dependency:** The brain workspace is not a Java module, npm package,
+  or Python package. It is technology-neutral markdown + shell scripts. Do not add build
+  config files (`build.gradle`, `package.json`, `setup.py`) to the brain folder.
+
 ## OS-Specific Skill Routing
 
 When the user asks about environment setup, tooling, or shell commands, use the
@@ -263,6 +345,8 @@ Co-authored-by: name <email>     ← for pair/mob contributions
 - Don't mix a bug fix with a new feature in one commit
 - Don't mix code changes with formatting/whitespace changes
 - When a change spans many files, it can still be one commit — if it implements a single idea
+- **Split by cohesion** — when a batch of work covers multiple independent concerns (e.g., a
+  new feature + doc updates + linter fixes), split into multiple commits grouped by cohesion
 - Stage and review before committing: `git diff --staged`
 
 ### Author Attribution

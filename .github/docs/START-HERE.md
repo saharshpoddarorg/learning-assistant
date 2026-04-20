@@ -102,7 +102,9 @@ You understand terminal commands, git, and file structures. You just haven't set
 | Copy `.github/` to another repo | [export-guide.md §Copilot customization](export-guide.md#1-copilot-customization-github) |
 | Quick step-by-step export (newbie) | [Newbie Export Guide](export-newbie-guide.md) |
 | Copy MCP servers to another repo | [export-guide.md §MCP Servers](export-guide.md#2-mcp-servers) |
+| Configure brain workspace path | [export-guide.md §3b Custom Location](export-guide.md#3b-custom-location-different-path--eg-knowledgeworkspace) |
 | Configure Atlassian credentials | [mcp-server-setup.md §5b](mcp-server-setup.md#5b-atlassian-server-jira--confluence--bitbucket) |
+| All config files, env vars, paths | [Configuration Reference](configuration-reference.md) |
 | Queue Copilot instructions | [copilot-workflow.md](copilot-workflow.md) |
 | Chain agents + prompts | [customization-guide.md §Composition](customization-guide.md#-how-to-extend-the-system) |
 | Build the Java servers | `Ctrl+Shift+B` → `mcp-servers: build` |
@@ -187,6 +189,7 @@ You ask Copilot a question
 | **[MCP Server Setup](mcp-server-setup.md)** | 🟢🟡 | Get MCP servers working: build, credentials, verify |
 | **[Export Guide](export-guide.md)** | 🟡🔴 | Copy Copilot customization + MCP servers to other projects |
 | **[Newbie Export Guide](export-newbie-guide.md)** | 🟢 | 10-minute step-by-step: copy to your first project |
+| **[Configuration Reference](configuration-reference.md)** | 🟢🟡🔴 | All config files, env vars, paths, credentials, export checklist |
 | **[Copilot Workflow Tips](copilot-workflow.md)** | 🟢🟡🔴 | Chat queuing, chaining, not losing context, best practices |
 | **[Getting Started Tutorial](getting-started.md)** | 🟢🟡 | Hands-on: try every primitive (~30 min) |
 | **[Customization 5-Min Guide](copilot-customization-newbie.md)** | 🟢 | Plain-language intro to all 6 types + "why not just skills?" FAQ |
@@ -218,4 +221,4 @@ You ask Copilot a question
 
 ---
 
-**Navigation:** [Phase Guide →](phase-guide.md) · [MCP Setup →](mcp-server-setup.md) · [Export Guide →](export-guide.md) · [Newbie Export →](export-newbie-guide.md) · [Copilot Workflow →](copilot-workflow.md) · [Getting Started →](getting-started.md) · [Navigation Index →](navigation-index.md)
+**Navigation:** [Phase Guide →](phase-guide.md) · [MCP Setup →](mcp-server-setup.md) · [Export Guide →](export-guide.md) · [Config Reference →](configuration-reference.md) · [Newbie Export →](export-newbie-guide.md) · [Copilot Workflow →](copilot-workflow.md) · [Getting Started →](getting-started.md) · [Navigation Index →](navigation-index.md)

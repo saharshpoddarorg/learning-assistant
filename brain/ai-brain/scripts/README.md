@@ -1,6 +1,14 @@
 # brain/ai-brain/scripts/ -- Workspace Utility Scripts
 
-All scripts here manage the `brain/ai-brain/` content directory. Use them from the repo root.
+All scripts here manage the brain workspace content directory. Scripts auto-detect
+their root from their own location via `git rev-parse` — move the entire workspace
+anywhere (including inside a module, monorepo package, or deep nesting) and they
+still work. Optionally set the `BRAIN_PATH` environment variable to override
+(see `.github/copilot-instructions.md` § Configurable Paths).
+
+> **Module/package safe:** These scripts have no build-system dependencies. They work
+> regardless of whether the parent directory is a Maven module, npm package, Python
+> package, or plain folder. Path depth doesn't matter.
 
 ---
 

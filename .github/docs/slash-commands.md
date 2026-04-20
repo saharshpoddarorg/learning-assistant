@@ -47,7 +47,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (60 commands)
+### Quick Lookup (64 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -57,60 +57,64 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 4 | `/scope` | Meta | Set generic learning vs code-specific scope | Agent |
 | 5 | `/multi-session` | Meta | Save/resume state across chat sessions | Agent |
 | 6 | `/steer` | Meta | View or switch the active Copilot steering mode | Copilot |
-| 7 | `/learn-concept` | Learning | Learn any CS/SE concept from scratch | Learning-Mentor |
-| 8 | `/deep-dive` | Learning | Multi-layered progressive concept exploration | Learning-Mentor |
-| 9 | `/learn-from-docs` | Learning | Learn via official documentation | Learning-Mentor |
-| 10 | `/reading-plan` | Learning | Create a structured study plan | Learning-Mentor |
-| 11 | `/teach` | Learning | Learn concepts from current file | Learning-Mentor |
-| 12 | `/dsa` | Domain | Data structures & algorithms | Learning-Mentor |
-| 13 | `/system-design` | Domain | HLD/LLD system design | Learning-Mentor |
-| 14 | `/devops` | Domain | CI/CD, Docker, K8s, cloud, IaC, Git, build tools | Learning-Mentor |
-| 15 | `/language-guide` | Domain | Language-specific learning path | Learning-Mentor |
-| 16 | `/tech-stack` | Domain | Frameworks, databases — compare & learn | Learning-Mentor |
-| 17 | `/sdlc` | Domain | SDLC phases, methodologies, practices | Learning-Mentor |
-| 18 | `/mcp` | Domain | Learn & build MCP (Model Context Protocol) servers | Learning-Mentor |
-| 19 | `/interview-prep` | Career | Interview preparation (DSA, system design, behavioral) | Learning-Mentor |
-| 20 | `/career-roles` | Career | Job roles, skills, pay ranges, roadmaps | Learning-Mentor |
-| 21 | `/design-review` | Code Quality | SOLID/GRASP design review of current file | Designer |
-| 22 | `/refactor` | Code Quality | Identify and apply refactoring opportunities | Designer |
-| 23 | `/explain` | Code Quality | Beginner-friendly file explanation | Ask |
-| 24 | `/debug` | Code Quality | Systematic bug investigation | Debugger |
-| 25 | `/impact` | Code Quality | Change impact & ripple effect analysis | Impact-Analyzer |
-| 26 | `/explore-project` | Domain | Learn from open-source project architecture | Learning-Mentor |
-| 27 | `/resources` | Domain | Search, browse & discover 138 curated learning resources | Learning-Mentor |
-| 28 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
-| 29 | `/brain-new` | Brain Workspace | Create a new knowledge note (inbox or notes tier) | Copilot |
-| 30 | `/brain-publish` | Brain Workspace | Publish an imported source to library/ with tag prompting and git commit | Copilot |
-| 31 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
-| 32 | `/brain-capture-session` | Brain Workspace | Convert current AI session into a structured session note | Copilot |
-| 33 | `/session-scope` | Brain Workspace | Manage session scope — widen, narrow, switch, split, cross-reference | Copilot |
-| 34 | `/jot` | Backlog | Universal capture — auto-classifies, dedup-checks, enhances, cross-refs, syncs all boards | Copilot |
-| 35 | `/read-file-jot` | Backlog | File-to-backlog — reads file, dedup-checks, extracts items, tracks import batch (IMP-NNN) | Copilot |
-| 36 | `/todo` | Backlog | Alias for `/jot` — routes through unified capture as a task | Copilot |
-| 37 | `/todos` | Backlog | View board, update status — syncs all boards + CHANGELOG | Copilot |
-| 38 | `/backlog` | Backlog | Advanced: brainstorm, guide, refine, promote, epic, sprint — full board sync | Copilot |
-| 39 | `/brain-fetch` | Brain PKM | Fetch content from an external source into inbox/ (git fetch analogy) | Copilot |
-| 40 | `/brain-pull` | Brain PKM | Update previously fetched content from a source (git pull analogy) | Copilot |
-| 41 | `/brain-clone` | Brain PKM | Full structured import of an entire source (git clone analogy) | Copilot |
-| 42 | `/brain-merge` | Brain PKM | Route inbox item to its proper tier (git merge analogy) | Copilot |
-| 43 | `/brain-cherry-pick` | Brain PKM | Import one specific item from a source (git cherry-pick analogy) | Copilot |
-| 44 | `/brain-stash` | Brain PKM | Park inbox content for later processing (git stash analogy) | Copilot |
-| 45 | `/brain-diff` | Brain PKM | Compare brain content vs external source (git diff analogy) | Copilot |
-| 46 | `/brain-push` | Brain PKM | Export brain content to an external source (git push analogy) | Copilot |
-| 47 | `/brain-remote` | Brain PKM | List all capture sources with sensitivity levels (git remote analogy) | Copilot |
-| 48 | `/brain-consolidate` | Brain PKM | Plan/execute brain consolidation — migrate from external tools to brain | Copilot |
-| 49 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
-| 50 | `/github-workflow` | Domain | GitHub PRs, issues, gh CLI, Actions, branch protection, repo management | Learning-Mentor |
-| 51 | `/atlassian-tools` | Domain | Universal handler — Jira, Confluence, Bitbucket, cross-instance migration, work analysis, code migration, any Atlassian task | Copilot |
-| 52 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
-| 53 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
-| 54 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
-| 55 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
-| 56 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
-| 57 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
-| 58 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
-| 59 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
-| 60 | `/read-url` | Utility | Read, extract, and summarize webpage content from any URL | Copilot |
+| 7 | `/request-steering` | Meta | Classify incoming request vs current work — merge, sequential, park, split | Agent |
+| 8 | `/learn-concept` | Learning | Learn any CS/SE concept from scratch | Learning-Mentor |
+| 9 | `/deep-dive` | Learning | Multi-layered progressive concept exploration | Learning-Mentor |
+| 10 | `/learn-from-docs` | Learning | Learn via official documentation | Learning-Mentor |
+| 11 | `/reading-plan` | Learning | Create a structured study plan | Learning-Mentor |
+| 12 | `/teach` | Learning | Learn concepts from current file | Learning-Mentor |
+| 13 | `/dsa` | Domain | Data structures & algorithms | Learning-Mentor |
+| 14 | `/system-design` | Domain | HLD/LLD system design | Learning-Mentor |
+| 15 | `/devops` | Domain | CI/CD, Docker, K8s, cloud, IaC, Git, build tools | Learning-Mentor |
+| 16 | `/language-guide` | Domain | Language-specific learning path | Learning-Mentor |
+| 17 | `/tech-stack` | Domain | Frameworks, databases — compare & learn | Learning-Mentor |
+| 18 | `/sdlc` | Domain | SDLC phases, methodologies, practices | Learning-Mentor |
+| 19 | `/mcp` | Domain | Learn & build MCP (Model Context Protocol) servers | Learning-Mentor |
+| 20 | `/interview-prep` | Career | Interview preparation (DSA, system design, behavioral) | Learning-Mentor |
+| 21 | `/career-roles` | Career | Job roles, skills, pay ranges, roadmaps | Learning-Mentor |
+| 22 | `/design-review` | Code Quality | SOLID/GRASP design review of current file | Designer |
+| 23 | `/refactor` | Code Quality | Identify and apply refactoring opportunities | Designer |
+| 24 | `/explain` | Code Quality | Beginner-friendly file explanation | Ask |
+| 25 | `/debug` | Code Quality | Systematic bug investigation | Debugger |
+| 26 | `/code-analysis-deep-dive` | Code Quality | Deep-dive into code internals — data flow, call stack, code blocks, line-by-line | Copilot |
+| 27 | `/impact` | Code Quality | Change impact & ripple effect analysis | Impact-Analyzer |
+| 28 | `/explore-project` | Domain | Learn from open-source project architecture | Learning-Mentor |
+| 29 | `/resources` | Domain | Search, browse & discover 138 curated learning resources | Learning-Mentor |
+| 30 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
+| 31 | `/brain-new` | Brain Workspace | Create a new knowledge note (inbox or notes tier) | Copilot |
+| 32 | `/brain-publish` | Brain Workspace | Publish an imported source to library/ with tag prompting and git commit | Copilot |
+| 33 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
+| 34 | `/brain-capture-session` | Brain Workspace | Convert current AI session into a structured session note | Copilot |
+| 35 | `/session-scope` | Brain Workspace | Manage session scope — widen, narrow, switch, split, cross-reference | Copilot |
+| 36 | `/jot` | Backlog | Universal capture — auto-classifies, dedup-checks, enhances, cross-refs, syncs all boards | Copilot |
+| 37 | `/read-file-jot` | Backlog | File-to-backlog — reads file, dedup-checks, extracts items, tracks import batch (IMP-NNN) | Copilot |
+| 38 | `/todo` | Backlog | Alias for `/jot` — routes through unified capture as a task | Copilot |
+| 39 | `/todos` | Backlog | View board, update status — syncs all boards + CHANGELOG | Copilot |
+| 40 | `/backlog` | Backlog | Advanced: brainstorm, guide, refine, promote, epic, sprint — full board sync | Copilot |
+| 41 | `/brain-fetch` | Brain PKM | Fetch content from an external source into inbox/ (git fetch analogy) | Copilot |
+| 42 | `/brain-pull` | Brain PKM | Update previously fetched content from a source (git pull analogy) | Copilot |
+| 43 | `/brain-clone` | Brain PKM | Full structured import of an entire source (git clone analogy) | Copilot |
+| 44 | `/brain-merge` | Brain PKM | Route inbox item to its proper tier (git merge analogy) | Copilot |
+| 45 | `/brain-cherry-pick` | Brain PKM | Import one specific item from a source (git cherry-pick analogy) | Copilot |
+| 46 | `/brain-stash` | Brain PKM | Park inbox content for later processing (git stash analogy) | Copilot |
+| 47 | `/brain-diff` | Brain PKM | Compare brain content vs external source (git diff analogy) | Copilot |
+| 48 | `/brain-push` | Brain PKM | Export brain content to an external source (git push analogy) | Copilot |
+| 49 | `/brain-remote` | Brain PKM | List all capture sources with sensitivity levels (git remote analogy) | Copilot |
+| 50 | `/brain-consolidate` | Brain PKM | Plan/execute brain consolidation — migrate from external tools to brain | Copilot |
+| 51 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
+| 52 | `/github-workflow` | Domain | GitHub PRs, issues, gh CLI, Actions, branch protection, repo management | Learning-Mentor |
+| 53 | `/atlassian-tools` | Domain | Universal handler — Jira, Confluence, Bitbucket, cross-instance migration, work analysis, code migration, any Atlassian task | Copilot |
+| 54 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
+| 55 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
+| 56 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
+| 57 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
+| 58 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
+| 59 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
+| 60 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
+| 61 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
+| 62 | `/read-url` | Utility | Read, extract, and summarize webpage content from any URL | Copilot |
+| 63 | `/ship` | Shipping | Commit, push, or both — with lint, build, PR suggestion, Conventional Commits | Agent |
+| 64 | `/github-push` | Shipping | Cohesive commits, push, and PR creation — full shipping workflow to a GitHub repo | Agent |
 
 > **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
 > VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
@@ -185,6 +189,23 @@ Example:  /steer → view                 (see all modes + which is active)
 File:     .github/instructions/steering-modes.instructions.md
 Tip:      After 'beast' or 'focused' mode work, always return to 'completeness'
           before committing to the repo
+```
+
+#### `/request-steering` — Request Steering Router
+
+```yaml
+Inputs:   request (new request description), current (current work summary), type (auto / independent / merge / sequential / supersede / park / split)
+Agent:    Agent
+Tools:    codebase, editFiles, search
+Use:      Classify an incoming request relative to in-progress work and choose a handling strategy
+Types:    independent | merge | sequential | supersede | park | split
+Example:  /request-steering → "add validation" → "building CRUD endpoints" → auto
+          → MERGE: gap analysis + combined deliverable
+          /request-steering → "write tests" → "finishing refactor" → sequential
+          → SEQUENTIAL: finish refactor, then write tests
+File:     .github/prompts/request-steering.prompt.md
+Tip:      Use 'auto' to let the assistant classify; override with a specific type
+          when you know the relationship. Integrates with todo tracking and session capture.
 ```
 
 ---
@@ -376,8 +397,42 @@ Topics:   Pull requests (create, review, merge), issues (lifecycle, templates),
           gh CLI (auth, pr, issue, repo, run), GitHub Actions (workflows, CI),
           branch protection, CODEOWNERS, releases, repository management
 Levels:   newbie (basic gh commands) → amateur (PR workflow/conventions) → pro (Actions/automation)
-Related:  /git-vcs (local Git), copilot-customization (Copilot + GitHub)
+Related:  /git-vcs (local Git), /ship (commit/push), /github-push (full shipping workflow)
 Resources: GitHub CLI Manual, GitHub Docs (PRs, Issues, Actions)
+```
+
+#### `/ship` — Commit, Push & PR Suggestion
+
+```yaml
+Inputs:   mode (commit/push/both/pr), hint (optional commit description)
+Agent:    Agent
+Tools:    runCommands, codebase, editFiles
+Example:  /ship → both → "added new vault provider"
+          /ship → pr → (auto-generates commit, pushes, suggests PR)
+Workflow: Pre-flight (lint + build) → stage → commit (Conventional Commits)
+          → push → PR title & description suggestion
+Modes:    commit (stage+commit only) | push (push only) | both (commit+push)
+          | pr (commit+push+detailed PR suggestion)
+Safety:   Never uses --force or --no-verify; explicit staging only
+Related:  /github-push (creates PR via API), /git-vcs (local Git)
+File:     .github/prompts/ship.prompt.md
+```
+
+#### `/github-push` — Full Shipping Workflow with PR Creation
+
+```yaml
+Inputs:   repo (GitHub URL), mode (push/ship/full), hint (optional)
+Agent:    Agent
+Tools:    runCommands, codebase, editFiles, githubPR
+Example:  /github-push → https://github.com/owner/repo/tree/master → full
+          /github-push → https://github.com/owner/repo → push
+Workflow: Parse URL → pre-flight → cohesive split → commit → push
+          → create PR via GitHub API
+Modes:    push (push + create PR) | ship (single commit + push + PR)
+          | full (cohesive commit split + push + PR)
+Safety:   Confirms PR title/description before creation; explicit staging only
+Related:  /ship (commit/push without PR creation), /github-workflow (GitHub learning)
+File:     .github/prompts/github-push.prompt.md
 ```
 
 #### `/atlassian-tools` — Universal Atlassian Handler
@@ -519,6 +574,23 @@ Agent:    Debugger
 Tools:    search, codebase, debugger, terminal
 Use:      Hypothesis-driven debugging with root cause analysis
 Output:   Hypotheses → root cause → fix → prevention
+```
+
+#### `/code-analysis-deep-dive` — Code Internals Deep-Dive
+
+```yaml
+Inputs:   target (class.method, class, or feature flow),
+          scope (method / class / feature),
+          focus (all / internals / flow / state),
+          context (onboarding / pre-refactoring / code-review-prep / learning)
+Agent:    Copilot
+Tools:    codebase, fetch
+Use:      Fully understand code internals — data flow, call stack, code blocks, line-by-line
+Example:  /code-analysis-deep-dive → OrderService.calculateTotal → method → all
+Output:   9-layer analysis: overview → data flow → call stack → code blocks → line-by-line
+          → state changes → edge cases → dependencies → key takeaways
+Capture:  Uses code-analysis-deep-dive-capture.md session template
+File:     .github/prompts/code-analysis-deep-dive.prompt.md
 ```
 
 #### `/impact` — Change Impact Analysis

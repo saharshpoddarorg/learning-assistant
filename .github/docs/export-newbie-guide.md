@@ -184,6 +184,27 @@ After copying, these are **not needed** in your target project:
 | `search-engine/` | Search engine learning module — not needed in a work project |
 | `src/` | Learning-assistant entry point — not your code |
 
+### Brain Workspace at a Different Path?
+
+If you copied the brain workspace but want it at a different location (e.g., `knowledge/workspace`
+instead of `brain/ai-brain`), see the [Export Guide § 3b](export-guide.md#3b-custom-location-different-path--eg-knowledgeworkspace)
+for the full configuration steps. The short version:
+
+1. Move the brain files to your preferred path
+2. Update `.github/copilot-instructions.md` § Configurable Paths with the new path
+3. Find-replace `brain/ai-brain` in `.vscode/tasks.json` brain task commands
+4. Update the `.gitignore` inbox pattern
+
+> The brain scripts auto-detect their location — no code changes needed after moving.
+
+### Brain Inside a Module or Package?
+
+In your target project the brain workspace might live inside a module (Maven/Gradle),
+npm package (monorepo), or Python package. This is fine — the brain folder contains only
+markdown and shell scripts, not compilable code. See the
+[Export Guide § 3d](export-guide.md#3d-brain-inside-a-module--package--monorepo-package)
+for build tool exclusion examples (Gradle, npm, Maven) and module-specific tips.
+
 ---
 
 ## Step 5: Verify It Works
@@ -237,7 +258,11 @@ After copying, these are **not needed** in your target project:
 | `.github/instructions/*.instructions.md` | Remove files for languages you don't use | Recommended |
 | `.vscode/mcp.json` | Enable/disable servers, adjust paths | Only if using MCP |
 | `mcp-servers/build.env.local` | Set `JAVA_HOME` if java not on PATH | Only if build fails |
-| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties` | Atlassian credentials | Only if using Atlassian |
+| `mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties` | Atlassian v1 credentials | Only if using Atlassian v1 |
+| `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.local.properties` | Atlassian v2 credentials | Only if using Atlassian v2 |
+
+> **Full config inventory:** See the [Configuration Reference](configuration-reference.md)
+> for every config file, env var, path, and credential — with export checklist.
 
 ---
 
@@ -247,6 +272,7 @@ After copying, these are **not needed** in your target project:
 |---|---|
 | Understand all 6 customization types | [5-Minute Guide](copilot-customization-newbie.md) |
 | Full export with all options | [Export Guide](export-guide.md) |
+| All config files, env vars, export checklist | [Configuration Reference](configuration-reference.md) |
 | Set up MCP servers from scratch | [MCP Server Setup](mcp-server-setup.md) |
 | Create my own custom agents/prompts | [Deep Dive §Creation Walkthroughs](copilot-customization-deep-dive.md#part-8-step-by-step-creation-walkthroughs) |
 
