@@ -211,10 +211,15 @@ validator.validate(order);                        // ← [B1.3] delegates to Val
 
 ```text
 📋 Behaviour:
-  Guards the method entry. Three sequential checks: null → empty → domain rules.
-  The validator (injected) enforces business constraints (stock availability,
-  customer status) — it throws if any rule fails, so downstream code can assume
-  a fully valid Order. No data structures are mutated; this is a pure gate.
+  Data structures: Order (input — may be null), Order.items: List<LineItem> (checked for empty)
+  Operations:      null-check → empty-check → delegate to Validator (injected)
+  Algorithm:       Guard-clause chain with early exits — three sequential gates:
+                     1. order == null  → throw (not handled — E1)
+                     2. items.isEmpty  → early return (valid but 0 items — E2)
+                     3. validator.validate(order) → throws on business rule failure
+  Data flow:       Order (raw, unchecked) ──guard gates──→ Order (same object, now proven valid)
+  Side-effects:    none — pure gate, no mutations
+  Contract:        post: order ≠ null ∧ order.items.size > 0 ∧ all business rules pass
 
 ← Receives: Order (may be null, unchecked) from caller
 → Produces: Order (validated, non-null, items present) → B2
@@ -239,49 +244,183 @@ State: none mutated
 #### 📋 Behaviour — What to Write
 
 The `📋 Behaviour` block is the **abstraction layer** between the raw code and the
-data flow arrows. It answers: "What is this code doing at a conceptual level?" — not
-what each line does, but what the method *achieves* and *how* in terms of:
+data flow arrows. It uses a structured format with labelled fields so the developer
+can scan for exactly the dimension they care about. Every field answers a specific
+question about the extracted method:
 
-1. **Data structures** — which collections, maps, or objects are read, built, or mutated?
-   Name the concrete types: "Iterates over `List<LineItem>`, accumulates into a `double`"
-   — not "processes the items"
-2. **Algorithm / pattern** — what approach does the code use? "Stream reduce with identity
-   0.0", "Two-pointer merge", "Builder pattern accumulation", "Guard-clause chain with
-   early returns". Name the pattern when one exists
-3. **Data flow within the method** — how does data transform step by step? "Takes the raw
-   `items` list → filters out zero-quantity → maps each to `price × qty` → sums to
-   `subtotal`". This is the pipeline the code implements, expressed at one level above
-   the code itself
-4. **Mutations and side-effects** — what changes? "Mutates `this.cache` (HashMap insert)",
-   "Writes to DB via repository", "Publishes event to MQ — fire-and-forget, no rollback"
-5. **Key invariant or contract** — what must be true after this method runs? "Output is
-   always ≥ 0.0", "All items in the returned list have non-null IDs", "The order is
-   persisted OR an exception has been thrown — never silent failure"
+```text
+📋 Behaviour:
+  Data structures: <which types are read, built, mutated — concrete Java types>
+  Operations:      <what operations are performed on those data structures>
+  Algorithm:       <pseudo-code or named pattern — how the code processes data>
+  Data flow:       <input ──transformation──→ output — the pipeline in one line>
+  Side-effects:    <what changes outside this method — DB / fields / MQ / cache>
+  Contract:        <pre/post conditions — what must be true before and after>
+```
 
-**Length:** 2-5 lines. Enough to give a developer the mental model without reading every
-line of code. Not so long that it becomes the documentation it replaced.
+**Field-by-field guide:**
 
-**The rule:** A developer who reads ONLY the `📋 Behaviour` block should understand
-what this extracted method does well enough to decide whether they need to read the
-actual code. If they can skip the code and move to the next method, the behaviour
-block did its job. If they must read every line to understand anything, the behaviour
-block failed.
+**`Data structures`** — Name every data structure the method touches. Use concrete
+Java types, not abstractions. The developer needs to know what's in memory:
+
+- ✅ `Order (input), Order.items: List<LineItem> (iterated), double subtotal (built)`
+- ✅ `HashMap<String, PriceTier> cache (read + written), Optional<Discount> (unwrapped)`
+- ❌ "the order object" — too vague, no types
+- ❌ "a collection of items" — which collection? List? Set? Map?
+
+**`Operations`** — What is done TO those data structures. Use operation verbs that
+describe structural interaction with the data:
+
+- **Read ops:** iterate, lookup, get, contains, size, isEmpty, stream, filter
+- **Write ops:** add, put, remove, set, clear, sort, replace, merge, compute
+- **Transform ops:** map, reduce, collect, flatMap, groupBy, partition
+- **Check ops:** null-check, bounds-check, type-check, isEmpty, contains
+
+Example: `iterate List<LineItem> → map to double (price × qty) → reduce via sum()`
+
+**`Algorithm`** — The processing logic expressed as pseudo-code or a named pattern.
+This is NOT a restatement of the Java code — it's one level of abstraction higher.
+Write it so a developer can understand the approach without reading the implementation:
+
+For simple methods (guard clauses, delegation, single stream):
+
+```text
+Algorithm: Guard-clause chain with early exits: null → empty → domain rules
+Algorithm: Stream reduce: items.stream().mapToDouble(price × qty).sum()
+Algorithm: Builder pattern: Receipt.builder().subtotal(x).tax(y).build()
+```
+
+For complex methods (loops with branching, multi-step transformations, recursion),
+use **indented pseudo-code** that shows the logic structure without Java syntax noise:
+
+```text
+Algorithm:
+  for each item in order.items:
+    if item.isSpecial:
+      price = lookupSpecialPrice(item.sku)     // DB hit per special item
+      if price not found: fallback to default
+    else:
+      price = item.defaultPrice
+    subtotal += price × item.qty
+  apply volume discount if subtotal > threshold
+  return subtotal
+```
+
+The pseudo-code should:
+
+- Use plain English verbs, not Java method calls (unless the method name IS the concept)
+- Show loop and branch structure (indent to show nesting)
+- Annotate costly operations (DB hit, network call, O(n²) step)
+- Name the data flowing through each step
+- Be 3-8 lines for complex methods, 1 line for simple methods
+
+**`Data flow`** — A single-line pipeline showing how data transforms from input to
+output. Use `──verb──→` arrows between stages:
+
+```text
+Data flow: Order (raw) ──validate──→ Order (valid) ──extract items──→ List<LineItem>
+           ──map(price×qty)──→ DoubleStream ──sum──→ double subtotal
+```
+
+For methods with branching, show the main path and note branches:
+
+```text
+Data flow: subtotal ──[premium? 15% cap : bulk? tiered : standard 0%]──→ discounted double
+```
+
+**`Side-effects`** — What changes in the world outside this method's return value.
+Be specific about WHAT is changed, WHERE, and whether it's reversible:
+
+- ✅ `Writes Order row to orders table via repository.save() — within transaction, reversible`
+- ✅ `Mutates this.lastProcessedId field (String) — not thread-safe`
+- ✅ `Publishes OrderCompletedEvent to MQ — fire-and-forget, NOT reversible`
+- ✅ `none — pure computation, no side-effects`
+- ❌ "has side-effects" — says nothing
+
+**`Contract`** — Pre-conditions (what must be true on entry) and post-conditions
+(what is guaranteed on exit). Use `pre:` and `post:` prefixes:
+
+```text
+Contract: pre: order ≠ null, items non-empty | post: subtotal ≥ 0.0 (identity for empty)
+Contract: post: receipt persisted to DB OR exception thrown — never silent failure
+Contract: pre: cache warmed | post: cache updated with new entry for this SKU
+```
+
+**Field presence rules:**
+
+| Field | When to include | When to omit |
+|---|---|---|
+| **Data structures** | Always | Never — every method touches data |
+| **Operations** | Always | Never — every method does something to data |
+| **Algorithm** | Always (1 line for simple, multi-line pseudo-code for complex) | Never |
+| **Data flow** | Always | Never — even "passthrough" is a valid flow |
+| **Side-effects** | Always (write `none` explicitly when pure) | Never |
+| **Contract** | When pre/post conditions are non-obvious | Trivial getters/setters |
+
+**Length:** 4-8 lines for simple methods (all fields, one line each). 8-15 lines for
+complex methods (multi-line Algorithm pseudo-code). The structured format replaces the
+old prose paragraph — no unstructured text in the Behaviour block.
+
+**The skip test:** A developer who reads ONLY the `📋 Behaviour` block should:
+
+1. Know what data structures are in play and what types they are
+2. Understand the algorithm well enough to predict the output for a given input
+3. Know what side-effects to expect (or that there are none)
+4. Decide whether they need to read the actual code or can move to the next method
 
 **Anti-patterns (don't write these):**
 
-- ❌ "This method validates the order" — too vague, just restates the method name
-- ❌ "Calls validator.validate() which checks business rules" — just restates the code
-- ❌ A 10-line paragraph describing every conditional — that's the code's job
+- ❌ `Data structures: the order` — no type, no specifics
+- ❌ `Algorithm: validates the order` — just restates the method name
+- ❌ `Operations: calls validator.validate()` — restates the code, says nothing about WHAT it does to the data
+- ❌ A 10-line prose paragraph instead of the structured fields
 
-**Good examples:**
+**Good examples (complete Behaviour blocks):**
 
-- ✅ "Guard-clause chain: null → empty → domain rules (via injected `Validator`). No
-  mutations. Downstream code can assume a fully valid, non-null `Order` with items"
-- ✅ "Stream pipeline over `List<LineItem>` → `mapToDouble(price × qty)` → `sum()`.
-  Identity is 0.0 so empty list produces 0.0 (not null). Pure — no side-effects"
-- ✅ "Builds a `Receipt` using the Builder pattern. Pulls subtotal, discount, and tax
-  from locals computed by B2-B4. Writes `receiptId` into `this.lastReceiptId` (field
-  mutation — not thread-safe). Publishes `OrderCompletedEvent` to MQ — fire-and-forget"
+✅ Simple guard method:
+
+```text
+📋 Behaviour:
+  Data structures: Order (input — may be null), Order.items: List<LineItem> (checked for empty)
+  Operations:      null-check → empty-check → delegate to Validator (injected)
+  Algorithm:       Guard-clause chain with early exits: null → empty → domain rules
+  Data flow:       Order (raw, unchecked) ──guard gates──→ Order (same object, proven valid)
+  Side-effects:    none — pure gate, no mutations
+  Contract:        post: order ≠ null ∧ items.size > 0 ∧ all business rules pass
+```
+
+✅ Stream computation:
+
+```text
+📋 Behaviour:
+  Data structures: List<LineItem> (iterated, not mutated), double subtotal (accumulated)
+  Operations:      stream → mapToDouble → sum
+  Algorithm:       Stream reduce: items.stream().mapToDouble(item → price × qty).sum()
+                   Identity is 0.0, so empty list → 0.0 (not null, not error)
+  Data flow:       List<LineItem> ──map(price × qty)──→ DoubleStream ──sum()──→ double
+  Side-effects:    none — pure computation
+  Contract:        post: subtotal ≥ 0.0 (assumes prices and quantities are non-negative)
+```
+
+✅ Complex method with branching and side-effects:
+
+```text
+📋 Behaviour:
+  Data structures: Order (read), Receipt (built via Builder), HashMap<String, PriceTier> cache
+                   (read + conditional write), MessageQueue (written)
+  Operations:      read order fields → build Receipt → cache.computeIfAbsent → mq.publish
+  Algorithm:
+    build receipt from subtotal + discount + tax (computed by B2-B4)
+    if cache miss for order.customerId:
+      fetch PriceTier from DB, store in cache    // cache-aside pattern
+    publish OrderCompletedEvent to MQ            // fire-and-forget
+    write receiptId to this.lastReceiptId        // field mutation
+  Data flow:       (subtotal, discount, tax) ──Builder──→ Receipt ──persist──→ DB row
+                   Receipt.id ──publish──→ MQ event
+  Side-effects:    DB write (orders table, within tx), MQ publish (irreversible),
+                   field mutation: this.lastReceiptId (not thread-safe)
+  Contract:        post: receipt persisted OR exception thrown — never silent failure
+```
 
 **Inline annotation rules:**
 
