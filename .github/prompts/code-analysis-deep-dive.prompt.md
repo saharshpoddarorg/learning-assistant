@@ -74,6 +74,61 @@ This interlinking makes the document a **navigable reference** — a developer c
 from a block to its data flow, from an edge case to the exact line that causes it,
 from a dependency to every block that relies on it.
 
+#### Cross-Layer Navigation Map
+
+```mermaid
+flowchart LR
+    subgraph "Layer 2 — Data Flow"
+        T["Tn: Transform steps"]
+    end
+    subgraph "Layer 3 — Call Stack"
+        C["Cn: Calls (step-into/over)"]
+    end
+    subgraph "Layer 4 — Block Breakdown"
+        B["Bn: Virtual methods + code"]
+    end
+    subgraph "Layer 5 — Line-by-Line"
+        L["Ln: Key lines (BP/W markers)"]
+    end
+    subgraph "Layer 6 — State"
+        S["Variables + watch expressions"]
+    end
+    subgraph "Layer 7 — Edge Cases"
+        E["En: Failures + how to reproduce"]
+    end
+    subgraph "Layer 8 — Dependencies"
+        D["Coupling + testability"]
+    end
+
+    T -->|"Bn implements Tn"| B
+    C -->|"Bn contains Cn"| B
+    B -->|"Ln belongs to Bn"| L
+    B -->|"Bn mutates var"| S
+    B -->|"En occurs at Bn"| E
+    D -->|"Bn uses dependency"| B
+    L -->|"BP/W → watch var"| S
+    L -->|"risk → En"| E
+```
+
+#### Scope-Adaptive Layer Selection
+
+```mermaid
+flowchart TD
+    A{Scope?} -->|method| M["All 9 layers\nFull depth"]
+    A -->|class| CL["Layers 1-4 + 8\nPer-method blocks, skip line-by-line"]
+    A -->|feature| F["Layers 1-3 + cross-class flow\nFeature-level block breakdown"]
+
+    M --> CTX{Context?}
+    CL --> CTX
+    F --> CTX
+
+    CTX -->|debugging-prep| DBG["Emphasize:\n• Layer 5 BP/W markers\n• Layer 6 watch expressions\n• Layer 7 reproduce steps\n• Layer 9 debugging quick-start"]
+    CTX -->|onboarding| ONB["Emphasize:\n• Layer 1 quick scan\n• Layer 4 region map\n• Layer 8 dependency map\n• Layer 9 cheat sheet"]
+    CTX -->|pre-refactoring| REF["Emphasize:\n• Layer 4 god class inventory\n• Layer 7 unhandled edges\n• Layer 8 coupling verdict\n• Layer 9 extract-method notes"]
+    CTX -->|code-review-prep| CR["Emphasize:\n• Layer 4 block contracts\n• Layer 7 unhandled risks\n• Layer 8 testability\n• Layer 3 call complexity"]
+    CTX -->|all / blank| ALL["Equal depth across all layers"]
+```
+
 ### Layer 1 — High-Level Overview (30-Second Understanding)
 
 This section must give a developer the complete picture in under 30 seconds.
@@ -588,6 +643,16 @@ Step-over (trust these):
 The cheat sheet references Layer IDs so a developer can drill into any detail.
 The debugging quick-start is derived from Layers 3 (step-into/over), 5 (breakpoints),
 6 (watch expressions), and 7 (conditional breakpoints from edge case triggers).
+
+**Debugging quick-start derivation flow:**
+
+```mermaid
+flowchart LR
+    L3["Layer 3\nCall Stack"] -->|step-into / step-over| QS["Layer 9\nDebugging Quick-Start"]
+    L5["Layer 5\nLine-by-Line"] -->|BP markers| QS
+    L6["Layer 6\nState Changes"] -->|watch expressions| QS
+    L7["Layer 7\nEdge Cases"] -->|conditional BPs\nfrom triggers| QS
+```
 
 ### Output Rules
 
