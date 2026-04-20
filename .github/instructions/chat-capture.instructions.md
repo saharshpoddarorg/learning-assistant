@@ -1215,6 +1215,59 @@ work/code-analysis/order-service/calculate-total/
   2026-05-10_02-00pm_calculate-total-edge-cases.md
 ```
 
+#### Pattern 3a-dd — Deep-Dive Escalation (Permanent Sub-Folder)
+
+Deep-dive sessions live in the permanent `deep-dive/` sub-folder and never carry a
+category prefix (the path `code-analysis/deep-dive/` already implies it). When escalated
+into class sub-packages **within** `deep-dive/`, only the class grouping key is dropped:
+
+```text
+# Before (flat inside deep-dive/ — no category prefix, class prefix present)
+work/code-analysis/deep-dive/
+  2026-04-20_04-18pm_order-service-calculate-total.md
+  2026-04-21_09-00am_order-service-validate-order.md
+  2026-04-22_10-30am_order-service-process-payment.md
+
+# After class escalation (drop class prefix — folder implies it)
+work/code-analysis/deep-dive/order-service/
+  2026-04-20_04-18pm_calculate-total.md           ← dropped "order-service-"
+  2026-04-21_09-00am_validate-order.md             ← dropped "order-service-"
+  2026-04-22_10-30am_process-payment.md            ← dropped "order-service-"
+
+# After method escalation (3+ files about calculateTotal within class sub-package)
+work/code-analysis/deep-dive/order-service/calculate-total/
+  2026-04-20_04-18pm_calculate-total.md            ← keeps distinguisher
+  2026-04-25_02-00pm_calculate-total_v2.md         ← keeps version suffix
+  2026-04-28_11-00am_calculate-total-edge-cases.md
+```
+
+**Truncation formula for deep-dive/:**
+
+```text
+Flat (in deep-dive/):   YYYY-MM-DD_HH-MMtt_<class>-<method>[-focus][-context].md
+In class sub-package:   YYYY-MM-DD_HH-MMtt_<method>[-focus][-context].md
+In method sub-package:  YYYY-MM-DD_HH-MMtt_<method>[-focus][-context][_vN].md
+```
+
+**Restoration on de-escalation** (class sub-package drops below 3 files):
+
+```text
+# Before de-escalation (< 3 files in deep-dive/order-service/)
+work/code-analysis/deep-dive/order-service/
+  2026-04-20_04-18pm_calculate-total.md
+  2026-04-21_09-00am_validate-order.md
+
+# After de-escalation (re-add class prefix, stay in deep-dive/)
+work/code-analysis/deep-dive/
+  2026-04-20_04-18pm_order-service-calculate-total.md
+  2026-04-21_09-00am_order-service-validate-order.md
+```
+
+**Key difference from standard Pattern 3a:** In `deep-dive/`, files never have a
+`<category>_` prefix because the permanent folder path already encodes it. Truncation
+only strips the `<class>-` grouping key when moving into a class sub-package. The
+`deep-dive/` folder itself is structural and never de-escalates.
+
 #### Pattern 3b — Component → Aspect Escalation
 
 ```text

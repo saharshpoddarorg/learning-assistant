@@ -248,25 +248,49 @@ intent-revealing name for every section of the code, without actually changing a
 > only for gotchas, implicit assumptions, and caller-specific behaviour — things you
 > cannot express in a type signature.
 
-#### 4a — Region Map (Bird's-Eye View)
+#### 4a — Block Map & Region Overview (Bird's-Eye View)
 
-Before diving into individual blocks, provide a **region map** — a high-level table
-showing how the method's lines are organized into logical regions. This is the first
-thing a developer sees, giving them a mental roadmap before they read any detail.
+Before diving into individual blocks, provide two things that let the developer
+mentally navigate the method before reading any detail:
+
+**1. Block Flow Diagram** — show how blocks connect, with data labels on the arrows.
+This is the single most useful artefact for a developer skimming the analysis:
+
+```text
+## Block Flow — <MethodName>
+
+B1 ──validated Order──→ B2 ──subtotal──→ B3 ──discounted──→ B4 ──taxed──→ B5 ──persisted──→ B6
+validate               calculate         apply              calculate     persist           return
+inputs                 subtotal          discount           tax           result            receipt
+```
+
+Every block passes typed data to the next. If a block produces nothing consumed by
+the next (e.g., a side-effect-only block), show `── (side-effect) ──→`. If blocks
+branch (e.g., if-else), show both paths. The developer should be able to read this
+diagram and know the method's structure in 5 seconds.
+
+**2. Region Map** — a table organizing line ranges into logical regions, with
+cross-references to Layer 2 transforms and Layer 3 calls so the developer can
+jump between layers from this one table:
 
 ```text
 ## Region Map — <MethodName> (L30-142)
 
-| Region | Lines | Blocks | Purpose (one phrase) |
-|---|---|---|---|
-| Guard & Validation | L30-45 | B1-B2 | Reject invalid inputs early |
-| Core Calculation | L46-89 | B3-B6 | Transform inputs into result |
-| Persistence | L90-110 | B7-B8 | Save result and publish events |
-| Cleanup & Return | L111-142 | B9-B10 | Release resources and return |
+| Region | Lines | Blocks | T-refs | C-refs | Purpose (one phrase) |
+|---|---|---|---|---|---|
+| Guard & Validation | L30-45 | B1-B2 | T1 | C1, C2 | Reject invalid inputs early |
+| Core Calculation | L46-89 | B3-B6 | T2-T4 | C3-C5 | Transform inputs into result |
+| Persistence | L90-110 | B7-B8 | T5 | C6 | Save result and publish events |
+| Cleanup & Return | L111-142 | B9-B10 | — | C7 | Release resources and return |
 ```
+
+The **T-refs** and **C-refs** columns centralize all cross-layer references in one
+place — individual blocks do NOT need to repeat `Implements: Tn` or `Contains: Cn`
+in their headers. This keeps blocks lean and code-focused.
 
 For methods under 30 lines, the region map can be omitted — go straight to blocks.
 For methods over 50 lines, the region map is **mandatory**.
+The block flow diagram is **always required** (even for short methods — just simpler).
 
 #### 4b — Block Breakdown (The Detail)
 
@@ -292,34 +316,61 @@ For methods over 50 lines, the region map is **mandatory**.
    from Layer 7. Only include if something is genuinely surprising or dangerous
 7. **State impact** — which Layer 6 variables are mutated in this block (if any)
 
-**Block splitting rules:**
+**Block splitting rules — think like a developer doing extract-method refactoring:**
 
-- Split on **logical boundaries**, not arbitrary line counts — each block should do
-  exactly one conceptual thing (validate, transform, persist, notify, etc.)
-- **Think extract-method:** if you can imagine extracting these lines into a method with
-  a clear name, clear parameters, and a clear return type — that's a block. If you can't
-  name it or can't define its inputs/outputs, the block boundaries are wrong
+Every block boundary should be a place where a senior developer would genuinely consider
+extracting a method. If you wouldn't actually extract it, it's probably not a real block
+boundary. Apply these tests:
+
+**Extract-Method Fitness Test** — every proposed block must pass ALL THREE:
+
+1. **Nameable** — can you give it a verb-noun method name? (`validateInputs`,
+   `calculateSubtotal`, `persistResult`). If you can only name it "part of X" or
+   "continuation of Y", the boundary is wrong — merge it with the adjacent block
+2. **Self-contained** — can you define clear typed inputs (parameters) and a typed
+   output (return value)? If the block needs 5+ parameters to work or its "output"
+   is just "side-effect on ambient state", reconsider the boundary
+3. **One reason to change** — would this code change for exactly one business reason?
+   If half the block is validation and the other half is calculation, split them
+
+**Where to look for natural split points** — the source code itself tells you where
+blocks begin and end. Scan for these signals:
+
+| Signal in source code | Block boundary type | Example |
+|---|---|---|
+| **Blank line** left by the original developer | Intent separator — developer already thought in blocks | Blank line between validation and calculation |
+| **Comment** describing "what comes next" | Phase marker — explicit block start | `// Apply discount rules` |
+| **New variable declaration** starting a new phase | Data-phase boundary — new data context begins | `var discounted = ...` after subtotal is computed |
+| **Try-catch boundary** | Error-handling boundary — different concern | `try {` wrapping a risky block |
+| **If-else / switch branch** | Decision boundary — each branch is a candidate block | `if (order.isPremium()) { ... } else { ... }` |
+| **Loop boundary** | Iteration boundary — setup / body / post-loop are separate blocks | `for (var item : items) { ... }` |
+| **Return statement** | Exit boundary — everything before return is the "compute" block | `return receipt;` |
+| **Method call on an injected dependency** | Delegation boundary — external call is its own concern | `repository.save(entity)` |
+
+**Block continuity rule** — blocks must flow into each other like a pipeline. The
+output of B*n* should be consumable as input to B*n+1*. If you can't describe what
+data passes between two adjacent blocks, the split is wrong or a block is missing.
+
+Additional splitting guidelines:
+
 - Aim for **3-8 blocks per method** — fewer for simple methods, more for complex ones.
   For very long methods (100+ lines), 8-15 blocks is acceptable
 - A block can be 1 line (if it's a critical decision) or 20 lines (if they're cohesive)
-- **Overlap is allowed** — if a line serves as both the end of one block and the start
-  of another, include it in both and annotate the dual role
 - **Don't skip code** — every line of the method must appear in at least one block.
   The blocks together should reconstruct the full method. A developer scrolling through
   the source file must find every single line explained somewhere
+- **Overlap is allowed** — if a line serves as both the end of one block and the start
+  of another, include it in both and annotate the dual role
 - **Name blocks by intent**, not by implementation — "calculateSubtotal" not
   "streamMapToDouble"
 - **Nest blocks for deep logic** — when a block contains a significant inner structure
   (e.g., a loop body with branching), use sub-blocks: B3a, B3b, B3c. The parent block
   (B3) shows the full code; sub-blocks zoom into specific segments within it
 
-**Block template:**
+**Block template — code first, metadata after:**
 
 ```text
-### Block B3 — `double calculateSubtotalAndApplyDiscount(List<LineItem> items, double discount)` (L42-58)
-
-Implements: T2-T3 (Layer 2) · Contains: C4, C5 (Layer 3)
-Region: Core Calculation
+### B3 — `double calculateSubtotal(List<LineItem> items)` (L46-58)
 ```
 
 ````java
@@ -327,20 +378,45 @@ Region: Core Calculation
 var subtotal = items.stream()
     .mapToDouble(i -> i.getPrice() * i.getQty()) // ← [B3.1] per-item: price × qty
     .sum();                                       // ← [B3.2] identity = 0.0 if empty (→ E2)
-var discounted = applyDiscount(subtotal, discount); // ← [B3.3] multiplicative — can go negative (→ E3)
 ````
 
 ```text
-Contract: List<LineItem> (non-null, from B2) → double (discounted subtotal, → B4)
-Gotchas: discount > 1.0 → negative total (E3) · double arithmetic → rounding drift on large orders (E6)
-State: mutates local `total` (Layer 6) — declared L45, set L47
+← Receives: List<LineItem> (validated, non-null) from B2
+→ Produces: double (subtotal >= 0.0) → B4
+⚠ E2: empty list → 0.0 (identity) | E6: double rounding on large orders
+State: sets local `subtotal` (L47)
 ```
 
+**Template rules — what goes where:**
+
+| Element | Where | Required? | Purpose |
+|---|---|---|---|
+| **Block header** | `### B3 — virtual signature (lines)` | Always | Intent + contract in one line |
+| **Code fence** | Immediately after header | Always | The actual source code — developer reads THIS |
+| **← Receives** | After code | Always | What data this block consumes and from which block |
+| **→ Produces** | After Receives | Always | What data this block outputs and to which block |
+| **⚠ Gotchas** | After Produces | Only if surprising | Edge cases, thread-safety, implicit assumptions |
+| **State** | After Gotchas | Only if mutates | Which variables change (links to Layer 6) |
+
+**Key design decisions:**
+
+- **Code comes first** — the developer is reading the analysis side-by-side with source.
+  They need to see the code immediately after the block header, not after three lines
+  of metadata they have to skip
+- **Arrow notation for data flow** — `← Receives` and `→ Produces` replace the old
+  `Contract:` line. Arrows are scannable — a developer can glance at the arrows across
+  all blocks and trace data flow without reading any prose
+- **No cross-reference clutter in block headers** — T-refs and C-refs live in the
+  Region Map table (4a). Individual blocks stay clean and code-focused
+- **Gotchas are conditional** — only include `⚠` lines when something is genuinely
+  surprising. If the code does exactly what the signature says, no gotcha is needed.
+  Don't manufacture "gotchas" just to fill the template
+
 **The virtual method signature IS the documentation.** A developer reading
-`double calculateSubtotalAndApplyDiscount(List<LineItem> items, double discount)` immediately
-understands the block's purpose, inputs, and output — no prose needed. The actual code
-below it shows the implementation. The inline annotations (`[B3.1]`, `[B3.2]`) flag
-non-obvious lines. The contract line confirms the typed data flow between blocks.
+`double calculateSubtotal(List<LineItem> items)` immediately understands the block's
+purpose, inputs, and output — no prose needed. The actual code below it shows the
+implementation. The inline annotations (`[B3.1]`, `[B3.2]`) flag non-obvious lines.
+The arrow lines confirm the typed data flow between blocks.
 
 **When the block maps to an existing private method call:** If the block is essentially
 `var result = this.somePrivateMethod(args)`, the virtual signature should match or
@@ -351,10 +427,12 @@ the actual method does that isn't obvious from its name.
 line-by-line detail. A developer seeing `[B3.2]` in the code can jump to Layer 5
 for the full explanation of that specific line.
 
-The cross-references (**T***n*, **C***n*, **B***n*) create a web of links between layers.
-A developer reading Block 3 can jump to T3 in Layer 2 to see where in the pipeline
-this block sits, or to C4 in Layer 3 to see the call detail, or to E2 in Layer 7 to
-see what edge case lurks here.
+**Anti-dump rule:** The output must read like a **developer's annotated walkthrough**
+of the source code — not an academic analysis report. If a developer would skip a
+section because it's restating what the code already says, remove it. Every line of
+output must earn its place by telling the developer something they can't see by reading
+the source alone: hidden data flow between blocks, implicit contracts, edge cases lurking
+in normal-looking code, or the "why" behind a non-obvious line.
 
 #### 4c — Handling Complex Code Patterns
 
@@ -673,11 +751,18 @@ flowchart LR
   do NOT reorganise or rewrite the actual code in the analysis
 - **Completeness over brevity** — every line of the target code must appear in at least
   one block in Layer 4. No gaps. The blocks together reconstruct the full method
-- **Cross-layer coherence is mandatory** — every block (B*n*) must reference the
-  transformation steps (T*n*) it implements and the calls (C*n*) it contains. Every
-  edge case (E*n*) must name its block and line. Every state change must name its block.
-  A developer reading any single layer must be able to navigate to every related layer
-  via the ID tags. If an ID appears in one layer, it must be defined in its home layer.
+- **Cross-layer coherence is mandatory** — the Region Map (4a) centralises T-refs and
+  C-refs per block. Every edge case (E*n*) must name its block and line. Every state
+  change must name its block. A developer reading any single layer must be able to
+  navigate to every related layer via the ID tags. If an ID appears in one layer, it
+  must be defined in its home layer. The Block Flow Diagram (4a) is the master navigation
+  aid — it shows the complete pipeline at a glance
+- **No analysis dump** — every sentence must tell the developer something they cannot
+  see by reading the source code alone. If a block explanation just restates what the
+  code literally does (`"this line adds the price to the total"` for `total += price`),
+  remove it. Focus on: hidden contracts, implicit assumptions, data flow between blocks,
+  edge cases, and the "why" behind non-obvious choices. A developer who reads Java
+  fluently does not need a prose translation of their code
 - End with one "what to deep-dive next" recommendation
 
 #### Complexity-Adaptive Thresholds
