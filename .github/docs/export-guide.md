@@ -629,6 +629,7 @@ Atlassian v2 OAuth, config precedence layers), see the full reference.
 |---|---|---|---|
 | `JAVA_HOME` | `build.env.local` or system PATH | JDK location for MCP server build | Only if `java` not on PATH |
 | `BRAIN_PATH` | System env or shell profile | Brain workspace path relative to repo root (default: `brain/ai-brain`) | Only if brain is at a non-default location |
+| `SESSION_CAPTURE_PATH` | System env or shell profile | Session capture directory relative to brain root, or absolute (default: `sessions`) | Only if sessions at non-default location |
 | `ATLASSIAN_CONFIG_DIR` | `.vscode/mcp.json` (auto-set) | Path to Atlassian v1 config directory | Auto — don't set manually |
 | `ATLASSIAN_V2_CONFIG_DIR` | `.vscode/mcp.json` (auto-set) | Path to Atlassian v2 config directory | Auto — don't set manually |
 | `GITHUB_TOKEN` | VS Code input prompt | GitHub Personal Access Token | Only if using GitHub MCP server |

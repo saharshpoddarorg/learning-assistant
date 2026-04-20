@@ -99,6 +99,7 @@ where the directory layout may differ.
 | Path | Default | Env Var | What it controls |
 |---|---|---|---|
 | **Brain workspace** | `brain/ai-brain` | `BRAIN_PATH` | Personal knowledge workspace (inbox, notes, library, sessions, backlog, pkm) |
+| **Session capture directory** | `<brain-root>/sessions` | `SESSION_CAPTURE_PATH` | Session capture sub-directory (relative to brain root, or absolute) |
 
 ### Brain Workspace Path (`BRAIN_PATH`)
 
@@ -119,6 +120,22 @@ scripts, instruction files, skill files, and prompts reference this path.
 use it as the default path. When this path changes in your project, Copilot reads this
 section and understands the actual brain location. Update the Project Structure diagram
 above to reflect your layout.
+
+### Session Capture Directory (`SESSION_CAPTURE_PATH`)
+
+Sessions are captured to `<brain-root>/sessions/` by default. To use a different path
+within the brain workspace (or outside it), set the `SESSION_CAPTURE_PATH` environment
+variable relative to the brain root, or as an absolute path.
+
+```powershell
+# Relative to brain root (custom sub-folder)
+$env:SESSION_CAPTURE_PATH = "captured-sessions"
+
+# Absolute path (outside brain workspace)
+$env:SESSION_CAPTURE_PATH = "C:\my-sessions"
+```
+
+See `.github/docs/configuration-reference.md` § 2e for full session capture configuration.
 
 ### Brain Workspace in Different Project Structures
 

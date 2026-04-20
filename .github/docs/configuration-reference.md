@@ -200,6 +200,9 @@ full capture protocol.
 | **Purpose** | Rules for when and how AI sessions are captured to brain |
 | **Key settings** | Domain (work/personal), categories, escalation thresholds, folder structure, hierarchical grouping |
 | **Customizable** | Yes — edit the instruction file to add categories, change thresholds, or define domain-specific hierarchies |
+| **Path override** | `SESSION_CAPTURE_PATH` env var — relative to brain root or absolute |
+| **Default path** | `<brain-root>/sessions/` |
+| **Logs** | `SESSION-LOG.md` (session index), `CAPTURE-LOG.md` (structural operations) |
 
 **Escalation patterns** (auto-organize sessions into sub-folders):
 
@@ -373,6 +376,13 @@ BRAIN_PATH env var  >  auto-detect from script location  >  default (brain/ai-br
     (highest)                   (automatic)                      (fallback)
 ```
 
+### Session Capture Path
+
+```text
+SESSION_CAPTURE_PATH env var  >  default (<brain-root>/sessions)
+       (highest)                        (fallback)
+```
+
 ### Java Build
 
 ```text
@@ -388,6 +398,7 @@ build.env.local  >  JAVA_HOME env var  >  java on system PATH  >  common JDK loc
 |---|---|---|---|---|---|
 | `JAVA_HOME` | JDK path for MCP build | Only if `java` not on PATH | No | System search | `build.env.local` or system env |
 | `BRAIN_PATH` | Brain workspace path (relative to repo root) | Only if not at default | No | `brain/ai-brain` | System env or shell profile |
+| `SESSION_CAPTURE_PATH` | Session capture directory (relative to brain root, or absolute) | Only if not at default | No | `sessions` | System env or shell profile |
 | `ATLASSIAN_CONFIG_DIR` | Atlassian v1 config directory | Auto-set | No | Set by `.vscode/mcp.json` | Don't set manually |
 | `ATLASSIAN_V2_CONFIG_DIR` | Atlassian v2 config directory | Auto-set | No | Set by `.vscode/mcp.json` | Don't set manually |
 | `GITHUB_TOKEN` | GitHub PAT | Only if using GitHub MCP | **Yes** | VS Code prompts at runtime | VS Code input prompt |

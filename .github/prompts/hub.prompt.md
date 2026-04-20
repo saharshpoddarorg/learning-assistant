@@ -325,6 +325,13 @@ You are the **navigation hub** for all available assistants and learning command
 │    │   ├── switch ················· Switch to beast / learning / design / debug / focused
 │    │   ├── explain ················ Explain what a mode does
 │    │   └── default ················ Confirm completeness mode is active
+│    ├── /request-steering ·········· Route incoming request vs current work
+│    │   ├── independent ············ Unrelated — handle as fresh task
+│    │   ├── merge ·················· Union of both — gap analysis + combined deliverable
+│    │   ├── sequential ············· Finish current first, then start new
+│    │   ├── supersede ·············· Replace current approach (confirm first)
+│    │   ├── park ··················· Queue for later — continue current work
+│    │   └── split ·················· Decompose into independent + dependent sub-tasks
 │    └── /multi-session ············· Manage state across chat sessions
 │        ├── save-state ············· Save progress + MCP state to session file
 │        ├── resume ················· Resume from checkpoint, verify MCP servers
@@ -377,6 +384,7 @@ Quick Commands:
     /context          → Continue prior conversation or start fresh
     /scope            → Generic learning vs code-specific
     /steer            → View or switch steering mode (default: completeness)
+    /request-steering → Route incoming request vs current work (merge/sequential/park/split)
     /multi-session    → Save/resume state across chat sessions (incl. MCP state)
 
   Learning & Concepts:

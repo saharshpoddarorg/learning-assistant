@@ -393,11 +393,14 @@ scope-refs:
 
 ## Templates
 
-Three templates live in `brain/ai-brain/sessions/_templates/`:
+Six templates live in `brain/ai-brain/sessions/_templates/`:
 
 | Template | Use For |
 |---|---|
-| [session-capture.md](../../brain/ai-brain/sessions/_templates/session-capture.md) | General sessions — research, analysis, debugging, learning |
+| [session-capture.md](../../brain/ai-brain/sessions/_templates/session-capture.md) | General sessions — research, analysis, learning, exploration |
+| [code-analysis-capture.md](../../brain/ai-brain/sessions/_templates/code-analysis-capture.md) | Code review — class/method analysis, findings tables, refactoring proposals |
+| [design-capture.md](../../brain/ai-brain/sessions/_templates/design-capture.md) | Design sessions — approach/proposal alternatives, use cases, acceptance criteria |
+| [debugging-capture.md](../../brain/ai-brain/sessions/_templates/debugging-capture.md) | Debugging — hypothesis tracking, root cause analysis, prevention measures |
 | [requirements-capture.md](../../brain/ai-brain/sessions/_templates/requirements-capture.md) | Requirements gathering — user stories, BDD, NFRs, scope definition |
 | [intent-capture.md](../../brain/ai-brain/sessions/_templates/intent-capture.md) | Design decisions — intent statements, capability inventories, migrations |
 
@@ -405,7 +408,10 @@ Three templates live in `brain/ai-brain/sessions/_templates/`:
 
 | Session Focus | Template |
 |---|---|
-| Exploring a concept, comparing options, debugging | `session-capture.md` |
+| Exploring a concept, comparing options, general research | `session-capture.md` |
+| Reviewing code for patterns, smells, bugs, or refactoring | `code-analysis-capture.md` |
+| Designing components, APIs, schemas, or evaluating approaches | `design-capture.md` |
+| Investigating a bug, error, or unexpected behaviour | `debugging-capture.md` |
 | Defining WHAT to build (user stories, acceptance criteria, scope) | `requirements-capture.md` |
 | Documenting WHY a design/migration decision was made | `intent-capture.md` |
 
@@ -427,9 +433,9 @@ that serves as a quick-scan index:
 
 ## Folder Escalation — When Folders Get Full
 
-As sessions accumulate, two escalation patterns keep things navigable:
+As sessions accumulate, escalation patterns auto-organize them into sub-folders.
 
-### Subject Escalation (5+ files on same subject)
+### Pattern 1 — Subject Escalation (5+ files on same subject)
 
 When 5+ files relate to the same subject, they move into a sub-folder:
 
@@ -448,7 +454,7 @@ work/code-analysis/order-service/
   process-payment.md
 ```
 
-### Project Escalation (3+ files for same project in one activity)
+### Pattern 2 — Project Escalation (3+ files for same project in one activity)
 
 ```text
 # Before
@@ -464,6 +470,41 @@ personal/software-dev/requirements/task-manager/
   notification-rules.md
 ```
 
+### Pattern 3 — Domain-Specific Hierarchical Escalation
+
+Certain categories support two-level hierarchies that mirror the content structure:
+
+| Pattern | Category | Level 1 | Level 2 | Thresholds |
+|---|---|---|---|---|
+| **3a** | code-analysis, code-review | class name | method name | 3+ / 2+ |
+| **3b** | design, feature-exploration | component | aspect (intent, approach, schema, etc.) | 3+ / 2+ |
+| **3c** | debugging | service | issue type | 3+ / 2+ |
+
+#### Example: Code Analysis Class → Method Hierarchy
+
+```text
+work/code-analysis/order-service/
+  calculate-total/
+    2026-04-01_..._calculate-total.md
+    2026-04-07_..._calculate-total_v2.md
+  2026-04-02_..._validate-order.md
+  2026-04-03_..._process-payment.md
+```
+
+#### Example: Design Component → Aspect Hierarchy
+
+```text
+personal/software-dev/design/task-manager/
+  api-design/
+    2026-04-01_..._rest-endpoints.md
+    2026-04-02_..._graphql-evaluation.md
+  2026-04-03_..._database-schema.md
+  2026-04-04_..._auth-flow.md
+```
+
+**Design aspects** include: intent, approach, proposal, api-design, schema, use-case,
+criteria, security, performance, patterns, trade-offs, migration, hld, lld.
+
 ### Cross-Cutting Project Index
 
 When a project spans 3+ activity categories, a project index file is created:
@@ -474,6 +515,40 @@ personal/software-dev/task-manager-INDEX.md
 
 This provides a single entry point listing all sessions for that project across
 requirements, design, implementation, testing, and other activities.
+
+---
+
+## Capture Logging
+
+Two logs track all session capture operations:
+
+| Log | Purpose | Location |
+|---|---|---|
+| `SESSION-LOG.md` | Index of ALL captured sessions | `sessions/SESSION-LOG.md` |
+| `CAPTURE-LOG.md` | Structural operations (escalation, moves, forks) | `sessions/CAPTURE-LOG.md` |
+
+`CAPTURE-LOG.md` tracks every escalation, version continuation, and fork event with
+timestamps and file counts. Created automatically on first use.
+
+---
+
+## Configurable Session Path
+
+The session capture directory defaults to `<brain-root>/sessions/`. To use a different
+location, set the `SESSION_CAPTURE_PATH` environment variable:
+
+```powershell
+# Relative to brain root (default)
+$env:SESSION_CAPTURE_PATH = "sessions"
+
+# Different sub-folder inside brain
+$env:SESSION_CAPTURE_PATH = "captured-sessions"
+
+# Absolute path (outside brain workspace)
+$env:SESSION_CAPTURE_PATH = "C:\my-sessions"
+```
+
+See [configuration-reference.md](configuration-reference.md) for the full config hierarchy.
 
 ---
 
@@ -534,21 +609,34 @@ DOMAINS          work (job stuff)  |  personal (your stuff)
 
 NAMING           YYYY-MM-DD_HH-MMtt_<category>_<subject>.md
 
-FRONTMATTER      17 fields: date, time, kind, domain, category, project, subject,
+FRONTMATTER      17+ fields: date, time, kind, domain, category, project, subject,
                  tags, status, version, parent, complexity, outcomes, source,
                  scope, scope-project, scope-feature, scope-transitions, scope-refs
+                 + optional: code-target, design-target, debug-target
 
-TEMPLATES        session-capture.md     → general
-                 requirements-capture.md → user stories, BDD, NFRs
-                 intent-capture.md      → design decisions, migrations
+TEMPLATES        session-capture.md        → general (research, learning)
+                 code-analysis-capture.md  → code review, patterns, findings
+                 design-capture.md         → architecture, proposals, use cases
+                 debugging-capture.md      → RCA, hypothesis tracking
+                 requirements-capture.md   → user stories, BDD, NFRs
+                 intent-capture.md         → design decisions, migrations
 
 TAGS             3-7 per session: project:<name>, activity tags, tech tags
 
 VERSIONS         Same subject continued = v2, v3...
                  Different aspect = new file
 
-ESCALATION       5+ files same subject → sub-folder
-                 3+ files same project/activity → project sub-folder
+ESCALATION       Pattern 1: 5+ files same subject    → subject sub-folder
+                 Pattern 2: 3+ files same project     → project sub-folder
+                 Pattern 3a: 3+ class files / 2+ method → class/method hierarchy
+                 Pattern 3b: 3+ component / 2+ aspect   → component/aspect hierarchy
+                 Pattern 3c: 3+ service / 2+ issue       → service/issue hierarchy
+
+LOGGING          SESSION-LOG.md  — every captured session
+                 CAPTURE-LOG.md  — every escalation, fork, structural operation
+
+CONFIG           BRAIN_PATH              — brain workspace location
+                 SESSION_CAPTURE_PATH    — session capture sub-directory
 
 CONTROLS         "capture this" = force    "don't capture" = suppress
 ```

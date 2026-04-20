@@ -695,6 +695,70 @@ precise grouping. When absent, grouping falls back to subject slug prefix analys
 
 ---
 
+## Template Selection Guide
+
+Six templates live in `brain/ai-brain/sessions/_templates/`. Use the most specific
+template that matches the session focus:
+
+| Session Focus | Template | When to Use |
+|---|---|---|
+| General (research, learning, exploration) | `session-capture.md` | Default — any session not matching a specialised template |
+| Code review, architecture review, pattern identification | `code-analysis-capture.md` | Session analyses specific code (class, method, or codebase area) |
+| Architecture, API design, component design, HLD/LLD | `design-capture.md` | Session proposes or evaluates a design (approach, alternatives, trade-offs) |
+| Complex bug investigation, RCA, hypothesis-driven debugging | `debugging-capture.md` | Session investigates an error or unexpected behaviour |
+| User stories, acceptance criteria, BDD, scope definition | `requirements-capture.md` | Session defines WHAT to build (not HOW) |
+| Design decisions, migrations, intent documentation | `intent-capture.md` | Session records WHY a major decision was made |
+
+**Fallback rule:** When uncertain, use the generic `session-capture.md`. The domain-specific
+templates add structured sections (findings tables, hypothesis tracking, use-case flows)
+that make sessions more useful for their specific domain.
+
+---
+
+## Design Aspect Taxonomy
+
+Design sessions (Pattern 3b) organize into aspect sub-folders. These are the standard
+aspect types recognised by the escalation protocol:
+
+| Aspect | Sub-Folder Name | Use For |
+|---|---|---|
+| `intent` | `intent/` | WHY this design exists — purpose, motivation, goals |
+| `approach` | `approach/` | HOW the design works — chosen strategy, architecture |
+| `proposal` | `proposal/` | Design alternatives evaluated — options, trade-offs |
+| `api-design` | `api-design/` | Endpoint contracts, request/response schemas, versioning |
+| `schema` | `schema/` | Database schemas, data models, entity relationships |
+| `use-case` | `use-case/` | User flows, use-case diagrams, sequence flows |
+| `criteria` | `criteria/` | Acceptance criteria, NFRs, quality attributes |
+| `security` | `security/` | Auth flows, threat models, security controls |
+| `performance` | `performance/` | Scaling strategy, caching, load targets |
+| `patterns` | `patterns/` | Design patterns applied, SOLID analysis |
+| `trade-offs` | `trade-offs/` | Explicit trade-off analysis, ADRs |
+| `migration` | `migration/` | Migration plans, upgrade paths, deprecation |
+| `hld` | `hld/` | High-level design — system context, component boundaries |
+| `lld` | `lld/` | Low-level design — class diagrams, method contracts |
+
+### Aspect Escalation Rules
+
+Aspects only become sub-folders when the threshold is met (default: 2+ files for the
+same aspect within a component sub-package). Until then, the aspect is just a tag/field
+in frontmatter — files stay at the component level.
+
+### Code Analysis Focus Taxonomy
+
+Code analysis sessions (Pattern 3a) organize into method sub-folders. Within a class
+sub-package, sessions can also be grouped by analysis focus:
+
+| Focus | Example Subject | Description |
+|---|---|---|
+| Structure | `calculate-total-structure` | Class/method organization, responsibility |
+| Patterns | `calculate-total-patterns` | Design patterns used or proposed |
+| Performance | `calculate-total-performance` | Hotspots, complexity, optimisation |
+| Security | `calculate-total-security` | Input validation, injection risks |
+| Bugs | `calculate-total-null-check` | Specific bug or defect analysis |
+| Refactoring | `calculate-total-extract-method` | Refactoring proposals and impact |
+
+---
+
 ## Cohesion-Based Escalation Heuristics
 
 The automatic escalation protocol uses these heuristics to detect when files should
@@ -1094,14 +1158,70 @@ Append a new row to the table after creating each session file.
 When the Capture Gate triggers, execute these steps:
 
 1. **Classify** — determine domain + category from conversation context
-2. **Name** — construct filename using the naming protocol
-3. **Timestamp** — obtain the **actual current local time** (see Timestamp Accuracy below)
-4. **Create directory** — ensure the category folder exists under the domain
-5. **Escalation check** — check if this file triggers sub-package escalation
+2. **Select template** — choose the most specific template (see Template Selection Guide)
+3. **Name** — construct filename using the naming protocol
+4. **Timestamp** — obtain the **actual current local time** (see Timestamp Accuracy below)
+5. **Create directory** — ensure the category folder exists under the domain
+6. **Escalation check** — check if this file triggers sub-package escalation
    (Pattern 1, 2, or 3 — see Automatic Escalation Protocol)
-6. **Write file** — create the session capture file with frontmatter + content structure
-7. **Log** — append entry to SESSION-LOG.md
-8. **Notify** — briefly inform the user: "Session captured to `sessions/<path>`"
+7. **Write file** — create the session capture file with frontmatter + content structure
+8. **Log** — append entry to SESSION-LOG.md AND CAPTURE-LOG.md (see Logging below)
+9. **Notify** — briefly inform the user: "Session captured to `sessions/<path>`"
+
+### Logging Mechanism
+
+Two logs track session capture operations:
+
+#### SESSION-LOG.md — Append-Only Session Index
+
+Every captured session gets a row appended to `SESSION-LOG.md`:
+
+```markdown
+| Date | Time | Domain | Category | Subject | Ver | Complexity | Status | File |
+|---|---|---|---|---|---|---|---|---|
+| 2026-04-20 | 10:30 AM | work | code-analysis | order-service-calculate-total | v1 | high | draft | [View](work/code-analysis/...) |
+```
+
+#### CAPTURE-LOG.md — Escalation & Operation Log
+
+All structural operations (escalation, moves, renames) are logged in `CAPTURE-LOG.md`:
+
+```markdown
+| Date | Time | Operation | Details | Files Affected |
+|---|---|---|---|---|
+| 2026-04-20 | 10:35 AM | escalation:pattern-3a | Created order-service/ sub-package (3+ class files) | 4 files moved |
+| 2026-04-20 | 10:36 AM | escalation:pattern-3a:method | Created calculate-total/ sub-package (2+ method files) | 2 files moved |
+| 2026-04-21 | 02:00 PM | capture | New session: payment-gateway-api-design.md | 1 file created |
+| 2026-04-22 | 09:00 AM | escalation:pattern-3b | Created payment-gateway/ sub-package (3+ component files) | 3 files moved |
+```
+
+**Operations logged:**
+
+| Operation | When |
+|---|---|
+| `capture` | New session file created |
+| `escalation:pattern-1` | Subject-based sub-package created |
+| `escalation:pattern-2` | Project-based sub-package created |
+| `escalation:pattern-3a` | Code analysis class sub-package created |
+| `escalation:pattern-3a:method` | Code analysis method sub-package created |
+| `escalation:pattern-3b` | Design component sub-package created |
+| `escalation:pattern-3b:aspect` | Design aspect sub-package created |
+| `escalation:pattern-3c` | Debugging service sub-package created |
+| `version` | Version continuation created (v2, v3) |
+| `fork` | Session forked into new file (scope split) |
+| `cross-ref` | Cross-reference added between sessions |
+
+**Create CAPTURE-LOG.md** on first use (first escalation or capture event):
+
+```markdown
+# Capture Operations Log
+
+> Append-only log of all session capture structural operations.
+> Created automatically. Do not edit manually except to fix errors.
+
+| Date | Time | Operation | Details | Files Affected |
+|---|---|---|---|---|
+```
 
 ### Timestamp Accuracy
 

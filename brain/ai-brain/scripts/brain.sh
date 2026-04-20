@@ -66,6 +66,19 @@ else
     BRAIN_ROOT="$(dirname "$SCRIPT_DIR")"  # scripts/ -> brain-root/
 fi
 
+# Session capture path resolution:
+# 1. SESSION_CAPTURE_PATH env var (absolute or relative to brain root)
+# 2. Default: <brain-root>/sessions/
+if [[ -n "${SESSION_CAPTURE_PATH:-}" ]]; then
+    if [[ "$SESSION_CAPTURE_PATH" = /* ]]; then
+        SESSION_ROOT="$SESSION_CAPTURE_PATH"
+    else
+        SESSION_ROOT="$BRAIN_ROOT/$SESSION_CAPTURE_PATH"
+    fi
+else
+    SESSION_ROOT="$BRAIN_ROOT/sessions"
+fi
+
 # Compute relative display path for user-facing messages
 if [[ "$BRAIN_ROOT" == "$REPO_ROOT"/* ]]; then
     BRAIN_REL_PATH="${BRAIN_ROOT#"$REPO_ROOT/"}"

@@ -86,6 +86,19 @@ if ($env:BRAIN_PATH) {
     $BrainRoot = Split-Path -Parent $ScriptDir  # scripts/ -> brain-root/
 }
 
+# Session capture path resolution:
+# 1. SESSION_CAPTURE_PATH env var (absolute or relative to brain root)
+# 2. Default: <brain-root>/sessions/
+if ($env:SESSION_CAPTURE_PATH) {
+    if ([System.IO.Path]::IsPathRooted($env:SESSION_CAPTURE_PATH)) {
+        $SessionRoot = $env:SESSION_CAPTURE_PATH
+    } else {
+        $SessionRoot = Join-Path $BrainRoot $env:SESSION_CAPTURE_PATH
+    }
+} else {
+    $SessionRoot = Join-Path $BrainRoot "sessions"
+}
+
 # Compute relative display path (e.g., "brain/ai-brain") for user-facing messages
 $BrainRelPath = if ($RepoRoot -and $BrainRoot.StartsWith($RepoRoot)) {
     $BrainRoot.Substring($RepoRoot.Length + 1) -replace '\\', '/'

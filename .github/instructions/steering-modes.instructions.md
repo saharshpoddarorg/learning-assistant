@@ -137,8 +137,28 @@ copilot-instructions.md     ← project conventions (always on)
 | `design` | Chat dropdown → **"Designer"**, or type `/design-review` |
 | `debug` | Chat dropdown → **"Debugger"**, or type `/debug` |
 | `focused` | Type `/scope` → `specific` in the chat before your request |
+| `request-steering` | Type `/request-steering` in chat when a new request arrives mid-task |
 
 Use `/steer` (the slash command) to get a quick summary of available modes and switch.
+
+---
+
+## Request Steering — Mid-Task Request Routing
+
+When a new request arrives while work is in progress, use `/request-steering` to classify
+the relationship and choose a handling strategy:
+
+| Type | When to use | What happens |
+|---|---|---|
+| `independent` | Unrelated to current work (or idle) | Handle as a fresh task |
+| `merge` | Extends current work | Union of both — gap analysis — combined deliverable |
+| `sequential` | Depends on current work finishing | Finish current, then start new |
+| `supersede` | Replaces current approach | Confirm pivot, then restart |
+| `park` | Lower priority | Queue for later, continue current |
+| `split` | Partially overlaps | Decompose into independent + dependent sub-tasks |
+
+> **Command:** `/request-steering` — auto-classifies the relationship or accepts an
+> explicit type. See `.github/prompts/request-steering.prompt.md`.
 
 ---
 
