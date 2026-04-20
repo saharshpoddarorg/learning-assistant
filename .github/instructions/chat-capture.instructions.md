@@ -62,6 +62,24 @@ silently when criteria are met.
 - **User explicitly requests capture:** Always honour `/capture` or "capture this session."
 - **User explicitly declines capture:** Always honour "don't capture" or "skip session log."
 
+### Capture Gate — Visual Decision Flow
+
+```mermaid
+flowchart TD
+    A[New conversation exchange] --> B{Matches any<br/>CAPTURE trigger?}
+    B -->|Yes| C{User opted out?}
+    B -->|No| D{3+ substantive<br/>exchanges so far?}
+    D -->|Yes| C
+    D -->|No| E{Response > 500 words<br/>analytical content?}
+    E -->|Yes| C
+    E -->|No| F[DO NOT CAPTURE<br/>Skip silently]
+    C -->|Yes| F
+    C -->|No| G{Started simple,<br/>became complex?}
+    G -->|Yes| H[Retroactive capture<br/>Include earlier exchanges]
+    G -->|No| I[CAPTURE<br/>Proceed to classification]
+    H --> I
+```
+
 ---
 
 ## Domain Classification
@@ -131,6 +149,36 @@ belongs in `personal/learning/`.
 
 **New categories can be created** when 3+ sessions don't fit existing ones. Follow
 kebab-case naming and add a README.md to the new folder.
+
+### Domain & Category Routing — Visual Decision Flow
+
+```mermaid
+flowchart TD
+    A[Session captured] --> B{Work or Personal?}
+    B -->|Work context| C[sessions/work/]
+    B -->|Personal context| D{Software dev project?}
+    D -->|Yes| E[sessions/personal/software-dev/]
+    D -->|No| F{Learning / concept?}
+    F -->|Yes| G[personal/learning/]
+    F -->|No| H{Financial?}
+    H -->|Yes| I[personal/financial/]
+    H -->|No| J{Research non-SW?}
+    J -->|Yes| K[personal/research/]
+    J -->|No| L[personal/general/]
+
+    C --> M{Select work category}
+    M --> M1[code-analysis]
+    M --> M2[debugging]
+    M --> M3[requirements]
+    M --> M4[feature-exploration]
+    M --> M5[research / documentation / general]
+
+    E --> N{Select activity phase}
+    N --> N1[requirements]
+    N --> N2[design]
+    N --> N3[implementation]
+    N --> N4[testing / code-review / devops]
+```
 
 ---
 
@@ -490,6 +538,32 @@ file is created**. Do not wait for the user to notice or request escalation.
 **Timing:** Escalation should happen in the same turn as the session capture. Do not
 create a file in a flat folder and plan to escalate later — check and escalate immediately.
 
+### Escalation Decision — Visual Flow
+
+```mermaid
+flowchart TD
+    A[Session file created or deleted] --> B{File created?}
+    B -->|Created| C[Count files with same subject prefix]
+    B -->|Deleted| D[Count remaining files in sub-package]
+
+    C --> E{3+ files<br/>same subject?}
+    E -->|Yes| F[Escalate: Pattern 1<br/>Subject sub-package]
+    E -->|No| G{Inside software-dev?<br/>3+ same project?}
+    G -->|Yes| H[Escalate: Pattern 2<br/>Project sub-package]
+    G -->|No| I{Pattern 3 category?<br/>3+ same class/component?}
+    I -->|Yes| J[Escalate: Pattern 3a/3b/3c<br/>Hierarchical sub-package]
+    I -->|No| K{Early escalation<br/>trigger?}
+    K -->|Yes| L[Early escalate<br/>Pre-create structure]
+    K -->|No| M[No escalation<br/>Keep flat]
+
+    D --> N{< 3 files remaining?<br/>excl. README}
+    N -->|Yes| O[De-escalate: Flatten<br/>Restore names, move up]
+    N -->|No| P[No de-escalation<br/>Sub-package stays]
+    O --> Q{Parent also < 3?}
+    Q -->|Yes| R[Cascade de-escalation]
+    Q -->|No| S[Done]
+```
+
 **Cross-reference updates are mandatory.** When files are moved during escalation, ALL of
 the following must be updated:
 
@@ -726,6 +800,25 @@ template that matches the session focus:
 **Fallback rule:** When uncertain, use the generic `session-capture.md`. The domain-specific
 templates add structured sections (findings tables, hypothesis tracking, use-case flows)
 that make sessions more useful for their specific domain.
+
+### Template Selection — Visual Decision Flow
+
+```mermaid
+flowchart TD
+    A[Session to capture] --> B{Analysing specific<br/>code internals?}
+    B -->|Yes| C{Deep-dive: flow,<br/>call stack, line-by-line?}
+    C -->|Yes| D[code-analysis-deep-dive-capture.md]
+    C -->|No| E[code-analysis-capture.md]
+    B -->|No| F{Proposing or evaluating<br/>a design?}
+    F -->|Yes| G[design-capture.md]
+    F -->|No| H{Investigating a<br/>bug or error?}
+    H -->|Yes| I[debugging-capture.md]
+    H -->|No| J{Defining WHAT<br/>to build?}
+    J -->|Yes| K[requirements-capture.md]
+    J -->|No| L{Recording WHY<br/>a decision was made?}
+    L -->|Yes| M[intent-capture.md]
+    L -->|No| N[session-capture.md<br/>Generic default]
+```
 
 ---
 
@@ -1160,6 +1253,19 @@ Where:
 - **Files not matching the group** — files that don't share the subject prefix stay in
   the parent folder with their full original name (never truncated)
 
+### Name Truncation & Restoration — Visual Flow
+
+```mermaid
+flowchart LR
+    subgraph Escalation
+        A["YYYY-MM-DD_HH-MMtt_<br/>category_grouping-key-distinguisher.md"] -->|Drop category +<br/>grouping-key| B["YYYY-MM-DD_HH-MMtt_<br/>distinguisher.md"]
+    end
+
+    subgraph De-Escalation
+        B -->|Restore category +<br/>grouping-key| A
+    end
+```
+
 ---
 
 ## Name Restoration on Flatten (De-Escalation)
@@ -1529,6 +1635,23 @@ When the Capture Gate triggers, execute these steps:
 7. **Write file** — create the session capture file with frontmatter + content structure
 8. **Log** — append entry to SESSION-LOG.md AND CAPTURE-LOG.md (see Logging below)
 9. **Notify** — briefly inform the user: "Session captured to `sessions/<path>`"
+
+### Capture Execution — Visual Flow
+
+```mermaid
+flowchart TD
+    A[Capture Gate triggers] --> B[1. Classify domain + category]
+    B --> C[2. Select template]
+    C --> D[3. Construct filename]
+    D --> E[4. Query system clock]
+    E --> F[5. Ensure directory exists]
+    F --> G{6. Escalation needed?}
+    G -->|Yes| H[Execute escalation<br/>Move files, truncate names]
+    G -->|No| I[7. Write session file]
+    H --> I
+    I --> J[8. Log to SESSION-LOG + CAPTURE-LOG]
+    J --> K[9. Notify user]
+```
 
 ### Logging Mechanism
 

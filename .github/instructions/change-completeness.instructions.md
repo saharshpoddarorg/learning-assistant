@@ -142,6 +142,9 @@ Run this for EVERY category of change:
 - [ ] **No regression in existing behaviour** — manually verify existing slash commands still work
 - [ ] **Cross-references complete** — verify all related docs link to each other
   (see Section H below for the documentation cross-reference checklist)
+- [ ] **Mermaid diagrams in sync** — if the change touches any decision logic, workflow,
+  or routing heuristic, verify Mermaid diagrams reflect the updated logic
+  (see Section P below for the Mermaid diagram sync checklist)
 - [ ] **Commit message follows Conventional Commits** (`feat:`, `fix:`, `docs:`, `chore:`)
 - [ ] **Commit attribution** — append `— created by gpt` or `— assisted by gpt` as applicable
 - [ ] **Single logical commit** — don't mix unrelated changes
@@ -388,6 +391,39 @@ When adding, importing, or significantly modifying any Copilot customization pri
 
 ---
 
+### P — Mermaid Diagram Sync (applies to ALL changes touching decision logic)
+
+When modifying any decision tree, workflow, heuristic, routing rule, or protocol:
+
+- [ ] **Identify affected diagrams** — check if the file contains `mermaid` code blocks
+  that visualize the logic being changed
+- [ ] **Update diagram nodes/edges** — add, remove, or rename nodes to match the new
+  logic; ensure all branches in the text are represented in the diagram
+- [ ] **Add new diagram if missing** — if a new decision workflow or routing heuristic
+  was added and has 3+ decision points, add a Mermaid flowchart visualizing it
+- [ ] **Cross-check text ↔ diagram** — read both the prose description and the Mermaid
+  code; every decision path in prose must appear in the diagram and vice versa
+- [ ] **Enum/value sync** — if enum values, category names, template names, or pattern
+  names changed, update all Mermaid node labels that reference them
+- [ ] **Guide diagrams in sync** — if the instructions file has a companion guide
+  (e.g., `session-capture-guide.md`), verify both files’ diagrams match
+- [ ] **Diagram renders correctly** — verify the diagram renders in VS Code preview
+  (Ctrl+Shift+V) with no syntax errors
+
+### Mermaid Sync — When to Add a New Diagram
+
+A new Mermaid diagram should be added when:
+
+| Condition | Diagram type |
+|---|---|
+| Decision tree with 3+ branches | `flowchart TD` |
+| Sequential workflow with 4+ steps | `flowchart TD` or `flowchart LR` |
+| State machine with transitions | `stateDiagram-v2` |
+| Multi-actor interaction | `sequenceDiagram` |
+| Bidirectional or reversible process | `flowchart LR` with subgraphs |
+
+---
+
 ## 3-Tier Completeness Guide
 
 ### Newbie — "I added a thing, and it works"
@@ -421,6 +457,7 @@ When adding, importing, or significantly modifying any Copilot customization pri
 - No regression or information loss (Section M complete)
 - Cohesive resource placement verified (Section N complete)
 - Primitive fitness review passed (Section O complete — for skills/prompts/MCP/instructions changes)
+- Mermaid diagrams in sync with decision logic (Section P complete)
 - Commit is a clean, standalone logical unit
 
 ---
