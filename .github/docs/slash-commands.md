@@ -47,7 +47,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 
 ## 📋 All Commands at a Glance
 
-### Quick Lookup (64 commands)
+### Quick Lookup (66 commands)
 
 | # | Command | Category | One-Liner | Agent |
 |---|---|---|---|---|
@@ -76,45 +76,47 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 23 | `/refactor` | Code Quality | Identify and apply refactoring opportunities | Designer |
 | 24 | `/explain` | Code Quality | Beginner-friendly file explanation | Ask |
 | 25 | `/debug` | Code Quality | Systematic bug investigation | Debugger |
-| 26 | `/code-analysis-deep-dive` | Code Quality | Deep-dive into code internals — data flow, call stack, code blocks, line-by-line | Copilot |
-| 27 | `/impact` | Code Quality | Change impact & ripple effect analysis | Impact-Analyzer |
-| 28 | `/explore-project` | Domain | Learn from open-source project architecture | Learning-Mentor |
-| 29 | `/resources` | Domain | Search, browse & discover 138 curated learning resources | Learning-Mentor |
-| 30 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
-| 31 | `/brain-new` | Brain Workspace | Create a new knowledge note (inbox or notes tier) | Copilot |
-| 32 | `/brain-publish` | Brain Workspace | Publish an imported source to library/ with tag prompting and git commit | Copilot |
-| 33 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
-| 34 | `/brain-capture-session` | Brain Workspace | Convert current AI session into a structured session note | Copilot |
-| 35 | `/session-scope` | Brain Workspace | Manage session scope — widen, narrow, switch, split, cross-reference | Copilot |
-| 36 | `/jot` | Backlog | Universal capture — auto-classifies, dedup-checks, enhances, cross-refs, syncs all boards | Copilot |
-| 37 | `/read-file-jot` | Backlog | File-to-backlog — reads file, dedup-checks, extracts items, tracks import batch (IMP-NNN) | Copilot |
-| 38 | `/todo` | Backlog | Alias for `/jot` — routes through unified capture as a task | Copilot |
-| 39 | `/todos` | Backlog | View board, update status — syncs all boards + CHANGELOG | Copilot |
-| 40 | `/backlog` | Backlog | Advanced: brainstorm, guide, refine, promote, epic, sprint — full board sync | Copilot |
-| 41 | `/brain-fetch` | Brain PKM | Fetch content from an external source into inbox/ (git fetch analogy) | Copilot |
-| 42 | `/brain-pull` | Brain PKM | Update previously fetched content from a source (git pull analogy) | Copilot |
-| 43 | `/brain-clone` | Brain PKM | Full structured import of an entire source (git clone analogy) | Copilot |
-| 44 | `/brain-merge` | Brain PKM | Route inbox item to its proper tier (git merge analogy) | Copilot |
-| 45 | `/brain-cherry-pick` | Brain PKM | Import one specific item from a source (git cherry-pick analogy) | Copilot |
-| 46 | `/brain-stash` | Brain PKM | Park inbox content for later processing (git stash analogy) | Copilot |
-| 47 | `/brain-diff` | Brain PKM | Compare brain content vs external source (git diff analogy) | Copilot |
-| 48 | `/brain-push` | Brain PKM | Export brain content to an external source (git push analogy) | Copilot |
-| 49 | `/brain-remote` | Brain PKM | List all capture sources with sensitivity levels (git remote analogy) | Copilot |
-| 50 | `/brain-consolidate` | Brain PKM | Plan/execute brain consolidation — migrate from external tools to brain | Copilot |
-| 51 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
-| 52 | `/github-workflow` | Domain | GitHub PRs, issues, gh CLI, Actions, branch protection, repo management | Learning-Mentor |
-| 53 | `/atlassian-tools` | Domain | Universal handler — Jira, Confluence, Bitbucket, cross-instance migration, work analysis, code migration, any Atlassian task | Copilot |
-| 54 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
-| 55 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
-| 56 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
-| 57 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
-| 58 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
-| 59 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
-| 60 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
-| 61 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
-| 62 | `/read-url` | Utility | Read, extract, and summarize webpage content from any URL | Copilot |
-| 63 | `/ship` | Shipping | Commit, push, or both — with lint, build, PR suggestion, Conventional Commits | Agent |
-| 64 | `/github-push` | Shipping | Cohesive commits, push, and PR creation — full shipping workflow to a GitHub repo | Agent |
+| 26 | `/code-analysis-deep-dive` | Code Quality | Deep-dive into code internals — data flow, call stack, code blocks, line-by-line, auto-captures to sessions | Copilot |
+| 27 | `/code-analysis` | Code Quality | Analyse code for structure, patterns, smells, improvements — auto-captures to sessions | Copilot |
+| 28 | `/impact` | Code Quality | Change impact & ripple effect analysis | Impact-Analyzer |
+| 29 | `/explore-project` | Domain | Learn from open-source project architecture | Learning-Mentor |
+| 30 | `/resources` | Domain | Search, browse & discover 138 curated learning resources | Learning-Mentor |
+| 31 | `/daily-assist` | Daily Life | Finance, productivity, news, research | Daily-Assistant |
+| 32 | `/brain-new` | Brain Workspace | Create a new knowledge note (inbox or notes tier) | Copilot |
+| 33 | `/brain-publish` | Brain Workspace | Publish an imported source to library/ with tag prompting and git commit | Copilot |
+| 34 | `/brain-search` | Brain Workspace | Search notes by tag, project, kind, date, or full text | Copilot |
+| 35 | `/brain-capture-session` | Brain Workspace | Convert current AI session into a structured session note | Copilot |
+| 36 | `/session-scope` | Brain Workspace | Manage session scope — widen, narrow, switch, split, cross-reference | Copilot |
+| 37 | `/jot` | Backlog | Universal capture — auto-classifies, dedup-checks, enhances, cross-refs, syncs all boards | Copilot |
+| 38 | `/read-file-jot` | Backlog | File-to-backlog — reads file, dedup-checks, extracts items, tracks import batch (IMP-NNN) | Copilot |
+| 39 | `/todo` | Backlog | Alias for `/jot` — routes through unified capture as a task | Copilot |
+| 40 | `/todos` | Backlog | View board, update status — syncs all boards + CHANGELOG | Copilot |
+| 41 | `/backlog` | Backlog | Advanced: brainstorm, guide, refine, promote, epic, sprint — full board sync | Copilot |
+| 42 | `/brain-fetch` | Brain PKM | Fetch content from an external source into inbox/ (git fetch analogy) | Copilot |
+| 43 | `/brain-pull` | Brain PKM | Update previously fetched content from a source (git pull analogy) | Copilot |
+| 44 | `/brain-clone` | Brain PKM | Full structured import of an entire source (git clone analogy) | Copilot |
+| 45 | `/brain-merge` | Brain PKM | Route inbox item to its proper tier (git merge analogy) | Copilot |
+| 46 | `/brain-cherry-pick` | Brain PKM | Import one specific item from a source (git cherry-pick analogy) | Copilot |
+| 47 | `/brain-stash` | Brain PKM | Park inbox content for later processing (git stash analogy) | Copilot |
+| 48 | `/brain-diff` | Brain PKM | Compare brain content vs external source (git diff analogy) | Copilot |
+| 49 | `/brain-push` | Brain PKM | Export brain content to an external source (git push analogy) | Copilot |
+| 50 | `/brain-remote` | Brain PKM | List all capture sources with sensitivity levels (git remote analogy) | Copilot |
+| 51 | `/brain-consolidate` | Brain PKM | Plan/execute brain consolidation — migrate from external tools to brain | Copilot |
+| 52 | `/git-vcs` | Domain | Git workflows, branching strategies, commit conventions, semver | Learning-Mentor |
+| 53 | `/github-workflow` | Domain | GitHub PRs, issues, gh CLI, Actions, branch protection, repo management | Learning-Mentor |
+| 54 | `/atlassian-tools` | Domain | Universal handler — Jira, Confluence, Bitbucket, cross-instance migration, work analysis, code migration, any Atlassian task | Copilot |
+| 55 | `/build-tools` | Domain | Maven, Gradle, Make, Bazel, npm — lifecycle & dependency management | Learning-Mentor |
+| 56 | `/mac-dev` | Domain | macOS dev environment — Homebrew, JDK, npm, IDEs, Docker, shell, dotfiles | Learning-Mentor |
+| 57 | `/digital-notetaking` | Domain | PKM systems (PARA, CODE, Zettelkasten), tools (Notion, Obsidian, Logseq, OneNote), migration & JDK upgrade | Learning-Mentor |
+| 58 | `/create-agent` | Customization | Scaffold a new Copilot custom agent (.agent.md) with guided inputs | Copilot |
+| 59 | `/copilot-customization` | Customization | Create, review, compare, or compose any Copilot customization file (instructions/prompts/skills/agents/MCP) | Copilot |
+| 60 | `/write-docs` | Meta | Create or update any doc, guide, brain-note, cheatsheet, start-here, skill, or slash command from provided content | Copilot |
+| 61 | `/check-standards` | Quality & Standards | Audit any file, folder, or filename against best practices and industry standards | Copilot |
+| 62 | `/mcp-to-skill` | Customization | Analyse an MCP server/tool and generate a Copilot SKILL.md replacement | Copilot |
+| 63 | `/read-url` | Utility | Read, extract, and summarize webpage content from any URL | Copilot |
+| 64 | `/ship` | Shipping | Commit, push, or both — with lint, build, PR suggestion, Conventional Commits | Agent |
+| 65 | `/github-push` | Shipping | Cohesive commits, push, and PR creation — full shipping workflow to a GitHub repo | Agent |
+| 66 | `/code-analysis` | Code Quality | Analyse code structure, patterns, smells — with auto session capture | Copilot |
 
 > **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
 > VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
@@ -589,8 +591,36 @@ Use:      Fully understand code internals — data flow, call stack, code blocks
 Example:  /code-analysis-deep-dive → OrderService.calculateTotal → method → all
 Output:   9-layer analysis: overview → data flow → call stack → code blocks → line-by-line
           → state changes → edge cases → dependencies → key takeaways
-Capture:  Uses code-analysis-deep-dive-capture.md session template
+Capture:  Auto-saves to brain/ai-brain/sessions/work/code-analysis/deep-dive/
+          Uses code-analysis-deep-dive-capture.md session template
+          Naming: <date>_<time>_<class-method-kebab>.md (no category prefix inside deep-dive/)
+          Logging: SESSION-LOG.md + CAPTURE-LOG.md
+          Versioning: detects existing files → appends _v2, _v3
+          Escalation: Pattern 3a (class → method) when 3+ files share a class prefix
 File:     .github/prompts/code-analysis-deep-dive.prompt.md
+```
+
+#### `/code-analysis` — Code Analysis with Session Capture
+
+```yaml
+Inputs:   target (class.method, class, or flow),
+          goal (review / understand / refactor / patterns),
+          level (quick / standard / thorough)
+Agent:    Copilot
+Tools:    codebase, fetch
+Use:      Analyse code for structure, patterns, smells, and improvements
+Example:  /code-analysis → PaymentGateway.processPayment → review → thorough
+          /code-analysis → OrderService → understand → standard
+Output:   Target summary → structure overview → code block breakdown → findings table
+          → proposed changes → key takeaways
+Capture:  Auto-saves to brain/ai-brain/sessions/work/code-analysis/
+          Uses code-analysis-capture.md session template
+          Naming: <date>_<time>_code-analysis_<class-method-kebab>.md
+          Logging: SESSION-LOG.md + CAPTURE-LOG.md
+          Versioning: detects existing files → appends _v2, _v3
+          Escalation: Pattern 3a (class sub-package) when 3+ files share a class prefix
+Related:  /code-analysis-deep-dive (9-layer internals), /design-review (SOLID/GRASP)
+File:     .github/prompts/code-analysis.prompt.md
 ```
 
 #### `/impact` — Change Impact Analysis
