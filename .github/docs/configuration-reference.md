@@ -17,6 +17,8 @@
   - [2a. MCP Servers — Build](#2a-mcp-servers--build)
   - [2b. MCP Servers — Registry](#2b-mcp-servers--registry)
   - [2c. Brain Workspace — Path](#2c-brain-workspace--path)
+  - [2d. Skills & Prompts — Zero Config](#2d-skills--prompts--zero-config)
+  - [2e. Session Capture — Structure](#2e-session-capture--structure)
 - [3. Optional — Atlassian Integration](#3-optional--atlassian-integration)
   - [3a. Atlassian v1 (API Token)](#3a-atlassian-v1-api-token)
   - [3b. Atlassian v2 (OAuth 2.0 / API Token)](#3b-atlassian-v2-oauth-20--api-token)
@@ -166,6 +168,45 @@ via `git rev-parse`. The `BRAIN_PATH` env var is an optional override, not requi
 
 See [copilot-instructions.md § Brain Workspace in Different Project Structures](../copilot-instructions.md)
 for module/package/monorepo scenarios.
+
+### 2d. Skills & Prompts — Zero Config
+
+Skills (`.github/skills/*/SKILL.md`) and prompts (`.github/prompts/*.prompt.md`) have
+**no config files** — they activate automatically by file presence. Configuration is
+simply which files you keep after export.
+
+| Item | Action when exporting |
+|---|---|
+| **Skills** | Delete skill folders you don't need (e.g., `mac-dev/` for non-Mac teams) |
+| **Prompts** | Delete `.prompt.md` files for commands you don't use |
+| **Agents** | Delete `.agent.md` files for personas you don't need |
+| **Instructions** | Delete `.instructions.md` for languages/frameworks you don't use |
+
+**No credentials, no env vars, no config files.** Just copy `.github/` and prune.
+
+See [Export Guide § 7](export-guide.md#7-what-you-can-safely-skip) for what to keep
+vs. remove for work and personal repos.
+
+### 2e. Session Capture — Structure
+
+If you use the brain workspace for AI session capture, the folder structure is
+configurable per project type. See
+[chat-capture.instructions.md](../instructions/chat-capture.instructions.md) for the
+full capture protocol.
+
+| Item | Value |
+|---|---|
+| **Config location** | `.github/instructions/chat-capture.instructions.md` |
+| **Purpose** | Rules for when and how AI sessions are captured to brain |
+| **Key settings** | Domain (work/personal), categories, escalation thresholds, folder structure |
+| **Customizable** | Yes — edit the instruction file to add categories or change thresholds |
+
+**Common customizations:**
+
+- **Add categories** — add rows to the work or personal category tables
+- **Change escalation thresholds** — adjust the file count that triggers subfolder creation
+- **Add domain-specific escalation** — define class/method or component/feature hierarchies
+- **Change naming conventions** — modify the file naming protocol
 
 ---
 
