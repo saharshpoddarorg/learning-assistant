@@ -210,6 +210,12 @@ validator.validate(order);                        // ← [B1.3] delegates to Val
 ````
 
 ```text
+📋 Behaviour:
+  Guards the method entry. Three sequential checks: null → empty → domain rules.
+  The validator (injected) enforces business constraints (stock availability,
+  customer status) — it throws if any rule fails, so downstream code can assume
+  a fully valid Order. No data structures are mutated; this is a pure gate.
+
 ← Receives: Order (may be null, unchecked) from caller
 → Produces: Order (validated, non-null, items present) → B2
 ⚠ E1: null order → NPE at L30 (unhandled) | E2: empty items → 0.0 total (handled, but confusing)
@@ -224,10 +230,58 @@ State: none mutated
 |---|---|---|
 | **Header** `#### Bn — virtual signature (lines)` | Always | Intent + contract in one line |
 | **Code fence** with actual source + inline annotations | Always | The code — developer reads THIS |
-| **← Receives / → Produces** | Always | Data flow between methods |
+| **📋 Behaviour** | Always | Abstraction: what's happening, data structures, algorithm, data flow |
+| **← Receives / → Produces** | Always | Data flow between methods — typed contract |
 | **⚠ Edge cases** | Only if present | E-refs with trigger + impact |
-| **State** | Only if mutates | Variables changed (with lifecycle if interesting) |
+| **State** | Only if mutates | Variables/fields changed, lifecycle, thread-safety |
 | **🔍 Step-into / 🛑 Breakpoint / 👁 Watch** | method scope | Debugging markers for key lines |
+
+#### 📋 Behaviour — What to Write
+
+The `📋 Behaviour` block is the **abstraction layer** between the raw code and the
+data flow arrows. It answers: "What is this code doing at a conceptual level?" — not
+what each line does, but what the method *achieves* and *how* in terms of:
+
+1. **Data structures** — which collections, maps, or objects are read, built, or mutated?
+   Name the concrete types: "Iterates over `List<LineItem>`, accumulates into a `double`"
+   — not "processes the items"
+2. **Algorithm / pattern** — what approach does the code use? "Stream reduce with identity
+   0.0", "Two-pointer merge", "Builder pattern accumulation", "Guard-clause chain with
+   early returns". Name the pattern when one exists
+3. **Data flow within the method** — how does data transform step by step? "Takes the raw
+   `items` list → filters out zero-quantity → maps each to `price × qty` → sums to
+   `subtotal`". This is the pipeline the code implements, expressed at one level above
+   the code itself
+4. **Mutations and side-effects** — what changes? "Mutates `this.cache` (HashMap insert)",
+   "Writes to DB via repository", "Publishes event to MQ — fire-and-forget, no rollback"
+5. **Key invariant or contract** — what must be true after this method runs? "Output is
+   always ≥ 0.0", "All items in the returned list have non-null IDs", "The order is
+   persisted OR an exception has been thrown — never silent failure"
+
+**Length:** 2-5 lines. Enough to give a developer the mental model without reading every
+line of code. Not so long that it becomes the documentation it replaced.
+
+**The rule:** A developer who reads ONLY the `📋 Behaviour` block should understand
+what this extracted method does well enough to decide whether they need to read the
+actual code. If they can skip the code and move to the next method, the behaviour
+block did its job. If they must read every line to understand anything, the behaviour
+block failed.
+
+**Anti-patterns (don't write these):**
+
+- ❌ "This method validates the order" — too vague, just restates the method name
+- ❌ "Calls validator.validate() which checks business rules" — just restates the code
+- ❌ A 10-line paragraph describing every conditional — that's the code's job
+
+**Good examples:**
+
+- ✅ "Guard-clause chain: null → empty → domain rules (via injected `Validator`). No
+  mutations. Downstream code can assume a fully valid, non-null `Order` with items"
+- ✅ "Stream pipeline over `List<LineItem>` → `mapToDouble(price × qty)` → `sum()`.
+  Identity is 0.0 so empty list produces 0.0 (not null). Pure — no side-effects"
+- ✅ "Builds a `Receipt` using the Builder pattern. Pulls subtotal, discount, and tax
+  from locals computed by B2-B4. Writes `receiptId` into `this.lastReceiptId` (field
+  mutation — not thread-safe). Publishes `OrderCompletedEvent` to MQ — fire-and-forget"
 
 **Inline annotation rules:**
 
