@@ -211,8 +211,10 @@ validator.validate(order);                        // ← [B1.3] delegates to Val
 
 ```text
 📋 Behaviour:
-  Data structures: Order (input — may be null), Order.items: List<LineItem> (checked for empty)
-  Operations:      null-check → empty-check → delegate to Validator (injected)
+  Data structures: Order order (arg, shared → B2 — may be null),
+                   Order.items: List<LineItem> (field-access via order, checked for empty),
+                   Validator validator (injected — delegates business rule checks)
+  Operations:      null-check order → empty-check items → delegate to validator.validate()
   Algorithm:       Guard-clause chain with early exits — three sequential gates:
                      1. order == null  → throw (not handled — E1)
                      2. items.isEmpty  → early return (valid but 0 items — E2)
@@ -221,8 +223,8 @@ validator.validate(order);                        // ← [B1.3] delegates to Val
   Side-effects:    none — pure gate, no mutations
   Contract:        post: order ≠ null ∧ order.items.size > 0 ∧ all business rules pass
 
-← Receives: Order (may be null, unchecked) from caller
-→ Produces: Order (validated, non-null, items present) → B2
+← Receives: Order order (may be null, unchecked) from caller
+→ Produces: Order order (validated, non-null, items present) → B2
 ⚠ E1: null order → NPE at L30 (unhandled) | E2: empty items → 0.0 total (handled, but confusing)
 State: none mutated
 🔍 Step-into: validator.validate() at L38 — worth tracing validation rules
@@ -250,7 +252,7 @@ question about the extracted method:
 
 ```text
 📋 Behaviour:
-  Data structures: <which types are read, built, mutated — concrete Java types>
+  Data structures: <key data — args, locals, fields, shared objects — with concrete types and roles>
   Operations:      <what operations are performed on those data structures>
   Algorithm:       <pseudo-code or named pattern — how the code processes data>
   Data flow:       <input ──transformation──→ output — the pipeline in one line>
@@ -260,13 +262,38 @@ question about the extracted method:
 
 **Field-by-field guide:**
 
-**`Data structures`** — Name every data structure the method touches. Use concrete
-Java types, not abstractions. The developer needs to know what's in memory:
+**`Data structures`** — Name every key data structure the method touches:
+arguments, local variables, instance fields, and objects shared across methods.
+Use concrete Java types and annotate each with its **role** so the developer knows
+where it came from and how far it travels:
 
-- ✅ `Order (input), Order.items: List<LineItem> (iterated), double subtotal (built)`
-- ✅ `HashMap<String, PriceTier> cache (read + written), Optional<Discount> (unwrapped)`
-- ❌ "the order object" — too vague, no types
-- ❌ "a collection of items" — which collection? List? Set? Map?
+| Role tag | Meaning | Why it matters |
+|---|---|---|
+| `arg` | Method parameter | Caller controls it — check what's passed in |
+| `local` | Declared inside this method | Lives and dies here — safe to reason about locally |
+| `field` | Instance field (`this.x`) | Shared across methods — mutation here affects elsewhere |
+| `injected` | Dependency injected via constructor/setter | External collaborator — worth tracing into |
+| `shared` | Passed to/from multiple methods (B*n* → B*n+1*) | The connective tissue between extracted methods |
+| `return` | The value this method produces | What downstream methods will consume |
+
+A single variable can have multiple roles — e.g., `order (arg, shared → B2)` is
+both an argument AND data that flows to the next extracted method.
+
+**Concrete types are mandatory.** The developer needs to know what's actually in
+memory — `List<LineItem>`, not "a collection"; `HashMap<String, PriceTier>`, not
+"a map".
+
+- ✅ `Order order (arg, shared → B2), Order.items: List<LineItem> (field-access, iterated), double subtotal (local, return)`
+- ✅ `HashMap<String, PriceTier> cache (field, read + written), Validator validator (injected)`
+- ✅ `List<LineItem> items (arg — received from B1), Receipt receipt (local, return → B4)`
+- ❌ "the order object" — no type, no role, no specifics
+- ❌ "a collection of items" — which collection? List? Set? Map? arg or local?
+- ❌ `Order (input)` — "input" is not a role tag; use `arg` or `shared`
+
+**Cross-method tracking is critical.** When a variable is passed between extracted
+methods (B1 → B2 → B3), annotate it with `shared → Bn` so the developer can trace
+the data's journey through the method chain. This is the key connective tissue that
+makes the extraction readable — without it, each method is an island.
 
 **`Operations`** — What is done TO those data structures. Use operation verbs that
 describe structural interaction with the data:
@@ -370,47 +397,56 @@ old prose paragraph — no unstructured text in the Behaviour block.
 
 **Anti-patterns (don't write these):**
 
-- ❌ `Data structures: the order` — no type, no specifics
+- ❌ `Data structures: the order` — no type, no role, no specifics
+- ❌ `Data structures: Order (input)` — "input" is not a role; use `arg`, `local`, `field`, etc.
+- ❌ `Data structures: List<LineItem>` — missing variable name, role, and what happens to it
 - ❌ `Algorithm: validates the order` — just restates the method name
 - ❌ `Operations: calls validator.validate()` — restates the code, says nothing about WHAT it does to the data
 - ❌ A 10-line prose paragraph instead of the structured fields
 
 **Good examples (complete Behaviour blocks):**
 
-✅ Simple guard method:
+✅ Simple guard method (args + injected dependency, no locals):
 
 ```text
 📋 Behaviour:
-  Data structures: Order (input — may be null), Order.items: List<LineItem> (checked for empty)
-  Operations:      null-check → empty-check → delegate to Validator (injected)
+  Data structures: Order order (arg, shared → B2 — may be null),
+                   Order.items: List<LineItem> (field-access via order, checked for empty),
+                   Validator validator (injected — delegates business rule checks)
+  Operations:      null-check order → empty-check items → delegate to validator.validate()
   Algorithm:       Guard-clause chain with early exits: null → empty → domain rules
   Data flow:       Order (raw, unchecked) ──guard gates──→ Order (same object, proven valid)
   Side-effects:    none — pure gate, no mutations
   Contract:        post: order ≠ null ∧ items.size > 0 ∧ all business rules pass
 ```
 
-✅ Stream computation:
+✅ Stream computation (arg received from prior method, local accumulator):
 
 ```text
 📋 Behaviour:
-  Data structures: List<LineItem> (iterated, not mutated), double subtotal (accumulated)
-  Operations:      stream → mapToDouble → sum
+  Data structures: List<LineItem> items (arg — received from B1, iterated, not mutated),
+                   double subtotal (local, return → B3 — accumulated from stream)
+  Operations:      stream items → mapToDouble (price × qty per item) → sum into subtotal
   Algorithm:       Stream reduce: items.stream().mapToDouble(item → price × qty).sum()
                    Identity is 0.0, so empty list → 0.0 (not null, not error)
-  Data flow:       List<LineItem> ──map(price × qty)──→ DoubleStream ──sum()──→ double
+  Data flow:       List<LineItem> ──map(price × qty)──→ DoubleStream ──sum()──→ double subtotal
   Side-effects:    none — pure computation
   Contract:        post: subtotal ≥ 0.0 (assumes prices and quantities are non-negative)
 ```
 
-✅ Complex method with branching and side-effects:
+✅ Complex method (fields + locals + args shared across methods + side-effects):
 
 ```text
 📋 Behaviour:
-  Data structures: Order (read), Receipt (built via Builder), HashMap<String, PriceTier> cache
-                   (read + conditional write), MessageQueue (written)
-  Operations:      read order fields → build Receipt → cache.computeIfAbsent → mq.publish
+  Data structures: double subtotal (arg — from B2), double discount (arg — from B3),
+                   double tax (arg — from B4),
+                   Receipt receipt (local, built via Builder, return),
+                   HashMap<String, PriceTier> cache (field, read + conditional write),
+                   String lastReceiptId (field, mutated),
+                   MessageQueue mq (injected, published to)
+  Operations:      build Receipt from args → cache.computeIfAbsent → mq.publish → field write
   Algorithm:
-    build receipt from subtotal + discount + tax (computed by B2-B4)
+    build receipt from subtotal + discount + tax (received from B2-B4)
     if cache miss for order.customerId:
       fetch PriceTier from DB, store in cache    // cache-aside pattern
     publish OrderCompletedEvent to MQ            // fire-and-forget
