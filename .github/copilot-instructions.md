@@ -345,6 +345,8 @@ Co-authored-by: name <email>     ← for pair/mob contributions
 - Don't mix a bug fix with a new feature in one commit
 - Don't mix code changes with formatting/whitespace changes
 - When a change spans many files, it can still be one commit — if it implements a single idea
+- **Split by cohesion** — when a batch of work covers multiple independent concerns (e.g., a
+  new feature + doc updates + linter fixes), split into multiple commits grouped by cohesion
 - Stage and review before committing: `git diff --staged`
 
 ### Author Attribution

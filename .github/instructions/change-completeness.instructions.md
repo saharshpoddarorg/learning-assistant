@@ -243,6 +243,14 @@ Every commit and push must follow these rules:
   "various changes"; be specific about what was added/changed/fixed
 - [ ] **Attribution footer** — include `— created by gpt` or `— assisted by gpt` as the last line
 - [ ] **Single logical unit** — one commit = one logical change; do not mix unrelated changes
+- [ ] **Cohesion-based splitting** — when a batch of work spans multiple independent concerns
+  (e.g., a new feature + documentation updates + linter fixes), split into multiple commits
+  grouped by cohesion. Each commit should be independently understandable and revertable.
+  Examples of cohesive splits:
+  - `feat(sessions): Add deep-dive template` (template + naming rules)
+  - `docs(sessions): Update capture guide with workflow diagrams` (docs only)
+  - `style: Linter fixes across markdown files` (formatting only)
+  Never combine a feature commit with an unrelated documentation or style commit
 
 #### Pull Request Suggestions
 
