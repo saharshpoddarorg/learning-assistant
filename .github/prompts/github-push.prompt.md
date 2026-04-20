@@ -92,9 +92,32 @@ When mode is `ship`, create a single well-crafted commit for all changes:
    then retry the push
 3. If push requires `--set-upstream`, use `git push --set-upstream origin <current-branch>`
 
-### Step 6 — Create Pull Request
+### Step 6 — Check for Existing/Merged PR
 
-After a successful push, create the PR:
+Before creating a new PR, check if one already exists for this branch:
+
+1. **Search for existing PRs** — run `gh pr list --head <current-branch> --state all --json number,title,state`
+2. **Evaluate the result:**
+
+| Existing PR state | Action |
+|---|---|
+| **OPEN** | Update the existing PR title/description instead of creating a new one |
+| **MERGED** | The previous PR was already merged — create a **new** PR for the new commits |
+| **CLOSED** (not merged) | Reopen if appropriate, or create a new PR |
+| **None found** | No prior PR exists — create a new PR |
+
+3. **When updating an existing open PR:**
+   - Run `gh pr edit <number> --title "<new title>" --body "<new body>"`
+   - Report the updated PR URL
+
+4. **When creating after a merged PR:**
+   - Verify there are actually new commits ahead of `<base>` (`git log origin/<base>..HEAD --oneline`)
+   - If no new commits exist, report "Nothing to PR — all commits were in the merged PR"
+   - If new commits exist, proceed to Step 7 (Create PR)
+
+### Step 7 — Create Pull Request
+
+After a successful push and the merged-PR check, create the PR:
 
 1. **Gather PR content:**
    - Run `git log origin/<base>..HEAD --oneline` for all commits in the PR
@@ -139,7 +162,7 @@ After a successful push, create the PR:
    - `repo.owner`: extracted owner
    - `repo.name`: extracted repo name
 
-5. **Report** — show the user the PR URL and a summary of what was shipped
+5. **Report** — show the user the PR URL (new or updated) and a summary of what was shipped
 
 ### Mode Reference
 
@@ -172,9 +195,14 @@ flowchart TD
     G --> I[Split into cohesive commits]
     H --> E
     I --> E
-    E --> J[Generate PR title + description]
-    J --> K[Create PR via GitHub API]
-    K --> L[Report PR URL to user]
+    E --> J{Existing PR<br/>for this branch?}
+    J -->|OPEN| K[Update existing PR<br/>title + description]
+    J -->|MERGED| L{New commits<br/>ahead of base?}
+    J -->|CLOSED / None| M[Create new PR]
+    L -->|Yes| M
+    L -->|No| N[Nothing to PR<br/>— report to user]
+    K --> O[Report PR URL]
+    M --> O
 ```
 
 ```text
