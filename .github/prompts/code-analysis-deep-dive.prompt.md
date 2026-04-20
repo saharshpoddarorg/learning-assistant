@@ -23,304 +23,147 @@ ${input:context:Why are you deep-diving? (onboarding / pre-refactoring / code-re
 
 ## Instructions
 
-Perform a **code analysis deep-dive** on the target code. The output is a **developer
-reference document** designed to be read **side-by-side with the source file** — source
-on the left, this document on the right. A developer using this document should be able
-to:
+Perform a **code analysis deep-dive** on the target code. The output is a **virtual
+refactoring** — you decompose the code into extracted methods on paper, creating a
+method tree that a developer reads like refactored code. No actual code changes are made.
 
-1. **Locate any line** — every line range (L*n*) matches the actual source file exactly
-2. **Understand any block** — every code section has a virtual method signature naming
-   its contract, with the real code pasted verbatim below it
-3. **Trace any value** — follow data from entry (Layer 2) through blocks (Layer 4) through
-   mutations (Layer 6) to output or side-effect
-4. **Pinpoint before debugging** — know exactly which lines to breakpoint, which variables
-   to watch, and which edge cases to test, BEFORE opening the debugger
-5. **Assess risk** — see every unhandled edge case (Layer 7) and every tight coupling
-   (Layer 8) at a glance
+The approach: **think like a developer doing extract-method refactoring**, but stop
+at the thinking stage. The extracted methods exist only in the analysis document. Each
+extracted method has a real Java signature, the actual source code verbatim, and inline
+annotations for anything non-obvious. A developer reads the analysis top-down:
 
-> **This is a static analysis reference, not a tutorial.** Keep it technical. The reader
-> is a developer who reads Java fluently. Use code, types, and signatures — not prose.
-> Plain-English is for gotchas and non-obvious behaviour only.
+1. **Quick Scan** — what does this code do? (30 seconds)
+2. **Refactored View** — the method rewritten as virtual extracted calls (the structure)
+3. **Method Extraction Tree** — each extracted method in detail (the substance)
+4. **Context & Cheat Sheet** — dependencies, coupling, debugging quick-start
 
-Work through these 9 layers systematically. Skip layers that don't apply to the scope.
+> **This is a developer's annotated walkthrough, not an academic report.** The reader
+> is a developer who reads Java fluently. The virtual method signatures and code are the
+> documentation — prose is only for gotchas and things you cannot see in the source.
 
-### Cross-Layer Coherence — How the Layers Interlink
+### ID System
 
-The 9 layers are **not independent sections** — they form a single connected narrative.
-A developer must be able to trace any piece of data from Layer 2 (where it enters)
-through Layer 4 (which block processes it) through Layer 5 (which line transforms it)
-through Layer 6 (how it mutates state) and into Layer 7 (what happens when it's wrong).
+Tag items for cross-referencing across sections:
 
-**Consistent ID system** — tag items across layers so cross-references are unambiguous:
-
-| Tag | Layer | Example | Purpose |
+| Tag | Section | Example | Purpose |
 |---|---|---|---|
-| **T*n*** | Layer 2 | T1, T2, T3 | Transformation step in the data pipeline |
-| **C*n*** | Layer 3 | C1, C2, C3 | Call in the call stack / method flow |
-| **B*n*** | Layer 4 | B1, B2, B3 | Code block in the block breakdown |
-| **L*n*** | Layer 5 | L42, L47 | Source file line number |
-| **E*n*** | Layer 7 | E1, E2, E3 | Edge case / error scenario |
+| **B*n*** | Method Tree | B1, B2, B3 | Extracted method / code block |
+| **L*n*** | Method Tree | L42, L47 | Source file line number |
+| **E*n*** | Method Tree | E1, E2, E3 | Edge case / error scenario |
 
-**Every layer must cross-reference related items in other layers:**
+### 1 — Quick Scan (30-Second Understanding)
 
-- Layer 3 calls → which Layer 4 block contains them
-- Layer 4 blocks → which Layer 2 transformation steps and Layer 3 calls they implement
-- Layer 5 lines → which Layer 4 block they belong to
-- Layer 6 state changes → which Layer 4 block causes each mutation
-- Layer 7 edge cases → which Layer 4 block and source line they occur at
-- Layer 8 dependencies → which Layer 4 blocks use them
-
-This interlinking makes the document a **navigable reference** — a developer can jump
-from a block to its data flow, from an edge case to the exact line that causes it,
-from a dependency to every block that relies on it.
-
-#### Cross-Layer Navigation Map
-
-```mermaid
-flowchart LR
-    subgraph "Layer 2 — Data Flow"
-        T["Tn: Transform steps"]
-    end
-    subgraph "Layer 3 — Call Stack"
-        C["Cn: Calls (step-into/over)"]
-    end
-    subgraph "Layer 4 — Block Breakdown"
-        B["Bn: Virtual methods + code"]
-    end
-    subgraph "Layer 5 — Line-by-Line"
-        L["Ln: Key lines (BP/W markers)"]
-    end
-    subgraph "Layer 6 — State"
-        S["Variables + watch expressions"]
-    end
-    subgraph "Layer 7 — Edge Cases"
-        E["En: Failures + how to reproduce"]
-    end
-    subgraph "Layer 8 — Dependencies"
-        D["Coupling + testability"]
-    end
-
-    T -->|"Bn implements Tn"| B
-    C -->|"Bn contains Cn"| B
-    B -->|"Ln belongs to Bn"| L
-    B -->|"Bn mutates var"| S
-    B -->|"En occurs at Bn"| E
-    D -->|"Bn uses dependency"| B
-    L -->|"BP/W → watch var"| S
-    L -->|"risk → En"| E
-```
-
-#### Scope-Adaptive Layer Selection
-
-```mermaid
-flowchart TD
-    A{Scope?} -->|method| M["All 9 layers\nFull depth"]
-    A -->|class| CL["Layers 1-4 + 8\nPer-method blocks, skip line-by-line"]
-    A -->|feature| F["Layers 1-3 + cross-class flow\nFeature-level block breakdown"]
-
-    M --> CTX{Context?}
-    CL --> CTX
-    F --> CTX
-
-    CTX -->|debugging-prep| DBG["Emphasize:\n• Layer 5 BP/W markers\n• Layer 6 watch expressions\n• Layer 7 reproduce steps\n• Layer 9 debugging quick-start"]
-    CTX -->|onboarding| ONB["Emphasize:\n• Layer 1 quick scan\n• Layer 4 region map\n• Layer 8 dependency map\n• Layer 9 cheat sheet"]
-    CTX -->|pre-refactoring| REF["Emphasize:\n• Layer 4 god class inventory\n• Layer 7 unhandled edges\n• Layer 8 coupling verdict\n• Layer 9 extract-method notes"]
-    CTX -->|code-review-prep| CR["Emphasize:\n• Layer 4 block contracts\n• Layer 7 unhandled risks\n• Layer 8 testability\n• Layer 3 call complexity"]
-    CTX -->|all / blank| ALL["Equal depth across all layers"]
-```
-
-### Layer 1 — High-Level Overview (30-Second Understanding)
-
-This section must give a developer the complete picture in under 30 seconds.
-
-- **One-sentence purpose:** What does this code do? (answer in business terms, not code)
-- **Responsibility boundary:** What this code is responsible for — and what it is NOT
-- **Architecture role:** Which layer/module it belongs to (controller → service → repository → infrastructure)
-- **Design pattern:** What pattern it implements (Service, Repository, Strategy, Factory, Template Method, Observer, etc.)
-- **Entry points and triggers:** Who calls this code? What event/request/schedule triggers it?
-- **Collaborators:** What other classes/services does it work with? (just names and roles)
-
-**Quick Scan — 5 things to know before reading the source:**
+Give a developer the complete picture in under 30 seconds:
 
 ```text
-1. Entry:      <who calls it, what triggers it>
-2. Happy path: <input → T1 → T2 → ... → output (one line)>
-3. Key state:  <which fields/variables change during execution>
-4. Danger:     <biggest unhandled edge case — E-ref>
-5. Side-effects: <what changes outside this code — DB/queue/cache>
+Purpose:      <one sentence — what does this code do in business terms?>
+Responsibility: <what it IS responsible for — and what it is NOT>
+Architecture:  <which layer: controller → service → repository → infra>
+Pattern:      <Service, Strategy, Factory, Template Method, etc.>
+Entry:        <who calls it, what triggers it>
+Happy path:   <input → step → step → ... → output (one line)>
+Key state:    <which fields/variables change during execution>
+Danger:       <biggest unhandled edge case — E-ref>
+Side-effects: <what changes outside this code — DB / queue / cache>
 ```
 
-This quick scan is the first thing the developer reads. It answers: "What am I about
-to look at?" before they scroll through the source file.
+For multi-caller methods (called from 3+ distinct contexts), add a caller table:
 
-### Layer 2 — Data Flow (Input → Transformation → Output)
-
-Trace data through the entire execution path:
-
-**Inputs — What enters this code:**
-
-| Parameter / Source | Type | Origin | Description |
+| Caller | Context | Expected Behaviour | Error Handling |
 |---|---|---|---|
-| `paramName` | `Type` | caller / DI / config / DB | What this data represents in business terms |
+| `OrderController` | HTTP — user-facing | Fast, throw on invalid | 400/500 mapped |
+| `BatchProcessor` | Nightly batch — system | Tolerant, log & skip | Logged, continues |
+| `EventHandler` | Async event — internal | Fire-and-forget | Silently retried |
 
-**Transformation pipeline — What happens to the data:**
+### 2 — Refactored View (The Method as Virtual Extracted Calls)
 
-Number each transformation step. For each step, show the before-type, transformation
-logic, and after-type. Use an ASCII flow diagram to make it visual:
+This is the **single most important artefact** in the deep-dive. Show the original
+method body rewritten as if every logical section had been extracted into a well-named
+method. The developer reads this and understands the entire structure in under a minute.
 
-```text
-Input: Order(items, customer, discount)
-  │
-  ├─ T1: Validate → throws InvalidOrderException if items empty
-  ├─ T2: Calculate subtotal → sum(item.price × item.qty) → BigDecimal
-  ├─ T3: Apply discount → subtotal × (1 - discount.rate) → BigDecimal
-  ├─ T4: Calculate tax → discounted × taxRate → BigDecimal
-  ├─ T5: Build receipt → Receipt(subtotal, discount, tax, total)
-  │
-  Output: Receipt with all line items and totals
+**Rules:**
+
+- Rewrite the method body using the virtual method names — one line per extracted call
+- Each line has the B-ref, virtual call, and the source line range in a comment
+- Data flows visibly through variable names between calls
+- The refactored view MUST be compilable-looking Java (not pseudocode)
+- Keep the original method's signature and control flow structure intact
+
+**Example:**
+
+```java
+public Receipt processOrder(Order order) {
+    Order validated   = validateAndGuardInputs(order);                  // B1: L30-45
+    double subtotal   = calculateSubtotal(validated.getItems());        // B2: L46-58
+    double discounted = applyDiscountRules(subtotal, order.getDiscount()); // B3: L59-68
+    double taxed      = calculateTax(discounted, getTaxRate());         // B4: L69-78
+    Receipt receipt   = buildReceipt(validated, subtotal, discounted, taxed); // B5: L79-95
+    persistAndNotify(receipt);                                          // B6: L96-110
+    return receipt;                                                     // L111
+}
 ```
 
-Tag each step **T1, T2, T3...** — these IDs are referenced by Layer 4 blocks to show
-which transformation steps each block implements.
+**What this gives the developer:**
 
-**Outputs — What leaves this code:**
+- The **pipeline** is visible — data flows left to right through variable names
+- Each virtual method name is an **intent-revealing summary** of what that code section does
+- The **B-refs and line ranges** let them jump to the detailed breakdown
+- The **structure** is immediately clear — validate → calculate → discount → tax → persist
+- They know exactly which "method" to drill into for more detail
 
-| Return / Side-Effect | Type | Consumer | Description |
-|---|---|---|---|
-| Return value | `Type` | Caller class | What the caller uses this for |
-| Side-effect | DB write / event / cache | Downstream system | What changes in the world |
+**Handling branches and loops** — when the method has if-else or loops, keep them in
+the refactored view but extract the branch bodies:
 
-### Layer 3 — Call Stack / Method Flow
-
-Map the complete execution flow as an indented call tree:
-
-```text
-→ EntryPoint.publicMethod(args)
-    C1 → this.validateInput(args)
-         C2 → Validator.check(args)           // returns boolean
-    C3 → this.processCore(validatedArgs)
-         C4 → dependency.fetchData(id)        // 🔌 DB read — latency point
-         C5 → this.transform(raw)             // ✦ pure logic — no side-effects
-         C6 → dependency.save(result)         // 🔌 DB write
-    C7 → this.notifyListeners(result)
-         C8 → EventBus.publish(event)         // ⚡ async — fire-and-forget
+```java
+public double calculatePrice(Order order) {
+    validateOrder(order);                                               // B1: L30-38
+    double subtotal = calculateSubtotal(order.getItems());              // B2: L39-52
+    double discount;
+    if (order.isPremium()) {
+        discount = applyPremiumDiscount(subtotal);                      // B3: L54-62
+    } else if (order.getTotal() > 1000) {
+        discount = applyBulkDiscount(subtotal);                         // B4: L63-70
+    } else {
+        discount = applyStandardDiscount(subtotal);                     // B5: L71-76
+    }
+    return applyTaxAndFinalize(discount, order.getTaxRate());           // B6: L77-85
+}
 ```
 
-Tag each call **C1, C2, C3...** — these IDs are referenced by Layer 4 blocks.
+**Handling nested complexity** — when an extracted method is itself complex (15+ lines,
+nested logic), show it as its own refactored view in the Method Extraction Tree:
 
-For each call in the tree, provide a detail row including which Layer 4 block contains
-it and whether it's worth stepping into during debugging:
-
-| Call | Caller → Callee | Returns | Side-Effects | Block(s) | Debug | Notes |
-|---|---|---|---|---|---|---|
-| C1 | `Controller.handle` → `Service.process` | `ResponseDTO` | None | B1 | ⏩ step-over | Thin wrapper — logic is inside |
-| C4 | `Service.process` → `Repo.findById` | `Optional<Entity>` | DB read | B3 | 🔍 step-into | Verify query params + result |
-| C5 | `Service.process` → `this.transform` | `Result` | None | B4 | 🔍 step-into | Core logic lives here |
-| C6 | `Service.process` → `Repo.save` | `void` | DB write | B5 | ⏩ step-over | Trust unless save fails |
-| C8 | `Service.process` → `EventBus.publish` | `void` | MQ write | B6 | ⏩ step-over | Fire-and-forget — async |
-
-**Debug column legend:**
-
-- 🔍 **step-into** — contains logic worth tracing (decisions, transformations, state changes)
-- ⏩ **step-over** — treat as black box (delegation, I/O wrappers, logging)
-- 🛑 **breakpoint** — set a breakpoint on this call's return to inspect the result
-
-Annotate in the call tree: recursive calls (⟳), async boundaries (⚡), external I/O (🔌), pure logic (✦).
-
-### Layer 4 — Code Block Breakdown (The Core of the Deep-Dive)
-
-This is the **most valuable layer** and the one the developer will use side-by-side
-with the source code. Split the code into **cohesive functional blocks** and present
-each block as a **virtual extracted method** — the method signature the block WOULD have
-if you extracted it. This gives the developer a typed contract (inputs → outputs) and an
-intent-revealing name for every section of the code, without actually changing anything.
-
-> **Design principle:** Present blocks as if you were doing an extract-method refactoring
-> on paper. Each block gets a method name, parameter list, and return type that describe
-> its contract. This is purely for understanding — **no code is actually changed**. The
-> developer reads the virtual signature to grasp intent, then reads the real code below
-> it to see how it's implemented. Think: "how would I explain this to a senior dev who
-> just joined the team and is reading this method for the first time?"
-
-> **Keep it technical.** Avoid prose-heavy "What it does" paragraphs. Developers read
-> Java, not essays. The virtual method signature IS the explanation. Use brief inline
-> annotations in the code fence for anything non-obvious. Reserve plain-English notes
-> only for gotchas, implicit assumptions, and caller-specific behaviour — things you
-> cannot express in a type signature.
-
-#### 4a — Block Map & Region Overview (Bird's-Eye View)
-
-Before diving into individual blocks, provide two things that let the developer
-mentally navigate the method before reading any detail:
-
-**1. Block Flow Diagram** — show how blocks connect, with data labels on the arrows.
-This is the single most useful artefact for a developer skimming the analysis:
-
-```text
-## Block Flow — <MethodName>
-
-B1 ──validated Order──→ B2 ──subtotal──→ B3 ──discounted──→ B4 ──taxed──→ B5 ──persisted──→ B6
-validate               calculate         apply              calculate     persist           return
-inputs                 subtotal          discount           tax           result            receipt
+```java
+// B3 is itself complex — its refactored view:
+private double applyPremiumDiscount(double subtotal) {
+    double loyaltyBonus = lookupLoyaltyBonus(customer);                 // B3a: L54-56
+    double baseDiscount = calculateBaseDiscount(subtotal);              // B3b: L57-59
+    return combineDiscounts(baseDiscount, loyaltyBonus);                // B3c: L60-62
+}
 ```
 
-Every block passes typed data to the next. If a block produces nothing consumed by
-the next (e.g., a side-effect-only block), show `── (side-effect) ──→`. If blocks
-branch (e.g., if-else), show both paths. The developer should be able to read this
-diagram and know the method's structure in 5 seconds.
+This recursive extraction is key: the developer drills into B3 and sees it decomposed
+into B3a, B3b, B3c — just like a real codebase where methods call other methods.
 
-**2. Region Map** — a table organizing line ranges into logical regions, with
-cross-references to Layer 2 transforms and Layer 3 calls so the developer can
-jump between layers from this one table:
+**For class scope:** show a refactored view per public method. For feature scope,
+show the cross-class flow as a sequence of class.method() calls.
 
-```text
-## Region Map — <MethodName> (L30-142)
+### 3 — Method Extraction Tree (The Core of the Deep-Dive)
 
-| Region | Lines | Blocks | T-refs | C-refs | Purpose (one phrase) |
-|---|---|---|---|---|---|
-| Guard & Validation | L30-45 | B1-B2 | T1 | C1, C2 | Reject invalid inputs early |
-| Core Calculation | L46-89 | B3-B6 | T2-T4 | C3-C5 | Transform inputs into result |
-| Persistence | L90-110 | B7-B8 | T5 | C6 | Save result and publish events |
-| Cleanup & Return | L111-142 | B9-B10 | — | C7 | Release resources and return |
-```
+This is the **bulk of the analysis** and the section the developer will use side-by-side
+with the source code. For each virtual method from the Refactored View, show the real
+code with inline annotations. Then recurse into sub-methods when a block is complex.
 
-The **T-refs** and **C-refs** columns centralize all cross-layer references in one
-place — individual blocks do NOT need to repeat `Implements: Tn` or `Contains: Cn`
-in their headers. This keeps blocks lean and code-focused.
+> **Think like you're building a call tree of extracted methods.** The Refactored View
+> (Section 2) is the root. Each extracted method in Section 3 is a node. When a node is
+> itself complex, it gets its own child nodes (sub-methods). The developer navigates this
+> tree the same way they'd navigate a well-structured codebase: start at the top-level
+> method, then drill into the methods it calls.
 
-For methods under 30 lines, the region map can be omitted — go straight to blocks.
-For methods over 50 lines, the region map is **mandatory**.
-The block flow diagram is **always required** (even for short methods — just simpler).
-
-#### 4b — Block Breakdown (The Detail)
-
-**For each block, provide:**
-
-1. **Block ID + virtual method signature** — `BN` ID and a Java method signature showing
-   what the block WOULD look like if extracted: name, parameters (with types), return
-   type. This is the primary explanation — it tells the developer exactly what data flows
-   in and out, and names the intent
-2. **Line range** — exact lines in the source file (e.g., L42-58). These MUST match
-   the actual source so the developer can locate the code instantly
-3. **The actual code** — paste the real source code verbatim in a fenced block. Do NOT
-   paraphrase, summarise, or reformat the code — the developer needs to see exactly
-   what is in the file so they can match it visually
-4. **Inline annotations** — for complex blocks (10+ lines or dense logic), add
-   **inline code comments** in the code fence pointing to the key lines. Format:
-   `// ← [B3.1] why this line matters`. These sub-IDs (B3.1, B3.2) let Layer 5
-   reference specific lines within a block. Keep annotations technical and terse —
-   explain non-obvious behaviour, not what the code literally does
-5. **Contract** — one-line summary of what enters and what leaves this block, expressed
-   as types: `Order (validated, non-null) → double (subtotal, may be 0.0 if empty)`
-6. **Gotchas** — subtle behaviour, edge cases, thread-safety issues — reference E-numbers
-   from Layer 7. Only include if something is genuinely surprising or dangerous
-7. **State impact** — which Layer 6 variables are mutated in this block (if any)
-
-**Block splitting rules — think like a developer doing extract-method refactoring:**
+#### How to Split Code into Extracted Methods
 
 Every block boundary should be a place where a senior developer would genuinely consider
-extracting a method. If you wouldn't actually extract it, it's probably not a real block
-boundary. Apply these tests:
+extracting a method. Apply these tests:
 
 **Extract-Method Fitness Test** — every proposed block must pass ALL THREE:
 
@@ -328,125 +171,140 @@ boundary. Apply these tests:
    `calculateSubtotal`, `persistResult`). If you can only name it "part of X" or
    "continuation of Y", the boundary is wrong — merge it with the adjacent block
 2. **Self-contained** — can you define clear typed inputs (parameters) and a typed
-   output (return value)? If the block needs 5+ parameters to work or its "output"
-   is just "side-effect on ambient state", reconsider the boundary
+   output (return value)? If the block needs 5+ parameters or its "output" is just
+   "side-effect on ambient state", reconsider the boundary
 3. **One reason to change** — would this code change for exactly one business reason?
    If half the block is validation and the other half is calculation, split them
 
-**Where to look for natural split points** — the source code itself tells you where
-blocks begin and end. Scan for these signals:
+**Where to look for natural split points** — the source code tells you where blocks
+begin and end:
 
-| Signal in source code | Block boundary type | Example |
-|---|---|---|
-| **Blank line** left by the original developer | Intent separator — developer already thought in blocks | Blank line between validation and calculation |
-| **Comment** describing "what comes next" | Phase marker — explicit block start | `// Apply discount rules` |
-| **New variable declaration** starting a new phase | Data-phase boundary — new data context begins | `var discounted = ...` after subtotal is computed |
-| **Try-catch boundary** | Error-handling boundary — different concern | `try {` wrapping a risky block |
-| **If-else / switch branch** | Decision boundary — each branch is a candidate block | `if (order.isPremium()) { ... } else { ... }` |
-| **Loop boundary** | Iteration boundary — setup / body / post-loop are separate blocks | `for (var item : items) { ... }` |
-| **Return statement** | Exit boundary — everything before return is the "compute" block | `return receipt;` |
-| **Method call on an injected dependency** | Delegation boundary — external call is its own concern | `repository.save(entity)` |
+| Signal in source code | Block boundary type |
+|---|---|
+| **Blank line** left by the original developer | Intent separator — developer already thought in blocks |
+| **Comment** describing "what comes next" | Phase marker — explicit block start |
+| **New variable declaration** starting a new phase | Data-phase boundary — new data context begins |
+| **Try-catch boundary** | Error-handling boundary — different concern |
+| **If-else / switch branch** | Decision boundary — each branch is a candidate block |
+| **Loop boundary** | Iteration boundary — setup / body / post-loop are separate blocks |
+| **Return statement** | Exit boundary — everything before return is the "compute" block |
+| **Method call on an injected dependency** | Delegation boundary — external call is its own concern |
 
-**Block continuity rule** — blocks must flow into each other like a pipeline. The
-output of B*n* should be consumable as input to B*n+1*. If you can't describe what
-data passes between two adjacent blocks, the split is wrong or a block is missing.
+#### Per-Method Template
 
-Additional splitting guidelines:
-
-- Aim for **3-8 blocks per method** — fewer for simple methods, more for complex ones.
-  For very long methods (100+ lines), 8-15 blocks is acceptable
-- A block can be 1 line (if it's a critical decision) or 20 lines (if they're cohesive)
-- **Don't skip code** — every line of the method must appear in at least one block.
-  The blocks together should reconstruct the full method. A developer scrolling through
-  the source file must find every single line explained somewhere
-- **Overlap is allowed** — if a line serves as both the end of one block and the start
-  of another, include it in both and annotate the dual role
-- **Name blocks by intent**, not by implementation — "calculateSubtotal" not
-  "streamMapToDouble"
-- **Nest blocks for deep logic** — when a block contains a significant inner structure
-  (e.g., a loop body with branching), use sub-blocks: B3a, B3b, B3c. The parent block
-  (B3) shows the full code; sub-blocks zoom into specific segments within it
-
-**Block template — code first, metadata after:**
+For each extracted method (B*n*), provide:
 
 ```text
-### B3 — `double calculateSubtotal(List<LineItem> items)` (L46-58)
+#### B1 — `Order validateAndGuardInputs(Order order)` (L30-45)
 ```
 
 ````java
 // paste the ACTUAL source code verbatim — do not reformat
-var subtotal = items.stream()
-    .mapToDouble(i -> i.getPrice() * i.getQty()) // ← [B3.1] per-item: price × qty
-    .sum();                                       // ← [B3.2] identity = 0.0 if empty (→ E2)
+if (order == null) {                              // ← [B1.1] no null-check exists — NPE risk (E1)
+    throw new IllegalArgumentException("order");
+}
+if (order.getItems().isEmpty()) {                 // ← [B1.2] empty ≠ null — returns valid but useless
+    return order;                                 // ← early return: 0 items → 0.0 total (E2)
+}
+validator.validate(order);                        // ← [B1.3] delegates to Validator — 🔍 step-into
 ````
 
 ```text
-← Receives: List<LineItem> (validated, non-null) from B2
-→ Produces: double (subtotal >= 0.0) → B4
-⚠ E2: empty list → 0.0 (identity) | E6: double rounding on large orders
-State: sets local `subtotal` (L47)
+← Receives: Order (may be null, unchecked) from caller
+→ Produces: Order (validated, non-null, items present) → B2
+⚠ E1: null order → NPE at L30 (unhandled) | E2: empty items → 0.0 total (handled, but confusing)
+State: none mutated
+🔍 Step-into: validator.validate() at L38 — worth tracing validation rules
+🛑 Breakpoint: L30 — verify order is non-null on entry
 ```
 
-**Template rules — what goes where:**
+**Template rules:**
 
-| Element | Where | Required? | Purpose |
-|---|---|---|---|
-| **Block header** | `### B3 — virtual signature (lines)` | Always | Intent + contract in one line |
-| **Code fence** | Immediately after header | Always | The actual source code — developer reads THIS |
-| **← Receives** | After code | Always | What data this block consumes and from which block |
-| **→ Produces** | After Receives | Always | What data this block outputs and to which block |
-| **⚠ Gotchas** | After Produces | Only if surprising | Edge cases, thread-safety, implicit assumptions |
-| **State** | After Gotchas | Only if mutates | Which variables change (links to Layer 6) |
+| Element | Required? | Purpose |
+|---|---|---|
+| **Header** `#### Bn — virtual signature (lines)` | Always | Intent + contract in one line |
+| **Code fence** with actual source + inline annotations | Always | The code — developer reads THIS |
+| **← Receives / → Produces** | Always | Data flow between methods |
+| **⚠ Edge cases** | Only if present | E-refs with trigger + impact |
+| **State** | Only if mutates | Variables changed (with lifecycle if interesting) |
+| **🔍 Step-into / 🛑 Breakpoint / 👁 Watch** | method scope | Debugging markers for key lines |
 
-**Key design decisions:**
+**Inline annotation rules:**
 
-- **Code comes first** — the developer is reading the analysis side-by-side with source.
-  They need to see the code immediately after the block header, not after three lines
-  of metadata they have to skip
-- **Arrow notation for data flow** — `← Receives` and `→ Produces` replace the old
-  `Contract:` line. Arrows are scannable — a developer can glance at the arrows across
-  all blocks and trace data flow without reading any prose
-- **No cross-reference clutter in block headers** — T-refs and C-refs live in the
-  Region Map table (4a). Individual blocks stay clean and code-focused
-- **Gotchas are conditional** — only include `⚠` lines when something is genuinely
-  surprising. If the code does exactly what the signature says, no gotcha is needed.
-  Don't manufacture "gotchas" just to fill the template
+- Format: `// ← [B1.3] why this line matters`
+- Only annotate lines where understanding would break if the developer skipped them
+- Never annotate what the code literally does (`// adds 1 to count`) — only WHY it
+  matters, WHAT it connects to, or WHAT goes wrong when it's wrong
+- Reference E-tags for edge cases, other B-tags for cross-block dependencies
+- Mark external calls: `🔌 DB read`, `⚡ async`, `✦ pure logic`
 
-**The virtual method signature IS the documentation.** A developer reading
-`double calculateSubtotal(List<LineItem> items)` immediately understands the block's
-purpose, inputs, and output — no prose needed. The actual code below it shows the
-implementation. The inline annotations (`[B3.1]`, `[B3.2]`) flag non-obvious lines.
-The arrow lines confirm the typed data flow between blocks.
+**Block continuity rule** — the output of B*n* must be consumable as input to B*n+1*.
+If you can't describe what data passes between two adjacent methods, the split is wrong
+or a method is missing. The `← Receives` / `→ Produces` arrows must form a complete
+chain matching the Refactored View.
 
-**When the block maps to an existing private method call:** If the block is essentially
-`var result = this.somePrivateMethod(args)`, the virtual signature should match or
-refine the actual method signature — don't invent a new name. Instead, annotate what
-the actual method does that isn't obvious from its name.
+#### Nested Extraction (Methods Within Methods)
 
-**Inline annotation sub-IDs** (`B3.1`, `B3.2`, etc.) are referenced by Layer 5 for
-line-by-line detail. A developer seeing `[B3.2]` in the code can jump to Layer 5
-for the full explanation of that specific line.
+When an extracted method is itself complex (15+ lines, or contains nested loops/branches
+with distinct concerns), decompose it further into sub-methods. Use nested B-IDs:
 
-**Anti-dump rule:** The output must read like a **developer's annotated walkthrough**
-of the source code — not an academic analysis report. If a developer would skip a
-section because it's restating what the code already says, remove it. Every line of
-output must earn its place by telling the developer something they can't see by reading
-the source alone: hidden data flow between blocks, implicit contracts, edge cases lurking
-in normal-looking code, or the "why" behind a non-obvious line.
+```text
+#### B3 — `double applyPremiumDiscount(double subtotal)` (L54-62)
+```
 
-#### 4c — Handling Complex Code Patterns
+**Refactored view of B3:**
 
-Real codebases have god classes, 200-line methods, and multi-caller entry points.
-Use these specialised approaches when the code is complex:
+```java
+private double applyPremiumDiscount(double subtotal) {
+    double loyaltyBonus = lookupLoyaltyBonus(customer);                 // B3a: L54-56
+    double baseDiscount = calculateBaseDiscount(subtotal);              // B3b: L57-59
+    return combineDiscounts(baseDiscount, loyaltyBonus);                // B3c: L60-62
+}
+```
+
+Then provide per-method detail for B3a, B3b, B3c at a deeper heading level (`#####`).
+This creates a readable tree structure:
+
+```text
+### 3 — Method Extraction Tree
+  #### B1 — validateAndGuardInputs (L30-45)
+  #### B2 — calculateSubtotal (L46-58)
+  #### B3 — applyPremiumDiscount (L54-62)         ← complex, decomposed further
+    ##### B3a — lookupLoyaltyBonus (L54-56)
+    ##### B3b — calculateBaseDiscount (L57-59)
+    ##### B3c — combineDiscounts (L60-62)
+  #### B4 — calculateTax (L69-78)
+  #### B5 — buildReceipt (L79-95)
+  #### B6 — persistAndNotify (L96-110)
+```
+
+**Nest when:**
+
+- A block has 15+ lines with distinct inner phases
+- A block contains a loop body with branching (the loop body is a sub-method)
+- A block delegates to 2+ meaningful private method calls (each is a sub-method)
+- A block has try-catch where the try body and catch body are separate concerns
+
+**Don't nest when:**
+
+- A block is a straight-line sequence of 10-15 lines doing one thing
+- The inner logic is a single expression (even if complex, like a stream pipeline)
+- Nesting would create sub-methods with only 2-3 lines each
+
+#### Completeness Rules
+
+- **Every line of the target code must appear in at least one method's code fence.**
+  The methods together reconstruct the full source. No gaps
+- **Don't skip code** — a developer scrolling through the source file must find every
+  single line explained somewhere in the tree
+- Aim for **3-8 methods per level** — fewer for simple targets, more for complex ones
+
+#### Handling Complex Code Patterns
 
 ##### God Classes (10+ responsibilities, 500+ lines)
 
-When a class mixes multiple responsibilities (e.g., validation + calculation +
-persistence + notification all in one class):
-
-1. **Responsibility inventory first** — before blocks, list every responsibility the
-   class handles. Group methods by responsibility. Show the virtual class each group
-   WOULD belong to if the god class were decomposed:
+1. **Responsibility inventory first** — before the method tree, group methods by
+   responsibility and show the virtual class each group WOULD belong to:
 
    ```text
    ## Responsibility Inventory — OrderService (847 lines, 23 methods)
@@ -454,203 +312,61 @@ persistence + notification all in one class):
    | # | Responsibility | Virtual Class | Methods | Lines |
    |---|---|---|---|---|
    | R1 | Input validation | `OrderValidator` | validateOrder, checkStock | L30-120 |
-   | R2 | Price calculation | `PriceCalculator` | calculateTotal, applyDiscount, applyTax | L121-280 |
+   | R2 | Price calculation | `PriceCalculator` | calculateTotal, applyDiscount | L121-280 |
    | R3 | Persistence | `OrderRepository` | saveOrder, updateStatus | L281-390 |
    | R4 | Notification | `OrderNotifier` | notifyCustomer, publishEvent | L391-450 |
-   | R5 | Logging & metrics | (cross-cutting) | logOrder, recordMetrics | L451-500 |
    ```
 
-2. **Deep-dive one responsibility at a time** — treat each responsibility group as a
-   mini-method for Layer 4 purposes. The region map separates them visually
-3. **Cross-responsibility data flow** — show how data passes between responsibility
-   groups (R1 output feeds R2, R2 output feeds R3, etc.)
-4. **God class verdict** — in Layer 9, state clearly: "This class has N responsibilities
-   that could be separated. Suggested decomposition: [list]"
+2. **Deep-dive one responsibility at a time** — each responsibility group gets its own
+   Refactored View and Method Extraction Tree
+3. **Cross-responsibility data flow** — show how data passes between groups (R1 → R2 → R3)
 
 ##### Very Long Methods (100+ lines)
 
-When a single method spans 100+ lines:
-
-1. **Two-pass block breakdown:**
-   - **Pass 1 — Coarse blocks** (5-8 blocks covering the full method at region level)
-   - **Pass 2 — Fine blocks** (zoom into each coarse block, split further into 2-4
-     sub-blocks each). Use nested IDs: B3 → B3a, B3b, B3c
-2. **Mandatory region map** — the region map from 4a is not optional for 100+ line methods
-3. **Branch maps for deep nesting** — if the method has 3+ levels of nesting
-   (if inside if inside loop inside try), draw an indentation map:
+1. **Two-pass extraction:**
+   - **Pass 1 — Coarse methods** (5-8 methods covering the full method at region level)
+   - **Pass 2 — Fine methods** (each coarse method decomposed into 2-4 sub-methods)
+2. **Branch maps for deep nesting** — if the method has 3+ levels of nesting, draw
+   an ASCII map showing which block handles each branch:
 
    ```text
    L42  if (isValid)
-   L43  ├─ for (item : items)           → B3 (Item Processing Loop)
-   L44  │  ├─ if (item.isSpecial())     → B3a (Special Item Handling)
-   L50  │  │  └─ try { ... }            → B3b (Special Item DB Lookup)
-   L55  │  └─ else                      → B3c (Standard Item Pricing)
-   L60  └─ else                         → B2 (Validation Failure Path)
+   L43  ├─ for (item : items)           → B3 (processItems)
+   L44  │  ├─ if (item.isSpecial())     → B3a (handleSpecialItem)
+   L50  │  │  └─ try { ... }            → B3b (lookupSpecialPrice)
+   L55  │  └─ else                      → B3c (calculateStandardPrice)
+   L60  └─ else                         → B2 (handleValidationFailure)
    ```
 
-4. **Every line must be reachable** — the two-pass approach ensures no code is missed.
-   A developer scrolling through a 200-line method must find every single line explained
-
-##### Multi-Caller Methods (called from 3+ distinct contexts)
-
-When a method is called from many places with different expectations:
-
-1. **Caller context table** in Layer 1:
-
-   ```text
-   | Caller | Context | Expected Behaviour | Error Handling |
-   |---|---|---|---|
-   | OrderController | HTTP request — user-facing | Fast, throw on invalid | 400/500 mapped |
-   | BatchProcessor | Nightly batch — system | Tolerant, log & skip | Logged, continues |
-   | EventHandler | Async event — internal | Fire-and-forget | Silently retried |
-   | TestHarness | Integration test | Predictable, no side-effects | Asserted |
-   ```
-
-2. **Per-caller path annotations in Layer 4** — when a block behaves differently depending
-   on who called it (e.g., different error handling paths), annotate:
-
-   ```text
-   **Caller-specific behaviour:**
-   - From OrderController: throws OrderValidationException → HTTP 400
-   - From BatchProcessor: catches and logs, returns null → batch continues
-   - From EventHandler: re-throws wrapped in RetryableException
-   ```
-
-3. **Coupling assessment in Layer 8** — for each caller, assess: "If I change this method,
-   does that caller break?"
-
-##### Deeply Nested / Tangled Logic
-
-When the code has complex conditional chains, deeply nested loops, or interleaved
-concerns (e.g., validation mixed with calculation mixed with logging):
-
-1. **Flatten-and-label** — even though the code is nested, the block breakdown should
-   present it as a flat sequence of blocks with nesting annotations:
-
-   ```text
-   B1 — Outer Validation (L30-35)            [nesting: 0]
-   B2 — Item Loop Setup (L36-38)             [nesting: 1]
-   B3 — Special Item Branch (L39-52)         [nesting: 2, inside B2 loop]
-   B4 — Standard Item Branch (L53-58)        [nesting: 2, inside B2 loop]
-   B5 — Loop Accumulator (L59-62)            [nesting: 1, end of B2 loop]
-   B6 — Post-Loop Aggregation (L63-70)       [nesting: 0]
-   ```
-
-2. **Show the full nesting context** — each block's code snippet should include 1-2 lines
-   of surrounding context (the enclosing `if`/`for`/`try`) so the developer can see
-   where in the nesting this block lives:
-
-   ```java
-   // Context: inside for (var item : items) { if (item.isSpecial()) {
-   var specialPrice = lookupSpecialPrice(item.getSku()); // ← [B3.1]
-   if (specialPrice == null) {                            // ← [B3.2] fallback
-       specialPrice = item.getDefaultPrice();
-   }
-   total += specialPrice * item.getQty();                 // ← [B3.3] accumulate
-   // } — end of special-item branch
-   ```
-
-3. **Decision tree for complex conditionals** — when there are 3+ branches, draw an
-   ASCII decision tree showing all paths:
+3. **Decision tree for complex conditionals** — when there are 3+ branches:
 
    ```text
    L42: if (order.type == PREMIUM)
-        ├─ YES → B3 (Premium Pricing) — 15% discount cap
+        ├─ YES → B3 (applyPremiumDiscount) — 15% discount cap
         └─ NO → L48: if (order.total > 1000)
-                 ├─ YES → B4 (Bulk Discount) — tiered rates
+                 ├─ YES → B4 (applyBulkDiscount) — tiered rates
                  └─ NO → L52: if (customer.isLoyal())
-                          ├─ YES → B5 (Loyalty Discount) — 5% flat
-                          └─ NO → B6 (Standard Pricing) — no discount
+                          ├─ YES → B5 (applyLoyaltyDiscount) — 5% flat
+                          └─ NO → B6 (noDiscount)
    ```
 
-### Layer 5 — Line-by-Line Walkthrough (Key Logic Only)
+##### Deeply Nested / Tangled Logic
 
-For **decision-making lines, algorithm steps, and non-obvious behaviour** — skip
-boilerplate (imports, standard getters/setters, simple assignments, logging statements).
+Flatten-and-label the blocks even though the code is nested:
 
-When Layer 4 uses inline annotation sub-IDs (`B3.1`, `B3.2`), Layer 5 expands on those
-specific lines. The **Sub-ID** column links directly back to the inline annotation in the
-Layer 4 code fence, so the developer can jump between the code and the explanation.
+```text
+B1 — validateInputs (L30-35)              [nesting: 0]
+B2 — setupItemLoop (L36-38)               [nesting: 1]
+B3 — handleSpecialItem (L39-52)           [nesting: 2, inside B2 loop]
+B4 — calculateStandardPrice (L53-58)      [nesting: 2, inside B2 loop]
+B5 — accumulateLoopResult (L59-62)        [nesting: 1, end of B2 loop]
+B6 — aggregateAndReturn (L63-70)          [nesting: 0]
+```
 
-For each key line:
+Each block's code snippet should include 1-2 lines of surrounding context (the enclosing
+`if`/`for`/`try`) so the developer can see where in the nesting this block lives.
 
-| Line | Block | Sub-ID | Code | Why It Matters | Risk If Wrong | 🛑 |
-|---|---|---|---|---|---|---|
-| L42 | B1 | — | `if (order.isValid())` | Guards entry — delegates to Order.isValid() | NPE at L47 if removed → E1 | BP |
-| L47 | B2 | B3.1 | `var total = items.stream().mapToDouble(...)` | Subtotal calc — price × qty per item | Empty list → 0.0 (identity) → E2 | |
-| L49 | B2 | B3.2 | `.sum()` | Stream terminal — aggregates to double | Returns 0.0 for empty, not null | |
-| L51 | B3 | B3.3 | `total = applyDiscount(total, discount)` | Multiplicative discount — mutates local | discount > 1.0 → negative total → E3 | BP |
-| L60 | B5 | — | `this.lastProcessedId = order.getId()` | Field mutation — not thread-safe | Concurrent calls → stale ID → E4 | W |
-
-**Column legend:**
-
-- **Why It Matters** — what this line contributes to the method's contract (technical, not prose)
-- **Risk If Wrong** — what breaks if this line is removed, changed, or receives bad input
-- **🛑** — debugging markers: `BP` = set breakpoint here, `W` = add to watch window,
-  blank = safe to step-over
-
-The **Block** column links each line back to its Layer 4 block. The **Sub-ID** column
-links to the inline annotation in Layer 4's code fence (if present).
-
-Focus on lines where **the developer's understanding would break** if they skipped it.
-Every line marked `BP` is a recommended breakpoint for debugging this method.
-
-**For very long methods (100+ lines):** Layer 5 must cover key lines from EVERY coarse
-block and its sub-blocks. Prioritise: (1) lines where control flow branches, (2) lines
-where state mutates, (3) lines where external calls happen, (4) lines with non-obvious
-semantics. Skip lines that are purely mechanical (simple assignments, logging, closing
-braces). A 200-line method should have 30-60 lines in this table.
-
-### Layer 6 — State Changes
-
-Track every mutation through execution. This layer tells the developer exactly which
-variables to add to the **debugger watch window** and at which lines their values change.
-
-**Local variable lifecycle:**
-
-| Variable | Type | Declared At | Mutated At | Block(s) | Lifecycle | Watch Expression |
-|---|---|---|---|---|---|---|
-| `total` | `double` | L45 | L47, L51, L55 | B2, B3, B4 | `0.0` → `100.0` → `90.0` → `99.0` | `total` |
-| `discount` | `double` | param | — (read-only) | B3 | `0.10` (constant through method) | `discount` |
-
-The **Watch Expression** column contains the literal expression to paste into your
-debugger's watch/evaluate window. The **Block(s)** column shows which Layer 4 blocks
-are responsible for each mutation — jump to the block to see the code.
-
-**Instance/field state changes:**
-
-| Field | Type | Changed At | Block | Before → After | Watch Expression | Thread-Safe? |
-|---|---|---|---|---|---|---|
-| `this.lastProcessedId` | `String` | L60 | B5 | `null` → `"ORD-123"` | `this.lastProcessedId` | ❌ (see E4) |
-
-**External state changes (side-effects leaving this code):**
-
-| What Changes | Where | When | Block | Reversible? | How to Verify |
-|---|---|---|---|---|---|
-| DB row updated | `orders` table | L62 | B5 | Yes (within transaction) | Query: `SELECT * FROM orders WHERE id = ?` |
-| Event published | Message queue | L65 | B6 | No — consumers may have already processed | Check MQ console / dead-letter queue |
-
-### Layer 7 — Edge Cases & Error Paths
-
-Enumerate every way this code can fail or behave unexpectedly:
-
-| Edge | Scenario | Location | Trigger | What Happens | Handled? | Impact | How to Reproduce |
-|---|---|---|---|---|---|---|---|
-| E1 | Null input | B1, L42 | `order == null` | NPE at L42 | ❌ | Caller gets 500 | Pass `null` to `processOrder()` |
-| E2 | Empty items | B2, L47 | `order.getItems().isEmpty()` | Returns `0.0` | ✅ identity | May confuse caller | Create order with empty items list |
-| E3 | Negative discount | B3, L51 | `discount > 1.0` | Negative total | ❌ | Incorrect billing | Set `discount = 1.5` |
-| E4 | Concurrent mod | B5, L60 | Two threads, same order | Race on `lastProcessedId` | ❌ | Data corruption | Call from 2 threads simultaneously |
-| E5 | DB failure | B5, L62 | Network issue at L62 | `SQLException` propagates | ✅ caught | Transaction rolls back | Kill DB connection mid-call |
-
-**How to Reproduce** tells the developer exactly what input or condition triggers each
-edge case — useful for writing targeted test cases or setting conditional breakpoints
-(e.g., breakpoint at L51 with condition `discount > 1.0` to catch E3).
-
-The **Edge** column (E*n*) is referenced from Layers 4, 5, and 6 — so a developer
-spotting a gotcha in a block can jump here for the full scenario, and vice versa.
-The **Location** column pinpoints the exact block and line where the edge case manifests.
-
-### Layer 8 — Dependencies & Coupling
+### 4 — Dependencies & Coupling
 
 **Outgoing dependencies (what this code needs):**
 
@@ -670,7 +386,7 @@ The **Location** column pinpoints the exact block and line where the edge case m
 **Coupling verdict:** How easy is it to change this code without breaking callers?
 Rate as: isolated / manageable / tangled / dangerous.
 
-### Layer 9 — Key Takeaways & Developer Cheat Sheet
+### 4b — Key Takeaways & Developer Cheat Sheet
 
 Summarise everything for quick future reference:
 
@@ -685,13 +401,13 @@ Summarise everything for quick future reference:
 **Developer cheat sheet** (copy-pasteable quick-reference):
 
 ```text
-Purpose:     <one-liner from Layer 1>
-Entry:       <who calls it, when — from Layer 1 entry points>
-Happy path:  <T1 → T2 → T3 → ... → output — from Layer 2>
-Error path:  <E1, E3 unhandled — from Layer 7>
-Key blocks:  <B2 (calculateSubtotal), B3 (applyDiscount) — from Layer 4>
+Purpose:     <one-liner from Quick Scan>
+Entry:       <who calls it, when — from Quick Scan entry points>
+Happy path:  <B1 → B2 → B3 → ... → output — from Refactored View>
+Error path:  <E1, E3 unhandled — from Method Tree edge cases>
+Key blocks:  <B2 (calculateSubtotal), B3 (applyDiscount) — from Method Tree>
 Thread-safe: yes / no / partially — <reference E4 if applicable>
-Testable:    easy / moderate / hard — because <reference Layer 8 verdict>
+Testable:    easy / moderate / hard — because <reference Dependencies verdict>
 ```
 
 **Debugging quick-start** (when opening the debugger for this code):
@@ -709,58 +425,58 @@ Conditional breakpoints:
   L51: discount > 1.0        — catches E3 (negative total)
   L42: order == null          — catches E1 (null input)
 
-Step-into targets (from Layer 3):
-  C4: Repo.findById()        — verify DB query returns expected entity
-  C5: this.transform()       — core logic, worth tracing line-by-line
+Step-into targets (worth tracing):
+  validator.validate() — verify validation rules
+  this.transform()    — core logic, worth tracing line-by-line
 
 Step-over (trust these):
-  C1: Controller.handle()    — thin wrapper
-  C8: EventBus.publish()     — async fire-and-forget
+  Controller.handle()  — thin wrapper
+  EventBus.publish()   — async fire-and-forget
 ```
 
-The cheat sheet references Layer IDs so a developer can drill into any detail.
-The debugging quick-start is derived from Layers 3 (step-into/over), 5 (breakpoints),
-6 (watch expressions), and 7 (conditional breakpoints from edge case triggers).
+The cheat sheet references B/L/E IDs so a developer can drill into any detail.
+The debugging quick-start is derived from the Method Extraction Tree (step-into/over
+markers, breakpoint markers, watch expressions, edge case triggers).
 
 **Debugging quick-start derivation flow:**
 
 ```mermaid
 flowchart LR
-    L3["Layer 3\nCall Stack"] -->|step-into / step-over| QS["Layer 9\nDebugging Quick-Start"]
-    L5["Layer 5\nLine-by-Line"] -->|BP markers| QS
-    L6["Layer 6\nState Changes"] -->|watch expressions| QS
-    L7["Layer 7\nEdge Cases"] -->|conditional BPs\nfrom triggers| QS
+    MT["Method Tree\n🔍 Step-into / ⏩ Step-over"] -->|step targets| QS["Cheat Sheet\nDebugging Quick-Start"]
+    BP["Method Tree\n🛑 Breakpoint markers"] -->|BP lines| QS
+    WE["Method Tree\nState: watch expressions"] -->|watch vars| QS
+    EC["Method Tree\n⚠ Edge cases (E-refs)"] -->|conditional BPs\nfrom triggers| QS
 ```
 
 ### Output Rules
 
-- **Scope-adaptive:** For `method` scope, all 9 layers apply. For `class`, emphasize
-  Layers 1-4 and 8 (show blocks per method, skip line-by-line). For `feature`,
-  emphasize Layers 1-3 and show cross-class flow with a feature-level block breakdown
+- **Scope-adaptive:** For `method` scope, all 4 phases apply (Quick Scan → Refactored
+  View → Method Extraction Tree → Context & Cheat Sheet). For `class`, show Quick Scan,
+  Refactored View per public method, Method Tree for complex methods, and Dependencies.
+  For `feature`, show Quick Scan, cross-class Refactored View, and cross-class flow
 - **Code-first:** Always show actual source code in fenced blocks — never describe code
   without showing it. A developer should be able to read ONLY this document and
   reconstruct the mental model of the code completely
-- **Side-by-side design:** Line ranges (L*n*) in every block MUST match the actual source
+- **Side-by-side design:** Line ranges (L*n*) in every method MUST match the actual source
   file. A developer with the source open on the left and this doc on the right should be
-  able to locate any block's code instantly by line number
-- **Type-precise:** Always include types in data flow and call stack tables
+  able to locate any extracted method's code instantly by line number
+- **Type-precise:** Always include types in virtual method signatures and data flow arrows
 - **Honest:** If something is unclear, surprising, or looks like a bug, say so directly
-- **No refactoring in the analysis** — the virtual method signatures and block groupings
+- **No refactoring in the analysis** — the virtual method signatures and extraction tree
   are for understanding, NOT a refactoring proposal. The code stays exactly as-is. If you
-  see an extract-method opportunity worth calling out, note it in Layer 9 takeaways, but
+  see a genuine extract-method opportunity, note it in the Cheat Sheet takeaways, but
   do NOT reorganise or rewrite the actual code in the analysis
 - **Completeness over brevity** — every line of the target code must appear in at least
-  one block in Layer 4. No gaps. The blocks together reconstruct the full method
-- **Cross-layer coherence is mandatory** — the Region Map (4a) centralises T-refs and
-  C-refs per block. Every edge case (E*n*) must name its block and line. Every state
-  change must name its block. A developer reading any single layer must be able to
-  navigate to every related layer via the ID tags. If an ID appears in one layer, it
-  must be defined in its home layer. The Block Flow Diagram (4a) is the master navigation
-  aid — it shows the complete pipeline at a glance
-- **No analysis dump** — every sentence must tell the developer something they cannot
-  see by reading the source code alone. If a block explanation just restates what the
-  code literally does (`"this line adds the price to the total"` for `total += price`),
-  remove it. Focus on: hidden contracts, implicit assumptions, data flow between blocks,
+  one method's code fence in the Method Extraction Tree. No gaps. The methods together
+  reconstruct the full source
+- **Cross-reference coherence** — every B-ref in the Refactored View must have a
+  corresponding section in the Method Tree. Every E-ref in an edge case annotation must
+  name its method and line. The `← Receives` / `→ Produces` arrows must chain correctly
+  through the entire Refactored View
+- **No analysis dump** — every annotation must tell the developer something they cannot
+  see by reading the source code alone. If an annotation just restates what the code
+  literally does (`"this line adds the price to the total"` for `total += price`),
+  remove it. Focus on: hidden contracts, implicit assumptions, data flow between methods,
   edge cases, and the "why" behind non-obvious choices. A developer who reads Java
   fluently does not need a prose translation of their code
 - End with one "what to deep-dive next" recommendation
@@ -769,27 +485,27 @@ flowchart LR
 
 The depth of analysis scales with the complexity of the target code:
 
-| Target | Layer 4 | Region Map | Sub-Blocks | Multi-Caller Table | Responsibility Inventory |
-|---|---|---|---|---|---|
-| Method ≤ 30 lines | 3-5 blocks | Optional | No | If 3+ callers | N/A |
-| Method 30-100 lines | 5-8 blocks | Recommended | If nested 3+ levels | If 3+ callers | N/A |
-| Method 100+ lines | 8-15 blocks (two-pass) | **Mandatory** | **Mandatory** | If 3+ callers | N/A |
-| Method 200+ lines | 12-20 blocks (two-pass) | **Mandatory** | **Mandatory** | If 3+ callers | N/A |
-| Class ≤ 5 methods | Per-method blocks | Per class | No | Per method if applicable | No |
-| Class 5-10 methods | Per-method blocks | Per class | For complex methods | Per method if applicable | Recommended |
-| God class (10+ methods or 500+ lines) | Per-responsibility then per-method | Per responsibility | **Mandatory** for complex methods | **Mandatory** | **Mandatory** |
+| Target | Method Tree | Nested Extraction | Multi-Caller Table | Responsibility Inventory |
+|---|---|---|---|---|
+| Method ≤ 30 lines | 3-5 methods | No | If 3+ callers | N/A |
+| Method 30-100 lines | 5-8 methods | If nested 3+ levels | If 3+ callers | N/A |
+| Method 100+ lines | 8-15 methods (two-pass) | **Mandatory** | If 3+ callers | N/A |
+| Method 200+ lines | 12-20 methods (two-pass) | **Mandatory** | If 3+ callers | N/A |
+| Class ≤ 5 methods | Per-method extraction | No | Per method if applicable | No |
+| Class 5-10 methods | Per-method extraction | For complex methods | Per method if applicable | Recommended |
+| God class (10+ methods or 500+ lines) | Per-responsibility then per-method | **Mandatory** for complex methods | **Mandatory** | **Mandatory** |
 
 **Scaling rules:**
 
-- Method > 50 lines → Layer 4 (Code Block Breakdown) is mandatory with region map
-- Method > 100 lines → two-pass breakdown (coarse + fine) is mandatory
-- Method > 200 lines → Layer 5 (line-by-line) must cover 30+ key lines
-- Class > 5 public methods → Layer 4 breakdown for EACH significant method
+- Method > 50 lines → Method Extraction Tree with full per-method detail is mandatory
+- Method > 100 lines → two-pass extraction (coarse + fine) is mandatory
+- Method > 200 lines → inline annotations must cover 30+ key lines across all methods
+- Class > 5 public methods → Refactored View + Method Tree for EACH significant method
   (skip trivial getters/setters/toString)
-- Class > 10 public methods or > 500 lines → responsibility inventory (section 4c)
-  is mandatory before method-level analysis
-- Method called from 3+ distinct callers → caller context table in Layer 1 is mandatory
-- Nesting depth 3+ levels → branch map / indentation map is mandatory in Layer 4
+- Class > 10 public methods or > 500 lines → responsibility inventory is mandatory
+  before method-level analysis
+- Method called from 3+ distinct callers → caller context table in Quick Scan is mandatory
+- Nesting depth 3+ levels → branch map / decision tree is mandatory in Method Tree
 
 ### Session Capture — Auto-Save to Brain
 
@@ -826,7 +542,7 @@ flowchart TD
     E --> G[3. Build filename]
     F --> G
     G --> H[4. Read template]
-    H --> I[5. Populate frontmatter + all 9 layers]
+    I --> J[5. Populate frontmatter + all 4 phases]
     I --> J[6. Write file]
     J --> K{7. Escalation check}
     K -->|3+ same class prefix| L[Create class sub-package]
@@ -954,12 +670,13 @@ flowchart TD
      focus: all
    ```
 
-   **Body** — populate ALL 9 layers from the deep-dive analysis output above.
-   Every layer must contain real, substantive content — not placeholder text.
-   Layer 4 (Code Block Breakdown) must reconstruct the full method across all blocks.
+   **Body** — populate all 4 phases (Quick Scan, Refactored View, Method Extraction
+   Tree, Context & Cheat Sheet) from the deep-dive analysis output above.
+   Every section must contain real, substantive content — not placeholder text.
+   The Method Extraction Tree must reconstruct the full method across all extracted methods.
 
 8. **WRITE THE FILE** — use the `create_file` tool with the **absolute path** from
-   step 4 + filename from step 5. The file content is the frontmatter + all 9 layers.
+   step 4 + filename from step 5. The file content is the frontmatter + all 4 phases.
    This step is **mandatory** — do NOT skip it or defer it.
 
    Example path: `E:\mgcnoscan\iesd-26\brain\ai-brain\sessions\work\code-analysis\deep-dive\2026-04-20_09-21pm_order-service-calculate-total.md`
@@ -998,12 +715,12 @@ flowchart TD
 
 #### Content Quality Rules
 
-- **Layer 4 (Code Block Breakdown)** must be thorough — split every non-trivial method
-  into 3-8 functional blocks with actual code snippets and explanations. This is the
-  most valuable section for a developer reading the file later.
-- **Layer 1 (High-Level Overview)** must be immediately understandable — a developer
-  should get the full picture in 30 seconds by reading just this section.
-- **Layer 5 (Line-by-Line)** should cover key decision lines, not boilerplate.
+- **Method Extraction Tree** must be thorough — split every non-trivial method
+  into 3-8 extracted methods with actual code snippets and inline annotations. This is
+  the most valuable section for a developer reading the file later.
+- **Quick Scan** must be immediately understandable — a developer should get the full
+  picture in 30 seconds by reading just this section.
+- **Inline annotations** should cover key decision lines, not boilerplate.
 - The file must be **self-contained** — a developer who has never seen this code should
   be able to understand it fully by reading only this file.
-- Include actual code blocks (not just descriptions) in Layers 4 and 5.
+- Include actual code blocks (not just descriptions) in the Refactored View and Method Tree.
