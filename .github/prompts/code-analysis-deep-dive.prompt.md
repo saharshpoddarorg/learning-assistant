@@ -211,8 +211,8 @@ validator.validate(order);                        // ← [B1.3] delegates to Val
 
 ```text
 📋 Behaviour:
-  Data structures: Order order (arg, shared → B2 — may be null),
-                   Order.items: List<LineItem> (field-access via order, checked for empty),
+  Data structures: Order order (arg, shared → B2, NOT mutated — may be null),
+                   Order.items: List<LineItem> (field-access via order, checked for empty, NOT mutated),
                    Validator validator (injected — delegates business rule checks)
   Operations:      null-check order → empty-check items → delegate to validator.validate()
   Algorithm:       Guard-clause chain with early exits — three sequential gates:
@@ -220,7 +220,7 @@ validator.validate(order);                        // ← [B1.3] delegates to Val
                      2. items.isEmpty  → early return (valid but 0 items — E2)
                      3. validator.validate(order) → throws on business rule failure
   Data flow:       Order (raw, unchecked) ──guard gates──→ Order (same object, now proven valid)
-  Side-effects:    none — pure gate, no mutations
+  Side-effects:    none — pure gate, no mutations (order object passed through as-is)
   Contract:        post: order ≠ null ∧ order.items.size > 0 ∧ all business rules pass
 
 ← Receives: Order order (may be null, unchecked) from caller
@@ -275,25 +275,50 @@ where it came from and how far it travels:
 | `injected` | Dependency injected via constructor/setter | External collaborator — worth tracing into |
 | `shared` | Passed to/from multiple methods (B*n* → B*n+1*) | The connective tissue between extracted methods |
 | `return` | The value this method produces | What downstream methods will consume |
+| `mutated` | Changed by this method (value or internal state) | The most dangerous annotation — mutation = ripple risk |
 
 A single variable can have multiple roles — e.g., `order (arg, shared → B2)` is
-both an argument AND data that flows to the next extracted method.
+both an argument AND data that flows to the next extracted method. Combine freely:
+`cache (field, mutated)`, `items (arg, mutated — sorted in place)`,
+`subtotal (local, mutated in loop, return)`.
 
 **Concrete types are mandatory.** The developer needs to know what's actually in
 memory — `List<LineItem>`, not "a collection"; `HashMap<String, PriceTier>`, not
 "a map".
 
-- ✅ `Order order (arg, shared → B2), Order.items: List<LineItem> (field-access, iterated), double subtotal (local, return)`
-- ✅ `HashMap<String, PriceTier> cache (field, read + written), Validator validator (injected)`
-- ✅ `List<LineItem> items (arg — received from B1), Receipt receipt (local, return → B4)`
+- ✅ `Order order (arg, shared → B2, NOT mutated), Order.items: List<LineItem> (field-access, iterated), double subtotal (local, return)`
+- ✅ `HashMap<String, PriceTier> cache (field, mutated — new entry added on miss), Validator validator (injected)`
+- ✅ `List<LineItem> items (arg from B1, mutated — sorted in place by price), double subtotal (local, mutated in loop: 0.0 → total, return → B3)`
 - ❌ "the order object" — no type, no role, no specifics
 - ❌ "a collection of items" — which collection? List? Set? Map? arg or local?
 - ❌ `Order (input)` — "input" is not a role tag; use `arg` or `shared`
+- ❌ `HashMap<String, PriceTier> cache (field, read + written)` — "written" is vague; say what mutation: `mutated — new entry on miss`
 
 **Cross-method tracking is critical.** When a variable is passed between extracted
 methods (B1 → B2 → B3), annotate it with `shared → Bn` so the developer can trace
 the data's journey through the method chain. This is the key connective tissue that
 makes the extraction readable — without it, each method is an island.
+
+**Mutation tracking is mandatory.** When a method mutates any variable — whether it's
+an argument, a local, a field, or a shared object — annotate it with `mutated` and
+describe the before → after state change. Mutation is the #1 source of bugs in
+multi-method code, so the Behaviour block must make every mutation visible:
+
+- **Mutated args** — the most dangerous: caller passed data in, and this method changed
+  it. Annotate: `List<LineItem> items (arg, mutated — sorted in place by price)`
+- **Mutated fields** — affects every other method in the class. Annotate:
+  `String lastReceiptId (field, mutated: null → receipt.id after persist)`
+- **Mutated locals** — safe if they stay local, dangerous if returned or shared.
+  Annotate: `double subtotal (local, mutated in loop: 0.0 → accumulated total, return)`
+- **Mutated shared objects** — the data structure was received from a prior method and
+  this method changes its internal state. Annotate:
+  `Order order (shared from B1, mutated — status set to VALIDATED)`
+- **Immutable / not mutated** — explicitly say so when it matters: `Order order (arg,
+  NOT mutated — passed through as-is)`. This reassures the reader that the method is
+  safe to skip when debugging a mutation bug.
+
+The rule: **if you can't tell from the Behaviour block alone which variables are
+mutated by this method, the Behaviour block is incomplete.**
 
 **`Operations`** — What is done TO those data structures. Use operation verbs that
 describe structural interaction with the data:
@@ -400,32 +425,34 @@ old prose paragraph — no unstructured text in the Behaviour block.
 - ❌ `Data structures: the order` — no type, no role, no specifics
 - ❌ `Data structures: Order (input)` — "input" is not a role; use `arg`, `local`, `field`, etc.
 - ❌ `Data structures: List<LineItem>` — missing variable name, role, and what happens to it
+- ❌ `Data structures: cache (field, read + written)` — "written" is vague; what mutation? new entry? cleared? replaced?
+- ❌ `Data structures: subtotal (local)` — is it mutated? what's its lifecycle (0.0 → total)? is it returned?
 - ❌ `Algorithm: validates the order` — just restates the method name
 - ❌ `Operations: calls validator.validate()` — restates the code, says nothing about WHAT it does to the data
 - ❌ A 10-line prose paragraph instead of the structured fields
 
 **Good examples (complete Behaviour blocks):**
 
-✅ Simple guard method (args + injected dependency, no locals):
+✅ Simple guard method (args + injected dependency, no locals, no mutations):
 
 ```text
 📋 Behaviour:
-  Data structures: Order order (arg, shared → B2 — may be null),
-                   Order.items: List<LineItem> (field-access via order, checked for empty),
+  Data structures: Order order (arg, shared → B2, NOT mutated — may be null),
+                   Order.items: List<LineItem> (field-access via order, checked for empty, NOT mutated),
                    Validator validator (injected — delegates business rule checks)
   Operations:      null-check order → empty-check items → delegate to validator.validate()
   Algorithm:       Guard-clause chain with early exits: null → empty → domain rules
   Data flow:       Order (raw, unchecked) ──guard gates──→ Order (same object, proven valid)
-  Side-effects:    none — pure gate, no mutations
+  Side-effects:    none — pure gate, no mutations (order passed through as-is)
   Contract:        post: order ≠ null ∧ items.size > 0 ∧ all business rules pass
 ```
 
-✅ Stream computation (arg received from prior method, local accumulator):
+✅ Stream computation (arg received from prior method, local accumulator built by stream):
 
 ```text
 📋 Behaviour:
-  Data structures: List<LineItem> items (arg — received from B1, iterated, not mutated),
-                   double subtotal (local, return → B3 — accumulated from stream)
+  Data structures: List<LineItem> items (arg from B1, iterated, NOT mutated),
+                   double subtotal (local, built by stream reduce, return → B3)
   Operations:      stream items → mapToDouble (price × qty per item) → sum into subtotal
   Algorithm:       Stream reduce: items.stream().mapToDouble(item → price × qty).sum()
                    Identity is 0.0, so empty list → 0.0 (not null, not error)
@@ -434,16 +461,16 @@ old prose paragraph — no unstructured text in the Behaviour block.
   Contract:        post: subtotal ≥ 0.0 (assumes prices and quantities are non-negative)
 ```
 
-✅ Complex method (fields + locals + args shared across methods + side-effects):
+✅ Complex method (args from prior methods + fields mutated + local built + side-effects):
 
 ```text
 📋 Behaviour:
   Data structures: double subtotal (arg — from B2), double discount (arg — from B3),
                    double tax (arg — from B4),
                    Receipt receipt (local, built via Builder, return),
-                   HashMap<String, PriceTier> cache (field, read + conditional write),
-                   String lastReceiptId (field, mutated),
-                   MessageQueue mq (injected, published to)
+                   HashMap<String, PriceTier> cache (field, mutated — new entry on miss via computeIfAbsent),
+                   String lastReceiptId (field, mutated: null → receipt.id after persist),
+                   MessageQueue mq (injected, published to — NOT mutated)
   Operations:      build Receipt from args → cache.computeIfAbsent → mq.publish → field write
   Algorithm:
     build receipt from subtotal + discount + tax (received from B2-B4)
