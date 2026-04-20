@@ -35,11 +35,52 @@ annotations for anything non-obvious. A developer reads the analysis top-down:
 1. **Quick Scan** — what does this code do? (30 seconds)
 2. **Refactored View** — the method rewritten as virtual extracted calls (the structure)
 3. **Method Extraction Tree** — each extracted method in detail (the substance)
-4. **Context & Cheat Sheet** — dependencies, coupling, debugging quick-start
+4. **Context & Cheat Sheet** — dependencies, coupling, error map, debugging quick-start
 
 > **This is a developer's annotated walkthrough, not an academic report.** The reader
 > is a developer who reads Java fluently. The virtual method signatures and code are the
 > documentation — prose is only for gotchas and things you cannot see in the source.
+
+### How to Read This Analysis — Navigation Guide
+
+The output is designed for **non-linear reading**. A developer should NOT read start
+to finish like a document. Instead, use the phase that matches their current need:
+
+| I need to... | Start here | Then drill into |
+|---|---|---|
+| **Understand what this code does** (30 sec) | Quick Scan | — (done) |
+| **See the overall structure** | Refactored View | Any B-ref that's unclear |
+| **Understand a specific section** | Method Tree → B*n* | Nested B*n.a*, B*n.b* if complex |
+| **Trace data through the code** | Refactored View variable chain | `← Receives` / `→ Produces` in each B*n* |
+| **Find all failure modes** | Error & Exception Map (§4a) | E-refs in Method Tree for details |
+| **Debug a specific issue** | Cheat Sheet → Debugging Quick-Start | 🛑 Breakpoint lines in Method Tree |
+| **Assess change impact** | Dependencies (§4) + State annotations | `mutated` tags in Behaviour blocks |
+| **Review before code review** | Quick Scan → Refactored View → Error Map | Method Tree only for flagged blocks |
+| **Onboard to unfamiliar code** | Quick Scan → Refactored View → read every B*n* | Design Rationale for the "why" |
+
+**Visual navigation:**
+
+```text
+Quick Scan ─────────────────────────────────────────── 30 seconds
+     │        (what, why, where, error summary)
+     ▼
+Refactored View ─── structure + pipeline ──────────── 2 minutes
+     │              (B-refs are links to method details)
+     ▼
+Method Tree ──────── each Bn in depth ─────────────── 5-20 minutes
+     │              (read only the B-refs you need)
+     ▼
+Error Map ────────── all failure modes consolidated ── 2 minutes
+     │              (every E-ref from Method Tree in one table)
+     ▼
+Design Rationale ── why this pattern was chosen ───── 1 minute
+     │              (trade-offs, constraints, evolution risk)
+     ▼
+Dependencies ─────── coupling + testability ────────── 2 minutes
+     │
+     ▼
+Cheat Sheet ──────── debugging + change impact ─────── 1 minute
+```
 
 ### ID System
 
@@ -53,18 +94,40 @@ Tag items for cross-referencing across sections:
 
 ### 1 — Quick Scan (30-Second Understanding)
 
-Give a developer the complete picture in under 30 seconds:
+Give a developer the complete picture in under 30 seconds. A senior engineer would
+explain this at the whiteboard before ever looking at code:
 
 ```text
 Purpose:      <one sentence — what does this code do in business terms?>
+Why it exists: <what business problem does this solve? what breaks without it?>
 Responsibility: <what it IS responsible for — and what it is NOT>
 Architecture:  <which layer: controller → service → repository → infra>
+Neighbourhood: <upstream callers → THIS → downstream dependencies>
 Pattern:      <Service, Strategy, Factory, Template Method, etc.>
 Entry:        <who calls it, what triggers it>
 Happy path:   <input → step → step → ... → output (one line)>
 Key state:    <which fields/variables change during execution>
-Danger:       <biggest unhandled edge case — E-ref>
+Error summary: <how many error paths, handled vs. unhandled — see §4a for full map>
 Side-effects: <what changes outside this code — DB / queue / cache>
+Danger:       <biggest unhandled edge case — E-ref>
+```
+
+**`Why it exists`** — A developer reading code for the first time needs to understand
+the business motivation BEFORE the mechanics. This is what a senior explains first:
+"This code exists because customers can have mixed premium/standard items in one order,
+and pricing rules differ per item type." Without the WHY, the developer sees WHAT the
+code does but can't judge whether it does the right thing.
+
+**`Neighbourhood`** — Show the architectural context around this code. What calls it,
+what it calls, and how it fits in the request/response flow:
+
+```text
+Neighbourhood: OrderController.handlePost()
+                   → THIS: OrderService.processOrder()
+                       → OrderValidator.validate()    (injected)
+                       → PriceCalculator.compute()    (injected)
+                       → OrderRepository.save()       (injected)
+                       → EventBus.publish()           (injected)
 ```
 
 For multi-caller methods (called from 3+ distinct contexts), add a caller table:
@@ -74,6 +137,59 @@ For multi-caller methods (called from 3+ distinct contexts), add a caller table:
 | `OrderController` | HTTP — user-facing | Fast, throw on invalid | 400/500 mapped |
 | `BatchProcessor` | Nightly batch — system | Tolerant, log & skip | Logged, continues |
 | `EventHandler` | Async event — internal | Fire-and-forget | Silently retried |
+
+#### Class-Scope Quick Scan Additions
+
+When scope is `class`, add these fields to the Quick Scan:
+
+```text
+Methods:      <public method count / total method count — e.g., "6 public / 12 total">
+Responsibilities: <1-3 named responsibilities this class handles>
+Cohesion:     <high (one responsibility) / medium (2-3 related) / low (God class — see §3)>
+```
+
+**State model** — for class scope, show every field, its type, lifecycle, and which
+methods touch it:
+
+```text
+State Model:
+  OrderValidator validator  (injected, immutable after construction)
+  OrderRepository repo      (injected, immutable after construction)
+  String lastOrderId        (field, mutable — written by processOrder(), read by getLastOrder())
+  Map<String, PriceTier> cache (field, mutable — populated lazily, never cleared ← memory leak risk)
+```
+
+**Method inventory** — for class scope, list every method with its role:
+
+| Method | Visibility | Lines | Role | Complexity |
+|---|---|---|---|---|
+| `processOrder(Order)` | public | L30-110 | Orchestrator — main business flow | High — decompose |
+| `calculateSubtotal(List)` | private | L111-130 | Pure computation — stream reduce | Low |
+| `applyDiscount(double)` | private | L131-155 | Business rules — branching | Medium |
+| `getLastOrderId()` | public | L156-158 | Getter — trivial | Skip |
+
+**Complexity legend:** `High — decompose` = gets full Method Extraction Tree.
+`Medium` = gets Behaviour block but no nested extraction. `Low` / `Skip` = mentioned
+in inventory, not analysed further (developer can read these directly).
+
+#### Feature-Scope Quick Scan Additions
+
+When scope is `feature`, add these fields to the Quick Scan:
+
+```text
+Boundary:     <where the feature starts and ends — entry point → final side-effect>
+Classes:      <N classes involved — list each with its role>
+Handoff points: <where data passes from one class to another>
+```
+
+**Class inventory for feature scope:**
+
+| Class | Role in Feature | Entry Method | Key Data Passed |
+|---|---|---|---|
+| `OrderController` | Entry point — HTTP → domain | `handlePost(OrderRequest)` | `OrderRequest → Order` |
+| `OrderService` | Orchestrator — validation + pricing + persistence | `processOrder(Order)` | `Order → Receipt` |
+| `PriceCalculator` | Pure computation — pricing rules | `compute(List<LineItem>)` | `List<LineItem> → double` |
+| `OrderRepository` | Persistence — DB write | `save(Receipt)` | `Receipt → void (side-effect)` |
 
 ### 2 — Refactored View (The Method as Virtual Extracted Calls)
 
@@ -145,8 +261,81 @@ private double applyPremiumDiscount(double subtotal) {
 This recursive extraction is key: the developer drills into B3 and sees it decomposed
 into B3a, B3b, B3c — just like a real codebase where methods call other methods.
 
-**For class scope:** show a refactored view per public method. For feature scope,
-show the cross-class flow as a sequence of class.method() calls.
+#### Class-Scope Refactored View
+
+For **class scope**, show a refactored view per public method. Additionally, show
+a **class-level orchestration view** — how the public methods relate to each other
+and to the shared state:
+
+```java
+// === CLASS-LEVEL ORCHESTRATION VIEW ===
+// OrderService — 6 public, 12 total — orchestrates order processing
+
+// Primary flow — called per HTTP request:
+public Receipt processOrder(Order order) {                              // orchestrator
+    Order validated   = validateAndGuardInputs(order);                  // B1: uses validator (injected)
+    double subtotal   = calculateSubtotal(validated.getItems());        // B2: pure computation
+    double discounted = applyDiscountRules(subtotal, validated);        // B3: uses discountService (injected)
+    return buildAndPersist(validated, subtotal, discounted);            // B4: uses repo (injected), mutates lastOrderId
+}
+
+// Secondary flows — called independently:
+public Order getOrder(String id) { ... }                                // read-only, uses repo
+public void cancelOrder(String id) { ... }                              // mutates order status, uses repo + eventBus
+public String getLastOrderId() { return this.lastOrderId; }             // field read — depends on processOrder having run
+
+// Shared state: lastOrderId written by processOrder(), read by getLastOrderId()
+// Shared dependency: repo used by processOrder(), getOrder(), cancelOrder()
+```
+
+**Why this matters:** At class scope, the developer needs to see the **relationships
+between methods** — which share state, which share dependencies, which can be called
+independently vs. which assume prior method calls. A method-scope view hides this.
+
+#### Feature-Scope Refactored View
+
+For **feature scope**, show the **cross-class flow** as a sequence diagram in code form.
+Data handoff points between classes are the critical insight:
+
+```java
+// === FEATURE FLOW: Order Checkout (4 classes, 7 handoff points) ===
+
+// 1. Entry — HTTP boundary
+OrderController.handlePost(HttpRequest request) {
+    OrderRequest dto = parseAndValidate(request);                       // C1-B1: HTTP → domain
+    Order order = OrderMapper.toDomain(dto);                            // C1-B2: DTO → entity
+    Receipt receipt = orderService.processOrder(order);                 // ──handoff──→ C2
+    return ResponseEntity.ok(ReceiptMapper.toDto(receipt));             // C1-B3: entity → HTTP
+}
+
+// 2. Orchestration — business logic
+OrderService.processOrder(Order order) {
+    validate(order);                                                    // C2-B1: self
+    double subtotal = priceCalculator.compute(order.getItems());        // ──handoff──→ C3
+    double discounted = discountEngine.apply(subtotal, order);          // ──handoff──→ (not shown)
+    Receipt receipt = Receipt.build(order, subtotal, discounted);       // C2-B2: assembly
+    orderRepository.save(receipt);                                      // ──handoff──→ C4
+    eventBus.publish(new OrderCompleted(receipt.getId()));               // ──handoff──→ (async)
+    return receipt;                                                     // ──handoff──→ C1
+}
+
+// 3. Pure computation — no side-effects
+PriceCalculator.compute(List<LineItem> items) {
+    return items.stream().mapToDouble(i -> i.getPrice() * i.getQty()).sum(); // C3-B1: pure
+}
+
+// 4. Persistence — side-effect boundary
+OrderRepository.save(Receipt receipt) {
+    jdbcTemplate.update(INSERT_SQL, receipt.toParams());                // C4-B1: DB write
+}
+```
+
+**Key feature-scope additions:**
+
+- `──handoff──→` markers show where data crosses class boundaries
+- Each class is labelled with its role (entry, orchestration, computation, persistence)
+- C*n*-B*n* IDs uniquely identify blocks across classes (C1-B1 = Controller block 1)
+- The developer can trace an HTTP request from entry to DB write in one view
 
 ### 3 — Method Extraction Tree (The Core of the Deep-Dive)
 
@@ -159,6 +348,49 @@ code with inline annotations. Then recurse into sub-methods when a block is comp
 > itself complex, it gets its own child nodes (sub-methods). The developer navigates this
 > tree the same way they'd navigate a well-structured codebase: start at the top-level
 > method, then drill into the methods it calls.
+
+#### Scope-Adaptive Method Tree Strategy
+
+The Method Tree depth depends on the analysis scope:
+
+**Method scope** (default): Full extraction tree for the target method. Every line
+appears in at least one B-ref block.
+
+**Class scope**: Not every method gets a full extraction tree. Use the method inventory
+from Quick Scan to decide:
+
+| Method Complexity | Treatment |
+|---|---|
+| High — decompose | Full Method Extraction Tree (same as method scope) |
+| Medium | Behaviour block only — Data structures, Operations, Algorithm summary, no sub-method extraction |
+| Low / Skip | One-line purpose annotation — e.g., "getter for `lastOrderId` (L156)" |
+
+**Reading order for class scope:**
+
+1. Start with the class-level Refactored View (§2) — the big picture
+2. Read each `High — decompose` method's full tree (§3) in call order
+3. Reference `Medium` methods' Behaviour blocks when called from a High method
+4. Skip trivial methods — their purpose is clear from naming
+
+**Inter-method state flow for class scope** — after the per-method trees, add a summary
+showing how state flows between methods:
+
+```text
+State flow across methods:
+  processOrder() writes → this.lastOrderId (field, mutated)
+  getLastOrderId() reads → this.lastOrderId (field, read-only)
+  cancelOrder() reads → repo.findById() then writes → order.status (entity, mutated)
+
+Shared dependencies:
+  repo: used by processOrder(), getOrder(), cancelOrder()
+  discountService: used by processOrder() only
+  eventBus: used by cancelOrder() only
+```
+
+**Feature scope**: The Method Tree focuses on **orchestrator methods** (the methods that
+coordinate cross-class flow). Pure computation and simple delegation methods get
+Behaviour blocks only. The cross-class handoff annotations from the feature-scope
+Refactored View (§2) become the primary navigation structure.
 
 #### How to Split Code into Extracted Methods
 
@@ -741,6 +973,107 @@ B6 — aggregateAndReturn (L63-70)          [nesting: 0]
 Each block's code snippet should include 1-2 lines of surrounding context (the enclosing
 `if`/`for`/`try`) so the developer can see where in the nesting this block lives.
 
+### 3b — Error & Exception Map
+
+**This section consolidates every error path in the code.** Individual E-refs are
+scattered throughout the Method Tree — this map brings them together so a developer
+can see ALL failure modes at once, like a senior drawing "here's every way this breaks"
+on the whiteboard.
+
+#### Error Inventory Table
+
+List every E-ref with its origin, propagation path, and handling status:
+
+| E-ref | Trigger | Origin (Block + Line) | Exception Type | Propagation | Handled? | Impact |
+|---|---|---|---|---|---|---|
+| E1 | `order == null` | B1, L30 | `NullPointerException` | Uncaught → caller | ❌ No | 500 error to user |
+| E2 | `items.isEmpty()` | B1, L34 | — (early return) | Returns `order` | ✅ Yes | 0.0 total — confusing but not crash |
+| E3 | `discount > subtotal` | B3, L62 | — (negative result) | Silent — negative total returned | ❌ No | Charging negative amount |
+| E4 | `repository.save()` fails | B6, L98 | `DataAccessException` | Caught by B6 try-catch | ✅ Yes | Logged, receipt NOT persisted |
+| E5 | Concurrent access | B6, L105 | — (race condition) | `lastReceiptId` overwritten | ❌ No | Wrong receipt ID returned to some callers |
+
+#### Error Propagation Flow
+
+Show how exceptions flow through the method chain — where they originate, where they're
+caught, and where they escape to the caller:
+
+```text
+B1 (validate)
+  ├─ E1: NPE ──────────────────────────────────────── uncaught → caller gets 500
+  └─ E2: early return ─────────────────────────────── handled (0.0 total)
+
+B2 (calculate)
+  └─ (no errors — pure computation)
+
+B3 (discount)
+  └─ E3: negative result ──────────────────────────── silent — flows to B4 as negative
+
+B4-B5 (tax + build)
+  └─ (no errors — pure computation, inherits E3 silently)
+
+B6 (persist)
+  ├─ E4: DataAccessException ──┬── caught ──── logged
+  │                            └── receipt NOT persisted ← DATA LOSS
+  └─ E5: race on lastReceiptId ───────────────────── silent, no exception
+```
+
+**Unhandled error summary** — the "danger" section for quick scanning:
+
+```text
+UNHANDLED (require attention):
+  E1 — null order: NPE propagates to caller with no context → add guard or @NonNull
+  E3 — negative total: passes silently through tax + build → add floor(0.0) or throw
+  E5 — thread-safety: concurrent writes to lastReceiptId → volatile or AtomicReference
+
+HANDLED (confirmed safe):
+  E2 — empty items: early return, produces 0.0 total (intentional but confusing)
+  E4 — DB failure: caught, logged, but receipt is lost — acceptable? check business rules
+```
+
+**When to include this section:**
+
+| Scope | Error Map | Error Propagation Flow |
+|---|---|---|
+| Method with 0-1 E-refs | Skip — edge cases are visible in the Method Tree | Skip |
+| Method with 2+ E-refs | Include error inventory table | Include if errors cross methods |
+| Class scope | **Mandatory** — consolidate all E-refs across all methods | **Mandatory** |
+| Feature scope | **Mandatory** — show errors crossing class boundaries | **Mandatory** |
+
+### 3c — Design Rationale (Why This Code Exists)
+
+A senior architect doesn't just explain WHAT the code does — they explain **WHY** it
+was designed this way and what alternatives were considered. This section captures the
+design reasoning that would otherwise exist only in the original developer's head.
+
+**Include when:** The code has non-obvious design decisions, pattern choices, or
+architectural constraints. Skip for simple CRUD or straightforward utility methods.
+
+```text
+Design Rationale:
+  Why this pattern:  <why Strategy/Template/Service/etc. instead of alternatives>
+  Key trade-off:     <what was sacrificed for what — e.g., "simplicity over performance">
+  Constraint:        <what forced this design — e.g., "must be backward-compatible with v1 API">
+  Alternative rejected: <what was NOT done and why — e.g., "event sourcing was too complex for MVP">
+  Evolution risk:    <what will break this design — e.g., "adding a 4th discount type requires modifying 3 methods">
+```
+
+**Example:**
+
+```text
+Design Rationale:
+  Why this pattern:  Orchestrator pattern (processOrder coordinates 6 steps) — simple
+                     sequential flow was chosen over an event-driven pipeline because all
+                     steps must complete in a single transaction
+  Key trade-off:     All steps tightly coupled to OrderService — any step failure rolls
+                     back everything. Simpler but less resilient than saga pattern
+  Constraint:        Legacy API contract requires synchronous response with receipt —
+                     cannot go fully async
+  Alternative rejected: Event sourcing (too complex for current volume), CQRS (read/write
+                     patterns are identical — no benefit)
+  Evolution risk:    Adding a new pricing rule requires modifying applyDiscountRules()
+                     (B3) — no extension point. 3+ discount types → consider Strategy
+```
+
 ### 4 — Dependencies & Coupling
 
 **Outgoing dependencies (what this code needs):**
@@ -825,10 +1158,19 @@ flowchart LR
 
 ### Output Rules
 
-- **Scope-adaptive:** For `method` scope, all 4 phases apply (Quick Scan → Refactored
-  View → Method Extraction Tree → Context & Cheat Sheet). For `class`, show Quick Scan,
-  Refactored View per public method, Method Tree for complex methods, and Dependencies.
-  For `feature`, show Quick Scan, cross-class Refactored View, and cross-class flow
+- **Scope-adaptive:** For `method` scope, all phases apply (Quick Scan → Refactored
+  View → Method Extraction Tree → Error & Exception Map → Dependencies → Cheat Sheet).
+  For `class`, show Quick Scan (with state model + method inventory), class-level
+  Refactored View, Method Tree for complex methods, Error Map (mandatory), Design
+  Rationale, and Dependencies. For `feature`, show Quick Scan (with class inventory),
+  cross-class Refactored View with handoff markers, Method Tree for key orchestrator
+  methods, Error Map (mandatory — show cross-class error propagation), Design Rationale,
+  and Dependencies
+- **Error Map placement:** The Error & Exception Map (§3b) comes after the Method
+  Extraction Tree and before Dependencies. For methods with 0-1 E-refs, skip it —
+  the edge cases are visible inline. For class/feature scope, the Error Map is mandatory
+- **Design Rationale:** Include for any code with non-obvious design decisions, pattern
+  choices, or architectural constraints. Skip for trivial utility methods or simple CRUD
 - **Code-first:** Always show actual source code in fenced blocks — never describe code
   without showing it. A developer should be able to read ONLY this document and
   reconstruct the mental model of the code completely
@@ -860,15 +1202,15 @@ flowchart LR
 
 The depth of analysis scales with the complexity of the target code:
 
-| Target | Method Tree | Nested Extraction | Multi-Caller Table | Responsibility Inventory |
-|---|---|---|---|---|
-| Method ≤ 30 lines | 3-5 methods | No | If 3+ callers | N/A |
-| Method 30-100 lines | 5-8 methods | If nested 3+ levels | If 3+ callers | N/A |
-| Method 100+ lines | 8-15 methods (two-pass) | **Mandatory** | If 3+ callers | N/A |
-| Method 200+ lines | 12-20 methods (two-pass) | **Mandatory** | If 3+ callers | N/A |
-| Class ≤ 5 methods | Per-method extraction | No | Per method if applicable | No |
-| Class 5-10 methods | Per-method extraction | For complex methods | Per method if applicable | Recommended |
-| God class (10+ methods or 500+ lines) | Per-responsibility then per-method | **Mandatory** for complex methods | **Mandatory** | **Mandatory** |
+| Target | Method Tree | Nested Extraction | Error Map | Design Rationale | Multi-Caller Table | Responsibility Inventory |
+|---|---|---|---|---|---|---|
+| Method ≤ 30 lines | 3-5 methods | No | If 2+ E-refs | If non-obvious design | If 3+ callers | N/A |
+| Method 30-100 lines | 5-8 methods | If nested 3+ levels | If 2+ E-refs | Recommended | If 3+ callers | N/A |
+| Method 100+ lines | 8-15 methods (two-pass) | **Mandatory** | **Mandatory** | **Mandatory** | If 3+ callers | N/A |
+| Method 200+ lines | 12-20 methods (two-pass) | **Mandatory** | **Mandatory** | **Mandatory** | If 3+ callers | N/A |
+| Class ≤ 5 methods | Per-method extraction | No | **Mandatory** | Recommended | Per method if applicable | No |
+| Class 5-10 methods | Per-method extraction | For complex methods | **Mandatory** | **Mandatory** | Per method if applicable | Recommended |
+| God class (10+/500+) | Per-responsibility then per-method | **Mandatory** | **Mandatory** | **Mandatory** | **Mandatory** | **Mandatory** |
 
 **Scaling rules:**
 
