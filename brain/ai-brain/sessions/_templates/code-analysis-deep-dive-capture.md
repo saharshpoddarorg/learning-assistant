@@ -98,6 +98,210 @@ recent-changes:                      # populated when focus includes recent-chan
 
 ---
 
+## 2a. Refactored View (Virtual Extracted Calls)
+
+<!-- THE SINGLE MOST IMPORTANT ARTEFACT. Show the original method body rewritten as if
+     every logical section had been extracted into a well-named method. The developer reads
+     this and understands the entire structure in under a minute.
+
+     RULES:
+     - Rewrite the method body using virtual method names — one line per extracted call
+     - Each line has the B-ref, virtual call, and the source line range in a comment
+     - Data flows visibly through variable names between calls
+     - Must be compilable-looking Java (not pseudocode)
+     - Keep the original method's signature and control flow intact
+     - Handling branches: keep if-else/loops in the refactored view, extract branch bodies
+     - Handling nested complexity: decompose complex extracted methods further (B3a, B3b...)
+
+     For class scope: show a refactored view per public method + class-level orchestration
+     For feature scope: show cross-class flow with ──handoff──→ markers between classes -->
+
+### Method-Scope Refactored View
+
+<!-- Paste the refactored view here. Example structure:
+
+public Receipt processOrder(Order order) {
+    Order validated   = validateAndGuardInputs(order);                  // B1: L30-45
+    double subtotal   = calculateSubtotal(validated.getItems());        // B2: L46-58
+    double discounted = applyDiscountRules(subtotal, order.getDiscount()); // B3: L59-68
+    double taxed      = calculateTax(discounted, getTaxRate());         // B4: L69-78
+    Receipt receipt   = buildReceipt(validated, subtotal, discounted, taxed); // B5: L79-95
+    persistAndNotify(receipt);                                          // B6: L96-110
+    return receipt;                                                     // L111
+}
+
+What this gives the developer:
+- The pipeline is visible — data flows left to right through variable names
+- Each virtual method name is an intent-revealing summary of that code section
+- The B-refs and line ranges let them jump to the detailed breakdown (§4)
+- The structure is immediately clear (validate → calculate → discount → tax → persist)
+-->
+
+```java
+// === REFACTORED VIEW ===
+// <ClassName>.<methodName>() — virtual extracted calls
+
+// Paste refactored method here
+```
+
+### Class-Scope Orchestration View (if applicable)
+
+<!-- For class scope: show how public methods relate to each other and shared state.
+     Show: constructor injection (setup phase), primary flow, secondary flows,
+     shared state, shared dependencies. -->
+
+```java
+// === CLASS-LEVEL ORCHESTRATION VIEW ===
+// <ClassName> — N public, M total — <one-line responsibility>
+
+// Primary flow:
+// public ReturnType mainMethod(...) { ... }
+
+// Secondary flows:
+// public ReturnType otherMethod(...) { ... }
+
+// Shared state: <fields written by method A, read by method B>
+// Shared dependency: <injected dependencies used by multiple methods>
+```
+
+### Feature-Scope Cross-Class Flow (if applicable)
+
+<!-- For feature scope: show the cross-class flow as a sequence diagram in code form.
+     Data handoff points between classes are the critical insight.
+     Use ──handoff──→ markers where data crosses class boundaries.
+     Label each class with its role: entry, orchestration, computation, persistence.
+     Use C*n*-B*n* IDs to uniquely identify blocks across classes. -->
+
+```java
+// === FEATURE FLOW: <Feature Name> (N classes, M handoff points) ===
+
+// 1. Entry — <boundary type>
+// ClassName.method(params) {
+//     ...                                                             // C1-B1
+//     result = nextClass.method(data);                                // ──handoff──→ C2
+//     ...                                                             // C1-B2
+// }
+
+// 2. Orchestration — business logic
+// ...
+
+// 3. Pure computation — no side-effects
+// ...
+
+// 4. Persistence — side-effect boundary
+// ...
+```
+
+---
+
+## 2b. Data Supply Chain — Pipeline Diagram
+
+<!-- DATA SUPPLY CHAIN. Visual pipeline showing data transformation at each stage (B-ref),
+     type changes, side effects, error paths, null safety, mutation markers, and variable
+     lifecycle. This section makes the data pipeline explicit — the Refactored View shows
+     the pipeline in code; this section shows it as a visual diagram.
+
+     Include when: method 15+ lines with 2+ transformations, OR class/feature scope.
+     Skip when: method ≤ 15 lines and linear (Refactored View is sufficient). -->
+
+### 2b.1 — End-to-End Pipeline Diagram (ASCII)
+
+<!-- ASCII flow: each B-ref is a station. Data enters left, transforms at each station,
+     exits right. Side effects branch downward. Error paths branch upward.
+     Show: Input type, Output type, Side-effects, Errors per station. -->
+
+```text
+                         DATA SUPPLY CHAIN — <MethodName>(<Params>)
+                         ════════════════════════════════════════════
+
+  ┌─────────┐      ┌──────────────┐      ┌──────────────┐      ┌─────────┐
+  │ CALLER  │─────→│     B1       │─────→│     B2       │─────→│ RETURN  │
+  │         │      │ <method>     │      │ <method>     │      │         │
+  └─────────┘      └──────────────┘      └──────────────┘      └─────────┘
+
+  Input:           Input:                Input:                  Return:
+  <type>           <type>                <type>                  <type>
+
+                   Output:               Output:
+                   <type>                <type>
+
+                   Side-effects: none    Side-effects: <or none>
+                   Errors: <E-refs>      Errors: <E-refs>
+```
+
+### 2b.2 — Stage Card Table
+
+<!-- Compact tabular view. Each row = one pipeline stage (B-ref).
+     Columns: Stage, B-ref, Input, Type In, Transformation, Output, Type Out,
+     Side Effects, Errors, Null-Safe?, Mutates Input? -->
+
+| Stage | B-ref | Input | Type In | Transformation | Output | Type Out | Side Effects | Errors | Null-Safe? | Mutates Input? |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | B1 | `param` | `Type` | description | `output` | `Type` | none | — | ✅/❌ | No |
+
+### 2b.3 — Variable Lifecycle Tracker
+
+<!-- Show when each significant variable is born (●), alive (━━━), consumed (○),
+     field-mutated (✦). Track across pipeline stages. -->
+
+```text
+Variable Lifecycle — <MethodName>(<Params>)
+═══════════════════════════════════════════
+
+Variable          B1          B2          B3          Return
+──────────────────────────────────────────────────────────────
+varName           ●━━━━━━━━━━━━━━━━━━━━━━○
+                  born(arg)   read        consumed
+```
+
+### 2b.4 — Pipeline Health Indicators
+
+<!-- Annotate each stage with health indicators:
+     ✅ safe, ⚠ caution, ❌ risk.
+     Vocabulary: NULL-UNSAFE, NULL-SAFE, PURE, IMMUTABLE, MUTATES-INPUT,
+     MUTATES-FIELD, NOT-THREAD-SAFE, UNCONSTRAINED, HARDCODED, MIXED-CONCERNS,
+     FIRE-AND-FORGET, NON-ATOMIC, SILENT-RETURN, DELEGATES, DETERMINISTIC,
+     IDEMPOTENT, LOSSY, BLOCKING, CACHED, TRANSACTIONAL, OUTSIDE-TX. -->
+
+```text
+Pipeline Health — <MethodName>(<Params>)
+═══════════════════════════════════════
+
+Stage  B-ref  Health Indicators
+─────  ─────  ──────────────────────────────────────────
+  1    B1     ✅/⚠/❌ INDICATOR — description
+  2    B2     ✅/⚠/❌ INDICATOR — description
+```
+
+```text
+Pipeline Health Score:
+  ✅ Safe stages:    <list>
+  ⚠ Caution stages: <list>
+  ❌ Risk stages:    <list>
+
+  Biggest risk:     <description>
+  Recommended focus: <description>
+```
+
+### 2b.5 — Mermaid Pipeline Visualization
+
+<!-- Mermaid flowchart: solid arrows for data flow, dotted for errors/side-effects.
+     Green nodes = safe/pure, Yellow = caution, Red = risk.
+     Include when: method 50+ lines, class scope, or feature scope. -->
+
+```mermaid
+flowchart LR
+    subgraph "<MethodName> — Data Supply Chain"
+        direction LR
+        CALLER["🔵 Caller"]
+        B1["B1: method<br/>Type → Type"]
+        RET["🟢 Return"]
+        CALLER --> B1 --> RET
+    end
+```
+
+---
+
 ## 3. Call Stack / Method Flow
 
 <!-- WHO CALLS WHAT. Trace the sequence of method calls from entry point through
