@@ -43,6 +43,10 @@ fully functional MCP server with real Jira and Confluence integration, proper au
 |---|---|---|---|
 | Source file | `D:\workdir\MG_FTE\notepad\personal dev\learning-assistant\gpt.txt` | 2026-04-11 | IMP-001: "atlassian" mentioned under mcp-servers section |
 
+## Related
+
+- **BLI-027** — Build code analysis context enhancement chain (depends on this BLI for Bitbucket/Jira/Confluence API access)
+
 ## Activity Log
 
 | Date | Time | Actor | Action | Details |

@@ -860,6 +860,7 @@ sub-package, sessions can also be grouped by analysis focus:
 | Focus | Example Subject | Description |
 |---|---|---|
 | Deep-dive | `calculate-total-deep-dive` | Full internals: data flow, call stack, code blocks, line-by-line |
+| Recent-changes | `calculate-total-recent-changes` | Impact of recent commits/PRs on the code — algorithm, variables, flow changes |
 | Structure | `calculate-total-structure` | Class/method organization, responsibility |
 | Patterns | `calculate-total-patterns` | Design patterns used or proposed |
 | Performance | `calculate-total-performance` | Hotspots, complexity, optimisation |
@@ -889,7 +890,18 @@ produce longer, more structured sessions than regular code analysis.
 6. **State Changes** — how fields, variables, and external state evolve
 7. **Edge Cases & Error Paths** — what happens on null, empty, overflow, exception
 8. **Dependencies & Coupling** — what this code depends on, and what depends on it
-9. **Key Takeaways** — summary of internals for future reference
+9. **Recent Changes Impact** — how recent commits/PRs affected the target code (conditional — only
+   when analysing recent change impact). Uses local `git log`/`git diff`/`git blame` or
+   Bitbucket API (`fetch_bitbucket_pr_diff`, `get_bitbucket_file_diff`, `fetch_bitbucket_file`)
+   via the `atlassian-tools` skill to gather commit data. When Jira keys are found in commit
+   messages or PR descriptions, fetches Jira issue details (`fetch_jira_issue`,
+   `get_jira_issue_links`) to enrich the analysis with business intent, acceptance criteria,
+   and design rationale. When Jira issues link to Confluence pages, fetches design documents
+   (`fetch_confluence_page`, `search_confluence_cql`) to capture architecture decisions,
+   algorithm approaches, and rejected alternatives. Covers: commit summary, change intent and
+   context (from Jira/Confluence), diff annotation, algorithm/variable/field/flow impact
+   assessment, intent alignment verification, and regression risks
+10. **Key Takeaways** — summary of internals for future reference
 
 **Deep-dive routing — permanent `deep-dive/` sub-folder:**
 
