@@ -44,8 +44,13 @@ annotations for anything non-obvious. A developer reads the analysis top-down:
 2. **Data Flow & Structure** — how data moves through the code
    - 2a. **Refactored View** — the method rewritten as virtual extracted calls (the structure)
    - 2b. **Data Supply Chain** — pipeline diagram showing every transformation, type, and risk
-3. **Method Extraction Tree** — each extracted method in detail (the substance)
-4. **Context & Cheat Sheet** — dependencies, coupling, error map, debugging quick-start
+3. **Code Internals** — each extracted method in detail, error map, design rationale
+   - 3a. **Method Extraction Tree** — the core: each virtual method with real code + annotations
+   - 3b. **Error & Exception Map** — all failure modes consolidated in one table
+   - 3c. **Design Rationale** — why this pattern was chosen, trade-offs, constraints
+4. **Context & Reference** — dependencies, coupling, cheat sheet
+   - 4a. **Dependencies & Coupling** — outgoing/incoming deps, coupling verdict, testability
+   - 4b. **Key Takeaways & Developer Cheat Sheet** — 5-bullet summary + debugging quick-start
 
 > **This is a developer's annotated walkthrough, not an academic report.** The reader
 > is a developer who reads Java fluently. The virtual method signatures and code are the
@@ -61,17 +66,18 @@ to finish like a document. Instead, use the phase that matches their current nee
 | **Understand what this code does** (30 sec) | Quick Scan (§1) | — (done) |
 | **See how data flows & code is structured** | Data Flow & Structure (§2) | §2a for structure, §2b for data pipeline |
 | **See the overall structure** | Refactored View (§2a) | Any B-ref that's unclear |
-| **Understand a specific section** | Method Tree → B*n* (§3) | Nested B*n.a*, B*n.b* if complex |
+| **Understand a specific section** | Method Tree → B*n* (§3a) | Nested B*n.a*, B*n.b* if complex |
 | **Trace data through the code** | Pipeline Diagram (§2b) | Stage Card Table → Variable Lifecycle |
 | **See all data types at each stage** | Stage Card Table (§2b.2) | Type In / Type Out columns |
 | **Find where a variable is born/dies** | Variable Lifecycle (§2b.3) | Field lifecycle for class scope |
 | **Assess data safety at each stage** | Pipeline Health (§2b.4) | Health indicator details per stage |
 | **Find all failure modes** | Error & Exception Map (§3b) | E-refs in Method Tree for details |
-| **Debug a specific issue** | Cheat Sheet → Debugging Quick-Start | 🛑 Breakpoint lines in Method Tree |
-| **Assess change impact** | Dependencies (§4) + State annotations | `mutated` tags in Behaviour blocks |
+| **Understand why the code was designed this way** | Design Rationale (§3c) | Trade-offs, constraints, evolution risk |
+| **Debug a specific issue** | Cheat Sheet (§4b) → Debugging Quick-Start | 🛑 Breakpoint lines in Method Tree |
+| **Assess coupling & testability** | Dependencies (§4a) + State annotations | `mutated` tags in Behaviour blocks |
 | **Understand recent commit/PR impact** | Recent Changes Impact (§5) | Variable/field impact + flow impact details |
 | **Review before code review** | Quick Scan → Pipeline Health → Error Map | Method Tree only for flagged blocks |
-| **Onboard to unfamiliar code** | Quick Scan → Data Flow (§2) → read every B*n* | Design Rationale for the "why" |
+| **Onboard to unfamiliar code** | Quick Scan → Data Flow (§2) → read every B*n* | Design Rationale (§3c) for the "why" |
 
 **Visual navigation:**
 
@@ -79,27 +85,30 @@ to finish like a document. Instead, use the phase that matches their current nee
 Quick Scan ─────────────────────────────────────────── 30 seconds
      │        (what, why, where, error summary)
      ▼
-Data Flow ──────────────────────────────────────────── parent group
+Data Flow & Structure (§2) ─────────────────────────── parent group
      │
      ├── Refactored View (§2a) ── structure + pipeline ── 2 minutes
      │              (B-refs are links to method details)
      │
      └── Pipeline Diagram (§2b) ── data supply chain ──── 2-3 minutes
-     │              (types, transforms, health, lifecycle)
+                   (types, transforms, health, lifecycle)
      ▼
-Method Tree ──────── each Bn in depth ─────────────── 5-20 minutes
-     │              (read only the B-refs you need)
-     ▼
-Error Map ────────── all failure modes consolidated ── 2 minutes
-     │              (every E-ref from Method Tree in one table)
-     ▼
-Design Rationale ── why this pattern was chosen ───── 1 minute
-     │              (trade-offs, constraints, evolution risk)
-     ▼
-Dependencies ─────── coupling + testability ────────── 2 minutes
+Code Internals (§3) ────────────────────────────────── parent group
      │
+     ├── Method Tree (§3a) ── each Bn in depth ────────── 5-20 minutes
+     │              (read only the B-refs you need)
+     │
+     ├── Error Map (§3b) ── all failure modes ─────────── 2 minutes
+     │              (every E-ref from Method Tree in one table)
+     │
+     └── Design Rationale (§3c) ── why this pattern ───── 1 minute
+                   (trade-offs, constraints, evolution risk)
      ▼
-Cheat Sheet ──────── debugging + change impact ─────── 1 minute
+Context & Reference (§4) ───────────────────────────── parent group
+     │
+     ├── Dependencies (§4a) ── coupling + testability ──── 2 minutes
+     │
+     └── Cheat Sheet (§4b) ── debugging + change impact ── 1 minute
 ```
 
 ### ID System
@@ -166,7 +175,7 @@ When scope is `class`, add these fields to the Quick Scan:
 ```text
 Methods:      <public method count / total method count — e.g., "6 public / 12 total">
 Responsibilities: <1-3 named responsibilities this class handles>
-Cohesion:     <high (one responsibility) / medium (2-3 related) / low (God class — see §3)>
+Cohesion:     <high (one responsibility) / medium (2-3 related) / low (God class — see §3a)>
 ```
 
 **State model** — for class scope, show every field, its type, lifecycle, and which
@@ -880,14 +889,24 @@ flowchart LR
 - Show **async boundaries** — where the pipeline splits into synchronous and
   asynchronous branches
 
-### 3 — Method Extraction Tree (The Core of the Deep-Dive)
+### 3 — Code Internals
+
+This group contains the three sections that take the developer deep inside the code:
+
+- **§3a Method Extraction Tree** — the core: each virtual method from §2a with real code, inline annotations, and recursive sub-extraction
+- **§3b Error & Exception Map** — all failure modes from the Method Tree consolidated in one table
+- **§3c Design Rationale** — why this code was designed this way, trade-offs, constraints, rejected alternatives
+
+Together they answer: *how does the code work in detail?* (§3a), *how does it fail?* (§3b), and *why was it built this way?* (§3c).
+
+### 3a — Method Extraction Tree (The Core of the Deep-Dive)
 
 This is the **bulk of the analysis** and the section the developer will use side-by-side
 with the source code. For each virtual method from the Refactored View, show the real
 code with inline annotations. Then recurse into sub-methods when a block is complex.
 
 > **Think like you're building a call tree of extracted methods.** The Refactored View
-> (Section 2a) is the root. Each extracted method in Section 3 is a node. When a node is
+> (Section 2a) is the root. Each extracted method in Section 3a is a node. When a node is
 > itself complex, it gets its own child nodes (sub-methods). The developer navigates this
 > tree the same way they'd navigate a well-structured codebase: start at the top-level
 > method, then drill into the methods it calls.
@@ -911,7 +930,7 @@ from Quick Scan to decide:
 **Reading order for class scope:**
 
 1. Start with the class-level Refactored View (§2a) — the big picture
-2. Read each `High — decompose` method's full tree (§3) in call order
+2. Read each `High — decompose` method's full tree (§3a) in call order
 3. Reference `Medium` methods' Behaviour blocks when called from a High method
 4. Skip trivial methods — their purpose is clear from naming
 
@@ -1617,7 +1636,16 @@ Design Rationale:
                      (B3) — no extension point. 3+ discount types → consider Strategy
 ```
 
-### 4 — Dependencies & Coupling
+### 4 — Context & Reference
+
+This group gives the developer the external context and quick-reference tools:
+
+- **§4a Dependencies & Coupling** — what this code depends on, what depends on it, coupling verdict, testability impact
+- **§4b Key Takeaways & Developer Cheat Sheet** — 5-bullet summary, debugging quick-start, breakpoint targets, change-impact assessment
+
+Together they answer: *what's around this code?* (§4a) and *what do I do with this knowledge?* (§4b).
+
+### 4a — Dependencies & Coupling
 
 **Outgoing dependencies (what this code needs):**
 
@@ -1979,7 +2007,7 @@ hotfix for a production incident.
 **5c — Changes to Target Code**
 
 For each R-ref, show the actual diff affecting the target code with annotations
-explaining WHAT changed in terms of the Method Extraction Tree (§3):
+explaining WHAT changed in terms of the Method Extraction Tree (§3a):
 
 ```text
 #### R1 — Refactored discount calculation (`abc1234`)
@@ -2065,7 +2093,7 @@ Jira acceptance criteria when available — unmet ACs are regression risks:
 Recent Changes Impact Analysis enriches the entire deep-dive:
 
 - **R-ref → B-ref mapping:** Every change in §5 is tagged with the B-ref it affects
-  from §3. A developer can jump between "what this code does" (§3) and "what recently
+  from §3a. A developer can jump between "what this code does" (§3a) and "what recently
   changed" (§5) using these cross-references
 - **Quick Scan enrichment:** When Jira issues are fetched, use the issue summary and
   description to enrich the Quick Scan's `Why it exists` and `Purpose` fields — the
@@ -2106,7 +2134,7 @@ If the `recent-changes` source involves Bitbucket, Jira, or Confluence:
   orchestrator methods, Error Map (mandatory — show cross-class error propagation),
   Design Rationale, and Dependencies
 - **Pipeline Diagram placement:** The Data Supply Chain (§2b) comes after the Refactored
-  View (§2a) and before the Method Extraction Tree (§3). For methods ≤ 15 lines, it is
+  View (§2a) and before the Method Extraction Tree (§3a). For methods ≤ 15 lines, it is
   optional. For methods 15+ lines, include at minimum the Stage Card Table. For 50+
   lines, class, or feature scope, all sub-sections are mandatory (ASCII diagram, Stage
   Card Table, Variable Lifecycle, Health Indicators, Mermaid)
