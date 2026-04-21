@@ -1,4 +1,4 @@
-# features/ — Learning-Assistant Features (11)
+# features/ — Learning-Assistant Features (12)
 
 Features and enhancements to be developed within the learning-assistant project itself.
 Each file is a BLI (BackLog Item) with priority, status, and acceptance criteria.
@@ -18,5 +18,6 @@ Each file is a BLI (BackLog Item) with priority, status, and acceptance criteria
 | BLI-011 | Brain consolidation — tabs, bookmarks, workspace, notes | high | todo | EPIC-002 |
 | BLI-012 | Enhanced web scraping & search engine | high | todo | EPIC-002 |
 | BLI-013 | Book consolidation — PDFs, ebooks, cloud readers | medium | todo | EPIC-002 |
+| BLI-026 | Evolve 6-primitive layered architecture | high | in-progress | EPIC-001 |
 
 See [BOARD.md](../BOARD.md) for the full board view.

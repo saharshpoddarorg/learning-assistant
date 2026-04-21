@@ -13,16 +13,16 @@
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  BACKLOG DASHBOARD                                        2026-04-11   │
+│  BACKLOG DASHBOARD                                        2026-04-21   │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  Items     ██████████████████████████████████░░░░░░░░  25 total         │
+│  Items     ██████████████████████████████████░░░░░░░░  26 total         │
 │  todo      ████████████████████████████████░░░░░░░░░░  24               │
-│  progress  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0               │
+│  progress  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │  blocked   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0               │
 │  done      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │                                                                         │
-│  Priority  critical: 0 | high: 8 | medium: 10 | low: 7                  │
+│  Priority  critical: 0 | high: 9 | medium: 10 | low: 7                  │
 │  Epics     3 draft | 0 active | 0 done                                 │
 │  Ideas     1 raw | 0 refining | 0 promoted                             │
 │  Sprints   0 active | 0 completed                                       │
@@ -34,14 +34,14 @@
 
 | Type | Count | Folder |
 |---|---|---|
-| Features | 17 | `features/` — learning-assistant enhancements |
+| Features | 18 | `features/` — learning-assistant enhancements |
 | Projects | 7 | `projects/` — standalone personal software projects |
 | Items | 1 | `items/` — general (BLI-006, done) |
 | Ideas | 1 | `ideas/` |
 | Epics | 3 | `epics/` — EPIC-001, EPIC-002, EPIC-003 |
 | Guides | 0 | `guides/` |
 | Sprints | 0 | `sprints/` |
-| **Total** | **29** | |
+| **Total** | **30** | |
 
 ---
 
@@ -58,9 +58,9 @@
 ```text
 ┌──────────────┬──────────────┬──────────────┬──────────────┬──────────────┐
 │   BACKLOG    │  IN PROGRESS │   BLOCKED    │   IN REVIEW  │     DONE     │
-│   (24)       │   (0)        │   (0)        │   (0)        │     (1)      │
+│   (24)       │   (1)        │   (0)        │   (0)        │     (1)      │
 ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-│ BLI-001 high │              │              │              │ BLI-006 med  │
+│ BLI-001 high │ BLI-026 high │              │              │ BLI-006 med  │
 │ BLI-002 high │              │              │              │              │
 │ BLI-003 high │              │              │              │              │
 │ BLI-007 high │              │              │              │              │
@@ -105,6 +105,7 @@
 | BLI-005 | Chat session orchestration — scoped sessions, agents | medium | todo | — | — |
 | BLI-024 | Workflow and terminal conditions framework | medium | todo | — | — |
 | BLI-025 | Library/glossary for abbreviations and aliases | low | todo | — | — |
+| BLI-026 | Evolve 6-primitive layered architecture | high | in-progress | 2026-04-21 | — |
 
 ### EPIC-002: Knowledge consolidation & cross-platform brain
 
@@ -156,8 +157,7 @@
 
 | ID | Title | Type | Priority | Epic | Started | Elapsed |
 |---|---|---|---|---|---|---|
-
-> No items in progress. Use `start BLI-NNN` to begin work.
+| BLI-026 | Evolve 6-primitive layered architecture | feature | high | EPIC-001 | 2026-04-21 | < 1 day |
 
 ---
 
