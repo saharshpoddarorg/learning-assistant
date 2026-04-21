@@ -21,7 +21,7 @@
 
 ---
 
-## Todo (24)
+## Todo (25)
 
 > Items ready to be picked up. Ordered by priority (high → low), then by ID.
 
@@ -37,6 +37,7 @@
 | BLI-011 | Brain consolidation — tabs, bookmarks, workspace, notes | feature | EPIC-002 | 2026-03-26 | brain, consolidation |
 | BLI-012 | Enhanced web scraping & search engine | feature | EPIC-002 | 2026-03-26 | search, scraping |
 | BLI-020 | Build GitHub MCP server | feature | — | 2026-04-11 | mcp, github |
+| BLI-027 | Build code analysis context enhancement chain | feature | — | 2026-04-21 | code-analysis, vcs, git, atlassian |
 
 ### Medium Priority
 

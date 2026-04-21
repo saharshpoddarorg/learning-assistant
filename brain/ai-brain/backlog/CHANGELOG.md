@@ -19,6 +19,7 @@ and **details** (context). Entries are newest-first within each month.
 
 | Date | Time | ID | Action | From | To | Details |
 |---|---|---|---|---|---|---|
+| 2026-04-21 | 05:43 PM | BLI-027 | created | — | todo | Code analysis context enhancement chain (manual /jot) |
 | 2026-04-21 | 04:20 PM | BLI-026 | created | — | in-progress | Evolve 6-primitive layered architecture — understand, audit, enhance |
 | 2026-04-21 | 04:20 PM | BLI-026 | started | — | in-progress | AC 1-6 completed via 3 learning sessions |
 | 2026-04-11 | 10:08 PM | IMP-001 | file-import | — | — | Imported `gpt.txt`: 7 BLIs created, 1 IDEA, 4 merged, 2 noted |
@@ -79,13 +80,13 @@ and **details** (context). Entries are newest-first within each month.
 
 | Month | Changes | Items Created | Items Completed | Sprint Completions |
 |---|---|---|---|---|
-| 2026-04 | 15 | 8 | 0 | 0 |
+| 2026-04 | 17 | 9 | 0 | 0 |
 | 2026-03 | 7 | 21 | 1 | 0 |
 
 ### Cumulative
 
 ```text
-Total items created:     29
+Total items created:     30
 Total items completed:    1
 Completion rate:          3%
 Active sprints:           0
@@ -94,4 +95,4 @@ Completed sprints:        0
 
 ---
 
-> **Last updated:** 2026-04-11
+> **Last updated:** 2026-04-21

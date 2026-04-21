@@ -86,6 +86,7 @@ the entire 6-primitive architecture across ALL domains, not just learning resour
 - **BLI-002** — Hybrid skills + MCP + 5 primitives combo (learning-resources-scoped;
   this BLI is framework-wide)
 - **BLI-005** — Chat session orchestration (agent coordination patterns are Phase 4 here)
+- **BLI-027** — Build code analysis context enhancement chain (concrete MCP integration instance for Phase 3)
 - **EPIC-001** — Full-fledged learning resources system (parent epic)
 
 ## Activity Log

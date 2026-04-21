@@ -13,6 +13,7 @@ Items created through direct chat input (origin-type: manual).
 
 | ID | Title | Status | Priority | Created |
 |---|---|---|---|---|
+| BLI-027 | Build code analysis context enhancement chain | todo | high | 2026-04-21 |
 
 ---
 
@@ -59,7 +60,7 @@ Items extracted from external files, grouped by import batch.
 ## Summary
 
 ```text
-Manual items:    0
+Manual items:    1
 File imports:   14 items across 1 batch (8 new + 4 merged + 2 noted)
-Total:          14
+Total:          15
 ```

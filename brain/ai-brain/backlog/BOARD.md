@@ -16,13 +16,13 @@
 │  BACKLOG DASHBOARD                                        2026-04-21   │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  Items     ██████████████████████████████████░░░░░░░░  26 total         │
-│  todo      ████████████████████████████████░░░░░░░░░░  24               │
+│  Items     ██████████████████████████████████░░░░░░░░  27 total         │
+│  todo      ████████████████████████████████░░░░░░░░░░  25               │
 │  progress  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │  blocked   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0               │
 │  done      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │                                                                         │
-│  Priority  critical: 0 | high: 9 | medium: 10 | low: 7                  │
+│  Priority  critical: 0 | high: 10 | medium: 10 | low: 7                 │
 │  Epics     3 draft | 0 active | 0 done                                 │
 │  Ideas     1 raw | 0 refining | 0 promoted                             │
 │  Sprints   0 active | 0 completed                                       │
@@ -34,14 +34,14 @@
 
 | Type | Count | Folder |
 |---|---|---|
-| Features | 18 | `features/` — learning-assistant enhancements |
+| Features | 19 | `features/` — learning-assistant enhancements |
 | Projects | 7 | `projects/` — standalone personal software projects |
 | Items | 1 | `items/` — general (BLI-006, done) |
 | Ideas | 1 | `ideas/` |
 | Epics | 3 | `epics/` — EPIC-001, EPIC-002, EPIC-003 |
 | Guides | 0 | `guides/` |
 | Sprints | 0 | `sprints/` |
-| **Total** | **30** | |
+| **Total** | **31** | |
 
 ---
 
@@ -58,7 +58,7 @@
 ```text
 ┌──────────────┬──────────────┬──────────────┬──────────────┬──────────────┐
 │   BACKLOG    │  IN PROGRESS │   BLOCKED    │   IN REVIEW  │     DONE     │
-│   (24)       │   (1)        │   (0)        │   (0)        │     (1)      │
+│   (25)       │   (1)        │   (0)        │   (0)        │     (1)      │
 ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
 │ BLI-001 high │ BLI-026 high │              │              │ BLI-006 med  │
 │ BLI-002 high │              │              │              │              │
@@ -68,6 +68,7 @@
 │ BLI-011 high │              │              │              │              │
 │ BLI-012 high │              │              │              │              │
 │ BLI-020 high │              │              │              │              │
+│ BLI-027 high │              │              │              │              │
 │ BLI-004 med  │              │              │              │              │
 │ BLI-005 med  │              │              │              │              │
 │ BLI-009 med  │              │              │              │              │
@@ -150,6 +151,7 @@
 | BLI-001 | Build production Atlassian MCP server | feature | high | todo | 2026-03-26 | — | — |
 | BLI-006 | Create code formatting instructions and skill | feature | medium | done | 2026-03-26 | 2026-03-27 | 2026-03-27 |
 | BLI-020 | Build GitHub MCP server | feature | high | todo | 2026-04-11 | — | — |
+| BLI-027 | Build code analysis context enhancement chain | feature | high | todo | 2026-04-21 | — | — |
 
 ---
 
@@ -212,11 +214,11 @@
 
 | Date | Time | ID | Action | Details |
 |---|---|---|---|---|
+| 2026-04-21 | 05:43 PM | BLI-027 | created | Code analysis context enhancement chain (manual /jot) |
+| 2026-04-21 | 04:20 PM | BLI-026 | created | Evolve 6-primitive layered architecture |
 | 2026-04-11 | 10:08 PM | IMP-001 | file-import | Imported gpt.txt: 7 BLIs created, 1 IDEA, 4 merged, 2 noted |
 | 2026-04-11 | 10:08 PM | BLI-019–025 | created | 7 new items from IMP-001 file import |
 | 2026-04-11 | 10:08 PM | IDEA-001 | created | Standardize prompt/skill headers (IMP-001) |
-| 2026-03-28 | — | EPIC-003 | created | Personal software development projects |
-| 2026-03-28 | — | EPIC-002 | created | Knowledge consolidation & cross-platform brain |
 
 ---
 
@@ -232,4 +234,4 @@
 
 ---
 
-> **Last updated:** 2026-03-31
+> **Last updated:** 2026-04-21
