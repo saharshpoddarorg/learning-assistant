@@ -302,7 +302,16 @@ flowchart LR
 
 ---
 
-## 3. Call Stack / Method Flow
+## 3. Code Internals
+
+<!-- This group covers the detailed code analysis:
+     §3a Method Extraction Tree (call stack, code blocks, line-by-line, state changes)
+     §3b Error & Exception Map (all failure modes)
+     §3c Design Rationale (why this pattern was chosen) -->
+
+---
+
+## 3a. Call Stack / Method Flow
 
 <!-- WHO CALLS WHAT. Trace the sequence of method calls from entry point through
      all significant internal calls. Use indentation to show nesting. -->
@@ -325,7 +334,7 @@ EntryPoint.method()
 
 ---
 
-## 4. Code Block Breakdown
+## 3a (cont). Code Block Breakdown
 
 <!-- FUNCTIONAL COHESION. Split the code into logical blocks based on what each
      section does. Each block gets a name, line range, and explanation. -->
@@ -354,7 +363,7 @@ EntryPoint.method()
 
 ---
 
-## 5. Line-by-Line Walkthrough
+## 3a (cont). Line-by-Line Walkthrough
 
 <!-- DETAILED ANALYSIS of key logic lines. Skip boilerplate (imports, getters/setters,
      standard constructor assignments). Focus on lines where decisions happen,
@@ -368,7 +377,7 @@ EntryPoint.method()
 
 ---
 
-## 6. State Changes
+## 3a (cont). State Changes
 
 <!-- HOW STATE EVOLVES. Track fields, local variables, and external state through
      the execution. Use a table or timeline. -->
@@ -380,7 +389,7 @@ EntryPoint.method()
 
 ---
 
-## 7. Edge Cases & Error Paths
+## 3b. Edge Cases & Error Paths
 
 <!-- WHAT CAN GO WRONG. Enumerate edge cases, exception paths, and boundary
      conditions. For each, explain what happens. -->
@@ -393,7 +402,29 @@ EntryPoint.method()
 
 ---
 
-## 8. Dependencies & Coupling
+## 3c. Design Rationale
+
+<!-- WHY THIS PATTERN WAS CHOSEN. Trade-offs, constraints, rejected alternatives,
+     evolution risk. Include for any code with non-obvious design decisions. -->
+
+| Aspect | Detail |
+|---|---|
+| Pattern used | <e.g., Strategy, Template Method, procedural pipeline> |
+| Why this pattern | <motivation, constraints that drove the decision> |
+| Alternative rejected | <what else was considered and why it was dropped> |
+| Evolution risk | <what happens when requirements change — where does this design break?> |
+
+---
+
+## 4. Context & Reference
+
+<!-- This group covers external context and quick-reference material:
+     §4a Dependencies & Coupling (what surrounds this code)
+     §4b Key Takeaways & Cheat Sheet (what to do with this knowledge) -->
+
+---
+
+## 4a. Dependencies & Coupling
 
 <!-- WHAT THIS CODE DEPENDS ON, AND WHAT DEPENDS ON IT. -->
 
@@ -413,7 +444,17 @@ EntryPoint.method()
 
 ---
 
-## 9. Recent Changes Impact Analysis
+## 4b. Key Takeaways
+
+<!-- SUMMARY for future reference. What did you learn? What's important to remember? -->
+
+- Takeaway 1
+- Takeaway 2
+- Takeaway 3
+
+---
+
+## 5. Recent Changes Impact Analysis
 
 <!-- RECENT COMMITS / PRs. Populated when deep-dive.focus includes recent-changes.
      Analyses how recent commits affected the target code — what changed, what was
@@ -543,16 +584,6 @@ After:
 | Jira Issues Fetched | PROJ-123, PROJ-456 (or — if none) |
 | Confluence Pages Fetched | Page ID 12345 "Page Title" (or — if none) |
 | Commands Used | `git log`, `fetch_bitbucket_pr_diff`, `fetch_jira_issue`, `fetch_confluence_page`, etc. |
-
----
-
-## 10. Key Takeaways
-
-<!-- SUMMARY for future reference. What did you learn? What's important to remember? -->
-
-- Takeaway 1
-- Takeaway 2
-- Takeaway 3
 
 ---
 
