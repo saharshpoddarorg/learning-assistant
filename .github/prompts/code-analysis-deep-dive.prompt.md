@@ -1,6 +1,6 @@
 ---
 name: code-analysis-deep-dive
-description: 'Deep-dive into code internals — trace data flow, call stack, code blocks, line-by-line understanding of any class, method, or feature'
+description: 'Deep-dive into code internals — trace data flow, call stack, code blocks, line-by-line understanding of any class, method, or feature. Optionally analyse recent commit/PR impact on the target code.'
 agent: ''
 tools: ['codebase', 'fetch', 'editFiles', 'runCommands']
 ---
@@ -19,7 +19,15 @@ ${input:focus:What to emphasize? (all — complete analysis / internals — how 
 
 ## Context (optional)
 
-${input:context:Why are you deep-diving? (onboarding / pre-refactoring / code-review-prep / learning / debugging-prep / leave blank)}
+${input:context:Why are you deep-diving? (onboarding / pre-refactoring / code-review-prep / learning / debugging-prep / recent-change-impact / leave blank)}
+
+## Recent Changes (optional)
+
+${input:recent-changes:Analyse recent commits/PRs that affected this code? (none — skip / git — use local git log / bitbucket — use Bitbucket API for PR diffs and commits / auto — detect from context)}
+
+## Recent Changes Details (optional, when recent-changes is not 'none')
+
+${input:recent-changes-scope:What commit range or PR? (e.g., last 5 commits / PR #42 / abc123..HEAD / last 2 weeks / leave blank for auto-detect)}
 
 ## Instructions
 
@@ -55,6 +63,7 @@ to finish like a document. Instead, use the phase that matches their current nee
 | **Find all failure modes** | Error & Exception Map (§4a) | E-refs in Method Tree for details |
 | **Debug a specific issue** | Cheat Sheet → Debugging Quick-Start | 🛑 Breakpoint lines in Method Tree |
 | **Assess change impact** | Dependencies (§4) + State annotations | `mutated` tags in Behaviour blocks |
+| **Understand recent commit/PR impact** | Recent Changes Impact (§5) | Variable/field impact + flow impact details |
 | **Review before code review** | Quick Scan → Refactored View → Error Map | Method Tree only for flagged blocks |
 | **Onboard to unfamiliar code** | Quick Scan → Refactored View → read every B*n* | Design Rationale for the "why" |
 
@@ -91,6 +100,7 @@ Tag items for cross-referencing across sections:
 | **B*n*** | Method Tree | B1, B2, B3 | Extracted method / code block |
 | **L*n*** | Method Tree | L42, L47 | Source file line number |
 | **E*n*** | Method Tree | E1, E2, E3 | Edge case / error scenario |
+| **R*n*** | Recent Changes | R1, R2, R3 | Recent commit / PR change item |
 
 ### 1 — Quick Scan (30-Second Understanding)
 
@@ -1156,6 +1166,400 @@ flowchart LR
     EC["Method Tree\n⚠ Edge cases (E-refs)"] -->|conditional BPs\nfrom triggers| QS
 ```
 
+### 5 — Recent Changes Impact Analysis (Conditional)
+
+> **When to include:** Only when the user sets `recent-changes` to `git`, `bitbucket`,
+> or `auto` (not `none`). This phase analyses how recent commits or PRs affected the
+> target code — what changed, what variables/fields/algorithms were impacted, and what
+> risks the changes introduce.
+
+**This section bridges code comprehension with change awareness.** After understanding
+HOW the code works (§1-4), the developer needs to know WHAT recently changed and
+WHETHER those changes introduced risks. This is essential for:
+
+- Code review prep — "what did this PR actually change in the algorithm?"
+- Post-merge verification — "did the recent refactoring break the data flow?"
+- Debugging recent regressions — "which commit changed the field that's now null?"
+- Onboarding — "what parts of this code are fresh and potentially unstable?"
+
+#### Data Gathering — How to Read Recent Changes
+
+The goal is not just to see WHAT changed, but to reconstruct the **full context chain**:
+commit → commit message → Jira ticket → acceptance criteria → Confluence design docs →
+**understanding of intent, purpose, approach, and algorithm behind the change.**
+
+This matters most when the user thinks recent changes are impacting the flow, or when
+the code has been modified recently and the "why" behind the changes is unclear from
+the diff alone.
+
+##### Step 1 — Gather Raw Commits and Diffs
+
+The approach depends on the `recent-changes` input:
+
+| Source | How to gather | Tools |
+|---|---|---|
+| `git` | Local git history | `git log`, `git diff`, `git blame`, `git show` |
+| `bitbucket` | Bitbucket REST API via Atlassian CLI | `fetch_bitbucket_pr`, `fetch_bitbucket_pr_diff`, `fetch_bitbucket_pr_files`, `get_bitbucket_file_diff`, `fetch_bitbucket_file` |
+| `auto` | Try local git first; if the user mentions a PR or Bitbucket, use the CLI | Combine both as needed |
+
+**Git commands for recent changes:**
+
+```bash
+# Recent commits touching the target file (with full messages for Jira key extraction)
+git log --format="%H %s" -10 -- src/path/to/TargetClass.java
+
+# Full commit details including body (Jira keys often in body or footer)
+git show --stat --format="%H%n%s%n%b" <commit-sha>
+
+# Diff between commits for the target file
+git diff abc123..HEAD -- src/path/to/TargetClass.java
+
+# Blame to see who last changed each line
+git blame src/path/to/TargetClass.java
+
+# Commits in last 2 weeks touching the file
+git log --since="2 weeks ago" --format="%H %s" -- src/path/to/TargetClass.java
+```
+
+**Bitbucket commands for PR-based analysis** (read `atlassian-tools` skill):
+
+```powershell
+# Fetch PR details (title, description, branches — description often contains Jira keys)
+$env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","prId":42}'
+node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_bitbucket_pr
+
+# Get full PR diff or file-specific diff
+$env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","prId":42,"filePath":"src/path/to/TargetClass.java","contextLines":5}'
+node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_bitbucket_pr_diff
+
+# List all files changed in a PR
+$env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","prId":42}'
+node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_bitbucket_pr_files
+
+# Get file diff with commit range
+$env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","filePath":"src/path/to/TargetClass.java","since":"abc123","until":"HEAD","contextLines":5}'
+node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" get_bitbucket_file_diff
+
+# Fetch file content at specific branch/revision
+$env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","filePath":"src/path/to/TargetClass.java","branch":"feature/my-branch"}'
+node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_bitbucket_file
+
+# Get PR activity feed (status changes, approvals, updates)
+$env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","prId":42}'
+node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_bitbucket_pr_activities
+
+# Get PR comments (review feedback — often explains WHY changes were made)
+$env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","prId":42}'
+node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" get_bitbucket_pr_comments
+```
+
+##### Step 2 — Extract Jira Keys from Commits
+
+Scan commit messages, PR titles, PR descriptions, and branch names for Jira issue keys
+(pattern: `[A-Z]+-\d+`, e.g., `PROJ-1234`, `IESD-567`).
+
+**Common locations for Jira keys:**
+
+| Source | Pattern | Example |
+|---|---|---|
+| Commit subject line | `PROJ-123: Add discount validation` | Key at start of subject |
+| Commit body/footer | `Closes PROJ-123` or `Jira: PROJ-123` | Key in footer or body |
+| PR title | `[PROJ-123] Implement bulk discount` | Key in brackets |
+| PR description | `Fixes https://jira.example.com/browse/PROJ-123` | Full URL or key |
+| Branch name | `feature/PROJ-123-bulk-discount` | Key embedded in branch |
+
+**Extraction command (git):**
+
+```bash
+# Extract Jira keys from recent commit messages touching the target file
+git log --format="%H %s %b" -10 -- src/path/to/TargetClass.java | grep -oE '[A-Z]+-[0-9]+'
+```
+
+##### Step 3 — Fetch Jira Issue Context (Conditional)
+
+When Jira keys are found in commits, fetch the issue details to understand **intent,
+purpose, and acceptance criteria** behind the change. This transforms a raw diff into
+a business-context-enriched analysis.
+
+**When to fetch Jira issues:**
+
+| Situation | Action |
+|---|---|
+| Jira key found in commit/PR | Always fetch — the issue explains WHY the code changed |
+| User mentions a Jira ticket | Always fetch — the user wants this context |
+| No Jira keys found anywhere | Skip — proceed with commit message context only |
+| Multiple Jira keys in one commit | Fetch all — they may represent different aspects of the change |
+
+**Jira commands** (read `atlassian-tools` skill):
+
+```powershell
+# Fetch full Jira issue (summary, description, acceptance criteria, status, comments)
+$env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123"}'
+node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_jira_issue
+
+# Fetch issue links (to find linked Confluence pages, parent epics, related issues)
+$env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123"}'
+node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" get_jira_issue_links
+```
+
+**What to extract from the Jira issue:**
+
+| Field | Value for Analysis | Where It Helps |
+|---|---|---|
+| **Summary** | One-line intent of the change | Quick Scan "Why it exists" enrichment |
+| **Description** | Full problem statement, requirements, context | Understanding the business motivation |
+| **Acceptance Criteria** | Expected behaviour, edge cases to handle | Validating the implementation against requirements |
+| **Issue Type** | Bug / Story / Task / Spike | Understanding whether this is a fix, feature, or investigation |
+| **Epic Link** | Parent epic context | Broader initiative the change belongs to |
+| **Comments** | Developer discussion, review feedback, decisions | Design rationale, rejected alternatives |
+| **Issue Links** | Linked Confluence pages, related issues, blockers | Design documents, specifications, dependencies |
+
+##### Step 4 — Fetch Linked Confluence Pages (Conditional)
+
+When Jira issue links point to Confluence pages (design docs, architecture decisions,
+specifications), fetch those pages to understand the **design intent and approach**
+behind the code changes. This is especially valuable when:
+
+- The change implements a design documented in Confluence
+- The change is part of a larger migration or architecture shift
+- The commit message says "as per design doc" or links to a page
+- The Jira issue type is "Story" or "Epic" (likely has design context)
+
+**When to fetch Confluence pages:**
+
+| Situation | Action |
+|---|---|
+| Jira issue links include Confluence page URLs/IDs | Fetch the linked pages |
+| Commit message or PR description links to Confluence | Fetch the linked pages |
+| User mentions a design doc or Confluence page | Fetch by title search or page ID |
+| No Confluence links found | Skip — proceed with Jira context only |
+
+**Confluence commands** (read `atlassian-tools` skill):
+
+```powershell
+# Fetch a Confluence page by ID (get full design doc content)
+$env:CLI_JSON_ARGS = '{"pageId":"12345678"}'
+node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_confluence_page
+
+# Search for related design docs by CQL
+$env:CLI_JSON_ARGS = '{"cql":"type = page AND label = \"design\" AND title ~ \"order-service\"","maxResults":5}'
+node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" search_confluence_cql
+```
+
+**What to extract from Confluence pages:**
+
+| Content | Value for Analysis |
+|---|---|
+| **Design approach** | Why this pattern/algorithm was chosen (enriches Design Rationale §3c) |
+| **Architecture diagrams** | System context, component boundaries |
+| **API contracts** | Expected input/output, error codes |
+| **Decision records (ADRs)** | Alternatives considered, trade-offs made |
+| **Migration plans** | What's changing, what's the target state |
+| **Non-functional requirements** | Performance targets, scalability constraints |
+
+##### Context Enrichment Chain — Visual Flow
+
+```mermaid
+flowchart TD
+    A[git log / Bitbucket PR] --> B[Raw commits + diffs]
+    B --> C{Jira keys in<br/>commit messages?}
+    C -->|Yes| D[fetch_jira_issue<br/>for each key]
+    C -->|No| E[Proceed with<br/>commit context only]
+    D --> F[Extract: summary,<br/>description, AC,<br/>comments, links]
+    F --> G{Confluence pages<br/>linked from Jira?}
+    G -->|Yes| H[fetch_confluence_page<br/>for design docs]
+    G -->|No| I[Proceed with<br/>Jira context]
+    H --> J[Extract: design approach,<br/>architecture, ADRs,<br/>API contracts]
+    I --> K[Build enriched<br/>change analysis]
+    J --> K
+    E --> K
+    K --> L[§5 Recent Changes<br/>Impact Analysis]
+```
+
+#### Analysis Structure
+
+After gathering the raw commit/diff data and enrichment context (Jira issues,
+Confluence pages), produce these sub-sections:
+
+**5a — Commit / PR Summary Table**
+
+List each relevant commit or PR with its R-ref tag. Include the Jira key when found:
+
+```text
+| R-ref | Commit / PR | Author | Date | Jira Key | Summary |
+|---|---|---|---|---|---|
+| R1 | `abc1234` | jsmith | 2026-04-18 | PROJ-456 | Refactored discount calculation to use Strategy pattern |
+| R2 | PR #42 | jdoe | 2026-04-20 | PROJ-789 | Added bulk discount tier for orders > 500 items |
+| R3 | `def5678` | jsmith | 2026-04-21 | — | Fixed NPE in validateOrder when items list is null |
+```
+
+**5b — Change Intent & Context**
+
+For each R-ref that has a Jira key, synthesise the **intent, purpose, and approach**
+from the Jira issue details and any linked Confluence pages. This is the most important
+enrichment — it transforms a raw diff into a business-context-aware analysis.
+
+```text
+#### R1 — PROJ-456: Discount Calculation Refactoring
+
+**Intent (from Jira):** Replace hardcoded discount logic with extensible Strategy
+pattern to support upcoming loyalty tiers (Q3 2026 roadmap).
+
+**Acceptance Criteria (from Jira):**
+- AC1: Discount calculation delegates to DiscountStrategy interface
+- AC2: Existing discount rates produce identical results (backward-compatible)
+- AC3: New discount types can be added without modifying OrderService
+
+**Design Approach (from Confluence — linked from PROJ-456):**
+Page: "Discount Engine Redesign" (page ID: 87654321)
+- Chosen: Strategy pattern with factory resolution
+- Rejected: Chain of Responsibility (too complex for 3-4 discount types)
+- Rejected: Rule engine (over-engineering for current scale)
+- Key constraint: Must be backward-compatible — existing integration tests must pass
+
+**Algorithm Context (from Confluence):**
+The new DiscountStrategy.apply(subtotal) method must:
+1. Receive the subtotal and order context
+2. Look up applicable discount rules from config
+3. Apply rules in priority order (loyalty > bulk > seasonal)
+4. Return the highest applicable discount (not cumulative)
+
+**PR Review Feedback (from Bitbucket PR #42 comments):**
+- Reviewer flagged: "What happens if no strategy matches?" → factory returns NoOpStrategy
+- Reviewer asked: "Thread safety of factory cache?" → acknowledged, added TODO
+```
+
+**When Jira/Confluence context is NOT available** (no keys found, or tools not
+configured), fall back to commit message analysis only:
+
+```text
+#### R3 — No Jira Key: NPE Fix in validateOrder (`def5678`)
+
+**Intent (from commit message):** Defensive fix — null items list caused
+NullPointerException in production (inferred from commit message "Fix NPE").
+
+**Context:** No Jira issue linked. Based on commit message and diff alone:
+the change adds a null-check guard clause at the method entry. Likely a
+hotfix for a production incident.
+```
+
+**5c — Changes to Target Code**
+
+For each R-ref, show the actual diff affecting the target code with annotations
+explaining WHAT changed in terms of the Method Extraction Tree (§3):
+
+```text
+#### R1 — Refactored discount calculation (`abc1234`)
+
+Affects: B3 (applyDiscountRules), B3a (lookupLoyaltyBonus)
+
+```diff
+- double discount = subtotal * order.getDiscountRate();
++ DiscountStrategy strategy = discountStrategyFactory.resolve(order);
++ double discount = strategy.apply(subtotal);
+```text
+
+**What changed:** Direct multiplication replaced with Strategy pattern delegation.
+**Algorithm impact:** B3 no longer contains discount logic inline — delegates to
+injected DiscountStrategy. The pipeline `subtotal → discount` is preserved but the
+computation is now polymorphic.
+**Variables impacted:** `discount` (local) — same type, different source.
+New dependency: `discountStrategyFactory` (injected field — added to constructor).
+**Aligns with intent:** Yes — PROJ-456 AC1 (delegates to DiscountStrategy interface) ✅
+```
+
+**5d — Impact Assessment Matrix**
+
+Map each change to its effect on the code's key dimensions. Include intent alignment:
+
+```text
+| R-ref | Intent (from Jira) | Algorithm Impact | Data / Variables Impact | Flow Impact | Risk | Intent Aligned? |
+|---|---|---|---|---|---|---|
+| R1 | Extensible discount via Strategy | Discount calc now polymorphic | New field: `discountStrategyFactory` | New call: B3 → DiscountStrategy.apply() | Medium | ✅ Yes — AC1 met |
+| R2 | Support bulk orders > 500 | New bulk tier as Strategy impl | New constant: `BULK_THRESHOLD = 500` | B3 branching expanded | Low | ✅ Yes — new tier added |
+| R3 | (no Jira) NPE hotfix | Guard clause added at B1 | No new variables | Early return path added | Low | N/A |
+```
+
+**5e — Variable / Field Impact Detail**
+
+When the user is concerned about data impact, trace every variable or field that
+was added, removed, renamed, or had its type/usage changed:
+
+```text
+| Variable / Field | Before | After | Changed by | Affected Methods | Ripple Risk |
+|---|---|---|---|---|---|
+| `discountStrategyFactory` | — (new) | `DiscountStrategyFactory` (injected) | R1 | B3, constructor | Medium — new dependency in 2 places |
+| `BULK_THRESHOLD` | — (new) | `int = 500` (constant) | R2 | BulkDiscountStrategy | Low — isolated constant |
+| `order.getItems()` | Could be null | Now null-safe (guard at B1) | R3 | B1, B2 | Low — defensive fix |
+```
+
+**5f — Flow Impact Detail**
+
+When the user is concerned about flow changes, show before/after call chains:
+
+```text
+Before R1:
+  processOrder(order)
+    → validateAndGuardInputs(order)           // B1
+    → calculateSubtotal(items)                // B2
+    → subtotal * order.getDiscountRate()      // B3 — inline math
+    → calculateTax(discounted)                // B4
+
+After R1:
+  processOrder(order)
+    → validateAndGuardInputs(order)           // B1 — unchanged
+    → calculateSubtotal(items)                // B2 — unchanged
+    → discountStrategyFactory.resolve(order)  // B3 — NEW: strategy resolution
+    → strategy.apply(subtotal)                // B3 — NEW: polymorphic dispatch
+    → calculateTax(discounted)                // B4 — unchanged
+```
+
+**5g — Regression Risks**
+
+Consolidate all risks introduced by the recent changes. Cross-reference against
+Jira acceptance criteria when available — unmet ACs are regression risks:
+
+```text
+| Risk | Source (R-ref) | Affected Block | Severity | Jira AC Status | How to Verify |
+|---|---|---|---|---|---|
+| Wrong strategy resolved for edge-case order types | R1 | B3 | Medium | AC2 at risk | Unit test: resolve() with each OrderType |
+| Bulk threshold hardcoded — not configurable | R2 | BulkDiscountStrategy | Low | Not in AC | Config review — move to properties |
+| Null items guard returns empty Order — callers may not expect this | R3 | B1 | Low | N/A | Integration test: null items → verify caller handles empty |
+```
+
+#### Integration with Existing Sections
+
+Recent Changes Impact Analysis enriches the entire deep-dive:
+
+- **R-ref → B-ref mapping:** Every change in §5 is tagged with the B-ref it affects
+  from §3. A developer can jump between "what this code does" (§3) and "what recently
+  changed" (§5) using these cross-references
+- **Quick Scan enrichment:** When Jira issues are fetched, use the issue summary and
+  description to enrich the Quick Scan's `Why it exists` and `Purpose` fields — the
+  business motivation behind the code may have evolved with recent changes
+- **Design Rationale enrichment:** When Confluence design docs are fetched, use them to
+  enrich or validate the Design Rationale (§3c) — the design approach, rejected
+  alternatives, and constraints may be documented in linked pages
+- **E-ref updates:** If a recent change introduced or fixed an edge case, update the
+  Error Map (§3b) and reference the R-ref that caused it
+- **Cheat Sheet updates:** If recent changes added new debugging concerns (e.g., a new
+  dependency to watch, a new breakpoint location), add them to the Cheat Sheet (§4b)
+- **AC-to-code traceability:** When Jira acceptance criteria are available, annotate
+  the relevant B-ref blocks with which AC they satisfy (e.g., `// ← satisfies AC1`)
+
+#### When to Read Atlassian Skill References
+
+If the `recent-changes` source involves Bitbucket, Jira, or Confluence:
+
+1. **Read `atlassian-tools/SKILL.md`** — for setup, execution contract, and defaults
+2. **Read `atlassian-tools/references/action-catalog.md`** — for exact argument shapes
+   of `fetch_bitbucket_pr_diff`, `fetch_jira_issue`, `get_jira_issue_links`,
+   `fetch_confluence_page`, `search_confluence_cql`, etc.
+3. **Use `atlassian-tools/references/workflow-playbooks.md` Playbook 5** — Code Review
+   Documentation workflow for structured PR analysis
+4. **Read `atlassian-tools/references/jql-cql-cheatsheet.md`** — if searching for related
+   Jira issues or Confluence pages beyond the directly linked ones
+
 ### Output Rules
 
 - **Scope-adaptive:** For `method` scope, all phases apply (Quick Scan → Refactored
@@ -1196,6 +1600,15 @@ flowchart LR
   remove it. Focus on: hidden contracts, implicit assumptions, data flow between methods,
   edge cases, and the "why" behind non-obvious choices. A developer who reads Java
   fluently does not need a prose translation of their code
+- **Recent Changes Impact (§5) is conditional** — only include when `recent-changes`
+  is not `none`. When included, gather data from the specified source (git, bitbucket,
+  or auto-detect), then produce the full analysis structure: commit summary (R-refs),
+  changes to target code (diff + annotation), impact assessment matrix, variable/field
+  impact, flow impact, and regression risks. Every change must be cross-referenced to
+  its affected B-ref from the Method Tree. When using Bitbucket, read the
+  `atlassian-tools` skill and its `references/action-catalog.md` for exact CLI syntax.
+  When the user expresses concern about specific impact dimensions (algorithm, variables,
+  fields, data, flow), emphasise those sub-sections in the analysis
 - End with one "what to deep-dive next" recommendation
 
 #### Complexity-Adaptive Thresholds
