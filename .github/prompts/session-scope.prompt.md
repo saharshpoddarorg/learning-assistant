@@ -140,7 +140,7 @@ Scope History
 
 Cross-references:
   → personal/requirements/2026-03-20_..._abs-mvp-scope.md (origin)
-  → personal/learning/2026-03-20_..._spring-boot-deep-dive.md (spawned)
+  → personal/personal-work/learning/2026-03-20_..._spring-boot-deep-dive.md (spawned)
 ```
 
 ---

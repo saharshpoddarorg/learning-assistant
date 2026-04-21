@@ -153,7 +153,7 @@ Every access event (granted or denied) must be logged:
 - **Permission:** not-required
 - **Outcome:** success
 - **Reason:** User asked to consolidate learning notes
-- **Session:** sessions/personal/learning/2026-03-20_...
+- **Session:** sessions/personal/personal-work/learning/2026-03-20_...
 ```
 
 ### What to Say to the User

@@ -1255,7 +1255,7 @@ flowchart TD
     B --> C[2. Classify domain]
     C --> D{Work or Personal?}
     D -->|Work| E[sessions/work/code-analysis/deep-dive/]
-    D -->|Personal| F[sessions/personal/software-dev/code-review/deep-dive/]
+    D -->|Personal| F[sessions/personal/personal-work/software-dev/code-review/deep-dive/]
     E --> G[3. Build filename]
     F --> G
     G --> H[4. Read template]
@@ -1301,7 +1301,7 @@ flowchart TD
 4. **Build the absolute file path** — deep-dive sessions go to a **permanent
    `deep-dive/` sub-folder** (not subject to de-escalation):
    - Work: `<workspace-root>/brain/ai-brain/sessions/work/code-analysis/deep-dive/`
-   - Personal: `<workspace-root>/brain/ai-brain/sessions/personal/software-dev/code-review/deep-dive/`
+   - Personal: `<workspace-root>/brain/ai-brain/sessions/personal/personal-work/software-dev/code-review/deep-dive/`
    - If a class sub-package already exists (e.g., `deep-dive/order-service/`), place
      the file inside it
    - **If the directory does not exist, create it** (the `create_file` tool creates

@@ -268,8 +268,10 @@ research, code analysis, complex debugging, learning deep-dives, architecture di
 ```text
 sessions/
   SESSION-LOG.md                      ← append-only index
+  CAPTURE-LOG.md                      ← structural operations log
   work/                               ← corporate / job-specific
     code-analysis/
+      deep-dive/                      ← permanent sub-folder for code deep-dives
     debugging/
     requirements/
     performance/
@@ -278,23 +280,33 @@ sessions/
     research/
     general/
   personal/                           ← personal projects & learning
-    software-dev/                     ← umbrella for all s/w dev activities
-      requirements/
-      research/
-      design/
-      implementation/
-      testing/
-      code-review/
-      devops/
-      general/
-    learning/
+    personal-work/                    ← umbrella for growth, learning, side projects
+      software-dev/                   ← umbrella for all s/w dev activities
+        requirements/
+        research/
+        design/
+        implementation/
+        testing/
+        code-review/
+          deep-dive/                  ← permanent sub-folder for code deep-dives
+        devops/
+        general/
+      learning/
     financial/
     research/
     general/
   _templates/
-    session-capture.md
-    requirements-capture.md
+    session-capture.md                ← generic default
+    code-analysis-capture.md          ← code review, architecture review
+    code-analysis-deep-dive-capture.md ← code internals deep-dive
+    design-capture.md                 ← architecture, API design, HLD/LLD
+    debugging-capture.md              ← bug investigation, RCA
+    requirements-capture.md           ← user stories, BDD, scope definition
+    intent-capture.md                 ← design decisions, migration intent
 ```
+
+Every folder has a `README.md` with navigation links to parent and children.
+Every capture template includes a **Cross-References** section for bidirectional links.
 
 ### Session Naming Convention
 
@@ -369,15 +381,15 @@ Requirements gathering for personal projects uses a specialised template
 - Design = HOW to structure it (architecture, API contracts, schemas)
 - Implementation = Building it (coding, debugging, feature work)
 
-All live under `personal/software-dev/<activity>/`.
+All live under `personal/personal-work/software-dev/<activity>/`.
 
 **Naming examples:**
 
 ```text
-sessions/personal/software-dev/requirements/
+sessions/personal/personal-work/software-dev/requirements/
   2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
   2026-03-22_10-00am_requirements_task-manager-mvp-scope_v2.md
-sessions/personal/software-dev/design/
+sessions/personal/personal-work/software-dev/design/
   2026-03-20_03-00pm_design_task-manager-api-endpoints.md
 ```
 
@@ -431,6 +443,59 @@ requirements gathering and general-purpose learning.
 **Command:** `/session-scope` (status / widen / narrow / switch / split / link / history)
 
 Full protocol: `.github/instructions/session-scoping.instructions.md`
+
+### Cross-Reference Framework
+
+Every capture template includes a **Cross-References** section. When creating or updating
+sessions, maintain bidirectional links to related sessions in other categories or scopes.
+
+**Cross-reference table (in every session):**
+
+```markdown
+## Cross-References
+
+| Relationship | Session | Note |
+|---|---|---|
+| origin | [requirements session](../requirements/...) | spawned from this |
+| related | [debugging session](../../work/debugging/...) | found bug during analysis |
+```
+
+**Relationship types:**
+
+| Type | Meaning | Reverse |
+|---|---|---|
+| `origin` | This session was born from the referenced one | `spawned` |
+| `spawned` | The referenced session was born from this one | `origin` |
+| `narrows` | This session narrows the scope of the reference | `widens` |
+| `widens` | This session widens the scope of the reference | `narrows` |
+| `related` | Topically related, no parent/child relationship | `related` |
+| `implements` | Implements decisions from the referenced session | `related` |
+
+**Bidirectional rule:** When adding a cross-ref in file A → B, always add the reverse
+cross-ref in file B → A. This ensures every session is discoverable from both directions.
+
+### Logging Framework
+
+Two append-only logs track session operations:
+
+| Log | Purpose | Location |
+|---|---|---|
+| `SESSION-LOG.md` | Index of all captured sessions (date, category, subject, link) | `sessions/` root |
+| `CAPTURE-LOG.md` | Structural operations (escalation, de-escalation, moves, forks) | `sessions/` root |
+
+**CAPTURE-LOG operation codes:**
+
+| Operation | When logged |
+|---|---|
+| `capture` | New session file created |
+| `escalation:pattern-1` | Subject-based sub-package created |
+| `escalation:pattern-2` | Project-based sub-package created |
+| `escalation:pattern-3a` / `3b` / `3c` | Hierarchical sub-package created |
+| `de-escalation:pattern-*` | Sub-package flattened (below threshold) |
+| `version` | Version continuation created (v2, v3) |
+| `fork` | Session forked into new file |
+| `cross-ref` | Cross-reference added between sessions |
+| `restructure` | Folder hierarchy changed |
 
 ### Project-Aware Sessions
 

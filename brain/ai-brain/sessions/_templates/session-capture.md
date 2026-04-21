@@ -58,6 +58,18 @@ scope-refs: []
 
 ---
 
+## Cross-References
+
+<!-- Related sessions in other categories or scopes. Update bidirectionally.
+     Relationships: origin, spawned, narrows, widens, related, implements.
+     See .github/instructions/session-scoping.instructions.md for details. -->
+
+| Relationship | Session | Note |
+|---|---|---|
+| | | |
+
+---
+
 ## Session Metadata
 
 | Property | Value |

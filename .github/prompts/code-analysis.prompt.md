@@ -109,7 +109,7 @@ flowchart TD
     B --> C[2. Classify domain]
     C --> D{Work or Personal?}
     D -->|Work| E[sessions/work/code-analysis/]
-    D -->|Personal| F[sessions/personal/software-dev/code-review/]
+    D -->|Personal| F[sessions/personal/personal-work/software-dev/code-review/]
     E --> G[3. Build filename]
     F --> G
     G --> H[4. Check for existing versions]
@@ -154,7 +154,7 @@ flowchart TD
 
 4. **Build the absolute file path:**
    - Work: `<workspace-root>/brain/ai-brain/sessions/work/code-analysis/`
-   - Personal: `<workspace-root>/brain/ai-brain/sessions/personal/software-dev/code-review/`
+   - Personal: `<workspace-root>/brain/ai-brain/sessions/personal/personal-work/software-dev/code-review/`
    - If a class sub-package already exists (e.g., `code-analysis/order-service/`),
      place the file inside it
    - **If the directory does not exist, create it** (the `create_file` tool creates
