@@ -120,13 +120,19 @@ Within each domain, sessions are filed into a **category** folder:
 
 | Category | Folder | Use for |
 |---|---|---|
-| `software-dev` | `personal/software-dev/` | **Umbrella** — all personal software development projects (see sub-categories below) |
-| `learning` | `personal/learning/` | Concept deep-dives, tutorials, skill-building, interview prep (not tied to a specific project) |
+| `personal-work` | `personal/personal-work/` | **Umbrella** — personal growth, learning, and side projects (see sub-categories below) |
 | `financial` | `personal/financial/` | Budgeting, investment analysis, tax strategies, financial planning |
 | `research` | `personal/research/` | Personal interest research NOT about software development (hobbies, tools, life decisions) |
 | `general` | `personal/general/` | Anything that doesn't fit the above categories |
 
-#### Software Development Sub-Categories (`personal/software-dev/`)
+#### Personal Work Sub-Categories (`personal/personal-work/`)
+
+| Sub-Category | Folder | Use for |
+|---|---|---|
+| `software-dev` | `personal-work/software-dev/` | **Umbrella** — all personal software development projects (see activity sub-categories below) |
+| `learning` | `personal-work/learning/` | Concept deep-dives, tutorials, skill-building, interview prep (not tied to a specific project) |
+
+#### Software Development Activity Sub-Categories (`personal/personal-work/software-dev/`)
 
 Personal software development is an umbrella that covers the full lifecycle. Sessions
 are filed by **activity phase**, not by project name:
@@ -144,8 +150,8 @@ are filed by **activity phase**, not by project name:
 
 **Routing heuristic for software-dev:** If the session is about building, designing,
 testing, or researching something *for a personal software project*, it belongs under
-`software-dev/<activity>`. If it's pure concept learning with no project context, it
-belongs in `personal/learning/`.
+`personal-work/software-dev/<activity>`. If it's pure concept learning with no project
+context, it belongs in `personal/personal-work/learning/`.
 
 **New categories can be created** when 3+ sessions don't fit existing ones. Follow
 kebab-case naming and add a README.md to the new folder.
@@ -157,9 +163,9 @@ flowchart TD
     A[Session captured] --> B{Work or Personal?}
     B -->|Work context| C[sessions/work/]
     B -->|Personal context| D{Software dev project?}
-    D -->|Yes| E[sessions/personal/software-dev/]
+    D -->|Yes| E[sessions/personal/personal-work/software-dev/]
     D -->|No| F{Learning / concept?}
-    F -->|Yes| G[personal/learning/]
+    F -->|Yes| G[personal/personal-work/learning/]
     F -->|No| H{Financial?}
     H -->|Yes| I[personal/financial/]
     H -->|No| J{Research non-SW?}
@@ -202,7 +208,7 @@ the AI assistant should automatically detect and scope the session. Detection tr
 
 1. Set `scope: project` (or `feature` if a specific feature is named)
 2. Set `scope-project` to kebab-case project name
-3. Route to `personal/software-dev/<activity>/` based on the conversation's focus
+3. Route to `personal/personal-work/software-dev/<activity>/` based on the conversation's focus
 4. If activity is ambiguous, ask: "Are we doing requirements, design, or implementation?"
 5. Create the project index file (`<project>-INDEX.md`) if it doesn't already exist and
    the project has 3+ sessions across different activities
@@ -349,7 +355,7 @@ Tags: requirements, user-stories, acceptance-criteria, bdd, nfr, scope,
 ### Requirements Session Naming Examples
 
 ```text
-sessions/personal/software-dev/requirements/
+sessions/personal/personal-work/software-dev/requirements/
   2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
   2026-03-21_10-00am_requirements_task-manager-recurring-tasks.md
   2026-03-22_04-30pm_requirements_expense-tracker-budget-rules.md
@@ -502,7 +508,7 @@ file is created**. Do not wait for the user to notice or request escalation.
    that share the same subject grouping (look at the subject slug prefix)
 2. **Check Pattern 1 threshold** — if the count (including the new file) reaches **3+**
    files for the same subject, trigger subject-based sub-package escalation immediately
-3. **Check Pattern 2 threshold** — if inside `personal/software-dev/<activity>/` and the
+3. **Check Pattern 2 threshold** — if inside `personal/personal-work/software-dev/<activity>/` and the
    count reaches **3+** files for the same project, trigger project-based sub-package
    escalation immediately
 4. **Check Pattern 3 threshold** — if the category supports hierarchical escalation
@@ -575,13 +581,13 @@ the following must be updated:
 
 ### Pattern 2 — Project-Based Sub-Package (3+ files in same activity for same project)
 
-Within `personal/software-dev/<activity>/`, when **3+ sessions** relate to the **same
+Within `personal/personal-work/software-dev/<activity>/`, when **3+ sessions** relate to the **same
 project**, create a project sub-folder:
 
 #### Before escalation (flat)
 
 ```text
-personal/software-dev/requirements/
+personal/personal-work/software-dev/requirements/
   2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
   2026-03-21_10-00am_requirements_task-manager-recurring-tasks.md
   2026-03-22_04-30pm_requirements_task-manager-notification-rules.md
@@ -591,12 +597,12 @@ personal/software-dev/requirements/
 #### After escalation (project sub-package)
 
 ```text
-personal/software-dev/requirements/task-manager/
+personal/personal-work/software-dev/requirements/task-manager/
   2026-03-20_02-15pm_mvp-scope.md
   2026-03-21_10-00am_recurring-tasks.md
   2026-03-22_04-30pm_notification-rules.md
 
-personal/software-dev/requirements/
+personal/personal-work/software-dev/requirements/
   2026-03-25_09-00am_requirements_expense-tracker-budget-rules.md
 ```
 
@@ -612,7 +618,7 @@ personal/software-dev/requirements/
 ### Cross-Cutting Project Index
 
 When a personal project spans **3+ activity categories** under `software-dev/`, create
-a project index file at `personal/software-dev/<project-name>-INDEX.md`:
+a project index file at `personal/personal-work/software-dev/<project-name>-INDEX.md`:
 
 ```markdown
 # task-manager — Session Index
@@ -715,12 +721,8 @@ work/feature-exploration/payment-gateway/
   2026-04-03_09-00am_stripe-vs-adyen.md
   2026-04-04_11-00am_error-handling-patterns.md
 
-personal/software-dev/design/task-manager/
+personal/personal-work/software-dev/design/task-manager/
   api-design/
-    2026-04-01_03-00pm_rest-endpoints.md
-    2026-04-02_10-00am_graphql-evaluation.md
-  2026-04-03_09-00am_database-schema.md
-  2026-04-04_02-00pm_auth-flow.md
 ```
 
 ### Pattern 3c — Debugging: Service → Issue Hierarchy
@@ -903,7 +905,7 @@ sessions/work/code-analysis/deep-dive/
   2026-05-02_07-21pm_payment-flow.md
 
 # Personal domain
-sessions/personal/software-dev/code-review/deep-dive/
+sessions/personal/personal-work/software-dev/code-review/deep-dive/
   2026-05-02_04-00pm_task-manager-crud-service.md
 ```
 
@@ -1044,10 +1046,10 @@ sessions/work/
 └── general/               ← Flat
 ```
 
-#### Personal SE Project Profile (default for `sessions/personal/software-dev/`)
+#### Personal SE Project Profile (default for `sessions/personal/personal-work/software-dev/`)
 
 ```text
-sessions/personal/software-dev/
+sessions/personal/personal-work/software-dev/
 ├── requirements/          ← Escalates: project → feature (Pattern 2)
 ├── research/              ← Escalates: project → topic
 ├── design/                ← Escalates: project → component → aspect (Pattern 3b)
@@ -1186,13 +1188,13 @@ work/code-analysis/order-service/
 
 ```text
 # Before (flat — full names)
-personal/software-dev/requirements/
+personal/personal-work/software-dev/requirements/
   2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
   2026-03-21_10-00am_requirements_task-manager-recurring-tasks.md
   2026-03-22_04-30pm_requirements_task-manager-notification-rules.md
 
 # After (sub-package — truncated names)
-personal/software-dev/requirements/task-manager/
+personal/personal-work/software-dev/requirements/task-manager/
   2026-03-20_02-15pm_mvp-scope.md               ← dropped "requirements_task-manager-"
   2026-03-21_10-00am_recurring-tasks.md          ← dropped "requirements_task-manager-"
   2026-03-22_04-30pm_notification-rules.md       ← dropped "requirements_task-manager-"
@@ -1272,14 +1274,14 @@ only strips the `<class>-` grouping key when moving into a class sub-package. Th
 
 ```text
 # Step 1: Flat → component sub-package
-personal/software-dev/design/
+personal/personal-work/software-dev/design/
   2026-04-01_03-00pm_design_task-manager-api-endpoints.md
   →
-personal/software-dev/design/task-manager/
+personal/personal-work/software-dev/design/task-manager/
   2026-04-01_03-00pm_api-endpoints.md            ← dropped "design_task-manager-"
 
 # Step 2: Component → aspect sub-package (no further truncation)
-personal/software-dev/design/task-manager/api-design/
+personal/personal-work/software-dev/design/task-manager/api-design/
   2026-04-01_03-00pm_rest-endpoints.md
   2026-04-02_10-00am_graphql-evaluation.md
   2026-04-05_11-30am_versioning-strategy.md
@@ -1493,7 +1495,7 @@ Add a before/after example showing the flat structure and the escalated structur
 
 ### Step 5 — Update the Structure Profile
 
-Add the new pattern to the relevant structure profile (work or personal/software-dev)
+Add the new pattern to the relevant structure profile (work or personal/personal-work/software-dev)
 with its escalation annotation.
 
 ---

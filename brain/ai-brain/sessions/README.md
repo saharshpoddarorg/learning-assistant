@@ -52,19 +52,21 @@ sessions/
 │   ├── documentation/                  ← API docs, design docs, runbooks
 │   ├── research/                       ← Technology evaluation, protocol analysis
 │   └── general/                        ← Work sessions not fitting above
-├── personal/                           ← Personal projects & learning
+├── personal/                           ← Personal sessions
 │   ├── README.md
-│   ├── learning/                       ← Concept deep-dives, tutorials, skill-building
-│   ├── software-dev/                   ← Personal project development (umbrella)
-│   │   ├── requirements/               ← Scoping, user stories for your projects
-│   │   ├── research/                   ← Tech evaluation for your projects
-│   │   ├── design/                     ← Architecture, API design, schemas
-│   │   ├── implementation/             ← Coding sessions, feature building
-│   │   ├── testing/                    ← Test strategy, TDD/BDD setup
-│   │   ├── code-review/               ← Code analysis, refactoring review
-│   │   │   └── deep-dive/             ← Code internals deep-dive (permanent)
-│   │   ├── devops/                     ← CI/CD, Docker, deployment
-│   │   └── general/                    ← Other software dev activities
+│   ├── personal-work/                  ← Personal growth, learning & side projects
+│   │   ├── README.md
+│   │   ├── learning/                   ← Concept deep-dives, tutorials, skill-building
+│   │   └── software-dev/              ← Personal project development (umbrella)
+│   │       ├── requirements/           ← Scoping, user stories for your projects
+│   │       ├── research/               ← Tech evaluation for your projects
+│   │       ├── design/                 ← Architecture, API design, schemas
+│   │       ├── implementation/         ← Coding sessions, feature building
+│   │       ├── testing/                ← Test strategy, TDD/BDD setup
+│   │       ├── code-review/           ← Code analysis, refactoring review
+│   │       │   └── deep-dive/         ← Code internals deep-dive (permanent)
+│   │       ├── devops/                ← CI/CD, Docker, deployment
+│   │       └── general/              ← Other software dev activities
 │   ├── financial/                      ← Budgeting, investment, tax strategies
 │   ├── research/                       ← Personal interest research, tool evaluation
 │   └── general/                        ← Personal sessions not fitting above
@@ -111,17 +113,17 @@ sessions/work/research/
   2026-03-20_02-15pm_research_mcp-transport-sse-vs-stdio.md
 
 # Personal domain — software-dev umbrella (category = leaf folder name)
-sessions/personal/software-dev/requirements/
+sessions/personal/personal-work/software-dev/requirements/
   2026-03-20_02-15pm_requirements_task-manager-mvp-scope.md
 
-sessions/personal/software-dev/design/
+sessions/personal/personal-work/software-dev/design/
   2026-03-20_03-00pm_design_task-manager-api-endpoints.md
 
-sessions/personal/software-dev/implementation/
+sessions/personal/personal-work/software-dev/implementation/
   2026-03-20_11-00am_implementation_task-manager-crud-endpoints.md
 
-# Personal domain — stand-alone categories
-sessions/personal/learning/
+# Personal domain — learning (under personal-work)
+sessions/personal/personal-work/learning/
   2026-03-20_05-00pm_learning_java-virtual-threads-deep-dive.md
 
 sessions/personal/financial/
@@ -278,11 +280,11 @@ by the folder path). Version suffixes (`_v2`, `_v3`) are always preserved.
 
 ### Pattern 2 — Project-Based Sub-Package (3+ files in same activity for same project)
 
-Within `personal/software-dev/<activity>/`, when **3+ sessions** relate to the **same
+Within `personal/personal-work/software-dev/<activity>/`, when **3+ sessions** relate to the **same
 project**, create a project sub-folder:
 
 ```text
-personal/software-dev/requirements/task-manager/
+personal/personal-work/software-dev/requirements/task-manager/
   2026-03-20_02-15pm_mvp-scope.md
   2026-03-21_10-00am_recurring-tasks.md
   2026-03-22_04-30pm_notification-rules.md
@@ -312,7 +314,7 @@ work/code-analysis/order-service/
 **Design example (component → aspect):**
 
 ```text
-personal/software-dev/design/task-manager/
+personal/personal-work/software-dev/design/task-manager/
   api-design/
     2026-04-01_..._rest-endpoints.md
     2026-04-02_..._graphql-evaluation.md
@@ -328,7 +330,7 @@ precise grouping. See `chat-capture.instructions.md` for the full protocol.
 ### Cross-Cutting Project Index
 
 When a personal project spans **3+ activity categories** under `software-dev/`, create
-a project index file at `personal/software-dev/<project-name>-INDEX.md`:
+a project index file at `personal/personal-work/software-dev/<project-name>-INDEX.md`:
 
 ```markdown
 # task-manager — Session Index
@@ -489,3 +491,16 @@ Captured sessions can be **promoted** to `notes/` through distillation:
 ```text
 brain(sessions): capture <category> — <subject>
 ```
+
+---
+
+## Navigation
+
+| Link | Description |
+|---|---|
+| [work/](work/README.md) | Corporate & job-specific sessions |
+| [personal/](personal/README.md) | Personal sessions (growth, finance, hobbies) |
+| [_templates/](_templates/) | Capture templates (7 templates) |
+| [SESSION-LOG.md](SESSION-LOG.md) | Append-only session index |
+| [CAPTURE-LOG.md](CAPTURE-LOG.md) | Structural operations log |
+| [brain/ai-brain/](../README.md) | Parent: brain workspace |

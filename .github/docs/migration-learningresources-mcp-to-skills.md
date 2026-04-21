@@ -10,7 +10,7 @@ version: 1
 
 # Migration Guide — Learning Resources MCP Server to Skills Approach
 
-> **Intent document:** [Intent Capture](../sessions/personal/software-dev/design/2026-03-22_02-00pm_design_learningresources-mcp-to-skills-migration.md)
+> **Intent document:** [Intent Capture](../sessions/personal/personal-work/software-dev/design/2026-03-22_02-00pm_design_learningresources-mcp-to-skills-migration.md)
 >
 > **Purpose:** Step-by-step guide to migrate the Learning Resources MCP server (138 resources,
 > 10 tools, 17 providers, 28 Java files) to a SKILL.md-based approach without losing any
@@ -511,7 +511,7 @@ Add a deprecation notice to `mcp-servers/src/server/learningresources/LearningRe
  * available in all Copilot modes (Ask, Edit, Agent).
  *
  * Web scraping capabilities are covered by the agent's fetch tool.
- * See: brain/ai-brain/sessions/personal/software-dev/design/
+ * See: brain/ai-brain/sessions/personal/personal-work/software-dev/design/
  *      2026-03-22_02-00pm_design_learningresources-mcp-to-skills-migration.md
  */
 ```
@@ -601,7 +601,7 @@ Verify by counting rows in each sub-file table (excluding header and separator r
 
 The complete catalog of 132 resources is documented in the intent capture session:
 
-**Session file:** `brain/ai-brain/sessions/personal/software-dev/design/2026-03-22_02-00pm_design_learningresources-mcp-to-skills-migration.md`
+**Session file:** `brain/ai-brain/sessions/personal/personal-work/software-dev/design/2026-03-22_02-00pm_design_learningresources-mcp-to-skills-migration.md`
 
 Provider summary:
 

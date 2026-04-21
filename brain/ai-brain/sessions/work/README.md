@@ -36,3 +36,19 @@ Example: `2026-03-20_10-30am_code-analysis_order-service-calculate-total.md`
 If the session involves code, projects, or topics you'd discuss with your manager
 or team — it belongs here. Personal projects and self-directed learning go in
 `sessions/personal/`.
+
+---
+
+## Navigation
+
+| Link | Description |
+|---|---|
+| [code-analysis/](code-analysis/README.md) | Code review, architecture analysis |
+| [debugging/](debugging/README.md) | Complex bug investigation, RCA |
+| [requirements/](requirements/README.md) | User stories, acceptance criteria, BDD |
+| [performance/](performance/README.md) | Profiling, optimization, benchmarking |
+| [feature-exploration/](feature-exploration/README.md) | Design alternatives, POC, feasibility |
+| [documentation/](documentation/README.md) | API docs, design docs, runbooks |
+| [research/](research/README.md) | Technology evaluation, protocol analysis |
+| [general/](general/README.md) | Sessions not fitting other categories |
+| [sessions/](../README.md) | Parent: sessions root |

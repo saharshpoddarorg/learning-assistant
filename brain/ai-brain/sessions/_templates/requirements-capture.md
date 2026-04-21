@@ -25,7 +25,7 @@ scope-refs: []
 > **Context:** Brief description of the personal project and what feature or
 > capability is being scoped in this session.
 >
-> **Path:** `sessions/personal/software-dev/requirements/`
+> **Path:** `sessions/personal/personal-work/software-dev/requirements/`
 
 ---
 
@@ -127,6 +127,18 @@ Scenario: Edge case
 
 - [ ] Action item 1
 - [ ] Action item 2
+
+---
+
+## Cross-References
+
+<!-- Related sessions in other categories or scopes. Update bidirectionally.
+     Relationships: origin, spawned, narrows, widens, related, implements.
+     See .github/instructions/session-scoping.instructions.md for details. -->
+
+| Relationship | Session | Note |
+|---|---|---|
+| | | |
 
 ---
 

@@ -321,7 +321,7 @@ Tags make sessions discoverable across folders. Every session gets 3-7 tags.
 ## Project-Aware Sessions
 
 When you start chatting about a **personal software project**, Copilot automatically
-detects it and routes the session to `personal/software-dev/<activity>/`.
+detects it and routes the session to `personal/personal-work/software-dev/<activity>/`.
 
 ### Detection Signals
 
@@ -382,12 +382,12 @@ Forked sessions cross-reference each other with `scope-refs` entries:
 ```yaml
 # In the original file
 scope-refs:
-  - file: "personal/software-dev/research/2026-03-24_research_spring-vs-quarkus.md"
+  - file: "personal/personal-work/software-dev/research/2026-03-24_research_spring-vs-quarkus.md"
     relationship: spawned
 
 # In the forked file
 scope-refs:
-  - file: "personal/software-dev/requirements/2026-03-24_requirements_task-manager-mvp.md"
+  - file: "personal/personal-work/software-dev/requirements/2026-03-24_requirements_task-manager-mvp.md"
     relationship: origin
 ```
 
@@ -437,7 +437,7 @@ sessions/work/code-analysis/deep-dive/
   2026-05-02_03-51pm_order-service-validate-order.md
 
 # Personal domain
-sessions/personal/software-dev/code-review/deep-dive/
+sessions/personal/personal-work/software-dev/code-review/deep-dive/
   2026-05-02_04-00pm_task-manager-crud-service.md
 ```
 
@@ -519,13 +519,13 @@ work/code-analysis/order-service/
 
 ```text
 # Before
-personal/software-dev/requirements/
+personal/personal-work/software-dev/requirements/
   2026-03-20_..._task-manager-mvp-scope.md
   2026-03-21_..._task-manager-recurring-tasks.md
   2026-03-22_..._task-manager-notification-rules.md
 
 # After
-personal/software-dev/requirements/task-manager/
+personal/personal-work/software-dev/requirements/task-manager/
   mvp-scope.md
   recurring-tasks.md
   notification-rules.md
@@ -555,7 +555,7 @@ work/code-analysis/order-service/
 #### Example: Design Component → Aspect Hierarchy
 
 ```text
-personal/software-dev/design/task-manager/
+personal/personal-work/software-dev/design/task-manager/
   api-design/
     2026-04-01_..._rest-endpoints.md
     2026-04-02_..._graphql-evaluation.md
@@ -571,7 +571,7 @@ criteria, security, performance, patterns, trade-offs, migration, hld, lld.
 When a project spans 3+ activity categories, a project index file is created:
 
 ```text
-personal/software-dev/task-manager-INDEX.md
+personal/personal-work/software-dev/task-manager-INDEX.md
 ```
 
 This provides a single entry point listing all sessions for that project across

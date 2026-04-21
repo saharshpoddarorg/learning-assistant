@@ -92,10 +92,10 @@ scope-transitions:
 
 ```yaml
 scope-refs:
-  - file: "personal/software-dev/requirements/2026-03-20_02-15pm_requirements_abs-mvp-scope.md"
+  - file: "personal/personal-work/software-dev/requirements/2026-03-20_02-15pm_requirements_abs-mvp-scope.md"
     relationship: origin
     note: "requirements session that spawned this research"
-  - file: "personal/learning/2026-03-20_04-00pm_learning_spring-boot-deep-dive.md"
+  - file: "personal/personal-work/learning/2026-03-20_04-00pm_learning_spring-boot-deep-dive.md"
     relationship: spawned
     note: "general learning session born from project research"
 ```
@@ -191,10 +191,10 @@ scope-refs:
 **Example:**
 
 ```text
-Original:  personal/software-dev/requirements/2026-03-20_02-15pm_requirements_abs-mvp-scope.md
+Original:  personal/personal-work/software-dev/requirements/2026-03-20_02-15pm_requirements_abs-mvp-scope.md
            scope: feature, scope-project: abs-development, scope-feature: mvp-scope
 
-Forked:    personal/software-dev/research/2026-03-20_03-00pm_research_spring-vs-quarkus.md
+Forked:    personal/personal-work/software-dev/research/2026-03-20_03-00pm_research_spring-vs-quarkus.md
            scope: global (widened from project research)
            scope-refs: [{ file: "../requirements/2026-03-20_...", relationship: origin }]
 ```
@@ -388,7 +388,7 @@ scope-transitions:
 
 **Option B — Fork a new session:**
 
-New file at `personal/software-dev/research/2026-03-20_..._research_abs-tech-stack.md`
+New file at `personal/personal-work/software-dev/research/2026-03-20_..._research_abs-tech-stack.md`
 with `scope-refs` linking back to the requirements session.
 
 ### Step 3 — Widening to General Learning (global scope)
@@ -420,7 +420,7 @@ Requirements file:
 
 ```yaml
 scope-refs:
-  - file: "personal/software-dev/research/2026-03-20_research_spring-vs-quarkus.md"
+  - file: "personal/personal-work/software-dev/research/2026-03-20_research_spring-vs-quarkus.md"
     relationship: spawned
     note: "tech stack research that grew out of this requirements session"
 ```
@@ -429,7 +429,7 @@ Research file:
 
 ```yaml
 scope-refs:
-  - file: "personal/software-dev/requirements/2026-03-20_requirements_abs-mvp-scope.md"
+  - file: "personal/personal-work/software-dev/requirements/2026-03-20_requirements_abs-mvp-scope.md"
     relationship: origin
     note: "started as ABSDevelopment requirements, widened to general research"
 ```
