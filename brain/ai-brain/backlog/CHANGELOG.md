@@ -19,6 +19,8 @@ and **details** (context). Entries are newest-first within each month.
 
 | Date | Time | ID | Action | From | To | Details |
 |---|---|---|---|---|---|---|
+| 2026-04-21 | 04:20 PM | BLI-026 | created | — | in-progress | Evolve 6-primitive layered architecture — understand, audit, enhance |
+| 2026-04-21 | 04:20 PM | BLI-026 | started | — | in-progress | AC 1-6 completed via 3 learning sessions |
 | 2026-04-11 | 10:08 PM | IMP-001 | file-import | — | — | Imported `gpt.txt`: 7 BLIs created, 1 IDEA, 4 merged, 2 noted |
 | 2026-04-11 | 10:08 PM | BLI-019 | created | — | todo | Tally-Vyapaar accounting app (IMP-001) |
 | 2026-04-11 | 10:08 PM | BLI-020 | created | — | todo | Build GitHub MCP server (IMP-001) |
