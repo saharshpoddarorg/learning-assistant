@@ -41,7 +41,9 @@ extracted method has a real Java signature, the actual source code verbatim, and
 annotations for anything non-obvious. A developer reads the analysis top-down:
 
 1. **Quick Scan** — what does this code do? (30 seconds)
-2. **Refactored View** — the method rewritten as virtual extracted calls (the structure)
+2. **Data Flow & Structure** — how data moves through the code
+   - 2a. **Refactored View** — the method rewritten as virtual extracted calls (the structure)
+   - 2b. **Data Supply Chain** — pipeline diagram showing every transformation, type, and risk
 3. **Method Extraction Tree** — each extracted method in detail (the substance)
 4. **Context & Cheat Sheet** — dependencies, coupling, error map, debugging quick-start
 
@@ -56,16 +58,20 @@ to finish like a document. Instead, use the phase that matches their current nee
 
 | I need to... | Start here | Then drill into |
 |---|---|---|
-| **Understand what this code does** (30 sec) | Quick Scan | — (done) |
-| **See the overall structure** | Refactored View | Any B-ref that's unclear |
-| **Understand a specific section** | Method Tree → B*n* | Nested B*n.a*, B*n.b* if complex |
-| **Trace data through the code** | Refactored View variable chain | `← Receives` / `→ Produces` in each B*n* |
-| **Find all failure modes** | Error & Exception Map (§4a) | E-refs in Method Tree for details |
+| **Understand what this code does** (30 sec) | Quick Scan (§1) | — (done) |
+| **See how data flows & code is structured** | Data Flow & Structure (§2) | §2a for structure, §2b for data pipeline |
+| **See the overall structure** | Refactored View (§2a) | Any B-ref that's unclear |
+| **Understand a specific section** | Method Tree → B*n* (§3) | Nested B*n.a*, B*n.b* if complex |
+| **Trace data through the code** | Pipeline Diagram (§2b) | Stage Card Table → Variable Lifecycle |
+| **See all data types at each stage** | Stage Card Table (§2b.2) | Type In / Type Out columns |
+| **Find where a variable is born/dies** | Variable Lifecycle (§2b.3) | Field lifecycle for class scope |
+| **Assess data safety at each stage** | Pipeline Health (§2b.4) | Health indicator details per stage |
+| **Find all failure modes** | Error & Exception Map (§3b) | E-refs in Method Tree for details |
 | **Debug a specific issue** | Cheat Sheet → Debugging Quick-Start | 🛑 Breakpoint lines in Method Tree |
 | **Assess change impact** | Dependencies (§4) + State annotations | `mutated` tags in Behaviour blocks |
 | **Understand recent commit/PR impact** | Recent Changes Impact (§5) | Variable/field impact + flow impact details |
-| **Review before code review** | Quick Scan → Refactored View → Error Map | Method Tree only for flagged blocks |
-| **Onboard to unfamiliar code** | Quick Scan → Refactored View → read every B*n* | Design Rationale for the "why" |
+| **Review before code review** | Quick Scan → Pipeline Health → Error Map | Method Tree only for flagged blocks |
+| **Onboard to unfamiliar code** | Quick Scan → Data Flow (§2) → read every B*n* | Design Rationale for the "why" |
 
 **Visual navigation:**
 
@@ -73,8 +79,13 @@ to finish like a document. Instead, use the phase that matches their current nee
 Quick Scan ─────────────────────────────────────────── 30 seconds
      │        (what, why, where, error summary)
      ▼
-Refactored View ─── structure + pipeline ──────────── 2 minutes
+Data Flow ──────────────────────────────────────────── parent group
+     │
+     ├── Refactored View (§2a) ── structure + pipeline ── 2 minutes
      │              (B-refs are links to method details)
+     │
+     └── Pipeline Diagram (§2b) ── data supply chain ──── 2-3 minutes
+     │              (types, transforms, health, lifecycle)
      ▼
 Method Tree ──────── each Bn in depth ─────────────── 5-20 minutes
      │              (read only the B-refs you need)
@@ -117,7 +128,7 @@ Pattern:      <Service, Strategy, Factory, Template Method, etc.>
 Entry:        <who calls it, what triggers it>
 Happy path:   <input → step → step → ... → output (one line)>
 Key state:    <which fields/variables change during execution>
-Error summary: <how many error paths, handled vs. unhandled — see §4a for full map>
+Error summary: <how many error paths, handled vs. unhandled — see §3b for full map>
 Side-effects: <what changes outside this code — DB / queue / cache>
 Danger:       <biggest unhandled edge case — E-ref>
 ```
@@ -201,7 +212,16 @@ Handoff points: <where data passes from one class to another>
 | `PriceCalculator` | Pure computation — pricing rules | `compute(List<LineItem>)` | `List<LineItem> → double` |
 | `OrderRepository` | Persistence — DB write | `save(Receipt)` | `Receipt → void (side-effect)` |
 
-### 2 — Refactored View (The Method as Virtual Extracted Calls)
+### 2 — Data Flow & Structure
+
+This group contains the two complementary views of how data moves through the code:
+
+- **§2a Refactored View** — the code's skeleton, showing structure as virtual extracted calls
+- **§2b Data Supply Chain** — the code's circulatory system, showing every data transformation as a pipeline diagram
+
+Together they give a developer complete understanding of both *what the code does* (structure) and *what happens to the data* (flow) — without reading a single line of source.
+
+### 2a — Refactored View (The Method as Virtual Extracted Calls)
 
 This is the **single most important artefact** in the deep-dive. Show the original
 method body rewritten as if every logical section had been extracted into a well-named
@@ -347,6 +367,519 @@ OrderRepository.save(Receipt receipt) {
 - C*n*-B*n* IDs uniquely identify blocks across classes (C1-B1 = Controller block 1)
 - The developer can trace an HTTP request from entry to DB write in one view
 
+### 2b — Data Supply Chain — Pipeline Diagram
+
+The Refactored View (§2a) shows the pipeline *in code*. This section makes the pipeline
+**visually explicit** — showing every data transformation, type change, side effect,
+branch divergence, and null/error risk as a dedicated diagram. A developer uses this to
+trace data through the method the way a logistics engineer traces a package through a
+supply chain: where does data enter, what happens to it at each station, where does it
+exit, and what can go wrong in transit.
+
+> **This is the X-ray of the method's data.** The Refactored View is the skeleton
+> (structure). The Pipeline Diagram is the circulatory system (data movement).
+
+#### When to Include
+
+| Scope | Include Pipeline Diagram? |
+|---|---|
+| Method ≤ 15 lines, linear (no branches) | Optional — the Refactored View is sufficient |
+| Method 15-50 lines, 2+ data transformations | **Recommended** — helps visualize the pipeline |
+| Method 50+ lines or 3+ branches | **Mandatory** — the pipeline is too complex to hold in memory |
+| Class scope | **Mandatory** — show inter-method data flow across the class |
+| Feature scope | **Mandatory** — show cross-class data supply chain with handoff boundaries |
+
+#### 2b.1 — End-to-End Pipeline Diagram (ASCII)
+
+Show the full data pipeline as an ASCII flow. Each B-ref is a **station** in the supply
+chain. Data enters from the left, transforms at each station, and exits to the right.
+Side effects branch downward. Error/exception paths branch upward.
+
+**Method-scope pipeline:**
+
+```text
+                         DATA SUPPLY CHAIN — processOrder(Order)
+                         ════════════════════════════════════════
+
+  ┌─────────┐      ┌──────────────┐      ┌──────────────────┐      ┌──────────────┐
+  │ CALLER  │      │     B1       │      │       B2         │      │     B3       │
+  │         │─────→│ validateAnd  │─────→│ calculateSubtotal│─────→│ applyDiscount│
+  │         │      │ GuardInputs  │      │                  │      │ Rules        │
+  └─────────┘      └──────────────┘      └──────────────────┘      └──────────────┘
+                                                                          │
+  Input:           Input:                Input:                    Input:
+  Order (raw,      Order (raw,           List<LineItem>            double subtotal
+  unchecked)       may be null)          (from validated.          double discountRate
+                                         getItems())
+                   Output:               Output:                   Output:
+                   Order (validated,     double subtotal           double discounted
+                   non-null, has items)  (≥ 0.0)                  (may be negative!)
+                                                                          │
+                   Side-effects: none    Side-effects: none        Side-effects: none
+                   Errors: E1 (NPE),    Errors: none              Errors: E3 (negative
+                           E2 (empty)                                      if disc > sub)
+                                                                          │
+                                                                          ▼
+      ┌──────────────┐      ┌──────────────┐      ┌─────────┐
+      │     B4       │      │     B5       │      │ CALLER  │
+ ────→│ calculateTax │─────→│ buildReceipt │─────→│ receives│
+      │              │      │ + persist    │      │ Receipt │
+      └──────────────┘      └──────────────┘      └─────────┘
+                                    │
+  Input:                    Input:                  Return:
+  double discounted         Order validated         Receipt (fully
+  double taxRate            double subtotal           populated,
+                            double discounted          persisted)
+  Output:                   double taxed
+  double taxed              Output:
+  (discounted × rate)       Receipt (persisted)
+
+  Side-effects: none        Side-effects:
+  Errors: none              ✦ DB write (orders table)
+                            ✦ MQ publish (event)
+                            ✦ Field: lastReceiptId mutated
+                            Errors: E4 (DB fail), E5 (race)
+```
+
+**Rules for the ASCII pipeline:**
+
+| Element | Representation | Purpose |
+|---|---|---|
+| Station (B-ref) | `┌───┐ │ Bn │ └───┘` box | Each extracted method is a processing station |
+| Data flow arrow | `─────→` | Direction of data movement between stations |
+| Input label | `Input:` below station | Typed data entering this station (with source) |
+| Output label | `Output:` below station | Typed data exiting this station |
+| Side-effects | `Side-effects:` with `✦` bullets | External state changes at this station |
+| Error paths | `Errors:` with E-refs | What can go wrong at this station |
+| Type annotations | Full Java types | `List<LineItem>`, `double`, `Receipt` — never vague |
+| Null safety | `(may be null)` or `(non-null)` | Whether the data can be null at this point |
+| Mutation markers | `(mutated)` or `(NOT mutated)` | Whether the station changes the data object |
+| Branch divergence | Split arrows `├─→` | When the pipeline branches (if/else, switch) |
+
+**With branches — show diverging pipelines:**
+
+When the method has conditional logic, draw **parallel pipeline paths** that diverge
+at the decision point and reconverge at the merge point:
+
+```text
+                    DATA SUPPLY CHAIN — calculatePrice(Order)
+                    ═════════════════════════════════════════
+
+  ┌─────────┐      ┌──────────────┐      ┌──────────────────────────────────────┐
+  │ CALLER  │─────→│     B1       │─────→│          BRANCH POINT (L53)         │
+  │         │      │ validateOrder│      │  order.isPremium()?                  │
+  └─────────┘      └──────────────┘      └───────────┬──────────┬──────────────┘
+                                                      │          │
+                                              ┌───────▼───┐  ┌───▼──────────┐
+  Input:           Input:                     │    B3     │  │     B4       │
+  Order            Order (raw)                │ applyPrem │  │ order.total  │
+  (unchecked)                                 │ Discount  │  │ > 1000?     │
+                   Output:                    └─────┬─────┘  └──┬──────┬───┘
+                   Order (valid)                    │           │      │
+                                              ┌─────▼─────┐ ┌──▼────┐ ┌▼────────┐
+                   Side-effects: none         │ discount = │ │  B4   │ │   B5    │
+                   Errors: throws on          │ 15% cap   │ │ bulk  │ │ standard│
+                           invalid            └─────┬─────┘ │tiered │ │ 0%     │
+                                                    │       └──┬────┘ └──┬──────┘
+                                                    │          │         │
+                                              ┌─────▼──────────▼─────────▼──────┐
+                                              │      MERGE POINT — discount     │
+                                              │      (type: double in all paths)│
+                                              └────────────────┬────────────────┘
+                                                               │
+                                                         ┌─────▼─────┐    ┌─────────┐
+                                                         │    B6     │───→│ CALLER  │
+                                                         │ applyTax  │    │ receives│
+                                                         │ Finalize  │    │ double  │
+                                                         └───────────┘    └─────────┘
+```
+
+**Branch pipeline rules:**
+
+- Every branch path must show: condition, block ref, output type, and how it reconverges
+- All paths at the merge point must produce the **same type** (if they don't, flag it
+  as a type-safety risk)
+- Default/else branches must be explicitly shown (never omit the fallback path)
+- Unreachable branches should be flagged: `⚠ dead code — condition can never be true`
+
+#### 2b.2 — Stage Card Table
+
+A compact **tabular** view of the same pipeline for quick scanning. Each row is a
+pipeline stage (B-ref). The developer reads this top-to-bottom to understand the
+entire data transformation chain:
+
+```text
+| Stage | B-ref | Input | Type In | Transformation | Output | Type Out | Side Effects | Errors | Null-Safe? | Mutates Input? |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | B1 | `order` | `Order` (nullable) | Guard: null → empty → validate | `order` | `Order` (non-null, valid) | none | E1: NPE, E2: empty | ❌ No null guard | No |
+| 2 | B2 | `validated.getItems()` | `List<LineItem>` | stream → map(price×qty) → sum | `subtotal` | `double` (≥0.0) | none | — | ✅ empty → 0.0 | No |
+| 3 | B3 | `subtotal`, `discountRate` | `double`, `double` | subtotal × (1 - rate) | `discounted` | `double` (may be <0) | none | E3: negative | ❌ rate >1 | No |
+| 4 | B4 | `discounted`, `taxRate` | `double`, `double` | discounted × rate | `taxed` | `double` | none | — | ✅ | No |
+| 5 | B5 | `order`, `subtotal`, `discounted`, `taxed` | mixed | Build + persist receipt | `receipt` | `Receipt` | ✦ DB, ✦ MQ, ✦ field | E4: DB, E5: race | ✅ | ✦ field mutated |
+```
+
+**Column reference:**
+
+| Column | Purpose | Example values |
+|---|---|---|
+| **Stage** | Sequential order in the pipeline (1, 2, 3...) | `1`, `2`, `3` |
+| **B-ref** | Cross-reference to Method Extraction Tree | `B1`, `B3a` |
+| **Input** | Variable name(s) entering this stage | `order`, `subtotal, discountRate` |
+| **Type In** | Java type(s) of input with nullability | `Order (nullable)`, `double` |
+| **Transformation** | One-line description of what happens | `stream → map → sum` |
+| **Output** | Variable name(s) produced | `subtotal`, `receipt` |
+| **Type Out** | Java type(s) of output with constraints | `double (≥0.0)`, `Receipt` |
+| **Side Effects** | External state changes (or `none`) | `✦ DB write`, `✦ field mutated` |
+| **Errors** | E-refs for failures at this stage | `E1: NPE`, `—` |
+| **Null-Safe?** | Whether null input is handled | `✅ Yes`, `❌ No null guard` |
+| **Mutates Input?** | Whether the input object is changed | `No`, `✦ field mutated` |
+
+**Why both the diagram AND the table?** They serve different reading modes:
+
+- **ASCII diagram** → spatial reasoning — the developer sees the *shape* of the pipeline
+  (linear, branching, converging) and can visually trace data from left to right
+- **Stage Card table** → sequential reference — the developer scans rows to find a
+  specific stage or to compare input/output types across the entire chain
+
+#### 2b.3 — Variable Lifecycle Tracker
+
+Show when each significant variable is **born**, **transformed**, **consumed**, and
+**dies** (goes out of scope). This answers: "where did this variable come from, who
+touches it, and when does it stop existing?"
+
+```text
+Variable Lifecycle — processOrder(Order)
+═══════════════════════════════════════
+
+Variable          B1          B2          B3          B4          B5          Return
+─────────────────────────────────────────────────────────────────────────────────────
+order             ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━○
+                  born(arg)   read        read        ·           consumed    ·
+                  validated   .getItems() .getDisc()              in build
+
+items             ·           ●━━━━━━━━━━○
+                              born        consumed
+                              (extract)   (stream sum)
+
+subtotal          ·           ·           ●━━━━━━━━━━━━━━━━━━━━━━○
+                                          born        read        consumed
+                                          (sum)       (×rate)     (in build)
+
+discounted        ·           ·           ·           ●━━━━━━━━━━━○
+                                                      born        consumed
+                                                      (×(1-rate)) (in build)
+
+taxed             ·           ·           ·           ·           ●━━━━━━━━━━○
+                                                                  born        consumed
+                                                                  (disc×tax)  (in build)
+
+receipt           ·           ·           ·           ·           ●━━━━━━━━━━━●
+                                                                  born        RETURNED
+                                                                  (Builder)   to caller
+
+lastReceiptId     ·           ·           ·           ·           ✦━━━━━━━━━━━━━━━━━━━
+(field)                                                           MUTATED     persists
+                                                                  (receipt.id) after return
+```
+
+**Legend:**
+
+| Symbol | Meaning |
+|---|---|
+| `●` | Variable born (declared / first assigned) |
+| `━━━` | Variable alive and accessible |
+| `○` | Variable consumed (last read, then out of scope) |
+| `✦` | Field mutation (persists beyond method return) |
+| `·` | Variable does not exist at this stage |
+| `read` | Variable read but not changed |
+| `consumed` | Variable used for the last time |
+| `born(arg)` | Variable received as method argument |
+| `born(extract)` | Variable extracted from another variable |
+| `RETURNED` | Variable is the method's return value |
+| `MUTATED` | Variable's value is changed (not just read) |
+
+**What this reveals that other sections don't:**
+
+- **Overlapping lifetimes** — which variables are alive simultaneously (memory pressure)
+- **Late births** — variables created deep in the pipeline (do they need data from
+  earlier stages that might be stale?)
+- **Early deaths** — variables consumed long before the method ends (safe to ignore
+  when debugging later stages)
+- **Field mutations** — instance fields that outlive the method (the `✦━━━` extending
+  past `Return` makes this visually obvious)
+- **Unused data** — variables born but never consumed (dead code signal)
+- **Data provenance** — trace any output back to its original input through the lifecycle
+
+**Scope-adaptive lifecycle rules:**
+
+| Scope | What to track |
+|---|---|
+| Method | All locals, args, and fields touched by the target method |
+| Class | Instance fields only — show lifecycle across ALL public methods (which methods read/write each field) |
+| Feature | Key data objects only — show lifecycle as data crosses class boundaries (handoff objects) |
+
+**Class-scope field lifecycle example:**
+
+```text
+Field Lifecycle — OrderService (6 public methods)
+═════════════════════════════════════════════════
+
+Field               Constructor   processOrder   getOrder   cancelOrder   getLastOrderId
+──────────────────────────────────────────────────────────────────────────────────────────
+validator           ●━━━━━━━━━━━━━read━━━━━━━━━━━·━━━━━━━━━━·━━━━━━━━━━━━━·
+(injected)          set(final)    .validate()    —          —             —
+
+repo                ●━━━━━━━━━━━━━read━━━━━━━━━━━read━━━━━━━read━━━━━━━━━━·
+(injected)          set(final)    .save()        .findById() .findById()   —
+                                                             .save()
+
+lastOrderId         ·             ✦━━━━━━━━━━━━━━·━━━━━━━━━━·━━━━━━━━━━━━━read
+(field)             null          MUTATED        —          —             returned
+                                  (=receipt.id)                           ⚠ stale if
+                                                                          processOrder
+                                                                          not called
+
+eventBus            ●━━━━━━━━━━━━━·━━━━━━━━━━━━━━·━━━━━━━━━━read━━━━━━━━━━·
+(injected)          set(final)    —              —          .publish()    —
+```
+
+**Feature-scope handoff lifecycle example:**
+
+```text
+Data Object Lifecycle — Order Checkout (4 classes)
+══════════════════════════════════════════════════
+
+Object            Controller    OrderService    PriceCalc    Repository
+─────────────────────────────────────────────────────────────────────────
+HttpRequest       ●━━━━○        ·               ·            ·
+                  parsed        —               —            —
+
+OrderRequest      ●━━━━○        ·               ·            ·
+(DTO)             from JSON     consumed        —            —
+                                (mapped)
+
+Order             ·    ●━━━━━━━━━━━━━━━━━━━━━━━━○            ·
+(entity)              born      read+validated   .getItems()  —
+                      (mapped)  across 4 calls   consumed     —
+
+List<LineItem>    ·             ●━━━━━━━━━━━━━━━━━○           ·
+                                extracted        consumed     —
+                                from Order       (stream sum)
+
+Receipt           ·             ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━●━━━━○
+(entity)                        born             —            persisted
+                                (Builder)                     (DB write)
+
+Receipt (DTO)     ●━━━○         ·               ·            ·
+                  mapped        —               —            —
+                  to JSON
+                  RETURNED
+```
+
+#### 2b.4 — Pipeline Health Indicators
+
+Annotate the pipeline with health indicators that flag risks at each stage.
+These are the "red flags" a code reviewer would catch:
+
+```text
+Pipeline Health — processOrder(Order)
+═════════════════════════════════════
+
+Stage  B-ref  Health Indicators
+─────  ─────  ──────────────────────────────────────────────────────
+  1    B1     ❌ NULL-UNSAFE — order parameter has no null guard (E1)
+              ⚠ SILENT-RETURN — empty items returns order, not error (E2)
+              ✅ DELEGATES — validation logic in separate Validator class
+
+  2    B2     ✅ PURE — no side effects, deterministic
+              ✅ NULL-SAFE — empty stream → 0.0 (identity element)
+              ✅ IMMUTABLE — input List not modified
+
+  3    B3     ❌ UNCONSTRAINED — discount can exceed subtotal → negative (E3)
+              ⚠ HARDCODED — discount rate from order.getDiscount() with no bounds
+              ✅ PURE — no side effects
+
+  4    B4     ✅ PURE — no side effects, simple multiplication
+              ✅ DETERMINISTIC — same input always gives same output
+
+  5    B5     ⚠ MIXED-CONCERNS — persist + notify + field mutation in one stage
+              ❌ NOT-THREAD-SAFE — this.lastReceiptId written without sync (E5)
+              ⚠ FIRE-AND-FORGET — MQ publish not in transaction (E4 partial)
+              ❌ NON-ATOMIC — DB write succeeds but event publish can fail silently
+```
+
+**Health indicator vocabulary:**
+
+| Indicator | Symbol | Meaning |
+|---|---|---|
+| `NULL-UNSAFE` | ❌ | Input can be null and no guard exists |
+| `NULL-SAFE` | ✅ | Null input is handled (guard, default, Optional) |
+| `PURE` | ✅ | No side effects — output depends only on input |
+| `IMMUTABLE` | ✅ | Input data is not modified |
+| `MUTATES-INPUT` | ⚠ | The input object's internal state is changed |
+| `MUTATES-FIELD` | ⚠ | An instance field is written |
+| `NOT-THREAD-SAFE` | ❌ | Shared mutable state without synchronization |
+| `UNCONSTRAINED` | ❌ | Input has no bounds validation — edge case values can corrupt output |
+| `HARDCODED` | ⚠ | Magic numbers or fixed values that should be configurable |
+| `MIXED-CONCERNS` | ⚠ | Stage does 2+ unrelated things (SRP violation) |
+| `FIRE-AND-FORGET` | ⚠ | Async operation with no confirmation or error handling |
+| `NON-ATOMIC` | ❌ | Multi-step operation that can partially fail |
+| `SILENT-RETURN` | ⚠ | Returns a default instead of throwing — caller may not expect it |
+| `DELEGATES` | ✅ | Logic is properly separated into another class |
+| `DETERMINISTIC` | ✅ | Same input always produces same output |
+| `IDEMPOTENT` | ✅ | Can be called multiple times with same effect |
+| `LOSSY` | ⚠ | Information is discarded during transformation (precision loss, truncation) |
+| `BLOCKING` | ⚠ | Synchronous I/O call that blocks the thread |
+| `CACHED` | ℹ | Result is cached — staleness risk |
+| `TRANSACTIONAL` | ✅ | Operation is within a DB transaction boundary |
+| `OUTSIDE-TX` | ⚠ | Operation happens outside the transaction boundary |
+
+**Aggregated pipeline health score:**
+
+Summarize the overall pipeline health at the bottom:
+
+```text
+Pipeline Health Score:
+  ✅ Safe stages:    B2, B4 (pure, null-safe, immutable)
+  ⚠ Caution stages: B1 (silent return), B3 (hardcoded), B5 (mixed concerns)
+  ❌ Risk stages:    B1 (null-unsafe), B3 (unconstrained), B5 (thread-unsafe, non-atomic)
+
+  Biggest risk:     B5 — combines DB write, MQ publish, and field mutation in one
+                    stage with no atomicity guarantee. A DB failure after MQ publish
+                    means the event is out but the receipt is lost.
+
+  Recommended focus: B1 (add null guard), B3 (add bounds check), B5 (split concerns)
+```
+
+#### 2b.5 — Mermaid Pipeline Visualization
+
+For rendered environments (VS Code preview, GitHub), provide a Mermaid diagram that
+visualizes the pipeline. This complements the ASCII diagram for environments that
+support Mermaid rendering:
+
+````text
+```mermaid
+flowchart LR
+    subgraph "processOrder(Order) — Data Supply Chain"
+        direction LR
+        CALLER["🔵 Caller<br/>Order (raw)"]
+        B1["B1: validateAndGuard<br/>───────────<br/>Order → Order<br/>(validated)"]
+        B2["B2: calculateSubtotal<br/>───────────<br/>List⟨LineItem⟩ → double"]
+        B3["B3: applyDiscount<br/>───────────<br/>double → double"]
+        B4["B4: calculateTax<br/>───────────<br/>double → double"]
+        B5["B5: buildReceipt<br/>+ persist<br/>───────────<br/>mixed → Receipt"]
+        RET["🟢 Return<br/>Receipt"]
+
+        CALLER -->|"Order (nullable)"| B1
+        B1 -->|"Order (valid)"| B2
+        B2 -->|"double subtotal"| B3
+        B3 -->|"double discounted"| B4
+        B4 -->|"double taxed"| B5
+        B5 -->|"Receipt"| RET
+    end
+
+    B1 -.->|"❌ E1: NPE"| ERR1["💥 NullPointerException"]
+    B1 -.->|"⚠ E2: empty"| ERR2["↩ early return (0.0)"]
+    B3 -.->|"❌ E3: negative"| ERR3["⚠ negative total"]
+    B5 -.->|"✦ side-effect"| SE1["💾 DB write"]
+    B5 -.->|"✦ side-effect"| SE2["📨 MQ publish"]
+    B5 -.->|"✦ side-effect"| SE3["📝 field mutation"]
+    B5 -.->|"❌ E4"| ERR4["💥 DB failure"]
+    B5 -.->|"❌ E5"| ERR5["⚠ race condition"]
+
+    style B1 fill:#fff3cd,stroke:#ffc107
+    style B2 fill:#d4edda,stroke:#28a745
+    style B3 fill:#fff3cd,stroke:#ffc107
+    style B4 fill:#d4edda,stroke:#28a745
+    style B5 fill:#f8d7da,stroke:#dc3545
+    style ERR1 fill:#f8d7da,stroke:#dc3545
+    style ERR3 fill:#f8d7da,stroke:#dc3545
+    style ERR4 fill:#f8d7da,stroke:#dc3545
+    style ERR5 fill:#fff3cd,stroke:#ffc107
+```
+````
+
+**Mermaid style guide:**
+
+| Node color | Meaning | Style |
+|---|---|---|
+| Green (`#d4edda`) | Safe/pure stage — no risks | `fill:#d4edda,stroke:#28a745` |
+| Yellow (`#fff3cd`) | Caution — has warnings but functional | `fill:#fff3cd,stroke:#ffc107` |
+| Red (`#f8d7da`) | Risk — has unhandled errors or unsafe patterns | `fill:#f8d7da,stroke:#dc3545` |
+| Blue (default) | Neutral — caller/return nodes | Default style |
+
+**Mermaid rules:**
+
+- Solid arrows (`-->`) for normal data flow
+- Dotted arrows (`-.->`) for error paths and side effects
+- Each node shows: B-ref, virtual method name, and type transformation
+- Side-effect nodes use emoji: `💾` DB, `📨` MQ, `📝` field, `🌐` HTTP, `📁` file
+- Error nodes use: `💥` exception, `⚠` silent failure, `↩` early return
+
+**With branches — Mermaid version:**
+
+````text
+```mermaid
+flowchart LR
+    subgraph "calculatePrice(Order)"
+        direction LR
+        CALLER["🔵 Caller"]
+        B1["B1: validate"]
+        B2["B2: calcSubtotal"]
+        BRANCH{"isPremium?"}
+        B3["B3: premiumDisc<br/>15% cap"]
+        BRANCH2{"total>1000?"}
+        B4["B4: bulkDisc<br/>tiered"]
+        B5["B5: standardDisc<br/>0%"]
+        MERGE["discount<br/>(double)"]
+        B6["B6: applyTax"]
+        RET["🟢 Return"]
+
+        CALLER --> B1 --> B2 --> BRANCH
+        BRANCH -->|"Yes"| B3 --> MERGE
+        BRANCH -->|"No"| BRANCH2
+        BRANCH2 -->|"Yes"| B4 --> MERGE
+        BRANCH2 -->|"No"| B5 --> MERGE
+        MERGE --> B6 --> RET
+    end
+
+    style BRANCH fill:#e2e3f1,stroke:#6c757d
+    style BRANCH2 fill:#e2e3f1,stroke:#6c757d
+    style MERGE fill:#e2e3f1,stroke:#6c757d
+```
+````
+
+#### Scope-Adaptive Pipeline Rules
+
+| Scope | Pipeline Diagram | Stage Card Table | Variable Lifecycle | Health Indicators | Mermaid |
+|---|---|---|---|---|---|
+| Method ≤ 15 lines | Optional | Optional | Skip | Skip | Skip |
+| Method 15-50 lines | Recommended | **Mandatory** | Recommended | Recommended | Optional |
+| Method 50+ lines | **Mandatory** | **Mandatory** | **Mandatory** | **Mandatory** | **Mandatory** |
+| Class | **Mandatory** (inter-method) | **Mandatory** (per public method) | **Mandatory** (field lifecycle) | **Mandatory** (per method) | **Mandatory** |
+| Feature | **Mandatory** (cross-class) | **Mandatory** (per class) | **Mandatory** (handoff objects) | **Mandatory** (per class boundary) | **Mandatory** |
+
+**Class-scope pipeline additions:**
+
+- Show data flowing between methods through **shared fields** (the field is the "pipe"
+  connecting two methods that don't call each other directly)
+- Show **constructor injection** as the pipeline's initial setup phase
+- Show which methods can be called **independently** vs. which depend on another method
+  having run first (e.g., `getLastOrderId()` depends on `processOrder()` having set
+  the field)
+
+**Feature-scope pipeline additions:**
+
+- Show **class boundaries** as pipeline zones (each class is a processing zone)
+- Show **handoff objects** — the data structures that cross class boundaries
+  (these are the most important variables to track)
+- Show **serialization boundaries** — where data changes representation
+  (DTO → entity → DB row → event payload)
+- Show **transaction boundaries** — which pipeline stages are inside vs. outside a
+  DB transaction
+- Show **async boundaries** — where the pipeline splits into synchronous and
+  asynchronous branches
+
 ### 3 — Method Extraction Tree (The Core of the Deep-Dive)
 
 This is the **bulk of the analysis** and the section the developer will use side-by-side
@@ -354,7 +887,7 @@ with the source code. For each virtual method from the Refactored View, show the
 code with inline annotations. Then recurse into sub-methods when a block is complex.
 
 > **Think like you're building a call tree of extracted methods.** The Refactored View
-> (Section 2) is the root. Each extracted method in Section 3 is a node. When a node is
+> (Section 2a) is the root. Each extracted method in Section 3 is a node. When a node is
 > itself complex, it gets its own child nodes (sub-methods). The developer navigates this
 > tree the same way they'd navigate a well-structured codebase: start at the top-level
 > method, then drill into the methods it calls.
@@ -377,7 +910,7 @@ from Quick Scan to decide:
 
 **Reading order for class scope:**
 
-1. Start with the class-level Refactored View (§2) — the big picture
+1. Start with the class-level Refactored View (§2a) — the big picture
 2. Read each `High — decompose` method's full tree (§3) in call order
 3. Reference `Medium` methods' Behaviour blocks when called from a High method
 4. Skip trivial methods — their purpose is clear from naming
@@ -400,7 +933,7 @@ Shared dependencies:
 **Feature scope**: The Method Tree focuses on **orchestrator methods** (the methods that
 coordinate cross-class flow). Pure computation and simple delegation methods get
 Behaviour blocks only. The cross-class handoff annotations from the feature-scope
-Refactored View (§2) become the primary navigation structure.
+Refactored View (§2a) become the primary navigation structure.
 
 #### How to Split Code into Extracted Methods
 
@@ -1563,13 +2096,20 @@ If the `recent-changes` source involves Bitbucket, Jira, or Confluence:
 ### Output Rules
 
 - **Scope-adaptive:** For `method` scope, all phases apply (Quick Scan → Refactored
-  View → Method Extraction Tree → Error & Exception Map → Dependencies → Cheat Sheet).
-  For `class`, show Quick Scan (with state model + method inventory), class-level
-  Refactored View, Method Tree for complex methods, Error Map (mandatory), Design
-  Rationale, and Dependencies. For `feature`, show Quick Scan (with class inventory),
-  cross-class Refactored View with handoff markers, Method Tree for key orchestrator
-  methods, Error Map (mandatory — show cross-class error propagation), Design Rationale,
-  and Dependencies
+  View → Pipeline Diagram → Method Extraction Tree → Error & Exception Map →
+  Dependencies → Cheat Sheet). For `class`, show Quick Scan (with state model + method
+  inventory), class-level Refactored View, Pipeline Diagram (mandatory — inter-method
+  data flow + field lifecycle), Method Tree for complex methods, Error Map (mandatory),
+  Design Rationale, and Dependencies. For `feature`, show Quick Scan (with class
+  inventory), cross-class Refactored View with handoff markers, Pipeline Diagram
+  (mandatory — cross-class supply chain + handoff lifecycle), Method Tree for key
+  orchestrator methods, Error Map (mandatory — show cross-class error propagation),
+  Design Rationale, and Dependencies
+- **Pipeline Diagram placement:** The Data Supply Chain (§2b) comes after the Refactored
+  View (§2a) and before the Method Extraction Tree (§3). For methods ≤ 15 lines, it is
+  optional. For methods 15+ lines, include at minimum the Stage Card Table. For 50+
+  lines, class, or feature scope, all sub-sections are mandatory (ASCII diagram, Stage
+  Card Table, Variable Lifecycle, Health Indicators, Mermaid)
 - **Error Map placement:** The Error & Exception Map (§3b) comes after the Method
   Extraction Tree and before Dependencies. For methods with 0-1 E-refs, skip it —
   the edge cases are visible inline. For class/feature scope, the Error Map is mandatory
@@ -1615,21 +2155,26 @@ If the `recent-changes` source involves Bitbucket, Jira, or Confluence:
 
 The depth of analysis scales with the complexity of the target code:
 
-| Target | Method Tree | Nested Extraction | Error Map | Design Rationale | Multi-Caller Table | Responsibility Inventory |
-|---|---|---|---|---|---|---|
-| Method ≤ 30 lines | 3-5 methods | No | If 2+ E-refs | If non-obvious design | If 3+ callers | N/A |
-| Method 30-100 lines | 5-8 methods | If nested 3+ levels | If 2+ E-refs | Recommended | If 3+ callers | N/A |
-| Method 100+ lines | 8-15 methods (two-pass) | **Mandatory** | **Mandatory** | **Mandatory** | If 3+ callers | N/A |
-| Method 200+ lines | 12-20 methods (two-pass) | **Mandatory** | **Mandatory** | **Mandatory** | If 3+ callers | N/A |
-| Class ≤ 5 methods | Per-method extraction | No | **Mandatory** | Recommended | Per method if applicable | No |
-| Class 5-10 methods | Per-method extraction | For complex methods | **Mandatory** | **Mandatory** | Per method if applicable | Recommended |
-| God class (10+/500+) | Per-responsibility then per-method | **Mandatory** | **Mandatory** | **Mandatory** | **Mandatory** | **Mandatory** |
+| Target | Method Tree | Nested Extraction | Pipeline Diagram | Error Map | Design Rationale | Multi-Caller Table | Responsibility Inventory |
+|---|---|---|---|---|---|---|---|
+| Method ≤ 15 lines | 2-3 methods | No | Optional | If 2+ E-refs | If non-obvious | If 3+ callers | N/A |
+| Method 15-30 lines | 3-5 methods | No | Stage Card recommended | If 2+ E-refs | If non-obvious | If 3+ callers | N/A |
+| Method 30-100 lines | 5-8 methods | If nested 3+ levels | Stage Card + Lifecycle | If 2+ E-refs | Recommended | If 3+ callers | N/A |
+| Method 100+ lines | 8-15 methods (two-pass) | **Mandatory** | **All sub-sections** | **Mandatory** | **Mandatory** | If 3+ callers | N/A |
+| Method 200+ lines | 12-20 methods (two-pass) | **Mandatory** | **All sub-sections** | **Mandatory** | **Mandatory** | If 3+ callers | N/A |
+| Class ≤ 5 methods | Per-method extraction | No | **All sub-sections** (field lifecycle) | **Mandatory** | Recommended | Per method if applicable | No |
+| Class 5-10 methods | Per-method extraction | For complex methods | **All sub-sections** (field lifecycle) | **Mandatory** | **Mandatory** | Per method if applicable | Recommended |
+| God class (10+/500+) | Per-responsibility then per-method | **Mandatory** | **All sub-sections** (per responsibility) | **Mandatory** | **Mandatory** | **Mandatory** | **Mandatory** |
 
 **Scaling rules:**
 
-- Method > 50 lines → Method Extraction Tree with full per-method detail is mandatory
+- Method ≤ 15 lines → Pipeline Diagram is optional (Refactored View is sufficient)
+- Method 15-50 lines → Stage Card Table is mandatory; Lifecycle and Health are recommended
+- Method > 50 lines → all Pipeline Diagram sub-sections are mandatory
 - Method > 100 lines → two-pass extraction (coarse + fine) is mandatory
 - Method > 200 lines → inline annotations must cover 30+ key lines across all methods
+- Class scope → field lifecycle tracker across all public methods is mandatory
+- Feature scope → cross-class handoff lifecycle and transaction/async boundaries are mandatory
 - Class > 5 public methods → Refactored View + Method Tree for EACH significant method
   (skip trivial getters/setters/toString)
 - Class > 10 public methods or > 500 lines → responsibility inventory is mandatory
