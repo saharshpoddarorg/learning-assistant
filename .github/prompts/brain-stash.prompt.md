@@ -2,7 +2,7 @@
 ---
 name: brain-stash
 description: 'Park inbox content for later processing (git stash analogy)'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase']
 ---
 

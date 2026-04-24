@@ -2,7 +2,7 @@
 ---
 name: brain-search
 description: 'Search brain/ai-brain/ workspace notes by tags, project, kind, date, or full text — across inbox, notes, and library tiers'
-agent: copilot
+agent: agent
 tools: ['codebase', 'search']
 ---
 

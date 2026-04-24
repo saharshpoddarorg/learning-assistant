@@ -2,7 +2,7 @@
 ---
 name: jot
 description: 'Jot down anything — thoughts, tasks, file references, links. Auto-classifies, enhances, breaks down, and cross-references.'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase', 'terminalLastCommand', 'runInTerminal']
 ---
 

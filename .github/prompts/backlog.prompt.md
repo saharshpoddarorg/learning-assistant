@@ -2,7 +2,7 @@
 ---
 name: backlog
 description: 'Advanced backlog management — brainstorm, guide, refine, promote, epic operations'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase']
 ---
 

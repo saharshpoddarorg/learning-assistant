@@ -2,7 +2,7 @@
 ---
 name: brain-clone
 description: 'Full import of an entire external source into brain/ai-brain (git clone analogy)'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase', 'fetch']
 ---
 

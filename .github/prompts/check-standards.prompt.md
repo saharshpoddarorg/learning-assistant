@@ -2,7 +2,7 @@
 ---
 name: check-standards
 description: 'Check any file, folder, filename, code snippet, or configuration against best practices and industry standards. Returns a compliance report with severity-rated issues and specific fix suggestions. Reusable for iterative standards-checking in any domain.'
-agent: copilot
+agent: agent
 tools: ['codebase', 'editFiles']
 ---
 

@@ -2,7 +2,7 @@
 ---
 name: brain-cherry-pick
 description: 'Selectively import one specific item from a capture source (git cherry-pick analogy)'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase', 'fetch']
 ---
 

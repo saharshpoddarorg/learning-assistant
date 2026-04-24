@@ -4,7 +4,7 @@ description: >
   View or switch the active steering mode for this Copilot session.
   Modes control how thoroughly Copilot propagates changes, how deep it goes,
   and which behavioral profile to apply. Default: completeness mode.
-agent: copilot
+agent: agent
 tools:
   - codebase
 ---

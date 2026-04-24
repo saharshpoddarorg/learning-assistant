@@ -2,7 +2,7 @@
 ---
 name: brain-merge
 description: 'Route an inbox item to its proper brain tier (git merge analogy)'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase']
 ---
 

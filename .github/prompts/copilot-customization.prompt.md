@@ -2,7 +2,7 @@
 ---
 name: copilot-customization
 description: 'Create, review, compare, or compose GitHub Copilot customization files — instructions, prompts, agents, skills, or MCP server configs'
-agent: copilot
+agent: agent
 tools: ['codebase', 'editFiles', 'search']
 ---
 

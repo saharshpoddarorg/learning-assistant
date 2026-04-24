@@ -2,7 +2,7 @@
 ---
 name: brain-consolidate
 description: 'Plan and execute brain consolidation — migrate scattered external notes into brain/ai-brain as single source of truth'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase', 'fetch']
 ---
 

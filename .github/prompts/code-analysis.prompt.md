@@ -1,7 +1,7 @@
 ---
 name: code-analysis
 description: 'Analyse code for structure, patterns, smells, and improvements — with auto session capture'
-agent: ''
+agent: agent
 tools: ['codebase', 'fetch', 'editFiles', 'runCommands']
 ---
 

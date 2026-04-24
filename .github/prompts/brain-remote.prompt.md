@@ -2,7 +2,7 @@
 ---
 name: brain-remote
 description: 'List all configured capture sources with sensitivity levels and status (git remote analogy)'
-agent: copilot
+agent: agent
 tools: ['codebase']
 ---
 

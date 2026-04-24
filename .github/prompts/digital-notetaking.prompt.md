@@ -4,7 +4,7 @@ description: >
   Learn digital note-taking systems (PARA, CODE, Zettelkasten), compare and migrate
   between tools (Notion, Obsidian, Logseq, OneNote), set up developer-specific PKM
   workflows, manage todos, and upgrade JDK versions cross-platform.
-agent: Learning-Mentor
+agent: learning-mentor
 tools:
   - codebase
   - fetch
