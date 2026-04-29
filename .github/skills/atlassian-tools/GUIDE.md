@@ -44,6 +44,9 @@ Copilot parses JSON response → presents results to user
 ├── SKILL.md                          ← Main skill file (Copilot reads this first)
 ├── GUIDE.md                          ← This file — human-readable setup guide
 ├── package.json                      ← Node.js module metadata (type: module)
+├── .env.example                      ← Template for single-account setup (committed)
+├── .env.accounts.example             ← Template for multi-account setup (committed)
+├── .env                              ← Your actual tokens (gitignored — never committed)
 ├── scripts/
 │   └── atlassian_cli.js              ← The CLI (89 actions, ~1,400 lines)
 └── references/
@@ -74,7 +77,16 @@ Generate a PAT for each Atlassian service you need. You only need tokens for ser
 
 ### Step 2 — Create the `.env` file
 
-Create a file named `.env` at the **workspace root** (same level as `README.md`):
+Copy the template and fill in your tokens:
+
+```powershell
+cd .github/skills/atlassian-tools
+Copy-Item .env.example .env
+# Edit .env — replace placeholder values with your actual PAT tokens and base URLs
+```
+
+Alternatively, create the `.env` file at the **workspace root** (same level as `README.md`)
+or in the skill directory (`.github/skills/atlassian-tools/`). The CLI checks both locations.
 
 ```properties
 # Jira
@@ -129,8 +141,22 @@ $env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","state":"OPEN","maxResu
 
 ## Setup — Multiple Accounts (Cross-Instance Operations)
 
-For workflows that span two Atlassian instances (e.g., copying Confluence pages from one
-server to another, or comparing Jira data across instances), you need credentials for both.
+For workflows that span two or more Atlassian instances (e.g., copying Confluence pages from one
+server to another, comparing Jira data across instances, or using different credentials for
+different services), you need credentials for each account.
+
+### Quick Start — Multi-Account
+
+```powershell
+# 1. Copy the multi-account template
+Copy-Item ".github/skills/atlassian-tools/.env.accounts.example" ".github/skills/atlassian-tools/.env.siemens-eda"
+
+# 2. Edit the new file — paste only the variables that differ
+# 3. Verify with:
+$env:ENV_FILE = "$PWD/.github/skills/atlassian-tools/.env.siemens-eda"
+$env:CLI_JSON_ARGS = '{}'; node ".github/skills/atlassian-tools/scripts/atlassian_cli.js" get_current_jira_user
+Remove-Item Env:\ENV_FILE
+```
 
 ### How the CLI loads credentials
 
@@ -142,12 +168,70 @@ The CLI reads `.env` files in this order (later files override earlier):
 3. $env:ENV_FILE                       ← explicit path (highest priority)
 ```
 
-Additionally, the CLI reads from **process environment variables** — any `JIRA_PAT_TOKEN`,
-`CONFLUENCE_BASE_URL`, etc. that are set in the current PowerShell session override `.env` values.
+Additionally, **process environment variables** override `.env` file values. Any
+`JIRA_PAT_TOKEN`, `CONFLUENCE_BASE_URL`, etc. set in the current PowerShell session
+take precedence over everything.
 
-This means you have **three strategies** for multi-account work:
+### Account file naming conventions
 
-### Strategy 1 — Environment variable swap (recommended)
+Use descriptive kebab-case names that identify either the **instance** or the **purpose**:
+
+| Pattern | When to use | Example |
+|---|---|---|
+| `.env.<org-name>` | Whole organisation instance | `.env.siemens-eda`, `.env.acme-corp` |
+| `.env.<purpose>-<service>` | One service at a different instance | `.env.work-jira`, `.env.client-confluence` |
+| `.env.<environment>` | Different environments (prod/staging) | `.env.staging`, `.env.prod` |
+| `.env.account-b` | Generic second account | `.env.account-b` |
+
+**File location:** Store `.env.*` files alongside your default `.env`:
+
+```text
+.github/skills/atlassian-tools/
+├── .env                       ← default account (your primary instance)
+├── .env.siemens-eda           ← second instance (different PATs/URLs)
+├── .env.client-confluence     ← third instance (only Confluence vars)
+├── .env.example               ← committed template (for new users)
+├── .env.accounts.example      ← committed multi-account template
+└── ...
+```
+
+All `.env` and `.env.*` files are gitignored (except `.env.example`, `.env.template`,
+and `.env.accounts.example`).
+
+### Per-service mixing — different accounts for different services
+
+A common scenario: your Jira is on Instance A, but Confluence is on Instance B (or you
+have a personal Confluence on a different server). You can mix credentials from different
+instances in a single `.env` file:
+
+```properties
+# .env — mix: work Jira + personal Confluence + work Bitbucket
+JIRA_PAT_TOKEN=work-jira-token
+JIRA_BASE_URL=https://work-jira.example.com
+
+CONFLUENCE_PAT_TOKEN=personal-confluence-token
+CONFLUENCE_BASE_URL=https://personal-confluence.example.com
+
+BITBUCKET_PAT_TOKEN=work-bitbucket-token
+BITBUCKET_BASE_URL=https://work-bitbucket.example.com
+```
+
+Or create per-service override files that contain **only the variables for that service**:
+
+```properties
+# .env.personal-confluence — overrides only Confluence credentials
+CONFLUENCE_PAT_TOKEN=personal-confluence-token
+CONFLUENCE_BASE_URL=https://personal-confluence.example.com
+```
+
+Load the override to temporarily switch one service while keeping others at defaults:
+
+```powershell
+Load-EnvFile ".github/skills/atlassian-tools/.env.personal-confluence"
+# Confluence now points to personal instance; Jira/Bitbucket unchanged
+```
+
+### Strategy 1 — Environment variable swap (recommended for one-off operations)
 
 Swap environment variables between CLI calls in the same PowerShell session.
 
@@ -173,23 +257,13 @@ $env:CONFLUENCE_PAT_TOKEN = $acctA_token
 $env:CONFLUENCE_BASE_URL = $acctA_url
 ```
 
-### Strategy 2 — Multiple `.env` files with a loader
+**Best for:** Quick, manual one-off operations. The agent can do this automatically.
 
-Create separate `.env` files per account and load them with a helper function:
+### Strategy 2 — Multiple `.env` files with `Load-EnvFile` (recommended for workflows)
 
-**File structure:**
+Create separate `.env` files per account and load them with a helper function.
 
-```text
-<workspace>/
-├── .env                  ← Account A (default)
-├── .env.account-b        ← Account B
-├── .env.account-c        ← Account C (if needed)
-└── ...
-```
-
-All `.env.*` files are gitignored by default.
-
-**Helper function:**
+**Helper function (paste into your PowerShell session or profile):**
 
 ```powershell
 function Load-EnvFile($path) {
@@ -201,37 +275,24 @@ function Load-EnvFile($path) {
 }
 
 # Usage
-Load-EnvFile ".env"              # Load Account A
-# ... do Account A operations ...
+Load-EnvFile ".github/skills/atlassian-tools/.env"              # Load default account
+# ... do operations on default instance ...
 
-Load-EnvFile ".env.account-b"    # Load Account B (overrides A's vars)
-# ... do Account B operations ...
+Load-EnvFile ".github/skills/atlassian-tools/.env.siemens-eda"   # Switch to second instance
+# ... do operations on second instance ...
 
-Load-EnvFile ".env"              # Restore Account A
+Load-EnvFile ".github/skills/atlassian-tools/.env"               # Restore default
 ```
 
-**Example `.env.account-b`:**
+**Best for:** Multi-step workflows (migrations, bulk copy, cross-instance reporting).
 
-```properties
-# Account B — Second Confluence/Jira instance
-JIRA_PAT_TOKEN=ACCOUNT_B_JIRA_TOKEN
-JIRA_BASE_URL=https://jira-b.example.com
-CONFLUENCE_PAT_TOKEN=ACCOUNT_B_CONFLUENCE_TOKEN
-CONFLUENCE_BASE_URL=https://confluence-b.example.com
-BITBUCKET_PAT_TOKEN=ACCOUNT_B_BITBUCKET_TOKEN
-BITBUCKET_BASE_URL=https://bitbucket-b.example.com
-```
-
-> **You only need to include the variables that differ.** If Account B only has Confluence,
-> you only need `CONFLUENCE_PAT_TOKEN` and `CONFLUENCE_BASE_URL` in `.env.account-b`.
-
-### Strategy 3 — `ENV_FILE` override
+### Strategy 3 — `ENV_FILE` override (recommended for single CLI calls)
 
 Point the CLI to a specific `.env` file using the `ENV_FILE` environment variable:
 
 ```powershell
-# Use Account B's env file for this call
-$env:ENV_FILE = "$PWD/.env.account-b"
+# Use a specific env file for this call only
+$env:ENV_FILE = "$PWD/.github/skills/atlassian-tools/.env.siemens-eda"
 $env:CLI_JSON_ARGS = '{"pageId":"99999"}'
 node ".github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_confluence_page
 
@@ -239,7 +300,65 @@ node ".github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_confluence_
 Remove-Item Env:\ENV_FILE
 ```
 
+**Best for:** One-off calls to a non-default instance without touching other env vars.
+
 > `ENV_FILE` has the highest priority — it overrides both `<workspace>/.env` and `<skill>/.env`.
+
+### Strategy decision guide
+
+| Scenario | Recommended strategy |
+|---|---|
+| Quick one-off read from another instance | **Strategy 3** — `ENV_FILE` override |
+| Copy a single page between instances | **Strategy 1** — env-var swap |
+| Migrate 10+ pages between instances | **Strategy 2** — `Load-EnvFile` |
+| Daily workflow mixing 2 instances | **Strategy 2** — `Load-EnvFile` |
+| CI/CD pipeline with multiple instances | **Strategy 2** or **Strategy 3** |
+| Agent (Copilot) doing cross-instance work | **Strategy 1** — agent manages env vars automatically |
+
+### Account validation — always verify before writing
+
+Before performing any **write** operation on a non-default instance, verify you are targeting
+the correct account:
+
+```powershell
+# Verify Jira identity
+$env:CLI_JSON_ARGS = '{}'; node ".github/skills/atlassian-tools/scripts/atlassian_cli.js" get_current_jira_user
+
+# Verify Confluence identity
+$env:CLI_JSON_ARGS = '{}'; node ".github/skills/atlassian-tools/scripts/atlassian_cli.js" get_current_confluence_user
+```
+
+Check the `displayName` and `name` fields in the response. If they don't match your expected
+account, you have the wrong credentials loaded.
+
+**Validation helper function:**
+
+```powershell
+function Verify-AtlassianAccount {
+    Write-Host "--- Jira ---" -ForegroundColor Cyan
+    $env:CLI_JSON_ARGS = '{}'
+    $jira = (node ".github/skills/atlassian-tools/scripts/atlassian_cli.js" get_current_jira_user 2>$null) | ConvertFrom-Json
+    if ($jira.success) {
+        Write-Host "  User: $($jira.data.displayName) ($($jira.data.name))" -ForegroundColor Green
+        Write-Host "  URL:  $env:JIRA_BASE_URL" -ForegroundColor Gray
+    } else {
+        Write-Host "  FAILED: $($jira.error)" -ForegroundColor Red
+    }
+
+    Write-Host "--- Confluence ---" -ForegroundColor Cyan
+    $conf = (node ".github/skills/atlassian-tools/scripts/atlassian_cli.js" get_current_confluence_user 2>$null) | ConvertFrom-Json
+    if ($conf.success) {
+        Write-Host "  User: $($conf.data.displayName) ($($conf.data.username))" -ForegroundColor Green
+        Write-Host "  URL:  $env:CONFLUENCE_BASE_URL" -ForegroundColor Gray
+    } else {
+        Write-Host "  FAILED: $($conf.error)" -ForegroundColor Red
+    }
+}
+
+# Run after loading any .env file:
+Load-EnvFile ".github/skills/atlassian-tools/.env.siemens-eda"
+Verify-AtlassianAccount
+```
 
 ### Security rules for multi-account
 
@@ -247,9 +366,12 @@ Remove-Item Env:\ENV_FILE
 |---|---|
 | Never echo or log token values | Tokens are credentials — treat like passwords |
 | Always restore original credentials | Prevents accidental writes to the wrong instance |
-| Store all `.env` files in the workspace root | They are gitignored by `.env.*` pattern |
-| Use descriptive filenames | `.env.account-b`, `.env.prod-confluence` — not `.env.2` |
+| Always verify before write operations | `get_current_*_user` confirms the active account |
+| Store `.env` files alongside the skill or at workspace root | They are gitignored by `.env` and `.env.*` patterns |
+| Use descriptive filenames | `.env.siemens-eda`, `.env.client-confluence` — not `.env.2` |
+| Include only variables that differ | Minimises credential surface in each file |
 | Don't commit `.env` files | Already handled by `.gitignore` |
+| Rotate tokens periodically | PATs don't auto-expire on most Server instances |
 
 ---
 
@@ -330,18 +452,11 @@ Before first use, verify these items:
 | Item | Status | Notes |
 |---|---|---|
 | Node.js 18+ installed | `node --version` | Built-in `fetch` required |
-| `.env` file created at workspace root | See Setup above | Must contain PAT + base URL for each service |
+| `.env` file created (from `.env.example`) | See Setup above | Must contain PAT + base URL for each service |
 | `.env` is gitignored | Check `.gitignore` has `.env` pattern | Already configured in this repo |
 | Test connectivity | `get_current_jira_user` | Verifies token + URL + network |
 | VPN connected (if corporate) | Required for internal Atlassian servers | Most corporate instances require VPN |
-| `temp-atlassian-tools/` in `.gitignore` | Add if using scratch files | Prevents accidental commits |
-
-### Optional: Add scratch directory to `.gitignore`
-
-```text
-# Atlassian Tools scratch directory
-temp-atlassian-tools/
-```
+| `temp-atlassian-tools/` in `.gitignore` | Already configured in this repo | Prevents accidental commits of scratch files |
 
 ---
 

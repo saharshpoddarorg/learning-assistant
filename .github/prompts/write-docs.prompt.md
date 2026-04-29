@@ -2,7 +2,7 @@
 ---
 name: write-docs
 description: 'Create or update any markdown file — dev docs, guides, start-here, cheatsheets, skill files, slash commands — with proper 3-tier structure from raw content, notes, or a description'
-agent: copilot
+agent: agent
 tools: ['codebase', 'editFiles', 'search']
 ---
 
@@ -416,7 +416,7 @@ Create a `.github/prompts/<name>.prompt.md` slash command.
 ---
 name: [command-name]          # User types /command-name
 description: '[Brief description shown in Copilot Chat autocomplete picker]'
-agent: copilot               # or specific agent name
+agent: agent                 # or specific agent name
 tools: ['codebase', 'search', 'editFiles']
 ---
 

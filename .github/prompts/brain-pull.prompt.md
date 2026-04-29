@@ -2,7 +2,7 @@
 ---
 name: brain-pull
 description: 'Update previously fetched content from an external source (git pull analogy — fetch + merge)'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase', 'fetch']
 ---
 

@@ -2,7 +2,7 @@
 ---
 name: brain-diff
 description: 'Compare brain content vs external source to see what changed (git diff analogy)'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase', 'fetch']
 ---
 

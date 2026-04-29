@@ -2,7 +2,7 @@
 ---
 name: brain-push
 description: 'Export brain content back to an external capture source (git push analogy)'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase', 'fetch']
 ---
 

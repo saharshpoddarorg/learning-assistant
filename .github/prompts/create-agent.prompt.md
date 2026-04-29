@@ -2,7 +2,7 @@
 ---
 name: create-agent
 description: 'Scaffold a new custom GitHub Copilot agent (.agent.md) — guided interview for name, purpose, tools, and persona'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase']
 ---
 

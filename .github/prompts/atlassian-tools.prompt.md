@@ -2,7 +2,7 @@
 ---
 name: atlassian-tools
 description: 'Universal handler for ALL Atlassian-related tasks — Jira, Confluence, Bitbucket operations, cross-tool workflows, cross-instance migration, work analysis, code migration, and any request involving Atlassian Server/Data Center APIs'
-agent: copilot
+agent: agent
 tools: ['codebase', 'terminal']
 ---
 

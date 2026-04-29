@@ -2,7 +2,7 @@
 ---
 name: brain-publish
 description: 'Publish an imported external source from inbox/ to library/ with frontmatter, tag prompting, project assignment, and git commit'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase', 'runCommands']
 ---
 

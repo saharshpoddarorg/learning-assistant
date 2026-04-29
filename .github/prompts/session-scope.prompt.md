@@ -2,7 +2,7 @@
 ---
 name: session-scope
 description: 'Manage session scope — view, widen, narrow, switch, split, or cross-reference scopes within chat sessions'
-agent: copilot
+agent: agent
 tools:
   - editFiles
   - codebase

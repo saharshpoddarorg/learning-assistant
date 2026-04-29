@@ -2,7 +2,7 @@
 ---
 name: brain-fetch
 description: 'Fetch content from an external capture source into brain/ai-brain/inbox/ for triage (git fetch analogy)'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase', 'fetch']
 ---
 

@@ -2,7 +2,7 @@
 ---
 name: todos
 description: 'View your backlog board — locate items, check status, update, mark done'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase']
 ---
 

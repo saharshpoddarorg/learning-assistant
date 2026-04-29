@@ -4,7 +4,7 @@ description: >
   Convert the current Copilot session's outputs into a structured, publishable
   session note in brain/ai-brain/inbox/. Scaffolds frontmatter (kind: session),
   organizes key insights, snippets, and next steps — ready for brain publish.
-agent: copilot
+agent: agent
 tools:
   - editFiles
   - codebase

@@ -1,7 +1,7 @@
 ---
 name: code-analysis-deep-dive
 description: 'Deep-dive into code internals — trace data flow, call stack, code blocks, line-by-line understanding of any class, method, or feature. Optionally analyse recent commit/PR impact on the target code.'
-agent: ''
+agent: agent
 tools: ['codebase', 'fetch', 'editFiles', 'runCommands']
 ---
 

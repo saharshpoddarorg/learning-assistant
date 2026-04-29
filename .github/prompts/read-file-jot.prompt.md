@@ -2,7 +2,7 @@
 ---
 name: read-file-jot
 description: 'Read a file (Notepad++, text, markdown, code) and extract its contents into backlog items — auto-classifies, enhances, breaks down, and cross-references.'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase', 'terminalLastCommand', 'runInTerminal']
 ---
 

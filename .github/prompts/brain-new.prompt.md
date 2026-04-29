@@ -2,7 +2,7 @@
 ---
 name: brain-new
 description: 'Create a new brain/ai-brain/ workspace note with proper frontmatter in inbox/ or notes/'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase']
 ---
 

@@ -2,7 +2,7 @@
 ---
 name: mcp-to-skill
 description: 'Analyse an MCP server tool or entire server and determine whether it can be migrated to a Copilot skill (SKILL.md). If migratable, generate the complete SKILL.md file. If not, explain why and what would need to change. Use when evaluating MCP vs skill trade-offs, planning migrations, or creating a skill from static MCP data.'
-agent: copilot
+agent: agent
 tools: ['codebase', 'editFiles', 'usages']
 ---
 

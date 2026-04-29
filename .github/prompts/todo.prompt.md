@@ -2,7 +2,7 @@
 ---
 name: todo
 description: 'Alias for /jot — adds a concrete task to the backlog. Use /jot directly for full capture power.'
-agent: copilot
+agent: agent
 tools: ['editFiles', 'codebase', 'terminalLastCommand', 'runInTerminal']
 ---
 

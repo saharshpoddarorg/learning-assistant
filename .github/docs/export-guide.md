@@ -43,7 +43,8 @@
 | **Copilot rules** | 1 file | Copilot follows your coding standards | None |
 | **Full Copilot customization** | `.github/` folder | Agents + slash commands + skills | None |
 | **MCP: Learning Resources** | `mcp-servers/` + `.vscode/mcp.json` | Copilot searches learning docs | None |
-| **MCP: Atlassian** | Above + `atlassian-config.local.properties` | Copilot reads Jira/Confluence/Bitbucket | Atlassian API token |
+| **MCP: Atlassian** | Above + `atlassian-config.local.properties` | Copilot reads Jira/Confluence/Bitbucket (Cloud) | Atlassian API token |
+| **Skill: Atlassian CLI** | `.github/skills/atlassian-tools/.env` | 89-action CLI for Jira/Confluence/Bitbucket Server/DC | Atlassian PAT |
 | **MCP: GitHub** | `.vscode/mcp.json` with github entry | Copilot searches your GitHub repos | GitHub PAT |
 | **Brain workspace** | `brain/` folder + tasks | Personal knowledge notes | None |
 
@@ -254,7 +255,7 @@ if (-not (Test-Path "$target\.vscode\tasks.json")) {
 }
 ```
 
-**After copying — for Atlassian server:**
+**After copying — for Atlassian MCP server (Cloud instances):**
 
 ```powershell
 cd $target\mcp-servers
@@ -264,6 +265,29 @@ Copy-Item user-config\servers\atlassian\atlassian-config.local.example.propertie
 # Edit the file: set email, token, jira/confluence URLs
 # Then in .vscode/mcp.json: set "disabled": false for "atlassian"
 ```
+
+**After copying — for Atlassian skill CLI (Server/Data Center instances):**
+
+The skill CLI is a simpler alternative that uses `.env` files with PAT tokens.
+No MCP server required — just Node.js 18+ and a `.env` file.
+
+```powershell
+cd $target\.github\skills\atlassian-tools
+Copy-Item .env.example .env
+# Edit .env: paste your PAT tokens and base URLs
+# For multi-account: also copy .env.accounts.example → .env.<account-name>
+```
+
+Verify connectivity:
+
+```powershell
+$env:CLI_JSON_ARGS = '{}'; node "$target\.github\skills\atlassian-tools\scripts\atlassian_cli.js" get_current_jira_user
+```
+
+> **When to use which:** The MCP server (27 tools) is for Atlassian Cloud. The skill CLI
+> (89 actions) is for Atlassian Server/Data Center with PAT auth. See
+> [configuration-reference.md § 3](configuration-reference.md#3-optional--atlassian-integration)
+> for full comparison.
 
 ---
 
