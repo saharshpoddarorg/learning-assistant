@@ -22,6 +22,7 @@
 - [3. Optional — Atlassian Integration](#3-optional--atlassian-integration)
   - [3a. Atlassian v1 (API Token)](#3a-atlassian-v1-api-token)
   - [3b. Atlassian v2 (OAuth 2.0 / API Token)](#3b-atlassian-v2-oauth-20--api-token)
+  - [3c. Atlassian Skill CLI (PAT — Server/Data Center)](#3c-atlassian-skill-cli-pat--serverdata-center)
 - [4. Optional — GitHub MCP Server](#4-optional--github-mcp-server)
 - [5. Optional — MCP Advanced Config](#5-optional--mcp-advanced-config)
 - [6. Config Precedence Rules](#6-config-precedence-rules)
@@ -297,6 +298,65 @@ atlassian.auth.email=your.name@company.com
 atlassian.auth.token=ATATT3xFfGF0...
 ```
 
+### 3c. Atlassian Skill CLI (PAT — Server/Data Center)
+
+The Atlassian Tools **skill** (`.github/skills/atlassian-tools/`) provides a separate,
+Node.js-based CLI for Atlassian Server/Data Center instances. This is independent of the
+MCP-server-based integration (3a/3b above) and uses a different credential store.
+
+| Item | Value |
+|---|---|
+| **Skill dir** | `.github/skills/atlassian-tools/` |
+| **CLI** | `scripts/atlassian_cli.js` (89 actions, zero npm deps) |
+| **Runtime** | Node.js 18+ (built-in `fetch`) |
+| **Template** | `.env.example` (committed) |
+| **Multi-account template** | `.env.accounts.example` (committed) |
+| **Secret file(s)** | `.env`, `.env.<account-name>` (gitignored) |
+| **Scratch dir** | `temp-atlassian-tools/` at workspace root (gitignored) |
+
+**Setup:**
+
+```powershell
+cd .github\skills\atlassian-tools
+Copy-Item .env.example .env
+# Edit .env — paste your PAT tokens and base URLs
+```
+
+**Required fields in `.env`:**
+
+```properties
+JIRA_PAT_TOKEN=your-jira-pat-token
+JIRA_BASE_URL=https://your-jira.example.com
+CONFLUENCE_PAT_TOKEN=your-confluence-pat-token
+CONFLUENCE_BASE_URL=https://your-confluence.example.com
+BITBUCKET_PAT_TOKEN=your-bitbucket-pat-token
+BITBUCKET_BASE_URL=https://your-bitbucket.example.com
+```
+
+**Verify connectivity:**
+
+```powershell
+$env:CLI_JSON_ARGS = '{}'; node ".github/skills/atlassian-tools/scripts/atlassian_cli.js" get_current_jira_user
+```
+
+**Token generation:** See `GUIDE.md` in the skill directory for step-by-step instructions
+for each service (Jira, Confluence, Bitbucket).
+
+**Multi-account support:** For cross-instance workflows (e.g., copying Confluence pages
+between two servers), create additional `.env.<account>` files using
+`.env.accounts.example` as a template. See GUIDE.md § Multi-Account Setup for details.
+
+**CLI `.env` load order (later overrides earlier):**
+
+| Priority | Location | Purpose |
+|---|---|---|
+| 1 (lowest) | `<workspace>/.env` | Workspace root — primary credentials |
+| 2 | `<skill>/.env` | Skill-local — overrides workspace root |
+| 3 (highest) | `$env:ENV_FILE` | Explicit path — per-call override |
+
+> **Note:** Process environment variables (`$env:JIRA_PAT_TOKEN`, etc.) always override
+> `.env` file values. This enables Strategy 1 (env-var swap) for multi-account work.
+
 ---
 
 ## 4. Optional — GitHub MCP Server
@@ -410,6 +470,13 @@ build.env.local  >  JAVA_HOME env var  >  java on system PATH  >  common JDK loc
 | `GITHUB_TOKEN` | GitHub PAT | Only if using GitHub MCP | **Yes** | VS Code prompts at runtime | VS Code input prompt |
 | `MCP_*` | Any MCP config override | Never required | Varies | None | System env or shell profile |
 | `CLI_JSON_ARGS` | Atlassian CLI tool arguments | Auto-set by Copilot | No | Set at runtime | Don't set manually |
+| `JIRA_PAT_TOKEN` | Jira PAT for skill CLI | Only if using skill CLI | **Yes** | None | `.github/skills/atlassian-tools/.env` |
+| `JIRA_BASE_URL` | Jira instance URL for skill CLI | Only if using skill CLI | No | None | `.github/skills/atlassian-tools/.env` |
+| `CONFLUENCE_PAT_TOKEN` | Confluence PAT for skill CLI | Only if using skill CLI | **Yes** | None | `.github/skills/atlassian-tools/.env` |
+| `CONFLUENCE_BASE_URL` | Confluence instance URL for skill CLI | Only if using skill CLI | No | None | `.github/skills/atlassian-tools/.env` |
+| `BITBUCKET_PAT_TOKEN` | Bitbucket PAT for skill CLI | Only if using skill CLI | **Yes** | None | `.github/skills/atlassian-tools/.env` |
+| `BITBUCKET_BASE_URL` | Bitbucket instance URL for skill CLI | Only if using skill CLI | No | None | `.github/skills/atlassian-tools/.env` |
+| `ENV_FILE` | Override `.env` file path for skill CLI | Never required | No | None | Shell session (per-call) |
 
 ---
 
@@ -431,6 +498,8 @@ build.env.local  >  JAVA_HOME env var  >  java on system PATH  >  common JDK loc
 | `mcp-servers/user-config/servers/atlassian/atlassian-config.local.example.properties` | atlassian | Atlassian v1 template | Copy as-is (reference) |
 | `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.properties` | atlassian | Atlassian v2 shared defaults | Copy as-is |
 | `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.local.example.properties` | atlassian | Atlassian v2 template | Copy as-is (reference) |
+| `.github/skills/atlassian-tools/.env.example` | skill-cli | Skill CLI PAT template (single account) | Copy as-is (reference) |
+| `.github/skills/atlassian-tools/.env.accounts.example` | skill-cli | Skill CLI multi-account template | Copy as-is (reference) |
 
 ### Gitignored (user-created from templates — may contain secrets)
 
@@ -440,6 +509,8 @@ build.env.local  >  JAVA_HOME env var  >  java on system PATH  >  common JDK loc
 | `mcp-servers/user-config/mcp-config.local.properties` | mcp | **Yes** | `mcp-config.local.example.properties` | Recreate from template with your keys |
 | `mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties` | atlassian | **Yes** | `atlassian-config.local.example.properties` | Recreate from template with your credentials |
 | `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.local.properties` | atlassian | **Yes** | `atlassian-v2-config.local.example.properties` | Recreate from template with your credentials |
+| `.github/skills/atlassian-tools/.env` | skill-cli | **Yes** | `.env.example` | Recreate from template with your PAT tokens |
+| `.github/skills/atlassian-tools/.env.<account>` | skill-cli | **Yes** | `.env.accounts.example` | Recreate per account for multi-instance work |
 
 ---
 
@@ -488,7 +559,17 @@ Items are ordered by importance; stop at the level you need.
 - [ ] **If brain is inside a module/package:** exclude from build tool (see
   [export-guide.md § 3d](export-guide.md#3d-brain-inside-a-module--package--monorepo-package))
 
-### Level 4: Atlassian Integration (+ 5 min)
+### Level 4: Atlassian Integration (+ 5–10 min)
+
+**Option A — Skill CLI (simpler, for Server/Data Center):**
+
+- [ ] Verify Node.js 18+ is installed (`node --version`)
+- [ ] Copy `.github/skills/atlassian-tools/.env.example` to `.env`
+- [ ] Fill in PAT tokens and base URLs for Jira, Confluence, and/or Bitbucket
+- [ ] Verify: `$env:CLI_JSON_ARGS = '{}'; node scripts\atlassian_cli.js get_current_jira_user`
+- [ ] For multi-account: copy `.env.accounts.example` and create `.env.<account>` files
+
+**Option B — MCP Server (for Atlassian Cloud):**
 
 - [ ] Create `atlassian-config.local.properties` (v1) or
   `atlassian-v2-config.local.properties` (v2) from the `.example` template
@@ -513,8 +594,15 @@ Items are ordered by importance; stop at the level you need.
 project-root/
 ├── .github/
 │   ├── copilot-instructions.md          ← REQUIRED: project conventions
-│   └── instructions/
-│       └── backlog.instructions.md      ← UPDATE applyTo if brain path changed
+│   ├── instructions/
+│   │   └── backlog.instructions.md      ← UPDATE applyTo if brain path changed
+│   └── skills/
+│       └── atlassian-tools/
+│           ├── .env.example             ← Template: PAT tokens (committed)
+│           ├── .env.accounts.example    ← Template: multi-account (committed)
+│           ├── .env                     ← YOUR: PAT tokens (gitignored)
+│           └── scripts/
+│               └── atlassian_cli.js     ← 89-action CLI (committed)
 ├── .vscode/
 │   ├── mcp.json                         ← MCP server registry (enable/disable)
 │   ├── tasks.json                       ← Build/run tasks (update brain paths)

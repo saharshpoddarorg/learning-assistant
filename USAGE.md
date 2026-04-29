@@ -25,9 +25,10 @@
    - [Manual Lifecycle (scripts + VS Code Tasks)](#53-manual-lifecycle-scripts--vs-code-tasks)
    - [Learning Resources Server — All 10 Tools](#54-learning-resources-server--all-10-tools)
    - [Atlassian Server — All 27 Tools](#55-atlassian-server--all-27-tools)
-   - [GitHub & Filesystem Servers](#56-github--filesystem-servers)
-   - [MCP Configuration System](#57-mcp-configuration-system)
-   - [Troubleshooting MCP](#58-troubleshooting-mcp)
+   - [Atlassian Skill CLI — 89 Actions](#56-atlassian-skill-cli--89-actions-alternative-to-mcp)
+   - [GitHub & Filesystem Servers](#57-github--filesystem-servers)
+   - [MCP Configuration System](#58-mcp-configuration-system)
+   - [Troubleshooting MCP](#59-troubleshooting-mcp)
 6. [Search Engine — How It's Built](#6-search-engine--how-its-built)
 7. [Brain Workspace — Personal Knowledge System](#7-brain-workspace--personal-knowledge-system)
 8. [Code Sandbox — src/](#8-code-sandbox--src)
@@ -276,6 +277,7 @@ Skills are Markdown knowledge files that Copilot reads when the topic matches. Y
 | **Daily Assistant Resources** | `daily-assistant-resources/SKILL.md` | Finance tools, productivity frameworks, news sources, research techniques |
 | **Java Build** | `java-build/SKILL.md` | How to compile and run Java code in this repo (no build tool needed) |
 | **MCP Development** | `mcp-development/SKILL.md` | 1,980+ lines: MCP protocol internals, JSON-RPC 2.0, STDIO/SSE/HTTP transports, tool schemas, writing Java MCP servers |
+| **Atlassian Tools** | `atlassian-tools/SKILL.md` | 89-action CLI for Jira, Confluence, Bitbucket Server/DC — PAT auth, `.env` config, zero npm deps |
 | **Software Engineering Resources** | `software-engineering-resources/SKILL.md` | All the above SE topics — the main knowledge base |
 | **Search Engine** | *(inline in code)* | The pluggable search engine used internally by MCP servers |
 
@@ -621,7 +623,53 @@ You: "Find Confluence pages about our system architecture"
 → Returns matching pages with summaries
 ```
 
-### 5.6 GitHub & Filesystem Servers
+### 5.6 Atlassian Skill CLI — 89 Actions (Alternative to MCP)
+
+> **Simpler alternative** to the MCP Atlassian server above. Uses `.env` files with PAT
+> tokens instead of MCP config properties. Works with Atlassian **Server/Data Center**.
+
+**Prerequisites:** Node.js 18+
+
+**Setup (3 min):**
+
+1. Copy the template:
+
+   ```powershell
+   cd .github\skills\atlassian-tools
+   Copy-Item .env.example .env
+   ```
+
+2. Edit `.env` with your PAT tokens and base URLs:
+
+   ```bash
+   JIRA_PAT_TOKEN=your-jira-pat-here
+   JIRA_BASE_URL=https://your-jira-instance.company.com
+   CONFLUENCE_PAT_TOKEN=your-confluence-pat-here
+   CONFLUENCE_BASE_URL=https://your-confluence-instance.company.com
+   BITBUCKET_PAT_TOKEN=your-bitbucket-pat-here
+   BITBUCKET_BASE_URL=https://your-bitbucket-instance.company.com
+   ```
+
+3. Verify: `$env:CLI_JSON_ARGS = '{}'; node scripts\atlassian_cli.js get_current_jira_user`
+
+**Coverage:** 34 Jira + 34 Confluence + 21 Bitbucket actions. Includes cross-account
+migration, resume/work analysis, bulk operations, repo mirroring.
+
+**Multi-account:** See `.env.accounts.example` for managing multiple Atlassian instances.
+Full guide: [GUIDE.md](.github/skills/atlassian-tools/GUIDE.md)
+
+**MCP server vs. skill CLI:**
+
+| Feature | MCP Server (§5.5) | Skill CLI |
+|---|---|---|
+| Instance type | Atlassian Cloud | Server / Data Center |
+| Auth method | Email + API token | PAT (Personal Access Token) |
+| Config file | `atlassian-config.local.properties` | `.env` |
+| Actions | 27 MCP tools | 89 CLI actions |
+| Requires | Java 21+ | Node.js 18+ |
+| Multi-account | Separate MCP configs | `.env.<account>` files |
+
+### 5.7 GitHub & Filesystem Servers
 
 Both are disabled by default. Enable in `.vscode/mcp.json`.
 
@@ -635,7 +683,7 @@ Both are disabled by default. Enable in `.vscode/mcp.json`.
 - Enables: Copilot reads/writes files in your workspace
 - Note: Already has partial access through the workspace context — use this for explicit file operations
 
-### 5.7 MCP Configuration System
+### 5.8 MCP Configuration System
 
 > 🔴 **Pro / those building new servers.**
 
@@ -697,7 +745,7 @@ McpConfiguration
     └── ProfileDefinition (description, preferences, locationPrefs, browserPrefs, serverOverrides)
 ```
 
-### 5.8 Troubleshooting MCP
+### 5.9 Troubleshooting MCP
 
 | Problem | Likely cause | Fix |
 |---------|-------------|-----|

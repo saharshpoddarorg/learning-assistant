@@ -13,7 +13,8 @@
 | Copilot to follow my coding rules | `.github/copilot-instructions.md` only | 2 min | No |
 | Rules + slash commands + agents + skills | Entire `.github/` folder | 5 min | No |
 | Copilot to search learning resources | `.github/` + `mcp-servers/` + `.vscode/mcp.json` | 15 min | No |
-| Copilot to read Jira/Confluence | All above + Atlassian credentials | 20 min | Yes (Atlassian API token) |
+| Copilot to read Jira/Confluence (Server/DC) | `.github/` folder + `.env` file in skill | 10 min | Yes (Atlassian PAT) |
+| Copilot to read Jira/Confluence (Cloud) | All above + MCP server + Atlassian credentials | 20 min | Yes (Atlassian API token) |
 | Copilot to search GitHub repos | All above + GitHub PAT | 15 min | Yes (GitHub Personal Access Token) |
 
 **Most users start with option 2** (the full `.github/` folder). It's free, needs no API keys,
@@ -110,7 +111,8 @@ Open `$target\.github\copilot-instructions.md` and change:
 | Server | Config file | API key needed? | Skip if... |
 |---|---|---|---|
 | Learning Resources | None needed | No | You don't want learning resource search |
-| Atlassian (Jira/Confluence) | `mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties` | Yes — Atlassian API token | You don't use Jira/Confluence |
+| Atlassian Skill CLI | `.github/skills/atlassian-tools/.env` | Yes — Atlassian PAT | You don't use Jira/Confluence, or you use Cloud |
+| Atlassian MCP Server | `mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties` | Yes — Atlassian API token | You don't use Jira/Confluence, or you use Server/DC |
 | GitHub | `.vscode/mcp.json` (VS Code prompts for token) | Yes — GitHub PAT | You don't need GitHub repo search in Copilot |
 | Filesystem | None needed | No | You don't want Copilot to read/write files directly |
 
@@ -129,9 +131,47 @@ Copy-Item build.env.example build.env.local
 
 Then in `$target\.vscode\mcp.json`, the `learning-resources` server is already enabled.
 
-### Atlassian Server (needs API token — skip if not needed)
+### Atlassian Integration (skip if not needed)
 
 **You do NOT need this unless you use Jira/Confluence at work.**
+
+Two options — pick the one that matches your Atlassian instance:
+
+#### Option A: Skill CLI (simpler — for Server/Data Center)
+
+The skill CLI is a standalone Node.js script with 89 actions. No MCP server needed.
+
+**Prerequisites:** Node.js 18+
+
+```powershell
+cd "$target\.github\skills\atlassian-tools"
+Copy-Item .env.example .env
+```
+
+Edit `.env`:
+
+```bash
+# PAT token — generate in your profile: https://your-instance.com/plugins/personalaccesstokens/manage
+JIRA_PAT_TOKEN=your-jira-pat-here
+JIRA_BASE_URL=https://your-jira-instance.company.com
+
+CONFLUENCE_PAT_TOKEN=your-confluence-pat-here
+CONFLUENCE_BASE_URL=https://your-confluence-instance.company.com
+
+BITBUCKET_PAT_TOKEN=your-bitbucket-pat-here
+BITBUCKET_BASE_URL=https://your-bitbucket-instance.company.com
+```
+
+Verify it works:
+
+```powershell
+$env:CLI_JSON_ARGS = '{}'; node scripts\atlassian_cli.js get_current_jira_user
+```
+
+> **Multi-account?** See `.env.accounts.example` in the same folder for how to manage
+> multiple Atlassian instances.
+
+#### Option B: MCP Server (for Atlassian Cloud)
 
 ```powershell
 cd "$target\mcp-servers\user-config\servers\atlassian"
