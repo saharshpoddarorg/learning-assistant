@@ -13,10 +13,10 @@
 2. [Tier Guide — Who Are You?](#2-tier-guide--who-are-you)
 3. [One-Time Setup](#3-one-time-setup)
 4. [Copilot Customization — Using the AI Features](#4-copilot-customization--using-the-ai-features)
-   - [Slash Commands (30 commands)](#41-slash-commands-30-commands)
-   - [AI Agents (7 personas)](#42-ai-agents-7-personas)
-   - [Skill Packs — Knowledge That Loads Automatically](#43-skill-packs--knowledge-that-loads-automatically)
-   - [Coding Instructions — Rules Copilot Always Follows](#44-coding-instructions--rules-copilot-always-follows)
+   - [Slash Commands (65 commands)](#41-slash-commands-65-commands)
+   - [AI Agents (8 personas)](#42-ai-agents-8-personas)
+   - [Skill Packs (23 skills)](#43-skill-packs--knowledge-that-loads-automatically)
+   - [Coding Instructions (10 files)](#44-coding-instructions-10-files--rules-copilot-always-follows)
    - [Copilot Chat Workflow Tips](#45-copilot-chat-workflow-tips)
    - [Steering — Controlling Completion Order](#46-steering--controlling-completion-order)
 5. [MCP Servers — Start, Stop, Restart, Reset, Use](#5-mcp-servers--start-stop-restart-reset-use)
@@ -57,12 +57,12 @@ A **super-charged VS Code workspace** that combines three things:
 │     DSA, system design, DevOps, Git, design patterns, industry practices,  │
 │     career planning, tech trends 2025–26, and more.                        │
 │                                                                             │
-│  2. AI TUTOR — GitHub Copilot customized with 36 slash commands,           │
-│     7 AI agents, 11 knowledge packs, and project-wide coding rules.        │
+│  2. AI TUTOR — GitHub Copilot customized with 65 slash commands,           │
+│     8 AI agents, 23 knowledge packs, and project-wide coding rules.       │
 │     Ask questions, get lessons, explore concepts, practice code.           │
 │                                                                             │
 │  3. MCP TOOLS — Java servers that give Copilot real-world superpowers:     │
-│     search ~100+ curated learning resources, scrape web pages, browse      │
+│     search ~176 curated learning resources, scrape web pages, browse       │
 │     your Jira/Confluence, query GitHub repos — all from Chat.              │
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -175,7 +175,7 @@ cd mcp-servers && ./build.sh    # Linux/Mac
 1. `Ctrl+Alt+I` or `Ctrl+Shift+I` → opens Copilot Chat
 2. Switch to **Agent** mode (dropdown at top of chat panel)
 3. Type: `/hub`
-   You should see a list of all 36 slash commands → setup is working.
+   You should see a list of all 65 slash commands → setup is working.
 
 ### Step 10 — Verify MCP Tools Are Available
 
@@ -198,66 +198,112 @@ You should see tools like `search_resources`, `browse_vault`, `discover_resource
 > [Primitives Crosswalk](.github/docs/copilot-primitives-crosswalk.md) for a decision
 > flowchart and quick comparison table.
 
-### 4.1 Slash Commands (36 commands)
+### 4.1 Slash Commands (65 commands)
 
 **How to use:**
 1. Open Copilot Chat (`Ctrl+Alt+I`)
 2. Make sure you're in **Agent** mode
 3. Type `/` → command picker appears → select or type the command
 
-**Full command list:**
+**Full command list (65 commands across 10 categories):**
 
-| Command | What it does | Example input |
-|---------|-------------|--------------|
-| `/hub` | Browse all 36 commands by category | (no input needed) |
-| `/learn-concept` | Learn any CS/SE concept from scratch | `binary search`, `TCP handshake`, `dependency injection` |
-| `/deep-dive` | Multi-layered exploration with analogies + code + quiz | `event-driven architecture` |
-| `/learn-from-docs` | Learn via official documentation links | `React hooks`, `Spring Boot` |
-| `/reading-plan` | Create a structured study plan | `become a backend engineer in 3 months` |
-| `/teach` | Explain the currently open file | (open a .java file first) |
-| `/dsa` | Data structures & algorithms lesson | `binary tree → level-order traversal → java → advanced` |
-| `/system-design` | HLD/LLD system design | `design a URL shortener` |
-| `/devops` | DevOps, CI/CD, Docker, Kubernetes, Git | `kubernetes pod scheduling` |
-| `/language-guide` | Language-specific learning path | `go`, `rust`, `python` |
-| `/tech-stack` | Frameworks and databases | `compare Spring vs Quarkus` |
-| `/sdlc` | SDLC phases, methodologies, practices | `agile vs kanban`, `testing pyramid` |
-| `/mcp` | Learn & build MCP servers | `how do I add a new MCP tool?` |
-| `/explore-project` | Analyze open-source project architecture | `spring-boot repo` |
-| `/resources` | Search + browse curated learning resources | `java concurrency tutorials` |
-| `/interview-prep` | Technical interview preparation | `system design: design Twitter`, `behavioral: conflict` |
-| `/career-roles` | Job roles, skills, pay ranges, roadmaps | `staff engineer`, `devops`, `ML engineer` |
-| `/design-review` | SOLID/GRASP design review of current file | (open a .java file) |
-| `/refactor` | Identify refactoring opportunities | (open a file to refactor) |
-| `/explain` | Beginner-friendly explanation of current file | (open any file) |
-| `/debug` | Systematic bug investigation | paste the error, or open the file |
-| `/impact` | Change impact & ripple analysis | `what breaks if I rename this method?` |
-| `/composite` | Combine multiple modes in one session | `learn DSA + implement + review` |
-| `/context` | Continue prior conversation or start fresh | |
-| `/scope` | Set generic vs. code-specific learning | |
-| `/multi-session` | Save/resume state across chat sessions | |
-| `/daily-assist` | Finance, productivity, news, research | `analyze my spending`, `summarize tech news` |
-| `/brain-new` | Create a knowledge note | `key insights from today's DSA session` |
-| `/brain-publish` | Publish a note to library with git commit | |
-| `/brain-search` | Search across all note tiers | `binary tree traversal` |
+| # | Command | Category | What It Does |
+|---|---------|----------|-------------|
+| | **Meta & Navigation** | | |
+| 1 | `/hub` | meta | Master navigation — browse all 65 commands |
+| 2 | `/composite` | meta | Combine multiple modes in one session |
+| 3 | `/context` | meta | Continue prior conversation or start fresh |
+| 4 | `/scope` | meta | Generic learning vs. code-specific |
+| 5 | `/multi-session` | meta | Save/resume state across chat sessions |
+| 6 | `/steer` | meta | View or switch the active steering mode |
+| 7 | `/request-steering` | meta | Route new request vs. current work |
+| 8 | `/session-scope` | meta | Manage session scope (global/project/feature) |
+| 9 | `/write-docs` | meta | Generate documentation |
+| | **Learning & Concepts** | | |
+| 10 | `/learn-concept` | learning | Learn any CS/SE concept from scratch |
+| 11 | `/deep-dive` | learning | Multi-layered progressive concept exploration |
+| 12 | `/learn-from-docs` | learning | Learn via official documentation links |
+| 13 | `/reading-plan` | learning | Structured study plan with resources |
+| 14 | `/teach` | learning | Explain the currently open file |
+| | **Domain-Specific** | | |
+| 15 | `/dsa` | domain | Data structures & algorithms lesson |
+| 16 | `/system-design` | domain | HLD/LLD system design |
+| 17 | `/devops` | domain | CI/CD, Docker, Kubernetes, cloud, IaC |
+| 18 | `/sdlc` | domain | SDLC phases, methodologies, practices |
+| 19 | `/tech-stack` | domain | Frameworks, libraries, databases — compare & learn |
+| 20 | `/language-guide` | domain | Language-specific learning framework |
+| 21 | `/mcp` | domain | Learn & build MCP servers |
+| 22 | `/explore-project` | domain | Learn by studying open-source projects |
+| 23 | `/resources` | domain | Search, browse & export ~176 curated resources |
+| 24 | `/digital-notetaking` | domain | PKM tools: Obsidian, Notion, Logseq, PARA |
+| | **Code Quality** | | |
+| 25 | `/design-review` | code | Full SOLID/GRASP design review |
+| 26 | `/debug` | code | Systematic bug investigation workflow |
+| 27 | `/code-analysis` | code | Code review and analysis |
+| 28 | `/code-analysis-deep-dive` | code | Deep-dive into code internals and flow |
+| 29 | `/impact` | code | Change impact & ripple effect analysis |
+| 30 | `/refactor` | code | Identify refactoring opportunities |
+| 31 | `/explain` | code | Beginner-friendly file explanation |
+| 32 | `/check-standards` | code | Audit file/folder against best practices |
+| | **Tools & Platforms** | | |
+| 33 | `/atlassian-tools` | tools | Jira, Confluence, Bitbucket CLI workflows |
+| 34 | `/git-vcs` | tools | Git workflows, branching, conventions |
+| 35 | `/github-workflow` | tools | GitHub PRs, issues, gh CLI, Actions |
+| 36 | `/build-tools` | tools | Maven, Gradle, Make, Bazel, npm |
+| 37 | `/mac-dev` | tools | macOS dev environment |
+| 38 | `/read-url` | tools | Read, extract, summarize webpage content |
+| | **Copilot Customization** | | |
+| 39 | `/copilot-customization` | customization | Learn Copilot customization primitives |
+| 40 | `/create-agent` | customization | Scaffold a new custom agent |
+| 41 | `/mcp-to-skill` | customization | Convert MCP tool to SKILL.md |
+| | **Career & Daily Life** | | |
+| 42 | `/career-roles` | career | Job roles, skills, pay ranges, roadmaps |
+| 43 | `/interview-prep` | career | DSA patterns, system design, strategies |
+| 44 | `/daily-assist` | career | Finance, productivity, news, daily tasks |
+| | **Shipping & Release** | | |
+| 45 | `/ship` | shipping | Release workflow |
+| 46 | `/github-push` | shipping | Push to remote & create PR |
+| | **Backlog & Tasks** | | |
+| 47 | `/backlog` | backlog | Agile board management |
+| 48 | `/jot` | backlog | Quick capture to backlog |
+| 49 | `/read-file-jot` | backlog | Capture ideas from current file |
+| 50 | `/todo` | backlog | Single task creation |
+| 51 | `/todos` | backlog | Batch task creation |
+| | **Brain Workspace** | | |
+| 52 | `/brain-new` | brain | Create a knowledge note |
+| 53 | `/brain-publish` | brain | Publish note to library with git commit |
+| 54 | `/brain-search` | brain | Search across all note tiers |
+| 55 | `/brain-capture-session` | brain | Convert AI session to structured note |
+| 56 | `/brain-fetch` | brain | Fetch content from external source |
+| 57 | `/brain-pull` | brain | Pull content into brain workspace |
+| 58 | `/brain-push` | brain | Push content to target |
+| 59 | `/brain-clone` | brain | Clone from external source |
+| 60 | `/brain-merge` | brain | Merge notes together |
+| 61 | `/brain-cherry-pick` | brain | Selective merge from another note |
+| 62 | `/brain-stash` | brain | Save work-in-progress |
+| 63 | `/brain-diff` | brain | Compare notes |
+| 64 | `/brain-remote` | brain | Manage remote sources |
+| 65 | `/brain-consolidate` | brain | Consolidate notes |
 
 **Pro tips:**
 - Chain commands: `/dsa` → learn → `/teach` the code you just implemented → `/design-review`
 - Use `/composite` for multi-step sessions without repeating context
 - `/hub` always works as a navigation anchor when you're lost
 
-### 4.2 AI Agents (7 personas)
+### 4.2 AI Agents (8 personas)
 
 Agents are specialist AI personas. Select them from the **mode dropdown** in Copilot Chat, or some are auto-selected by slash commands.
 
 | Agent | File | Best For |
 |-------|------|---------|
-| **Learning Mentor** | `learning-mentor.agent.md` | Teaching concepts with analogies, worked examples, and practice questions. The default for `/learn-*` and `/dsa` commands. |
-| **Designer** | `designer.agent.md` | Architecture review, SOLID principles, design patterns, refactoring. Used by `/design-review` and `/refactor`. |
-| **Debugger** | `debugger.agent.md` | Systematic, hypothesis-driven bug finding. Asks clarifying questions before guessing. Used by `/debug`. |
-| **Impact Analyzer** | `impact-analyzer.agent.md` | Traces what will break if you change something. Used by `/impact`. |
-| **Code Reviewer** | `code-reviewer.agent.md` | Read-only review: correctness, style, edge cases, security. Never writes code. |
-| **Daily Assistant** | `daily-assistant.agent.md` | Finance tracking, productivity planning, news summaries, web research. Used by `/daily-assist`. |
-| **Thinking Beast Mode** | `Thinking-Beast-Mode.agent.md` | Deep autonomous research on any topic. Chains multiple searches, summarizes findings, provides sources. |
+| **Learning Mentor** | `agents/learning-mentor.agent.md` | Teaching concepts with analogies, worked examples, and practice questions. Default for `/learn-*` and `/dsa` commands. |
+| **Designer** | `agents/designer.agent.md` | Architecture review, SOLID principles, design patterns, refactoring. Used by `/design-review` and `/refactor`. |
+| **Debugger** | `agents/debugger.agent.md` | Systematic, hypothesis-driven bug finding. Asks clarifying questions before guessing. Used by `/debug`. |
+| **Impact Analyzer** | `agents/impact-analyzer.agent.md` | Traces what will break if you change something. Used by `/impact`. |
+| **Code Reviewer** | `agents/code-reviewer.agent.md` | Read-only review: correctness, style, edge cases, security. Never writes code. |
+| **Daily Assistant** | `agents/daily-assistant.agent.md` | Finance tracking, productivity planning, news summaries, web research. Used by `/daily-assist`. |
+| **My Kanha** | `agents/my-kanha.agent.md` | Spiritual mentor — guidance rooted in Bhagavad Gita, Indian philosophy, and meditation practices. |
+| **Thinking Beast Mode** | `agents/Thinking-Beast-Mode.agent.md` | Deep autonomous research on any topic. Chains multiple searches, summarizes findings, provides sources. |
 
 **How to use an agent directly:**
 1. Open Chat → Agent mode
@@ -265,25 +311,49 @@ Agents are specialist AI personas. Select them from the **mode dropdown** in Cop
 3. Select the agent name
 4. Start your question — Copilot behaves as that persona
 
-### 4.3 Skill Packs — Knowledge That Loads Automatically
+### 4.3 Skill Packs (23 skills) — Knowledge That Loads Automatically
 
 Skills are Markdown knowledge files that Copilot reads when the topic matches. You don't need to do anything — they load automatically. But knowing what's in them helps you ask better questions.
 
-| Skill | File | What's Inside |
-|-------|------|--------------|
-| **Software Engineering Resources** | `software-engineering-resources/SKILL.md` | 2,400+ lines: DSA, system design, DevOps, Git, design patterns, industry practices (Netflix, Google, Uber), tech trends 2025–26, OWASP security, SDLC, microservices, circuit breakers, rate limiting, real-world system case studies |
-| **Java Learning Resources** | `java-learning-resources/SKILL.md` | Java 21+ features, tutorials, official docs, recommended books, test frameworks, Spring ecosystem |
-| **Career Resources** | `career-resources/SKILL.md` | 10+ tech roles with skills matrices, salary data, day-in-the-life, career transition roadmaps |
-| **Daily Assistant Resources** | `daily-assistant-resources/SKILL.md` | Finance tools, productivity frameworks, news sources, research techniques |
-| **Java Build** | `java-build/SKILL.md` | How to compile and run Java code in this repo (no build tool needed) |
-| **MCP Development** | `mcp-development/SKILL.md` | 1,980+ lines: MCP protocol internals, JSON-RPC 2.0, STDIO/SSE/HTTP transports, tool schemas, writing Java MCP servers |
-| **Atlassian Tools** | `atlassian-tools/SKILL.md` | 89-action CLI for Jira, Confluence, Bitbucket Server/DC — PAT auth, `.env` config, zero npm deps |
-| **Software Engineering Resources** | `software-engineering-resources/SKILL.md` | All the above SE topics — the main knowledge base |
-| **Search Engine** | *(inline in code)* | The pluggable search engine used internally by MCP servers |
+**23 skills organized across 8 categories:**
+
+| # | Skill | Category | What's Inside |
+|---|-------|----------|--------------|
+| | **Languages & Platforms** (6 skills) | | |
+| 1 | `java-build` | languages-platforms | How to compile and run Java code in this repo (no build tool needed) |
+| 2 | `java-debugging` | languages-platforms | Exception diagnosis, fix patterns, debugger usage |
+| 3 | `java-formatting` | languages-platforms | Code formatting, style, inspections (opt-in only) |
+| 4 | `java-learning-resources` | languages-platforms | Java 21+ features, tutorials, docs, books, Spring ecosystem |
+| 5 | `jvm-platform` | languages-platforms | JVM internals, GC, class loading, serialization, GraalVM |
+| 6 | `mac-dev` | languages-platforms | Homebrew, JDK, npm, Docker, dotfiles cheatsheets |
+| | **Design & Architecture** (2 skills) | | |
+| 7 | `design-patterns` | design-architecture | Design patterns, SOLID, GoF — pattern decision guide |
+| 8 | `software-development-roles` | design-architecture | PO, Developer, QA/Tester role guidance and workflows |
+| | **Dev Process** (3 skills) | | |
+| 9 | `deep-research` | dev-process | Investigation, spike stories, RCA, trade-off analysis |
+| 10 | `requirements-research` | dev-process | User stories, BDD, acceptance criteria, MoSCoW |
+| 11 | `github-workflow` | dev-process | PRs, issues, GitHub CLI, branch protection |
+| | **DevOps & Tooling** (5 skills) | | |
+| 12 | `git-vcs` | devops-tooling | Git workflows, branching, commits, semver |
+| 13 | `mcp-development` | devops-tooling | 1,980+ lines: MCP protocol, JSON-RPC 2.0, transports, Java MCP servers |
+| 14 | `copilot-customization` | devops-tooling | Copilot 6 primitives — create, review, fix |
+| 15 | `atlassian-tools` | devops-tooling | 89-action CLI for Jira, Confluence, Bitbucket — PAT auth, `.env` config |
+| 16 | `web-reader` | devops-tooling | Webpage reading, content extraction |
+| | **Knowledge Management** (3 skills) | | |
+| 17 | `brain-management` | knowledge-management | brain/ai-brain/ tier routing, naming, frontmatter |
+| 18 | `pkm-management` | knowledge-management | PKM capture sources, git-inspired content ops |
+| 19 | `digital-notetaking` | knowledge-management | PKM methods, tool cheatsheets, note templates |
+| | **Learning Resources** (2 skills) | | |
+| 20 | `learning-resources-vault` | learning-resources | 176+ curated resources — master vault index |
+| 21 | `software-engineering-resources` | learning-resources | 2,400+ lines: DSA, system design, DevOps, Git, design patterns, career |
+| | **Career** (1 skill) | | |
+| 22 | `career-resources` | career | 10+ tech roles with skills matrices, salary data, roadmaps |
+| | **Daily Life** (1 skill) | | |
+| 23 | `daily-assistant-resources` | daily-life | Finance tools, productivity frameworks, news sources |
 
 **To trigger a skill deliberately:** Just ask a question in the relevant domain. Asking "how does a token bucket rate limiter work?" automatically loads the SE resources skill. You'll see richer, more specific answers.
 
-### 4.4 Coding Instructions — Rules Copilot Always Follows
+### 4.4 Coding Instructions (10 files) — Rules Copilot Always Follows
 
 Instructions files apply silently. When you edit a Java file, Copilot automatically:
 - Uses `UpperCamelCase` for classes, `lowerCamelCase` for methods/variables
@@ -293,11 +363,20 @@ Instructions files apply silently. When you edit a Java file, Copilot automatica
 - Uses `Logger` instead of `System.out.println`
 - Uses `Objects.requireNonNull()` in constructors
 
-These rules come from:
-- `.github/copilot-instructions.md` — always-on project rules
-- `.github/instructions/java.instructions.md` — Java-specific rules (applies to `*.java`)
-- `.github/instructions/clean-code.instructions.md` — clean code practices (all files)
-- `.github/instructions/build.instructions.md` — build conventions (`*.gradle`)
+These rules come from **10 instruction files**:
+
+| # | File | Applies To | What It Does |
+|---|------|-----------|-------------|
+| 1 | `copilot-instructions.md` | All requests | Project-wide conventions, commit style, naming |
+| 2 | `instructions/java.instructions.md` | `**/*.java` | Java naming, style, Java 21+ features |
+| 3 | `instructions/clean-code.instructions.md` | `**/*.java` | Clean code practices, code smell detection |
+| 4 | `instructions/change-completeness.instructions.md` | `**` | Iterative completeness checklist — default steering mode |
+| 5 | `instructions/md-formatting.instructions.md` | `**` | Markdown formatting rules — always enforced |
+| 6 | `instructions/steering-modes.instructions.md` | `**` | Steering mode profiles (completeness, beast, learning, etc.) |
+| 7 | `instructions/chat-capture.instructions.md` | `**` | Session capture auto-policy and protocol |
+| 8 | `instructions/session-scoping.instructions.md` | `**` | Session scope management (global/project/feature) |
+| 9 | `instructions/backlog.instructions.md` | `brain/ai-brain/backlog/**` | Backlog/task management protocol |
+| 10 | `instructions/build.instructions.md` | `**/*.gradle` | Gradle build commands & patterns |
 
 **You can add your own** — create `*.instructions.md` in `.github/instructions/` with a `---applyTo---` frontmatter pattern.
 
@@ -1281,12 +1360,10 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | File | What it does |
 |------|-------------|
 | `copilot-instructions.md` | Always-on coding rules (naming, Javadoc, Logger, etc.) |
-| `instructions/java.instructions.md` | Java rules — applied automatically to `*.java` |
-| `instructions/clean-code.instructions.md` | Clean code rules — applied to all files |
-| `instructions/build.instructions.md` | Build tool conventions — applied to `*.gradle` |
-| `agents/*.agent.md` | 7 AI personas (select from Chat dropdown) |
-| `prompts/*.prompt.md` | 36 slash commands (type `/command` in Chat) |
-| `skills/*/SKILL.md` | Knowledge packs (auto-load by topic match) |
+| `instructions/*.instructions.md` | 9 auto-applied instruction files (Java, clean code, steering, etc.) |
+| `agents/*.agent.md` | 8 AI personas (select from Chat dropdown) |
+| `prompts/<category>/*.prompt.md` | 65 slash commands across 10 categories (type `/command` in Chat) |
+| `skills/<category>/*/SKILL.md` | 23 knowledge packs across 8 categories (auto-load by topic match) |
 
 ### MCP Server Files
 
@@ -1324,8 +1401,8 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `.github/docs/phase-guide.md` | Step-by-step phases 0–7 |
 | `.github/docs/getting-started.md` | 30-min hands-on tutorial |
 | `.github/docs/mcp-server-setup.md` | MCP server setup (complete) |
-| `.github/docs/slash-commands.md` | All 36 commands reference |
-| `.github/docs/customization-guide.md` | How the 5 Copilot primitives connect |
+| `.github/docs/slash-commands.md` | All 65 commands reference |
+| `.github/docs/customization-guide.md` | How the 6 Copilot primitives connect |
 | `.github/docs/export-guide.md` | Copy to another project |
 | `.github/docs/copilot-workflow.md` | Chat patterns and best practices |
 | `.github/docs/navigation-index.md` | Master lookup index |
