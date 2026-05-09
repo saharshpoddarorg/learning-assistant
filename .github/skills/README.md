@@ -1,7 +1,7 @@
 # 🛠️ Agent Skills — Guide
 
 > **What:** Folders containing instructions + scripts + resources that Copilot loads automatically when the task matches.
-> **Where:** `.github/skills/<skill-name>/SKILL.md`
+> **Where:** `.github/skills/<category>/<skill-name>/SKILL.md`
 > **How to use:** Just ask Copilot a matching question — skills load automatically.
 
 ---
@@ -68,64 +68,64 @@ Skills are also an **open standard** ([agentskills.io](https://agentskills.io/))
 
 | Skill | Triggers On | What It Provides |
 |---|---|---|
-| [`java-build`](java-build/SKILL.md) | Compile, run, build, `javac`, classpath | Compile commands, common errors, JDK setup |
-| [`java-debugging`](java-debugging/SKILL.md) | Exceptions, debugging, stack trace, breakpoints | Exception diagnosis, fix patterns, debugger usage |
-| [`java-formatting`](java-formatting/SKILL.md) | Code style, formatting, inspections (**opt-in**) | IntelliJ style rules, brace placement, stream formatting |
-| [`java-learning-resources`](java-learning-resources/SKILL.md) | Java tutorials, docs, blogs, Oracle, Baeldung | Curated index — Oracle docs, dev.java, blogs, OSS projects |
-| [`jvm-platform`](jvm-platform/SKILL.md) | JVM, GC, class loading, bytecode, GraalVM, Kotlin | JVM architecture, GC tuning, profiling, JVM languages |
-| [`mac-dev`](mac-dev/SKILL.md) | macOS, Homebrew, zsh, Mac setup | macOS dev environment — Homebrew, JDK, npm, Docker, dotfiles |
+| [`java-build`](languages-platforms/java-build/SKILL.md) | Compile, run, build, `javac`, classpath | Compile commands, common errors, JDK setup |
+| [`java-debugging`](languages-platforms/java-debugging/SKILL.md) | Exceptions, debugging, stack trace, breakpoints | Exception diagnosis, fix patterns, debugger usage |
+| [`java-formatting`](languages-platforms/java-formatting/SKILL.md) | Code style, formatting, inspections (**opt-in**) | IntelliJ style rules, brace placement, stream formatting |
+| [`java-learning-resources`](languages-platforms/java-learning-resources/SKILL.md) | Java tutorials, docs, blogs, Oracle, Baeldung | Curated index — Oracle docs, dev.java, blogs, OSS projects |
+| [`jvm-platform`](languages-platforms/jvm-platform/SKILL.md) | JVM, GC, class loading, bytecode, GraalVM, Kotlin | JVM architecture, GC tuning, profiling, JVM languages |
+| [`mac-dev`](languages-platforms/mac-dev/SKILL.md) | macOS, Homebrew, zsh, Mac setup | macOS dev environment — Homebrew, JDK, npm, Docker, dotfiles |
 
 #### Design & Architecture
 
 | Skill | Triggers On | What It Provides |
 |---|---|---|
-| [`design-patterns`](design-patterns/SKILL.md) | Design patterns, SOLID, GoF, creational, structural | Pattern decision guide, SOLID reference, GoF catalog |
-| [`software-development-roles`](software-development-roles/SKILL.md) | PO, Developer, QA, Tester, sprint, role workflows | Role guidance — PO/Dev/QA responsibilities, collaboration |
+| [`design-patterns`](design-architecture/design-patterns/SKILL.md) | Design patterns, SOLID, GoF, creational, structural | Pattern decision guide, SOLID reference, GoF catalog |
+| [`software-development-roles`](design-architecture/software-development-roles/SKILL.md) | PO, Developer, QA, Tester, sprint, role workflows | Role guidance — PO/Dev/QA responsibilities, collaboration |
 
 #### Development Process
 
 | Skill | Triggers On | What It Provides |
 |---|---|---|
-| [`deep-research`](deep-research/SKILL.md) | Investigation, spike, RCA, trade-off, feasibility | Research methodology, evidence synthesis, decision docs |
-| [`requirements-research`](requirements-research/SKILL.md) | User stories, acceptance criteria, BDD, discovery | Elicitation techniques, story mapping, prioritization |
-| [`github-workflow`](github-workflow/SKILL.md) | PR, pull request, issue, GitHub CLI, `gh`, PR title | PR management, issue workflows, `gh` CLI, branch ops |
+| [`deep-research`](dev-process/deep-research/SKILL.md) | Investigation, spike, RCA, trade-off, feasibility | Research methodology, evidence synthesis, decision docs |
+| [`requirements-research`](dev-process/requirements-research/SKILL.md) | User stories, acceptance criteria, BDD, discovery | Elicitation techniques, story mapping, prioritization |
+| [`github-workflow`](dev-process/github-workflow/SKILL.md) | PR, pull request, issue, GitHub CLI, `gh`, PR title | PR management, issue workflows, `gh` CLI, branch ops |
 
 #### DevOps & Tooling
 
 | Skill | Triggers On | What It Provides |
 |---|---|---|
-| [`git-vcs`](git-vcs/SKILL.md) | Git commands, branching, merge, rebase, GitFlow | Git cheatsheet, branching strategies, Conventional Commits |
-| [`mcp-development`](mcp-development/SKILL.md) | MCP, Model Context Protocol, MCP server, tools | MCP architecture, building servers, transport, testing |
-| [`copilot-customization`](copilot-customization/SKILL.md) | Copilot instructions, prompts, agents, skills, `.github` | 6 customization primitives, activation rules, stacking |
-| [`atlassian-tools`](atlassian-tools/SKILL.md) | Jira, Confluence, Bitbucket, JQL, CQL, PAT CLI, sprints | 89-action CLI, JQL/CQL cheatsheet, workflow playbooks |
-| [`web-reader`](web-reader/SKILL.md) | URL, webpage, fetch page, summarize article, extract content | Webpage reading, content extraction, article summarization |
+| [`git-vcs`](devops-tooling/git-vcs/SKILL.md) | Git commands, branching, merge, rebase, GitFlow | Git cheatsheet, branching strategies, Conventional Commits |
+| [`mcp-development`](devops-tooling/mcp-development/SKILL.md) | MCP, Model Context Protocol, MCP server, tools | MCP architecture, building servers, transport, testing |
+| [`copilot-customization`](devops-tooling/copilot-customization/SKILL.md) | Copilot instructions, prompts, agents, skills, `.github` | 6 customization primitives, activation rules, stacking |
+| [`atlassian-tools`](devops-tooling/atlassian-tools/SKILL.md) | Jira, Confluence, Bitbucket, JQL, CQL, PAT CLI, sprints | 89-action CLI, JQL/CQL cheatsheet, workflow playbooks |
+| [`web-reader`](devops-tooling/web-reader/SKILL.md) | URL, webpage, fetch page, summarize article, extract content | Webpage reading, content extraction, article summarization |
 
 #### Learning Resources
 
 | Skill | Triggers On | What It Provides |
 |---|---|---|
-| [`learning-resources-vault`](learning-resources-vault/SKILL.md) | Learning resources, tutorials, books, courses, study plan | **176 curated resources** across 10+ domains — the master vault |
-| [`software-engineering-resources`](software-engineering-resources/SKILL.md) | DSA, system design, OS, networking, DBMS, testing, DevOps | Comprehensive SE/CS resource index — books, tools, frameworks |
+| [`learning-resources-vault`](learning-resources/learning-resources-vault/SKILL.md) | Learning resources, tutorials, books, courses, study plan | **176 curated resources** across 10+ domains — the master vault |
+| [`software-engineering-resources`](learning-resources/software-engineering-resources/SKILL.md) | DSA, system design, OS, networking, DBMS, testing, DevOps | Comprehensive SE/CS resource index — books, tools, frameworks |
 
 ### 2. Knowledge Management (3 skills)
 
 | Skill | Triggers On | What It Provides |
 |---|---|---|
-| [`brain-management`](brain-management/SKILL.md) | brain/, notes, inbox, sessions, backlog, tier routing | brain/ai-brain/ naming, structure, frontmatter, agile board |
-| [`pkm-management`](pkm-management/SKILL.md) | PKM, capture sources, consolidation, access control | Git-inspired content ops, brain consolidation, access policy |
-| [`digital-notetaking`](digital-notetaking/SKILL.md) | Notion, Obsidian, Logseq, PARA, Zettelkasten, notes | Tool comparison, PARA/CODE methods, migration guide |
+| [`brain-management`](knowledge-management/brain-management/SKILL.md) | brain/, notes, inbox, sessions, backlog, tier routing | brain/ai-brain/ naming, structure, frontmatter, agile board |
+| [`pkm-management`](knowledge-management/pkm-management/SKILL.md) | PKM, capture sources, consolidation, access control | Git-inspired content ops, brain consolidation, access policy |
+| [`digital-notetaking`](knowledge-management/digital-notetaking/SKILL.md) | Notion, Obsidian, Logseq, PARA, Zettelkasten, notes | Tool comparison, PARA/CODE methods, migration guide |
 
 ### 3. Career & Professional Development (1 skill)
 
 | Skill | Triggers On | What It Provides |
 |---|---|---|
-| [`career-resources`](career-resources/SKILL.md) | Job roles, salary, career roadmap, interview, tech career | Role hierarchies, skills matrices, compensation data |
+| [`career-resources`](career/career-resources/SKILL.md) | Job roles, salary, career roadmap, interview, tech career | Role hierarchies, skills matrices, compensation data |
 
 ### 4. Daily Life & Productivity (1 skill)
 
 | Skill | Triggers On | What It Provides |
 |---|---|---|
-| [`daily-assistant-resources`](daily-assistant-resources/SKILL.md) | Finance, budgeting, productivity, time management, news | Productivity methods, finance basics, news sources |
+| [`daily-assistant-resources`](daily-life/daily-assistant-resources/SKILL.md) | Finance, budgeting, productivity, time management, news | Productivity methods, finance basics, news sources |
 
 ---
 
@@ -136,19 +136,23 @@ Each skill is a **folder** (not a single file):
 ```text
 .github/skills/
 │
-├── java-build/                    ← Skill folder
-│   ├── SKILL.md                   ← Required: skill definition
-│   ├── build-verify.sh            ← Optional: helper script
-│   └── common-errors.md           ← Optional: reference material
+├── languages-platforms/               ← Category folder
+│   ├── java-build/                    ← Skill folder
+│   │   ├── SKILL.md                   ← Required: skill definition
+│   │   ├── build-verify.sh            ← Optional: helper script
+│   │   └── common-errors.md           ← Optional: reference material
+│   └── java-debugging/
+│       └── SKILL.md
 │
-├── run-tests/                     ← Another skill
-│   ├── SKILL.md
-│   └── examples/
-│       └── SampleTest.java        ← Optional: template/example
+├── design-architecture/               ← Another category
+│   └── design-patterns/
+│       └── SKILL.md
 │
-└── create-class/                  ← Another skill
-    ├── SKILL.md
-    └── ClassTemplate.java         ← Optional: template file
+└── devops-tooling/                    ← Another category
+    ├── git-vcs/
+    │   └── SKILL.md
+    └── mcp-development/
+        └── SKILL.md
 ```
 
 ---
@@ -313,8 +317,8 @@ Use [ClassTemplate.java](./ClassTemplate.java) as the starting point.
 ### Step-by-Step
 
 1. Create the skills root (if missing): `.github/skills/`
-2. Create a subdirectory: `.github/skills/<skill-name>/`
-3. Create: `.github/skills/<skill-name>/SKILL.md`
+2. Create a subdirectory: `.github/skills/<category>/<skill-name>/`
+3. Create: `.github/skills/<category>/<skill-name>/SKILL.md`
 4. Add YAML frontmatter with `name` (required) and `description` (required)
 5. Write instructions in the body
 6. *(Optional)* Add scripts, templates, or examples alongside SKILL.md

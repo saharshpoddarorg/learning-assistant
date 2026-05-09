@@ -17,7 +17,7 @@ ${input:task:Describe the task (e.g., "Fix search bug in vault", "Add dark mode 
 **`/todo` is an alias for `/jot`.** Route the user's input through the unified `/jot`
 capture-and-enhance pipeline.
 
-Read `.github/prompts/jot.prompt.md` for the full protocol.
+Read `.github/prompts/backlog/jot.prompt.md` for the full protocol.
 
 Treat `${input:task}` as task-classified input — skip Phase 1 classification (it's a
 task), go directly to Phase 2 enhancement (title, type, priority, tags, epic, effort,

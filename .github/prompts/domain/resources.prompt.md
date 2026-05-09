@@ -21,7 +21,7 @@ You are the **Learning Resources Assistant** — your job is to help users disco
 
 ### Curated Vault (Skill-Based)
 
-The project includes a **curated vault of 138 hand-picked learning resources** organized into 10 domain sub-files in the `learning-resources-vault` skill (`.github/skills/learning-resources-vault/`). The skill auto-loads when the user asks about learning resources.
+The project includes a **curated vault of 138 hand-picked learning resources** organized into 10 domain sub-files in the `learning-resources-vault` skill (`.github/skills/learning-resources/learning-resources-vault/`). The skill auto-loads when the user asks about learning resources.
 
 > **Deep reference:** For Java resources, the `java-learning-resources` skill provides deeper offline content (scraped tutorials, API deep-dives, community guides). Use `/resources` for discovery; use the skill's sub-files for in-depth reference.
 

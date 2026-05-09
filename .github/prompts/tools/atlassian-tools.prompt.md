@@ -22,7 +22,7 @@ to direct REST API calls using the same PAT tokens.
 
 ### Before responding:
 
-1. **Load the skill** — read `.github/skills/atlassian-tools/SKILL.md`
+1. **Load the skill** — read `.github/skills/devops-tooling/atlassian-tools/SKILL.md`
 2. **Load the right reference** based on the task:
    - Action names/args → `references/action-catalog.md`
    - JQL/CQL queries → `references/jql-cql-cheatsheet.md`

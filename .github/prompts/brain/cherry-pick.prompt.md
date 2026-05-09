@@ -23,7 +23,7 @@ The user wants to **cherry-pick** one specific item from a source into brain.
 
 ### Steps
 
-1. **Read the PKM management skill** at `.github/skills/pkm-management/SKILL.md`
+1. **Read the PKM management skill** at `.github/skills/knowledge-management/pkm-management/SKILL.md`
 2. **Check sensitivity** for `${input:source}`
 3. Locate the specific item: `${input:item}` in `${input:source}`
 4. Import it into `brain/ai-brain/inbox/` with origin frontmatter:

@@ -20,7 +20,7 @@ This is `fetch + merge` — retrieves new content AND updates existing files in-
 
 ### Before Pulling
 
-1. **Read the PKM management skill** at `.github/skills/pkm-management/SKILL.md`
+1. **Read the PKM management skill** at `.github/skills/knowledge-management/pkm-management/SKILL.md`
 2. **Check sensitivity** — look up `${input:source}` in `brain/ai-brain/pkm/sensitivity-and-access-control.md`
 3. **If L2 or L3** → DENY. Log denial. Stop.
 4. **If L1** → ASK for explicit permission

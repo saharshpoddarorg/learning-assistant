@@ -275,7 +275,7 @@ Reference a specific file:
 #file:.github/instructions/java.instructions.md
 
 Reference another prompt (prompt chaining):
-#file:.github/prompts/design-review.prompt.md
+#file:.github/prompts/code/design-review.prompt.md
 ```
 
 **Prompt body structure (best practices):**
@@ -381,9 +381,9 @@ User selects Designer, types /design-review → Expert runs structured workflow.
 
 ```text
 composite.prompt.md includes:
-  #file:.github/prompts/design-review.prompt.md
-  #file:.github/prompts/impact.prompt.md
-  #file:.github/prompts/refactor.prompt.md
+  #file:.github/prompts/code/design-review.prompt.md
+  #file:.github/prompts/code/impact.prompt.md
+  #file:.github/prompts/code/refactor.prompt.md
 ```
 
 One `/composite` command runs three full workflows in sequence.
