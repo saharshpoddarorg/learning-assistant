@@ -10,11 +10,11 @@
 >
 > **Related files:**
 >
-> - `.github/prompts/jot.prompt.md` — universal capture slash command
-> - `.github/prompts/read-file-jot.prompt.md` — file-to-backlog extraction
-> - `.github/prompts/todo.prompt.md` — task alias for `/jot`
-> - `.github/prompts/todos.prompt.md` — board view and status management
-> - `.github/prompts/backlog.prompt.md` — advanced operations
+> - `.github/prompts/backlog/jot.prompt.md` — universal capture slash command
+> - `.github/prompts/backlog/read-file-jot.prompt.md` — file-to-backlog extraction
+> - `.github/prompts/backlog/todo.prompt.md` — task alias for `/jot`
+> - `.github/prompts/backlog/todos.prompt.md` — board view and status management
+> - `.github/prompts/backlog/backlog.prompt.md` — advanced operations
 > - `.github/instructions/backlog.instructions.md` — full backlog protocol
 > - `brain/ai-brain/backlog/guides/jot-down-guide.md` — classification rules and
 >   enhancement patterns (reference doc)
@@ -947,8 +947,8 @@ source-file: null
 | Views | `brain/ai-brain/backlog/views/` |
 | Source view | `brain/ai-brain/backlog/views/by-source.md` |
 | Backlog instructions | `.github/instructions/backlog.instructions.md` |
-| Jot prompt | `.github/prompts/jot.prompt.md` |
-| Read-file-jot prompt | `.github/prompts/read-file-jot.prompt.md` |
-| Todo prompt (alias) | `.github/prompts/todo.prompt.md` |
-| Todos prompt (board) | `.github/prompts/todos.prompt.md` |
-| Backlog prompt (advanced) | `.github/prompts/backlog.prompt.md` |
+| Jot prompt | `.github/prompts/backlog/jot.prompt.md` |
+| Read-file-jot prompt | `.github/prompts/backlog/read-file-jot.prompt.md` |
+| Todo prompt (alias) | `.github/prompts/backlog/todo.prompt.md` |
+| Todos prompt (board) | `.github/prompts/backlog/todos.prompt.md` |
+| Backlog prompt (advanced) | `.github/prompts/backlog/backlog.prompt.md` |

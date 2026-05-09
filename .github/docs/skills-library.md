@@ -340,7 +340,7 @@ code example or checklist
 | Method-first for cross-cutting | `deep-research`, `requirements-research` |
 | Role-plural for role skills | `software-development-roles` not `developer-role` |
 | No version in name | `java-build` not `java17-build` |
-| Subdirectory = skill name | `skills/java-build/SKILL.md` — directory name matches `name:` field |
+| Subdirectory = skill name | `skills/languages-platforms/java-build/SKILL.md` — directory name matches `name:` field |
 
 ---
 

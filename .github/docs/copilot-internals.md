@@ -73,7 +73,7 @@ Skills are **not loaded automatically for every request.** Copilot uses the `des
 field of each skill to decide when to load it:
 
 ```yaml
-# .github/skills/brain-management/SKILL.md
+# .github/skills/knowledge-management/brain-management/SKILL.md
 ---
 description: >
   Use when asked about: where to put a note, how to name a file, naming conventions,
@@ -91,7 +91,7 @@ appear in the response, the description field may not match your query pattern.
 ### How Prompts Inject Content
 
 When you type `/brain-new`, Copilot:
-1. Reads `brain-new.prompt.md` in full
+1. Reads `brain/new.prompt.md` in full
 2. Resolves any `${input:var:label}` variables (prompts you inline)
 3. Injects the resolved prompt content as a new user message
 4. Executes the instructions in the prompt
@@ -192,7 +192,7 @@ items remain in the conversation context. Resume by saying: "Continue the remain
 "I need to:
 1. Fix the brain/ai-brain/README.md tier section
 2. Add /check-standards to slash-commands.md table
-3. Update hub.prompt.md with new commands
+3. Update meta/hub.prompt.md with new commands
 Do all three, one at a time, in order."
 (Numbered list → Copilot creates a proper todo list and follows it)
 ```

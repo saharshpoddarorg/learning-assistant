@@ -433,6 +433,6 @@ Think of `.github/` as a living, version-controlled team knowledge base:
 
 - `.github/docs/mermaid-as-context.md` — The Mermaid diagram technique
 - `.github/docs/copilot-customization-deep-dive.md` — All 6 primitives in detail
-- `.github/skills/copilot-customization/SKILL.md` — Quick reference card
-- `.github/prompts/copilot-customization.prompt.md` — Scaffold any customization file (`/copilot-customization`)
-- `.github/prompts/write-docs.prompt.md` — Create/update any doc or guide (`/write-docs`)
+- `.github/skills/devops-tooling/copilot-customization/SKILL.md` — Quick reference card
+- `.github/prompts/customization/copilot-customization.prompt.md` — Scaffold any customization file (`/copilot-customization`)
+- `.github/prompts/meta/write-docs.prompt.md` — Create/update any doc or guide (`/write-docs`)

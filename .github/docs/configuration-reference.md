@@ -300,13 +300,13 @@ atlassian.auth.token=ATATT3xFfGF0...
 
 ### 3c. Atlassian Skill CLI (PAT — Server/Data Center)
 
-The Atlassian Tools **skill** (`.github/skills/atlassian-tools/`) provides a separate,
+The Atlassian Tools **skill** (`.github/skills/devops-tooling/atlassian-tools/`) provides a separate,
 Node.js-based CLI for Atlassian Server/Data Center instances. This is independent of the
 MCP-server-based integration (3a/3b above) and uses a different credential store.
 
 | Item | Value |
 |---|---|
-| **Skill dir** | `.github/skills/atlassian-tools/` |
+| **Skill dir** | `.github/skills/devops-tooling/atlassian-tools/` |
 | **CLI** | `scripts/atlassian_cli.js` (89 actions, zero npm deps) |
 | **Runtime** | Node.js 18+ (built-in `fetch`) |
 | **Template** | `.env.example` (committed) |
@@ -317,7 +317,7 @@ MCP-server-based integration (3a/3b above) and uses a different credential store
 **Setup:**
 
 ```powershell
-cd .github\skills\atlassian-tools
+cd .github\skills\devops-tooling\atlassian-tools
 Copy-Item .env.example .env
 # Edit .env — paste your PAT tokens and base URLs
 ```
@@ -336,7 +336,7 @@ BITBUCKET_BASE_URL=https://your-bitbucket.example.com
 **Verify connectivity:**
 
 ```powershell
-$env:CLI_JSON_ARGS = '{}'; node ".github/skills/atlassian-tools/scripts/atlassian_cli.js" get_current_jira_user
+$env:CLI_JSON_ARGS = '{}'; node ".github/skills/devops-tooling/atlassian-tools/scripts/atlassian_cli.js" get_current_jira_user
 ```
 
 **Token generation:** See `GUIDE.md` in the skill directory for step-by-step instructions
@@ -470,12 +470,12 @@ build.env.local  >  JAVA_HOME env var  >  java on system PATH  >  common JDK loc
 | `GITHUB_TOKEN` | GitHub PAT | Only if using GitHub MCP | **Yes** | VS Code prompts at runtime | VS Code input prompt |
 | `MCP_*` | Any MCP config override | Never required | Varies | None | System env or shell profile |
 | `CLI_JSON_ARGS` | Atlassian CLI tool arguments | Auto-set by Copilot | No | Set at runtime | Don't set manually |
-| `JIRA_PAT_TOKEN` | Jira PAT for skill CLI | Only if using skill CLI | **Yes** | None | `.github/skills/atlassian-tools/.env` |
-| `JIRA_BASE_URL` | Jira instance URL for skill CLI | Only if using skill CLI | No | None | `.github/skills/atlassian-tools/.env` |
-| `CONFLUENCE_PAT_TOKEN` | Confluence PAT for skill CLI | Only if using skill CLI | **Yes** | None | `.github/skills/atlassian-tools/.env` |
-| `CONFLUENCE_BASE_URL` | Confluence instance URL for skill CLI | Only if using skill CLI | No | None | `.github/skills/atlassian-tools/.env` |
-| `BITBUCKET_PAT_TOKEN` | Bitbucket PAT for skill CLI | Only if using skill CLI | **Yes** | None | `.github/skills/atlassian-tools/.env` |
-| `BITBUCKET_BASE_URL` | Bitbucket instance URL for skill CLI | Only if using skill CLI | No | None | `.github/skills/atlassian-tools/.env` |
+| `JIRA_PAT_TOKEN` | Jira PAT for skill CLI | Only if using skill CLI | **Yes** | None | `.github/skills/devops-tooling/atlassian-tools/.env` |
+| `JIRA_BASE_URL` | Jira instance URL for skill CLI | Only if using skill CLI | No | None | `.github/skills/devops-tooling/atlassian-tools/.env` |
+| `CONFLUENCE_PAT_TOKEN` | Confluence PAT for skill CLI | Only if using skill CLI | **Yes** | None | `.github/skills/devops-tooling/atlassian-tools/.env` |
+| `CONFLUENCE_BASE_URL` | Confluence instance URL for skill CLI | Only if using skill CLI | No | None | `.github/skills/devops-tooling/atlassian-tools/.env` |
+| `BITBUCKET_PAT_TOKEN` | Bitbucket PAT for skill CLI | Only if using skill CLI | **Yes** | None | `.github/skills/devops-tooling/atlassian-tools/.env` |
+| `BITBUCKET_BASE_URL` | Bitbucket instance URL for skill CLI | Only if using skill CLI | No | None | `.github/skills/devops-tooling/atlassian-tools/.env` |
 | `ENV_FILE` | Override `.env` file path for skill CLI | Never required | No | None | Shell session (per-call) |
 
 ---
@@ -498,8 +498,8 @@ build.env.local  >  JAVA_HOME env var  >  java on system PATH  >  common JDK loc
 | `mcp-servers/user-config/servers/atlassian/atlassian-config.local.example.properties` | atlassian | Atlassian v1 template | Copy as-is (reference) |
 | `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.properties` | atlassian | Atlassian v2 shared defaults | Copy as-is |
 | `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.local.example.properties` | atlassian | Atlassian v2 template | Copy as-is (reference) |
-| `.github/skills/atlassian-tools/.env.example` | skill-cli | Skill CLI PAT template (single account) | Copy as-is (reference) |
-| `.github/skills/atlassian-tools/.env.accounts.example` | skill-cli | Skill CLI multi-account template | Copy as-is (reference) |
+| `.github/skills/devops-tooling/atlassian-tools/.env.example` | skill-cli | Skill CLI PAT template (single account) | Copy as-is (reference) |
+| `.github/skills/devops-tooling/atlassian-tools/.env.accounts.example` | skill-cli | Skill CLI multi-account template | Copy as-is (reference) |
 
 ### Gitignored (user-created from templates — may contain secrets)
 
@@ -509,8 +509,8 @@ build.env.local  >  JAVA_HOME env var  >  java on system PATH  >  common JDK loc
 | `mcp-servers/user-config/mcp-config.local.properties` | mcp | **Yes** | `mcp-config.local.example.properties` | Recreate from template with your keys |
 | `mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties` | atlassian | **Yes** | `atlassian-config.local.example.properties` | Recreate from template with your credentials |
 | `mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.local.properties` | atlassian | **Yes** | `atlassian-v2-config.local.example.properties` | Recreate from template with your credentials |
-| `.github/skills/atlassian-tools/.env` | skill-cli | **Yes** | `.env.example` | Recreate from template with your PAT tokens |
-| `.github/skills/atlassian-tools/.env.<account>` | skill-cli | **Yes** | `.env.accounts.example` | Recreate per account for multi-instance work |
+| `.github/skills/devops-tooling/atlassian-tools/.env` | skill-cli | **Yes** | `.env.example` | Recreate from template with your PAT tokens |
+| `.github/skills/devops-tooling/atlassian-tools/.env.<account>` | skill-cli | **Yes** | `.env.accounts.example` | Recreate per account for multi-instance work |
 
 ---
 
@@ -564,7 +564,7 @@ Items are ordered by importance; stop at the level you need.
 **Option A — Skill CLI (simpler, for Server/Data Center):**
 
 - [ ] Verify Node.js 18+ is installed (`node --version`)
-- [ ] Copy `.github/skills/atlassian-tools/.env.example` to `.env`
+- [ ] Copy `.github/skills/devops-tooling/atlassian-tools/.env.example` to `.env`
 - [ ] Fill in PAT tokens and base URLs for Jira, Confluence, and/or Bitbucket
 - [ ] Verify: `$env:CLI_JSON_ARGS = '{}'; node scripts\atlassian_cli.js get_current_jira_user`
 - [ ] For multi-account: copy `.env.accounts.example` and create `.env.<account>` files

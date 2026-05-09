@@ -183,8 +183,8 @@ SKILL.md (auto-loads)     → Deep knowledge Copilot can draw from anytime
 .prompt.md (/command)     → Explicit trigger when user wants structured guidance
 
 Example:
-  skills/git-vcs/SKILL.md         → Git knowledge (auto-activates)
-  prompts/git-vcs.prompt.md       → /git-vcs (explicit trigger with inputs)
+  skills/devops-tooling/git-vcs/SKILL.md         → Git knowledge (auto-activates)
+  prompts/tools/git-vcs.prompt.md       → /git-vcs (explicit trigger with inputs)
 ```
 
 This pattern gives you **both** auto-detection AND explicit invocation.

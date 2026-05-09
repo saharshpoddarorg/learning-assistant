@@ -55,7 +55,7 @@ When adding or expanding a `ResourceProvider` class (e.g., `VcsResources.java`, 
     using `ALGORITHMS` for linear algebra / mathematical foundations.
 - [ ] **`KeywordIndex.java`** — add keyword → ConceptArea and keyword → ResourceCategory mappings
   for every new concept or technology introduced
-- [ ] **Skill file** — create or update `.github/skills/<domain>/SKILL.md` with:
+- [ ] **Skill file** — create or update `.github/skills/<category>/<domain>/SKILL.md` with:
   - Cheatsheet of key commands / patterns (3-tier: newbie / amateur / pro)
   - Curated resource links matching what was added to the vault
 - [ ] **Prompt file** — create or update `.github/prompts/<domain>.prompt.md` with:
@@ -91,7 +91,7 @@ When creating `.github/prompts/<name>.prompt.md`:
 
 ### C — Adding a New Skill File
 
-When creating `.github/skills/<name>/SKILL.md`:
+When creating `.github/skills/<category>/<name>/SKILL.md`:
 
 - [ ] **Register in copilot-instructions.md** `<skills>` block (if not auto-discovered)
 - [ ] **`description` field** in YAML frontmatter — clearly states WHEN to activate the skill
@@ -471,9 +471,9 @@ A new Mermaid diagram should be added when:
 | `mcp-servers/src/.../vault/KeywordIndex.java` | UPDATE — add keyword mappings |
 | `mcp-servers/src/.../model/ConceptArea.java` | UPDATE if new concept needed |
 | `mcp-servers/src/.../model/ResourceCategory.java` | UPDATE if new category needed |
-| `.github/skills/<domain>/SKILL.md` | CREATE or UPDATE |
-| `.github/skills/java-build/SKILL.md` | UPDATE if build tools or JDK changed |
-| `.github/skills/digital-notetaking/SKILL.md` | UPDATE if PKM/note-taking content changed |
+| `.github/skills/<category>/<domain>/SKILL.md` | CREATE or UPDATE |
+| `.github/skills/languages-platforms/java-build/SKILL.md` | UPDATE if build tools or JDK changed |
+| `.github/skills/knowledge-management/digital-notetaking/SKILL.md` | UPDATE if PKM/note-taking content changed |
 | `.github/prompts/<domain>.prompt.md` | CREATE — slash command |
 | `.github/prompts/hub.prompt.md` | UPDATE — category tree |
 | `.github/docs/slash-commands.md` | UPDATE — table + details |

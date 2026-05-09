@@ -447,7 +447,7 @@ Domain boundaries determine which skills activate together naturally.
 One prompt includes other prompts by file reference — creating a composite workflow.
 
 ```markdown
-<!-- .github/prompts/composite.prompt.md -->
+<!-- .github/prompts/meta/composite.prompt.md -->
 ---
 name: composite
 description: 'Full-stack analysis: design + impact + code quality'
@@ -455,13 +455,13 @@ description: 'Full-stack analysis: design + impact + code quality'
 Run a complete analysis in three phases:
 
 Phase 1 — Architecture Review:
-#file:.github/prompts/design-review.prompt.md
+#file:.github/prompts/code/design-review.prompt.md
 
 Phase 2 — Impact Analysis:
-#file:.github/prompts/impact.prompt.md
+#file:.github/prompts/code/impact.prompt.md
 
 Phase 3 — Code Quality:
-#file:.github/prompts/refactor.prompt.md
+#file:.github/prompts/code/refactor.prompt.md
 
 Synthesize all three into a prioritized action plan.
 ```
@@ -515,7 +515,7 @@ The "enriched Copilot" pattern: automatic rules AND automatic domain knowledge, 
 
 ```text
 .github/instructions/java.instructions.md    ← "Use final, var, @Override, try-with-resources"
-.github/skills/java-learning-resources/      ← "Here's the full Java API reference, common patterns"
+.github/skills/languages-platforms/java-learning-resources/      ← "Here's the full Java API reference, common patterns"
 ```
 
 When a user asks a Java question:
@@ -543,7 +543,7 @@ Each element contributes differently:
 - **Prompt:** Structure, steps, required outputs, input variables
 
 ```yaml
-# .github/prompts/debug.prompt.md
+# .github/prompts/code/debug.prompt.md
 ---
 agent: debugger          ← auto-activates the Debugger agent
 tools: ['codebase', 'search', 'problems']
@@ -588,7 +588,7 @@ When a prompt is invoked, the relevant skill auto-activates alongside it.
 ```text
 User types: /mcp
                 │
-                ├── .github/prompts/mcp.prompt.md loads     ← workflow structure + response shape
+                ├── .github/prompts/domain/mcp.prompt.md loads     ← workflow structure + response shape
                 └── mcp-development/SKILL.md auto-activates ← deep MCP protocol reference
 ```
 

@@ -86,9 +86,9 @@ Open `$target\.github\copilot-instructions.md` and change:
 |---|---|
 | Not Java | `.github/instructions/java.instructions.md`, `.github/instructions/clean-code.instructions.md` |
 | Not this specific repo | `.github/instructions/change-completeness.instructions.md`, `.github/instructions/steering-modes.instructions.md` |
-| No brain workspace | `.github/prompts/brain-*.prompt.md`, `.github/skills/brain-management/` |
-| No MCP servers | `.github/skills/mcp-development/`, `.github/prompts/mcp.prompt.md` |
-| No macOS | `.github/skills/mac-dev/`, `.github/prompts/mac-dev.prompt.md` |
+| No brain workspace | `.github/prompts/brain-*.prompt.md`, `.github/skills/knowledge-management/brain-management/` |
+| No MCP servers | `.github/skills/devops-tooling/mcp-development/`, `.github/prompts/domain/mcp.prompt.md` |
+| No macOS | `.github/skills/languages-platforms/mac-dev/`, `.github/prompts/tools/mac-dev.prompt.md` |
 
 ### Files to Keep (universal value)
 
@@ -97,10 +97,10 @@ Open `$target\.github\copilot-instructions.md` and change:
 | `.github/agents/debugger.agent.md` | Debug expert persona — works for any language |
 | `.github/agents/designer.agent.md` | Architecture review — language-agnostic |
 | `.github/agents/code-reviewer.agent.md` | Code review — works for any language |
-| `.github/prompts/debug.prompt.md` | `/debug` slash command — universal |
-| `.github/prompts/refactor.prompt.md` | `/refactor` slash command — universal |
-| `.github/skills/software-engineering-resources/` | SE learning resources — universal |
-| `.github/skills/copilot-customization/` | Copilot customization knowledge — always useful |
+| `.github/prompts/code/debug.prompt.md` | `/debug` slash command — universal |
+| `.github/prompts/code/refactor.prompt.md` | `/refactor` slash command — universal |
+| `.github/skills/learning-resources/software-engineering-resources/` | SE learning resources — universal |
+| `.github/skills/devops-tooling/copilot-customization/` | Copilot customization knowledge — always useful |
 
 ---
 
@@ -111,7 +111,7 @@ Open `$target\.github\copilot-instructions.md` and change:
 | Server | Config file | API key needed? | Skip if... |
 |---|---|---|---|
 | Learning Resources | None needed | No | You don't want learning resource search |
-| Atlassian Skill CLI | `.github/skills/atlassian-tools/.env` | Yes — Atlassian PAT | You don't use Jira/Confluence, or you use Cloud |
+| Atlassian Skill CLI | `.github/skills/devops-tooling/atlassian-tools/.env` | Yes — Atlassian PAT | You don't use Jira/Confluence, or you use Cloud |
 | Atlassian MCP Server | `mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties` | Yes — Atlassian API token | You don't use Jira/Confluence, or you use Server/DC |
 | GitHub | `.vscode/mcp.json` (VS Code prompts for token) | Yes — GitHub PAT | You don't need GitHub repo search in Copilot |
 | Filesystem | None needed | No | You don't want Copilot to read/write files directly |
@@ -216,8 +216,8 @@ After copying, these are **not needed** in your target project:
 | Folder/File | Why it's safe to delete |
 |---|---|
 | `.github/docs/` | Developer documentation for learning-assistant — not needed in your project |
-| `.github/skills/career-resources/` | Career reference — only if you don't want career guidance |
-| `.github/skills/daily-assistant-resources/` | Daily productivity tips — personal preference |
+| `.github/skills/career/career-resources/` | Career reference — only if you don't want career guidance |
+| `.github/skills/daily-life/daily-assistant-resources/` | Daily productivity tips — personal preference |
 | `mcp-servers/scripts/server-specific/github/` | GitHub MCP server scripts — only needed if using that server |
 | `brain/` | Brain workspace — only copy if you want personal knowledge management |
 | `mac-os/` | macOS setup guides — not needed in a work project |

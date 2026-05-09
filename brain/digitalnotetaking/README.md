@@ -181,7 +181,7 @@ used for tooling (note generation, validation, search index building).
 ## Related Sections
 
 - [brain/ai-brain/README.md](../ai-brain/README.md) — live workspace guide
-- `.github/skills/digital-notetaking/SKILL.md` — Copilot skill (cheatsheets, templates)
-- `.github/prompts/digital-notetaking.prompt.md` — `/digital-notetaking` slash command
+- `.github/skills/knowledge-management/digital-notetaking/SKILL.md` — Copilot skill (cheatsheets, templates)
+- `.github/prompts/domain/digital-notetaking.prompt.md` — `/digital-notetaking` slash command
 - `.github/docs/slash-commands.md` — all slash commands reference
 - `.github/docs/navigation-index.md` — full project navigation

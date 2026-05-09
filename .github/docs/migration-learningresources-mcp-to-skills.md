@@ -18,8 +18,8 @@ version: 1
 >
 > **Post-migration reference:**
 >
-> - [taxonomy-reference.md](../../.github/skills/learning-resources-vault/taxonomy-reference.md) — complete enum taxonomy (92 values), keyword index (300+ mappings), scoring weights
-> - [migration-mapping.md](../../.github/skills/learning-resources-vault/migration-mapping.md) — component-by-component mapping from MCP to skill
+> - [taxonomy-reference.md](../../.github/skills/learning-resources/learning-resources-vault/taxonomy-reference.md) — complete enum taxonomy (92 values), keyword index (300+ mappings), scoring weights
+> - [migration-mapping.md](../../.github/skills/learning-resources/learning-resources-vault/migration-mapping.md) — component-by-component mapping from MCP to skill
 
 ---
 
@@ -118,7 +118,7 @@ Response formatted with badges, tables, and recommendations
 ### File Structure — After Migration
 
 ```text
-.github/skills/learning-resources-vault/
+.github/skills/learning-resources/learning-resources-vault/
 ├── SKILL.md                          ← Main skill: description, taxonomy reference,
 │                                        quick lookup index, activation triggers
 ├── resources-java.md                 ← Java resources (17)
@@ -144,7 +144,7 @@ Each sub-file stays under 2,000 tokens for efficient loading.
 ### Step 1.1: Create the Skill Directory
 
 ```text
-.github/skills/learning-resources-vault/
+.github/skills/learning-resources/learning-resources-vault/
 ```
 
 ### Step 1.2: Create the Main SKILL.md
@@ -392,7 +392,7 @@ Include in main SKILL.md:
 
 ### Step 4.1: Update `/resources` Prompt
 
-The current [resources.prompt.md](.github/prompts/resources.prompt.md) references MCP tools
+The current [resources.prompt.md](.github/prompts/domain/resources.prompt.md) references MCP tools
 (`search_resources`, `browse_vault`, etc.). Update to reference the skill instead.
 
 **Changes needed:**
@@ -460,7 +460,7 @@ Add cross-references between skills:
 | `mcp-servers/README.md` | Add deprecation notice for Learning Resources server |
 | `USAGE.md` | Update Learning Resources section for skill-based usage |
 | `README.md` (root) | Update if resource count or architecture mentioned |
-| `.github/prompts/hub.prompt.md` | Update if `/resources` description changed |
+| `.github/prompts/meta/hub.prompt.md` | Update if `/resources` description changed |
 
 ### Step 5.2: KeywordIndex → Skill Description Mapping
 
@@ -506,7 +506,7 @@ Add a deprecation notice to `mcp-servers/src/server/learningresources/LearningRe
 ```java
 /**
  * @deprecated The Learning Resources MCP server is deprecated in favor of the
- * learning-resources-vault skill (.github/skills/learning-resources-vault/SKILL.md).
+ * learning-resources-vault skill (.github/skills/learning-resources/learning-resources-vault/SKILL.md).
  * The skill provides the same 132 curated resources with zero infrastructure,
  * available in all Copilot modes (Ask, Edit, Agent).
  *
@@ -543,7 +543,7 @@ In `mcp-servers/README.md`, add a section:
 ## Deprecated: Learning Resources Server
 
 The Learning Resources server has been migrated to a SKILL.md-based approach.
-The curated vault of 132 resources is now in `.github/skills/learning-resources-vault/`.
+The curated vault of 132 resources is now in `.github/skills/learning-resources/learning-resources-vault/`.
 
 **Why:** The resources are static data — skills are the correct GHCP primitive for static
 knowledge. The skill approach provides: all-mode availability, zero infrastructure,

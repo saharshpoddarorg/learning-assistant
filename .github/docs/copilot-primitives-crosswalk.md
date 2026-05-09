@@ -150,7 +150,7 @@ Before (instruction):
   "Use final for local vars. Use var when type is obvious."
 
 After (skill):
-  .github/skills/java-build/SKILL.md
+  .github/skills/languages-platforms/java-build/SKILL.md
   Full guide with cheatsheet, 3-tier depth, curated resources.
 ```
 
@@ -164,12 +164,12 @@ for Copilot to detect the topic.
 
 ```text
 Before (skill only):
-  .github/skills/mcp-development/SKILL.md
+  .github/skills/devops-tooling/mcp-development/SKILL.md
   Copilot MAY load this when MCP is mentioned.
 
 After (skill + prompt):
-  .github/skills/mcp-development/SKILL.md    ← knowledge stays
-  .github/prompts/mcp.prompt.md              ← /mcp triggers it reliably
+  .github/skills/devops-tooling/mcp-development/SKILL.md    ← knowledge stays
+  .github/prompts/domain/mcp.prompt.md              ← /mcp triggers it reliably
 ```
 
 ### Prompt → Agent

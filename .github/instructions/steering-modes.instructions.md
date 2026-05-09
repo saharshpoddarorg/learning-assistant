@@ -198,7 +198,7 @@ the relationship and choose a handling strategy:
 | `split` | Partially overlaps | Decompose into independent + dependent sub-tasks |
 
 > **Command:** `/request-steering` — auto-classifies the relationship or accepts an
-> explicit type. See `.github/prompts/request-steering.prompt.md`.
+> explicit type. See `.github/prompts/meta/request-steering.prompt.md`.
 
 ---
 

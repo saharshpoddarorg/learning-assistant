@@ -169,79 +169,116 @@
 ├── prompts/
 │   ├── README.md                    👤 How prompts work
 │   │
-│   │── [Navigation & Meta]
-│   ├── hub.prompt.md                🤖 /hub — master navigation
-│   ├── composite.prompt.md          🤖 /composite — combine modes
-│   ├── context.prompt.md            🤖 /context — continue/fresh
-│   ├── scope.prompt.md              🤖 /scope — generic/specific
-│   ├── multi-session.prompt.md      🤖 /multi-session — cross-session state
-│   ├── steer.prompt.md              🤖 /steer — view or switch steering mode (default: completeness)
-│   ├── request-steering.prompt.md   🤖 /request-steering — route incoming request vs current work
+│   ├── meta/                        🤖 Navigation & Meta commands (9)
+│   │   ├── hub.prompt.md            🤖 /hub — master navigation
+│   │   ├── composite.prompt.md      🤖 /composite — combine modes
+│   │   ├── context.prompt.md        🤖 /context — continue/fresh
+│   │   ├── scope.prompt.md          🤖 /scope — generic/specific
+│   │   ├── multi-session.prompt.md  🤖 /multi-session — cross-session state
+│   │   ├── steer.prompt.md          🤖 /steer — view or switch steering mode (default: completeness)
+│   │   ├── request-steering.prompt.md 🤖 /request-steering — route incoming request vs current work
+│   │   ├── session-scope.prompt.md  🤖 /session-scope — manage session scope levels
+│   │   └── write-docs.prompt.md     🤖 /write-docs — generate documentation
 │   │
-│   │── [Learning & Concepts]
-│   ├── learn-concept.prompt.md      🤖 /learn-concept — any concept
-│   ├── deep-dive.prompt.md          🤖 /deep-dive — progressive mastery
-│   ├── learn-from-docs.prompt.md    🤖 /learn-from-docs — official docs
-│   ├── reading-plan.prompt.md       🤖 /reading-plan — study plan
-│   ├── teach.prompt.md              🤖 /teach — learn from code
+│   ├── learning/                    🤖 Learning & Concept commands (5)
+│   │   ├── learn-concept.prompt.md  🤖 /learn-concept — any concept
+│   │   ├── deep-dive.prompt.md      🤖 /deep-dive — progressive mastery
+│   │   ├── learn-from-docs.prompt.md 🤖 /learn-from-docs — official docs
+│   │   ├── reading-plan.prompt.md   🤖 /reading-plan — study plan
+│   │   └── teach.prompt.md          🤖 /teach — learn from code
 │   │
-│   │── [Domain-Specific]
-│   ├── dsa.prompt.md                🤖 /dsa — data structures & algorithms
-│   ├── system-design.prompt.md      🤖 /system-design — HLD/LLD
-│   ├── devops.prompt.md             🤖 /devops — CI/CD, containers, cloud
-│   ├── language-guide.prompt.md     🤖 /language-guide — any language
-│   ├── tech-stack.prompt.md         🤖 /tech-stack — frameworks, DBs
-│   ├── sdlc.prompt.md               🤖 /sdlc — lifecycle & methods
-│   ├── mcp.prompt.md                🤖 /mcp — MCP protocol & server development
-│   ├── interview-prep.prompt.md     🤖 /interview-prep — interviews
-│   ├── career-roles.prompt.md       🤖 /career-roles — job roles & pay
-│   ├── resources.prompt.md          🤖 /resources — learning resource vault
-│   ├── git-vcs.prompt.md            🤖 /git-vcs — Git workflows, branching, conventions
-│   ├── github-workflow.prompt.md    🤖 /github-workflow — GitHub PRs, issues, gh CLI, Actions
-│   ├── atlassian-tools.prompt.md    🤖 /atlassian-tools — Jira, Confluence, Bitbucket CLI workflows
-│   ├── read-url.prompt.md           🤖 /read-url — Read, extract, summarize webpage content
-│   ├── build-tools.prompt.md        🤖 /build-tools — Maven, Gradle, Make, Bazel, npm
-│   ├── mac-dev.prompt.md            🤖 /mac-dev — macOS dev environment
-│   ├── digital-notetaking.prompt.md 🤖 /digital-notetaking — PKM, tools, Obsidian, Notion, PARA
+│   ├── domain/                      🤖 Domain-Specific Learning commands (10)
+│   │   ├── dsa.prompt.md            🤖 /dsa — data structures & algorithms
+│   │   ├── system-design.prompt.md  🤖 /system-design — HLD/LLD
+│   │   ├── devops.prompt.md         🤖 /devops — CI/CD, containers, cloud
+│   │   ├── sdlc.prompt.md           🤖 /sdlc — lifecycle & methods
+│   │   ├── tech-stack.prompt.md     🤖 /tech-stack — frameworks, DBs
+│   │   ├── language-guide.prompt.md 🤖 /language-guide — any language
+│   │   ├── mcp.prompt.md            🤖 /mcp — MCP protocol & server development
+│   │   ├── explore-project.prompt.md 🤖 /explore-project — OSS study
+│   │   ├── resources.prompt.md      🤖 /resources — learning resource vault
+│   │   └── digital-notetaking.prompt.md 🤖 /digital-notetaking — PKM, tools, Obsidian, Notion, PARA
 │   │
-│   │── [Code Quality]
-│   ├── design-review.prompt.md      🤖 /design-review — SOLID review
-│   ├── debug.prompt.md              🤖 /debug — bug investigation
-│   ├── code-analysis-deep-dive.prompt.md 🤖 /code-analysis-deep-dive — code internals
-│   ├── impact.prompt.md             🤖 /impact — change analysis
-│   ├── refactor.prompt.md           🤖 /refactor — refactoring
-│   ├── explain.prompt.md            🤖 /explain — file explanation
-│   ├── explore-project.prompt.md    🤖 /explore-project — OSS study
+│   ├── customization/               🤖 Copilot Customization commands (3)
+│   │   ├── copilot-customization.prompt.md 🤖 /copilot-customization — customization primitives
+│   │   ├── create-agent.prompt.md   🤖 /create-agent — create a new agent
+│   │   └── mcp-to-skill.prompt.md   🤖 /mcp-to-skill — analyse MCP tool → generate SKILL.md
 │   │
-│   │── [Daily Life]
-│   └── daily-assist.prompt.md       🤖 /daily-assist — daily tasks
-│
+│   ├── tools/                       🤖 Tool & Platform commands (6)
+│   │   ├── atlassian-tools.prompt.md 🤖 /atlassian-tools — Jira, Confluence, Bitbucket CLI workflows
+│   │   ├── git-vcs.prompt.md        🤖 /git-vcs — Git workflows, branching, conventions
+│   │   ├── github-workflow.prompt.md 🤖 /github-workflow — GitHub PRs, issues, gh CLI, Actions
+│   │   ├── build-tools.prompt.md    🤖 /build-tools — Maven, Gradle, Make, Bazel, npm
+│   │   ├── mac-dev.prompt.md        🤖 /mac-dev — macOS dev environment
+│   │   └── read-url.prompt.md       🤖 /read-url — Read, extract, summarize webpage content
+│   │
+│   ├── career/                      🤖 Career & Daily commands (3)
+│   │   ├── career-roles.prompt.md   🤖 /career-roles — job roles & pay
+│   │   ├── interview-prep.prompt.md 🤖 /interview-prep — interviews
+│   │   └── daily-assist.prompt.md   🤖 /daily-assist — daily tasks
+│   │
+│   ├── code/                        🤖 Code Quality & Analysis commands (8)
+│   │   ├── design-review.prompt.md  🤖 /design-review — SOLID review
+│   │   ├── debug.prompt.md          🤖 /debug — bug investigation
+│   │   ├── code-analysis-deep-dive.prompt.md 🤖 /code-analysis-deep-dive — code internals
+│   │   ├── impact.prompt.md         🤖 /impact — change analysis
+│   │   ├── refactor.prompt.md       🤖 /refactor — refactoring
+│   │   ├── explain.prompt.md        🤖 /explain — file explanation
+│   │   ├── check-standards.prompt.md 🤖 /check-standards — audit best practices
+│   │   └── code-analysis.prompt.md  🤖 /code-analysis — code review
+│   │
+│   ├── shipping/                    🤖 Deployment & Release commands (2)
+│   │   ├── ship.prompt.md           🤖 /ship — release workflow
+│   │   └── github-push.prompt.md    🤖 /github-push — push & PR
+│   │
+│   ├── backlog/                     🤖 Backlog & Task Management commands (5)
+│   │   ├── backlog.prompt.md        🤖 /backlog — agile board
+│   │   ├── jot.prompt.md            🤖 /jot — quick capture
+│   │   ├── read-file-jot.prompt.md  🤖 /read-file-jot — capture from file
+│   │   ├── todo.prompt.md           🤖 /todo — single task
+│   │   └── todos.prompt.md          🤖 /todos — batch tasks
+│   │
 │   │── [Brain Workspace]
-│   ├── brain-new.prompt.md          🤖 /brain-new — create inbox/notes note
-│   ├── brain-publish.prompt.md      🤖 /brain-publish — publish to archive & commit
-│   ├── brain-search.prompt.md       🤖 /brain-search — search across tiers
-│   └── brain-capture-session.prompt.md  🤖 /brain-capture-session — convert AI session to session note
-│   ├── check-standards.prompt.md    🤖 /check-standards — audit file/folder against best practices
-│   └── mcp-to-skill.prompt.md       🤖 /mcp-to-skill — analyse MCP tool → generate SKILL.md
+│   ├── brain/                       🤖 Brain workspace prompts (14 commands)
+│   │   ├── new.prompt.md            🤖 /brain-new — create inbox/notes note
+│   │   ├── publish.prompt.md        🤖 /brain-publish — publish to archive & commit
+│   │   ├── search.prompt.md         🤖 /brain-search — search across tiers
+│   │   └── capture-session.prompt.md 🤖 /brain-capture-session — convert AI session to session note
 │
 ├── skills/
-│   ├── README.md                    👤 How skills work
-│   ├── java-build/SKILL.md          🤖 Compile & run
-│   ├── design-patterns/SKILL.md     🤖 Pattern guide
-│   ├── java-debugging/SKILL.md      🤖 Exception diagnosis
-│   ├── java-learning-resources/SKILL.md  🤖 Java resources
-│   ├── software-engineering-resources/SKILL.md  🤖 SE/CS resources
-│   ├── daily-assistant-resources/SKILL.md  🤖 Daily life resources
-│   ├── career-resources/SKILL.md    🤖 Career data
-│   ├── digital-notetaking/SKILL.md  🤖 PKM methods, tool cheatsheets, note templates, JDK commands
-│   ├── mac-dev/SKILL.md             🤖 Homebrew, JDK, npm, Docker, shell, dotfiles cheatsheets
-│   ├── brain-management/SKILL.md     🤖 brain/ai-brain/ naming, tier routing, frontmatter, PKM standards
-│   ├── mcp-development/SKILL.md     🤖 MCP protocol & server development (1,980 lines)
-│   ├── deep-research/SKILL.md       🤖 Investigation & analysis methodology (3-tier: hypothesis-driven, RCA, evaluation rubric)
-│   ├── requirements-research/SKILL.md  🤖 Requirements gathering, user stories, BDD, INVEST, MoSCoW, DoR/DoD
-│   └── software-development-roles/SKILL.md  🤖 PO / Developer / QA role workflows, three amigos, shift-left
-│   ├── atlassian-tools/SKILL.md  🤖 Jira/Confluence/Bitbucket PAT CLI (89 actions, JQL/CQL, playbooks)
-│   ├── web-reader/SKILL.md      🤖 Webpage reading, content extraction, article summarization
+│   ├── README.md                        👤 How skills work
+│   ├── TAXONOMY.md                      👤 Full taxonomy tree — 8 categories, 23 skills
+│   ├── languages-platforms/
+│   │   ├── java-build/SKILL.md          🤖 Compile & run
+│   │   ├── java-debugging/SKILL.md      🤖 Exception diagnosis
+│   │   ├── java-formatting/SKILL.md     🤖 Code formatting, style, inspections (opt-in)
+│   │   ├── java-learning-resources/SKILL.md  🤖 Java resources
+│   │   ├── jvm-platform/SKILL.md        🤖 JVM internals, GC, class loading, serialization, GraalVM
+│   │   └── mac-dev/SKILL.md             🤖 Homebrew, JDK, npm, Docker, shell, dotfiles cheatsheets
+│   ├── design-architecture/
+│   │   ├── design-patterns/SKILL.md     🤖 Pattern guide
+│   │   └── software-development-roles/SKILL.md  🤖 PO / Developer / QA role workflows, three amigos, shift-left
+│   ├── dev-process/
+│   │   ├── deep-research/SKILL.md       🤖 Investigation & analysis methodology (3-tier: hypothesis-driven, RCA, evaluation rubric)
+│   │   ├── github-workflow/SKILL.md     🤖 PRs, issues, GitHub CLI, branch protection
+│   │   └── requirements-research/SKILL.md  🤖 Requirements gathering, user stories, BDD, INVEST, MoSCoW, DoR/DoD
+│   ├── devops-tooling/
+│   │   ├── copilot-customization/SKILL.md  🤖 Copilot 6 primitives — create, review, fix customization files
+│   │   ├── git-vcs/SKILL.md             🤖 Git workflows, branching, commits, semver
+│   │   ├── mcp-development/SKILL.md     🤖 MCP protocol & server development (1,980 lines)
+│   │   ├── atlassian-tools/SKILL.md     🤖 Jira/Confluence/Bitbucket PAT CLI (89 actions, JQL/CQL, playbooks)
+│   │   └── web-reader/SKILL.md          🤖 Webpage reading, content extraction, article summarization
+│   ├── knowledge-management/
+│   │   ├── brain-management/SKILL.md    🤖 brain/ai-brain/ naming, tier routing, frontmatter, PKM standards
+│   │   ├── pkm-management/SKILL.md      🤖 PKM capture sources, access control, git-inspired content ops
+│   │   └── digital-notetaking/SKILL.md  🤖 PKM methods, tool cheatsheets, note templates, JDK commands
+│   ├── learning-resources/
+│   │   ├── learning-resources-vault/SKILL.md  🤖 176+ curated resources — master vault index
+│   │   └── software-engineering-resources/SKILL.md  🤖 SE/CS resources
+│   ├── career/
+│   │   └── career-resources/SKILL.md    🤖 Career data
+│   └── daily-life/
+│       └── daily-assistant-resources/SKILL.md  🤖 Daily life resources
 │
 └── docs/
     ├── getting-started.md           👤 Hands-on tutorial

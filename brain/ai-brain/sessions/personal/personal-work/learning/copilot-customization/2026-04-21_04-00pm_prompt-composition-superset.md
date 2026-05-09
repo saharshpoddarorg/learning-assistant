@@ -164,7 +164,7 @@ Phase 2 — Commit:
 #file:.github/prompts/commit.prompt.md
 
 Phase 3 — Push + PR:
-#file:.github/prompts/github-push.prompt.md
+#file:.github/prompts/shipping/github-push.prompt.md
 ```
 
 This is **composition, not inheritance.** The composite prompt INCLUDES the content of
@@ -287,8 +287,8 @@ inclusion (#file:), stacking (instructions/skills), and handoff (agents).
 
 ## Resources Referenced
 
-- [ship.prompt.md](.github/prompts/ship.prompt.md) — commit/push/PR suggestion workflow
-- [github-push.prompt.md](.github/prompts/github-push.prompt.md) — full shipping with cohesive split + API PR
+- [ship.prompt.md](.github/prompts/shipping/ship.prompt.md) — commit/push/PR suggestion workflow
+- [github-push.prompt.md](.github/prompts/shipping/github-push.prompt.md) — full shipping with cohesive split + API PR
 - [Copilot Deep Dive Part 4](.github/docs/copilot-customization-deep-dive.md#part-4-composition-patterns) — Recipe 3 (Prompt Chain via `#file:`)
 - [hub.prompt.md](.github/prompts/hub.prompt.md) — navigation tree showing both `/ship` and `/github-push`
 - Previous session: [Prompts vs Skills](2026-04-21_02-30pm_prompts-vs-skills.md) — foundational dual-pattern understanding

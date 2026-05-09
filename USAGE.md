@@ -656,7 +656,7 @@ You: "Find Confluence pages about our system architecture"
 migration, resume/work analysis, bulk operations, repo mirroring.
 
 **Multi-account:** See `.env.accounts.example` for managing multiple Atlassian instances.
-Full guide: [GUIDE.md](.github/skills/atlassian-tools/GUIDE.md)
+Full guide: [GUIDE.md](.github/skills/devops-tooling/atlassian-tools/GUIDE.md)
 
 **MCP server vs. skill CLI:**
 
@@ -1130,7 +1130,7 @@ java -cp out Main
 
 ```text
 1. Start: /mcp → learn the protocol, then how the servers here work
-2. Read the skill: .github/skills/mcp-development/SKILL.md (1,980 lines)
+2. Read the skill: .github/skills/devops-tooling/mcp-development/SKILL.md (1,980 lines)
 3. Explore the Java source: mcp-servers/src/server/learningresources/
 4. Add a new tool: see §12 Extending
 5. Build your own server: /mcp → "how do I write an MCP server for my own data?"
@@ -1407,7 +1407,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 4. Add it to `scripts/server.ps1` and `server.sh` SERVER_CLASS maps
 5. Build and reload window
 
-See the `/mcp` slash command and `.github/skills/mcp-development/SKILL.md` for the full MCP protocol reference.
+See the `/mcp` slash command and `.github/skills/devops-tooling/mcp-development/SKILL.md` for the full MCP protocol reference.
 
 ### Add a New Search Scoring Dimension
 
