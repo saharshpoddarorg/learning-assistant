@@ -9,8 +9,6 @@ idea {
     module {
         // Exclude legacy directories from IntelliJ indexing
         excludeDirs.addAll(files(
-            "mcp-servers/out",
-            "search-engine/out",
             "temp-atlassian-tools"
         ))
     }
