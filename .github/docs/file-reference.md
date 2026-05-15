@@ -29,46 +29,72 @@
 │   └── Thinking-Beast-Mode.agent.md     🤖 Loaded when agent selected
 │
 ├── prompts/
-│   ├── hub.prompt.md                    🤖 Loaded when /hub invoked
-│   ├── dsa.prompt.md                    🤖 Loaded when /dsa invoked
-│   ├── system-design.prompt.md          🤖 Loaded when /system-design invoked
-│   ├── devops.prompt.md                 🤖 Loaded when /devops invoked
-│   ├── language-guide.prompt.md         🤖 Loaded when /language-guide invoked
-│   ├── tech-stack.prompt.md             🤖 Loaded when /tech-stack invoked
-│   ├── sdlc.prompt.md                   🤖 Loaded when /sdlc invoked
-│   ├── daily-assist.prompt.md           🤖 Loaded when /daily-assist invoked
-│   ├── career-roles.prompt.md           🤖 Loaded when /career-roles invoked
-│   ├── multi-session.prompt.md          🤖 Loaded when /multi-session invoked
+│   ├── meta/                            🤖 Meta & workflow prompts (9 commands)
+│   │   ├── hub.prompt.md               🤖 Loaded when /hub invoked
+│   │   ├── composite.prompt.md         🤖 Loaded when /composite invoked
+│   │   ├── context.prompt.md           🤖 Loaded when /context invoked
+│   │   ├── scope.prompt.md             🤖 Loaded when /scope invoked
+│   │   ├── multi-session.prompt.md     🤖 Loaded when /multi-session invoked
+│   │   ├── steer.prompt.md             🤖 Loaded when /steer invoked
+│   │   ├── request-steering.prompt.md  🤖 Loaded when /request-steering invoked
+│   │   ├── session-scope.prompt.md     🤖 Loaded when /session-scope invoked
+│   │   └── write-docs.prompt.md        🤖 Loaded when /write-docs invoked
+│   ├── domain/                          🤖 Domain learning prompts (10 commands)
+│   │   ├── dsa.prompt.md               🤖 Loaded when /dsa invoked
+│   │   ├── system-design.prompt.md     🤖 Loaded when /system-design invoked
+│   │   ├── devops.prompt.md            🤖 Loaded when /devops invoked
+│   │   ├── sdlc.prompt.md              🤖 Loaded when /sdlc invoked
+│   │   ├── tech-stack.prompt.md        🤖 Loaded when /tech-stack invoked
+│   │   ├── language-guide.prompt.md    🤖 Loaded when /language-guide invoked
+│   │   ├── mcp.prompt.md              🤖 Loaded when /mcp invoked
+│   │   ├── explore-project.prompt.md   🤖 Loaded when /explore-project invoked
+│   │   ├── resources.prompt.md         🤖 Loaded when /resources invoked
+│   │   └── digital-notetaking.prompt.md 🤖 Loaded when /digital-notetaking invoked
+│   ├── customization/                   🤖 Copilot customization prompts (3 commands)
+│   │   ├── copilot-customization.prompt.md 🤖 Loaded when /copilot-customization invoked
+│   │   ├── create-agent.prompt.md      🤖 Loaded when /create-agent invoked
+│   │   └── mcp-to-skill.prompt.md      🤖 Loaded when /mcp-to-skill invoked
+│   ├── tools/                           🤖 Tool-specific prompts (6 commands)
+│   │   ├── atlassian-tools.prompt.md   🤖 Loaded when /atlassian-tools invoked
+│   │   ├── git-vcs.prompt.md           🤖 Loaded when /git-vcs invoked
+│   │   ├── github-workflow.prompt.md   🤖 Loaded when /github-workflow invoked
+│   │   ├── build-tools.prompt.md       🤖 Loaded when /build-tools invoked
+│   │   ├── mac-dev.prompt.md           🤖 Loaded when /mac-dev invoked
+│   │   └── read-url.prompt.md          🤖 Loaded when /read-url invoked
+│   ├── career/                          🤖 Career & daily prompts (3 commands)
+│   │   ├── career-roles.prompt.md      🤖 Loaded when /career-roles invoked
+│   │   ├── interview-prep.prompt.md    🤖 Loaded when /interview-prep invoked
+│   │   └── daily-assist.prompt.md      🤖 Loaded when /daily-assist invoked
 │   ├── design-review.prompt.md          🤖 Loaded when /design-review invoked
 │   ├── debug.prompt.md                  🤖 Loaded when /debug invoked
 │   ├── impact.prompt.md                 🤖 Loaded when /impact invoked
 │   ├── teach.prompt.md                  🤖 Loaded when /teach invoked
 │   ├── refactor.prompt.md              🤖 Loaded when /refactor invoked
 │   ├── explain.prompt.md               🤖 Loaded when /explain invoked
-│   ├── composite.prompt.md             🤖 Loaded when /composite invoked
-│   ├── context.prompt.md               🤖 Loaded when /context invoked
-│   ├── scope.prompt.md                 🤖 Loaded when /scope invoked
 │   ├── learn-from-docs.prompt.md       🤖 Loaded when /learn-from-docs invoked
-│   ├── explore-project.prompt.md       🤖 Loaded when /explore-project invoked
 │   ├── deep-dive.prompt.md             🤖 Loaded when /deep-dive invoked
 │   ├── reading-plan.prompt.md          🤖 Loaded when /reading-plan invoked
 │   ├── learn-concept.prompt.md         🤖 Loaded when /learn-concept invoked
-│   ├── interview-prep.prompt.md        🤖 Loaded when /interview-prep invoked
-│   ├── resources.prompt.md             🤖 Loaded when /resources invoked
-│   ├── mcp.prompt.md                   🤖 Loaded when /mcp invoked
-│   ├── brain-new.prompt.md             🤖 Loaded when /brain-new invoked
-│   ├── brain-publish.prompt.md         🤖 Loaded when /brain-publish invoked
-│   └── brain-search.prompt.md          🤖 Loaded when /brain-search invoked
+│   ├── brain/                           🤖 Brain workspace prompts (14 commands)
+│   │   ├── new.prompt.md               🤖 Loaded when /brain-new invoked
+│   │   ├── publish.prompt.md           🤖 Loaded when /brain-publish invoked
+│   │   └── search.prompt.md            🤖 Loaded when /brain-search invoked
 │
 ├── skills/
-│   ├── java-build/SKILL.md             🤖 Auto-loaded when topic matches
-│   ├── design-patterns/SKILL.md        🤖 Auto-loaded when topic matches
-│   ├── java-debugging/SKILL.md         🤖 Auto-loaded when topic matches
-│   ├── java-learning-resources/SKILL.md 🤖 Auto-loaded when topic matches
-│   ├── software-engineering-resources/SKILL.md 🤖 Auto-loaded (DSA, system design, DevOps, Git, build tools, security, industry, trends)
-│   ├── daily-assistant-resources/SKILL.md 🤖 Auto-loaded when topic matches
-│   ├── career-resources/SKILL.md    🤖 Auto-loaded when topic matches
-│   └── mcp-development/SKILL.md     🤖 Auto-loaded (MCP, protocol, tools, agent architecture, server building)
+│   ├── languages-platforms/
+│   │   ├── java-build/SKILL.md         🤖 Auto-loaded when topic matches
+│   │   ├── java-debugging/SKILL.md     🤖 Auto-loaded when topic matches
+│   │   └── java-learning-resources/SKILL.md 🤖 Auto-loaded when topic matches
+│   ├── design-architecture/
+│   │   └── design-patterns/SKILL.md    🤖 Auto-loaded when topic matches
+│   ├── devops-tooling/
+│   │   └── mcp-development/SKILL.md    🤖 Auto-loaded (MCP, protocol, tools, agent architecture, server building)
+│   ├── learning-resources/
+│   │   └── software-engineering-resources/SKILL.md 🤖 Auto-loaded (DSA, system design, DevOps, Git, build tools, security, industry, trends)
+│   ├── career/
+│   │   └── career-resources/SKILL.md   🤖 Auto-loaded when topic matches
+│   └── daily-life/
+│       └── daily-assistant-resources/SKILL.md 🤖 Auto-loaded when topic matches
 │
 │  ┌─────────────────────────────────────────────────────────┐
 │  │  👤 FILES FOR DEVELOPERS (documentation & learning)    │

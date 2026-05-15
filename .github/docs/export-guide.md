@@ -44,7 +44,7 @@
 | **Full Copilot customization** | `.github/` folder | Agents + slash commands + skills | None |
 | **MCP: Learning Resources** | `mcp-servers/` + `.vscode/mcp.json` | Copilot searches learning docs | None |
 | **MCP: Atlassian** | Above + `atlassian-config.local.properties` | Copilot reads Jira/Confluence/Bitbucket (Cloud) | Atlassian API token |
-| **Skill: Atlassian CLI** | `.github/skills/atlassian-tools/.env` | 89-action CLI for Jira/Confluence/Bitbucket Server/DC | Atlassian PAT |
+| **Skill: Atlassian CLI** | `.github/skills/devops-tooling/atlassian-tools/.env` | 89-action CLI for Jira/Confluence/Bitbucket Server/DC | Atlassian PAT |
 | **MCP: GitHub** | `.vscode/mcp.json` with github entry | Copilot searches your GitHub repos | GitHub PAT |
 | **Brain workspace** | `brain/` folder + tasks | Personal knowledge notes | None |
 
@@ -133,8 +133,8 @@ Copy-Item .github\agents\code-reviewer.agent.md "$target\.github\agents\"
 # Pick specific prompts (slash commands)
 Copy-Item .github\prompts\debug.prompt.md       "$target\.github\prompts\"
 Copy-Item .github\prompts\refactor.prompt.md    "$target\.github\prompts\"
-Copy-Item .github\prompts\multi-session.prompt.md "$target\.github\prompts\"
-Copy-Item .github\prompts\brain-new.prompt.md   "$target\.github\prompts\"
+Copy-Item .github\prompts\meta\multi-session.prompt.md "$target\.github\prompts\meta\"
+Copy-Item .github\prompts\brain\new.prompt.md   "$target\.github\prompts\brain\"
 
 # Pick specific skills
 Copy-Item -Recurse .github\skills\java-build    "$target\.github\skills\"
@@ -319,9 +319,7 @@ The only dependency is PowerShell (Windows) or Bash (macOS/Linux).
 ```powershell
 $target = "C:\path\to\your-project"
 New-Item -ItemType Directory -Force "$target\.github\prompts"
-Copy-Item .github\prompts\brain-new.prompt.md    "$target\.github\prompts\"
-Copy-Item .github\prompts\brain-publish.prompt.md "$target\.github\prompts\"
-Copy-Item .github\prompts\brain-search.prompt.md  "$target\.github\prompts\"
+Copy-Item -Recurse .github\prompts\brain  "$target\.github\prompts\brain"
 ```
 
 ### 3b. Custom Location (different path — e.g., knowledge/workspace)
@@ -384,7 +382,7 @@ central configuration.
 | `.github/instructions/backlog.instructions.md` | VS Code `applyTo` pattern | **Yes — VS Code reads this literally** |
 | `.github/instructions/chat-capture.instructions.md` | AI instruction | No — AI reads the Configurable Paths section |
 | `.github/instructions/session-scoping.instructions.md` | AI instruction | No — AI reads the Configurable Paths section |
-| `.github/skills/brain-management/SKILL.md` | AI skill | No — AI reads the Configurable Paths section |
+| `.github/skills/knowledge-management/brain-management/SKILL.md` | AI skill | No — AI reads the Configurable Paths section |
 | `.github/prompts/brain-*.prompt.md` | AI prompts | No — AI reads the Configurable Paths section |
 | `.vscode/tasks.json` (brain section) | VS Code tasks | **Yes — command paths are literal** |
 | `.gitignore` | Git pattern | **Yes — gitignore patterns are literal** |
@@ -564,10 +562,10 @@ servers** you enable and which **skills/prompts** you keep.
 | `.github/instructions/chat-capture.instructions.md` | Remove unless you want session capture | Personal productivity feature |
 | `.github/instructions/steering-modes.instructions.md` | Remove unless you use steering modes | Learning-assistant workflow |
 | `.github/agents/` | Keep agents relevant to your work (debugger, designer, code-reviewer) | Universal value |
-| `.github/skills/brain-management/` | Remove | Personal knowledge management — not for work repo |
-| `.github/skills/mac-dev/` | Remove unless team uses macOS | OS-specific |
-| `.github/skills/career-resources/` | Remove | Personal career guidance — not for work repo |
-| `.github/skills/daily-assistant-resources/` | Remove | Personal productivity — not for work repo |
+| `.github/skills/knowledge-management/brain-management/` | Remove | Personal knowledge management — not for work repo |
+| `.github/skills/languages-platforms/mac-dev/` | Remove unless team uses macOS | OS-specific |
+| `.github/skills/career/career-resources/` | Remove | Personal career guidance — not for work repo |
+| `.github/skills/daily-life/daily-assistant-resources/` | Remove | Personal productivity — not for work repo |
 | MCP: Atlassian | **Enable** with your work Jira/Confluence credentials | Read work tickets and docs |
 | MCP: GitHub | **Enable** with a PAT that has access to your org repos | Search work repos |
 | MCP: Learning Resources | Keep (no credentials needed) | Learning resources are useful everywhere |
@@ -608,7 +606,7 @@ safely omit **without breaking anything**:
 | macOS module | `mac-os/` | Setup guides for mac development |
 | Search engine module | `search-engine/` | Learning module — not production code |
 | Entry points | `src/Main.java` | This repo's Java entry point |
-| `.github/prompts/hub.prompt.md` | `.github/prompts/hub.prompt.md` | Hub for this repo's slash commands |
+| `.github/prompts/meta/hub.prompt.md` | `.github/prompts/meta/hub.prompt.md` | Hub for this repo's slash commands |
 
 ### Skip Based on Your Stack
 

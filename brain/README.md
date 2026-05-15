@@ -197,6 +197,6 @@ String markdown = NoteTemplate.generate(metadata, "ADR-001: Use SSE transport");
 
 - [digitalnotetaking/README.md](digitalnotetaking/README.md) — PKM guide library
 - [ai-brain/README.md](ai-brain/README.md) — Live workspace guide
-- `.github/skills/digital-notetaking/SKILL.md` — Copilot PKM skill
-- `.github/prompts/digital-notetaking.prompt.md` — `/digital-notetaking` slash command
+- `.github/skills/knowledge-management/digital-notetaking/SKILL.md` — Copilot PKM skill
+- `.github/prompts/domain/digital-notetaking.prompt.md` — `/digital-notetaking` slash command
 - `.github/docs/slash-commands.md#brain` — All brain slash commands

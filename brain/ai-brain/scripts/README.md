@@ -172,9 +172,9 @@ Use from the Copilot Chat panel (`@workspace` or agent mode):
 
 | Prompt file | Slash command | What it does |
 |-------------|---------------|--------------|
-| `brain-new.prompt.md` | `/brain-new` | Create a new note with Copilot writing the content |
-| `brain-publish.prompt.md` | `/brain-publish` | Promote a file: tag enrichment + git commit |
-| `brain-search.prompt.md` | `/brain-search` | AI-assisted search with natural language |
+| `brain/new.prompt.md` | `/brain-new` | Create a new note with Copilot writing the content |
+| `brain/publish.prompt.md` | `/brain-publish` | Promote a file: tag enrichment + git commit |
+| `brain/search.prompt.md` | `/brain-search` | AI-assisted search with natural language |
 
 ---
 

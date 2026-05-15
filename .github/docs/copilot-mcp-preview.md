@@ -68,7 +68,7 @@ Ctrl+Shift+I (open Copilot Chat)
 → Follow the wizard
 ```
 
-Or use the `/create-agent` prompt in this repo (`.github/prompts/create-agent.prompt.md`) for more granular control.
+Or use the `/create-agent` prompt in this repo (`.github/prompts/customization/create-agent.prompt.md`) for more granular control.
 
 ### Output Format
 

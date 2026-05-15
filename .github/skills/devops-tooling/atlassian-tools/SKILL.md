@@ -181,7 +181,7 @@ For large HTML content or other generated intermediary files, use `<workspace>/t
 - Create the folder on demand.
 - Prefer stable filenames like `cli_content.html` and `confluence-mermaid.html`.
 - Overwrite reusable files instead of creating timestamped duplicates.
-- Do not write temp files inside `.github/skills/atlassian-tools/`.
+- Do not write temp files inside `.github/skills/devops-tooling/atlassian-tools/`.
 - Do not delete scratch files immediately unless they contain sensitive content or the user explicitly asks for cleanup.
 
 ## Execution Contract
@@ -189,7 +189,7 @@ For large HTML content or other generated intermediary files, use `<workspace>/t
 Set JSON arguments in `CLI_JSON_ARGS`, then invoke the CLI.
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123"}'; node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_jira_issue
+$env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123"}'; node "<workspace>/.github/skills/devops-tooling/atlassian-tools/scripts/atlassian_cli.js" fetch_jira_issue
 ```
 
 Rules:

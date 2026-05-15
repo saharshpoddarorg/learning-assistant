@@ -1,6 +1,6 @@
 # learning-assistant
 
-> **Purpose:** Learn how to customize GitHub Copilot using all 5 official primitives.
+> **Purpose:** Learn how to customize GitHub Copilot using all 6 official primitives.
 > **Project:** `learning-assistant` — a simple Java project for hands-on experimentation.
 > **Audience:** Developers new to Copilot customization who want to learn by doing.
 
@@ -9,7 +9,7 @@
 ## 📑 Table of Contents
 
 - [At a Glance](#-at-a-glance)- [Why Customize Copilot?](#why-customize-copilot)
-- [The 5 Official Primitives](#the-5-official-primitives)
+- [The 6 Official Primitives](#the-6-official-primitives)
 - [Folder Structure](#folder-structure)
 - [This Project's Setup](#this-projects-current-setup)
   - [Specialist Agents](#-specialist-agents-modes)
@@ -40,8 +40,8 @@
 
 | Action | How |
 |---|---|
-| **Switch persona** | Chat dropdown → select **Designer**, **Debugger**, **Impact-Analyzer**, **Learning-Mentor**, **Daily-Assistant**, or **Thinking-Beast-Mode** |
-| **Run a workflow** | Type `/hub`, `/dsa`, `/system-design`, `/devops`, `/mcp`, `/resources`, `/language-guide`, `/tech-stack`, `/sdlc`, `/career-roles`, `/daily-assist`, `/multi-session`, `/learn-concept`, `/learn-from-docs`, `/explore-project`, `/deep-dive`, `/reading-plan`, `/interview-prep`, `/design-review`, `/debug`, `/impact`, `/teach`, `/refactor`, `/explain`, `/composite`, `/context`, `/scope`, `/brain-new`, `/brain-publish`, or `/brain-search` in Chat |
+| **Switch persona** | Chat dropdown → select **Designer**, **Debugger**, **Impact-Analyzer**, **Learning-Mentor**, **Code-Reviewer**, **Daily-Assistant**, **My-Kanha**, or **Thinking-Beast-Mode** |
+| **Run a workflow** | Type `/hub` in Chat to browse all 65 slash commands across 10 categories |
 | **Coding standards** | Automatic — open any `.java` file, instructions load via glob match |
 | **Extra knowledge** | Automatic — ask about building, patterns, or debugging and the matching skill loads |
 | **See everything** | [Navigation Index](docs/navigation-index.md) · [Slash Commands](docs/slash-commands.md) · [Documentation Map](#-documentation-map) · [File Reference](docs/file-reference.md) · [Getting Started Tutorial](docs/getting-started.md) |
@@ -61,9 +61,9 @@ Out of the box, Copilot knows nothing about **your** project. It guesses based o
 
 ---
 
-## The 5 Official Primitives
+## The 6 Official Primitives
 
-GitHub Copilot in VS Code supports exactly **5 customization primitives**. Everything you can do falls into one of these:
+GitHub Copilot in VS Code supports exactly **6 customization primitives**. Everything you can do falls into one of these:
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -74,6 +74,7 @@ GitHub Copilot in VS Code supports exactly **5 customization primitives**. Every
 │  3. *.agent.md                 Custom AI personas                   │
 │  4. *.prompt.md                Reusable slash-command tasks          │
 │  5. SKILL.md                   Tool folders with scripts/resources  │
+│  6. MCP Servers (.vscode/mcp.json)  Live external data & tools     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -86,6 +87,7 @@ GitHub Copilot in VS Code supports exactly **5 customization primitives**. Every
 | Create a specialist persona (reviewer, planner) | `*.agent.md` |
 | Save a reusable task as a `/slash-command` | `*.prompt.md` |
 | Bundle instructions + scripts + templates | `SKILL.md` folder |
+| Connect to external tools and live data | MCP server (`.vscode/mcp.json`) |
 
 ---
 
@@ -113,44 +115,116 @@ GitHub Copilot in VS Code supports exactly **5 customization primitives**. Every
 │
 ├── prompts/                             ← Slash commands (type /command)
 │   ├── 🎯 README.md                         Guide: how prompts work
-│   ├── hub.prompt.md                       /hub (master navigation index)
-│   ├── dsa.prompt.md                       /dsa (data structures & algorithms)
-│   ├── system-design.prompt.md             /system-design (HLD/LLD hierarchy)
-│   ├── devops.prompt.md                    /devops (CI/CD, Docker, K8s, cloud)
-│   ├── language-guide.prompt.md            /language-guide (language learning)
-│   ├── tech-stack.prompt.md                /tech-stack (frameworks, databases)
-│   ├── sdlc.prompt.md                      /sdlc (phases & methodologies)
-│   ├── daily-assist.prompt.md              /daily-assist (finance, productivity)
-│   ├── career-roles.prompt.md              /career-roles (job roles, skills, pay)
-│   ├── multi-session.prompt.md             /multi-session (cross-session state)
-│   ├── design-review.prompt.md             /design-review
-│   ├── debug.prompt.md                     /debug
-│   ├── impact.prompt.md                    /impact
-│   ├── teach.prompt.md                     /teach
-│   ├── refactor.prompt.md                  /refactor
-│   ├── explain.prompt.md                   /explain
-│   ├── composite.prompt.md                 /composite (combine modes)
-│   ├── context.prompt.md                   /context (continue/fresh)
-│   ├── scope.prompt.md                     /scope (generic/specific)
-│   ├── learn-from-docs.prompt.md           /learn-from-docs (official docs)
-│   ├── explore-project.prompt.md           /explore-project (OSS study)
-│   ├── deep-dive.prompt.md                 /deep-dive (concept mastery)
-│   ├── reading-plan.prompt.md              /reading-plan (study plan)
-│   ├── learn-concept.prompt.md             /learn-concept (any CS/SE concept)
-│   ├── interview-prep.prompt.md            /interview-prep (DSA/system design)
-│   ├── resources.prompt.md                 /resources (learning resource vault)
-│   └── mcp.prompt.md                       /mcp (MCP servers, agents, API integration)
+│   ├── meta/                                Navigation, state, workflow (9 commands)
+│   │   ├── hub.prompt.md                   /hub (master navigation index)
+│   │   ├── composite.prompt.md             /composite (combine modes)
+│   │   ├── context.prompt.md               /context (continue/fresh)
+│   │   ├── scope.prompt.md                 /scope (generic/specific)
+│   │   ├── multi-session.prompt.md         /multi-session (cross-session state)
+│   │   ├── steer.prompt.md                 /steer (steering mode selection)
+│   │   ├── request-steering.prompt.md      /request-steering (mid-task routing)
+│   │   ├── session-scope.prompt.md         /session-scope (scope management)
+│   │   └── write-docs.prompt.md            /write-docs (documentation writing)
+│   ├── learning/                            Learning & concepts (5 commands)
+│   │   ├── learn-concept.prompt.md         /learn-concept (any CS/SE concept)
+│   │   ├── deep-dive.prompt.md             /deep-dive (concept mastery)
+│   │   ├── learn-from-docs.prompt.md       /learn-from-docs (official docs)
+│   │   ├── reading-plan.prompt.md          /reading-plan (study plan)
+│   │   └── teach.prompt.md                 /teach (learn from current file)
+│   ├── domain/                              Domain-specific learning (10 commands)
+│   │   ├── dsa.prompt.md                   /dsa (data structures & algorithms)
+│   │   ├── system-design.prompt.md         /system-design (HLD/LLD hierarchy)
+│   │   ├── devops.prompt.md                /devops (CI/CD, Docker, K8s, cloud)
+│   │   ├── sdlc.prompt.md                  /sdlc (phases & methodologies)
+│   │   ├── tech-stack.prompt.md            /tech-stack (frameworks, databases)
+│   │   ├── language-guide.prompt.md        /language-guide (language learning)
+│   │   ├── mcp.prompt.md                   /mcp (MCP servers, agents, API integration)
+│   │   ├── explore-project.prompt.md       /explore-project (OSS study)
+│   │   ├── resources.prompt.md             /resources (learning resource vault)
+│   │   └── digital-notetaking.prompt.md    /digital-notetaking (PKM tools)
+│   ├── code/                                Code quality & analysis (8 commands)
+│   │   ├── design-review.prompt.md         /design-review (SOLID/GRASP review)
+│   │   ├── debug.prompt.md                 /debug (bug investigation)
+│   │   ├── code-analysis.prompt.md         /code-analysis (code review)
+│   │   ├── code-analysis-deep-dive.prompt.md /code-analysis-deep-dive (code internals)
+│   │   ├── impact.prompt.md                /impact (change analysis)
+│   │   ├── refactor.prompt.md              /refactor (refactoring)
+│   │   ├── explain.prompt.md               /explain (file explanation)
+│   │   └── check-standards.prompt.md       /check-standards (audit best practices)
+│   ├── customization/                       Copilot customization (3 commands)
+│   │   ├── copilot-customization.prompt.md /copilot-customization (primitives guide)
+│   │   ├── create-agent.prompt.md          /create-agent (agent scaffolding)
+│   │   └── mcp-to-skill.prompt.md          /mcp-to-skill (MCP→skill conversion)
+│   ├── tools/                               Tool-specific operations (6 commands)
+│   │   ├── atlassian-tools.prompt.md       /atlassian-tools (Jira/Confluence/Bitbucket)
+│   │   ├── git-vcs.prompt.md               /git-vcs (Git commands & workflows)
+│   │   ├── github-workflow.prompt.md       /github-workflow (PRs, issues, gh CLI)
+│   │   ├── build-tools.prompt.md           /build-tools (Maven, Gradle, npm)
+│   │   ├── mac-dev.prompt.md               /mac-dev (macOS dev environment)
+│   │   └── read-url.prompt.md              /read-url (webpage reading)
+│   ├── career/                              Career & daily life (3 commands)
+│   │   ├── career-roles.prompt.md          /career-roles (job roles, skills, pay)
+│   │   ├── interview-prep.prompt.md        /interview-prep (DSA/system design)
+│   │   └── daily-assist.prompt.md          /daily-assist (finance, productivity)
+│   ├── shipping/                            Deployment & release (2 commands)
+│   │   ├── ship.prompt.md                  /ship (release workflow)
+│   │   └── github-push.prompt.md           /github-push (push & PR)
+│   ├── backlog/                             Backlog & task management (5 commands)
+│   │   ├── backlog.prompt.md               /backlog (agile board)
+│   │   ├── jot.prompt.md                   /jot (quick capture)
+│   │   ├── read-file-jot.prompt.md         /read-file-jot (capture from file)
+│   │   ├── todo.prompt.md                  /todo (single task)
+│   │   └── todos.prompt.md                 /todos (batch tasks)
+│   └── brain/                               Brain workspace (14 commands)
+│       ├── new.prompt.md                   /brain-new (create knowledge note)
+│       ├── publish.prompt.md               /brain-publish (publish to library)
+│       ├── search.prompt.md                /brain-search (search notes)
+│       ├── capture-session.prompt.md       /brain-capture-session (save AI session)
+│       ├── fetch.prompt.md                 /brain-fetch (fetch from source)
+│       ├── pull.prompt.md                  /brain-pull (pull into brain)
+│       ├── push.prompt.md                  /brain-push (push to target)
+│       ├── clone.prompt.md                 /brain-clone (clone from source)
+│       ├── merge.prompt.md                 /brain-merge (merge notes)
+│       ├── cherry-pick.prompt.md           /brain-cherry-pick (selective merge)
+│       ├── stash.prompt.md                 /brain-stash (save work-in-progress)
+│       ├── diff.prompt.md                  /brain-diff (compare notes)
+│       ├── remote.prompt.md                /brain-remote (manage remote sources)
+│       └── consolidate.prompt.md           /brain-consolidate (consolidate notes)
 │
 ├── skills/                              ← Agent skills (auto by task match)
 │   ├── 🛠️ README.md                         Guide: how skills work
-│   ├── java-build/SKILL.md                 Compile & run Java
-│   ├── design-patterns/SKILL.md            OOP patterns & SOLID reference
-│   ├── java-debugging/SKILL.md             Exception patterns & debug techniques
-│   ├── java-learning-resources/SKILL.md    Curated Java learning resource index
-│   ├── software-engineering-resources/SKILL.md  Comprehensive SE/CS resource index
-│   ├── daily-assistant-resources/SKILL.md  Daily assistant resources (finance, productivity, news)
-│   ├── career-resources/SKILL.md           Career data (roles, skills, pay, roadmaps)
-│   └── mcp-development/SKILL.md            MCP: build servers, configure agents, project structure
+│   ├── TAXONOMY.md                          Full taxonomy tree — 8 categories, 23 skills
+│   ├── languages-platforms/                 Java, JVM, macOS (6 skills)
+│   │   ├── java-build/SKILL.md              Compile & run Java
+│   │   ├── java-debugging/SKILL.md          Exception patterns & debug techniques
+│   │   ├── java-formatting/SKILL.md         Code formatting, style, inspections (opt-in)
+│   │   ├── java-learning-resources/SKILL.md Curated Java learning resource index
+│   │   ├── jvm-platform/SKILL.md            JVM internals, GC, class loading, serialization, GraalVM
+│   │   └── mac-dev/SKILL.md                 Homebrew, JDK, npm, Docker, dotfiles
+│   ├── design-architecture/                 Patterns & roles (2 skills)
+│   │   ├── design-patterns/SKILL.md         OOP patterns & SOLID reference
+│   │   └── software-development-roles/SKILL.md  PO, Developer, QA role workflows
+│   ├── dev-process/                         Research & process (3 skills)
+│   │   ├── deep-research/SKILL.md           Investigation, spike stories, RCA, trade-off analysis
+│   │   ├── requirements-research/SKILL.md   User stories, BDD, acceptance criteria, MoSCoW
+│   │   └── github-workflow/SKILL.md         PRs, issues, GitHub CLI, branch protection
+│   ├── devops-tooling/                      DevOps & developer tools (5 skills)
+│   │   ├── git-vcs/SKILL.md                 Git workflows, branching, commits, semver
+│   │   ├── mcp-development/SKILL.md         MCP: build servers, configure agents, project structure
+│   │   ├── copilot-customization/SKILL.md   Copilot 6 primitives — create, review, fix
+│   │   ├── atlassian-tools/SKILL.md         Jira/Confluence/Bitbucket PAT CLI (89 actions)
+│   │   └── web-reader/SKILL.md              Webpage reading, content extraction
+│   ├── knowledge-management/                Brain & PKM (3 skills)
+│   │   ├── brain-management/SKILL.md        brain/ai-brain/ tier routing, naming, frontmatter
+│   │   ├── pkm-management/SKILL.md          PKM capture sources, git-inspired content ops
+│   │   └── digital-notetaking/SKILL.md      PKM methods, tool cheatsheets, note templates
+│   ├── learning-resources/                  Curated resource vaults (2 skills)
+│   │   ├── learning-resources-vault/SKILL.md  176+ curated resources — master vault index
+│   │   └── software-engineering-resources/SKILL.md  Comprehensive SE/CS resource index
+│   ├── career/                              Career guidance (1 skill)
+│   │   └── career-resources/SKILL.md        Career data (roles, skills, pay, roadmaps)
+│   └── daily-life/                          Daily life (1 skill)
+│       └── daily-assistant-resources/SKILL.md  Daily assistant resources (finance, productivity, news)
 │
 └── docs/                                ← Documentation & tutorials
     ├── mcp-server-setup.md                 Newbie MCP guide: install, build, credentials, use, copy to other projects
@@ -189,8 +263,7 @@ This learning project includes working samples of each primitive, organized into
 | **Code-Reviewer** | [`code-reviewer.agent.md`](agents/code-reviewer.agent.md) | Bug detection, style checks, best practices (read-only) |
 | **Daily-Assistant** | [`daily-assistant.agent.md`](agents/daily-assistant.agent.md) | Finance, productivity, news, daily life tasks |
 | **Thinking-Beast-Mode** | [`Thinking-Beast-Mode.agent.md`](agents/Thinking-Beast-Mode.agent.md) | Deep research agent — autonomous, thorough, web-fetching |
-
-> 📖 **Deep dive:** [Agents Guide →](agents/README.md)
+| **My-Kanha** | [`my-kanha.agent.md`](agents/my-kanha.agent.md) | Personal spiritual mentor — Krishna-inspired guidance |
 
 <br>
 
@@ -200,36 +273,81 @@ This learning project includes working samples of each primitive, organized into
 
 | Command | File | What It Does |
 |---|---|---|
-| `/design-review` | [`design-review.prompt.md`](prompts/design-review.prompt.md) | Full SOLID/GRASP design review of current file |
-| `/debug` | [`debug.prompt.md`](prompts/debug.prompt.md) | Systematic bug investigation workflow |
-| `/impact` | [`impact.prompt.md`](prompts/impact.prompt.md) | Change impact & ripple effect analysis |
-| `/teach` | [`teach.prompt.md`](prompts/teach.prompt.md) | Learn concepts from current file's code |
-| `/refactor` | [`refactor.prompt.md`](prompts/refactor.prompt.md) | Identify and apply refactoring opportunities |
-| `/explain` | [`explain.prompt.md`](prompts/explain.prompt.md) | Beginner-friendly file explanation |
-| `/composite` | [`composite.prompt.md`](prompts/composite.prompt.md) | Combine multiple modes in one session |
-| `/context` | [`context.prompt.md`](prompts/context.prompt.md) | Continue prior conversation or start fresh |
-| `/scope` | [`scope.prompt.md`](prompts/scope.prompt.md) | Generic learning vs code/domain-specific |
-| `/learn-from-docs` | [`learn-from-docs.prompt.md`](prompts/learn-from-docs.prompt.md) | Learn concepts via official documentation |
-| `/explore-project` | [`explore-project.prompt.md`](prompts/explore-project.prompt.md) | Learn by studying open-source projects |
-| `/deep-dive` | [`deep-dive.prompt.md`](prompts/deep-dive.prompt.md) | Multi-layered progressive concept exploration |
-| `/reading-plan` | [`reading-plan.prompt.md`](prompts/reading-plan.prompt.md) | Structured reading/learning plan with resources |
-| `/learn-concept` | [`learn-concept.prompt.md`](prompts/learn-concept.prompt.md) | Learn any CS/SE concept (language-agnostic) |
-| `/interview-prep` | [`interview-prep.prompt.md`](prompts/interview-prep.prompt.md) | DSA patterns, system design, interview strategies |
-| `/hub` | [`hub.prompt.md`](prompts/hub.prompt.md) | Master navigation index — browse all commands |
-| `/dsa` | [`dsa.prompt.md`](prompts/dsa.prompt.md) | Data structures & algorithms with pattern hierarchy |
-| `/system-design` | [`system-design.prompt.md`](prompts/system-design.prompt.md) | Unified HLD/LLD with full internal hierarchy |
-| `/devops` | [`devops.prompt.md`](prompts/devops.prompt.md) | CI/CD, Docker, Kubernetes, cloud, IaC, Git, build tools, monitoring |
-| `/language-guide` | [`language-guide.prompt.md`](prompts/language-guide.prompt.md) | Language-specific learning framework |
-| `/tech-stack` | [`tech-stack.prompt.md`](prompts/tech-stack.prompt.md) | Frameworks, libraries, databases — compare & learn |
-| `/sdlc` | [`sdlc.prompt.md`](prompts/sdlc.prompt.md) | SDLC phases, methodologies, engineering practices |
-| `/daily-assist` | [`daily-assist.prompt.md`](prompts/daily-assist.prompt.md) | Finance, productivity, news, daily life tasks |
-| `/career-roles` | [`career-roles.prompt.md`](prompts/career-roles.prompt.md) | Job roles, skills, pay ranges, career roadmaps |
-| `/multi-session` | [`multi-session.prompt.md`](prompts/multi-session.prompt.md) | Manage state across multiple chat sessions |
-| `/resources` | [`resources.prompt.md`](prompts/resources.prompt.md) | Search, browse, discover & export ~100+ curated learning resources |
-| `/mcp` | [`mcp.prompt.md`](prompts/mcp.prompt.md) | Learn & build MCP servers, configure agents, protocol deep-dive |
-| `/brain-new` | [`brain-new.prompt.md`](prompts/brain-new.prompt.md) | Create a knowledge note in inbox/ or notes/ tier |
-| `/brain-publish` | [`brain-publish.prompt.md`](prompts/brain-publish.prompt.md) | Publish a note to library/ with tagging and git commit |
-| `/brain-search` | [`brain-search.prompt.md`](prompts/brain-search.prompt.md) | Search notes by tag, project, kind, date, or full text |
+| **Meta & Navigation** | | |
+| `/hub` | [`hub.prompt.md`](prompts/meta/hub.prompt.md) | Master navigation index — browse all commands |
+| `/composite` | [`composite.prompt.md`](prompts/meta/composite.prompt.md) | Combine multiple modes in one session |
+| `/context` | [`context.prompt.md`](prompts/meta/context.prompt.md) | Continue prior conversation or start fresh |
+| `/scope` | [`scope.prompt.md`](prompts/meta/scope.prompt.md) | Generic learning vs code/domain-specific |
+| `/multi-session` | [`multi-session.prompt.md`](prompts/meta/multi-session.prompt.md) | Manage state across multiple chat sessions |
+| `/steer` | [`steer.prompt.md`](prompts/meta/steer.prompt.md) | View or switch the active steering mode |
+| `/request-steering` | [`request-steering.prompt.md`](prompts/meta/request-steering.prompt.md) | Route incoming request vs current work |
+| `/session-scope` | [`session-scope.prompt.md`](prompts/meta/session-scope.prompt.md) | Manage session scope levels |
+| `/write-docs` | [`write-docs.prompt.md`](prompts/meta/write-docs.prompt.md) | Generate documentation |
+| **Learning & Concepts** | | |
+| `/learn-concept` | [`learn-concept.prompt.md`](prompts/learning/learn-concept.prompt.md) | Learn any CS/SE concept (language-agnostic) |
+| `/deep-dive` | [`deep-dive.prompt.md`](prompts/learning/deep-dive.prompt.md) | Multi-layered progressive concept exploration |
+| `/learn-from-docs` | [`learn-from-docs.prompt.md`](prompts/learning/learn-from-docs.prompt.md) | Learn concepts via official documentation |
+| `/reading-plan` | [`reading-plan.prompt.md`](prompts/learning/reading-plan.prompt.md) | Structured reading/learning plan with resources |
+| `/teach` | [`teach.prompt.md`](prompts/learning/teach.prompt.md) | Learn concepts from current file's code |
+| **Domain-Specific** | | |
+| `/dsa` | [`dsa.prompt.md`](prompts/domain/dsa.prompt.md) | Data structures & algorithms with pattern hierarchy |
+| `/system-design` | [`system-design.prompt.md`](prompts/domain/system-design.prompt.md) | Unified HLD/LLD with full internal hierarchy |
+| `/devops` | [`devops.prompt.md`](prompts/domain/devops.prompt.md) | CI/CD, Docker, Kubernetes, cloud, IaC, Git, build tools |
+| `/sdlc` | [`sdlc.prompt.md`](prompts/domain/sdlc.prompt.md) | SDLC phases, methodologies, engineering practices |
+| `/tech-stack` | [`tech-stack.prompt.md`](prompts/domain/tech-stack.prompt.md) | Frameworks, libraries, databases — compare & learn |
+| `/language-guide` | [`language-guide.prompt.md`](prompts/domain/language-guide.prompt.md) | Language-specific learning framework |
+| `/mcp` | [`mcp.prompt.md`](prompts/domain/mcp.prompt.md) | Learn & build MCP servers, protocol deep-dive |
+| `/explore-project` | [`explore-project.prompt.md`](prompts/domain/explore-project.prompt.md) | Learn by studying open-source projects |
+| `/resources` | [`resources.prompt.md`](prompts/domain/resources.prompt.md) | Search, browse & export ~176 curated learning resources |
+| `/digital-notetaking` | [`digital-notetaking.prompt.md`](prompts/domain/digital-notetaking.prompt.md) | PKM tools: Obsidian, Notion, Logseq, PARA |
+| **Code Quality** | | |
+| `/design-review` | [`design-review.prompt.md`](prompts/code/design-review.prompt.md) | Full SOLID/GRASP design review of current file |
+| `/debug` | [`debug.prompt.md`](prompts/code/debug.prompt.md) | Systematic bug investigation workflow |
+| `/code-analysis` | [`code-analysis.prompt.md`](prompts/code/code-analysis.prompt.md) | Code review and analysis |
+| `/code-analysis-deep-dive` | [`code-analysis-deep-dive.prompt.md`](prompts/code/code-analysis-deep-dive.prompt.md) | Deep-dive into code internals and flow |
+| `/impact` | [`impact.prompt.md`](prompts/code/impact.prompt.md) | Change impact & ripple effect analysis |
+| `/refactor` | [`refactor.prompt.md`](prompts/code/refactor.prompt.md) | Identify and apply refactoring opportunities |
+| `/explain` | [`explain.prompt.md`](prompts/code/explain.prompt.md) | Beginner-friendly file explanation |
+| `/check-standards` | [`check-standards.prompt.md`](prompts/code/check-standards.prompt.md) | Audit file/folder against best practices |
+| **Tools & Platforms** | | |
+| `/atlassian-tools` | [`atlassian-tools.prompt.md`](prompts/tools/atlassian-tools.prompt.md) | Jira, Confluence, Bitbucket CLI workflows |
+| `/git-vcs` | [`git-vcs.prompt.md`](prompts/tools/git-vcs.prompt.md) | Git workflows, branching, conventions |
+| `/github-workflow` | [`github-workflow.prompt.md`](prompts/tools/github-workflow.prompt.md) | GitHub PRs, issues, gh CLI, Actions |
+| `/build-tools` | [`build-tools.prompt.md`](prompts/tools/build-tools.prompt.md) | Maven, Gradle, Make, Bazel, npm |
+| `/mac-dev` | [`mac-dev.prompt.md`](prompts/tools/mac-dev.prompt.md) | macOS dev environment |
+| `/read-url` | [`read-url.prompt.md`](prompts/tools/read-url.prompt.md) | Read, extract, summarize webpage content |
+| **Copilot Customization** | | |
+| `/copilot-customization` | [`copilot-customization.prompt.md`](prompts/customization/copilot-customization.prompt.md) | Learn Copilot customization primitives |
+| `/create-agent` | [`create-agent.prompt.md`](prompts/customization/create-agent.prompt.md) | Scaffold a new custom agent |
+| `/mcp-to-skill` | [`mcp-to-skill.prompt.md`](prompts/customization/mcp-to-skill.prompt.md) | Convert MCP tool to SKILL.md |
+| **Career & Daily Life** | | |
+| `/career-roles` | [`career-roles.prompt.md`](prompts/career/career-roles.prompt.md) | Job roles, skills, pay ranges, career roadmaps |
+| `/interview-prep` | [`interview-prep.prompt.md`](prompts/career/interview-prep.prompt.md) | DSA patterns, system design, interview strategies |
+| `/daily-assist` | [`daily-assist.prompt.md`](prompts/career/daily-assist.prompt.md) | Finance, productivity, news, daily life tasks |
+| **Shipping & Release** | | |
+| `/ship` | [`ship.prompt.md`](prompts/shipping/ship.prompt.md) | Release workflow |
+| `/github-push` | [`github-push.prompt.md`](prompts/shipping/github-push.prompt.md) | Push to remote & create PR |
+| **Backlog & Tasks** | | |
+| `/backlog` | [`backlog.prompt.md`](prompts/backlog/backlog.prompt.md) | Agile board management |
+| `/jot` | [`jot.prompt.md`](prompts/backlog/jot.prompt.md) | Quick capture to backlog |
+| `/read-file-jot` | [`read-file-jot.prompt.md`](prompts/backlog/read-file-jot.prompt.md) | Capture ideas from current file |
+| `/todo` | [`todo.prompt.md`](prompts/backlog/todo.prompt.md) | Single task creation |
+| `/todos` | [`todos.prompt.md`](prompts/backlog/todos.prompt.md) | Batch task creation |
+| **Brain Workspace** | | |
+| `/brain-new` | [`new.prompt.md`](prompts/brain/new.prompt.md) | Create a knowledge note in inbox/ or notes/ tier |
+| `/brain-publish` | [`publish.prompt.md`](prompts/brain/publish.prompt.md) | Publish a note to library/ with tagging and git commit |
+| `/brain-search` | [`search.prompt.md`](prompts/brain/search.prompt.md) | Search notes by tag, project, kind, date, or full text |
+| `/brain-capture-session` | [`capture-session.prompt.md`](prompts/brain/capture-session.prompt.md) | Convert AI session into a structured session note |
+| `/brain-fetch` | [`fetch.prompt.md`](prompts/brain/fetch.prompt.md) | Fetch content from external source |
+| `/brain-pull` | [`pull.prompt.md`](prompts/brain/pull.prompt.md) | Pull content into brain workspace |
+| `/brain-push` | [`push.prompt.md`](prompts/brain/push.prompt.md) | Push content to target |
+| `/brain-clone` | [`clone.prompt.md`](prompts/brain/clone.prompt.md) | Clone from external source |
+| `/brain-merge` | [`merge.prompt.md`](prompts/brain/merge.prompt.md) | Merge notes together |
+| `/brain-cherry-pick` | [`cherry-pick.prompt.md`](prompts/brain/cherry-pick.prompt.md) | Selective merge from another note |
+| `/brain-stash` | [`stash.prompt.md`](prompts/brain/stash.prompt.md) | Save work-in-progress |
+| `/brain-diff` | [`diff.prompt.md`](prompts/brain/diff.prompt.md) | Compare notes |
+| `/brain-remote` | [`remote.prompt.md`](prompts/brain/remote.prompt.md) | Manage remote sources |
+| `/brain-consolidate` | [`consolidate.prompt.md`](prompts/brain/consolidate.prompt.md) | Consolidate notes |
 
 > 📖 **Deep dive:** [Prompts Guide →](prompts/README.md)
 
@@ -244,6 +362,13 @@ This learning project includes working samples of each primitive, organized into
 | [`copilot-instructions.md`](copilot-instructions.md) | All requests | Project-wide rules and conventions |
 | [`java.instructions.md`](instructions/java.instructions.md) | `**/*.java` | Java naming, style, Java 21+ features |
 | [`clean-code.instructions.md`](instructions/clean-code.instructions.md) | `**/*.java` | Clean code practices, code smell detection |
+| [`change-completeness.instructions.md`](instructions/change-completeness.instructions.md) | `**` | Iterative completeness checklist — default steering mode |
+| [`md-formatting.instructions.md`](instructions/md-formatting.instructions.md) | `**` | Markdown formatting rules — always enforced |
+| [`steering-modes.instructions.md`](instructions/steering-modes.instructions.md) | `**` | Steering mode profiles (completeness, beast, learning, design, debug, focused) |
+| [`chat-capture.instructions.md`](instructions/chat-capture.instructions.md) | `**` | Session capture auto-policy and protocol |
+| [`session-scoping.instructions.md`](instructions/session-scoping.instructions.md) | `**` | Session scope management (global/project/feature) |
+| [`backlog.instructions.md`](instructions/backlog.instructions.md) | `brain/ai-brain/backlog/**` | Backlog/task management protocol |
+| [`build.instructions.md`](instructions/build.instructions.md) | `**/*.gradle` | Gradle build commands & patterns |
 
 > 📖 **Deep dive:** [Instructions Guide →](instructions/README.md)
 
@@ -255,14 +380,37 @@ This learning project includes working samples of each primitive, organized into
 
 | Skill | Folder | Triggers On |
 |---|---|---|
-| `java-build` | [`skills/java-build/`](skills/java-build/SKILL.md) | Compile, run, build questions |
-| `design-patterns` | [`skills/design-patterns/`](skills/design-patterns/SKILL.md) | Design patterns, SOLID, architecture questions |
-| `java-debugging` | [`skills/java-debugging/`](skills/java-debugging/SKILL.md) | Exception analysis, debugging techniques |
-| `java-learning-resources` | [`skills/java-learning-resources/`](skills/java-learning-resources/SKILL.md) | Java-specific learning resources, official docs, tutorials |
-| `software-engineering-resources` | [`skills/software-engineering-resources/`](skills/software-engineering-resources/SKILL.md) | Comprehensive SE/CS: DSA, system design, OS, networking, DBMS, testing, DevOps, build tools, Git, security, industry concepts, tech trends, frameworks, books |
-| `daily-assistant-resources` | [`skills/daily-assistant-resources/`](skills/daily-assistant-resources/SKILL.md) | Finance basics, productivity methods, news sources, research tools |
-| `career-resources` | [`skills/career-resources/`](skills/career-resources/SKILL.md) | Tech career roles, skills matrices, compensation data, roadmaps |
-| `mcp-development` | [`skills/mcp-development/`](skills/mcp-development/SKILL.md) | MCP protocol, building servers (Java/TypeScript/Python), agent patterns, deployment |
+| **Languages & Platforms** | | |
+| `java-build` | [`languages-platforms/java-build/`](skills/languages-platforms/java-build/SKILL.md) | Compile, run, build questions |
+| `java-debugging` | [`languages-platforms/java-debugging/`](skills/languages-platforms/java-debugging/SKILL.md) | Exception analysis, debugging techniques |
+| `java-formatting` | [`languages-platforms/java-formatting/`](skills/languages-platforms/java-formatting/SKILL.md) | Code formatting, style, inspections (opt-in) |
+| `java-learning-resources` | [`languages-platforms/java-learning-resources/`](skills/languages-platforms/java-learning-resources/SKILL.md) | Java-specific learning resources, docs, tutorials |
+| `jvm-platform` | [`languages-platforms/jvm-platform/`](skills/languages-platforms/jvm-platform/SKILL.md) | JVM internals, GC, class loading, serialization, GraalVM |
+| `mac-dev` | [`languages-platforms/mac-dev/`](skills/languages-platforms/mac-dev/SKILL.md) | Homebrew, JDK, npm, Docker, dotfiles cheatsheets |
+| **Design & Architecture** | | |
+| `design-patterns` | [`design-architecture/design-patterns/`](skills/design-architecture/design-patterns/SKILL.md) | Design patterns, SOLID, architecture questions |
+| `software-development-roles` | [`design-architecture/software-development-roles/`](skills/design-architecture/software-development-roles/SKILL.md) | PO, Developer, QA/Tester role workflows |
+| **Dev Process** | | |
+| `deep-research` | [`dev-process/deep-research/`](skills/dev-process/deep-research/SKILL.md) | Investigation, spike stories, RCA, trade-off analysis |
+| `requirements-research` | [`dev-process/requirements-research/`](skills/dev-process/requirements-research/SKILL.md) | User stories, BDD, acceptance criteria, MoSCoW |
+| `github-workflow` | [`dev-process/github-workflow/`](skills/dev-process/github-workflow/SKILL.md) | PRs, issues, GitHub CLI, branch protection |
+| **DevOps & Tooling** | | |
+| `git-vcs` | [`devops-tooling/git-vcs/`](skills/devops-tooling/git-vcs/SKILL.md) | Git workflows, branching, commits, semver |
+| `mcp-development` | [`devops-tooling/mcp-development/`](skills/devops-tooling/mcp-development/SKILL.md) | MCP protocol, building servers, agent patterns |
+| `copilot-customization` | [`devops-tooling/copilot-customization/`](skills/devops-tooling/copilot-customization/SKILL.md) | Copilot 6 primitives — create, review, fix |
+| `atlassian-tools` | [`devops-tooling/atlassian-tools/`](skills/devops-tooling/atlassian-tools/SKILL.md) | Jira/Confluence/Bitbucket PAT CLI (89 actions) |
+| `web-reader` | [`devops-tooling/web-reader/`](skills/devops-tooling/web-reader/SKILL.md) | Webpage reading, content extraction |
+| **Knowledge Management** | | |
+| `brain-management` | [`knowledge-management/brain-management/`](skills/knowledge-management/brain-management/SKILL.md) | brain/ai-brain/ tier routing, naming, frontmatter |
+| `pkm-management` | [`knowledge-management/pkm-management/`](skills/knowledge-management/pkm-management/SKILL.md) | PKM capture sources, git-inspired content ops |
+| `digital-notetaking` | [`knowledge-management/digital-notetaking/`](skills/knowledge-management/digital-notetaking/SKILL.md) | PKM methods, tool cheatsheets, note templates |
+| **Learning Resources** | | |
+| `learning-resources-vault` | [`learning-resources/learning-resources-vault/`](skills/learning-resources/learning-resources-vault/SKILL.md) | 176+ curated resources — master vault index |
+| `software-engineering-resources` | [`learning-resources/software-engineering-resources/`](skills/learning-resources/software-engineering-resources/SKILL.md) | SE/CS: DSA, system design, OS, networking, DevOps |
+| **Career** | | |
+| `career-resources` | [`career/career-resources/`](skills/career/career-resources/SKILL.md) | Tech career roles, skills matrices, compensation |
+| **Daily Life** | | |
+| `daily-assistant-resources` | [`daily-life/daily-assistant-resources/`](skills/daily-life/daily-assistant-resources/SKILL.md) | Finance basics, productivity methods, news sources |
 
 > 📖 **Deep dive:** [Skills Guide →](skills/README.md)
 
@@ -307,7 +455,14 @@ The agents support **handoff buttons** for seamless multi-step workflows:
   ┌──────────────────────┐
   │ Thinking-Beast-Mode  │  Autonomous — no handoffs, fully self-contained
   │ (deep research)      │  Uses web fetching, terminal, code editing
-  └──────────────────────┘```
+  └──────────────────────┘
+
+  ┌──────────────────┐        ┌──────────────────┐
+  │    My-Kanha         │──────→ │  Learning-Mentor │
+  │ (spiritual mentor)  │        └──────────────────┘
+  └──────────────────┘
+         │
+         └──→ Daily-Assistant```
 
 ---
 
@@ -325,10 +480,10 @@ You open Main.java and ask a question
 │   └── 🤖 agents/designer.agent.md         ← Agent persona added
 │
 ├── If you typed /design-review:
-│   └── 🎯 prompts/design-review.prompt.md  ← Task template used
+│   └── 🎯 prompts/code/design-review.prompt.md  ← Task template used
 │
 └── If your question matches a skill:
-    └── 🛠️ skills/design-patterns/SKILL.md  ← Knowledge loaded
+    └── 🛠️ skills/design-architecture/design-patterns/SKILL.md  ← Knowledge loaded
 
 ```yaml
 
@@ -380,7 +535,7 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 ├─── Reference
 │    ├── docs/file-reference.md ·········· Who reads what (🤖 Copilot vs 👤 developer)
 │    ├── docs/navigation-index.md ········ Master index: all commands, files, workflows
-│    └── docs/slash-commands.md ········· All 36 slash commands: aliases, inputs, composition
+│    └── docs/slash-commands.md ········· All 65 slash commands: aliases, inputs, composition
 │
 └─── Tutorials, Deep Dives & Workflows
      ├── docs/getting-started.md ········· Hands-on: verify setup, try each primitive
@@ -402,7 +557,7 @@ When multiple files are loaded, Copilot merges them in this order (highest prior
 | [Customization Guide →](docs/customization-guide.md) | Architecture, how primitives connect, extending | 🟡🔴 | ~20 min |
 | [File Reference →](docs/file-reference.md) | Which files Copilot reads vs. developer docs | 🟡🔴 | ~5 min |
 | [Navigation Index →](docs/navigation-index.md) | Master lookup: all commands, agents, skills, file map | 🔴 | ~5 min |
-| [Slash Commands →](docs/slash-commands.md) | All 36 commands: details, aliases, inputs, composition | 🔴 | ~5 min |
+| [Slash Commands →](docs/slash-commands.md) | All 65 commands: details, aliases, inputs, composition | 🔴 | ~5 min |
 | [Instructions Guide →](instructions/README.md) | Glob patterns, conditional rules, examples | 🟡🔴 | ~15 min |
 | [Agents Guide →](agents/README.md) | Custom personas, tools, handoffs, examples | 🟡🔴 | ~15 min |
 | [Prompts Guide →](prompts/README.md) | Slash commands, variables, meta-prompts | 🟡🔴 | ~15 min |

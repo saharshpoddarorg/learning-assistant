@@ -36,4 +36,4 @@ code-reviewer working on the same project context).
 - Session scoping instructions: `.github/instructions/session-scoping.instructions.md`
 - Chat capture instructions: `.github/instructions/chat-capture.instructions.md`
 - Existing agents: learning-mentor, designer, debugger, Code-Reviewer, Thinking Beast Mode
-- Multi-session prompt: `.github/prompts/multi-session.prompt.md`
+- Multi-session prompt: `.github/prompts/meta/multi-session.prompt.md`

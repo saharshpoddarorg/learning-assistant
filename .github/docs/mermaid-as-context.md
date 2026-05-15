@@ -463,5 +463,5 @@ graph LR
 ## See Also
 
 - `.github/docs/copilot-customization-deep-dive.md` — Full guide to all 6 customization primitives
-- `.github/skills/copilot-customization/SKILL.md` — Quick reference for instructions, skills, agents
+- `.github/skills/devops-tooling/copilot-customization/SKILL.md` — Quick reference for instructions, skills, agents
 - `.github/docs/team-copilot-adoption.md` — How to roll out these techniques to a team

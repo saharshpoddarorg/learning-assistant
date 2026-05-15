@@ -243,9 +243,9 @@ Some MCP servers should NEVER become skills:
 |---|---|
 | `mcp-servers/src/server/learningresources/` | Learning Resources MCP server (Java) |
 | `mcp-servers/src/server/atlassian/` | Atlassian MCP server (Java) |
-| `.github/skills/java-learning-resources/SKILL.md` | Example skill (curated Java resources) |
-| `.github/skills/mcp-development/SKILL.md` | MCP development reference skill |
+| `.github/skills/languages-platforms/java-learning-resources/SKILL.md` | Example skill (curated Java resources) |
+| `.github/skills/devops-tooling/mcp-development/SKILL.md` | MCP development reference skill |
 | `.github/docs/mcp-servers-architecture.md` | MCP server architecture deep-dive |
 | `.github/docs/mcp-how-it-works.md` | Protocol-level MCP explanation |
-| `.github/prompts/mcp-to-skill.prompt.md` | Automated migration prompt |
+| `.github/prompts/customization/mcp-to-skill.prompt.md` | Automated migration prompt |
 | `.vscode/mcp.json` | MCP server registry for VS Code |

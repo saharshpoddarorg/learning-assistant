@@ -23,7 +23,7 @@ The user wants to **fetch** content from an external capture source into brain/a
 
 ### Before Fetching
 
-1. **Read the PKM management skill** at `.github/skills/pkm-management/SKILL.md`
+1. **Read the PKM management skill** at `.github/skills/knowledge-management/pkm-management/SKILL.md`
 2. **Check sensitivity** — look up `${input:source}` in `brain/ai-brain/pkm/sensitivity-and-access-control.md`
 3. **If L2 or L3** → DENY. Inform the user. Log the denial in `access-log.md`. Stop.
 4. **If L1** → ASK the user for explicit permission before proceeding

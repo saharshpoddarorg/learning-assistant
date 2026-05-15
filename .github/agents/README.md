@@ -255,7 +255,7 @@ Or use the richer guided version in this repo:
 /create-agent → agentName → purpose → tools → depth
 ```
 
-File: `.github/prompts/create-agent.prompt.md`
+File: `.github/prompts/customization/create-agent.prompt.md`
 
 See [copilot-mcp-preview.md](../docs/copilot-mcp-preview.md) for the full `/create-agent` feature details.
 

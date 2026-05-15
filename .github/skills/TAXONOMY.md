@@ -1,8 +1,8 @@
 # Skills Library — Hierarchical Taxonomy
 
 > **Purpose:** Master index of all agent skills, organized by domain and category.
-> Skills remain as flat folders on disk (`.github/skills/<name>/SKILL.md`), but this
-> taxonomy provides the hierarchical view for discovery and navigation.
+> Skills are organized into category subdirectories (`.github/skills/<category>/<name>/SKILL.md`),
+> and this taxonomy provides the hierarchical view for discovery and navigation.
 >
 > **Total skills:** 23 | **Domains:** 4 | **Categories:** 10
 
@@ -58,12 +58,12 @@ Skills tied to specific programming languages, runtimes, or OS development envir
 
 | Skill | Folder | Triggers On | What It Provides |
 |---|---|---|---|
-| [`java-build`](java-build/SKILL.md) | `java-build/` | Compile, run, build, `javac`, classpath | Compile commands, common errors, JDK setup |
-| [`java-debugging`](java-debugging/SKILL.md) | `java-debugging/` | Exceptions, debugging, stack trace, breakpoints | Exception diagnosis, fix patterns, debugger usage |
-| [`java-formatting`](java-formatting/SKILL.md) | `java-formatting/` | Code style, formatting, inspections (**opt-in**) | IntelliJ style rules, brace placement, stream formatting |
-| [`java-learning-resources`](java-learning-resources/SKILL.md) | `java-learning-resources/` | Java tutorials, docs, blogs, Oracle, Baeldung | Curated index — Oracle docs, dev.java, blogs, OSS projects |
-| [`jvm-platform`](jvm-platform/SKILL.md) | `jvm-platform/` | JVM, GC, class loading, bytecode, GraalVM, Kotlin | JVM architecture, GC tuning, profiling, JVM languages |
-| [`mac-dev`](mac-dev/SKILL.md) | `mac-dev/` | macOS, Homebrew, zsh, Mac setup | macOS dev environment — Homebrew, JDK, npm, Docker, dotfiles |
+| [`java-build`](languages-platforms/java-build/SKILL.md) | `languages-platforms/java-build/` | Compile, run, build, `javac`, classpath | Compile commands, common errors, JDK setup |
+| [`java-debugging`](languages-platforms/java-debugging/SKILL.md) | `languages-platforms/java-debugging/` | Exceptions, debugging, stack trace, breakpoints | Exception diagnosis, fix patterns, debugger usage |
+| [`java-formatting`](languages-platforms/java-formatting/SKILL.md) | `languages-platforms/java-formatting/` | Code style, formatting, inspections (**opt-in**) | IntelliJ style rules, brace placement, stream formatting |
+| [`java-learning-resources`](languages-platforms/java-learning-resources/SKILL.md) | `languages-platforms/java-learning-resources/` | Java tutorials, docs, blogs, Oracle, Baeldung | Curated index — Oracle docs, dev.java, blogs, OSS projects |
+| [`jvm-platform`](languages-platforms/jvm-platform/SKILL.md) | `languages-platforms/jvm-platform/` | JVM, GC, class loading, bytecode, GraalVM, Kotlin | JVM architecture, GC tuning, profiling, JVM languages |
+| [`mac-dev`](languages-platforms/mac-dev/SKILL.md) | `languages-platforms/mac-dev/` | macOS, Homebrew, zsh, Mac setup | macOS dev environment — Homebrew, JDK, npm, Docker, dotfiles |
 
 ### 1.2 Design & Architecture
 
@@ -71,8 +71,8 @@ Skills for software design patterns, architectural decisions, and role-based wor
 
 | Skill | Folder | Triggers On | What It Provides |
 |---|---|---|---|
-| [`design-patterns`](design-patterns/SKILL.md) | `design-patterns/` | Design patterns, SOLID, GoF, creational, structural | Pattern decision guide, SOLID reference, GoF catalog |
-| [`software-development-roles`](software-development-roles/SKILL.md) | `software-development-roles/` | PO, Developer, QA, Tester, sprint, role workflows | Role guidance — PO/Dev/QA responsibilities, collaboration patterns |
+| [`design-patterns`](design-architecture/design-patterns/SKILL.md) | `design-architecture/design-patterns/` | Design patterns, SOLID, GoF, creational, structural | Pattern decision guide, SOLID reference, GoF catalog |
+| [`software-development-roles`](design-architecture/software-development-roles/SKILL.md) | `design-architecture/software-development-roles/` | PO, Developer, QA, Tester, sprint, role workflows | Role guidance — PO/Dev/QA responsibilities, collaboration patterns |
 
 ### 1.3 Development Process
 
@@ -80,9 +80,9 @@ Skills for the upstream phases of development — research, requirements, and Gi
 
 | Skill | Folder | Triggers On | What It Provides |
 |---|---|---|---|
-| [`deep-research`](deep-research/SKILL.md) | `deep-research/` | Investigation, spike, RCA, trade-off, feasibility | Research methodology, evidence synthesis, decision docs |
-| [`requirements-research`](requirements-research/SKILL.md) | `requirements-research/` | User stories, acceptance criteria, BDD, discovery | Elicitation techniques, story mapping, prioritization |
-| [`github-workflow`](github-workflow/SKILL.md) | `github-workflow/` | PR, pull request, issue, GitHub CLI, `gh`, PR title | PR management, issue workflows, `gh` CLI, branch ops |
+| [`deep-research`](dev-process/deep-research/SKILL.md) | `dev-process/deep-research/` | Investigation, spike, RCA, trade-off, feasibility | Research methodology, evidence synthesis, decision docs |
+| [`requirements-research`](dev-process/requirements-research/SKILL.md) | `dev-process/requirements-research/` | User stories, acceptance criteria, BDD, discovery | Elicitation techniques, story mapping, prioritization |
+| [`github-workflow`](dev-process/github-workflow/SKILL.md) | `dev-process/github-workflow/` | PR, pull request, issue, GitHub CLI, `gh`, PR title | PR management, issue workflows, `gh` CLI, branch ops |
 
 ### 1.4 DevOps & Tooling
 
@@ -90,11 +90,11 @@ Skills for version control, CI/CD tooling, MCP servers, and AI assistant configu
 
 | Skill | Folder | Triggers On | What It Provides |
 |---|---|---|---|
-| [`git-vcs`](git-vcs/SKILL.md) | `git-vcs/` | Git commands, branching, merge, rebase, GitFlow | Git cheatsheet, branching strategies, Conventional Commits |
-| [`mcp-development`](mcp-development/SKILL.md) | `mcp-development/` | MCP, Model Context Protocol, MCP server, tools | MCP architecture, building servers, transport, testing |
-| [`copilot-customization`](copilot-customization/SKILL.md) | `copilot-customization/` | Copilot instructions, prompts, agents, skills, `.github` | 6 customization primitives, activation rules, stacking |
-| [`atlassian-tools`](atlassian-tools/SKILL.md) | `atlassian-tools/` | Jira, Confluence, Bitbucket, JQL, CQL, PAT CLI, sprints | 89-action CLI, JQL/CQL cheatsheet, workflow playbooks |
-| [`web-reader`](web-reader/SKILL.md) | `web-reader/` | URL, webpage, fetch, read page, summarize article, extract content | Webpage reading, content extraction, article summarization |
+| [`git-vcs`](devops-tooling/git-vcs/SKILL.md) | `devops-tooling/git-vcs/` | Git commands, branching, merge, rebase, GitFlow | Git cheatsheet, branching strategies, Conventional Commits |
+| [`mcp-development`](devops-tooling/mcp-development/SKILL.md) | `devops-tooling/mcp-development/` | MCP, Model Context Protocol, MCP server, tools | MCP architecture, building servers, transport, testing |
+| [`copilot-customization`](devops-tooling/copilot-customization/SKILL.md) | `devops-tooling/copilot-customization/` | Copilot instructions, prompts, agents, skills, `.github` | 6 customization primitives, activation rules, stacking |
+| [`atlassian-tools`](devops-tooling/atlassian-tools/SKILL.md) | `devops-tooling/atlassian-tools/` | Jira, Confluence, Bitbucket, JQL, CQL, PAT CLI, sprints | 89-action CLI, JQL/CQL cheatsheet, workflow playbooks |
+| [`web-reader`](devops-tooling/web-reader/SKILL.md) | `devops-tooling/web-reader/` | URL, webpage, fetch, read page, summarize article, extract content | Webpage reading, content extraction, article summarization |
 
 ### 1.5 Learning Resources
 
@@ -102,8 +102,8 @@ Meta-skills that serve as discovery indexes into curated learning material.
 
 | Skill | Folder | Triggers On | What It Provides |
 |---|---|---|---|
-| [`learning-resources-vault`](learning-resources-vault/SKILL.md) | `learning-resources-vault/` | Learning resources, tutorials, books, courses, study plan | **176 curated resources** across 10+ domains — the master vault |
-| [`software-engineering-resources`](software-engineering-resources/SKILL.md) | `software-engineering-resources/` | DSA, system design, OS, networking, DBMS, testing, DevOps | Comprehensive SE/CS resource index — books, tools, frameworks |
+| [`learning-resources-vault`](learning-resources/learning-resources-vault/SKILL.md) | `learning-resources/learning-resources-vault/` | Learning resources, tutorials, books, courses, study plan | **176 curated resources** across 10+ domains — the master vault |
+| [`software-engineering-resources`](learning-resources/software-engineering-resources/SKILL.md) | `learning-resources/software-engineering-resources/` | DSA, system design, OS, networking, DBMS, testing, DevOps | Comprehensive SE/CS resource index — books, tools, frameworks |
 
 ---
 
@@ -113,9 +113,9 @@ Skills for organizing personal knowledge, notes, and digital information.
 
 | Skill | Folder | Triggers On | What It Provides |
 |---|---|---|---|
-| [`brain-management`](brain-management/SKILL.md) | `brain-management/` | brain/, notes, inbox, sessions, backlog, tier routing | brain/ai-brain/ naming, structure, frontmatter, agile board |
-| [`pkm-management`](pkm-management/SKILL.md) | `pkm-management/` | PKM, capture sources, consolidation, access control | Git-inspired content ops, brain consolidation, access policy |
-| [`digital-notetaking`](digital-notetaking/SKILL.md) | `digital-notetaking/` | Notion, Obsidian, Logseq, PARA, Zettelkasten, notes | Tool comparison, PARA/CODE methods, migration guide |
+| [`brain-management`](knowledge-management/brain-management/SKILL.md) | `knowledge-management/brain-management/` | brain/, notes, inbox, sessions, backlog, tier routing | brain/ai-brain/ naming, structure, frontmatter, agile board |
+| [`pkm-management`](knowledge-management/pkm-management/SKILL.md) | `knowledge-management/pkm-management/` | PKM, capture sources, consolidation, access control | Git-inspired content ops, brain consolidation, access policy |
+| [`digital-notetaking`](knowledge-management/digital-notetaking/SKILL.md) | `knowledge-management/digital-notetaking/` | Notion, Obsidian, Logseq, PARA, Zettelkasten, notes | Tool comparison, PARA/CODE methods, migration guide |
 
 ---
 
@@ -125,7 +125,7 @@ Skills for career planning, role transitions, and professional growth.
 
 | Skill | Folder | Triggers On | What It Provides |
 |---|---|---|---|
-| [`career-resources`](career-resources/SKILL.md) | `career-resources/` | Job roles, salary, career roadmap, interview, tech career | Role hierarchies, skills matrices, compensation data |
+| [`career-resources`](career/career-resources/SKILL.md) | `career/career-resources/` | Job roles, salary, career roadmap, interview, tech career | Role hierarchies, skills matrices, compensation data |
 
 ---
 
@@ -135,7 +135,7 @@ Skills for everyday tasks outside of software engineering.
 
 | Skill | Folder | Triggers On | What It Provides |
 |---|---|---|---|
-| [`daily-assistant-resources`](daily-assistant-resources/SKILL.md) | `daily-assistant-resources/` | Finance, budgeting, productivity, time management, news | Productivity methods, finance basics, news sources |
+| [`daily-assistant-resources`](daily-life/daily-assistant-resources/SKILL.md) | `daily-life/daily-assistant-resources/` | Finance, budgeting, productivity, time management, news | Productivity methods, finance basics, news sources |
 
 ---
 
@@ -179,7 +179,7 @@ When adding a skill, follow these steps in order:
 
 1. **Pick the domain** (SE, Knowledge Management, Career, Daily Life)
 2. **Pick the category** within that domain (e.g., Languages & Platforms, Design, Process)
-3. **Create the folder** at `.github/skills/<skill-name>/SKILL.md`
+3. **Create the folder** at `.github/skills/<category>/<skill-name>/SKILL.md`
 4. **Update TAXONOMY.md** (this file) — add to taxonomy tree + category table + cross-reference matrix
 5. **Update skills README.md** — add to the categorized skills tables
 6. **Update copilot-instructions.md** — add to skill routing table
@@ -196,7 +196,7 @@ When adding a skill, follow these steps in order:
 
 | File | What to Add |
 |---|---|
-| `.github/skills/<name>/SKILL.md` | The skill file itself |
+| `.github/skills/<category>/<name>/SKILL.md` | The skill file itself |
 | `.github/skills/TAXONOMY.md` | Tree + category table + cross-ref row |
 | `.github/skills/README.md` | Categorized skills table entry |
 | `.github/copilot-instructions.md` | Skill routing table row |
@@ -208,7 +208,7 @@ When adding a skill, follow these steps in order:
 
 ### Taxonomy Principles
 
-- **Flat on disk, hierarchical in index** — no nested folders, just metadata-driven grouping
+- **Category subdirectories on disk, hierarchical in index** — skills are organized into category folders under `.github/skills/`
 - **Each skill in exactly one category** — no duplicates across categories
 - **Categories are stable** — add skills to existing categories before creating new ones
 - **Discovery via description** — the `description` field in SKILL.md frontmatter drives

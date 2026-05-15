@@ -205,7 +205,7 @@ Example:  /request-steering → "add validation" → "building CRUD endpoints" �
           → MERGE: gap analysis + combined deliverable
           /request-steering → "write tests" → "finishing refactor" → sequential
           → SEQUENTIAL: finish refactor, then write tests
-File:     .github/prompts/request-steering.prompt.md
+File:     .github/prompts/meta/request-steering.prompt.md
 Tip:      Use 'auto' to let the assistant classify; override with a specific type
           when you know the relationship. Integrates with todo tracking and session capture.
 ```
@@ -364,7 +364,7 @@ Vault:    138 curated resources across 10 domains: Java (20), Web/JS/TS (12),
           Python (6), Algorithms & DS (11), Software Engineering & Testing (11),
           DevOps/VCS/Build (25), Cloud/Infra/Data (15), AI/ML (4),
           PKM & Note-Taking (15), General & Career (19)
-Skill:    Backed by learning-resources-vault skill (.github/skills/learning-resources-vault/)
+Skill:    Backed by learning-resources-vault skill (.github/skills/learning-resources/learning-resources-vault/)
           with 10 domain sub-files loaded on demand by semantic match.
           Works in ALL Copilot modes (Ask, Edit, Agent) — no MCP server required.
 Badges:   🟢Beginner 🟡Intermediate 🔴Advanced ⚫Expert | 📖Docs 📝Tutorial
@@ -417,7 +417,7 @@ Modes:    commit (stage+commit only) | push (push only) | both (commit+push)
           | pr (commit+push+detailed PR suggestion)
 Safety:   Never uses --force or --no-verify; explicit staging only
 Related:  /github-push (creates PR via API), /git-vcs (local Git)
-File:     .github/prompts/ship.prompt.md
+File:     .github/prompts/shipping/ship.prompt.md
 ```
 
 #### `/github-push` — Full Shipping Workflow with PR Creation
@@ -434,7 +434,7 @@ Modes:    push (push + create PR) | ship (single commit + push + PR)
           | full (cohesive commit split + push + PR)
 Safety:   Confirms PR title/description before creation; explicit staging only
 Related:  /ship (commit/push without PR creation), /github-workflow (GitHub learning)
-File:     .github/prompts/github-push.prompt.md
+File:     .github/prompts/shipping/github-push.prompt.md
 ```
 
 #### `/atlassian-tools` — Universal Atlassian Handler
@@ -597,7 +597,7 @@ Capture:  Auto-saves to brain/ai-brain/sessions/work/code-analysis/deep-dive/
           Logging: SESSION-LOG.md + CAPTURE-LOG.md
           Versioning: detects existing files → appends _v2, _v3
           Escalation: Pattern 3a (class → method) when 3+ files share a class prefix
-File:     .github/prompts/code-analysis-deep-dive.prompt.md
+File:     .github/prompts/code/code-analysis-deep-dive.prompt.md
 ```
 
 #### `/code-analysis` — Code Analysis with Session Capture
@@ -620,7 +620,7 @@ Capture:  Auto-saves to brain/ai-brain/sessions/work/code-analysis/
           Versioning: detects existing files → appends _v2, _v3
           Escalation: Pattern 3a (class sub-package) when 3+ files share a class prefix
 Related:  /code-analysis-deep-dive (9-layer internals), /design-review (SOLID/GRASP)
-File:     .github/prompts/code-analysis.prompt.md
+File:     .github/prompts/code/code-analysis.prompt.md
 ```
 
 #### `/impact` — Change Impact Analysis
@@ -652,7 +652,7 @@ Use:      Generate a .github/agents/<name>.agent.md file with YAML frontmatter,
 Example:  /create-agent → Security-Reviewer → "Review for OWASP Top 10" → search,codebase → focused
 Output:   .github/agents/security-reviewer.agent.md with full persona instructions
 Built-in: VS Code also has a native /create-agent wizard in Copilot Chat (Ctrl+Shift+I → /create-agent)
-File:     .github/prompts/create-agent.prompt.md
+File:     .github/prompts/customization/create-agent.prompt.md
 Docs:     .github/agents/README.md, .github/docs/copilot-mcp-preview.md
 After:    Add the new agent to agents/README.md table and copilot-instructions.md <agents> block
 ```
@@ -676,7 +676,7 @@ Example:  /mcp-to-skill → learning-resources → full
 Decision: Content static/repeatable? → Skill candidate
           External API / auth / computation required? → Keep as MCP
 Output:   Decision report + generated SKILL.md + copilot-instructions.md registration steps
-File:     .github/prompts/mcp-to-skill.prompt.md
+File:     .github/prompts/customization/mcp-to-skill.prompt.md
 Docs:     .github/docs/mcp-vs-skills.md — full decision guide + migration playbook
 Tip:      Use 'analyse' first before committing to migration — some tools MUST stay as MCP
 ```
@@ -706,11 +706,11 @@ Use:      Swiss-army tool for all Copilot customization work:
             - port-to-repo     → Plan how to copy customizations to a different repository
 Example:  /copilot-customization → create-new → skill → devops → amateur
 Output:   A complete, paste-ready .github/skills/devops/SKILL.md file
-File:     .github/prompts/copilot-customization.prompt.md
+File:     .github/prompts/customization/copilot-customization.prompt.md
 Docs:     .github/docs/copilot-customization-deep-dive.md (full 18-part reference, incl. latest 2026 features)
           .github/docs/copilot-primitives-crosswalk.md (quick side-by-side comparison + decision flowchart)
           .github/docs/primitives-at-a-glance.md (one-page cheatsheet)
-          .github/skills/copilot-customization/SKILL.md (domain knowledge)
+          .github/skills/devops-tooling/copilot-customization/SKILL.md (domain knowledge)
           .github/docs/export-guide.md (export to work/personal repos)
           .github/docs/export-newbie-guide.md (newbie export walkthrough)
 Tips:     - Use 'all-types' or 'not-sure' as type when unsure which primitive to use
@@ -747,8 +747,8 @@ Use:      Doc factory — turn any raw content (inbox notes, session slides, a c
             - all-of-above    → Full stack: brain-note + dev-doc + cheatsheet + skill + prompt
 Example:  /write-docs → all-of-above → GitHub Copilot Mermaid Technique → team → inbox-notes
 Output:   Multiple ready-to-commit .md files covering the topic end-to-end
-File:     .github/prompts/write-docs.prompt.md
-Docs:     .github/skills/copilot-customization/SKILL.md (for skill/prompt types)
+File:     .github/prompts/meta/write-docs.prompt.md
+Docs:     .github/skills/devops-tooling/copilot-customization/SKILL.md (for skill/prompt types)
           .github/docs/copilot-customization-deep-dive.md (for full reference)
 Tips:     - Use 'all-of-above' when processing inbox notes from a session or reading
           - Use 'brain-note' for quick capture after a learning session
@@ -852,7 +852,7 @@ Output:   YYYY-MM-DD_session-<slug>.md with TL;DR, Key Insights, Code Snippets,
 Example:  /brain-capture-session → "Java generics and wildcards" → java → full
 Tip:      Run at the end of any substantial Copilot session to capture what was learned
 Next:     brain publish brain\ai-brain\inbox\<file>.md --project <bucket>
-File:     .github/prompts/brain-capture-session.prompt.md
+File:     .github/prompts/brain/capture-session.prompt.md
 ```
 
 #### `/session-scope` — Manage Session Scope
@@ -874,7 +874,7 @@ Example:  /session-scope → status
           /session-scope → widen
           /session-scope → narrow → abs-development → user-auth-flow
           /session-scope → split
-File:     .github/prompts/session-scope.prompt.md
+File:     .github/prompts/meta/session-scope.prompt.md
 Ref:      .github/instructions/session-scoping.instructions.md
 Tip:      Use when requirements gathering naturally evolves into general research —
           widen the scope so the learning is discoverable beyond the original project
@@ -903,7 +903,7 @@ Example:  /backlog → brainstorm → "How should we handle auth?"
           /backlog → epic → "Atlassian v2 migration"
 Updates:  BOARD.md, views/by-status.md, views/by-priority.md,
           views/by-project.md, CHANGELOG.md (entry + stats)
-File:     .github/prompts/backlog.prompt.md
+File:     .github/prompts/backlog/backlog.prompt.md
 Ref:      .github/instructions/backlog.instructions.md,
           brain/ai-brain/backlog/guides/jot-down-guide.md
 Tip:      Use /jot for capture, /todos for the board. Use /backlog only for
@@ -928,7 +928,7 @@ Analogy:  git fetch — download without merging
 Example:  /brain-fetch → notion → "all L0 content"
 Output:   Markdown files in brain/ai-brain/inbox/ with origin frontmatter
 Next:     /brain-merge to route items to proper tiers
-File:     .github/prompts/brain-fetch.prompt.md
+File:     .github/prompts/brain/fetch.prompt.md
 ```
 
 #### `/brain-pull` — Pull Updates from Source
@@ -941,7 +941,7 @@ Use:      Update previously fetched content — re-reads source, merges changes 
 Analogy:  git pull — fetch + merge in one step
 Example:  /brain-pull → notion
 Output:   Updated brain files + new items in inbox/
-File:     .github/prompts/brain-pull.prompt.md
+File:     .github/prompts/brain/pull.prompt.md
 ```
 
 #### `/brain-clone` — Full Import of Entire Source
@@ -954,7 +954,7 @@ Use:      Full structured import of an entire source — creates a mirror in lib
 Analogy:  git clone — complete copy with structure preserved
 Example:  /brain-clone → notion → library
 Output:   brain/ai-brain/library/<source>/ with structured markdown files + README.md index
-File:     .github/prompts/brain-clone.prompt.md
+File:     .github/prompts/brain/clone.prompt.md
 ```
 
 #### `/brain-cherry-pick` — Import One Specific Item
@@ -967,7 +967,7 @@ Use:      Selectively import ONE specific item from a source into inbox/
 Analogy:  git cherry-pick — select one commit to apply
 Example:  /brain-cherry-pick → confluence-personal → "API Design Notes"
 Output:   Single file in inbox/ with cherry-picked marker
-File:     .github/prompts/brain-cherry-pick.prompt.md
+File:     .github/prompts/brain/cherry-pick.prompt.md
 ```
 
 #### `/brain-merge` — Route Inbox Item to Tier
@@ -980,7 +980,7 @@ Use:      Route inbox items to their proper permanent tier after review
 Analogy:  git merge — integrate changes into a branch
 Example:  /brain-merge → "all"
 Output:   Items moved from inbox/ to notes/, library/, or backlog/ with updated frontmatter
-File:     .github/prompts/brain-merge.prompt.md
+File:     .github/prompts/brain/merge.prompt.md
 ```
 
 #### `/brain-stash` — Park Content for Later
@@ -994,7 +994,7 @@ Analogy:  git stash — save work-in-progress for later
 Example:  /brain-stash → "some-note.md"
           /brain-stash → pop
 Output:   Item stays in inbox/ with stashed marker, or unstashed for processing
-File:     .github/prompts/brain-stash.prompt.md
+File:     .github/prompts/brain/stash.prompt.md
 ```
 
 #### `/brain-diff` — Compare Brain vs Source
@@ -1007,7 +1007,7 @@ Use:      Show what's changed between brain content and external source since la
 Analogy:  git diff — compare working directory with remote
 Example:  /brain-diff → notion
 Output:   Summary of modified, new, and deleted items (read-only — no changes made)
-File:     .github/prompts/brain-diff.prompt.md
+File:     .github/prompts/brain/diff.prompt.md
 ```
 
 #### `/brain-push` — Export Brain Content to Source
@@ -1020,7 +1020,7 @@ Use:      Export brain content back to an external destination
 Analogy:  git push — send local changes to remote
 Example:  /brain-push → notion → "notes/java-streams-cheatsheet.md"
 Output:   Content formatted and exported (or copy-paste instructions provided)
-File:     .github/prompts/brain-push.prompt.md
+File:     .github/prompts/brain/push.prompt.md
 ```
 
 #### `/brain-remote` — List Capture Sources
@@ -1033,7 +1033,7 @@ Use:      List all configured capture sources with sensitivity levels and last-a
 Analogy:  git remote -v — show all remotes
 Example:  /brain-remote
 Output:   Table of work + personal sources with sensitivity and access status
-File:     .github/prompts/brain-remote.prompt.md
+File:     .github/prompts/brain/remote.prompt.md
 ```
 
 #### `/brain-consolidate` — Brain Consolidation Planner
@@ -1046,7 +1046,7 @@ Use:      Plan and execute migration of scattered external notes into brain/ai-b
 Example:  /brain-consolidate → notion → plan
           /brain-consolidate → all → status
 Output:   Migration plan, execution progress, or consolidation dashboard
-File:     .github/prompts/brain-consolidate.prompt.md
+File:     .github/prompts/brain/consolidate.prompt.md
 ```
 
 ---
@@ -1083,7 +1083,7 @@ Output:   Summary of all created items with classification, refs, and board sync
 Updates:  BOARD.md, views/by-status.md, views/by-priority.md,
           views/by-project.md (if epic-linked), views/by-source.md,
           CHANGELOG.md, Epic files, cross-referenced items (bidirectional)
-File:     .github/prompts/jot.prompt.md
+File:     .github/prompts/backlog/jot.prompt.md
 Ref:      brain/ai-brain/backlog/guides/capture-workflow.md,
           brain/ai-brain/backlog/guides/jot-down-guide.md,
           .github/instructions/backlog.instructions.md
@@ -1119,7 +1119,7 @@ Example:  /read-file-jot → "C:\notes\project-ideas.txt"
 Output:   Summary of extracted items (new/merged/skipped) with source reference
 Updates:  Same as /jot — all boards, views, CHANGELOG, epics, cross-refs
           + IMPORT-LOG.md, views/by-source.md (import batch section)
-File:     .github/prompts/read-file-jot.prompt.md
+File:     .github/prompts/backlog/read-file-jot.prompt.md
 Ref:      brain/ai-brain/backlog/guides/capture-workflow.md,
           brain/ai-brain/backlog/guides/jot-down-guide.md,
           .github/instructions/backlog.instructions.md
@@ -1139,8 +1139,8 @@ Use:      Alias for /jot — pre-classified as a task. Routes through the unifie
 Example:  /todo → "Fix search bug in vault"
           /todo → "Add docker, CI pipeline, and k8s deploy"
 Updates:  Same as /jot — all boards, views, CHANGELOG, epics, cross-refs
-File:     .github/prompts/todo.prompt.md
-Ref:      .github/prompts/jot.prompt.md
+File:     .github/prompts/backlog/todo.prompt.md
+Ref:      .github/prompts/backlog/jot.prompt.md
 Tip:      For anything beyond concrete tasks, use /jot instead — it auto-classifies.
 ```
 
@@ -1168,7 +1168,7 @@ Updates:  Item file (frontmatter + Activity Log + Time Tracking),
           BOARD.md, views/by-status.md, views/by-priority.md,
           views/by-project.md, CHANGELOG.md (entry + stats),
           Epic progress (if linked)
-File:     .github/prompts/todos.prompt.md
+File:     .github/prompts/backlog/todos.prompt.md
 Tip:      Use at the start of a work session to see what's next, and at the end
           to mark what's done
 ```
@@ -1188,8 +1188,8 @@ Tools:    codebase, search
 Use:      Run a structured compliance audit against best practices and industry standards.
           Outputs a severity-tagged report: ❌ Error | ⚠️ Warning | 💡 Suggestion
 Example:  /check-standards → brain/ai-brain/notes/ → brain-naming
-          /check-standards → .github/skills/mac-dev/SKILL.md → skill-file
-          /check-standards → .github/prompts/debug.prompt.md → prompt-file
+          /check-standards → .github/skills/languages-platforms/mac-dev/SKILL.md → skill-file
+          /check-standards → .github/prompts/code/debug.prompt.md → prompt-file
           /check-standards → . → all    (audit entire workspace)
 Domains:
   brain-naming       → ISO 8601 date prefix, lowercase-hyphens slug, kind prefix, ≤50 chars
@@ -1201,7 +1201,7 @@ Domains:
   skill-file         → Frontmatter, 3-tier structure, cheatsheet, resources, file location
   java-code          → Naming, method length, Javadoc, exception specificity
 Output:   Compliance report table + prioritised fix suggestions
-File:     .github/prompts/check-standards.prompt.md
+File:     .github/prompts/code/check-standards.prompt.md
 Skill:    brain-management/SKILL.md (standards reference)
 Tip:      Run after creating any new file with /write-docs or /brain-new to catch violations
           before committing
@@ -1250,7 +1250,7 @@ Example:  /read-url → https://spring.io/guides/gs/rest-service → read
           /read-url → https://example.com/blog/post → summarize
           /read-url → URL1 URL2 → compare
 Output:   Structured markdown with source attribution
-File:     .github/prompts/read-url.prompt.md
+File:     .github/prompts/tools/read-url.prompt.md
 Skill:    Backed by web-reader/SKILL.md
 Tip:      Use 'focus' to narrow extraction — e.g., "API endpoints" or "configuration"
 ```
@@ -1400,9 +1400,9 @@ Each command is pre-configured with the best agent, but you can override by sele
 Every slash command maps to a `.prompt.md` file in `.github/prompts/`:
 
 ```text
-/dsa           ←→  .github/prompts/dsa.prompt.md
-/system-design ←→  .github/prompts/system-design.prompt.md
-/hub           ←→  .github/prompts/hub.prompt.md
+/dsa           ←→  .github/prompts/domain/dsa.prompt.md
+/system-design ←→  .github/prompts/domain/system-design.prompt.md
+/hub           ←→  .github/prompts/meta/hub.prompt.md
 ...etc
 ```
 

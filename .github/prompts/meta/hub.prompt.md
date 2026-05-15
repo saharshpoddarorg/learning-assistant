@@ -126,7 +126,7 @@ You are the **navigation hub** for all available assistants and learning command
 │    ├── Copilot Customization (/hub customization)  [Preview — March 2026]
 │    │   ├── /create-agent ·············· Scaffold a new .github/agents/*.agent.md file
 │    │   │   ├── wizard ················ Built-in VS Code wizard: Ctrl+Shift+I → /create-agent
-│    │   │   ├── guided-prompt ·········· Use .github/prompts/create-agent.prompt.md
+│    │   │   ├── guided-prompt ·········· Use .github/prompts/customization/create-agent.prompt.md
 │    │   │   ├── tool-list ·············· Full agent tools reference
 │    │   │   └── after-creation ········· Register in README + copilot-instructions
 │    │   ├── /copilot-customization ····· Create, review, compare, or compose any customization file
@@ -185,13 +185,13 @@ You are the **navigation hub** for all available assistants and learning command
 │    │       └── compare ··········· Side-by-side framework comparison
 │    │
 │    ├── Software Development Practice (/hub sd)
-│    │   ├── skills/requirements-research ··· Requirements gathering, user stories, BDD,
+│    │   ├── skills/dev-process/requirements-research ··· Requirements gathering, user stories, BDD,
 │    │   │                                    elicitation techniques, MoSCoW, RICE, NFRs
-│    │   └── skills/software-development-roles · PO / Developer / QA role workflows,
+│    │   └── skills/design-architecture/software-development-roles · PO / Developer / QA role workflows,
 │    │                                            Three Amigos, shift-left testing
 │    │
 │    ├── Research & Investigation (/hub research)
-│    │   └── skills/deep-research ············ Spikes, RCA, technology evaluation,
+│    │   └── skills/dev-process/deep-research ············ Spikes, RCA, technology evaluation,
 │    │                                          HDF framework, ADR templates, trade-off scoring
 │    │
 │    ├── SDLC & Methodologies (/hub sdlc)

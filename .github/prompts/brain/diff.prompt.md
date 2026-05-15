@@ -19,7 +19,7 @@ brain/ai-brain content and the external source.
 
 ### Steps
 
-1. **Read the PKM management skill** at `.github/skills/pkm-management/SKILL.md`
+1. **Read the PKM management skill** at `.github/skills/knowledge-management/pkm-management/SKILL.md`
 2. **Check sensitivity** for `${input:source}`
 3. Find brain files with `origin: ${input:source}` in frontmatter
 4. Compare each file's `last-pulled` date with the source's last-modified date

@@ -23,7 +23,7 @@ The user wants to **push** brain content back to an external source.
 
 ### Steps
 
-1. **Read the PKM management skill** at `.github/skills/pkm-management/SKILL.md`
+1. **Read the PKM management skill** at `.github/skills/knowledge-management/pkm-management/SKILL.md`
 2. **Check sensitivity** for `${input:source}` — ensure the destination accepts the content
 3. Identify the content to push: `${input:content}`
 4. Format it for the target platform (e.g., convert markdown to Notion blocks, Confluence wiki markup)

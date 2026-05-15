@@ -48,36 +48,36 @@ Result:      Structured explanation of Main.java
 
 | Command | File | Agent Used | Purpose |
 |---|---|---|---|
-| `/design-review` | [`design-review.prompt.md`](design-review.prompt.md) | Designer | Full SOLID/GRASP design review |
-| `/debug` | [`debug.prompt.md`](debug.prompt.md) | Debugger | Systematic bug investigation |
-| `/impact` | [`impact.prompt.md`](impact.prompt.md) | Impact-Analyzer | Change ripple effect analysis |
-| `/teach` | [`teach.prompt.md`](teach.prompt.md) | Learning-Mentor | Learn concepts from code |
-| `/refactor` | [`refactor.prompt.md`](refactor.prompt.md) | Designer | Identify refactoring opportunities |
-| `/explain` | [`explain.prompt.md`](explain.prompt.md) | Ask | Beginner-friendly file explanation |
-| `/composite` | [`composite.prompt.md`](composite.prompt.md) | Agent | Combine multiple modes in one session |
-| `/context` | [`context.prompt.md`](context.prompt.md) | Agent | Continue prior conversation or start fresh |
-| `/scope` | [`scope.prompt.md`](scope.prompt.md) | Agent | Generic learning vs code/domain-specific |
-| `/learn-from-docs` | [`learn-from-docs.prompt.md`](learn-from-docs.prompt.md) | Learning-Mentor | Learn concepts via official documentation |
-| `/explore-project` | [`explore-project.prompt.md`](explore-project.prompt.md) | Learning-Mentor | Learn by studying open-source projects |
-| `/deep-dive` | [`deep-dive.prompt.md`](deep-dive.prompt.md) | Learning-Mentor | Multi-layered progressive concept exploration |
-| `/reading-plan` | [`reading-plan.prompt.md`](reading-plan.prompt.md) | Learning-Mentor | Structured reading/learning plan with resources |
-| `/learn-concept` | [`learn-concept.prompt.md`](learn-concept.prompt.md) | Learning-Mentor | Learn any CS/SE concept (language-agnostic) |
-| `/interview-prep` | [`interview-prep.prompt.md`](interview-prep.prompt.md) | Learning-Mentor | DSA patterns, system design, interview strategies |
-| `/hub` | [`hub.prompt.md`](hub.prompt.md) | Learning-Mentor | Master navigation index — browse all commands |
-| `/dsa` | [`dsa.prompt.md`](dsa.prompt.md) | Learning-Mentor | Data structures & algorithms with pattern hierarchy |
-| `/system-design` | [`system-design.prompt.md`](system-design.prompt.md) | Learning-Mentor | Unified HLD/LLD with full internal hierarchy |
-| `/devops` | [`devops.prompt.md`](devops.prompt.md) | Learning-Mentor | CI/CD, Docker, Kubernetes, cloud, IaC, monitoring |
-| `/language-guide` | [`language-guide.prompt.md`](language-guide.prompt.md) | Learning-Mentor | Language-specific learning framework |
-| `/tech-stack` | [`tech-stack.prompt.md`](tech-stack.prompt.md) | Learning-Mentor | Frameworks, libraries, databases — compare & learn |
-| `/sdlc` | [`sdlc.prompt.md`](sdlc.prompt.md) | Learning-Mentor | SDLC phases, methodologies, practices |
-| `/daily-assist` | [`daily-assist.prompt.md`](daily-assist.prompt.md) | Daily-Assistant | Finance, productivity, news, daily life tasks |
-| `/career-roles` | [`career-roles.prompt.md`](career-roles.prompt.md) | Learning-Mentor | Job roles, skills, pay, career roadmaps |
-| `/multi-session` | [`multi-session.prompt.md`](multi-session.prompt.md) | Agent | Manage state across multiple chat sessions |
-| `/resources` | [`resources.prompt.md`](resources.prompt.md) | Learning-Mentor | Search, browse & scrape curated learning resources |
-| `/jot` | [`jot.prompt.md`](jot.prompt.md) | Copilot | Capture a thought instantly → IDEA-NNN |
-| `/todo` | [`todo.prompt.md`](todo.prompt.md) | Copilot | Add a concrete task → BLI-NNN |
-| `/todos` | [`todos.prompt.md`](todos.prompt.md) | Copilot | View board, mark done, find items |
-| `/backlog` | [`backlog.prompt.md`](backlog.prompt.md) | Copilot | Advanced backlog — brainstorm, guide, refine, promote, epic |
+| `/design-review` | [`design-review.prompt.md`](code/design-review.prompt.md) | Designer | Full SOLID/GRASP design review |
+| `/debug` | [`debug.prompt.md`](code/debug.prompt.md) | Debugger | Systematic bug investigation |
+| `/impact` | [`impact.prompt.md`](code/impact.prompt.md) | Impact-Analyzer | Change ripple effect analysis |
+| `/teach` | [`teach.prompt.md`](learning/teach.prompt.md) | Learning-Mentor | Learn concepts from code |
+| `/refactor` | [`refactor.prompt.md`](code/refactor.prompt.md) | Designer | Identify refactoring opportunities |
+| `/explain` | [`explain.prompt.md`](code/explain.prompt.md) | Ask | Beginner-friendly file explanation |
+| `/composite` | [`composite.prompt.md`](meta/composite.prompt.md) | Agent | Combine multiple modes in one session |
+| `/context` | [`context.prompt.md`](meta/context.prompt.md) | Agent | Continue prior conversation or start fresh |
+| `/scope` | [`scope.prompt.md`](meta/scope.prompt.md) | Agent | Generic learning vs code/domain-specific |
+| `/learn-from-docs` | [`learn-from-docs.prompt.md`](learning/learn-from-docs.prompt.md) | Learning-Mentor | Learn concepts via official documentation |
+| `/explore-project` | [`explore-project.prompt.md`](domain/explore-project.prompt.md) | Learning-Mentor | Learn by studying open-source projects |
+| `/deep-dive` | [`deep-dive.prompt.md`](learning/deep-dive.prompt.md) | Learning-Mentor | Multi-layered progressive concept exploration |
+| `/reading-plan` | [`reading-plan.prompt.md`](learning/reading-plan.prompt.md) | Learning-Mentor | Structured reading/learning plan with resources |
+| `/learn-concept` | [`learn-concept.prompt.md`](learning/learn-concept.prompt.md) | Learning-Mentor | Learn any CS/SE concept (language-agnostic) |
+| `/interview-prep` | [`interview-prep.prompt.md`](career/interview-prep.prompt.md) | Learning-Mentor | DSA patterns, system design, interview strategies |
+| `/hub` | [`hub.prompt.md`](meta/hub.prompt.md) | Learning-Mentor | Master navigation index — browse all commands |
+| `/dsa` | [`dsa.prompt.md`](domain/dsa.prompt.md) | Learning-Mentor | Data structures & algorithms with pattern hierarchy |
+| `/system-design` | [`system-design.prompt.md`](domain/system-design.prompt.md) | Learning-Mentor | Unified HLD/LLD with full internal hierarchy |
+| `/devops` | [`devops.prompt.md`](domain/devops.prompt.md) | Learning-Mentor | CI/CD, Docker, Kubernetes, cloud, IaC, monitoring |
+| `/language-guide` | [`language-guide.prompt.md`](domain/language-guide.prompt.md) | Learning-Mentor | Language-specific learning framework |
+| `/tech-stack` | [`tech-stack.prompt.md`](domain/tech-stack.prompt.md) | Learning-Mentor | Frameworks, libraries, databases — compare & learn |
+| `/sdlc` | [`sdlc.prompt.md`](domain/sdlc.prompt.md) | Learning-Mentor | SDLC phases, methodologies, practices |
+| `/daily-assist` | [`daily-assist.prompt.md`](career/daily-assist.prompt.md) | Daily-Assistant | Finance, productivity, news, daily life tasks |
+| `/career-roles` | [`career-roles.prompt.md`](career/career-roles.prompt.md) | Learning-Mentor | Job roles, skills, pay, career roadmaps |
+| `/multi-session` | [`multi-session.prompt.md`](meta/multi-session.prompt.md) | Agent | Manage state across multiple chat sessions |
+| `/resources` | [`resources.prompt.md`](domain/resources.prompt.md) | Learning-Mentor | Search, browse & scrape curated learning resources |
+| `/jot` | [`jot.prompt.md`](backlog/jot.prompt.md) | Copilot | Capture a thought instantly → IDEA-NNN |
+| `/todo` | [`todo.prompt.md`](backlog/todo.prompt.md) | Copilot | Add a concrete task → BLI-NNN |
+| `/todos` | [`todos.prompt.md`](backlog/todos.prompt.md) | Copilot | View board, mark done, find items |
+| `/backlog` | [`backlog.prompt.md`](backlog/backlog.prompt.md) | Copilot | Advanced backlog — brainstorm, guide, refine, promote, epic |
 
 ---
 

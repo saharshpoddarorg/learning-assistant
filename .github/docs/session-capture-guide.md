@@ -855,7 +855,7 @@ CONTROLS         "capture this" = force    "don't capture" = suppress
 | Session tier README | [sessions/README.md](../../brain/ai-brain/sessions/README.md) |
 | PKM philosophy & design decisions | [pkm-philosophy.md](../../brain/ai-brain/pkm-philosophy.md) |
 | AI-brain integration with PKM tools | [ai-brain-integration.md](../../brain/digitalnotetaking/ai-brain-integration.md) |
-| Brain management skill | [brain-management SKILL](../skills/brain-management/SKILL.md) |
+| Brain management skill | [brain-management SKILL](../skills/knowledge-management/brain-management/SKILL.md) |
 
 ---
 
