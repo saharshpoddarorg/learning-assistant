@@ -1,0 +1,66 @@
+{
+    // ==========================================================================
+    // MCP Servers — VS Code Workspace Settings
+    // ==========================================================================
+    // Copy this .vscode/ folder into any project where you use MCP servers.
+    // These settings configure Java compilation, code formatting, and MCP-related
+    // launch behavior for the config system.
+    //
+    // PREREQUISITE: JDK 21+ must be installed and configured.
+    //   This project uses Java records, var, sealed classes, Map.ofEntries(), etc.
+    //   Download: https://adoptium.net/ or https://www.azul.com/downloads/
+    //   Then set java.jdt.ls.java.home below to point to your JDK 21+ installation.
+    //
+    // MANUAL STEPS after copying:
+    //   1. Copy user-config/ folder alongside this .vscode/ folder
+    //   2. Review user-config/mcp-config.properties (replace <<<PLACEHOLDER>>> values)
+    //   3. Set java.jdt.ls.java.home to your JDK 21+ path
+    //   4. Adjust java.project.sourcePaths if your project structure differs
+    // ==========================================================================
+
+    // --- Java ---
+    // IMPORTANT: Uncomment and set this to your JDK 21+ installation path:
+    // "java.jdt.ls.java.home": "C:/Program Files/Eclipse Adoptium/jdk-21",
+    // "java.configuration.runtimes": [
+    //     {
+    //         "name": "JavaSE-21",
+    //         "path": "C:/Program Files/Eclipse Adoptium/jdk-21",
+    //         "default": true
+    //     }
+    // ],
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "out",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.format.settings.profile": "GoogleStyle",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.project.referencedLibraries": [],
+
+    // Ensure Java 21+ source level for records, var, sealed classes, etc.
+    "java.settings.url": "",
+    "java.jdt.ls.vmargs": "--enable-preview",
+
+    // --- Editor ---
+    "editor.formatOnSave": true,
+    "editor.rulers": [120],
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+
+    // --- File Associations ---
+    "files.associations": {
+        "*.properties": "java-properties"
+    },
+
+    // --- Search Exclusions ---
+    "search.exclude": {
+        "**/out": true,
+        "**/node_modules": true,
+        "**/.venv": true,
+        "**/dist": true
+    },
+
+    // --- Hide Generated Output ---
+    "files.exclude": {
+        "**/*.class": true,
+        "**/out": true
+    }
+}

@@ -1,0 +1,90 @@
+{
+  // ==========================================================================
+  // .vscode/mcp.json — MCP Server Registry Template
+  // ==========================================================================
+  // COPY INSTRUCTIONS (using this in another project):
+  //   1. Copy this file to YOUR project's .vscode/mcp.json
+  //   2. Copy the mcp-servers/ folder (src/, user-config/, build.ps1, build.sh)
+  //      alongside your project — or into a subfolder of it.
+  //   3. Adjust the "cwd" and classpath arg (-cp) paths to point at wherever
+  //      you placed mcp-servers/out/ relative to your workspace root.
+  //   4. Build: cd mcp-servers && .\build.ps1   (Windows)
+  //             cd mcp-servers && ./build.sh     (Linux/macOS)
+  //   5. Fill in credentials — see mcp-servers/SETUP.md §3 (API Keys).
+  //   6. Change "disabled": true → "disabled": false for servers you want active.
+  //   7. Reload VS Code window (Ctrl+Shift+P → "Reload Window").
+  //
+  // SECRETS POLICY:
+  //   This file contains NO secrets. Sensitive values use VS Code "inputs"
+  //   (VS Code prompts once and caches the answer in its secure storage).
+  //   For persistence without prompts, set the corresponding env vars or
+  //   fill in mcp-servers/user-config/mcp-config.local.properties (gitignored).
+  //
+  // PREREQUISITES:
+  //   - JDK 21+   https://adoptium.net/           (java must be on PATH)
+  //   - Node.js   https://nodejs.org/              (for GitHub / filesystem servers)
+  //
+  // FULL GUIDE: mcp-servers/SETUP.md
+  // ==========================================================================
+
+  "inputs": [
+    {
+      "id": "github-token",
+      "type": "promptString",
+      "description": "GitHub Personal Access Token (ghp_...). Generate at https://github.com/settings/tokens",
+      "password": true
+    }
+  ],
+
+  "servers": {
+
+    // ── Learning Resources MCP Server ─────────────────────────────────────────
+    // No credentials needed. Just build first.
+    // Adjust -cp value if mcp-servers/ is at a different relative path.
+    "learning-resources": {
+      "type": "stdio",
+      "command": "java",
+      "args": ["-cp", "out", "server.learningresources.LearningResourcesServer"],
+      "cwd": "${workspaceFolder}/mcp-servers",
+      "disabled": false
+    },
+
+    // ── Atlassian MCP Server (Jira + Confluence + Bitbucket) ──────────────────
+    // Fill in: mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties
+    // Then set "disabled": false.
+    "atlassian": {
+      "type": "stdio",
+      "command": "java",
+      "args": ["-cp", "out", "server.atlassian.AtlassianServer"],
+      "cwd": "${workspaceFolder}/mcp-servers",
+      "env": {
+        "ATLASSIAN_CONFIG_DIR": "${workspaceFolder}/mcp-servers/user-config/servers/atlassian"
+      },
+      "disabled": true
+    },
+
+    // ── GitHub MCP Server ────────────────────────────────────────────────────
+    // Requires Node.js. VS Code will prompt for your GitHub PAT.
+    // Token scopes: repo (private) or public_repo (public only)
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_TOKEN": "${input:github-token}"
+      },
+      "disabled": true
+    },
+
+    // ── Filesystem MCP Server ────────────────────────────────────────────────
+    // Gives Copilot read/write access to the directory in the last arg.
+    // Adjust path as needed. Requires Node.js.
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${workspaceFolder}"],
+      "disabled": true
+    }
+
+  }
+}
