@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="BUILD_PROCESS_HEAP_SIZE" value="16384" />
+    <option name="PARALLEL_COMPILATION_OPTION" value="Enabled" />
+    <bytecodeTargetLevel target="21" />
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="learning-assistant.modules" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.app" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.app.main" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.app.test" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.brain-models" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.brain-models.main" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.brain-models.test" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.mac-os" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.mac-os.main" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.mac-os.test" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.main" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.mcp-atlassian" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.mcp-atlassian.main" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.mcp-atlassian.test" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.mcp-common" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.mcp-common.main" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.mcp-common.test" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.mcp-learning-resources" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.mcp-learning-resources.main" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.mcp-learning-resources.test" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.search-engine" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.search-engine.main" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.search-engine.test" options="-Xlint:all -Xlint:-serial" />
+      <module name="learning-assistant.modules.test" options="-Xlint:all -Xlint:-serial" />
+    </option>
+  </component>
+</project>
