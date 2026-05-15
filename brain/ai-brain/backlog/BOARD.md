@@ -13,17 +13,17 @@
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  BACKLOG DASHBOARD                                        2026-04-21   │
+│  BACKLOG DASHBOARD                                        2026-05-15   │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  Items     ██████████████████████████████████░░░░░░░░  27 total         │
-│  todo      ████████████████████████████████░░░░░░░░░░  25               │
+│  Items     ██████████████████████████████████████░░░░  74 total         │
+│  todo      ████████████████████████████████████░░░░░░  72               │
 │  progress  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │  blocked   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0               │
 │  done      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │                                                                         │
-│  Priority  critical: 0 | high: 10 | medium: 10 | low: 7                 │
-│  Epics     3 draft | 0 active | 0 done                                 │
+│  Priority  critical: 4 | high: 18 | medium: 26 | low: 20               │
+│  Epics     3 draft | 1 active | 1 draft (EPIC-005) | 0 done            │
 │  Ideas     1 raw | 0 refining | 0 promoted                             │
 │  Sprints   0 active | 0 completed                                       │
 │                                                                         │
@@ -34,14 +34,14 @@
 
 | Type | Count | Folder |
 |---|---|---|
-| Features | 19 | `features/` — learning-assistant enhancements |
+| Features | 66 | `features/` — learning-assistant enhancements (32 existing + 34 EPIC-005) |
 | Projects | 7 | `projects/` — standalone personal software projects |
 | Items | 1 | `items/` — general (BLI-006, done) |
 | Ideas | 1 | `ideas/` |
-| Epics | 3 | `epics/` — EPIC-001, EPIC-002, EPIC-003 |
+| Epics | 5 | `epics/` — EPIC-001 through EPIC-005 |
 | Guides | 0 | `guides/` |
 | Sprints | 0 | `sprints/` |
-| **Total** | **31** | |
+| **Total** | **80** | |
 
 ---
 
@@ -58,9 +58,13 @@
 ```text
 ┌──────────────┬──────────────┬──────────────┬──────────────┬──────────────┐
 │   BACKLOG    │  IN PROGRESS │   BLOCKED    │   IN REVIEW  │     DONE     │
-│   (25)       │   (1)        │   (0)        │   (0)        │     (1)      │
+│   (72)       │   (1)        │   (0)        │   (0)        │     (1)      │
 ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-│ BLI-001 high │ BLI-026 high │              │              │ BLI-006 med  │
+│ BLI-028 crit │ BLI-026 high │              │              │ BLI-006 med  │
+│ BLI-029 crit │              │              │              │              │
+│ BLI-030 crit │              │              │              │              │
+│ BLI-031 crit │              │              │              │              │
+│ BLI-001 high │              │              │              │              │
 │ BLI-002 high │              │              │              │              │
 │ BLI-003 high │              │              │              │              │
 │ BLI-007 high │              │              │              │              │
@@ -69,6 +73,11 @@
 │ BLI-012 high │              │              │              │              │
 │ BLI-020 high │              │              │              │              │
 │ BLI-027 high │              │              │              │              │
+│ BLI-032 high │              │              │              │              │
+│ BLI-033 high │              │              │              │              │
+│ BLI-034 high │              │              │              │              │
+│ BLI-035 high │              │              │              │              │
+│ BLI-036 high │              │              │              │              │
 │ BLI-004 med  │              │              │              │              │
 │ BLI-005 med  │              │              │              │              │
 │ BLI-009 med  │              │              │              │              │
@@ -78,6 +87,8 @@
 │ BLI-022 med  │              │              │              │              │
 │ BLI-023 med  │              │              │              │              │
 │ BLI-024 med  │              │              │              │              │
+│ BLI-037 med  │              │              │              │              │
+│ BLI-038 med  │              │              │              │              │
 │ BLI-014 low  │              │              │              │              │
 │ BLI-015 low  │              │              │              │              │
 │ BLI-016 low  │              │              │              │              │
@@ -85,6 +96,42 @@
 │ BLI-018 low  │              │              │              │              │
 │ BLI-019 low  │              │              │              │              │
 │ BLI-025 low  │              │              │              │              │
+│ BLI-039 low  │              │              │              │              │
+│ BLI-040 low  │              │              │              │              │
+│ BLI-041 high │              │              │              │              │
+│ BLI-042 high │              │              │              │              │
+│ BLI-043 high │              │              │              │              │
+│ BLI-044 med  │              │              │              │              │
+│ BLI-045 med  │              │              │              │              │
+│ BLI-046 med  │              │              │              │              │
+│ BLI-047 low  │              │              │              │              │
+│ BLI-048 high │              │              │              │              │
+│ BLI-049 high │              │              │              │              │
+│ BLI-050 med  │              │              │              │              │
+│ BLI-051 med  │              │              │              │              │
+│ BLI-052 med  │              │              │              │              │
+│ BLI-053 low  │              │              │              │              │
+│ BLI-054 high │              │              │              │              │
+│ BLI-055 high │              │              │              │              │
+│ BLI-056 med  │              │              │              │              │
+│ BLI-057 low  │              │              │              │              │
+│ BLI-058 high │              │              │              │              │
+│ BLI-059 high │              │              │              │              │
+│ BLI-060 med  │              │              │              │              │
+│ BLI-061 med  │              │              │              │              │
+│ BLI-062 low  │              │              │              │              │
+│ BLI-063 high │              │              │              │              │
+│ BLI-064 med  │              │              │              │              │
+│ BLI-065 med  │              │              │              │              │
+│ BLI-066 med  │              │              │              │              │
+│ BLI-067 med  │              │              │              │              │
+│ BLI-068 med  │              │              │              │              │
+│ BLI-069 low  │              │              │              │              │
+│ BLI-070 low  │              │              │              │              │
+│ BLI-071 low  │              │              │              │              │
+│ BLI-072 med  │              │              │              │              │
+│ BLI-073 med  │              │              │              │              │
+│ BLI-074 low  │              │              │              │              │
 └──────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
 ```
 
@@ -141,6 +188,103 @@
 | BLI-017 | Developer productivity dashboard | low | todo | — | — |
 | BLI-018 | Code snippet & template manager | low | todo | — | — |
 | BLI-019 | Tally-Vyapaar accounting application | low | todo | — | — |
+
+### EPIC-004: Repo modularization and stale reference cleanup
+
+> **Status:** active | **Priority:** high | **Progress:** 0/13 (0%)
+>
+> **Folder:** `features/`
+
+| ID | Title | Priority | Status | Started | Completed |
+|---|---|---|---|---|---|
+| BLI-028 | Fix copilot-instructions.md build description and stale paths | critical | todo | — | — |
+| BLI-029 | Fix stale paths in mcp-server-setup.md | critical | todo | — | — |
+| BLI-030 | Fix stale paths in configuration-reference.md | critical | todo | — | — |
+| BLI-031 | Fix stale path in mcp-to-skill.prompt.md | critical | todo | — | — |
+| BLI-032 | Fix stale paths in search-engine docs | high | todo | — | — |
+| BLI-033 | Fix stale paths in USAGE.md | high | todo | — | — |
+| BLI-034 | Fix brain model path references | high | todo | — | — |
+| BLI-035 | Fix stale paths in versioning, mcp-vs-skills, phase-guide | high | todo | — | — |
+| BLI-036 | Fix stale paths in slash-commands, nav-index, evolution-guide | high | todo | — | — |
+| BLI-037 | Fix stale paths in EPIC-001 and EPIC-002 notes | medium | todo | — | — |
+| BLI-038 | Fix stale paths in MCP-README.md and SETUP.md | medium | todo | — | — |
+| BLI-039 | Add module-specific README.md to each modules directory | low | todo | — | — |
+| BLI-040 | Consolidate configuration documentation | low | todo | — | — |
+
+### EPIC-005: Full repo revamp — modularize prompts, skills, agents, MCP, brain
+
+> **Status:** draft | **Priority:** high | **Progress:** 0/34 (0%)
+>
+> **Folder:** `features/` | **Depends on:** EPIC-004
+
+#### Phase 1 — Prompts (7 items)
+
+| ID | Title | Priority | Status | Started | Completed |
+|---|---|---|---|---|---|
+| BLI-041 | Audit prompt frontmatter consistency | high | todo | — | — |
+| BLI-042 | Extract inline domain knowledge from prompts into skills | high | todo | — | — |
+| BLI-043 | Standardize prompt composition patterns | high | todo | — | — |
+| BLI-044 | Refactor meta prompts for clarity | medium | todo | — | — |
+| BLI-045 | Consolidate brain prompts | medium | todo | — | — |
+| BLI-046 | Standardize prompt input variables | medium | todo | — | — |
+| BLI-047 | Create prompt composition map document | low | todo | — | — |
+
+#### Phase 2 — Skills (6 items)
+
+| ID | Title | Priority | Status | Started | Completed |
+|---|---|---|---|---|---|
+| BLI-048 | Audit skill activation keyword overlaps | high | todo | — | — |
+| BLI-049 | Standardize skill file structure | high | todo | — | — |
+| BLI-050 | Split oversized skills into sub-files | medium | todo | — | — |
+| BLI-051 | Extract prompt-embedded knowledge into new skills | medium | todo | — | — |
+| BLI-052 | Verify skill ↔ prompt ↔ agent cross-references | medium | todo | — | — |
+| BLI-053 | Create skill activation map document | low | todo | — | — |
+
+#### Phase 3 — Agents (4 items)
+
+| ID | Title | Priority | Status | Started | Completed |
+|---|---|---|---|---|---|
+| BLI-054 | Standardize agent template and structure | high | todo | — | — |
+| BLI-055 | Document complete agent handoff graph | high | todo | — | — |
+| BLI-056 | Review and normalize agent tool restrictions | medium | todo | — | — |
+| BLI-057 | Create agent selection guide | low | todo | — | — |
+
+#### Phase 4 — MCP Servers (5 items)
+
+| ID | Title | Priority | Status | Started | Completed |
+|---|---|---|---|---|---|
+| BLI-058 | Deprecate/remove Atlassian v1 server | high | todo | — | — |
+| BLI-059 | Unify MCP server configuration pattern | high | todo | — | — |
+| BLI-060 | Create skill wrappers for all MCP tool categories | medium | todo | — | — |
+| BLI-061 | Auto-generate MCP tool documentation from Java source | medium | todo | — | — |
+| BLI-062 | Add MCP server health check and status tasks | low | todo | — | — |
+
+#### Phase 5 — Instructions (4 items)
+
+| ID | Title | Priority | Status | Started | Completed |
+|---|---|---|---|---|---|
+| BLI-063 | Measure instruction context overhead | high | todo | — | — |
+| BLI-064 | Split chat-capture into core + reference | medium | todo | — | — |
+| BLI-065 | Split change-completeness into core + checklists | medium | todo | — | — |
+| BLI-066 | Resolve instruction overlaps | medium | todo | — | — |
+
+#### Phase 6 — Brain Workspace (5 items)
+
+| ID | Title | Priority | Status | Started | Completed |
+|---|---|---|---|---|---|
+| BLI-067 | Audit brain PKM policy files for overlap | medium | todo | — | — |
+| BLI-068 | Consolidate brain scripts | medium | todo | — | — |
+| BLI-069 | Create brain workspace export template | low | todo | — | — |
+| BLI-070 | Document brain tier boundaries | low | todo | — | — |
+| BLI-071 | Review session escalation protocol complexity | low | todo | — | — |
+
+#### Phase 7 — Documentation (3 items)
+
+| ID | Title | Priority | Status | Started | Completed |
+|---|---|---|---|---|---|
+| BLI-072 | Audit docs for content duplication | medium | todo | — | — |
+| BLI-073 | Verify all cross-links and navigation | medium | todo | — | — |
+| BLI-074 | Create documentation hierarchy diagram | low | todo | — | — |
 
 ---
 
