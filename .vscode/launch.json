@@ -11,8 +11,8 @@
             "name": "LR — STDIO Server (production mode)",
             "request": "launch",
             "mainClass": "server.learningresources.LearningResourcesServer",
-            "projectName": "mcp-servers",
-            "cwd": "${workspaceFolder}/mcp-servers",
+            "projectName": "app",
+            "cwd": "${workspaceFolder}/modules/app",
             "console": "integratedTerminal",
             // No args → runs in STDIO mode, the same way mcp.json starts it.
             // Send JSON-RPC 2.0 messages on stdin to interact.
@@ -23,8 +23,8 @@
             "name": "LR — Demo mode",
             "request": "launch",
             "mainClass": "server.learningresources.LearningResourcesServer",
-            "projectName": "mcp-servers",
-            "cwd": "${workspaceFolder}/mcp-servers",
+            "projectName": "app",
+            "cwd": "${workspaceFolder}/modules/app",
             "console": "integratedTerminal",
             "args": ["--demo"]
         },
@@ -33,8 +33,8 @@
             "name": "LR — List tools",
             "request": "launch",
             "mainClass": "server.learningresources.LearningResourcesServer",
-            "projectName": "mcp-servers",
-            "cwd": "${workspaceFolder}/mcp-servers",
+            "projectName": "app",
+            "cwd": "${workspaceFolder}/modules/app",
             "console": "integratedTerminal",
             "args": ["--list-tools"]
         },
@@ -48,13 +48,13 @@
             "name": "Atlassian — STDIO Server (production mode)",
             "request": "launch",
             "mainClass": "server.atlassian.AtlassianServer",
-            "projectName": "mcp-servers",
-            "cwd": "${workspaceFolder}/mcp-servers",
+            "projectName": "app",
+            "cwd": "${workspaceFolder}/modules/app",
             "console": "integratedTerminal",
             "args": [],
             "env": {
                 // Point to the Atlassian config directory (populated during setup)
-                "ATLASSIAN_CONFIG_DIR": "${workspaceFolder}/mcp-servers/user-config/servers/atlassian"
+                "ATLASSIAN_CONFIG_DIR": "${workspaceFolder}/modules/app/config/servers/atlassian"
                 // OR override individual keys inline:
                 // "ATLASSIAN_JIRA_URL":       "https://your-org.atlassian.net",
                 // "ATLASSIAN_CONFLUENCE_URL": "https://your-org.atlassian.net/wiki",
@@ -67,8 +67,8 @@
             "name": "Atlassian — Demo mode",
             "request": "launch",
             "mainClass": "server.atlassian.AtlassianServer",
-            "projectName": "mcp-servers",
-            "cwd": "${workspaceFolder}/mcp-servers",
+            "projectName": "app",
+            "cwd": "${workspaceFolder}/modules/app",
             "console": "integratedTerminal",
             "args": ["--demo"],
             "env": {}
@@ -78,8 +78,8 @@
             "name": "Atlassian — List tools",
             "request": "launch",
             "mainClass": "server.atlassian.AtlassianServer",
-            "projectName": "mcp-servers",
-            "cwd": "${workspaceFolder}/mcp-servers",
+            "projectName": "app",
+            "cwd": "${workspaceFolder}/modules/app",
             "console": "integratedTerminal",
             "args": ["--list-tools"],
             "env": {}
@@ -94,8 +94,8 @@
             "name": "Config Loader — validate + dump",
             "request": "launch",
             "mainClass": "Main",
-            "projectName": "mcp-servers",
-            "cwd": "${workspaceFolder}/mcp-servers",
+            "projectName": "app",
+            "cwd": "${workspaceFolder}/modules/app",
             "console": "integratedTerminal",
             "env": {
                 // Uncomment to inject secrets as env vars instead of editing local config:
@@ -108,8 +108,8 @@
             "name": "Config Loader — debug logging",
             "request": "launch",
             "mainClass": "Main",
-            "projectName": "mcp-servers",
-            "cwd": "${workspaceFolder}/mcp-servers",
+            "projectName": "app",
+            "cwd": "${workspaceFolder}/modules/app",
             "console": "integratedTerminal",
             "vmArgs": "-Djava.util.logging.level=FINE",
             "env": {}

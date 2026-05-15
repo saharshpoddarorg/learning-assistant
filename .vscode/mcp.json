@@ -8,12 +8,12 @@
   // HOW TO USE:
   //   1. Build the Java servers first:
   //        Terminal → Run Task → "mcp-servers: build"
-  //      (or: cd mcp-servers && .\build.ps1 in PowerShell)
+  //      (or: ./gradlew build from repo root)
   //
   //   2. Set your credentials — see docs/mcp-server-setup.md for the full guide.
   //      Required secrets go in the companion properties files (gitignored):
-  //        mcp-servers/user-config/mcp-config.local.properties
-  //        mcp-servers/user-config/servers/atlassian/atlassian-config.local.properties
+  //        modules/app/config/mcp-config.local.properties
+  //        modules/app/config/servers/atlassian/atlassian-config.local.properties
   //
   //   3. Open GitHub Copilot Chat → Agent mode (@workspace) → the MCP tools
   //      appear automatically once servers start.
@@ -56,7 +56,7 @@
       "type": "stdio",
       "command": "java",
       "args": ["-cp", "out", "server.learningresources.LearningResourcesServer"],
-      "cwd": "${workspaceFolder}/mcp-servers",
+      "cwd": "${workspaceFolder}/modules/app",
       "disabled": true
     },
 
@@ -67,9 +67,9 @@
       "type": "stdio",
       "command": "java",
       "args": ["-cp", "out", "server.atlassian.v1.AtlassianServerV1"],
-      "cwd": "${workspaceFolder}/mcp-servers",
+      "cwd": "${workspaceFolder}/modules/app",
       "env": {
-        "ATLASSIAN_CONFIG_DIR": "${workspaceFolder}/mcp-servers/user-config/servers/atlassian"
+        "ATLASSIAN_CONFIG_DIR": "${workspaceFolder}/modules/app/config/servers/atlassian"
       },
       "disabled": true
     },
@@ -80,16 +80,16 @@
     // templates, restrictions, and more.
     // AUTH: Option A — Browser OAuth 2.0 | Option B — API token / PAT
     // REQUIREMENT: Run "mcp-servers: build" task first.
-    // CREDENTIALS: Fill in mcp-servers/user-config/servers/atlassian-v2/atlassian-v2-config.local.properties
+    // CREDENTIALS: Fill in modules/app/config/servers/atlassian-v2/atlassian-v2-config.local.properties
     //   (copy from atlassian-v2-config.local.example.properties)
     // DISABLED by default — set "disabled": false once credentials are configured.
     "atlassian-v2": {
       "type": "stdio",
       "command": "java",
       "args": ["-cp", "out", "server.atlassian.v2.AtlassianServerV2"],
-      "cwd": "${workspaceFolder}/mcp-servers",
+      "cwd": "${workspaceFolder}/modules/app",
       "env": {
-        "ATLASSIAN_V2_CONFIG_DIR": "${workspaceFolder}/mcp-servers/user-config/servers/atlassian-v2"
+        "ATLASSIAN_V2_CONFIG_DIR": "${workspaceFolder}/modules/app/config/servers/atlassian-v2"
       },
       "disabled": true
     },
