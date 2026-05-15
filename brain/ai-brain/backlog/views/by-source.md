@@ -17,6 +17,75 @@ Items created through direct chat input (origin-type: manual).
 
 ---
 
+## AI Session Planning
+
+Items created through AI-assisted backlog planning sessions (epics, audits, inventories).
+
+### EPIC-004 — Stale Reference Cleanup (2026-05-15)
+
+> **Source:** AI session — features inventory audit + Gradle migration gap analysis
+> **Extracted:** 13 BLIs created (BLI-028–040)
+
+| ID | Title | Status | Priority | Created |
+|---|---|---|---|---|
+| BLI-028 | Fix copilot-instructions.md build description and stale paths | todo | critical | 2026-05-15 |
+| BLI-029 | Fix stale paths in mcp-server-setup.md | todo | critical | 2026-05-15 |
+| BLI-030 | Fix stale paths in configuration-reference.md | todo | critical | 2026-05-15 |
+| BLI-031 | Fix stale path in mcp-to-skill.prompt.md | todo | critical | 2026-05-15 |
+| BLI-032 | Fix stale paths in search-engine docs | todo | high | 2026-05-15 |
+| BLI-033 | Fix stale paths in USAGE.md | todo | high | 2026-05-15 |
+| BLI-034 | Fix brain model path references | todo | high | 2026-05-15 |
+| BLI-035 | Fix stale paths in versioning, mcp-vs-skills, phase-guide | todo | high | 2026-05-15 |
+| BLI-036 | Fix stale paths in slash-commands, nav-index, evolution-guide | todo | high | 2026-05-15 |
+| BLI-037 | Fix stale paths in EPIC-001 and EPIC-002 notes | todo | medium | 2026-05-15 |
+| BLI-038 | Fix stale paths in MCP-README.md and SETUP.md | todo | medium | 2026-05-15 |
+| BLI-039 | Add module-specific README.md to each modules directory | todo | low | 2026-05-15 |
+| BLI-040 | Consolidate configuration documentation | todo | low | 2026-05-15 |
+
+### EPIC-005 — Full Repo Revamp (2026-05-15)
+
+> **Source:** AI session — features inventory analysis + modularization planning
+> **Extracted:** 34 BLIs created (BLI-041–074)
+
+| ID | Title | Status | Priority | Created |
+|---|---|---|---|---|
+| BLI-041 | Audit prompt frontmatter consistency | todo | high | 2026-05-15 |
+| BLI-042 | Extract inline domain knowledge from prompts into skills | todo | high | 2026-05-15 |
+| BLI-043 | Standardize prompt composition patterns | todo | high | 2026-05-15 |
+| BLI-044 | Refactor meta prompts for clarity | todo | medium | 2026-05-15 |
+| BLI-045 | Consolidate brain prompts | todo | medium | 2026-05-15 |
+| BLI-046 | Standardize prompt input variables | todo | medium | 2026-05-15 |
+| BLI-047 | Create prompt composition map document | todo | low | 2026-05-15 |
+| BLI-048 | Audit skill activation keyword overlaps | todo | high | 2026-05-15 |
+| BLI-049 | Standardize skill file structure | todo | high | 2026-05-15 |
+| BLI-050 | Split oversized skills into sub-files | todo | medium | 2026-05-15 |
+| BLI-051 | Extract prompt-embedded knowledge into new skills | todo | medium | 2026-05-15 |
+| BLI-052 | Verify skill ↔ prompt ↔ agent cross-references | todo | medium | 2026-05-15 |
+| BLI-053 | Create skill activation map document | todo | low | 2026-05-15 |
+| BLI-054 | Standardize agent template and structure | todo | high | 2026-05-15 |
+| BLI-055 | Document complete agent handoff graph | todo | high | 2026-05-15 |
+| BLI-056 | Review and normalize agent tool restrictions | todo | medium | 2026-05-15 |
+| BLI-057 | Create agent selection guide | todo | low | 2026-05-15 |
+| BLI-058 | Deprecate/remove Atlassian v1 server | todo | high | 2026-05-15 |
+| BLI-059 | Unify MCP server configuration pattern | todo | high | 2026-05-15 |
+| BLI-060 | Create skill wrappers for all MCP tool categories | todo | medium | 2026-05-15 |
+| BLI-061 | Auto-generate MCP tool documentation from Java source | todo | medium | 2026-05-15 |
+| BLI-062 | Add MCP server health check and status tasks | todo | low | 2026-05-15 |
+| BLI-063 | Measure instruction context overhead | todo | high | 2026-05-15 |
+| BLI-064 | Split chat-capture into core + reference | todo | medium | 2026-05-15 |
+| BLI-065 | Split change-completeness into core + checklists | todo | medium | 2026-05-15 |
+| BLI-066 | Resolve instruction overlaps | todo | medium | 2026-05-15 |
+| BLI-067 | Audit brain PKM policy files for overlap | todo | medium | 2026-05-15 |
+| BLI-068 | Consolidate brain scripts | todo | medium | 2026-05-15 |
+| BLI-069 | Create brain workspace export template | todo | low | 2026-05-15 |
+| BLI-070 | Document brain tier boundaries | todo | low | 2026-05-15 |
+| BLI-071 | Review session escalation protocol complexity | todo | low | 2026-05-15 |
+| BLI-072 | Audit docs for content duplication | todo | medium | 2026-05-15 |
+| BLI-073 | Verify all cross-links and navigation | todo | medium | 2026-05-15 |
+| BLI-074 | Create documentation hierarchy diagram | todo | low | 2026-05-15 |
+
+---
+
 ## File Imports (`/read-file-jot`)
 
 Items extracted from external files, grouped by import batch.
@@ -60,7 +129,8 @@ Items extracted from external files, grouped by import batch.
 ## Summary
 
 ```text
-Manual items:    1
-File imports:   14 items across 1 batch (8 new + 4 merged + 2 noted)
-Total:          15
+Manual items:     1
+AI session items: 47 items across 2 epics (EPIC-004: 13 + EPIC-005: 34)
+File imports:     14 items across 1 batch (8 new + 4 merged + 2 noted)
+Total:            62
 ```
