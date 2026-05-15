@@ -373,7 +373,7 @@ For the full architecture, see the [Customization Guide](.github/docs/customizat
 | [Slash Commands](.github/docs/slash-commands.md) | All 65 commands — inputs, aliases, composition | 🔴 | ~5 min |
 | [Navigation Index](.github/docs/navigation-index.md) | Master lookup — commands, agents, skills, files | 🔴 | ~5 min |
 | [File Reference](.github/docs/file-reference.md) | Which files Copilot reads vs. developer docs | 🟡🔴 | ~5 min |
-| [MCP Servers Deep Dive](mcp-servers/README.md) | Config architecture, Java sources, adding servers, browser isolation | 🟡🔴 | ~10 min |
+| [MCP Servers Deep Dive](modules/app/MCP-README.md) | Config architecture, Java sources, adding servers, browser isolation | 🟡🔴 | ~10 min |
 | [Copilot README](.github/README.md) | Deep dive into all 5 Copilot primitives | 🟡🔴 | ~10 min |
 
 ---
@@ -388,7 +388,7 @@ The architecture is designed to grow. Add your own:
 | New slash command | Create `*.prompt.md` in `.github/prompts/` | [Prompts Guide](.github/prompts/README.md) |
 | New knowledge pack | Create `<name>/SKILL.md` in `.github/skills/` | [Skills Guide](.github/skills/README.md) |
 | New coding rules | Create `*.instructions.md` in `.github/instructions/` | [Instructions Guide](.github/instructions/README.md) |
-| New MCP server | Add `server.{name}.*` block in `mcp-servers/user-config/mcp-config.properties` | [MCP Servers Guide](mcp-servers/README.md) |
+| New MCP server | Add `server.{name}.*` block in `modules/app/config/mcp-config.properties` | [MCP Servers Guide](modules/app/MCP-README.md) |
 | New code experiments | Add files in `src/` in any language | Just start coding |
 
 Contributions, ideas, and forks are welcome. If you build something interesting on top of this structure, open an issue — I'd love to hear about it.

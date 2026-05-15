@@ -26,7 +26,7 @@ applyTo: "**"
 
 When adding or expanding a `ResourceProvider` class (e.g., `VcsResources.java`, `BuildToolsResources.java`):
 
-- [ ] **New provider class** in `mcp-servers/src/server/learningresources/vault/providers/`
+- [ ] **New provider class** in `modules/mcp-learning-resources/src/main/java/server/learningresources/vault/providers/`
   - Implements `ResourceProvider`, returns `List<LearningResource>`
   - Each resource: all required fields (id, title, url, description, type, categories,
     conceptAreas, tags, author, difficulty, freshness, isOfficial, isFree, languageApplicability,
@@ -69,7 +69,7 @@ When adding or expanding a `ResourceProvider` class (e.g., `VcsResources.java`, 
   - Domain-Specific Learning section (add full entry)
   - Update vault resource count in `/resources` entry
 - [ ] **`copilot-instructions.md`** (if the skill changes Copilot's behavior globally)
-- [ ] **Build and verify** — `.\mcp-servers\build.ps1` must succeed with 0 errors
+- [ ] **Build and verify** — `.\gradlew.bat build` must succeed with 0 errors
 
 ---
 
@@ -85,7 +85,7 @@ When creating `.github/prompts/<name>.prompt.md`:
 - [ ] **`slash-commands.md`** — add to Quick Lookup table + Command Details section
 - [ ] **`hub.prompt.md`** — add to the category tree if it's a new domain
 - [ ] **TOC in `slash-commands.md`** — add anchor if a new category heading was added
-- [ ] **Build and verify** — `.\mcp-servers\build.ps1` must succeed with 0 errors
+- [ ] **Build and verify** — `.\gradlew.bat build` must succeed with 0 errors
 
 ---
 
@@ -98,7 +98,7 @@ When creating `.github/skills/<category>/<name>/SKILL.md`:
 - [ ] **3-tier content** — newbie / amateur / pro sections with appropriate depth
 - [ ] **Command cheatsheet** — copy-pasteable, tested commands
 - [ ] **Learning path** — link to vault resources per tier
-- [ ] **Build and verify** — `.\mcp-servers\build.ps1` must succeed with 0 errors
+- [ ] **Build and verify** — `.\gradlew.bat build` must succeed with 0 errors
 
 ---
 
@@ -110,9 +110,9 @@ When adding an MCP tool handler (e.g., a new `handle_*` case):
 - [ ] **Tool registration** in `McpServerRegistry` or the server's `handleCallTool`
 - [ ] **Prompt update** — update the relevant `.prompt.md` to mention the new tool
 - [ ] **`slash-commands.md`** — update `/resources` (or relevant command) MCP tools list
-- [ ] **`mcp-servers/README.md`** — update tools table
+- [ ] **`modules/app/MCP-README.md`** — update tools table
 - [ ] **`USAGE.md`** — add or update relevant section
-- [ ] **Build and verify** — `.\mcp-servers\build.ps1` must succeed with 0 errors
+- [ ] **Build and verify** — `.\gradlew.bat build` must succeed with 0 errors
 
 ---
 
@@ -124,7 +124,7 @@ When adding to `ConceptArea`, `ResourceCategory`, `DifficultyLevel`, etc.:
 - [ ] **`KeywordIndex.java`** — add at least 3 synonymous keyword mappings
 - [ ] **At least one resource** using the new value so it's exercised
 - [ ] **All existing providers** — check if any resources should retroactively use the new value
-- [ ] **Build and verify** — `.\mcp-servers\build.ps1` must succeed with 0 errors
+- [ ] **Build and verify** — `.\gradlew.bat build` must succeed with 0 errors
 
 ---
 
@@ -138,7 +138,7 @@ Run this for EVERY category of change:
   per domain. When in doubt, research the standard — don't guess.
 - [ ] **Markdown formatting** — run `.\__md_lint.ps1` from repo root; must exit with **0 issues**
   (see Section G below and `.github/instructions/md-formatting.instructions.md` for full rules)
-- [ ] **Build passes** — `.\mcp-servers\build.ps1` — 0 compile errors, 0 warnings (where possible)
+- [ ] **Build passes** — `.\gradlew.bat build` — 0 compile errors, 0 warnings (where possible)
 - [ ] **No regression in existing behaviour** — manually verify existing slash commands still work
 - [ ] **Cross-references complete** — verify all related docs link to each other
   (see Section H below for the documentation cross-reference checklist)
@@ -466,18 +466,18 @@ A new Mermaid diagram should be added when:
 
 | File | Action when adding domain content |
 |---|---|
-| `mcp-servers/src/.../vault/providers/<Domain>Resources.java` | CREATE — the provider class |
-| `mcp-servers/src/.../vault/BuiltInResources.java` | UPDATE — register provider |
-| `mcp-servers/src/.../vault/KeywordIndex.java` | UPDATE — add keyword mappings |
-| `mcp-servers/src/.../model/ConceptArea.java` | UPDATE if new concept needed |
-| `mcp-servers/src/.../model/ResourceCategory.java` | UPDATE if new category needed |
+| `modules/mcp-learning-resources/src/.../vault/providers/<Domain>Resources.java` | CREATE — the provider class |
+| `modules/mcp-learning-resources/src/.../vault/BuiltInResources.java` | UPDATE — register provider |
+| `modules/mcp-learning-resources/src/.../vault/KeywordIndex.java` | UPDATE — add keyword mappings |
+| `modules/mcp-learning-resources/src/.../model/ConceptArea.java` | UPDATE if new concept needed |
+| `modules/mcp-learning-resources/src/.../model/ResourceCategory.java` | UPDATE if new category needed |
 | `.github/skills/<category>/<domain>/SKILL.md` | CREATE or UPDATE |
 | `.github/skills/languages-platforms/java-build/SKILL.md` | UPDATE if build tools or JDK changed |
 | `.github/skills/knowledge-management/digital-notetaking/SKILL.md` | UPDATE if PKM/note-taking content changed |
 | `.github/prompts/<domain>.prompt.md` | CREATE — slash command |
 | `.github/prompts/hub.prompt.md` | UPDATE — category tree |
 | `.github/docs/slash-commands.md` | UPDATE — table + details |
-| `mcp-servers/README.md` | UPDATE — resource count, features |
+| `modules/app/MCP-README.md` | UPDATE — resource count, features |
 | `USAGE.md` | UPDATE — relevant section |
 | `README.md` (root) | UPDATE if project-level docs changed |
 | `copilot-instructions.md` | UPDATE — skills block, conventions |
@@ -513,14 +513,13 @@ and re-run. See `.github/docs/md-formatting-guide.md` for the full rule set.
 
 ```powershell
 # Full build (Windows PowerShell)
-.\mcp-servers\build.ps1
+.\gradlew.bat build
 
 # Clean build (from scratch)
-.\mcp-servers\build.ps1 -Clean
+.\gradlew.bat clean build
 
-# Verify key classes compiled (examples — adjust to your new provider)
-Test-Path mcp-servers\out\server\learningresources\vault\providers\VcsResources.class
-Test-Path mcp-servers\out\server\learningresources\vault\providers\BuildToolsResources.class
+# Build a specific module
+.\gradlew.bat :modules:mcp-learning-resources:build
 ```
 
 If the build fails:

@@ -140,12 +140,12 @@ code .       # opens the workspace in VS Code
 
 ```powershell
 # Windows PowerShell (from the repo root):
-.\mcp-servers\scripts\setup.ps1
+.\modules\app\scripts\setup.ps1
 ```
 
 ```bash
 # Linux/macOS:
-./mcp-servers/scripts/setup.sh
+./modules/app/scripts/setup.sh
 ```
 
 This creates your local config file, browser data directory, and reports what needs attention.
@@ -159,8 +159,8 @@ Ctrl+Shift+B  →  select "mcp-servers: build"
 Or in terminal:
 
 ```powershell
-cd mcp-servers; .\build.ps1     # Windows
-cd mcp-servers && ./build.sh    # Linux/Mac
+.\gradlew.bat build     # Windows
+./gradlew build          # Linux/Mac
 ```
 
 ### Step 8 — Enable the Learning Resources Server
@@ -535,39 +535,39 @@ Use these when you want to control servers outside of VS Code's auto-management 
 
 ```powershell
 # Windows PowerShell
-.\mcp-servers\scripts\server.ps1 help         # print all commands
+.\modules\app\scripts\server.ps1 help         # print all commands
 
-.\mcp-servers\scripts\server.ps1 status       # see what's running
-.\mcp-servers\scripts\server.ps1 validate     # check java, out/, config, API keys
+.\modules\app\scripts\server.ps1 status       # see what's running
+.\modules\app\scripts\server.ps1 validate     # check java, out/, config, API keys
 
-.\mcp-servers\scripts\server.ps1 start  learning-resources
-.\mcp-servers\scripts\server.ps1 start  atlassian
-.\mcp-servers\scripts\server.ps1 start  all   # ← (runs all sequentially)
+.\modules\app\scripts\server.ps1 start  learning-resources
+.\modules\app\scripts\server.ps1 start  atlassian
+.\modules\app\scripts\server.ps1 start  all   # ← (runs all sequentially)
 
-.\mcp-servers\scripts\server.ps1 stop   learning-resources
-.\mcp-servers\scripts\server.ps1 stop   atlassian
-.\mcp-servers\scripts\server.ps1 stop   all
+.\modules\app\scripts\server.ps1 stop   learning-resources
+.\modules\app\scripts\server.ps1 stop   atlassian
+.\modules\app\scripts\server.ps1 stop   all
 
-.\mcp-servers\scripts\server.ps1 restart  learning-resources
-.\mcp-servers\scripts\server.ps1 restart  atlassian
+.\modules\app\scripts\server.ps1 restart  learning-resources
+.\modules\app\scripts\server.ps1 restart  atlassian
 
-.\mcp-servers\scripts\server.ps1 reset  learning-resources  # stop + clean build + start
-.\mcp-servers\scripts\server.ps1 reset  atlassian
-.\mcp-servers\scripts\server.ps1 reset  all                 # nuclear option
+.\modules\app\scripts\server.ps1 reset  learning-resources  # stop + clean build + start
+.\modules\app\scripts\server.ps1 reset  atlassian
+.\modules\app\scripts\server.ps1 reset  all                 # nuclear option
 
-.\mcp-servers\scripts\server.ps1 demo   learning-resources  # foreground, Ctrl-C to quit
-.\mcp-servers\scripts\server.ps1 demo   atlassian
+.\modules\app\scripts\server.ps1 demo   learning-resources  # foreground, Ctrl-C to quit
+.\modules\app\scripts\server.ps1 demo   atlassian
 
-.\mcp-servers\scripts\server.ps1 list-tools  learning-resources
-.\mcp-servers\scripts\server.ps1 list-tools  atlassian
+.\modules\app\scripts\server.ps1 list-tools  learning-resources
+.\modules\app\scripts\server.ps1 list-tools  atlassian
 
-.\mcp-servers\scripts\server.ps1 logs   learning-resources  # tail logs
-.\mcp-servers\scripts\server.ps1 logs   atlassian
+.\modules\app\scripts\server.ps1 logs   learning-resources  # tail logs
+.\modules\app\scripts\server.ps1 logs   atlassian
 ```
 
 ```bash
 # Linux / macOS / Git Bash — same commands, just:
-./mcp-servers/scripts/server.sh  <command>  <server>
+./modules/app/scripts/server.sh  <command>  <server>
 ```
 
 **Via VS Code Tasks** (`Ctrl+Shift+B` or `Terminal → Run Task`):
@@ -650,15 +650,14 @@ You: "Add it to my vault"
 **Run in demo mode to see it in action:**
 
 ```powershell
-.\mcp-servers\scripts\server.ps1 demo learning-resources
-# Or:
-cd mcp-servers
-java -cp out server.learningresources.LearningResourcesServer --demo
+.\modules\app\scripts\server.ps1 demo learning-resources
+# Or run directly:
+java -cp modules/mcp-learning-resources/build/libs/* server.learningresources.LearningResourcesServer --demo
 ```
 
 ### 5.5 Atlassian Server — All 27 Tools
 
-> Requires credentials. See [mcp-servers/user-config/servers/atlassian/](mcp-servers/user-config/servers/atlassian/) for config files.
+> Requires credentials. See [modules/app/config/servers/atlassian/](modules/app/config/servers/atlassian/) for config files.
 
 **Credential setup:**
 1. Copy `atlassian-config.local.example.properties` to `atlassian-config.local.properties`
@@ -766,7 +765,7 @@ Both are disabled by default. Enable in `.vscode/mcp.json`.
 
 > 🔴 **Pro / those building new servers.**
 
-The Java config system (`mcp-servers/src/config/`) uses a **3-layer merge strategy**:
+The Java config system (`modules/mcp-common/src/main/java/config/`) uses a **3-layer merge strategy**:
 
 ```text
 Layer 3 (highest): Environment variables    MCP_APIKEYS_GITHUB=...
@@ -843,7 +842,7 @@ McpConfiguration
 > 🔴 **Pro.** This section explains the internal search engine architecture used by MCP servers.
 > 🟡 **Amateur:** Skim the diagram. Skip implementation details.
 
-The `search-engine/` module is a **generic, pluggable search pipeline** — a reusable library that
+The `modules/search-engine/` module is a **generic, pluggable search pipeline** — a reusable library that
 any MCP server can wire up in minutes. The Learning Resources server uses it to power
 `search_resources` and `discover_resources`.
 
@@ -1177,7 +1176,7 @@ java -cp out Main
 1. Start: /devops → pick a topic
 2. Learn pipeline anatomy, then specific tools (Docker, K8s, Terraform)
 3. Use the Java servers as real code to build CI pipelines for
-4. Practice: write a mini Dockerfile for the mcp-servers Java app
+4. Practice: write a mini Dockerfile for the MCP servers Java app
 5. Capture: /brain-new with pipeline patterns
 ```
 
@@ -1210,7 +1209,7 @@ java -cp out Main
 ```text
 1. Start: /mcp → learn the protocol, then how the servers here work
 2. Read the skill: .github/skills/devops-tooling/mcp-development/SKILL.md (1,980 lines)
-3. Explore the Java source: mcp-servers/src/server/learningresources/
+3. Explore the Java source: modules/mcp-learning-resources/src/main/java/server/learningresources/
 4. Add a new tool: see §12 Extending
 5. Build your own server: /mcp → "how do I write an MCP server for my own data?"
 ```
@@ -1255,11 +1254,11 @@ The fastest path to actual competence is **build → break → understand → re
 7. **Document** — `/brain-new` an architecture note
 
 For MCP servers specifically:
-1. Run the demo: `.\mcp-servers\scripts\server.ps1 demo learning-resources`
+1. Run the demo: `.\modules\app\scripts\server.ps1 demo learning-resources`
 2. Explore the tools in Copilot Chat
-3. Read the Java source in `mcp-servers/src/server/learningresources/`
+3. Read the Java source in `modules/mcp-learning-resources/src/main/java/server/learningresources/`
 4. Add a new tool (see §12)
-5. Study the search engine (`mcp-servers/src/search/`) — exemplary clean code
+5. Study the search engine (`modules/search-engine/src/main/java/search/`) — exemplary clean code
 
 ---
 
@@ -1387,9 +1386,9 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `.vscode/tasks.json` | All VS Code tasks (build, start, stop, brain, etc.) |
 | `.vscode/launch.json` | F5 run/debug configs for Java servers |
 | `.vscode/mcp.json` | MCP server registry |
-| `mcp-servers/.vscode/launch.json` | Additional launch configs (legacy) |
-| `mcp-servers/.vscode/settings.json` | Java project settings (legacy) |
-| `mcp-servers/.vscode/extensions.json` | Recommended extensions (legacy) |
+| `mcp-servers/.vscode/launch.json` | Additional launch configs (removed — now in root `.vscode/launch.json`) |
+| `mcp-servers/.vscode/settings.json` | Java project settings (removed — now in root `.vscode/settings.json`) |
+| `mcp-servers/.vscode/extensions.json` | Recommended extensions (removed — now in root `.vscode/extensions.json`) |
 
 ### Documentation
 
@@ -1408,9 +1407,9 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `.github/docs/navigation-index.md` | Master lookup index |
 | `.github/docs/search-engine.md` | Search engine architecture |
 | `.github/docs/search-engine-algorithms.md` | Scoring algorithm details |
-| `mcp-servers/README.md` | MCP module deep dive (legacy — see `modules/` READMEs) |
-| `mcp-servers/SETUP.md` | Step-by-step setup (legacy) |
-| `mcp-servers/scripts/README.md` | Scripts framework documentation (legacy) |
+| `modules/app/MCP-README.md` | MCP module deep dive |
+| `modules/app/SETUP.md` | Step-by-step setup |
+| `modules/app/scripts/README.md` | Scripts framework documentation |
 | `brain/ai-brain/README.md` | Brain workspace guide |
 
 ---
@@ -1447,7 +1446,7 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 
 ### Add a New MCP Tool (to Learning Resources Server)
 
-1. Open `mcp-servers/src/server/learningresources/handler/ToolHandler.java`
+1. Open `modules/mcp-learning-resources/src/main/java/server/learningresources/handler/ToolHandler.java`
 2. Add a case to the switch dispatch
 3. Create `MyToolHandler.java` in the `handler/` package
 4. Register the tool in the server's `--list-tools` output
@@ -1456,11 +1455,11 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 
 ### Add a Completely New MCP Server
 
-1. Create `mcp-servers/src/server/myserver/MyServer.java` with a `main()` that:
+1. Create a new module under `modules/` (e.g., `modules/mcp-myserver/`) with a `MyServer.java` that has a `main()` that:
    - Reads from stdin (JSON-RPC 2.0 messages)
    - Writes to stdout (JSON-RPC 2.0 responses)
    - Handles `tools/list` and `tools/call` requests
-2. Add a server definition to `mcp-servers/user-config/mcp-config.properties`:
+2. Add a server definition to `modules/app/config/mcp-config.properties`:
 
    ```properties
    server.my-server.name=My Server
@@ -1477,11 +1476,11 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
      "type": "stdio",
      "command": "java",
      "args": ["-cp", "out", "server.myserver.MyServer"],
-     "cwd": "${workspaceFolder}/mcp-servers"
+     "cwd": "${workspaceFolder}"
    }
    ```
 
-4. Add it to `scripts/server.ps1` and `server.sh` SERVER_CLASS maps
+4. Add it to `modules/app/scripts/server.ps1` and `server.sh` SERVER_CLASS maps
 5. Build and reload window
 
 See the `/mcp` slash command and `.github/skills/devops-tooling/mcp-development/SKILL.md` for the full MCP protocol reference.
@@ -1511,32 +1510,37 @@ Customize after copying:
 ### Copy MCP Servers
 
 ```bash
-cp -r mcp-servers/             /path/to/target/project/mcp-servers/
+cp -r modules/                 /path/to/target/project/modules/
 cp    .vscode/mcp.json         /path/to/target/project/.vscode/mcp.json
 cp    .vscode/tasks.json       /path/to/target/project/.vscode/tasks.json  # merge, don't overwrite
 cp    .vscode/launch.json      /path/to/target/project/.vscode/launch.json  # merge
+cp    build.gradle.kts         /path/to/target/project/
+cp    settings.gradle.kts      /path/to/target/project/
+cp -r gradle/                  /path/to/target/project/gradle/
+cp    gradlew gradlew.bat      /path/to/target/project/
 ```
 
 Then in the target project:
 
 ```powershell
 # Windows
-.\mcp-servers\scripts\setup.ps1
+.\modules\app\scripts\setup.ps1
 ```
 
 ```bash
 # Linux/Mac
-./mcp-servers/scripts/setup.sh
+./modules/app/scripts/setup.sh
 ```
 
 **Gitignore to add:**
 
 ```gitignore
-mcp-servers/user-config/mcp-config.local.properties
-mcp-servers/user-config/servers/**/*.local.properties
-mcp-servers/out/
-mcp-servers/scripts/.pids/
-mcp-servers/scripts/.logs/
+modules/app/config/mcp-config.local.properties
+modules/app/config/servers/**/*.local.properties
+build/
+modules/*/build/
+modules/app/scripts/.pids/
+modules/app/scripts/.logs/
 ```
 
 See [`.github/docs/export-guide.md`](.github/docs/export-guide.md) for a detailed checklist.
@@ -1581,25 +1585,25 @@ brain: status                 Note counts per tier
 
 TERMINAL (Windows PowerShell)
 ─────────────────────────────
-.\mcp-servers\scripts\server.ps1 help
-.\mcp-servers\scripts\server.ps1 status
-.\mcp-servers\scripts\server.ps1 start  learning-resources
-.\mcp-servers\scripts\server.ps1 stop   all
-.\mcp-servers\scripts\server.ps1 reset  all
-.\mcp-servers\scripts\server.ps1 demo   learning-resources
-.\mcp-servers\scripts\server.ps1 logs   learning-resources
-.\mcp-servers\scripts\server.ps1 validate
+.\modules\app\scripts\server.ps1 help
+.\modules\app\scripts\server.ps1 status
+.\modules\app\scripts\server.ps1 start  learning-resources
+.\modules\app\scripts\server.ps1 stop   all
+.\modules\app\scripts\server.ps1 reset  all
+.\modules\app\scripts\server.ps1 demo   learning-resources
+.\modules\app\scripts\server.ps1 logs   learning-resources
+.\modules\app\scripts\server.ps1 validate
 
 TERMINAL (Linux/Mac/Git Bash)
 ──────────────────────────────
-./mcp-servers/scripts/server.sh help
-./mcp-servers/scripts/server.sh status
-./mcp-servers/scripts/server.sh start  learning-resources
-./mcp-servers/scripts/server.sh stop   all
-./mcp-servers/scripts/server.sh reset  all
-./mcp-servers/scripts/server.sh demo   learning-resources
-./mcp-servers/scripts/server.sh logs   learning-resources
-./mcp-servers/scripts/server.sh validate
+./modules/app/scripts/server.sh help
+./modules/app/scripts/server.sh status
+./modules/app/scripts/server.sh start  learning-resources
+./modules/app/scripts/server.sh stop   all
+./modules/app/scripts/server.sh reset  all
+./modules/app/scripts/server.sh demo   learning-resources
+./modules/app/scripts/server.sh logs   learning-resources
+./modules/app/scripts/server.sh validate
 ```
 
 ---

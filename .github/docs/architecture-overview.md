@@ -41,7 +41,7 @@ interfaces_src  ←  pure contracts; zero business logic
 - **Testability:** mock any interface in unit tests without pulling in implementation classes
 - **Layered compilation:** `interfaces_src` compiles independently; implementations can be
   rebuilt and upgraded in isolation
-- **Dependency Inversion Principle (DIP):** high-level policy code (`mcp-servers`) depends
+- **Dependency Inversion Principle (DIP):** high-level policy code (`modules/mcp-*`) depends
   on abstractions (`search-api`), not on concretions (`search-engine`)
 
 ### Applied to this project
@@ -53,7 +53,7 @@ separate modules. `search-engine` contains both layers in two distinct packages:
 |------|--------|---------------|
 | **interfaces_src** (contracts) | `search-engine` | `search.api.*` — 12 interfaces/records |
 | **implementation** | `search-engine` | `search.engine.*` — 14 implementation classes |
-| **domain consumer** | `mcp-servers` | `server.learningresources.*`, `server.atlassian.*` |
+| **domain consumer** | `modules/mcp-learning-resources`, `modules/mcp-atlassian` | `server.learningresources.*`, `server.atlassian.*` |
 
 > **Why one module, not two?**
 > A separate `search-api` module was prototyped then consciously merged back. The
@@ -75,7 +75,7 @@ separate modules. `search-engine` contains both layers in two distinct packages:
                   ┌──────────┴───────────┐
                   ▼                      ▼
          ┌──────────────────┐    ┌───────────────┐
-         │  search-engine   │◄───│  mcp-servers  │
+         │  search-engine   │◄───│  mcp-*        │
          │                  │    │               │
          │  search.api.*    │    │ server.*      │
          │  search.engine.* │    │ config.*      │
@@ -87,9 +87,9 @@ separate modules. `search-engine` contains both layers in two distinct packages:
 
 **Dependency rules:**
 - `search-engine` → **nothing** (leaf node; compiles standalone, 26 files)
-- `mcp-servers` → `search-engine` (gets both `search.api.*` and `search.engine.*`)
+- `modules/mcp-*` → `search-engine` (gets both `search.api.*` and `search.engine.*`)
 
-**Why `mcp-servers` only needs `search-engine`:**
+**Why `modules/mcp-*` only needs `search-engine`:**
 - `search.api.*` (interface types like `SearchEngine<T>`, `SearchResult<T>`) live _inside_ `search-engine`
 - `search.engine.*` (base classes like `ConfigurableSearchEngine<T>`) also live in `search-engine`
 - One module dependency covers everything
@@ -126,7 +126,7 @@ Tier 2 — ALGORITHM IMPLEMENTATIONS (search-engine / search.engine.*)
   KeywordRegistry<V>            ← query-to-domain inference
   SearchEngineConfig<T>         ← wires all components together
 
-Tier 3 — DOMAIN-SPECIFIC ENGINES (mcp-servers)
+Tier 3 — DOMAIN-SPECIFIC ENGINES (modules/mcp-learning-resources)
 ─────────────────────────────────────────────────────────────
   LearningSearchEngine          ← Tier-2 engine for all learning resources
   OfficialDocsSearchEngine      ← Tier-3 engine for official docs only
@@ -291,11 +291,11 @@ for a complete protocol breakdown.
 ### Dependency Inversion Principle (DIP)
 
 From **SOLID** principles. The `search-api` module IS the application of DIP:
-- High-level policy: `mcp-servers` (uses search to serve AI queries)
+- High-level policy: `modules/mcp-*` (uses search to serve AI queries)
 - Abstraction: `search-api` (`SearchEngine<T>`, `ScoringStrategy<T>`, ...)
 - Low-level detail: `search-engine` (BM25, TextMatchScorer, pipelines)
 
-Policy code (`mcp-servers`) depends ONLY on abstractions (`search-api`).
+Policy code (`modules/mcp-*`) depends ONLY on abstractions (`search-api`).
 Low-level detail (`search-engine`) also depends on the same abstractions.
 
 ### Interface Segregation Principle (ISP)
@@ -408,7 +408,7 @@ assistant through to domain services.
 ```text
 learning-assistant/                    ← IntelliJ project root
 │
-├── search-api/                        ← MODULE: Pure interface contracts
+├── search-api/                        ← PACKAGE: Pure interface contracts
 │   └── src/search/api/
 │       ├── core/       SearchEngine, SearchContext, SearchResult, ScoredItem, ScoreBreakdown
 │       ├── classify/   SearchMode (enum), QueryClassifier
@@ -417,7 +417,7 @@ learning-assistant/                    ← IntelliJ project root
 │       ├── rank/       RankingStrategy
 │       └── index/      SearchIndex
 │
-├── search-engine/                     ← MODULE: Algorithm implementations
+├── search-engine/                     ← PACKAGE: Algorithm implementations
 │   └── src/search/engine/
 │       ├── core/       ConfigurableSearchEngine (5-phase pipeline)
 │       ├── algorithm/  Bm25Scorer, TextMatchScorer, CompositeScorer, TagScorer,
@@ -428,9 +428,8 @@ learning-assistant/                    ← IntelliJ project root
 │       ├── rank/       ScoreRanker, RecencyBoostRanker
 │       └── index/      InMemoryIndex, KeywordRegistry
 │
-├── mcp-servers/                       ← MODULE: Domain engines + MCP protocol
-│   └── src/
-│       ├── Main.java                  ← Entry point, server registry
+├── modules/mcp-learning-resources/    ← MODULE: Learning Resources MCP server
+│   └── src/main/java/
 │       ├── config/                    ← Config loading, validation, models
 │       └── server/
 │           ├── learningresources/     ← Learning Resources MCP server
@@ -441,7 +440,9 @@ learning-assistant/                    ← IntelliJ project root
 │           │   ├── handler/           Tool handlers (search, discover, browse)
 │           │   ├── content/           Resource definitions
 │           │   └── scraper/           Resource scrapers
-│           └── atlassian/             ← Atlassian MCP server (Jira, Confluence, Bitbucket)
+├── modules/mcp-atlassian/             ← MODULE: Atlassian MCP server
+│   └── src/main/java/server/
+│       └── atlassian/             ← Atlassian MCP server (Jira, Confluence, Bitbucket)
 │               ├── AtlassianServer.java
 │               ├── client/            REST clients per product
 │               ├── handler/           Tool handlers
@@ -460,7 +461,7 @@ learning-assistant/                    ← IntelliJ project root
 ### Add a new scoring strategy
 
 ```java
-// In mcp-servers or search-engine
+// In modules/mcp-learning-resources or modules/search-engine
 public final class DifficultyScorer<T> implements ScoringStrategy<T> {
 
     private final Function<T, DifficultyLevel> difficultyExtractor;
@@ -529,10 +530,10 @@ public final class BookSearchEngine extends ConfigurableSearchEngine<LearningRes
 
 ### Add a new MCP server
 
-1. Create `mcp-servers/src/server/myserver/MyServer.java` implementing the MCP server contract
-2. Add tool handlers in `mcp-servers/src/server/myserver/handler/`
+1. Create a new module under `modules/` (e.g., `modules/mcp-myserver/`) with `MyServer.java`
+2. Add tool handlers in `modules/mcp-myserver/src/main/java/server/myserver/handler/`
 3. Register the server in `Main.java`
-4. Add user-config in `mcp-servers/user-config/servers/myserver/`
+4. Add config in `modules/app/config/servers/myserver/`
 
 See [mcp-servers-architecture.md](mcp-servers-architecture.md) for the full protocol.
 
