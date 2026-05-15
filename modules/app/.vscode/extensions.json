@@ -1,0 +1,28 @@
+{
+    // ==========================================================================
+    // Recommended VS Code Extensions for MCP Server Development
+    // ==========================================================================
+    // When you open this folder, VS Code will prompt to install these.
+    // These are suggestions — your project will work without them.
+    "recommendations": [
+        // Java
+        "vscjava.vscode-java-pack",
+        "redhat.java",
+        "vscjava.vscode-java-debug",
+
+        // Properties file support
+        "iniber.vscode-java-properties",
+
+        // GitHub Copilot (for AI-assisted config and coding)
+        "github.copilot",
+        "github.copilot-chat",
+
+        // Git & version control
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+
+        // General productivity
+        "streetsidesoftware.code-spell-checker",
+        "gruntfuggly.todo-tree"
+    ]
+}

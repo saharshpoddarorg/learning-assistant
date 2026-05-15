@@ -1,0 +1,245 @@
+# Developer Setup Guide — MCP Servers
+
+> **First time?** Read the full newbie walkthrough first: [`.github/docs/mcp-server-setup.md`](../.github/docs/mcp-server-setup.md)
+> It explains what MCP is, prerequisites, credentials, and how to use in another project.
+
+> **Time:** ~5 minutes
+> **Goal:** Get the MCP servers running and connected to GitHub Copilot.
+> **Prerequisite:** JDK 21+ ([Adoptium](https://adoptium.net/) or [Azul Zulu](https://www.azul.com/downloads/))
+
+---
+
+## The Key File: `.vscode/mcp.json`
+
+The file that connects MCP servers to VS Code/Copilot is **`.vscode/mcp.json`** in the repo root.
+It already exists in this repo — you only need to:
+
+1. **Build** the Java servers (compile Java source → `out/`)
+2. **Fill in credentials** in the `.local.properties` files (gitignored)
+3. **Set `"disabled": false`** for the servers you want in `.vscode/mcp.json`
+4. **Reload VS Code** (`Ctrl+Shift+P` → "Reload Window")
+
+See [`.vscode/mcp.json`](../.vscode/mcp.json) — it has inline comments explaining every entry.
+
+---
+
+## Quick Start (Automated)
+
+The fastest path — run the setup wizard:
+
+```bash
+# Linux / macOS / Git Bash
+./scripts/setup.sh
+```
+
+```powershell
+# Windows PowerShell
+.\scripts\setup.ps1
+```
+
+The setup wizard will:
+1. Create `mcp-config.local.properties` from the template (if missing)
+2. Create the MCP browser data directory for auto-isolation
+3. Auto-detect your browser
+4. Check for API keys
+5. Print what's ready and what needs attention
+
+**After setup, you only need to do ONE thing:** set your API keys.
+
+---
+
+## Prerequisites
+
+**Java 21+** is required for records, `var`, `Map.ofEntries()`, etc.
+
+```bash
+java -version   # Must show 21+
+
+# If multiple JDKs, set JAVA_HOME:
+export JAVA_HOME=/path/to/jdk-21        # Linux/Mac
+$env:JAVA_HOME = "C:\path\to\jdk-21"     # Windows PowerShell
+```
+
+---
+
+## Configuration System
+
+This project uses **layered configuration** — you only need to provide secrets:
+
+| File | Committed | Purpose |
+|------|:---------:|---------|
+| `user-config/mcp-config.properties` | **Yes** | Base config: safe defaults, empty secrets, full documentation |
+| `user-config/mcp-config.local.properties` | No (gitignored) | Your secrets and machine-specific overrides |
+| `user-config/mcp-config.local.example.properties` | **Yes** | Tiny template showing what to put in the local file |
+| Environment variables (`MCP_*`) | — | Highest priority — overrides both files |
+
+**Precedence (highest wins):**
+
+```text
+  Environment vars (MCP_*)  →  local config  →  base config  →  defaults
+```
+
+---
+
+## Setting API Keys
+
+Choose **one** of these methods:
+
+### Option A: Local config file (recommended for persistence)
+
+Edit `user-config/mcp-config.local.properties`:
+
+```properties
+apiKeys.github=ghp_your_actual_token_here
+server.github.env.GITHUB_TOKEN=ghp_your_actual_token_here
+```
+
+### Option B: Environment variables (recommended for CI/secrets managers)
+
+```bash
+# Linux/Mac
+export MCP_APIKEYS_GITHUB="ghp_your_actual_token_here"
+
+# Windows PowerShell
+$env:MCP_APIKEYS_GITHUB = "ghp_your_actual_token_here"
+```
+
+### Option C: VS Code launch config
+
+```jsonc
+// In .vscode/launch.json → configurations[0].env:
+"env": {
+    "MCP_APIKEYS_GITHUB": "ghp_your_actual_token_here"
+}
+```
+
+| Service | Key Format | Where to Generate |
+|---------|-----------|-------------------|
+| **GitHub** | `ghp_xxxxxxxxxxxx` | [github.com/settings/tokens](https://github.com/settings/tokens) |
+| **OpenAI** | `sk-proj-xxxxxxxxxxxx` | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
+| **Atlassian (Jira/Confluence)** | Email + API Token | [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens) |
+| **Bitbucket** | Personal Access Token (PAT) | Bitbucket → Settings → App passwords / Personal tokens |
+
+**Atlassian-specific config** (in `mcp-config.local.properties`):
+
+```properties
+# Jira + Confluence (Atlassian Cloud)
+atlassian.email=you@company.com
+atlassian.token=your_api_token_here
+atlassian.jira.url=https://your-org.atlassian.net
+atlassian.confluence.url=https://your-org.atlassian.net
+
+# Bitbucket Cloud
+atlassian.bitbucket.url=https://api.bitbucket.org
+atlassian.bitbucket.token=your_pat_here
+```
+
+---
+
+## Browser Isolation
+
+Browser isolation is **automatic** — no manual profile creation needed.
+
+The launch scripts use `--user-data-dir` (Chromium) or `-profile` (Firefox) to create
+a completely separate browser instance. Your personal tabs, cookies, profiles, and
+accounts are **never touched**.
+
+| | Location |
+|---|---|
+| **Linux/Mac** | `~/.mcp/browser-data` |
+| **Windows** | `%LOCALAPPDATA%\mcp\browser-data` |
+
+Override via `browser.dataDir` in config or `MCP_BROWSER_DATADIR` env var.
+
+---
+
+## Build & Run
+
+Use the included build scripts — they auto-detect the JDK and compile all source files to `out/`:
+
+```powershell
+# Windows PowerShell
+cd mcp-servers
+.\build.ps1          # compile everything
+.\build.ps1 -Clean   # clean out/ then compile
+```
+
+```bash
+# Linux / macOS / Git Bash
+cd mcp-servers
+./build.sh           # compile everything
+./build.sh --clean   # clean out/ then compile
+```
+
+**Or use VS Code Tasks** (`Ctrl+Shift+B` / `Terminal → Run Task`):
+
+| Task | Description |
+|------|-------------|
+| `mcp-servers: build` | Compile all Java sources → `out/` |
+| `mcp-servers: build (clean)` | Wipe `out/` then recompile from scratch |
+
+**After building, run a specific server:**
+
+```bash
+# Config loader (validates mcp-config.properties)
+java -cp out Main
+
+# Learning Resources MCP Server
+java -cp out server.learningresources.LearningResourcesServer --demo
+
+# Atlassian MCP Server (Jira + Confluence + Bitbucket — 27 tools)
+java -cp out server.atlassian.AtlassianServer --list-tools   # list all 27 tools
+java -cp out server.atlassian.AtlassianServer --demo         # demo mode (no credentials)
+java -cp out server.atlassian.AtlassianServer                # production STDIO mode
+```
+
+**Or use the lifecycle manager** for start/stop/restart/reset/logs:
+
+```powershell
+# Windows
+.\scripts\server.ps1 status
+.\scripts\server.ps1 start  learning-resources
+.\scripts\server.ps1 demo   atlassian
+.\scripts\server.ps1 logs   learning-resources
+.\scripts\server.ps1 reset  all
+```
+
+```bash
+# Linux/macOS / Git Bash
+./scripts/server.sh status
+./scripts/server.sh start  learning-resources
+./scripts/server.sh demo   atlassian
+./scripts/server.sh logs   learning-resources
+./scripts/server.sh reset  all
+```
+
+Or press `F5` in VS Code → select a run config (e.g. **"LR — Demo mode"** or **"Atlassian — List tools"**).
+
+---
+
+## Validate Configuration
+
+```bash
+./scripts/common/utils/validate-config.sh --fix-suggestions
+```
+
+---
+
+## Copying to Another Project
+
+Copy these folders to your target project:
+
+```bash
+cp -r mcp-servers/.vscode     /path/to/target/mcp-servers/.vscode
+cp -r mcp-servers/user-config  /path/to/target/mcp-servers/user-config
+cp -r mcp-servers/scripts      /path/to/target/mcp-servers/scripts
+cp -r mcp-servers/src          /path/to/target/mcp-servers/src
+```
+
+Then run `./scripts/setup.sh` in the target project. That's it.
+
+**Checklist after copying:**
+- [ ] Run `./scripts/setup.sh` (creates local config, browser dir)
+- [ ] Set API keys in `mcp-config.local.properties` or env vars
+- [ ] Add to target `.gitignore`: `mcp-servers/user-config/mcp-config.local.properties`
+- [ ] Verify `.vscode/settings.json` → `java.project.sourcePaths` matches your structure
