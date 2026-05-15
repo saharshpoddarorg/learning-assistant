@@ -15,6 +15,19 @@ and **details** (context). Entries are newest-first within each month.
 
 ---
 
+## 2026-05
+
+| Date | Time | ID | Action | From | To | Details |
+|---|---|---|---|---|---|---|
+| 2026-05-15 | — | EPIC-005 | created | — | draft | Full repo revamp — modularize prompts, skills, agents, MCP, brain (34 items) |
+| 2026-05-15 | — | BLI-041–074 | created | — | todo | 34 modularization items across 7 phases (EPIC-005) |
+| 2026-05-15 | — | EPIC-004 | created | — | active | Stale reference cleanup post-Gradle migration (13 items) |
+| 2026-05-15 | — | BLI-028–040 | created | — | todo | 13 stale path cleanup items across 4 phases (EPIC-004) |
+| 2026-05-15 | — | — | system | — | — | Created features-inventory.md — comprehensive repo capabilities inventory |
+| 2026-05-15 | — | — | system | — | — | Updated all board views (by-status, by-priority, by-project, by-source, CHANGELOG) |
+
+---
+
 ## 2026-04
 
 | Date | Time | ID | Action | From | To | Details |
@@ -80,19 +93,20 @@ and **details** (context). Entries are newest-first within each month.
 
 | Month | Changes | Items Created | Items Completed | Sprint Completions |
 |---|---|---|---|---|
+| 2026-05 | 6 | 47 | 0 | 0 |
 | 2026-04 | 17 | 9 | 0 | 0 |
 | 2026-03 | 7 | 21 | 1 | 0 |
 
 ### Cumulative
 
 ```text
-Total items created:     30
+Total items created:     77
 Total items completed:    1
-Completion rate:          3%
+Completion rate:          1%
 Active sprints:           0
 Completed sprints:        0
 ```
 
 ---
 
-> **Last updated:** 2026-04-21
+> **Last updated:** 2026-05-15

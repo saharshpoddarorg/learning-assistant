@@ -9,26 +9,30 @@
 ## Priority Distribution
 
 ```text
-Critical  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0   (0%)
-High      ████████████████░░░░░░░░░░░░░░░░░░░░░░░░   9  (33%)
-Medium    ██████████████████░░░░░░░░░░░░░░░░░░░░░░░░  10  (40%)
-Low       ████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   7  (28%)
+Critical  ████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   4   (5%)
+High      ██████████████████████░░░░░░░░░░░░░░░░░░░░░  18  (24%)
+Medium    ████████████████████████████░░░░░░░░░░░░░░░░  26  (35%)
+Low       ██████████████████████████░░░░░░░░░░░░░░░░░░  20  (27%)
+Done      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1   (1%)
+In Prog.  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1   (1%)
 ```
 
 ---
 
-## Critical (0)
+## Critical (4)
 
 > Urgent items requiring immediate attention. Drop everything.
 
 | ID | Title | Type | Epic | Status | Created |
 |---|---|---|---|---|---|
-
-> No critical items. Good.
+| BLI-028 | Fix copilot-instructions.md build description and stale paths | feature | EPIC-004 | todo | 2026-05-15 |
+| BLI-029 | Fix stale paths in mcp-server-setup.md | feature | EPIC-004 | todo | 2026-05-15 |
+| BLI-030 | Fix stale paths in configuration-reference.md | feature | EPIC-004 | todo | 2026-05-15 |
+| BLI-031 | Fix stale path in mcp-to-skill.prompt.md | feature | EPIC-004 | todo | 2026-05-15 |
 
 ---
 
-## High (9)
+## High (18)
 
 > Important items to prioritise in the next sprint/iteration.
 
@@ -42,11 +46,27 @@ Low       ████████████░░░░░░░░░░░�
 | BLI-011 | Brain consolidation — tabs, bookmarks, workspace, notes | feature | EPIC-002 | todo | features/ | 2026-03-26 |
 | BLI-012 | Enhanced web scraping & search engine | feature | EPIC-002 | todo | features/ | 2026-03-26 |
 | BLI-020 | Build GitHub MCP server | feature | — | todo | features/ | 2026-04-11 |
+| BLI-026 | Evolve 6-primitive layered architecture | feature | EPIC-001 | in-progress | features/ | 2026-04-21 |
 | BLI-027 | Build code analysis context enhancement chain | feature | — | todo | features/ | 2026-04-21 |
+| BLI-032 | Fix stale paths in search-engine docs | feature | EPIC-004 | todo | features/ | 2026-05-15 |
+| BLI-033 | Fix stale paths in USAGE.md | feature | EPIC-004 | todo | features/ | 2026-05-15 |
+| BLI-034 | Fix brain model path references | feature | EPIC-004 | todo | features/ | 2026-05-15 |
+| BLI-035 | Fix stale paths in versioning, mcp-vs-skills, phase-guide | feature | EPIC-004 | todo | features/ | 2026-05-15 |
+| BLI-036 | Fix stale paths in slash-commands, nav-index, evolution-guide | feature | EPIC-004 | todo | features/ | 2026-05-15 |
+| BLI-041 | Audit prompt frontmatter consistency | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-042 | Extract inline domain knowledge from prompts into skills | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-043 | Standardize prompt composition patterns | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-048 | Audit skill activation keyword overlaps | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-049 | Standardize skill file structure | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-054 | Standardize agent template and structure | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-055 | Document complete agent handoff graph | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-058 | Deprecate/remove Atlassian v1 server | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-059 | Unify MCP server configuration pattern | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-063 | Measure instruction context overhead | feature | EPIC-005 | todo | features/ | 2026-05-15 |
 
 ---
 
-## Medium (10)
+## Medium (26)
 
 > Standard priority — schedule in upcoming sprints.
 
@@ -62,10 +82,28 @@ Low       ████████████░░░░░░░░░░░�
 | BLI-022 | Export and migration support for portability | feature | EPIC-002 | todo | features/ | 2026-04-11 |
 | BLI-023 | Cross-repo item merge and sync | feature | EPIC-002 | todo | features/ | 2026-04-11 |
 | BLI-024 | Workflow and terminal conditions framework | feature | EPIC-001 | todo | features/ | 2026-04-11 |
+| BLI-037 | Fix stale paths in EPIC-001 and EPIC-002 notes | feature | EPIC-004 | todo | features/ | 2026-05-15 |
+| BLI-038 | Fix stale paths in MCP-README.md and SETUP.md | feature | EPIC-004 | todo | features/ | 2026-05-15 |
+| BLI-044 | Refactor meta prompts for clarity | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-045 | Consolidate brain prompts | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-046 | Standardize prompt input variables | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-050 | Split oversized skills into sub-files | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-051 | Extract prompt-embedded knowledge into new skills | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-052 | Verify skill ↔ prompt ↔ agent cross-references | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-056 | Review and normalize agent tool restrictions | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-060 | Create skill wrappers for all MCP tool categories | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-061 | Auto-generate MCP tool documentation from Java source | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-064 | Split chat-capture into core + reference | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-065 | Split change-completeness into core + checklists | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-066 | Resolve instruction overlaps | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-067 | Audit brain PKM policy files for overlap | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-068 | Consolidate brain scripts | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-072 | Audit docs for content duplication | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-073 | Verify all cross-links and navigation | feature | EPIC-005 | todo | features/ | 2026-05-15 |
 
 ---
 
-## Low (7)
+## Low (20)
 
 > Nice-to-have — backlog items to consider when capacity allows.
 
@@ -78,6 +116,16 @@ Low       ████████████░░░░░░░░░░░�
 | BLI-018 | Code snippet & template manager | project | EPIC-003 | todo | projects/ | 2026-03-26 |
 | BLI-019 | Tally-Vyapaar accounting application | project | EPIC-003 | todo | projects/ | 2026-04-11 |
 | BLI-025 | Library/glossary for abbreviations and aliases | feature | EPIC-001 | todo | features/ | 2026-04-11 |
+| BLI-039 | Add module-specific README.md to each modules directory | feature | EPIC-004 | todo | features/ | 2026-05-15 |
+| BLI-040 | Consolidate configuration documentation | feature | EPIC-004 | todo | features/ | 2026-05-15 |
+| BLI-047 | Create prompt composition map document | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-053 | Create skill activation map document | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-057 | Create agent selection guide | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-062 | Add MCP server health check and status tasks | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-069 | Create brain workspace export template | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-070 | Document brain tier boundaries | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-071 | Review session escalation protocol complexity | feature | EPIC-005 | todo | features/ | 2026-05-15 |
+| BLI-074 | Create documentation hierarchy diagram | feature | EPIC-005 | todo | features/ | 2026-05-15 |
 
 ---
 
@@ -92,4 +140,4 @@ Low       ████████████░░░░░░░░░░░�
 
 ---
 
-> **Last updated:** 2026-04-11
+> **Last updated:** 2026-05-15
