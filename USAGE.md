@@ -504,8 +504,8 @@ to your files or the internet."      Copilot: "I found 12 Java resources in
 
 ```text
 .vscode/mcp.json          ← REGISTRY: tells VS Code which servers exist
-mcp-servers/out/          ← COMPILED CODE: the Java server programs
-mcp-servers/user-config/  ← SECRETS: your API keys (gitignored)
+modules/                   ← SOURCE CODE: Gradle multi-module Java project
+modules/app/config/        ← SECRETS: your API keys (gitignored)
 ```
 
 ### 5.2 VS Code Auto-Management via mcp.json
@@ -1370,15 +1370,15 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | File | What it does |
 |------|-------------|
 | `.vscode/mcp.json` | Registry — which servers VS Code starts |
-| `mcp-servers/build.ps1` / `build.sh` | Compile Java → `out/` |
-| `mcp-servers/scripts/server.ps1` / `server.sh` | Lifecycle: start/stop/restart/reset/demo/logs |
-| `mcp-servers/scripts/setup.ps1` / `setup.sh` | One-time onboarding wizard |
-| `mcp-servers/user-config/mcp-config.properties` | Base config — safe defaults (committed) |
-| `mcp-servers/user-config/mcp-config.local.properties` | Your secrets (gitignored) |
-| `mcp-servers/src/server/learningresources/` | Learning Resources server source |
-| `mcp-servers/src/server/atlassian/` | Atlassian server source |
-| `mcp-servers/src/config/` | Config system (loader, model, validator) |
-| `mcp-servers/src/search/` | Pluggable search engine |
+| `./gradlew build` | Build all modules (Gradle Kotlin DSL) |
+| `modules/app/scripts/server.ps1` / `server.sh` | Lifecycle: start/stop/restart/reset/demo/logs |
+| `modules/app/scripts/setup.ps1` / `setup.sh` | One-time onboarding wizard |
+| `modules/app/config/mcp-config.properties` | Base config — safe defaults (committed) |
+| `modules/app/config/mcp-config.local.properties` | Your secrets (gitignored) |
+| `modules/mcp-learning-resources/` | Learning Resources server source |
+| `modules/mcp-atlassian/` | Atlassian server source |
+| `modules/mcp-common/` | Config system, base server, utilities |
+| `modules/search-engine/` | Pluggable search engine |
 
 ### VS Code Config
 
@@ -1387,9 +1387,9 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `.vscode/tasks.json` | All VS Code tasks (build, start, stop, brain, etc.) |
 | `.vscode/launch.json` | F5 run/debug configs for Java servers |
 | `.vscode/mcp.json` | MCP server registry |
-| `mcp-servers/.vscode/launch.json` | Additional launch configs (module-level) |
-| `mcp-servers/.vscode/settings.json` | Java project settings |
-| `mcp-servers/.vscode/extensions.json` | Recommended extensions |
+| `mcp-servers/.vscode/launch.json` | Additional launch configs (legacy) |
+| `mcp-servers/.vscode/settings.json` | Java project settings (legacy) |
+| `mcp-servers/.vscode/extensions.json` | Recommended extensions (legacy) |
 
 ### Documentation
 
@@ -1408,9 +1408,9 @@ Open with `Ctrl+Shift+B` (default build task) or `Terminal → Run Task` (all ta
 | `.github/docs/navigation-index.md` | Master lookup index |
 | `.github/docs/search-engine.md` | Search engine architecture |
 | `.github/docs/search-engine-algorithms.md` | Scoring algorithm details |
-| `mcp-servers/README.md` | MCP module deep dive |
-| `mcp-servers/SETUP.md` | Step-by-step setup (quick) |
-| `mcp-servers/scripts/README.md` | Scripts framework documentation |
+| `mcp-servers/README.md` | MCP module deep dive (legacy — see `modules/` READMEs) |
+| `mcp-servers/SETUP.md` | Step-by-step setup (legacy) |
+| `mcp-servers/scripts/README.md` | Scripts framework documentation (legacy) |
 | `brain/ai-brain/README.md` | Brain workspace guide |
 
 ---

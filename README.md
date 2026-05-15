@@ -104,44 +104,40 @@ Browse the skill files directly — they're well-structured Markdown:
 ## Repository Structure
 
 ```text
-learning-assistant/
+learning-assistant/                      ← Gradle multi-module project (Java 21+)
 │
-├── README.md                        ← You are here
+├── settings.gradle.kts                      Module declarations
+├── build.gradle.kts                         Shared build conventions
+├── gradlew.bat / gradlew                    Gradle wrapper (no install needed)
+│
+├── modules/                             ← ALL Java code — 7 Gradle modules
+│   ├── search-engine/                       Generic search library (0 deps)
+│   ├── mcp-common/                          Shared MCP infrastructure (config, util, base server)
+│   ├── mcp-learning-resources/              Learning Resources MCP server (vault, search, tools)
+│   ├── mcp-atlassian/                       Atlassian MCP server (27 tools: Jira, Confluence, Bitbucket)
+│   ├── app/                                 Application entry point + operational scripts
+│   ├── brain-models/                        Note metadata models for digital notetaking
+│   └── mac-os/                              macOS development sandbox
+│
+├── .github/                             ← AI customization + knowledge base
+│   ├── copilot-instructions.md              Project-wide coding rules
+│   ├── instructions/                        Auto-loaded coding standards (Java, clean code)
+│   ├── agents/                              8 specialist AI personas + 1 personal mentor
+│   ├── prompts/                             65 slash commands across 10 categories
+│   ├── skills/                              23 auto-loaded knowledge packs across 8 categories
+│   └── docs/                                Developer documentation & tutorials
+│
+├── brain/                               ← Knowledge workspace (non-Java)
+│   ├── ai-brain/                            Personal notes, sessions, backlog, PKM
+│   └── digitalnotetaking/                   PKM guides and methodology
+│
+├── mac-os/docs/                         ← macOS environment setup guides
+│
 ├── .vscode/
-│   ├── mcp.json                         MCP server registry — tells VS Code/Copilot which servers to run
-│   └── tasks.json                       Build tasks (Ctrl+Shift+B → "mcp-servers: build")
+│   ├── mcp.json                             MCP server registry
+│   └── tasks.json                           Build & run tasks
 │
-├── src/                             ← Code sandbox
-│   └── Main.java                        Java entry point (expandable to any language)
-│
-├── mcp-servers/                     ← MCP Server configuration + implementations
-│   ├── README.md                        Module docs, setup guide, architecture
-│   ├── SETUP.md                         Step-by-step setup guide
-│   ├── build.ps1 / build.sh             Build scripts — auto-detect JDK, compile → out/
-│   ├── .vscode/
-│   │   ├── mcp.json.example             Portable MCP config template (copy to other projects)
-│   │   ├── settings.json                Java project settings (portable)
-│   │   ├── launch.json                  F5 launch configs for each server
-│   │   └── extensions.json              Recommended extensions
-│   ├── user-config/
-│   │   ├── mcp-config.properties            Base config — safe defaults, no secrets (committed)
-│   │   ├── mcp-config.local.properties      YOUR secrets — gitignored, never committed
-│   │   ├── mcp-config.local.example.properties  Template for local config
-│   │   └── servers/atlassian/               Atlassian-specific config (same pattern)
-│   └── src/
-│       ├── config/                      Java config system (records, loader, validator)
-│       └── server/
-│           ├── learningresources/       Learning Resources MCP Server (~100+ built-in resources)
-│           └── atlassian/               Atlassian MCP Server (27 tools: Jira, Confluence, Bitbucket)
-│
-└── .github/                         ← AI customization + knowledge base
-    ├── copilot-instructions.md          Project-wide coding rules
-    ├── instructions/                    Auto-loaded coding standards (Java, clean code)
-    ├── agents/                          7 specialist AI personas + 1 personal mentor
-    ├── prompts/                         65 slash commands across 10 categories (type /command in Chat)
-    ├── skills/                          23 auto-loaded knowledge packs across 8 categories
-    │   └── learning-resources/software-engineering-resources/SKILL.md  ← The main knowledge base
-    └── docs/                            Developer documentation & tutorials
+└── __md_lint.ps1                            Markdown formatting linter
 ```
 
 <details>
@@ -213,11 +209,22 @@ learning-assistant/
 
 ---
 
-## MCP Servers Module
+## MCP Servers
 
-The `mcp-servers/` directory contains a **Java-based configuration system** and **MCP server implementations** for the Model Context Protocol — the protocol that lets AI assistants connect to external tools and data sources.
+The `modules/mcp-*` directories contain **Java-based MCP server implementations** for the Model Context Protocol — the protocol that lets AI assistants connect to external tools and data sources. Built with **Gradle** (Kotlin DSL) for proper dependency management.
 
-### Learning Resources Server (NEW)
+### Build
+
+```bash
+# Build all modules (from project root)
+./gradlew build
+
+# Build a specific server
+./gradlew :modules:mcp-atlassian:build
+./gradlew :modules:mcp-learning-resources:build
+```
+
+### Learning Resources Server
 
 The first built-in MCP server — a **web scraper + curated resource vault** with ~100+ hand-picked learning resources:
 
@@ -235,14 +242,11 @@ The first built-in MCP server — a **web scraper + curated resource vault** wit
 | `export_results` | Export results as Markdown, PDF, or Word |
 
 ```bash
-# Try it:
-cd mcp-servers
-javac -d out src/**/*.java
-java -cp out server.learningresources.LearningResourcesServer --demo
-java -cp out server.learningresources.LearningResourcesServer --list-tools
+# Build and run Learning Resources server
+./gradlew :modules:mcp-learning-resources:build
 ```
 
-See [Learning Resources Server README](mcp-servers/src/server/learningresources/README.md) for full documentation.
+See [Learning Resources Module README](modules/mcp-learning-resources/README.md) for full documentation.
 
 ### Configuration System
 
@@ -258,11 +262,11 @@ See [Learning Resources Server README](mcp-servers/src/server/learningresources/
 **Quick start:**
 
 ```bash
-cp mcp-servers/user-config/mcp-config.example.properties mcp-servers/user-config/mcp-config.properties
+cp modules/app/config/mcp-config.example.properties modules/app/config/mcp-config.properties
 # Replace <<<PLACEHOLDER>>> values (search for "<<<")
 ```
 
-See the [MCP Servers README](mcp-servers/README.md) for the full setup guide, architecture docs, and how to add new servers.
+See the [App Module README](modules/app/MCP-README.md) for the full setup guide, architecture docs, and how to add new servers.
 
 ---
 

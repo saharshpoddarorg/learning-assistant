@@ -74,25 +74,28 @@ When uncertain about the right approach:
 ## Project Structure
 
 ```text
-learning-assistant/
+learning-assistant/                      ← Gradle multi-module project (Java 21+)
+├── settings.gradle.kts                      Module declarations
+├── build.gradle.kts                         Root build conventions
+├── modules/                             ← ALL Java code — 7 Gradle modules
+│   ├── search-engine/                       Generic search library (0 deps)
+│   ├── mcp-common/                          Shared config, util, base MCP server
+│   ├── mcp-learning-resources/              Learning Resources MCP server (vault, tools)
+│   ├── mcp-atlassian/                       Atlassian MCP server (27 tools)
+│   ├── app/                                 Entry point + operational scripts & config
+│   ├── brain-models/                        Note metadata models
+│   └── mac-os/                              macOS dev sandbox
 ├── .github/              ← Copilot customization files (you're learning this!)
-├── brain/                ← Brain module (Java code + knowledge workspace)
-│   ├── src/              ← Java entry point + digitalnotetaking package
+├── brain/                ← Knowledge workspace (non-Java)
 │   ├── ai-brain/         ← Personal knowledge workspace (inbox, notes, library, sessions, backlog, pkm)
 │   └── digitalnotetaking/ ← PKM guides and knowledge hub
-├── mac-os/               ← macOS dev environment learning module
-│   └── docs/             ← Homebrew, JDK, npm, IDEs, Docker, dotfiles guides
-├── mcp-servers/          ← MCP servers (Java) — Learning Resources + Atlassian
-├── search-engine/        ← Search engine learning module
-├── src/
-│   └── Main.java         ← Entry point
+├── mac-os/docs/          ← macOS environment setup guides
 └── .gitignore
 ```
 
-> **Module note:** The `brain/` directory is a Java module (`brain.iml`) that contains
-> both Java source code (`src/digitalnotetaking/`) AND the knowledge workspace
-> (`ai-brain/`). The Java code models note metadata; the workspace holds actual notes.
-> When exporting, you typically copy only `ai-brain/` — not the Java code.
+> **Build note:** This project uses Gradle Kotlin DSL with a multi-module layout.
+> All Java source lives under `modules/`. Run `./gradlew build` from the project root
+> to compile all modules. Each module has its own `build.gradle.kts` declaring dependencies.
 
 ## Configurable Paths
 
