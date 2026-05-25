@@ -32,7 +32,7 @@ Every modular skill follows this internal layout:
 | # | Skill | Source (legacy) | Status | Notes |
 |---|---|---|---|---|
 | 1 | `java-build` | `languages-platforms/java-build/` | migrated | Single-file, clean |
-| 2 | `java-debugging` | `languages-platforms/java-debugging/` | pending | |
+| 2 | `java-debugging` | `languages-platforms/java-debugging/` | migrated | Trimmed ~60% — removed generic fix patterns |
 | 3 | `java-formatting` | `languages-platforms/java-formatting/` | pending | opt-in |
 | 4 | `java-learning-resources` | `languages-platforms/java-learning-resources/` | pending | |
 | 5 | `jvm-platform` | `languages-platforms/jvm-platform/` | pending | |
