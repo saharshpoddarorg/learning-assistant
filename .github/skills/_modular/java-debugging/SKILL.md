@@ -42,17 +42,38 @@ java -verbose:gc -cp src Main
 java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -cp src Main
 ```
 
-## VS Code Java Debugger Shortcuts
+## IDE Debugger Shortcuts
 
-| Action | Shortcut |
-|---|---|
-| Toggle breakpoint | `F9` |
-| Start debugging | `F5` |
-| Step over | `F10` |
-| Step into | `F11` |
-| Step out | `Shift+F11` |
-| Continue | `F5` |
-| Stop | `Shift+F5` |
-| Evaluate expression | Select code → right-click → Evaluate |
+### VS Code
+
+| Action | Windows/Linux | macOS |
+|---|---|---|
+| Toggle breakpoint | `F9` | `F9` |
+| Start debugging | `F5` | `F5` |
+| Step over | `F10` | `F10` |
+| Step into | `F11` | `F11` |
+| Step out | `Shift+F11` | `Shift+F11` |
+| Continue | `F5` | `F5` |
+| Stop | `Shift+F5` | `Shift+F5` |
+| Evaluate expression | `Ctrl+Shift+D` → Watch | `Cmd+Shift+D` → Watch |
+| Debug console | `Ctrl+Shift+Y` | `Cmd+Shift+Y` |
+| Conditional breakpoint | Right-click breakpoint | Right-click breakpoint |
+
+### IntelliJ IDEA / JetBrains
+
+| Action | Windows/Linux | macOS |
+|---|---|---|
+| Toggle breakpoint | `Ctrl+F8` | `Cmd+F8` |
+| Start debugging | `Shift+F9` | `Ctrl+D` |
+| Step over | `F8` | `F8` |
+| Step into | `F7` | `F7` |
+| Step out | `Shift+F8` | `Shift+F8` |
+| Resume (continue) | `F9` | `Cmd+Opt+R` |
+| Stop | `Ctrl+F2` | `Cmd+F2` |
+| Evaluate expression | `Alt+F8` | `Opt+F8` |
+| View breakpoints | `Ctrl+Shift+F8` | `Cmd+Shift+F8` |
+| Conditional breakpoint | Right-click breakpoint | Right-click breakpoint |
+| Run to cursor | `Alt+F9` | `Opt+F9` |
+| Mute all breakpoints | Actions menu | Actions menu |
 
 ````

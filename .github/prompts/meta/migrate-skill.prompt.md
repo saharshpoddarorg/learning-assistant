@@ -70,28 +70,13 @@ After presenting the cleaned version:
 - Apply any additional trims, splits, or restructuring
 - Repeat until the user is satisfied
 
-### Step 5 — Delete legacy & commit
+### Step 5 — Delete legacy & finalize
 
 Once the user approves:
 
 1. **Delete** the legacy skill folder
 2. **Delete** the parent category folder if now empty
 3. **Update** `_modular/README.md` migration tracker (mark as migrated)
-4. **Stage, commit, push:**
-
-```text
-git add -A
-git commit -m "refactor(skills): Migrate <skill-name> to modular structure
-
-- Migrate <skill-name> to _modular/ (flat, no category nesting)
-- <what was trimmed/changed>
-- Delete legacy <category>/<skill-name>/
-
-— created by gpt"
-git push origin saharsh1
-```
-
-5. **Update PR** description if significant (batch updates are fine)
 
 ---
 
