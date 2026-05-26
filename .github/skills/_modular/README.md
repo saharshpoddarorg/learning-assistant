@@ -46,7 +46,7 @@ Every modular skill follows this internal layout:
 | 13 | `mcp-development` | `devops-tooling/mcp-development/` | pending | |
 | 14 | `copilot-customization` | `devops-tooling/copilot-customization/` | pending | |
 | 15 | `atlassian-tools` | `devops-tooling/atlassian-tools/` | pending | Complex (scripts, config, refs) |
-| 16 | `web-reader` | `devops-tooling/web-reader/` | pending | |
+| 16 | `web-reader` | `devops-tooling/web-reader/` | migrated | 67% trimmed; workflow patterns routed to prompt-backlog |
 | 17 | `brain-management` | `knowledge-management/brain-management/` | pending | |
 | 18 | `pkm-management` | `knowledge-management/pkm-management/` | pending | |
 | 19 | `digital-notetaking` | `knowledge-management/digital-notetaking/` | pending | |
