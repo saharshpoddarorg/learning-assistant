@@ -1,11 +1,12 @@
 ---
 name: github-workflow
 description: >
-  GitHub platform workflows — pull requests, issues, GitHub CLI (gh), and
-  repository management. Use when asked about: creating or updating pull
-  requests, writing PR titles and descriptions from commits, reviewing PRs,
-  managing GitHub issues, using the gh CLI, GitHub Actions basics, branch
-  protection, labels, milestones, or any GitHub-specific workflow. Also
+  GitHub platform workflows — pull requests, issues, GitHub CLI (gh),
+  repository management, and commit crafting. Use when asked about: creating
+  or updating pull requests, writing PR titles and descriptions from changes,
+  creating commits from staged/unstaged changes, splitting changes into
+  cohesive atomic commits, reviewing PRs, managing GitHub issues, using the
+  gh CLI, GitHub Actions basics, or any GitHub-specific workflow. Also
   activates when the user provides a GitHub PR or issue link, asks to
   summarize a PR, or asks to update PR metadata.
   Complements: git-vcs (local Git operations).
@@ -13,8 +14,186 @@ description: >
 
 # GitHub Workflow
 
-> **Scope:** GitHub platform operations — PRs, issues, CLI, and repo management.
-> For local Git commands (commit, branch, merge, rebase), see `git-vcs`.
+> **Scope:** GitHub platform operations — PRs, issues, CLI, commit crafting,
+> and repo management. For branching strategies, SemVer, and rebasing, see `git-vcs`.
+
+---
+
+## Commit Creation from Changes
+
+When asked to create a commit, always follow this process:
+
+### 1 — Inspect What Changed
+
+```sh
+git status                        # what files are modified/staged/untracked
+git diff                          # unstaged changes
+git diff --staged                 # what is already staged
+git diff --stat                   # summary of file changes
+```
+
+### 2 — Determine the Right Commit Type and Scope
+
+Read the diff and classify:
+
+| What changed | Type |
+|---|---|
+| New feature, new file, new capability | `feat` |
+| Bug fix or incorrect behavior corrected | `fix` |
+| Only documentation / comments / skill files | `docs` |
+| Restructuring with no behavior change | `refactor` |
+| Build config, dependencies, tooling | `chore` |
+| Tests added or updated | `test` |
+| Performance improvement | `perf` |
+
+**Scope** = the module, package, or area most affected (e.g., `vault`, `config`, `skills`, `auth`).
+
+### 3 — Write the Commit Message
+
+Format: `<type>(<scope>): <subject>`
+
+Rules:
+
+- Subject: imperative mood, ≤ 72 chars, no trailing period
+- Body (optional): explain WHY, not WHAT — wrap at 72 chars
+- Footer: `BREAKING CHANGE:` if applicable; `Closes #N` to link issues
+- Attribution last line: `— created by gpt` or `— assisted by gpt`
+
+```sh
+git commit -m "feat(auth): Add JWT refresh token endpoint
+
+Existing tokens expire after 1h with no renewal path, causing users
+to be logged out mid-session. This adds POST /auth/refresh which
+accepts a valid refresh token and returns a new access token.
+
+Closes #42
+— assisted by gpt"
+```
+
+---
+
+## Cohesive Multiple Commits — Splitting Changes by Concern
+
+When changes span multiple concerns, **never bundle them into one commit**.
+Split by logical cohesion so each commit is independently understandable,
+reviewable, and revertable.
+
+### How to Identify Cohesive Groups
+
+1. **Run `git diff --stat`** — list every changed file
+2. **Group files by concern**:
+   - Same feature/fix across files → one commit
+   - Unrelated areas (e.g., new feature + formatting cleanup) → separate commits
+   - Documentation that matches its code → can go in same commit OR separate `docs:` commit
+3. **Stage and commit one group at a time** using `git add <files>` or `git add -p`
+
+### Split Decision Guide
+
+| Scenario | Wrong | Right |
+|---|---|---|
+| New feature + unrelated bug fix | One commit | `feat:` then `fix:` |
+| Code refactor + test additions | One commit | `refactor:` then `test:` |
+| Feature code + its own docs | One commit | OK either way — keep together if tightly coupled |
+| Formatting sweep + logic change | One commit | `style:` then `feat:` |
+| Multiple independent features | One commit | One `feat:` per feature |
+
+### Workflow for Cohesive Commits
+
+```sh
+# Stage only the files for the first logical group
+git add src/auth/TokenService.java src/auth/TokenRequest.java
+git commit -m "feat(auth): Add JWT refresh token service"
+
+# Stage the second logical group
+git add src/config/SecurityConfig.java
+git commit -m "chore(config): Register TokenService in security config"
+
+# Stage docs separately if they span broader context
+git add docs/api/auth.md
+git commit -m "docs(auth): Document refresh token endpoint"
+```
+
+### Interactive Staging (patch-level splits)
+
+When a single file has changes belonging to different concerns:
+
+```sh
+git add -p <file>     # stage individual hunks interactively
+                      # y = stage, n = skip, s = split hunk, e = edit hunk
+```
+
+---
+
+## PR Creation from Changes
+
+When asked to create a PR, always derive the title and description from the
+actual commits — never invent content.
+
+### Step-by-Step PR Creation Workflow
+
+**1 — Inspect all commits going into the PR:**
+
+```sh
+git log origin/<base>..HEAD --oneline
+git diff --stat origin/<base>..HEAD
+```
+
+**2 — Derive the PR title:**
+
+- **Single commit type** → use that type: `feat(scope): Summary`
+- **Mixed types** → use the dominant type and summarize all in the subject
+- **Many commits** → summarize the overall goal, not individual commits
+- Keep ≤ 72 characters; imperative mood
+
+**3 — Build the PR description:**
+
+```markdown
+## Summary
+
+<1-3 sentences: what this PR does and why it was needed>
+
+## Changes
+
+- <area 1: what changed>
+- <area 2: what changed>
+- <N files changed, N insertions, N deletions — from git diff --stat>
+
+## Testing
+
+<how it was tested, or "manual testing" / "covered by existing tests">
+
+## Breaking Changes
+
+<omit this section if none>
+```
+
+**4 — Create the PR:**
+
+```sh
+gh pr create \
+  --title "feat(scope): Summary of change" \
+  --body "## Summary\n\n...\n\n## Changes\n\n- ...\n\n## Testing\n\n..." \
+  --base main
+```
+
+**5 — Or update an existing PR:**
+
+```sh
+gh pr edit <number> \
+  --title "feat(scope): Updated title" \
+  --body "## Summary\n\n..."
+```
+
+### Handling a User-Provided PR Link
+
+When the user pastes a GitHub PR URL:
+
+1. **Parse** owner, repo, and PR number from `https://github.com/<owner>/<repo>/pull/<number>`
+2. **Fetch** PR details: `gh pr view <number> --json title,body,commits,files`
+3. **Analyze commits**: `git log origin/<base>..<head> --oneline`
+4. **Generate** improved title and description following the rules above
+5. **Present** the suggested title and description for user approval before changing anything
+6. **Update** only after user confirms: `gh pr edit <number> --title "..." --body "..."`
 
 ---
 
