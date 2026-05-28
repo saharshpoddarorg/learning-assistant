@@ -41,8 +41,8 @@ Every modular skill follows this internal layout:
 | 8 | `software-development-roles` | `design-architecture/software-development-roles/` | pending | |
 | 9 | `deep-research` | `dev-process/deep-research/` | pending | |
 | 10 | `requirements-research` | `dev-process/requirements-research/` | pending | |
-| 11 | `github-workflow` | `dev-process/github-workflow/` | pending | |
-| 12 | `git-vcs` | `devops-tooling/git-vcs/` | pending | |
+| 11 | `github-workflow` | `dev-process/github-workflow/` | migrated | ~48% trimmed — kept gh CLI, PR best practices, Actions ref; PR-link-handling workflow deferred to prompt-backlog |
+| 12 | `git-vcs` | `devops-tooling/git-vcs/` | migrated | ~57% trimmed — kept branching strategies, SemVer, conventional commits ref; removed basic commands, aliases, learning path |
 | 13 | `mcp-development` | `devops-tooling/mcp-development/` | pending | |
 | 14 | `copilot-customization` | `devops-tooling/copilot-customization/` | pending | |
 | 15 | `atlassian-tools` | `devops-tooling/atlassian-tools/` | pending | Complex (scripts, config, refs) |
