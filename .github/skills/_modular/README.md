@@ -53,7 +53,7 @@ Every modular skill follows this internal layout:
 | 20 | `learning-resources-vault` | `learning-resources/learning-resources-vault/` | pending | Large (14 files) |
 | 21 | `software-engineering-resources` | `learning-resources/software-engineering-resources/` | pending | |
 | 22 | `career-resources` | `career/career-resources/` | pending | |
-| 23 | `daily-assistant-resources` | `daily-life/daily-assistant-resources/` | pending | |
+| 23 | `daily-assistant-resources` | `daily-life/daily-assistant-resources/` | migrated | 40% trimmed — removed stale URLs, generic tool lists, meta section |
 
 ---
 
