@@ -175,11 +175,25 @@ git diff --stat origin/<base>..HEAD
 ### Step 3 — Build the PR Description
 
 Always derive from actual commits and `git diff --stat` — never fabricate.
+**The description must fill in the repo's `PULL_REQUEST_TEMPLATE.md`** — do not
+use a different structure.
 
 ```markdown
 ## Summary
 
-<1-3 sentences: what this PR does and why it was needed>
+<1-3 sentences: what this PR does and WHY it was needed>
+
+## Type of Change
+
+- [x] `feat` — new feature or capability   ← check all that apply
+- [ ] `fix` — bug fix
+- [ ] `refactor` — ...
+- [ ] `docs` — ...
+- [ ] `chore` — ...
+- [ ] `test` — ...
+- [ ] `perf` — ...
+- [ ] `style` — ...
+- [ ] **Breaking change** — ← check and fill Breaking Changes if applicable
 
 ## Changes
 
@@ -187,14 +201,29 @@ Always derive from actual commits and `git diff --stat` — never fabricate.
 - <area 2: what changed>
 - <N files changed, N insertions(+), N deletions(-) — from git diff --stat>
 
+## Related Issues
+
+- Closes #<N>   ← omit line if no linked issue
+
 ## Testing
 
-<how it was tested, or "manual testing" / "covered by existing tests">
+- [x] Build passes (`.\gradlew.bat build`)
+- [x] Markdown lint passes (`.\__md_lint.ps1` — 0 issues)
+- [x] Manual testing — <describe what was verified>
 
-## Breaking Changes
+## Checklist
 
-<omit this section entirely if none>
+- [x] PR title follows Conventional Commits format
+- [x] Each commit is a cohesive logical unit
+- [x] Build passes
+- [x] Markdown lint passes
+- [x] Cross-references verified
+- [x] No regression in existing behaviour
 ```
+
+> **Rule:** Only pre-check boxes that are actually satisfied. Never speculatively
+> check "Existing tests pass" if no tests exist for the change. Leave unchecked
+> items for the human reviewer to complete.
 
 ### Step 4a — Update Existing Open PR
 
