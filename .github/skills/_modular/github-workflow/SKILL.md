@@ -126,26 +126,55 @@ git add -p <file>     # stage individual hunks interactively
 
 ## PR Creation from Changes
 
-When asked to create a PR, always derive the title and description from the
-actual commits — never invent content.
+When asked to create or update a PR, **always check the current PR state first**
+before doing anything. The user may have manually raised, edited, merged, or
+closed PRs — never assume the state; always query it.
 
-### Step-by-Step PR Creation Workflow
-
-**1 — Inspect all commits going into the PR:**
+### Step 0 — Check Existing PR State (always first)
 
 ```sh
+# Check if an open PR already exists for the current branch
+gh pr list --head <current-branch> --state open --json number,title,url,isDraft
+
+# Check ALL PRs (open + closed + merged) for the branch
+gh pr list --head <current-branch> --state all --json number,title,state,mergedAt,url
+```
+
+**Decision table based on the result:**
+
+| Situation | Action |
+|---|---|
+| Open PR exists for this branch | **Update** the existing PR — do NOT create a new one |
+| Open PR exists but user says "create new PR" | Clarify — ask if they want to update the existing one |
+| Draft PR exists | Ask: promote to ready-for-review, or just update content? |
+| PR was merged | All commits are already in the base — **create a new PR** for any new work |
+| PR was closed (not merged) | Ask user: reopen it (`gh pr reopen`) or create a fresh one? |
+| No PR exists for this branch | **Create** a new PR |
+| Multiple open PRs for the branch | Show the list, ask user which one to update |
+
+### Step 1 — Inspect All Commits Going into the PR
+
+```sh
+# Identify base branch
+git remote show origin | grep "HEAD branch"
+
+# List commits not yet in base
 git log origin/<base>..HEAD --oneline
+
+# File change summary
 git diff --stat origin/<base>..HEAD
 ```
 
-**2 — Derive the PR title:**
+### Step 2 — Derive the PR Title
 
 - **Single commit type** → use that type: `feat(scope): Summary`
-- **Mixed types** → use the dominant type and summarize all in the subject
+- **Mixed types** → use the dominant type; summarize all in the subject
 - **Many commits** → summarize the overall goal, not individual commits
-- Keep ≤ 72 characters; imperative mood
+- ≤ 72 characters; imperative mood; no trailing period
 
-**3 — Build the PR description:**
+### Step 3 — Build the PR Description
+
+Always derive from actual commits and `git diff --stat` — never fabricate.
 
 ```markdown
 ## Summary
@@ -154,9 +183,9 @@ git diff --stat origin/<base>..HEAD
 
 ## Changes
 
-- <area 1: what changed>
+- <area 1: what changed — tie to commits>
 - <area 2: what changed>
-- <N files changed, N insertions, N deletions — from git diff --stat>
+- <N files changed, N insertions(+), N deletions(-) — from git diff --stat>
 
 ## Testing
 
@@ -164,36 +193,61 @@ git diff --stat origin/<base>..HEAD
 
 ## Breaking Changes
 
-<omit this section if none>
+<omit this section entirely if none>
 ```
 
-**4 — Create the PR:**
+### Step 4a — Update Existing Open PR
+
+```sh
+# Show current title/body first so we don't blindly overwrite
+gh pr view <number> --json title,body
+
+# Update — only after showing user what will change
+gh pr edit <number> \
+  --title "feat(scope): Updated summary" \
+  --body "## Summary\n\n...\n\n## Changes\n\n- ..."
+```
+
+> **Important:** If the user has manually edited the PR title or description,
+> show them the current content and the proposed replacement side by side.
+> Ask for confirmation before overwriting.
+
+### Step 4b — Create New PR
 
 ```sh
 gh pr create \
   --title "feat(scope): Summary of change" \
   --body "## Summary\n\n...\n\n## Changes\n\n- ...\n\n## Testing\n\n..." \
   --base main
+
+# Or as a draft if work is still in progress
+gh pr create --draft \
+  --title "feat(scope): WIP — Summary" \
+  --body "..."
 ```
 
-**5 — Or update an existing PR:**
+### Step 4c — Reopen a Closed PR
 
 ```sh
-gh pr edit <number> \
-  --title "feat(scope): Updated title" \
-  --body "## Summary\n\n..."
+# Reopen a previously closed (unmerged) PR
+gh pr reopen <number>
+
+# Then update its content
+gh pr edit <number> --title "..." --body "..."
 ```
 
 ### Handling a User-Provided PR Link
 
-When the user pastes a GitHub PR URL:
+When the user pastes `https://github.com/<owner>/<repo>/pull/<number>`:
 
-1. **Parse** owner, repo, and PR number from `https://github.com/<owner>/<repo>/pull/<number>`
-2. **Fetch** PR details: `gh pr view <number> --json title,body,commits,files`
-3. **Analyze commits**: `git log origin/<base>..<head> --oneline`
-4. **Generate** improved title and description following the rules above
-5. **Present** the suggested title and description for user approval before changing anything
-6. **Update** only after user confirms: `gh pr edit <number> --title "..." --body "..."`
+1. **Parse** owner, repo, PR number from the URL
+2. **Check state**: `gh pr view <number> --json state,title,body,mergedAt,closedAt`
+3. **If open**: fetch full details, generate improved title/description, show
+   current vs. proposed side by side, update only after user confirms
+4. **If merged**: inform the user — "This PR is already merged. Do you want to
+   create a new PR for new changes on this branch?"
+5. **If closed (not merged)**: ask — "This PR was closed without merging. Do you
+   want to reopen it or create a fresh PR?"
 
 ---
 
