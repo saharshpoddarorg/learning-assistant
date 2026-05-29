@@ -62,7 +62,7 @@ flowchart TD
     N --> M
     Y --> M
     M --> O[Step 8: User approves]
-    O --> P[Step 9: Delete legacy — after user confirmation]
+    O --> P[Step 9: Archive legacy to prompt-backlog/legacy-skills/ — after user confirmation]
     P --> Q[Done — update tracker]
     G --> Q
     W --> Q
@@ -242,16 +242,32 @@ Present the final version with a summary:
 - Sections kept / trimmed / removed / delegated
 - Any new skills created (from splits)
 
-**Explicitly ask:** "Ready to delete the legacy skill and finalize?"
+**Explicitly ask:** "Ready to archive the legacy skill to `prompt-backlog/legacy-skills/` and finalize?"
 
-### Step 9 — Delete legacy & finalize (requires explicit user approval)
+### Step 9 — Archive legacy & finalize (requires explicit user approval)
 
-**Only after the user explicitly approves deletion:**
+**Only after the user explicitly approves:**
 
-1. **Delete** the legacy skill folder
-2. **Delete** the parent category folder if now empty
-3. **Update** `_modular/README.md` migration tracker (mark as migrated)
-4. If a split produced new skills, add new rows to the tracker
+1. **Archive** the legacy skill folder using `git mv` (preserves history):
+
+   ```bash
+   git mv .github/skills/<category>/<skill-name>/ .github/skills/prompt-backlog/legacy-skills/<skill-name>/
+   ```
+
+2. **Delete** the parent category folder if now empty (no other skills remain in it)
+3. **Update** `prompt-backlog/legacy-skills/README.md` — add a row to the contents table:
+
+   ```markdown
+   | `<skill-name>/SKILL.md` | `_modular/<skill-name>/SKILL.md` | `<backlog-entry>.md` (if any) | Awaiting cleanup |
+   ```
+
+4. **Update** `_modular/README.md` migration tracker (mark as migrated)
+5. If a split produced new skills, add new rows to the tracker
+
+> **Why archive instead of delete?** The legacy file is preserved as a read-only reference
+> in `prompt-backlog/legacy-skills/` until the `_modular/` skill is confirmed stable. It is
+> outside all active Copilot skill paths and will NOT be loaded. Permanent deletion is deferred
+> until the prompt-backlog migration pass picks it up.
 
 ---
 
@@ -267,7 +283,7 @@ Every decision point in this workflow is **user-driven** — the agent proposes,
 | Step 4a | Split vs. keep as one (SRP) | **User decides** |
 | Step 6a | Delegate vs. keep inline | **User decides** |
 | Step 8 | Approve final version | **User decides** |
-| Step 9 | Approve legacy deletion | **User decides** |
+| Step 9 | Approve legacy archival | **User decides** |
 
 ---
 
