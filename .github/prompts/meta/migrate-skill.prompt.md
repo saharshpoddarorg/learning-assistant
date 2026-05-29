@@ -260,6 +260,11 @@ Present the final version with a summary:
   Explicitly ask: "All content is fully migrated — nothing remains in the legacy skill.
   Ready to delete it entirely and finalize? (No archive needed.)"
 
+> **⚠️ HARD GATE — NEVER skip this confirmation.**
+> The agent MUST receive an explicit "yes" / "delete" / "archive" response BEFORE executing
+> any deletion or archiving. "ok", "looks good", "approve" for the migration content does
+> NOT imply deletion approval.
+
 **Wait for user response.** Do not proceed to Step 9 without explicit approval.
 
 ### Step 9 — Archive or delete legacy (requires explicit user approval)
