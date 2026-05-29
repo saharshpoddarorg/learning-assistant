@@ -1,20 +1,15 @@
 ---
 name: digital-notetaking
 description: >
-  Digital note-taking, personal knowledge management (PKM), and productivity tool guidance.
-  Use when asked about Notion, Obsidian, OneNote, Logseq, Google Docs, PARA method,
-  CODE method, Zettelkasten, second brain, note-taking for developers, tool migration,
-  or maintaining todos across platforms (Windows / macOS / iOS / Android).
+  Digital note-taking and PKM tool guidance for developers.
+  Activates on: Notion, Obsidian, Logseq, OneNote, PARA method, CODE method,
+  Zettelkasten, second brain, note-taking, PKM setup, tool migration,
+  vault structure, daily notes, developer journal.
 ---
 
-# Digital Note-Taking & PKM Skill
+# Digital Note-Taking & PKM
 
-> Cross-platform knowledge management for software engineers. Covers tools, methods,
-> migration guides, and developer-specific note-taking workflows.
-
----
-
-## Core Methodologies (Tool-Agnostic)
+## Core Methodologies
 
 ### CODE Method (Tiago Forte)
 
@@ -46,9 +41,9 @@ description: >
 
 ---
 
-## Newbie — Setting Up Your First System
+## Tool Setup
 
-### Option A: Notion (Cloud, Cross-Platform)
+### Notion (Cloud, Cross-Platform)
 
 ```text
 1. Create a free account at notion.so
@@ -60,7 +55,7 @@ description: >
 
 **Best for:** Beginners, team wikis, iOS/Android users, enterprise
 
-### Option B: Obsidian (Local, Offline-First)
+### Obsidian (Local, Offline-First)
 
 ```text
 1. Download from obsidian.md (free for personal use)
@@ -72,7 +67,7 @@ description: >
 
 **Best for:** Privacy-conscious, developers, Markdown lovers, offline use
 
-### Option C: Logseq (Open-Source)
+### Logseq (Open-Source)
 
 ```text
 1. Download from logseq.com (free + open-source)
@@ -86,11 +81,20 @@ description: >
 
 ---
 
-## Amateur — Daily Developer Workflow
+## Tool Selection Summary
 
-### Note-Taking Templates for Engineers
+| Tool | Best for | Storage |
+|---|---|---|
+| **Notion** | Beginners, team wikis, iOS/Android, enterprise | Cloud |
+| **Obsidian** | Privacy-conscious, Markdown lovers, developers, offline | Local files |
+| **Logseq** | Open-source advocates, Zettelkasten style, version-controllable | Local files |
+| **Foam** | VS Code users who want PKM without leaving the editor | Local files |
 
-#### Architecture Decision Record (ADR) Template
+---
+
+## Developer Templates
+
+### Architecture Decision Record (ADR)
 
 ```markdown
 # ADR-001: Use Hexagonal Architecture
@@ -102,7 +106,7 @@ description: >
 **Consequences:** More files; cleaner testing; transport-agnostic core.
 ```
 
-#### Sprint / Learning Journal Template
+### Sprint / Learning Journal
 
 ```markdown
 # 2026-02-27 Log
@@ -115,40 +119,36 @@ description: >
 - How does Loom interact with existing ExecutorService code?
 
 ## Tomorrow
-- Read JDK 25 migration guide (oracle.com/migrate)
+- Read JDK 25 migration guide
 - Write ADR for transport layer choice
 ```
 
-#### Code Snippet Note Template
+### Code Snippet Note
 
-```markdown
+````markdown
 # Java: Stream groupingBy
 
 **Tags:** #java #streams #collectors
 
 ```java
-
 Map<String, List<Person>> byDept =
     people.stream()
           .collect(Collectors.groupingBy(Person::getDepartment));
-
-```text
+```
 
 **Source:** https://docs.oracle.com/en/java/javase/21/docs/api/
 **Date:** 2026-02-27
-```
+````
 
 ### Maintaining Todos in PARA
 
-- **Projects** → your active project page = task list (or link to Todoist/Linear)
+- **Projects** → active project page = task list (or link to Todoist/Linear)
 - **Inbox** → capture random tasks here, review weekly, promote to Projects or delete
-- **Not in Archives** → a task you "archived" is done, delete it or move to log
+- **Archives** → a task you "archived" is done, delete it or move to log
 
 ---
 
-## Pro — Advanced Developer PKM
-
-### Obsidian Power Setup
+## Obsidian Power Setup
 
 ```text
 vault/
@@ -165,12 +165,15 @@ vault/
 ```
 
 **Power plugins:**
+
 - **Dataview** — query your vault like a database: `TABLE file.tags FROM ...`
 - **Templater** — dynamic templates with dates, prompts, JS logic
-- **Git** — commit your vault to GitHub automatically (enable version history)
+- **Git** — commit your vault to GitHub automatically
 - **Excalidraw** — draw architecture diagrams inside Obsidian
 
-### Notion Power Setup for Teams
+---
+
+## Notion Power Setup (Teams)
 
 ```text
 Workspace Root
@@ -181,7 +184,9 @@ Workspace Root
 └── 🗃 Archives     ← Completed sprints, old wikis
 ```
 
-### Tool Migration Path
+---
+
+## Tool Migration Paths
 
 ```text
 Notion → Obsidian:
@@ -198,40 +203,11 @@ OneNote → Notion:
   2. Import Markdown into Notion via "Import" button
 ```
 
-### JDK Version Management (cross-platform)
-
-```bash
-# Install SDKMAN! (Linux/macOS/WSL on Windows)
-curl -s "https://get.sdkman.io" | bash
-
-# List available JDK distributions
-sdk list java
-
-# Install JDK 25 (Eclipse Temurin LTS)
-sdk install java 25-tem
-
-# Pin JDK to a project (create .sdkmanrc)
-sdk env init        # creates .sdkmanrc with current version
-sdk env             # apply .sdkmanrc in this shell
-
-# Switch back to JDK 21 globally
-sdk default java 21.0.7-tem
-```
-
-**Windows (without WSL):** Download directly from adoptium.net
-
-```powershell
-# Set JAVA_HOME manually (PowerShell)
-$env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-25"
-$env:PATH = "$env:JAVA_HOME\bin;" + $env:PATH
-java --version     # should show 25
-```
-
 ---
 
 ## Learning Resources
 
-| Resource | Tier | URL |
+| Resource | Level | URL |
 |---|---|---|
 | Building a Second Brain (BASB) | Newbie | https://www.buildingasecondbrain.com/ |
 | PARA Method — Forte Labs | Newbie | https://fortelabs.com/blog/para/ |
@@ -243,13 +219,7 @@ java --version     # should show 25
 | Obsidian Community Plugins | Intermediate | https://obsidian.md/plugins |
 | Notion Help Center | Newbie | https://www.notion.so/help |
 | Logseq Documentation | Newbie | https://docs.logseq.com/ |
-| Foam — VS Code PKM | Newbie | https://foambubble.github.io/foam/ |
 | PKM for Software Engineers | Intermediate | https://fortelabs.com/blog/how-to-take-smart-notes-for-software-engineers/ |
-| Notion → Obsidian Migration | Intermediate | https://help.obsidian.md/import/notion |
-| Todoist + PARA Guide | Newbie | https://app.todoist.com/app/getting-started |
-| SDKMAN! — JDK Version Manager | Beginner | https://sdkman.io/ |
-| Eclipse Temurin (Adoptium) | Beginner | https://adoptium.net/ |
-| JDK 25 Release Notes | Intermediate | https://openjdk.org/projects/jdk/25/ |
 
 ---
 
@@ -257,10 +227,10 @@ java --version     # should show 25
 
 | Guide | What it covers |
 |---|---|
-| [brain/digitalnotetaking/START-HERE.md](../../../brain/digitalnotetaking/START-HERE.md) | Pick a tool, set up PARA, capture your first note |
-| [brain/digitalnotetaking/tools-comparison.md](../../../brain/digitalnotetaking/tools-comparison.md) | Notion vs Obsidian vs Logseq vs OneNote — decision guide |
-| [brain/digitalnotetaking/para-method.md](../../../brain/digitalnotetaking/para-method.md) | PARA method applied to every tool |
-| [brain/digitalnotetaking/templates.md](../../../brain/digitalnotetaking/templates.md) | ADR, daily log, snippet vault, resource, debug, meeting templates |
-| [brain/digitalnotetaking/migration-guide.md](../../../brain/digitalnotetaking/migration-guide.md) | Notion→Obsidian, OneNote→Notion, Logseq→Obsidian, Any→Markdown |
-| [brain/ai-brain/README.md](../../../brain/ai-brain/README.md) | Live ai-brain workspace (inbox, notes, library, sessions, backlog, pkm) |
-| [brain/ai-brain/pkm/README.md](../../../brain/ai-brain/pkm/README.md) | PKM infrastructure — capture sources, access control, logging |
+| [brain/digitalnotetaking/START-HERE.md](../../../../brain/digitalnotetaking/START-HERE.md) | Pick a tool, set up PARA, capture your first note |
+| [brain/digitalnotetaking/tools-comparison.md](../../../../brain/digitalnotetaking/tools-comparison.md) | Notion vs Obsidian vs Logseq vs OneNote — decision guide |
+| [brain/digitalnotetaking/para-method.md](../../../../brain/digitalnotetaking/para-method.md) | PARA method applied to every tool |
+| [brain/digitalnotetaking/templates.md](../../../../brain/digitalnotetaking/templates.md) | ADR, daily log, snippet vault, resource, debug, meeting templates |
+| [brain/digitalnotetaking/migration-guide.md](../../../../brain/digitalnotetaking/migration-guide.md) | Notion→Obsidian, OneNote→Notion, Logseq→Obsidian, Any→Markdown |
+| [brain/ai-brain/README.md](../../../../brain/ai-brain/README.md) | Live ai-brain workspace (inbox, notes, library, sessions, backlog, pkm) |
+| [brain/ai-brain/pkm/README.md](../../../../brain/ai-brain/pkm/README.md) | PKM infrastructure — capture sources, access control, logging |

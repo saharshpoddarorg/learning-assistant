@@ -49,7 +49,7 @@ Every modular skill follows this internal layout:
 | 16 | `web-reader` | `devops-tooling/web-reader/` | migrated | 67% trimmed; workflow patterns routed to prompt-backlog |
 | 17 | `brain-management` | `knowledge-management/brain-management/` | pending | |
 | 18 | `pkm-management` | `knowledge-management/pkm-management/` | pending | |
-| 19 | `digital-notetaking` | `knowledge-management/digital-notetaking/` | pending | |
+| 19 | `digital-notetaking` | `knowledge-management/digital-notetaking/` | migrated | ~11% net reduction — restored setup steps, PARA tip, learning resources (PKM-only), related docs; fixed code fence; JDK section moved to prompt-backlog/jdk-version-management.md |
 | 20 | `learning-resources-vault` | `learning-resources/learning-resources-vault/` | pending | Large (14 files) |
 | 21 | `software-engineering-resources` | `learning-resources/software-engineering-resources/` | pending | |
 | 22 | `career-resources` | `career/career-resources/` | pending | |
