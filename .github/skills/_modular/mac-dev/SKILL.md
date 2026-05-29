@@ -1,57 +1,130 @@
 ---
 name: mac-dev
 description: >
-  macOS development environment workflow — Homebrew advanced usage (Brewfile, services,
-  taps, cleanup), JDK version switching (jenv, /usr/libexec/java_home), Apple Silicon
-  PATH setup, shell configuration (.zshrc, .zprofile), dotfiles automation, and macOS
-  system tuning. Use when asked about setting up a Mac for development, managing a
-  reproducible macOS environment, Brewfile automation, jenv, macOS-specific troubleshooting,
-  or Apple Silicon dev quirks.
-  Delegates to: package-manager (for basic "install X" questions with no macOS workflow context).
+  macOS development environment — the COMPLETE macOS dev skill. Covers Homebrew
+  (install, upgrade, Brewfile, services, taps, casks, cleanup), JDK switching
+  (java_home, jenv), nvm setup on Apple Silicon, shell config (.zshrc, .zprofile),
+  dotfiles automation, macOS system tuning, and macOS-specific troubleshooting.
+  Activates when: user is on macOS, mentions Mac/macOS, asks about Homebrew,
+  brew install, Brewfile, cask, jenv, java_home, .zshrc, Apple Silicon,
+  macOS defaults, Gatekeeper, or any macOS-specific development workflow.
+  This skill is mutually exclusive with package-manager (which covers Windows + Linux).
 ---
 
 # macOS Development Environment Skill
 
-> **Scope:** macOS-specific dev workflows. For generic "install X" commands across any OS,
-> see `package-manager`. For Java build commands (Gradle/Maven), see `java-build`.
+> **When to use this skill:** User is on macOS or asking about Mac-specific dev setup.
+> **When NOT to use:** User is on Windows → use `package-manager`.
+> Java build commands (Gradle/Maven) → use `java-build`.
 
 ---
 
-## Apple Silicon vs Intel — PATH Differences
+## Apple Silicon vs Intel
 
-| Chip | Homebrew prefix | Shell config file |
+| Chip | Homebrew prefix | Detection |
 |---|---|---|
-| Apple Silicon (M1+) | `/opt/homebrew` | `~/.zprofile` |
-| Intel | `/usr/local` | `~/.bash_profile` or `~/.zprofile` |
+| Apple Silicon (M1+) | `/opt/homebrew` | `uname -m` → `arm64` |
+| Intel | `/usr/local` | `uname -m` → `x86_64` |
 
 ```zsh
 # Apple Silicon — add to ~/.zprofile (runs once per login)
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Intel — usually automatic, but if needed:
+# Intel (usually automatic)
 eval "$(/usr/local/bin/brew shellenv)"
-```
-
-**Detection:**
-
-```zsh
-uname -m                          # arm64 = Apple Silicon, x86_64 = Intel
-arch                              # same info
 ```
 
 ---
 
-## Homebrew — Workflow Commands
+## Homebrew — The macOS Package Manager
 
-> Basic install/search/info commands live in `package-manager`.
-> This section covers macOS dev workflow automation.
+> Homebrew handles installing, upgrading, and managing ALL dev tools on macOS.
+> It also manages PATH and environment automatically for most packages.
+
+### Install Homebrew
+
+```zsh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Follow the "Next steps" output to add to PATH
+```
+
+### Core Commands
+
+```zsh
+brew install <formula>              # install CLI tool / runtime
+brew install --cask <name>         # install GUI application
+brew uninstall <formula>           # remove a package
+brew search <term>                 # search formulae + casks
+brew info <formula>                # show details, deps, options
+brew deps --tree <formula>         # dependency tree
+brew list --versions               # list installed with versions
+```
+
+### Update & Maintain
+
+```zsh
+brew update                        # update Homebrew + formula index
+brew outdated                      # list packages with updates available
+brew upgrade                       # upgrade ALL installed packages
+brew upgrade <formula>             # upgrade one package
+brew cleanup                       # remove old versions (free disk space)
+brew autoremove                    # remove unused dependencies
+brew doctor                        # diagnose issues
+```
+
+### Taps — Third-Party Repositories
+
+```zsh
+brew tap                                     # list taps
+brew tap <user/repo>                         # add a tap
+brew untap <user/repo>                       # remove a tap
+brew tap homebrew/cask-fonts                 # fonts tap
+brew tap homebrew/services                   # services tap
+```
+
+### Casks — GUI Applications
+
+```zsh
+brew install --cask temurin                  # Eclipse Temurin JDK
+brew install --cask temurin@21               # Java 21 LTS specifically
+brew install --cask visual-studio-code       # VS Code
+brew install --cask intellij-idea            # IntelliJ IDEA Ultimate
+brew install --cask intellij-idea-ce         # IntelliJ Community (free)
+brew install --cask docker                   # Docker Desktop
+brew install --cask iterm2                   # iTerm2 terminal
+brew install --cask postman                  # Postman API client
+brew install --cask tableplus                # TablePlus DB GUI
+brew install --cask dbngin                   # DBngin local DB manager
+brew install --cask rectangle                # window manager
+brew install --cask raycast                  # Spotlight replacement
+brew install --cask graalvm-jdk              # GraalVM (native image)
+```
+
+### Services — Background Daemons
+
+```zsh
+brew services list                           # show all services + status
+brew services start postgresql@16            # start + auto-launch on login
+brew services stop postgresql@16             # stop + remove from login items
+brew services restart redis                  # restart
+brew services run mysql                      # start once (no auto-launch)
+brew services cleanup                        # remove stale plists
+```
+
+**Common services:**
+
+```zsh
+brew install postgresql@16 && brew services start postgresql@16
+brew install redis && brew services start redis
+brew install mysql && brew services start mysql
+```
 
 ### Brewfile — Reproducible Environment
 
 ```zsh
 brew bundle dump                             # generate Brewfile from current install
 brew bundle dump --file=~/dotfiles/Brewfile  # custom path
-brew bundle install                          # install everything in ./Brewfile
+brew bundle install                          # install from ./Brewfile
 brew bundle install --file=~/dotfiles/Brewfile
 brew bundle check --verbose                  # what's missing vs Brewfile
 brew bundle cleanup --force                  # remove packages NOT in Brewfile
@@ -94,80 +167,24 @@ cask "postman"
 # mas "Xcode", id: 497799835
 ```
 
-### Taps — Third-Party Repositories
-
-```zsh
-brew tap                                     # list taps
-brew tap <user/repo>                         # add a tap
-brew untap <user/repo>                       # remove a tap
-brew tap homebrew/cask-fonts                 # fonts tap
-brew tap homebrew/services                   # services tap
-```
-
-### Services — Manage Background Daemons
-
-```zsh
-brew services list                           # show all services + status
-brew services start postgresql@16            # start and auto-launch on login
-brew services stop postgresql@16             # stop and remove from login items
-brew services restart redis                  # restart
-brew services run mysql                      # start once (no auto-launch)
-brew services cleanup                        # remove stale plists
-```
-
-**Common services:**
-
-```zsh
-brew install postgresql@16 && brew services start postgresql@16
-brew install redis && brew services start redis
-brew install mysql && brew services start mysql
-```
-
-### Maintenance Workflow
-
-```zsh
-brew update                        # update Homebrew + formula index
-brew outdated                      # list packages with available updates
-brew upgrade                       # upgrade all
-brew upgrade <formula>             # upgrade one
-brew cleanup                       # remove old versions (free disk space)
-brew autoremove                    # remove unused dependencies
-brew doctor                        # diagnose issues
-```
-
 ---
 
-## Cask Quick Install — GUI Applications
+## JDK — Install & Version Switching on macOS
+
+### Install JDKs via Homebrew
 
 ```zsh
-brew install --cask temurin                  # Eclipse Temurin JDK (OpenJDK)
-brew install --cask temurin@21               # Java 21 LTS specifically
-brew install --cask visual-studio-code       # VS Code
-brew install --cask intellij-idea            # IntelliJ IDEA Ultimate
-brew install --cask intellij-idea-ce         # IntelliJ Community (free)
-brew install --cask docker                   # Docker Desktop
-brew install --cask iterm2                   # iTerm2 terminal
-brew install --cask postman                  # Postman API client
-brew install --cask tableplus                # TablePlus DB GUI
-brew install --cask dbngin                   # DBngin local DB manager
-brew install --cask rectangle                # window manager
-brew install --cask raycast                  # Spotlight replacement
-brew install --cask graalvm-jdk              # GraalVM (native image)
+brew install --cask temurin                  # latest Temurin (recommended)
+brew install --cask temurin@21               # Java 21 LTS
+brew install --cask temurin@17               # Java 17 LTS
+brew install --cask amazon-corretto@21       # Amazon Corretto 21
+brew install --cask graalvm-jdk              # GraalVM
 ```
 
----
-
-## JDK — Version Switching on macOS
-
-### List installed JDKs
+### List & Switch (manual)
 
 ```zsh
 /usr/libexec/java_home -V                    # list all installed JDKs with paths
-```
-
-### Switch versions (manual)
-
-```zsh
 export JAVA_HOME=$(/usr/libexec/java_home -v 21)   # switch to Java 21
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)   # switch to Java 17
 java --version                                      # verify
@@ -192,7 +209,7 @@ jenv local 17                               # per-directory (.java-version file)
 jenv enable-plugin export                   # auto-set JAVA_HOME on switch
 ```
 
-### .zshrc aliases for quick switching
+### Quick-switch aliases (.zshrc)
 
 ```zsh
 alias java21='export JAVA_HOME=$(/usr/libexec/java_home -v 21) && java --version'
@@ -202,22 +219,22 @@ alias javaVersions='/usr/libexec/java_home -V'
 
 ---
 
-## nvm on macOS — Apple Silicon Setup
+## nvm — Node.js on macOS (Apple Silicon)
 
 ```zsh
 brew install nvm
 
-# Add to ~/.zshrc (Apple Silicon paths)
+# Add to ~/.zshrc
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
 # Usage
-nvm install --lts                            # install latest LTS Node.js
+nvm install --lts                            # install latest LTS
 nvm use --lts                               # switch to LTS
 nvm alias default 'lts/*'                   # set default
-nvm list                                    # list installed versions
-echo "20" > .nvmrc                          # pin version per project
+nvm list                                    # list installed
+echo "20" > .nvmrc                          # pin per project
 nvm use                                     # auto-read .nvmrc
 ```
 
@@ -232,9 +249,12 @@ nvm use                                     # auto-read .nvmrc
 | `~/.zprofile` | Once per login session | `eval "$(brew shellenv)"`, env exports |
 | `~/.zshrc` | Every new terminal window/tab | Aliases, plugins, prompt, PATH additions |
 
-### Essential .zshrc structure
+### Essential .zshrc template
 
 ```zsh
+# === Homebrew (already in .zprofile, but ensure PATH) ===
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # === Environment ===
 export JAVA_HOME=$(/usr/libexec/java_home)
 export EDITOR="code --wait"
@@ -278,7 +298,7 @@ exec zsh                                     # full restart of shell
 
 ## Dotfiles Automation
 
-### Bootstrap pattern
+### Bootstrap script (new machine setup)
 
 ```zsh
 # ~/dotfiles/bootstrap.sh
@@ -320,13 +340,11 @@ killall Finder Dock
 
 ---
 
-## Docker Desktop on macOS — Config Tips
+## Docker Desktop on macOS
 
 ```zsh
 brew install --cask docker                   # install Docker Desktop
 ```
-
-**Settings to configure (Docker Desktop → Settings):**
 
 | Setting | Recommended | Why |
 |---|---|---|
@@ -335,10 +353,8 @@ brew install --cask docker                   # install Docker Desktop
 | File sharing → VirtioFS | Enable | Much faster volume mounts on Apple Silicon |
 | General → Start on login | Disable | Start manually to save RAM when not needed |
 
-**Verify:**
-
 ```zsh
-docker --version && docker compose version
+docker --version && docker compose version   # verify installation
 ```
 
 ---
@@ -347,14 +363,15 @@ docker --version && docker compose version
 
 | Error | Cause | Fix |
 |---|---|---|
-| `brew: command not found` | Homebrew not on PATH | Add to `~/.zprofile`: `eval "$(/opt/homebrew/bin/brew shellenv)"` |
-| `java: command not found` | JDK not installed or JAVA_HOME not set | `brew install --cask temurin` then export JAVA_HOME |
+| `brew: command not found` | Homebrew not on PATH | Add `eval "$(/opt/homebrew/bin/brew shellenv)"` to `~/.zprofile` |
+| `java: command not found` | JDK not installed | `brew install --cask temurin` then export JAVA_HOME |
 | Cask app "damaged or can't be opened" | Gatekeeper quarantine | `xattr -dr com.apple.quarantine /Applications/App.app` |
-| Wrong JDK version used | JAVA_HOME stale | `export JAVA_HOME=$(/usr/libexec/java_home -v 21)` |
-| Port already in use | Another process on same port | `lsof -ti :8080 \| xargs kill` |
-| `brew doctor` warnings after macOS update | Xcode CLI tools stale | `xcode-select --install` or `sudo xcode-select --reset` |
-| nvm: command not found | Missing source in .zshrc | Add nvm init lines (see nvm section above) |
-| Homebrew slow on Apple Silicon | Rosetta conflict | Ensure using `/opt/homebrew` not `/usr/local` |
+| Wrong JDK version | JAVA_HOME stale | `export JAVA_HOME=$(/usr/libexec/java_home -v 21)` |
+| Port already in use | Process on same port | `lsof -ti :8080 \| xargs kill` |
+| `brew doctor` warnings after update | Xcode CLI tools stale | `xcode-select --install` |
+| nvm: command not found | Missing source in .zshrc | Add nvm init lines (see nvm section) |
+| Homebrew slow | Rosetta conflict | Ensure using `/opt/homebrew` not `/usr/local` |
+| Permission denied on /usr/local | Intel leftover on M1 | `sudo chown -R $(whoami) /usr/local/*` |
 
 ---
 
@@ -365,7 +382,7 @@ docker --version && docker compose version
 ```zsh
 # 1. Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# 2. Follow "Next steps" printed by installer (add to PATH)
+# 2. Follow "Next steps" output (add to PATH)
 
 # 3. Install core tools
 brew install --cask temurin visual-studio-code iterm2
@@ -385,7 +402,6 @@ brew install nvm && nvm install --lts && nvm use --lts
 
 # Shell plugins
 brew install zsh-autosuggestions zsh-syntax-highlighting fzf starship
-# → add source lines to ~/.zshrc
 
 # jenv for JDK switching
 brew install jenv && eval "$(jenv init -)"
