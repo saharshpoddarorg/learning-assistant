@@ -49,8 +49,9 @@ flowchart TD
     F -->|Merge| H[Merge into existing modular skill]
     F -->|Keep separate| E
     E -->|Single concern| I[Step 5: Clean & migrate]
-    E -->|Multiple concerns| J[4a: Split into focused skills]
-    J --> I
+    E -->|Multiple concerns| J[4a: ASK USER — split into focused skills?]
+    J -->|User approves split| I
+    J -->|User keeps as one| I
     I --> K{Step 6: Delegation check<br/>against _modular/ skills}
     K -->|Skill overlap| L[6a: ASK USER — delegate to existing skill?]
     K -->|Workflow content| X[6b: ASK USER — route to prompt-backlog?]
@@ -61,12 +62,19 @@ flowchart TD
     X -->|Keep| M
     N --> M
     Y --> M
-    M --> O[Step 8: User approves]
-    O --> P[Step 9: Delete legacy — after user confirmation]
+    M --> O[Step 8: Present summary]
+    H --> O
+    O --> R{Agent assesses:<br/>Residue remains?}
+    R -->|Yes: residual content| S[ASK USER: archive to legacy-skills/?]
+    R -->|No: fully migrated| T[ASK USER: delete legacy directly?]
+    S -->|User approves| P[Step 9 Path A: Trim + archive]
+    S -->|User declines| M
+    T -->|User approves| P2[Step 9 Path B: Delete legacy]
+    T -->|User declines| M
     P --> Q[Done — update tracker]
+    P2 --> Q
     G --> Q
     W --> Q
-    H --> P
 ```
 
 ---
@@ -242,16 +250,161 @@ Present the final version with a summary:
 - Sections kept / trimmed / removed / delegated
 - Any new skills created (from splits)
 
-**Explicitly ask:** "Ready to delete the legacy skill and finalize?"
+**Before asking**, assess whether anything will remain after trimming:
 
-### Step 9 — Delete legacy & finalize (requires explicit user approval)
+- **If residual content exists** (deferred sections, prompt-backlog workflows, anything not in `_modular/`):
+  Explicitly ask: "There is residual content not yet migrated. Ready to trim and archive the legacy
+  skill to `prompt-backlog/legacy-skills/` and finalize?"
 
-**Only after the user explicitly approves deletion:**
+- **If everything is covered** (every section is already in `_modular/`, nothing deferred):
+  Explicitly ask: "All content is fully migrated — nothing remains in the legacy skill.
+  Ready to delete it entirely and finalize? (No archive needed.)"
 
-1. **Delete** the legacy skill folder
-2. **Delete** the parent category folder if now empty
-3. **Update** `_modular/README.md` migration tracker (mark as migrated)
-4. If a split produced new skills, add new rows to the tracker
+**Wait for user response.** Do not proceed to Step 9 without explicit approval.
+
+### Step 9 — Archive or delete legacy (requires explicit user approval)
+
+**Only after the user explicitly approves.** Follow the correct path based on the residue check.
+
+#### Path A — Residual content exists → trim and archive
+
+#### 9a — Trim the legacy file before archiving
+
+Before moving the file, **edit it in place** to remove content already covered by the
+modular skill. The archived file should contain only the residue — the content that was
+NOT migrated — so that the prompt-backlog migration pass has a focused, clean file to
+work from.
+
+**What to KEEP in the archived file:**
+
+| Keep if... | Examples |
+|---|---|
+| Routed to `prompt-backlog/` as a workflow | 3-tier learning path, setup procedures, automation scripts |
+| Content that was deliberately deferred | PR-link handling, tier-based UX guides |
+| Supplementary sections with no modular home | Git aliases, shell one-liners, resource lists |
+| Prompt-backlog entry already references it | Anything documented in `prompt-backlog/<skill>-*.md` |
+
+**What to STRIP from the archived file:**
+
+| Strip if... | Examples |
+|---|---|
+| Already fully migrated to `_modular/` | Core reference tables, commands, patterns now in modular skill |
+| Generic knowledge Copilot already knows | Basic command explanations, obvious syntax |
+| Duplicated by an existing modular skill | Any section now covered by another `_modular/` skill |
+| Meta/structural filler | "How to use this skill", frontmatter description, skill intro |
+
+**Trimming process:**
+
+1. Open the legacy file
+2. For each section, check: is this content in `_modular/<skill-name>/SKILL.md`?
+   - **Yes** → delete the section (or replace with a one-line note: `# Migrated to _modular/<skill-name>/`)
+   - **No** → keep it verbatim
+3. Update the frontmatter `description` to reflect what remains:
+
+   ```yaml
+   description: 'ARCHIVED — residual content not yet migrated to a prompt. Sections: [list what remains]'
+   ```
+
+4. Add a header comment at the top of the file:
+
+   ```markdown
+   > **ARCHIVED LEGACY SKILL** — migrated to `_modular/<skill-name>/SKILL.md`.
+   > This file contains only the residual content not yet moved to a prompt.
+   > See `prompt-backlog/<skill-name>-*.md` for migration notes.
+   ```
+
+#### 9b — Move, clean up, and register
+
+After trimming:
+
+1. **Archive** using `git mv` (moves the file and deletes the source — preserves full history):
+
+   ```bash
+   git mv .github/skills/<category>/<skill-name>/SKILL.md \
+          .github/skills/prompt-backlog/legacy-skills/<skill-name>/SKILL.md
+   ```
+
+   `git mv` already deletes the file from its original location. The trimmed content
+   is now safely in `legacy-skills/` — the original legacy skill is gone.
+
+2. **Remove the now-empty skill folder** (the `<skill-name>/` directory under `<category>/`):
+
+   ```bash
+   # PowerShell
+   Remove-Item -Path ".github/skills/<category>/<skill-name>" -Force
+   git add -A
+   ```
+
+3. **Remove the parent category folder if now empty** — check if any other skills remain:
+
+   ```bash
+   # Check if the category folder is empty (no other skill sub-folders remain)
+   Get-ChildItem ".github/skills/<category>" | Measure-Object
+   ```
+
+   If the result is **0 items** (all skills in this category have been migrated):
+
+   ```bash
+   Remove-Item -Path ".github/skills/<category>" -Force
+   git add -A
+   ```
+
+   If other skills still remain in `<category>/`, leave the folder — it still has active skills.
+
+4. **Update** `prompt-backlog/legacy-skills/README.md` — add a row to the contents table:
+
+   ```markdown
+   | `<skill-name>/SKILL.md` | `_modular/<skill-name>/SKILL.md` | `<backlog-entry>.md` (if any) | Awaiting cleanup |
+   ```
+
+5. **Update** `_modular/README.md` migration tracker (mark as migrated)
+6. If a split produced new skills, add new rows to the tracker
+
+> **Why trim before archiving?** A trimmed archive file makes the future prompt-backlog
+> migration fast — the agent only sees what's unfinished, not a full re-read of already-
+> migrated content. The `git mv` preserves full history if the original is ever needed.
+> Once the trimmed copy is in `legacy-skills/`, the original location is safe to remove —
+> the archive IS the legacy skill.
+
+---
+
+#### Path B — Fully migrated → delete directly
+
+Use this path when **every section** of the legacy skill is already covered by `_modular/`
+skills and nothing was deferred. No archive is needed — the modular skills are the
+authoritative replacement.
+
+1. **Delete the legacy file** (Git-tracked):
+
+   ```bash
+   git rm .github/skills/<category>/<skill-name>/SKILL.md
+   ```
+
+2. **Remove the now-empty skill folder**:
+
+   ```bash
+   Remove-Item -Path ".github/skills/<category>/<skill-name>" -Force
+   git add -A
+   ```
+
+3. **Remove the parent category folder if now empty** — check if any other skills remain:
+
+   ```bash
+   Get-ChildItem ".github/skills/<category>" | Measure-Object
+   ```
+
+   If the result is **0 items**, remove the category folder too:
+
+   ```bash
+   Remove-Item -Path ".github/skills/<category>" -Force
+   git add -A
+   ```
+
+4. **Update** `_modular/README.md` migration tracker — mark as migrated (no archive entry needed).
+
+> **When to choose Path B:** Only when you can confirm, section by section, that every piece
+> of content in the legacy skill has a home in a `_modular/` skill. If even one section is
+> unplaced or deferred, use Path A so that content is not silently lost.
 
 ---
 
@@ -267,7 +420,7 @@ Every decision point in this workflow is **user-driven** — the agent proposes,
 | Step 4a | Split vs. keep as one (SRP) | **User decides** |
 | Step 6a | Delegate vs. keep inline | **User decides** |
 | Step 8 | Approve final version | **User decides** |
-| Step 9 | Approve legacy deletion | **User decides** |
+| Step 9 (residue check) | Archive (Path A) vs. delete directly (Path B) | Agent assesses, user approves |
 
 ---
 

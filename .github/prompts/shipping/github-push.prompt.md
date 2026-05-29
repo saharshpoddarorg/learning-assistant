@@ -46,7 +46,7 @@ Only when there are uncommitted changes to commit:
 
 1. **Lint Markdown** — if any `.md` files are modified, run `.\__md_lint.ps1`
    - If lint fails, fix issues automatically and re-run until 0 issues
-2. **Build Java** — if any `.java` files are modified, run `.\mcp-servers\build.ps1`
+2. **Build Java** — if any `.java` files are modified, run `.\gradlew.bat build`
    - If build fails, show the error and STOP — never commit with a broken build
 3. If both pass (or not applicable), proceed to commit
 
