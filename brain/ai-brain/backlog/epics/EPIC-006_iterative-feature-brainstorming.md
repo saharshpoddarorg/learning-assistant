@@ -43,11 +43,11 @@ This epic supports **any stage** of the feature lifecycle:
 ## Progress
 
 ```text
-Total items:    0
+Total items:    5
 Completed:      0  (0%)
 In progress:    0
 Blocked:        0
-Remaining:      0
+Remaining:      5
 
 Ideas linked:   0
 Brainstorms:    0
@@ -59,6 +59,11 @@ Brainstorms:    0
 
 | ID | Title | Status | Priority | Started | Completed |
 |---|---|---|---|---|---|
+| BLI-075 | Search engine — online and local knowledge search | todo | high | — | — |
+| BLI-076 | Web scraper — intelligent content extraction and filtering | todo | high | — | — |
+| BLI-077 | PKM/brain/notes manager — full knowledge lifecycle | todo | high | — | — |
+| BLI-078 | Question refinement — smarter query formulation for GHCP | todo | medium | — | — |
+| BLI-079 | Presentation of information — structured and distributable output | todo | medium | — | — |
 
 ## Linked Ideas & Brainstorms
 
@@ -77,6 +82,7 @@ Brainstorms:    0
 
 | Date | Time | Actor | Event | Details |
 |---|---|---|---|---|
+| 2026-05-29 | 08:58 PM | system | items-added | Added 5 brainstormed features: BLI-075 through BLI-079 |
 | 2026-05-29 | 08:49 PM | system | created | Epic created — open-ended iterative feature brainstorming space |
 
 ## Notes
