@@ -19,6 +19,12 @@ and **details** (context). Entries are newest-first within each month.
 
 | Date | Time | ID | Action | From | To | Details |
 |---|---|---|---|---|---|---|
+| 2026-05-29 | 08:58 PM | BLI-075 | created | — | todo | Search engine — online and local knowledge search (EPIC-006) |
+| 2026-05-29 | 08:58 PM | BLI-076 | created | — | todo | Web scraper — intelligent content extraction and filtering (EPIC-006) |
+| 2026-05-29 | 08:58 PM | BLI-077 | created | — | todo | PKM/brain/notes manager — full knowledge lifecycle (EPIC-006) |
+| 2026-05-29 | 08:58 PM | BLI-078 | created | — | todo | Question refinement — smarter query formulation for GHCP (EPIC-006) |
+| 2026-05-29 | 08:58 PM | BLI-079 | created | — | todo | Presentation of information — structured and distributable output (EPIC-006) |
+| 2026-05-29 | 08:49 PM | EPIC-006 | created | — | active | Iterative feature brainstorming — open-ended ideation space for learning-assistant features |
 | 2026-05-15 | — | EPIC-005 | created | — | draft | Full repo revamp — modularize prompts, skills, agents, MCP, brain (34 items) |
 | 2026-05-15 | — | BLI-041–074 | created | — | todo | 34 modularization items across 7 phases (EPIC-005) |
 | 2026-05-15 | — | EPIC-004 | created | — | active | Stale reference cleanup post-Gradle migration (13 items) |

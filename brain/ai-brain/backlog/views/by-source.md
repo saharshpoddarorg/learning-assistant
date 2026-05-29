@@ -84,6 +84,19 @@ Items created through AI-assisted backlog planning sessions (epics, audits, inve
 | BLI-073 | Verify all cross-links and navigation | todo | medium | 2026-05-15 |
 | BLI-074 | Create documentation hierarchy diagram | todo | low | 2026-05-15 |
 
+### EPIC-006 — Iterative Feature Brainstorming (2026-05-29)
+
+> **Source:** AI session — iterative feature brainstorming for learning-assistant
+> **Extracted:** 5 BLIs created (BLI-075–079)
+
+| ID | Title | Status | Priority | Created |
+|---|---|---|---|---|
+| BLI-075 | Search engine — online and local knowledge search | todo | high | 2026-05-29 |
+| BLI-076 | Web scraper — intelligent content extraction and filtering | todo | high | 2026-05-29 |
+| BLI-077 | PKM/brain/notes manager — full knowledge lifecycle | todo | high | 2026-05-29 |
+| BLI-078 | Question refinement — smarter query formulation for GHCP | todo | medium | 2026-05-29 |
+| BLI-079 | Presentation of information — structured and distributable output | todo | medium | 2026-05-29 |
+
 ---
 
 ## File Imports (`/read-file-jot`)

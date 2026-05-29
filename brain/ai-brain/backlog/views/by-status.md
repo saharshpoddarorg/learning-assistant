@@ -21,7 +21,7 @@
 
 ---
 
-## Todo (72)
+## Todo (77)
 
 > Items ready to be picked up. Ordered by priority (high → low), then by ID.
 
@@ -62,6 +62,9 @@
 | BLI-058 | Deprecate/remove Atlassian v1 server | feature | EPIC-005 | 2026-05-15 | mcp, deprecation |
 | BLI-059 | Unify MCP server configuration pattern | feature | EPIC-005 | 2026-05-15 | mcp, configuration |
 | BLI-063 | Measure instruction context overhead | feature | EPIC-005 | 2026-05-15 | instructions, measurement |
+| BLI-075 | Search engine — online and local knowledge search | feature | EPIC-006 | 2026-05-29 | search, web-search, notes-search |
+| BLI-076 | Web scraper — intelligent content extraction and filtering | feature | EPIC-006 | 2026-05-29 | web-scraper, content-extraction |
+| BLI-077 | PKM/brain/notes manager — full knowledge lifecycle | feature | EPIC-006 | 2026-05-29 | pkm, brain, notes |
 
 ### Medium Priority
 
@@ -94,6 +97,8 @@
 | BLI-068 | Consolidate brain scripts | feature | EPIC-005 | 2026-05-15 | brain, scripts |
 | BLI-072 | Audit docs for content duplication | feature | EPIC-005 | 2026-05-15 | documentation, audit |
 | BLI-073 | Verify all cross-links and navigation | feature | EPIC-005 | 2026-05-15 | documentation, links |
+| BLI-078 | Question refinement — smarter query formulation for GHCP | feature | EPIC-006 | 2026-05-29 | question-refinement, query |
+| BLI-079 | Presentation of information — structured and distributable output | feature | EPIC-006 | 2026-05-29 | presentation, formatting |
 
 ### Low Priority
 
