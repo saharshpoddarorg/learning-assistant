@@ -293,30 +293,58 @@ work from.
    > See `prompt-backlog/<skill-name>-*.md` for migration notes.
    ```
 
-#### 9b — Move and register
+#### 9b — Move, clean up, and register
 
 After trimming:
 
-1. **Archive** using `git mv` (preserves history):
+1. **Archive** using `git mv` (moves the file and deletes the source — preserves full history):
 
    ```bash
-   git mv .github/skills/<category>/<skill-name>/SKILL.md .github/skills/prompt-backlog/legacy-skills/<skill-name>/SKILL.md
+   git mv .github/skills/<category>/<skill-name>/SKILL.md \
+          .github/skills/prompt-backlog/legacy-skills/<skill-name>/SKILL.md
    ```
 
-2. **Delete** the parent category folder if now empty (no other skills remain in it)
+   `git mv` already deletes the file from its original location. The trimmed content
+   is now safely in `legacy-skills/` — the original legacy skill is gone.
 
-3. **Update** `prompt-backlog/legacy-skills/README.md` — add a row to the contents table:
+2. **Remove the now-empty skill folder** (the `<skill-name>/` directory under `<category>/`):
+
+   ```bash
+   # PowerShell
+   Remove-Item -Path ".github/skills/<category>/<skill-name>" -Force
+   git add -A
+   ```
+
+3. **Remove the parent category folder if now empty** — check if any other skills remain:
+
+   ```bash
+   # Check if the category folder is empty (no other skill sub-folders remain)
+   Get-ChildItem ".github/skills/<category>" | Measure-Object
+   ```
+
+   If the result is **0 items** (all skills in this category have been migrated):
+
+   ```bash
+   Remove-Item -Path ".github/skills/<category>" -Force
+   git add -A
+   ```
+
+   If other skills still remain in `<category>/`, leave the folder — it still has active skills.
+
+4. **Update** `prompt-backlog/legacy-skills/README.md` — add a row to the contents table:
 
    ```markdown
    | `<skill-name>/SKILL.md` | `_modular/<skill-name>/SKILL.md` | `<backlog-entry>.md` (if any) | Awaiting cleanup |
    ```
 
-4. **Update** `_modular/README.md` migration tracker (mark as migrated)
-5. If a split produced new skills, add new rows to the tracker
+5. **Update** `_modular/README.md` migration tracker (mark as migrated)
+6. If a split produced new skills, add new rows to the tracker
 
 > **Why trim before archiving?** A trimmed archive file makes the future prompt-backlog
 > migration fast — the agent only sees what's unfinished, not a full re-read of already-
 > migrated content. The `git mv` preserves full history if the original is ever needed.
+> Once the trimmed copy is in `legacy-skills/`, the original location is safe to remove —
+> the archive IS the legacy skill.
 
 ---
 
