@@ -19,6 +19,12 @@ and **details** (context). Entries are newest-first within each month.
 
 | Date | Time | ID | Action | From | To | Details |
 |---|---|---|---|---|---|---|
+| 2026-05-29 | 09:21 PM | BLI-080 | created | — | todo | Search engine — labelling system for structured classification (EPIC-006, sub-item of BLI-075) |
+| 2026-05-29 | 09:21 PM | BLI-081 | created | — | todo | Search engine — tagging system for flexible categorization (EPIC-006, sub-item of BLI-075) |
+| 2026-05-29 | 09:21 PM | BLI-082 | created | — | todo | Search engine — full-text indexing engine for local knowledge (EPIC-006, sub-item of BLI-075) |
+| 2026-05-29 | 09:21 PM | BLI-083 | created | — | todo | Search engine — metadata index and faceted search (EPIC-006, sub-item of BLI-075) |
+| 2026-05-29 | 09:21 PM | BLI-084 | created | — | todo | Search engine — auto-classification and entity extraction (EPIC-006, sub-item of BLI-075) |
+| 2026-05-29 | 09:21 PM | BLI-075 | decomposed | — | — | Added 5 sub-items: BLI-080 (labelling), BLI-081 (tagging), BLI-082 (indexing), BLI-083 (faceted search), BLI-084 (auto-classification) |
 | 2026-05-29 | 08:58 PM | BLI-075 | created | — | todo | Search engine — online and local knowledge search (EPIC-006) |
 | 2026-05-29 | 08:58 PM | BLI-076 | created | — | todo | Web scraper — intelligent content extraction and filtering (EPIC-006) |
 | 2026-05-29 | 08:58 PM | BLI-077 | created | — | todo | PKM/brain/notes manager — full knowledge lifecycle (EPIC-006) |
@@ -99,14 +105,14 @@ and **details** (context). Entries are newest-first within each month.
 
 | Month | Changes | Items Created | Items Completed | Sprint Completions |
 |---|---|---|---|---|
-| 2026-05 | 6 | 47 | 0 | 0 |
+| 2026-05 | 12 | 52 | 0 | 0 |
 | 2026-04 | 17 | 9 | 0 | 0 |
 | 2026-03 | 7 | 21 | 1 | 0 |
 
 ### Cumulative
 
 ```text
-Total items created:     77
+Total items created:     82
 Total items completed:    1
 Completion rate:          1%
 Active sprints:           0
@@ -115,4 +121,4 @@ Completed sprints:        0
 
 ---
 
-> **Last updated:** 2026-05-15
+> **Last updated:** 2026-05-29

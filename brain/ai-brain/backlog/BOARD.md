@@ -13,16 +13,16 @@
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  BACKLOG DASHBOARD                                        2026-05-15   │
+│  BACKLOG DASHBOARD                                        2026-05-29   │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  Items     ██████████████████████████████████████░░░░  79 total         │
-│  todo      ████████████████████████████████████░░░░░░  77               │
+│  Items     ██████████████████████████████████████░░░░  84 total         │
+│  todo      ████████████████████████████████████░░░░░░  82               │
 │  progress  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │  blocked   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0               │
 │  done      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │                                                                         │
-│  Priority  critical: 4 | high: 21 | medium: 28 | low: 20               │
+│  Priority  critical: 4 | high: 22 | medium: 32 | low: 20               │
 │  Epics     3 draft | 2 active | 1 draft (EPIC-005) | 0 done            │
 │  Ideas     1 raw | 0 refining | 0 promoted                             │
 │  Sprints   0 active | 0 completed                                       │
@@ -34,14 +34,14 @@
 
 | Type | Count | Folder |
 |---|---|---|
-| Features | 71 | `features/` — learning-assistant enhancements (32 existing + 34 EPIC-005 + 5 EPIC-006) |
+| Features | 76 | `features/` — learning-assistant enhancements (32 existing + 34 EPIC-005 + 10 EPIC-006) |
 | Projects | 7 | `projects/` — standalone personal software projects |
 | Items | 1 | `items/` — general (BLI-006, done) |
 | Ideas | 1 | `ideas/` |
 | Epics | 6 | `epics/` — EPIC-001 through EPIC-006 |
 | Guides | 0 | `guides/` |
 | Sprints | 0 | `sprints/` |
-| **Total** | **86** | |
+| **Total** | **91** | |
 
 ---
 
@@ -58,7 +58,7 @@
 ```text
 ┌──────────────┬──────────────┬──────────────┬──────────────┬──────────────┐
 │   BACKLOG    │  IN PROGRESS │   BLOCKED    │   IN REVIEW  │     DONE     │
-│   (77)       │   (1)        │   (0)        │   (0)        │     (1)      │
+│   (82)       │   (1)        │   (0)        │   (0)        │     (1)      │
 ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
 │ BLI-028 crit │ BLI-026 high │              │              │ BLI-006 med  │
 │ BLI-029 crit │              │              │              │              │
@@ -137,6 +137,11 @@
 │ BLI-077 high │              │              │              │              │
 │ BLI-078 med  │              │              │              │              │
 │ BLI-079 med  │              │              │              │              │
+│ BLI-080 med  │              │              │              │              │
+│ BLI-081 med  │              │              │              │              │
+│ BLI-082 high │              │              │              │              │
+│ BLI-083 med  │              │              │              │              │
+│ BLI-084 med  │              │              │              │              │
 └──────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
 ```
 
@@ -218,7 +223,7 @@
 
 ### EPIC-006: Iterative feature brainstorming — learning-assistant
 
-> **Status:** active | **Priority:** medium | **Progress:** 0/5 (0%)
+> **Status:** active | **Priority:** medium | **Progress:** 0/10 (0%)
 >
 > **Folder:** `features/` | **Type:** Open-ended ideation — items added iteratively
 
@@ -229,6 +234,11 @@
 | BLI-077 | PKM/brain/notes manager — full knowledge lifecycle | high | todo | — | — |
 | BLI-078 | Question refinement — smarter query formulation for GHCP | medium | todo | — | — |
 | BLI-079 | Presentation of information — structured and distributable output | medium | todo | — | — |
+| BLI-080 | Search engine — labelling system for structured classification | medium | todo | — | — |
+| BLI-081 | Search engine — tagging system for flexible categorization | medium | todo | — | — |
+| BLI-082 | Search engine — full-text indexing engine for local knowledge | high | todo | — | — |
+| BLI-083 | Search engine — metadata index and faceted search | medium | todo | — | — |
+| BLI-084 | Search engine — auto-classification and entity extraction | medium | todo | — | — |
 
 ### EPIC-005: Full repo revamp — modularize prompts, skills, agents, MCP, brain
 
@@ -377,6 +387,7 @@
 
 | Date | Time | ID | Action | Details |
 |---|---|---|---|---|
+| 2026-05-29 | 09:21 PM | BLI-080–084 | created | 5 sub-items of BLI-075 for search engine (labelling, tagging, indexing, faceted search, auto-classification) |
 | 2026-05-29 | 08:58 PM | BLI-075–079 | created | 5 brainstormed features for EPIC-006 (search, scraper, PKM, refinement, presentation) |
 | 2026-05-29 | 08:49 PM | EPIC-006 | created | Iterative feature brainstorming epic — open-ended ideation space |
 | 2026-04-21 | 05:43 PM | BLI-027 | created | Code analysis context enhancement chain (manual /jot) |
