@@ -43,11 +43,11 @@ This epic supports **any stage** of the feature lifecycle:
 ## Progress
 
 ```text
-Total items:    5
+Total items:   10
 Completed:      0  (0%)
 In progress:    0
 Blocked:        0
-Remaining:      5
+Remaining:     10
 
 Ideas linked:   0
 Brainstorms:    0
@@ -64,6 +64,11 @@ Brainstorms:    0
 | BLI-077 | PKM/brain/notes manager — full knowledge lifecycle | todo | high | — | — |
 | BLI-078 | Question refinement — smarter query formulation for GHCP | todo | medium | — | — |
 | BLI-079 | Presentation of information — structured and distributable output | todo | medium | — | — |
+| BLI-080 | Search engine — labelling system for structured classification | todo | medium | — | — |
+| BLI-081 | Search engine — tagging system for flexible categorization | todo | medium | — | — |
+| BLI-082 | Search engine — full-text indexing engine for local knowledge | todo | high | — | — |
+| BLI-083 | Search engine — metadata index and faceted search | todo | medium | — | — |
+| BLI-084 | Search engine — auto-classification and entity extraction | todo | medium | — | — |
 
 ## Linked Ideas & Brainstorms
 
@@ -82,6 +87,7 @@ Brainstorms:    0
 
 | Date | Time | Actor | Event | Details |
 |---|---|---|---|---|
+| 2026-05-29 | 09:21 PM | system | items-added | Added 5 sub-items of BLI-075: BLI-080 (labelling), BLI-081 (tagging), BLI-082 (indexing), BLI-083 (faceted search), BLI-084 (auto-classification) |
 | 2026-05-29 | 08:58 PM | system | items-added | Added 5 brainstormed features: BLI-075 through BLI-079 |
 | 2026-05-29 | 08:49 PM | system | created | Epic created — open-ended iterative feature brainstorming space |
 

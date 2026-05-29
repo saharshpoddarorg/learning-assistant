@@ -10,9 +10,9 @@
 
 ```text
 Critical  ████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   4   (5%)
-High      ██████████████████████████░░░░░░░░░░░░░░░░░░  21  (27%)
-Medium    ████████████████████████████████░░░░░░░░░░░░░  28  (35%)
-Low       ██████████████████████████░░░░░░░░░░░░░░░░░░  20  (25%)
+High      ██████████████████████████░░░░░░░░░░░░░░░░░░  22  (26%)
+Medium    ████████████████████████████████████░░░░░░░░░  32  (38%)
+Low       ██████████████████████████░░░░░░░░░░░░░░░░░░  20  (24%)
 Done      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1   (1%)
 In Prog.  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1   (1%)
 ```
@@ -32,7 +32,7 @@ In Prog.  ██░░░░░░░░░░░░░░░░░░░░░�
 
 ---
 
-## High (21)
+## High (22)
 
 > Important items to prioritise in the next sprint/iteration.
 
@@ -66,10 +66,11 @@ In Prog.  ██░░░░░░░░░░░░░░░░░░░░░�
 | BLI-075 | Search engine — online and local knowledge search | feature | EPIC-006 | todo | features/ | 2026-05-29 |
 | BLI-076 | Web scraper — intelligent content extraction and filtering | feature | EPIC-006 | todo | features/ | 2026-05-29 |
 | BLI-077 | PKM/brain/notes manager — full knowledge lifecycle | feature | EPIC-006 | todo | features/ | 2026-05-29 |
+| BLI-082 | Search engine — full-text indexing engine for local knowledge | feature | EPIC-006 | todo | features/ | 2026-05-29 |
 
 ---
 
-## Medium (28)
+## Medium (32)
 
 > Standard priority — schedule in upcoming sprints.
 
@@ -105,6 +106,10 @@ In Prog.  ██░░░░░░░░░░░░░░░░░░░░░�
 | BLI-073 | Verify all cross-links and navigation | feature | EPIC-005 | todo | features/ | 2026-05-15 |
 | BLI-078 | Question refinement — smarter query formulation for GHCP | feature | EPIC-006 | todo | features/ | 2026-05-29 |
 | BLI-079 | Presentation of information — structured and distributable output | feature | EPIC-006 | todo | features/ | 2026-05-29 |
+| BLI-080 | Search engine — labelling system for structured classification | feature | EPIC-006 | todo | features/ | 2026-05-29 |
+| BLI-081 | Search engine — tagging system for flexible categorization | feature | EPIC-006 | todo | features/ | 2026-05-29 |
+| BLI-083 | Search engine — metadata index and faceted search | feature | EPIC-006 | todo | features/ | 2026-05-29 |
+| BLI-084 | Search engine — auto-classification and entity extraction | feature | EPIC-006 | todo | features/ | 2026-05-29 |
 
 ---
 
@@ -145,4 +150,4 @@ In Prog.  ██░░░░░░░░░░░░░░░░░░░░░�
 
 ---
 
-> **Last updated:** 2026-05-15
+> **Last updated:** 2026-05-29

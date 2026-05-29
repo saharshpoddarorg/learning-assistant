@@ -21,7 +21,7 @@
 
 ---
 
-## Todo (77)
+## Todo (82)
 
 > Items ready to be picked up. Ordered by priority (high → low), then by ID.
 
@@ -65,6 +65,7 @@
 | BLI-075 | Search engine — online and local knowledge search | feature | EPIC-006 | 2026-05-29 | search, web-search, notes-search |
 | BLI-076 | Web scraper — intelligent content extraction and filtering | feature | EPIC-006 | 2026-05-29 | web-scraper, content-extraction |
 | BLI-077 | PKM/brain/notes manager — full knowledge lifecycle | feature | EPIC-006 | 2026-05-29 | pkm, brain, notes |
+| BLI-082 | Search engine — full-text indexing engine for local knowledge | feature | EPIC-006 | 2026-05-29 | search, indexing, full-text |
 
 ### Medium Priority
 
@@ -99,6 +100,10 @@
 | BLI-073 | Verify all cross-links and navigation | feature | EPIC-005 | 2026-05-15 | documentation, links |
 | BLI-078 | Question refinement — smarter query formulation for GHCP | feature | EPIC-006 | 2026-05-29 | question-refinement, query |
 | BLI-079 | Presentation of information — structured and distributable output | feature | EPIC-006 | 2026-05-29 | presentation, formatting |
+| BLI-080 | Search engine — labelling system for structured classification | feature | EPIC-006 | 2026-05-29 | search, labelling, classification |
+| BLI-081 | Search engine — tagging system for flexible categorization | feature | EPIC-006 | 2026-05-29 | search, tagging, keywords |
+| BLI-083 | Search engine — metadata index and faceted search | feature | EPIC-006 | 2026-05-29 | search, metadata, faceted-search |
+| BLI-084 | Search engine — auto-classification and entity extraction | feature | EPIC-006 | 2026-05-29 | search, auto-classification, nlp |
 
 ### Low Priority
 
@@ -188,7 +193,7 @@ This month:       1
 ## Status Distribution
 
 ```text
-Todo         ████████████████████████████████████████████  72  (97%)
+Todo         ████████████████████████████████████████████  82  (98%)
 In Progress  █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1   (1%)
 Blocked      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0   (0%)
 In Review    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0   (0%)
@@ -197,4 +202,4 @@ Done         █░░░░░░░░░░░░░░░░░░░░░�
 
 ---
 
-> **Last updated:** 2026-05-15
+> **Last updated:** 2026-05-29

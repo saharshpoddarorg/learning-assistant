@@ -6,6 +6,7 @@ priority: high
 type: feature
 created: 2026-05-29
 updated: 2026-05-29
+decomposed: 2026-05-29
 started: null
 completed: null
 blocked-since: null
@@ -13,7 +14,7 @@ review-since: null
 epic: EPIC-006
 sprint: null
 parent: null
-sub-items: []
+sub-items: [BLI-080, BLI-081, BLI-082, BLI-083, BLI-084]
 origin: null
 estimated-effort: XL
 actual-effort: null
@@ -42,6 +43,16 @@ and source trustworthiness.
 - Search history and saved queries
 - Integration with the vault's existing keyword index for local resource discovery
 
+## Sub-Items
+
+| ID | Title | Priority | Status |
+|---|---|---|---|
+| BLI-080 | Labelling system — structured classification | medium | todo |
+| BLI-081 | Tagging system — flexible categorization | medium | todo |
+| BLI-082 | Full-text indexing engine — local knowledge | high | todo |
+| BLI-083 | Metadata index and faceted search | medium | todo |
+| BLI-084 | Auto-classification and entity extraction | medium | todo |
+
 ## Acceptance Criteria
 
 - [ ] Can search online resources (web) for a given query
@@ -56,11 +67,17 @@ and source trustworthiness.
 
 - BLI-012: Enhanced web scraping & search engine (EPIC-002)
 - BLI-076: Web scraper — intelligent content extraction
+- BLI-080: Labelling system — structured classification (sub-item)
+- BLI-081: Tagging system — flexible categorization (sub-item)
+- BLI-082: Full-text indexing engine — local knowledge (sub-item)
+- BLI-083: Metadata index and faceted search (sub-item)
+- BLI-084: Auto-classification and entity extraction (sub-item)
 
 ## Activity Log
 
 | Date | Time | Actor | Action | Details |
 |---|---|---|---|---|
+| 2026-05-29 | 09:21 PM | system | decomposed | Added 5 sub-items: BLI-080 (labelling), BLI-081 (tagging), BLI-082 (indexing), BLI-083 (faceted search), BLI-084 (auto-classification) |
 | 2026-05-29 | 08:58 PM | system | created | Brainstormed as part of EPIC-006 iterative feature ideation |
 
 ## Notes

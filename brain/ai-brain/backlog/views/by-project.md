@@ -19,6 +19,7 @@
 │    EPIC-002  Knowledge & Brain     ░░░░░░░░░░░░░░░░░░░░  0/9  (0%)    │
 │    EPIC-004  Stale Ref Cleanup     ░░░░░░░░░░░░░░░░░░░░  0/13 (0%)    │
 │    EPIC-005  Full Repo Revamp      ░░░░░░░░░░░░░░░░░░░░  0/34 (0%)    │
+│    EPIC-006  Feature Brainstorm   ░░░░░░░░░░░░░░░░░░░░  0/10 (0%)    │
 │    Standalone                      ░░░░░░░░░░░░░░░░░░░░  0/4  (0%)    │
 │                                                                         │
 │  personal projects (projects/)                                          │
@@ -92,6 +93,44 @@
 | BLI-021 | Reusable content templates system | medium | todo | — | — |
 | BLI-022 | Export and migration support for portability | medium | todo | — | — |
 | BLI-023 | Cross-repo item merge and sync | medium | todo | — | — |
+
+---
+
+## Learning-Assistant — EPIC-006: Iterative Feature Brainstorming
+
+> **Goal:** Open-ended ideation space for learning-assistant features — brainstorm, scope, build.
+>
+> **Progress:** 0/10 complete (0%) | **Priority:** medium | **Status:** active
+
+```text
+  BACKLOG (10)        IN PROGRESS (0)     DONE (0)
+  ─────────────       ─────────────       ─────────────
+  BLI-075 high
+  BLI-076 high
+  BLI-077 high
+  BLI-082 high
+  BLI-078 med
+  BLI-079 med
+  BLI-080 med
+  BLI-081 med
+  BLI-083 med
+  BLI-084 med
+```
+
+| ID | Title | Priority | Status | Started | Completed |
+|---|---|---|---|---|---|
+| BLI-075 | Search engine — online and local knowledge search | high | todo | — | — |
+| BLI-076 | Web scraper — intelligent content extraction and filtering | high | todo | — | — |
+| BLI-077 | PKM/brain/notes manager — full knowledge lifecycle | high | todo | — | — |
+| BLI-078 | Question refinement — smarter query formulation for GHCP | medium | todo | — | — |
+| BLI-079 | Presentation of information — structured and distributable output | medium | todo | — | — |
+| BLI-080 | Search engine — labelling system for structured classification | medium | todo | — | — |
+| BLI-081 | Search engine — tagging system for flexible categorization | medium | todo | — | — |
+| BLI-082 | Search engine — full-text indexing engine for local knowledge | high | todo | — | — |
+| BLI-083 | Search engine — metadata index and faceted search | medium | todo | — | — |
+| BLI-084 | Search engine — auto-classification and entity extraction | medium | todo | — | — |
+
+> **Sub-item hierarchy:** BLI-080, BLI-081, BLI-082, BLI-083, BLI-084 are sub-items of BLI-075
 
 ---
 
@@ -311,4 +350,4 @@
 
 ---
 
-> **Last updated:** 2026-05-15
+> **Last updated:** 2026-05-29
