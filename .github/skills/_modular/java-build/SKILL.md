@@ -140,3 +140,29 @@ mvn -o clean install             # offline mode (use local cache)
 mvn -U clean install             # force snapshot updates
 mvn -X clean install             # debug output
 ```
+
+---
+
+## Skill Routing — Which Skill to Use When
+
+| Situation | Skill |
+|---|---|
+| Run Gradle or Maven build commands (any OS) | **`java-build`** ← you are here |
+| Install JDK, Gradle, Maven **on macOS** | `mac-dev` |
+| Install JDK, Gradle, Maven **on Windows or Linux** | `package-manager` |
+| Set JAVA_HOME or fix PATH on Windows | `package-manager` |
+| Set JAVA_HOME or fix PATH on macOS | `mac-dev` |
+| Switch between JDK versions on macOS (jenv) | `mac-dev` |
+| Switch between JDK versions on Windows/Linux (SDKMAN) | `package-manager` |
+
+### Boundary Rules
+
+```text
+java-build     = ANY OS — purely ./gradlew / mvn commands; never installs
+mac-dev        = macOS ONLY — install + env setup via Homebrew
+package-manager = Windows + Linux — install + env setup via winget / apt / SDKMAN
+```
+
+> **Build failing with "JAVA_HOME not set"?**
+> → On macOS: see `mac-dev` (jenv / java_home).
+> → On Windows/Linux: see `package-manager` (JAVA_HOME env var).

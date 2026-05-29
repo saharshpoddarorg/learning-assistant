@@ -452,3 +452,27 @@ source ~/dotfiles/macos-defaults.sh
 | npm on macOS | `mac-os/docs/npm-on-mac.md` |
 | Dev Tools (IDEs, Docker) | `mac-os/docs/dev-tools-guide.md` |
 | Full Environment (Shell, Dotfiles) | `mac-os/docs/mac-dev-environment.md` |
+
+---
+
+## Skill Routing — Which Skill to Use When
+
+| Situation | Skill |
+|---|---|
+| **On macOS** — install anything (JDK, Node, tools, apps) | **`mac-dev`** ← you are here |
+| On macOS — shell config, `.zshrc`, `.zprofile`, PATH | **`mac-dev`** ← you are here |
+| On macOS — run Gradle/Maven build commands | `java-build` |
+| On Windows — install tools, set JAVA_HOME, PATH, winget | `package-manager` |
+| On Linux/WSL — apt, SDKMAN, env vars, `~/.bashrc` | `package-manager` |
+| Any OS — purely running `./gradlew`, `mvn`, build lifecycle | `java-build` |
+
+### Boundary Rules
+
+```text
+mac-dev        = macOS ONLY — Homebrew IS the package manager on Mac
+package-manager = Windows + Linux — winget, apt, SDKMAN, nvm
+java-build     = ANY OS — purely Gradle/Maven commands, never installs
+```
+
+> **Install then build:** Use `mac-dev` to install the JDK → then `java-build` to compile.
+> `java-build` assumes the JDK is already on PATH.

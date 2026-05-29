@@ -362,3 +362,26 @@ nvm use                             # auto-reads .nvmrc
 | SDKMAN `sdk: command not found` | Not sourced in shell | Add `source ~/.sdkman/bin/sdkman-init.sh` to `~/.bashrc` |
 | PATH changes not persisting | Added to wrong file | Add to `~/.bashrc` (interactive) or `~/.profile` (login) |
 | `dpkg was interrupted` | Broken install | `sudo dpkg --configure -a` then `sudo apt install -f` |
+
+---
+
+## Skill Routing — Which Skill to Use When
+
+| Situation | Skill |
+|---|---|
+| **On Windows** — install anything, set PATH, JAVA_HOME, winget | **`package-manager`** ← you are here |
+| **On Linux/WSL** — apt, SDKMAN, env vars, `~/.bashrc` | **`package-manager`** ← you are here |
+| On macOS — install anything via Homebrew, shell config | `mac-dev` |
+| On macOS — set JAVA_HOME, jenv, nvm (Apple Silicon) | `mac-dev` |
+| Any OS — run `./gradlew`, `mvn`, build lifecycle commands | `java-build` |
+
+### Boundary Rules
+
+```text
+package-manager = Windows + Linux — winget, apt, SDKMAN, nvm, env vars
+mac-dev         = macOS ONLY — Homebrew IS the package manager on Mac
+java-build      = ANY OS — purely Gradle/Maven commands; never installs
+```
+
+> **Install then build:** Use `package-manager` to install the JDK + set JAVA_HOME →
+> then `java-build` to compile. `java-build` assumes JDK is already on PATH.
