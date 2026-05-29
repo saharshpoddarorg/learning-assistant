@@ -248,13 +248,63 @@ Present the final version with a summary:
 
 **Only after the user explicitly approves:**
 
-1. **Archive** the legacy skill folder using `git mv` (preserves history):
+#### 9a — Trim the legacy file before archiving
+
+Before moving the file, **edit it in place** to remove content already covered by the
+modular skill. The archived file should contain only the residue — the content that was
+NOT migrated — so that the prompt-backlog migration pass has a focused, clean file to
+work from.
+
+**What to KEEP in the archived file:**
+
+| Keep if... | Examples |
+|---|---|
+| Routed to `prompt-backlog/` as a workflow | 3-tier learning path, setup procedures, automation scripts |
+| Content that was deliberately deferred | PR-link handling, tier-based UX guides |
+| Supplementary sections with no modular home | Git aliases, shell one-liners, resource lists |
+| Prompt-backlog entry already references it | Anything documented in `prompt-backlog/<skill>-*.md` |
+
+**What to STRIP from the archived file:**
+
+| Strip if... | Examples |
+|---|---|
+| Already fully migrated to `_modular/` | Core reference tables, commands, patterns now in modular skill |
+| Generic knowledge Copilot already knows | Basic command explanations, obvious syntax |
+| Duplicated by an existing modular skill | Any section now covered by another `_modular/` skill |
+| Meta/structural filler | "How to use this skill", frontmatter description, skill intro |
+
+**Trimming process:**
+
+1. Open the legacy file
+2. For each section, check: is this content in `_modular/<skill-name>/SKILL.md`?
+   - **Yes** → delete the section (or replace with a one-line note: `# Migrated to _modular/<skill-name>/`)
+   - **No** → keep it verbatim
+3. Update the frontmatter `description` to reflect what remains:
+
+   ```yaml
+   description: 'ARCHIVED — residual content not yet migrated to a prompt. Sections: [list what remains]'
+   ```
+
+4. Add a header comment at the top of the file:
+
+   ```markdown
+   > **ARCHIVED LEGACY SKILL** — migrated to `_modular/<skill-name>/SKILL.md`.
+   > This file contains only the residual content not yet moved to a prompt.
+   > See `prompt-backlog/<skill-name>-*.md` for migration notes.
+   ```
+
+#### 9b — Move and register
+
+After trimming:
+
+1. **Archive** using `git mv` (preserves history):
 
    ```bash
-   git mv .github/skills/<category>/<skill-name>/ .github/skills/prompt-backlog/legacy-skills/<skill-name>/
+   git mv .github/skills/<category>/<skill-name>/SKILL.md .github/skills/prompt-backlog/legacy-skills/<skill-name>/SKILL.md
    ```
 
 2. **Delete** the parent category folder if now empty (no other skills remain in it)
+
 3. **Update** `prompt-backlog/legacy-skills/README.md` — add a row to the contents table:
 
    ```markdown
@@ -264,10 +314,9 @@ Present the final version with a summary:
 4. **Update** `_modular/README.md` migration tracker (mark as migrated)
 5. If a split produced new skills, add new rows to the tracker
 
-> **Why archive instead of delete?** The legacy file is preserved as a read-only reference
-> in `prompt-backlog/legacy-skills/` until the `_modular/` skill is confirmed stable. It is
-> outside all active Copilot skill paths and will NOT be loaded. Permanent deletion is deferred
-> until the prompt-backlog migration pass picks it up.
+> **Why trim before archiving?** A trimmed archive file makes the future prompt-backlog
+> migration fast — the agent only sees what's unfinished, not a full re-read of already-
+> migrated content. The `git mv` preserves full history if the original is ever needed.
 
 ---
 
