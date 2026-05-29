@@ -1,18 +1,20 @@
 ---
 name: package-manager
 description: >
-  System package management and dev tool installation across macOS, Windows, and Linux.
-  This is the **central skill for all installations**. Other skills delegate here when
+  Cross-platform package management and dev tool installation (macOS, Windows, Linux).
+  The central skill for all "install X" questions. Other skills delegate here when
   a tool, runtime, or dependency needs to be installed.
   Activates on: install, brew, homebrew, winget, choco, apt, sdkman, setup, download,
-  dependency install, tool setup, environment variable, JAVA_HOME, PATH.
+  dependency install, tool setup, environment variable, JAVA_HOME, PATH, sdk install,
+  nvm install, version manager, pin version.
+  Delegates to: mac-dev (for macOS workflow automation — Brewfile, brew services, dotfiles).
 ---
 
 # Package Manager Skill
 
-> **Delegation rule:** Any skill that requires a tool/runtime to be installed should
-> defer to this skill for the install commands. Do not inline install instructions
-> in other skills — reference `package-manager` instead.
+> **Delegation rule:** Any skill needing install commands defers here.
+> For macOS-specific *workflow* automation (Brewfile, services, dotfiles, jenv), see `mac-dev`.
+> For Java *build* commands (Gradle/Maven), see `java-build`.
 
 ## macOS — Homebrew
 
@@ -38,6 +40,14 @@ brew install python              # Python 3
 brew install git                 # Git (latest)
 brew install gh                  # GitHub CLI
 brew install docker              # Docker CLI
+```
+
+### Taps (Third-Party Formulae)
+
+```bash
+brew tap <user/repo>             # add a tap
+brew tap                         # list taps
+brew untap <user/repo>           # remove a tap
 ```
 
 ### Environment After Install (add to ~/.zshrc)
@@ -120,3 +130,68 @@ export PATH="$JAVA_HOME/bin:$PATH"
 | Maven | [maven.apache.org/download](https://maven.apache.org/download.cgi) |
 | Node.js | [nodejs.org](https://nodejs.org/) |
 | Git | [git-scm.com](https://git-scm.com/) |
+
+---
+
+## Version Managers — Cross-Platform
+
+### SDKMAN! (JVM ecosystem — Java, Gradle, Maven, Kotlin)
+
+```bash
+# Install SDKMAN
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# List available JDK distributions
+sdk list java
+
+# Install and manage versions
+sdk install java 21.0.3-tem          # install Temurin 21
+sdk install java 17.0.11-tem         # install Temurin 17
+sdk default java 21.0.3-tem          # set global default
+sdk use java 17.0.11-tem             # switch for current shell only
+
+# Other JVM tools
+sdk install gradle                   # latest Gradle
+sdk install maven                    # latest Maven
+sdk install kotlin                   # Kotlin compiler
+
+# Pin version per project
+sdk env init                         # creates .sdkmanrc in project root
+sdk env                              # apply versions from .sdkmanrc
+```
+
+**`.sdkmanrc` format:**
+
+```properties
+java=21.0.3-tem
+gradle=8.8
+```
+
+### nvm (Node.js version manager)
+
+```bash
+# Install nvm (see OS-specific sections above for install commands)
+
+nvm install --lts                    # install latest LTS
+nvm install 20                       # install specific major
+nvm use 20                           # switch for current shell
+nvm alias default 'lts/*'           # set default
+nvm list                            # list installed versions
+nvm ls-remote --lts                 # list available LTS versions
+
+# Pin version per project
+echo "20" > .nvmrc                  # create version file
+nvm use                             # auto-reads .nvmrc
+```
+
+### Version Pinning Best Practices
+
+| Manager | Pin file | Auto-switch |
+|---|---|---|
+| SDKMAN | `.sdkmanrc` | `sdk env` (or `sdkman_auto_env=true` in config) |
+| nvm | `.nvmrc` | Manual `nvm use` (or add auto-switch to .zshrc) |
+| jenv | `.java-version` | Automatic (shell hook) |
+
+**Rule:** Always pin versions in project root for reproducibility. CI and teammates
+get the same version without guessing.
