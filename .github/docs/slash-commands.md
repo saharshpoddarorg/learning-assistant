@@ -1188,7 +1188,7 @@ Tools:    codebase, search
 Use:      Run a structured compliance audit against best practices and industry standards.
           Outputs a severity-tagged report: ❌ Error | ⚠️ Warning | 💡 Suggestion
 Example:  /check-standards → brain/ai-brain/notes/ → brain-naming
-          /check-standards → .github/skills/languages-platforms/mac-dev/SKILL.md → skill-file
+          /check-standards → .github/skills/_modular/mac-dev/SKILL.md → skill-file
           /check-standards → .github/prompts/code/debug.prompt.md → prompt-file
           /check-standards → . → all    (audit entire workspace)
 Domains:

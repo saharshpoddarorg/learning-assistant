@@ -88,7 +88,7 @@ Open `$target\.github\copilot-instructions.md` and change:
 | Not this specific repo | `.github/instructions/change-completeness.instructions.md`, `.github/instructions/steering-modes.instructions.md` |
 | No brain workspace | `.github/prompts/brain-*.prompt.md`, `.github/skills/knowledge-management/brain-management/` |
 | No MCP servers | `.github/skills/devops-tooling/mcp-development/`, `.github/prompts/domain/mcp.prompt.md` |
-| No macOS | `.github/skills/languages-platforms/mac-dev/`, `.github/prompts/tools/mac-dev.prompt.md` |
+| No macOS | `.github/skills/_modular/mac-dev/`, `.github/prompts/tools/mac-dev.prompt.md` |
 
 ### Files to Keep (universal value)
 

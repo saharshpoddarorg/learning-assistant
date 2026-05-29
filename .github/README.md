@@ -386,7 +386,7 @@ This learning project includes working samples of each primitive, organized into
 | `java-formatting` | [`languages-platforms/java-formatting/`](skills/languages-platforms/java-formatting/SKILL.md) | Code formatting, style, inspections (opt-in) |
 | `java-learning-resources` | [`languages-platforms/java-learning-resources/`](skills/languages-platforms/java-learning-resources/SKILL.md) | Java-specific learning resources, docs, tutorials |
 | `jvm-platform` | [`languages-platforms/jvm-platform/`](skills/languages-platforms/jvm-platform/SKILL.md) | JVM internals, GC, class loading, serialization, GraalVM |
-| `mac-dev` | [`languages-platforms/mac-dev/`](skills/languages-platforms/mac-dev/SKILL.md) | Homebrew, JDK, npm, Docker, dotfiles cheatsheets |
+| `mac-dev` | [`_modular/mac-dev/`](skills/_modular/mac-dev/SKILL.md) | Homebrew, JDK, npm, Docker, dotfiles cheatsheets |
 | **Design & Architecture** | | |
 | `design-patterns` | [`design-architecture/design-patterns/`](skills/design-architecture/design-patterns/SKILL.md) | Design patterns, SOLID, architecture questions |
 | `software-development-roles` | [`design-architecture/software-development-roles/`](skills/design-architecture/software-development-roles/SKILL.md) | PO, Developer, QA/Tester role workflows |

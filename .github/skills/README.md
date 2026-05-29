@@ -73,7 +73,7 @@ Skills are also an **open standard** ([agentskills.io](https://agentskills.io/))
 | [`java-formatting`](languages-platforms/java-formatting/SKILL.md) | Code style, formatting, inspections (**opt-in**) | IntelliJ style rules, brace placement, stream formatting |
 | [`java-learning-resources`](languages-platforms/java-learning-resources/SKILL.md) | Java tutorials, docs, blogs, Oracle, Baeldung | Curated index — Oracle docs, dev.java, blogs, OSS projects |
 | [`jvm-platform`](languages-platforms/jvm-platform/SKILL.md) | JVM, GC, class loading, bytecode, GraalVM, Kotlin | JVM architecture, GC tuning, profiling, JVM languages |
-| [`mac-dev`](languages-platforms/mac-dev/SKILL.md) | macOS, Homebrew, zsh, Mac setup | macOS dev environment — Homebrew, JDK, npm, Docker, dotfiles |
+| [`mac-dev`](_modular/mac-dev/SKILL.md) | macOS, Homebrew, zsh, Mac setup | macOS dev environment — Homebrew, JDK, npm, Docker, dotfiles |
 
 #### Design & Architecture
 
