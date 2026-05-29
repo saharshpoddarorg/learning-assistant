@@ -23,7 +23,7 @@ completeness checklist.
 1. **Identify changed files** — run `git status` and `git diff --staged --name-only`
 2. **Lint Markdown** — if any `.md` files are modified, run `.\__md_lint.ps1`
    - If lint fails, fix the issues automatically and re-run until 0 issues
-3. **Build Java** — if any `.java` files are modified, run `.\mcp-servers\build.ps1`
+3. **Build Java** — if any `.java` files are modified, run `.\gradlew.bat build`
    - If build fails, show the error and stop — do NOT commit with a broken build
 4. **Stage files** — use explicit `git add <file1> <file2> ...` for ONLY the files
    changed in this session. NEVER use `git add .` or `git add -A`
