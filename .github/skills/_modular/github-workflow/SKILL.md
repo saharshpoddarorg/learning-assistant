@@ -275,13 +275,26 @@ Reuse the token from `gh auth token` — no separate setup needed:
 # Get the token gh already has
 $token = gh auth token
 
-$body = @{
+# IMPORTANT: backtick (`) is PowerShell's escape char — use [char]96 for literal backticks in body strings
+$bt = [char]96
+$body = "One-liner body, or use @`"...`"@ here-string with ${bt}code${bt} for markdown code spans"
+
+$body = @"
+## Summary
+
+Your PR body here. Use ${bt}code${bt} for inline code in markdown.
+"@
+
+$payload = [ordered]@{
   title = "feat(scope): Summary of change"
   head  = "feature-branch-name"           # source branch
   base  = "master"                        # target branch
-  body  = "## Summary`n`n...<PR body>..."
+  body  = $body
   draft = $false
 } | ConvertTo-Json -Depth 5
+
+# Validate JSON before sending (catches escaping bugs early)
+try { $payload | ConvertFrom-Json | Out-Null } catch { Write-Error "Invalid JSON: $_"; exit 1 }
 
 $response = Invoke-RestMethod `
   -Uri "https://api.github.com/repos/<owner>/<repo>/pulls" `
@@ -291,8 +304,9 @@ $response = Invoke-RestMethod `
     "Accept"               = "application/vnd.github+json"
     "X-GitHub-Api-Version" = "2022-11-28"
   } `
-  -Body $body `
-  -ContentType "application/json"
+  -Body $payload `
+  -ContentType "application/json" `
+  -TimeoutSec 30
 
 Write-Output "PR URL: $($response.html_url)"
 ```
