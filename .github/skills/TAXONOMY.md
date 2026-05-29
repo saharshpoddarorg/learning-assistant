@@ -63,7 +63,7 @@ Skills tied to specific programming languages, runtimes, or OS development envir
 | [`java-formatting`](languages-platforms/java-formatting/SKILL.md) | `languages-platforms/java-formatting/` | Code style, formatting, inspections (**opt-in**) | IntelliJ style rules, brace placement, stream formatting |
 | [`java-learning-resources`](languages-platforms/java-learning-resources/SKILL.md) | `languages-platforms/java-learning-resources/` | Java tutorials, docs, blogs, Oracle, Baeldung | Curated index — Oracle docs, dev.java, blogs, OSS projects |
 | [`jvm-platform`](languages-platforms/jvm-platform/SKILL.md) | `languages-platforms/jvm-platform/` | JVM, GC, class loading, bytecode, GraalVM, Kotlin | JVM architecture, GC tuning, profiling, JVM languages |
-| [`mac-dev`](languages-platforms/mac-dev/SKILL.md) | `languages-platforms/mac-dev/` | macOS, Homebrew, zsh, Mac setup | macOS dev environment — Homebrew, JDK, npm, Docker, dotfiles |
+| [`mac-dev`](_modular/mac-dev/SKILL.md) | `_modular/mac-dev/` | macOS, Homebrew, zsh, Mac setup | macOS dev environment — Homebrew, JDK, npm, Docker, dotfiles |
 
 ### 1.2 Design & Architecture
 

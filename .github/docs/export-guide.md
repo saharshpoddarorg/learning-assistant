@@ -563,7 +563,7 @@ servers** you enable and which **skills/prompts** you keep.
 | `.github/instructions/steering-modes.instructions.md` | Remove unless you use steering modes | Learning-assistant workflow |
 | `.github/agents/` | Keep agents relevant to your work (debugger, designer, code-reviewer) | Universal value |
 | `.github/skills/knowledge-management/brain-management/` | Remove | Personal knowledge management — not for work repo |
-| `.github/skills/languages-platforms/mac-dev/` | Remove unless team uses macOS | OS-specific |
+| `.github/skills/_modular/mac-dev/` | Remove unless team uses macOS | OS-specific |
 | `.github/skills/career/career-resources/` | Remove | Personal career guidance — not for work repo |
 | `.github/skills/daily-life/daily-assistant-resources/` | Remove | Personal productivity — not for work repo |
 | MCP: Atlassian | **Enable** with your work Jira/Confluence credentials | Read work tickets and docs |
