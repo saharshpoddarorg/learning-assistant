@@ -19,6 +19,7 @@ and **details** (context). Entries are newest-first within each month.
 
 | Date | Time | ID | Action | From | To | Details |
 |---|---|---|---|---|---|---|
+| 2026-05-29 | 08:49 PM | EPIC-006 | created | — | active | Iterative feature brainstorming — open-ended ideation space for learning-assistant features |
 | 2026-05-15 | — | EPIC-005 | created | — | draft | Full repo revamp — modularize prompts, skills, agents, MCP, brain (34 items) |
 | 2026-05-15 | — | BLI-041–074 | created | — | todo | 34 modularization items across 7 phases (EPIC-005) |
 | 2026-05-15 | — | EPIC-004 | created | — | active | Stale reference cleanup post-Gradle migration (13 items) |

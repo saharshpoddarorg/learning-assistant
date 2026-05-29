@@ -23,7 +23,7 @@
 │  done      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │                                                                         │
 │  Priority  critical: 4 | high: 18 | medium: 26 | low: 20               │
-│  Epics     3 draft | 1 active | 1 draft (EPIC-005) | 0 done            │
+│  Epics     3 draft | 2 active | 1 draft (EPIC-005) | 0 done            │
 │  Ideas     1 raw | 0 refining | 0 promoted                             │
 │  Sprints   0 active | 0 completed                                       │
 │                                                                         │
@@ -38,10 +38,10 @@
 | Projects | 7 | `projects/` — standalone personal software projects |
 | Items | 1 | `items/` — general (BLI-006, done) |
 | Ideas | 1 | `ideas/` |
-| Epics | 5 | `epics/` — EPIC-001 through EPIC-005 |
+| Epics | 6 | `epics/` — EPIC-001 through EPIC-006 |
 | Guides | 0 | `guides/` |
 | Sprints | 0 | `sprints/` |
-| **Total** | **80** | |
+| **Total** | **81** | |
 
 ---
 
@@ -211,6 +211,17 @@
 | BLI-039 | Add module-specific README.md to each modules directory | low | todo | — | — |
 | BLI-040 | Consolidate configuration documentation | low | todo | — | — |
 
+### EPIC-006: Iterative feature brainstorming — learning-assistant
+
+> **Status:** active | **Priority:** medium | **Progress:** 0/0 (—)
+>
+> **Folder:** `features/` | **Type:** Open-ended ideation — items added iteratively
+
+| ID | Title | Priority | Status | Started | Completed |
+|---|---|---|---|---|---|
+
+> No items yet — brainstorm features any time with `/jot` or chat.
+
 ### EPIC-005: Full repo revamp — modularize prompts, skills, agents, MCP, brain
 
 > **Status:** draft | **Priority:** high | **Progress:** 0/34 (0%)
@@ -358,11 +369,11 @@
 
 | Date | Time | ID | Action | Details |
 |---|---|---|---|---|
+| 2026-05-29 | 08:49 PM | EPIC-006 | created | Iterative feature brainstorming epic — open-ended ideation space |
 | 2026-04-21 | 05:43 PM | BLI-027 | created | Code analysis context enhancement chain (manual /jot) |
 | 2026-04-21 | 04:20 PM | BLI-026 | created | Evolve 6-primitive layered architecture |
 | 2026-04-11 | 10:08 PM | IMP-001 | file-import | Imported gpt.txt: 7 BLIs created, 1 IDEA, 4 merged, 2 noted |
 | 2026-04-11 | 10:08 PM | BLI-019–025 | created | 7 new items from IMP-001 file import |
-| 2026-04-11 | 10:08 PM | IDEA-001 | created | Standardize prompt/skill headers (IMP-001) |
 
 ---
 
@@ -378,4 +389,4 @@
 
 ---
 
-> **Last updated:** 2026-04-21
+> **Last updated:** 2026-05-29
