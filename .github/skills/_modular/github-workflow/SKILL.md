@@ -241,7 +241,19 @@ gh pr edit <number> \
 > show them the current content and the proposed replacement side by side.
 > Ask for confirmation before overwriting.
 
-### Step 4b — Create New PR
+### Step 4b — Create New PR (Multi-Method Fallback Chain)
+
+**Always try methods in order. Move to next method only on failure. Report failure
+only after ALL methods have been exhausted.**
+
+#### Method 1 — MCP Tool (fastest, no shell needed)
+
+```text
+Use: github-create_pull_request tool
+When it fails: 403 Unauthorized (EMU orgs), token scope insufficient
+```
+
+#### Method 2 — `gh` CLI
 
 ```sh
 gh pr create \
@@ -249,10 +261,108 @@ gh pr create \
   --body "## Summary\n\n...\n\n## Changes\n\n- ...\n\n## Testing\n\n..." \
   --base main
 
-# Or as a draft if work is still in progress
-gh pr create --draft \
-  --title "feat(scope): WIP — Summary" \
-  --body "..."
+# Or as a draft
+gh pr create --draft --title "feat(scope): WIP — Summary" --body "..."
+```
+
+When `gh` fails or hangs: check `gh auth status` — if token exists, try Method 3.
+
+#### Method 3 — GitHub REST API via PowerShell (most reliable fallback)
+
+Reuse the token from `gh auth token` — no separate setup needed:
+
+```powershell
+# Get the token gh already has
+$token = gh auth token
+
+$body = @{
+  title = "feat(scope): Summary of change"
+  head  = "feature-branch-name"           # source branch
+  base  = "master"                        # target branch
+  body  = "## Summary`n`n...<PR body>..."
+  draft = $false
+} | ConvertTo-Json -Depth 5
+
+$response = Invoke-RestMethod `
+  -Uri "https://api.github.com/repos/<owner>/<repo>/pulls" `
+  -Method POST `
+  -Headers @{
+    "Authorization"        = "Bearer $token"
+    "Accept"               = "application/vnd.github+json"
+    "X-GitHub-Api-Version" = "2022-11-28"
+  } `
+  -Body $body `
+  -ContentType "application/json"
+
+Write-Output "PR URL: $($response.html_url)"
+```
+
+#### Method 4 — GitHub REST API via curl (Linux/macOS/WSL)
+
+```bash
+TOKEN=$(gh auth token)
+curl -s -X POST \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Accept: application/vnd.github+json" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  -d "{
+    \"title\": \"feat(scope): Summary\",
+    \"head\": \"feature-branch\",
+    \"base\": \"master\",
+    \"body\": \"## Summary\n\n...\"
+  }" \
+  "https://api.github.com/repos/<owner>/<repo>/pulls" | jq '.html_url'
+```
+
+#### Method 5 — Manual URL (last resort — give user the link)
+
+If all API methods fail, construct the PR creation URL and give it to the user:
+
+```text
+https://github.com/<owner>/<repo>/compare/master...<branch>?expand=1
+```
+
+Pre-fill title and body using the `?title=...&body=...` query params (URL-encoded).
+
+---
+
+#### Fallback Decision Table
+
+| Method | Fails when | Next step |
+|---|---|---|
+| MCP tool | 403 (EMU org), network | Try `gh` CLI |
+| `gh` CLI | Hangs, auth error, SAML | Check `gh auth status`; try REST API |
+| REST API (PowerShell) | No `gh` token, corporate proxy | Try curl (Method 4) |
+| REST API (curl) | curl not available on Windows | Use Method 5 |
+| Manual URL | — | Report failure with full URL |
+
+> **Never give up after Method 1 or 2.** The REST API (Method 3/4) works even when
+> `gh` CLI hangs, because it reuses the same token without the CLI's interactive auth flow.
+
+---
+
+#### PR Update — Same Fallback Chain
+
+For updating an existing PR, apply the same order:
+
+```powershell
+# Method 3 — REST API update (PowerShell)
+$token = gh auth token
+$body = @{
+  title = "feat(scope): Updated title"
+  body  = "## Summary`n`n..."
+} | ConvertTo-Json
+
+Invoke-RestMethod `
+  -Uri "https://api.github.com/repos/<owner>/<repo>/pulls/<number>" `
+  -Method PATCH `
+  -Headers @{
+    "Authorization"        = "Bearer $token"
+    "Accept"               = "application/vnd.github+json"
+    "X-GitHub-Api-Version" = "2022-11-28"
+  } `
+  -Body $body `
+  -ContentType "application/json"
 ```
 
 ### Step 4c — Reopen a Closed PR
