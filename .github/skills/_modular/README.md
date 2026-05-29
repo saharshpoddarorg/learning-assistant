@@ -37,8 +37,8 @@ Every modular skill follows this internal layout:
 | 4 | `java-learning-resources` | `languages-platforms/java-learning-resources/` | pending | |
 | 5 | `jvm-platform` | `languages-platforms/jvm-platform/` | pending | |
 | 6 | `mac-dev` | `languages-platforms/mac-dev/` | pending | |
-| 7 | `design-patterns` | `design-architecture/design-patterns/` | pending | |
-| 8 | `software-development-roles` | `design-architecture/software-development-roles/` | pending | |
+| 7 | `design-patterns` | `design-architecture/design-patterns/` | migrated | ~31% trimmed — removed generic Clean Architecture diagram and Java-specific syntax (Records, sealed, pattern matching) |
+| 8 | `software-development-roles` | `design-architecture/software-development-roles/` | migrated | ~24% trimmed — removed branching conventions (delegate git-vcs), collaboration patterns (generic), code review checklist (generic); deleted empty design-architecture/ folder |
 | 9 | `deep-research` | `dev-process/deep-research/` | pending | |
 | 10 | `requirements-research` | `dev-process/requirements-research/` | pending | |
 | 11 | `github-workflow` | `dev-process/github-workflow/` | migrated | ~48% trimmed — kept gh CLI, PR best practices, Actions ref; PR-link-handling workflow deferred to prompt-backlog |
