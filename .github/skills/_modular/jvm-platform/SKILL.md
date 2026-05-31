@@ -1,17 +1,16 @@
 ---
 name: jvm-platform
 description: >
-  JVM platform internals, architecture, and ecosystem. Covers the complete JVM sub-hierarchy:
-  JVM architecture (bytecode, JIT compilation, runtime data areas, HotSpot, safepoints),
-  garbage collection (G1, ZGC, Shenandoah, GC tuning, GC logging, generational collection),
-  class loading (bootstrap/extension/app loaders, delegation model, dynamic loading, linking),
-  serialization/deserialization (Serializable, Externalizable, ObjectOutputStream, serialVersionUID),
-  JVM memory (heap, stack, metaspace, runtime data areas, OOM troubleshooting),
-  JVM performance (JMH benchmarking, JFR profiling, JMC, JVM flags, tuning),
-  JVM languages (Kotlin, Scala, Groovy, Clojure — polyglot programming on the JVM),
-  and GraalVM (native image, AOT compilation, polyglot runtime).
-  Use when asked about JVM internals, garbage collection, class loaders, Java serialization,
-  JVM tuning, JVM flags, JVM memory structure, JVM languages, GraalVM, bytecode, JIT,
+  JVM platform internals, architecture, and ecosystem. Covers JVM architecture
+  (bytecode, JIT compilation, runtime data areas, HotSpot, safepoints),
+  garbage collection (G1, ZGC, Shenandoah, tuning, logging),
+  class loading (delegation model, dynamic loading),
+  serialization (Serializable, Externalizable, security),
+  JVM performance (JMH, JFR, JMC, JVM flags),
+  JVM languages (Kotlin, Scala, Groovy, Clojure),
+  and GraalVM (native image, AOT compilation).
+  Use when asked about JVM internals, garbage collection, class loaders, serialization,
+  JVM tuning, JVM flags, memory structure, JVM languages, GraalVM, bytecode, JIT,
   HotSpot, or any JVM platform topic beyond the Java language itself.
 ---
 
@@ -19,7 +18,7 @@ description: >
 
 > **Domain:** Core CS > JVM Platform
 > **Sub-hierarchy:** JVM_INTERNALS → GARBAGE_COLLECTION, CLASS_LOADING, SERIALIZATION, JVM_LANGUAGES
-> **Related skills:** `java-build`, `java-debugging`, `java-learning-resources`
+> **Related skills:** `java-build`, `java-debugging`
 
 ---
 
@@ -48,28 +47,7 @@ JVM_INTERNALS (umbrella — architecture, bytecode, JIT, runtime)
 
 ---
 
-## Quick Reference by Tier
-
-### Newbie — "I need to understand the basics"
-
-#### What Is the JVM?
-
-```text
-Source Code (.java)
-    ↓  javac (compiler)
-Bytecode (.class)
-    ↓  JVM (runtime)
-Machine Code (executed by CPU)
-```
-
-The JVM is a virtual machine that runs Java bytecode. It provides:
-
-- **Platform independence** — write once, run anywhere
-- **Memory management** — automatic garbage collection
-- **Security** — bytecode verification, sandboxing
-- **Performance** — JIT compilation to native code
-
-#### JVM Memory Areas
+## JVM Memory Areas
 
 | Area | Stores | Shared? |
 |---|---|---|
@@ -79,7 +57,7 @@ The JVM is a virtual machine that runs Java bytecode. It provides:
 | **PC Register** | Current instruction address | No (per thread) |
 | **Native Stack** | Native method frames | No (per thread) |
 
-#### Basic GC Concepts
+## Generational GC Model
 
 ```text
 Young Generation          Old Generation
@@ -90,31 +68,13 @@ Young Generation          Old Generation
      Minor GC ──────────→  Major GC
 ```
 
-- **Eden:** where new objects are allocated
+- **Eden:** new object allocation site
 - **Survivor (S0/S1):** objects that survived minor GC
 - **Old/Tenured:** long-lived objects promoted from young gen
 
-#### Key JVM Flags
-
-```sh
-# Check Java version
-java --version
-
-# Set heap size
-java -Xms256m -Xmx1g -cp src Main
-
-# Show GC activity
-java -verbose:gc -cp src Main
-
-# Show NullPointerException details (Java 14+)
-java -XX:+ShowCodeDetailsInExceptionMessages -cp src Main
-```
-
 ---
 
-### Amateur — "I need to tune and understand deeper"
-
-#### Garbage Collectors — When to Use Each
+## Garbage Collectors — When to Use Each
 
 | Collector | Flag | Best For | Pause Goal |
 |---|---|---|---|
@@ -125,7 +85,7 @@ java -XX:+ShowCodeDetailsInExceptionMessages -cp src Main
 | **Serial** | `-XX:+UseSerialGC` | Small heaps, single CPU | N/A |
 | **Epsilon** | `-XX:+UseEpsilonGC` | No GC (testing only) | N/A |
 
-#### GC Tuning Essentials
+## GC Tuning
 
 ```sh
 # G1 with 200ms pause target
@@ -141,7 +101,9 @@ java -Xlog:gc*:file=gc.log:time,uptime,level,tags -cp src Main
 java -Xlog:gc*=info -cp src Main
 ```
 
-#### Class Loading Deep-Dive
+---
+
+## Class Loading
 
 ```text
 Bootstrap ClassLoader (rt.jar, java.base)
@@ -161,10 +123,11 @@ System.out.println(String.class.getClassLoader());      // null (bootstrap)
 System.out.println(Main.class.getClassLoader());         // AppClassLoader
 ```
 
-#### Serialization Essentials
+---
+
+## Serialization
 
 ```java
-// Basic serialization
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
@@ -185,7 +148,9 @@ try (var ois = new ObjectInputStream(new FileInputStream("emp.ser"))) {
 **Security warning:** Never deserialize untrusted data — deserialization attacks are
 in the OWASP Top 10. Prefer JSON/protobuf for external data exchange.
 
-#### JVM Languages Overview
+---
+
+## JVM Languages
 
 | Language | Paradigm | Killer Feature | Used For |
 |---|---|---|---|
@@ -196,9 +161,7 @@ in the OWASP Top 10. Prefer JSON/protobuf for external data exchange.
 
 ---
 
-### Pro — "I need deep internals and production tuning"
-
-#### JIT Compilation Tiers
+## JIT Compilation Tiers
 
 ```text
 Interpreter (cold code)
@@ -220,7 +183,7 @@ java -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly \
      -XX:CompileCommand=dontinline,*Main.hotMethod -cp src Main
 ```
 
-#### JVM Anatomy Quarks (Key Topics)
+## JVM Anatomy Quarks (Key Topics)
 
 | Quark | Topic | Key Insight |
 |---|---|---|
@@ -232,7 +195,9 @@ java -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly \
 | #24 | Object alignment (revisited) | Compressed oops, object headers |
 | #25 | Implicit null checks | OS signals for null pointer detection |
 
-#### JMH Benchmarking
+---
+
+## JMH Benchmarking
 
 ```java
 @BenchmarkMode(Mode.AverageTime)
@@ -254,7 +219,7 @@ public class MyBenchmark {
 java -jar benchmarks.jar -f 2 -wi 5 -i 5
 ```
 
-#### JFR Profiling
+## JFR Profiling
 
 ```sh
 # Start recording with JFR
@@ -269,7 +234,7 @@ java -XX:StartFlightRecording=disk=true,maxsize=500m,maxage=1h \
 jcmd <pid> JFR.start duration=30s filename=dump.jfr
 ```
 
-#### GraalVM Native Image
+## GraalVM Native Image
 
 ```sh
 # Build native image (requires GraalVM)
@@ -282,7 +247,9 @@ native-image -cp src Main
 native-image --no-fallback --static -H:+ReportExceptionStackTraces
 ```
 
-#### Memory Troubleshooting
+---
+
+## Memory Troubleshooting
 
 ```sh
 # Heap dump on OOM
@@ -302,51 +269,12 @@ jstack <pid>
 
 ## Curated Resources
 
-| Resource | Type | Difficulty | Key Topics |
-|---|---|---|---|
-| [JVMS SE 21](https://docs.oracle.com/javase/specs/jvms/se21/html/index.html) | Spec | Expert | Bytecode, class file, runtime |
-| [JVM Anatomy Quarks](https://shipilev.net/jvm/anatomy-quarks/) | Articles | Advanced | TLABs, safepoints, locks |
-| [GC Tuning Guide](https://docs.oracle.com/en/java/javase/21/gctuning/) | Docs | Intermediate | G1, ZGC, tuning |
-| [Baeldung JVM GC](https://www.baeldung.com/jvm-garbage-collectors) | Article | Intermediate | Collector comparison |
-| [JMH](https://github.com/openjdk/jmh) | Repo | Advanced | Benchmarking |
-| [GraalVM](https://www.graalvm.org/) | Docs | Intermediate | Native image, polyglot |
-| [Kotlin Docs](https://kotlinlang.org/docs/home.html) | Docs | Beginner | Coroutines, null safety |
-| [Scala Docs](https://docs.scala-lang.org/) | Docs | Intermediate | FP, type system |
-| [Groovy Docs](https://groovy-lang.org/documentation.html) | Docs | Beginner | Gradle DSL, scripting |
-| [Clojure Guide](https://clojure.org/guides/getting_started) | Docs | Intermediate | Lisp, immutability |
-| [Serialization Spec](https://docs.oracle.com/en/java/javase/21/docs/specs/serialization/index.html) | Spec | Advanced | Object streams, versioning |
-| [Awesome JVM](https://github.com/deephacks/awesome-jvm) | Repo | Intermediate | Curated JVM resources |
-| [Mechanical Sympathy](https://mechanical-sympathy.blogspot.com/) | Blog | Expert | Hardware-aware JVM |
-| [JFR Guide](https://docs.oracle.com/en/java/javase/21/jfapi/) | Docs | Intermediate | Profiling, diagnostics |
-| [Baeldung Class Loading](https://www.baeldung.com/java-classloaders) | Article | Intermediate | ClassLoaders, delegation |
-
----
-
-## Learning Path
-
-### Phase 1 — JVM Basics (1-2 weeks)
-
-1. Understand JVM architecture: bytecode, runtime data areas
-2. Learn memory model: heap vs stack vs metaspace
-3. Run with basic JVM flags (`-Xms`, `-Xmx`, `-verbose:gc`)
-
-### Phase 2 — GC & Class Loading (2-3 weeks)
-
-1. Study generational GC model (young/old generation)
-2. Compare G1, ZGC, Shenandoah collectors
-3. Understand class loading delegation model
-4. Learn GC logging and basic tuning
-
-### Phase 3 — Performance & Profiling (2-4 weeks)
-
-1. Write JMH benchmarks for micro-benchmarking
-2. Use JFR and JMC for production profiling
-3. Analyze heap dumps with VisualVM or Eclipse MAT
-4. Understand JIT compilation tiers
-
-### Phase 4 — JVM Languages & GraalVM (ongoing)
-
-1. Try Kotlin for server-side development
-2. Explore Scala for functional programming on JVM
-3. Experiment with GraalVM native image
-4. Learn serialization security considerations
+| Resource | Type | Key Topics |
+|---|---|---|
+| [JVM Anatomy Quarks](https://shipilev.net/jvm/anatomy-quarks/) | Articles | TLABs, safepoints, locks, object layout |
+| [GC Tuning Guide (JDK 21)](https://docs.oracle.com/en/java/javase/21/gctuning/) | Docs | G1, ZGC, tuning methodology |
+| [JMH](https://github.com/openjdk/jmh) | Repo | Micro-benchmarking framework |
+| [GraalVM](https://www.graalvm.org/) | Docs | Native image, polyglot runtime |
+| [Mechanical Sympathy](https://mechanical-sympathy.blogspot.com/) | Blog | Hardware-aware JVM performance |
+| [Awesome JVM](https://github.com/deephacks/awesome-jvm) | Repo | Curated JVM ecosystem resources |
+| [JVMS SE 21](https://docs.oracle.com/javase/specs/jvms/se21/html/index.html) | Spec | Bytecode, class file format, runtime |

@@ -35,7 +35,7 @@ Every modular skill follows this internal layout:
 | 2 | `java-debugging` | `languages-platforms/java-debugging/` | migrated | Trimmed ~60% — removed generic fix patterns |
 | 3 | `java-formatting` | `languages-platforms/java-formatting/` | pending | opt-in |
 | 4 | `java-learning-resources` | `languages-platforms/java-learning-resources/` | pending | |
-| 5 | `jvm-platform` | `languages-platforms/jvm-platform/` | pending | |
+| 5 | `jvm-platform` | `languages-platforms/jvm-platform/` | migrated | ~33% trimmed — removed Learning Path, generic "What is JVM" intro; flattened tier headings; resources trimmed to 7 non-obvious entries |
 | 6 | `mac-dev` | `languages-platforms/mac-dev/` | migrated | ~30% trimmed — removed generic Docker/npm commands; enhanced with Apple Silicon PATH, brew services, brew taps, Brewfile patterns, dotfiles automation |
 | 7 | `design-patterns` | `design-architecture/design-patterns/` | migrated | ~31% trimmed — removed generic Clean Architecture diagram and Java-specific syntax (Records, sealed, pattern matching) |
 | 8 | `software-development-roles` | `design-architecture/software-development-roles/` | migrated | ~24% trimmed — removed branching conventions (delegate git-vcs), collaboration patterns (generic), code review checklist (generic); deleted empty design-architecture/ folder |
