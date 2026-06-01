@@ -18,3 +18,4 @@ but are preserved here for reference until the migration cycle is fully validate
 | `git-vcs/SKILL.md` | `_modular/git-vcs/SKILL.md` | `git-vcs-learning.md` | Awaiting cleanup |
 | `github-workflow/SKILL.md` | `_modular/github-workflow/SKILL.md` | `github-workflow-learning.md` | Awaiting cleanup |
 | `web-reader/SKILL.md` | `_modular/web-reader/SKILL.md` | `web-reader-patterns.md` | Awaiting cleanup — Patterns 1-5, Formatting Rules, Skill Combos not yet in a prompt |
+| `requirements-research/SKILL.md` | `_modular/requirements-research/SKILL.md` | `requirements-research-copilot-workflow.md` | Awaiting cleanup — Copilot workflow snippet |
