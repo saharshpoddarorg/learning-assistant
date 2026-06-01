@@ -40,7 +40,7 @@ Every modular skill follows this internal layout:
 | 7 | `design-patterns` | `design-architecture/design-patterns/` | migrated | ~31% trimmed — removed generic Clean Architecture diagram and Java-specific syntax (Records, sealed, pattern matching) |
 | 8 | `software-development-roles` | `design-architecture/software-development-roles/` | migrated | ~24% trimmed — removed branching conventions (delegate git-vcs), collaboration patterns (generic), code review checklist (generic); deleted empty design-architecture/ folder |
 | 9 | `deep-research` | `dev-process/deep-research/` | pending | |
-| 10 | `requirements-research` | `dev-process/requirements-research/` | pending | |
+| 10 | `requirements-research` | `dev-process/requirements-research/` | migrated | ~29% trimmed — removed generic discovery agenda, domain modelling/event storming block, long BDD example; Copilot workflow snippet routed to prompt-backlog |
 | 11 | `github-workflow` | `dev-process/github-workflow/` | migrated | ~48% trimmed — kept gh CLI, PR best practices, Actions ref; PR-link-handling workflow deferred to prompt-backlog |
 | 12 | `git-vcs` | `devops-tooling/git-vcs/` | migrated | ~57% trimmed — kept branching strategies, SemVer, conventional commits ref; removed basic commands, aliases, learning path |
 | 13 | `mcp-development` | `devops-tooling/mcp-development/` | pending | |
