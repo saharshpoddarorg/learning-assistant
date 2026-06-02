@@ -70,7 +70,7 @@ In Prog.  ██░░░░░░░░░░░░░░░░░░░░░�
 
 ---
 
-## Medium (32)
+## Medium (33)
 
 > Standard priority — schedule in upcoming sprints.
 
@@ -110,6 +110,7 @@ In Prog.  ██░░░░░░░░░░░░░░░░░░░░░�
 | BLI-081 | Search engine — tagging system for flexible categorization | feature | EPIC-006 | todo | features/ | 2026-05-29 |
 | BLI-083 | Search engine — metadata index and faceted search | feature | EPIC-006 | todo | features/ | 2026-05-29 |
 | BLI-084 | Search engine — auto-classification and entity extraction | feature | EPIC-006 | todo | features/ | 2026-05-29 |
+| BLI-086 | Resume & LinkedIn skill — auto-update from work history | feature | EPIC-006 | todo | features/ | 2026-06-02 |
 
 ---
 
@@ -150,4 +151,4 @@ In Prog.  ██░░░░░░░░░░░░░░░░░░░░░�
 
 ---
 
-> **Last updated:** 2026-05-29
+> **Last updated:** 2026-06-02
