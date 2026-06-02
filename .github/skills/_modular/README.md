@@ -44,7 +44,7 @@ Every modular skill follows this internal layout:
 | 11 | `github-workflow` | `dev-process/github-workflow/` | migrated | ~48% trimmed — kept gh CLI, PR best practices, Actions ref; PR-link-handling workflow deferred to prompt-backlog |
 | 12 | `git-vcs` | `devops-tooling/git-vcs/` | migrated | ~57% trimmed — kept branching strategies, SemVer, conventional commits ref; removed basic commands, aliases, learning path |
 | 13 | `mcp-development` | `devops-tooling/mcp-development/` | pending | |
-| 14 | `copilot-customization` | `devops-tooling/copilot-customization/` | pending | |
+| 14 | `copilot-customization` | `devops-tooling/copilot-customization/` | migrated | ~28% trimmed — removed stale model name lists, ROI % stats, star counts from curated repos; kept Quick Templates inline; multi-glob stub cleaned |
 | 15 | `atlassian-tools` | `devops-tooling/atlassian-tools/` | pending | Complex (scripts, config, refs) |
 | 16 | `web-reader` | `devops-tooling/web-reader/` | migrated | 67% trimmed; workflow patterns routed to prompt-backlog |
 | 17 | `brain-management` | `knowledge-management/brain-management/` | pending | |
