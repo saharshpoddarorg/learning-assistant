@@ -34,14 +34,14 @@
 
 | Type | Count | Folder |
 |---|---|---|
-| Features | 77 | `features/` — learning-assistant enhancements (33 existing + 34 EPIC-005 + 10 EPIC-006) |
+| Features | 78 | `features/` — learning-assistant enhancements (33 existing + 34 EPIC-005 + 11 EPIC-006) |
 | Projects | 7 | `projects/` — standalone personal software projects |
 | Items | 1 | `items/` — general (BLI-006, done) |
 | Ideas | 1 | `ideas/` |
 | Epics | 6 | `epics/` — EPIC-001 through EPIC-006 |
 | Guides | 0 | `guides/` |
 | Sprints | 0 | `sprints/` |
-| **Total** | **92** | |
+| **Total** | **93** | |
 
 ---
 
@@ -58,7 +58,7 @@
 ```text
 ┌──────────────┬──────────────┬──────────────┬──────────────┬──────────────┐
 │   BACKLOG    │  IN PROGRESS │   BLOCKED    │   IN REVIEW  │     DONE     │
-│   (83)       │   (1)        │   (0)        │   (0)        │     (1)      │
+│   (84)       │   (1)        │   (0)        │   (0)        │     (1)      │
 ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
 │ BLI-028 crit │ BLI-026 high │              │              │ BLI-006 med  │
 │ BLI-029 crit │              │              │              │              │
@@ -143,6 +143,7 @@
 │ BLI-083 med  │              │              │              │              │
 │ BLI-084 med  │              │              │              │              │
 │ BLI-085 med  │              │              │              │              │
+│ BLI-086 med  │              │              │              │              │
 └──────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
 ```
 
@@ -224,7 +225,7 @@
 
 ### EPIC-006: Iterative feature brainstorming — learning-assistant
 
-> **Status:** active | **Priority:** medium | **Progress:** 0/10 (0%)
+> **Status:** active | **Priority:** medium | **Progress:** 0/11 (0%)
 >
 > **Folder:** `features/` | **Type:** Open-ended ideation — items added iteratively
 
@@ -240,6 +241,7 @@
 | BLI-082 | Search engine — full-text indexing engine for local knowledge | high | todo | — | — |
 | BLI-083 | Search engine — metadata index and faceted search | medium | todo | — | — |
 | BLI-084 | Search engine — auto-classification and entity extraction | medium | todo | — | — |
+| BLI-086 | Resume & LinkedIn skill — auto-update from work history | medium | todo | — | — |
 
 ### EPIC-005: Full repo revamp — modularize prompts, skills, agents, MCP, brain
 
@@ -388,11 +390,11 @@
 
 | Date | Time | ID | Action | Details |
 |---|---|---|---|---|
+| 2026-06-02 | 05:00 PM | BLI-086 | created | Resume & LinkedIn skill — auto-update from work history, composes atlassian/github skills (EPIC-006) |
+| 2026-06-02 | 04:49 PM | BLI-085 | created | Skill-importer versioning + cross-repo re-import enhancements |
 | 2026-05-29 | 09:21 PM | BLI-080–084 | created | 5 sub-items of BLI-075 for search engine (labelling, tagging, indexing, faceted search, auto-classification) |
 | 2026-05-29 | 08:58 PM | BLI-075–079 | created | 5 brainstormed features for EPIC-006 (search, scraper, PKM, refinement, presentation) |
 | 2026-05-29 | 08:49 PM | EPIC-006 | created | Iterative feature brainstorming epic — open-ended ideation space |
-| 2026-04-21 | 05:43 PM | BLI-027 | created | Code analysis context enhancement chain (manual /jot) |
-| 2026-04-21 | 04:20 PM | BLI-026 | created | Evolve 6-primitive layered architecture |
 | 2026-04-11 | 10:08 PM | IMP-001 | file-import | Imported gpt.txt: 7 BLIs created, 1 IDEA, 4 merged, 2 noted |
 
 ---
@@ -409,4 +411,4 @@
 
 ---
 
-> **Last updated:** 2026-05-29
+> **Last updated:** 2026-06-02
