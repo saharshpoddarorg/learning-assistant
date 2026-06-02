@@ -1564,10 +1564,9 @@ mcp-servers/*/*.egg-info/
 
 ---
 
-## \\.vscode/mcp.json\\ — Schema Reference
+## `.vscode/mcp.json` — Schema Reference
 
-> **Full Reference:** See [\
-eferences/mcp-json-schema.md\](references/mcp-json-schema.md) for the complete
+> **Full Reference:** See [`references/mcp-json-schema.md`](references/mcp-json-schema.md) for the complete
 > annotated JSON schema, variable substitution reference, multi-server example (TS/Python/Java/Docker/HTTP),
 > user-level settings, and Claude Desktop configuration.
 

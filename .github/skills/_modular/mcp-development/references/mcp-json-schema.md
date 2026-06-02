@@ -1,7 +1,7 @@
-# \.vscode/mcp.json\ — Complete Schema Reference
+# `.vscode/mcp.json` — Complete Schema Reference
 
-> Extracted from the \mcp-development\ skill. Companion reference file.
-> For usage context and tool registration examples, see [\../SKILL.md\](../SKILL.md).
+> Extracted from the `mcp-development` skill. Companion reference file.
+> For usage context and tool registration examples, see [`../SKILL.md`](../SKILL.md).
 
 ---
 
