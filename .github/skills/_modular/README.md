@@ -1,7 +1,7 @@
 # Modular Skills — Staging Area
 
 > **Purpose:** Staging folder for the skills modularization migration.
-> Once all 23 skills are migrated here (flat, standardized), the legacy category
+> Once all skills are migrated here (flat, standardized), the legacy category
 > folders will be deleted and these skills will move up to `.github/skills/`.
 
 ---
@@ -33,13 +33,13 @@ Every modular skill follows this internal layout:
 |---|---|---|---|---|
 | 1 | `java-build` | `languages-platforms/java-build/` | migrated | Single-file, clean |
 | 2 | `java-debugging` | `languages-platforms/java-debugging/` | migrated | Trimmed ~60% — removed generic fix patterns |
-| 3 | `java-formatting` | `languages-platforms/java-formatting/` | pending | opt-in |
+| 3 | `java-formatting` | `languages-platforms/java-formatting/` | migrated | ~40% trimmed — removed generic Java truisms (string concat, basic `instanceof`, well-known cleanup inspections); kept project-specific Allman braces, chain wrapping, Javadoc blank-line rules, member arrangement, complexity thresholds; deleted directly (no residue) |
 | 4 | `java-learning-resources` | `languages-platforms/java-learning-resources/` | pending | |
 | 5 | `jvm-platform` | `languages-platforms/jvm-platform/` | migrated | ~33% trimmed — removed Learning Path, generic "What is JVM" intro; flattened tier headings; resources trimmed to 7 non-obvious entries |
 | 6 | `mac-dev` | `languages-platforms/mac-dev/` | migrated | ~30% trimmed — removed generic Docker/npm commands; enhanced with Apple Silicon PATH, brew services, brew taps, Brewfile patterns, dotfiles automation |
 | 7 | `design-patterns` | `design-architecture/design-patterns/` | migrated | ~31% trimmed — removed generic Clean Architecture diagram and Java-specific syntax (Records, sealed, pattern matching) |
 | 8 | `software-development-roles` | `design-architecture/software-development-roles/` | migrated | ~24% trimmed — removed branching conventions (delegate git-vcs), collaboration patterns (generic), code review checklist (generic); deleted empty design-architecture/ folder |
-| 9 | `deep-research` | `dev-process/deep-research/` | pending | |
+| 9 | `deep-research` | `dev-process/deep-research/` | migrated | Split into 5 SRP-focused skills (rows 24–28); legacy archived to `prompt-backlog/legacy-skills/deep-research/`; workflow chain routed to `prompt-backlog/deep-research-copilot-workflow.md` |
 | 10 | `requirements-research` | `dev-process/requirements-research/` | migrated | ~29% trimmed — removed generic discovery agenda, domain modelling/event storming block, long BDD example; Copilot workflow snippet routed to prompt-backlog |
 | 11 | `github-workflow` | `dev-process/github-workflow/` | migrated | ~48% trimmed — kept gh CLI, PR best practices, Actions ref; PR-link-handling workflow deferred to prompt-backlog |
 | 12 | `git-vcs` | `devops-tooling/git-vcs/` | migrated | ~57% trimmed — kept branching strategies, SemVer, conventional commits ref; removed basic commands, aliases, learning path |
@@ -54,6 +54,11 @@ Every modular skill follows this internal layout:
 | 21 | `software-engineering-resources` | `learning-resources/software-engineering-resources/` | pending | |
 | 22 | `career-resources` | `career/career-resources/` | pending | |
 | 23 | `daily-assistant-resources` | `daily-life/daily-assistant-resources/` | migrated | 40% trimmed — removed stale URLs, generic tool lists, meta section |
+| 24 | `investigation-methodology` | (from `deep-research` split) | migrated | Hypothesis-driven framework, P1–P5 source hierarchy, evidence synthesis |
+| 25 | `technology-evaluation` | (from `deep-research` split) | migrated | Weighted trade-off matrix, evaluation criteria, vendor/library scoring |
+| 26 | `root-cause-analysis` | (from `deep-research` split) | migrated | Five-whys discipline, contributing-vs-root cause separation, RCA artefacts |
+| 27 | `decision-records` | (from `deep-research` split) | migrated | Opinionated ADR template, decision log practices, supersession protocol |
+| 28 | `code-investigation` | (from `deep-research` split + `/code-analysis*` prompts) | migrated | Folded/Unfolded zoom metaphor, virtual refactoring, B*n* method extraction tree, six-section pattern, four-phase deep-dive, design rationale 5-field framework |
 
 ---
 
@@ -66,7 +71,7 @@ For each skill:
 3. **Verify** — skill should work from its new flat path
 4. **Mark migrated** in the table above
 
-### Final Swap (after all 23 are done)
+### Final Swap (after all skills are done)
 
 ```powershell
 # 1. Delete legacy category folders
@@ -96,6 +101,6 @@ Remove-Item -Recurse .github/skills/_modular
 |---|---|
 | `skills/devops-tooling/atlassian-tools/SKILL.md` | `skills/atlassian-tools/SKILL.md` |
 | `skills/languages-platforms/java-build/SKILL.md` | `skills/java-build/SKILL.md` |
-| 8 category folders + 23 skill folders | 23 skill folders (flat) |
+| 8 category folders + 23 skill folders | 28 skill folders (flat) |
 | TAXONOMY.md references category paths | TAXONOMY.md references flat paths |
 | `copilot-instructions.md` mentions category paths | Only skill names (already the case) |
