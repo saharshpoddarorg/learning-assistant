@@ -21,7 +21,7 @@
 
 ---
 
-## Todo (82)
+## Todo (83)
 
 > Items ready to be picked up. Ordered by priority (high → low), then by ID.
 
@@ -104,6 +104,7 @@
 | BLI-081 | Search engine — tagging system for flexible categorization | feature | EPIC-006 | 2026-05-29 | search, tagging, keywords |
 | BLI-083 | Search engine — metadata index and faceted search | feature | EPIC-006 | 2026-05-29 | search, metadata, faceted-search |
 | BLI-084 | Search engine — auto-classification and entity extraction | feature | EPIC-006 | 2026-05-29 | search, auto-classification, nlp |
+| BLI-086 | Resume & LinkedIn skill — auto-update from work history | feature | EPIC-006 | 2026-06-02 | skill, resume, linkedin, career, atlassian |
 
 ### Low Priority
 
@@ -193,7 +194,7 @@ This month:       1
 ## Status Distribution
 
 ```text
-Todo         ████████████████████████████████████████████  82  (98%)
+Todo         ████████████████████████████████████████████  83  (98%)
 In Progress  █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1   (1%)
 Blocked      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0   (0%)
 In Review    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0   (0%)
@@ -202,4 +203,4 @@ Done         █░░░░░░░░░░░░░░░░░░░░░�
 
 ---
 
-> **Last updated:** 2026-05-29
+> **Last updated:** 2026-06-02

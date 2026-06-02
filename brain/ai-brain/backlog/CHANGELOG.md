@@ -15,6 +15,15 @@ and **details** (context). Entries are newest-first within each month.
 
 ---
 
+## 2026-06
+
+| Date | Time | ID | Action | From | To | Details |
+|---|---|---|---|---|---|---|
+| 2026-06-02 | 05:00 PM | BLI-086 | created | — | todo | Resume & LinkedIn skill — auto-update from work history; composes atlassian-tools, github-workflow, git-vcs skills (EPIC-006) |
+| 2026-06-02 | 04:49 PM | BLI-085 | created | — | todo | Skill-importer versioning + cross-repo re-import enhancements (upstream v1→v2 re-import flow + cross-repo enhancement re-import mode) |
+
+---
+
 ## 2026-05
 
 | Date | Time | ID | Action | From | To | Details |

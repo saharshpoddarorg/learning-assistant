@@ -34,7 +34,7 @@ Every modular skill follows this internal layout:
 | 1 | `java-build` | `languages-platforms/java-build/` | migrated | Single-file, clean |
 | 2 | `java-debugging` | `languages-platforms/java-debugging/` | migrated | Trimmed ~60% — removed generic fix patterns |
 | 3 | `java-formatting` | `languages-platforms/java-formatting/` | migrated | ~40% trimmed — removed generic Java truisms (string concat, basic `instanceof`, well-known cleanup inspections); kept project-specific Allman braces, chain wrapping, Javadoc blank-line rules, member arrangement, complexity thresholds; deleted directly (no residue) |
-| 4 | `java-learning-resources` | `languages-platforms/java-learning-resources/` | pending | |
+| 4 | `java-learning-resources` | `learning-resources/java-learning-resources/` | pending | |
 | 5 | `jvm-platform` | `languages-platforms/jvm-platform/` | migrated | ~33% trimmed — removed Learning Path, generic "What is JVM" intro; flattened tier headings; resources trimmed to 7 non-obvious entries |
 | 6 | `mac-dev` | `languages-platforms/mac-dev/` | migrated | ~30% trimmed — removed generic Docker/npm commands; enhanced with Apple Silicon PATH, brew services, brew taps, Brewfile patterns, dotfiles automation |
 | 7 | `design-patterns` | `design-architecture/design-patterns/` | migrated | ~31% trimmed — removed generic Clean Architecture diagram and Java-specific syntax (Records, sealed, pattern matching) |
@@ -43,8 +43,8 @@ Every modular skill follows this internal layout:
 | 10 | `requirements-research` | `dev-process/requirements-research/` | migrated | ~29% trimmed — removed generic discovery agenda, domain modelling/event storming block, long BDD example; Copilot workflow snippet routed to prompt-backlog |
 | 11 | `github-workflow` | `dev-process/github-workflow/` | migrated | ~48% trimmed — kept gh CLI, PR best practices, Actions ref; PR-link-handling workflow deferred to prompt-backlog |
 | 12 | `git-vcs` | `devops-tooling/git-vcs/` | migrated | ~57% trimmed — kept branching strategies, SemVer, conventional commits ref; removed basic commands, aliases, learning path |
-| 13 | `mcp-development` | `devops-tooling/mcp-development/` | pending | |
-| 14 | `copilot-customization` | `devops-tooling/copilot-customization/` | pending | |
+| 13 | `mcp-development` | `devops-tooling/mcp-development/` | migrated | ~14% trimmed — Protocol Lifecycle JSON → phase table; TS `create_item` removed; Schema Reference extracted to `references/mcp-json-schema.md`; all 5 languages kept equal |
+| 14 | `copilot-customization` | `devops-tooling/copilot-customization/` | migrated | ~28% trimmed — removed stale model name lists, ROI % stats, star counts from curated repos; kept Quick Templates inline; multi-glob stub cleaned |
 | 15 | `atlassian-tools` | `devops-tooling/atlassian-tools/` | pending | Complex (scripts, config, refs) |
 | 16 | `web-reader` | `devops-tooling/web-reader/` | migrated | 67% trimmed; workflow patterns routed to prompt-backlog |
 | 17 | `brain-management` | `knowledge-management/brain-management/` | pending | |
@@ -52,7 +52,7 @@ Every modular skill follows this internal layout:
 | 19 | `digital-notetaking` | `knowledge-management/digital-notetaking/` | migrated | ~11% net reduction — restored setup steps, PARA tip, learning resources (PKM-only), related docs; fixed code fence; JDK section moved to prompt-backlog/jdk-version-management.md |
 | 20 | `learning-resources-vault` | `learning-resources/learning-resources-vault/` | pending | Large (14 files) |
 | 21 | `software-engineering-resources` | `learning-resources/software-engineering-resources/` | pending | |
-| 22 | `career-resources` | `career/career-resources/` | pending | |
+| 22 | `career-resources` | `career/career-resources/` | migrated | Already in `_modular/` before tracker update; legacy folder gone |
 | 23 | `daily-assistant-resources` | `daily-life/daily-assistant-resources/` | migrated | 40% trimmed — removed stale URLs, generic tool lists, meta section |
 | 24 | `investigation-methodology` | (from `deep-research` split) | migrated | Hypothesis-driven framework, P1–P5 source hierarchy, evidence synthesis |
 | 25 | `technology-evaluation` | (from `deep-research` split) | migrated | Weighted trade-off matrix, evaluation criteria, vendor/library scoring |
