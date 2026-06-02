@@ -13,16 +13,16 @@
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  BACKLOG DASHBOARD                                        2026-05-29   │
+│  BACKLOG DASHBOARD                                        2026-06-02   │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  Items     ██████████████████████████████████████░░░░  84 total         │
-│  todo      ████████████████████████████████████░░░░░░  82               │
+│  Items     ██████████████████████████████████████░░░░  85 total         │
+│  todo      ████████████████████████████████████░░░░░░  83               │
 │  progress  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │  blocked   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0               │
 │  done      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │                                                                         │
-│  Priority  critical: 4 | high: 22 | medium: 32 | low: 20               │
+│  Priority  critical: 4 | high: 22 | medium: 33 | low: 20               │
 │  Epics     3 draft | 2 active | 1 draft (EPIC-005) | 0 done            │
 │  Ideas     1 raw | 0 refining | 0 promoted                             │
 │  Sprints   0 active | 0 completed                                       │
@@ -34,14 +34,14 @@
 
 | Type | Count | Folder |
 |---|---|---|
-| Features | 76 | `features/` — learning-assistant enhancements (32 existing + 34 EPIC-005 + 10 EPIC-006) |
+| Features | 77 | `features/` — learning-assistant enhancements (33 existing + 34 EPIC-005 + 10 EPIC-006) |
 | Projects | 7 | `projects/` — standalone personal software projects |
 | Items | 1 | `items/` — general (BLI-006, done) |
 | Ideas | 1 | `ideas/` |
 | Epics | 6 | `epics/` — EPIC-001 through EPIC-006 |
 | Guides | 0 | `guides/` |
 | Sprints | 0 | `sprints/` |
-| **Total** | **91** | |
+| **Total** | **92** | |
 
 ---
 
@@ -58,7 +58,7 @@
 ```text
 ┌──────────────┬──────────────┬──────────────┬──────────────┬──────────────┐
 │   BACKLOG    │  IN PROGRESS │   BLOCKED    │   IN REVIEW  │     DONE     │
-│   (82)       │   (1)        │   (0)        │   (0)        │     (1)      │
+│   (83)       │   (1)        │   (0)        │   (0)        │     (1)      │
 ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
 │ BLI-028 crit │ BLI-026 high │              │              │ BLI-006 med  │
 │ BLI-029 crit │              │              │              │              │
@@ -142,6 +142,7 @@
 │ BLI-082 high │              │              │              │              │
 │ BLI-083 med  │              │              │              │              │
 │ BLI-084 med  │              │              │              │              │
+│ BLI-085 med  │              │              │              │              │
 └──────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
 ```
 
