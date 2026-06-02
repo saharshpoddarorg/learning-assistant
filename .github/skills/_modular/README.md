@@ -33,7 +33,7 @@ Every modular skill follows this internal layout:
 |---|---|---|---|---|
 | 1 | `java-build` | `languages-platforms/java-build/` | migrated | Single-file, clean |
 | 2 | `java-debugging` | `languages-platforms/java-debugging/` | migrated | Trimmed ~60% — removed generic fix patterns |
-| 3 | `java-formatting` | `languages-platforms/java-formatting/` | pending | opt-in |
+| 3 | `java-formatting` | `languages-platforms/java-formatting/` | migrated | ~40% trimmed — removed generic Java truisms (string concat, basic `instanceof`, well-known cleanup inspections); kept project-specific Allman braces, chain wrapping, Javadoc blank-line rules, member arrangement, complexity thresholds; deleted directly (no residue) |
 | 4 | `java-learning-resources` | `languages-platforms/java-learning-resources/` | pending | |
 | 5 | `jvm-platform` | `languages-platforms/jvm-platform/` | migrated | ~33% trimmed — removed Learning Path, generic "What is JVM" intro; flattened tier headings; resources trimmed to 7 non-obvious entries |
 | 6 | `mac-dev` | `languages-platforms/mac-dev/` | migrated | ~30% trimmed — removed generic Docker/npm commands; enhanced with Apple Silicon PATH, brew services, brew taps, Brewfile patterns, dotfiles automation |
