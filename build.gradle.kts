@@ -40,9 +40,10 @@ subprojects {
     }
 
     dependencies {
-        "testImplementation"(platform("org.junit:junit-bom:6.1.0"))
-        "testImplementation"("org.junit.jupiter:junit-jupiter")
-        "testRuntimeOnly"("org.junit.platform:junit-platform-launcher")
+        val catalog = rootProject.extensions.getByType<VersionCatalogsExtension>().named("libs")
+        "testImplementation"(platform(catalog.findLibrary("junit-bom").get()))
+        "testImplementation"(catalog.findBundle("testing").get())
+        "testRuntimeOnly"(catalog.findLibrary("junit-platform-launcher").get())
     }
 
     tasks.withType<Test> {
