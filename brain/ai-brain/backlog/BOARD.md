@@ -16,13 +16,13 @@
 │  BACKLOG DASHBOARD                                        2026-06-02   │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  Items     ██████████████████████████████████████░░░░  85 total         │
-│  todo      ████████████████████████████████████░░░░░░  83               │
+│  Items     ██████████████████████████████████████░░░░  86 total         │
+│  todo      ████████████████████████████████████░░░░░░  84               │
 │  progress  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │  blocked   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0               │
 │  done      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │                                                                         │
-│  Priority  critical: 4 | high: 22 | medium: 33 | low: 20               │
+│  Priority  critical: 4 | high: 23 | medium: 33 | low: 20               │
 │  Epics     3 draft | 2 active | 1 draft (EPIC-005) | 0 done            │
 │  Ideas     1 raw | 0 refining | 0 promoted                             │
 │  Sprints   0 active | 0 completed                                       │
@@ -34,7 +34,7 @@
 
 | Type | Count | Folder |
 |---|---|---|
-| Features | 78 | `features/` — learning-assistant enhancements (33 existing + 34 EPIC-005 + 11 EPIC-006) |
+| Features | 79 | `features/` — learning-assistant enhancements (34 existing + 34 EPIC-005 + 11 EPIC-006) |
 | Projects | 7 | `projects/` — standalone personal software projects |
 | Items | 1 | `items/` — general (BLI-006, done) |
 | Ideas | 1 | `ideas/` |
@@ -144,6 +144,7 @@
 │ BLI-084 med  │              │              │              │              │
 │ BLI-085 med  │              │              │              │              │
 │ BLI-086 med  │              │              │              │              │
+│ BLI-087 high │              │              │              │              │
 └──────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
 ```
 
@@ -153,7 +154,7 @@
 
 ### EPIC-001: Full-fledged learning resources system
 
-> **Status:** draft | **Priority:** high | **Progress:** 0/6 (0%)
+> **Status:** draft | **Priority:** high | **Progress:** 0/7 (0%)
 >
 > **Folder:** `features/`
 
@@ -165,6 +166,7 @@
 | BLI-005 | Chat session orchestration — scoped sessions, agents | medium | todo | — | — |
 | BLI-024 | Workflow and terminal conditions framework | medium | todo | — | — |
 | BLI-025 | Library/glossary for abbreviations and aliases | low | todo | — | — |
+| BLI-087 | Taxonomy — enum single-source-of-truth + query model | high | todo | — | — |
 | BLI-026 | Evolve 6-primitive layered architecture | high | in-progress | 2026-04-21 | — |
 
 ### EPIC-002: Knowledge consolidation & cross-platform brain
@@ -390,6 +392,7 @@
 
 | Date | Time | ID | Action | Details |
 |---|---|---|---|---|
+| 2026-06-03 | 08:35 PM | BLI-087 | created | Taxonomy enum single-source-of-truth (@TaxonomyTerm) + query-model enrichment (EPIC-001) |
 | 2026-06-02 | 05:00 PM | BLI-086 | created | Resume & LinkedIn skill — auto-update from work history, composes atlassian/github skills (EPIC-006) |
 | 2026-06-02 | 04:49 PM | BLI-085 | created | Skill-importer versioning + cross-repo re-import enhancements |
 | 2026-05-29 | 09:21 PM | BLI-080–084 | created | 5 sub-items of BLI-075 for search engine (labelling, tagging, indexing, faceted search, auto-classification) |
