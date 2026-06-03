@@ -53,7 +53,7 @@ _check_required() {
 
 echo ""
 echo "  [setup.sh] Validating environment..."
-_check_required "JAVA_HOME" "/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home"
+_check_required "JAVA_HOME" "/Library/Java/JavaVirtualMachines/openjdk-26.jdk/Contents/Home"
 _check_required "PROJ_HOME" "/Users/yourname/dev/learning-assistant"
 
 # Verify JAVA_HOME is a JDK (has a compiler), not a JRE

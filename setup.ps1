@@ -66,7 +66,7 @@ function Test-Required {
 Write-Host ""
 Write-Host "  [setup.ps1] Validating environment..."
 
-Test-Required "JAVA_HOME" "E:/mgcnoscan/JDKs/jdk-21.0.10"
+Test-Required "JAVA_HOME" "E:/mgcnoscan/JDKs/openjdk-26"
 Test-Required "PROJ_HOME" "E:/mgcnoscan/learning/learning-assistant"
 
 # Verify JAVA_HOME points to a JDK (has javac), not a JRE
