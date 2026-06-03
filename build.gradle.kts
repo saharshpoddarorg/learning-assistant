@@ -38,4 +38,15 @@ subprojects {
     repositories {
         mavenCentral()
     }
+
+    dependencies {
+        val catalog = rootProject.extensions.getByType<VersionCatalogsExtension>().named("libs")
+        "testImplementation"(platform(catalog.findLibrary("junit-bom").get()))
+        "testImplementation"(catalog.findBundle("testing").get())
+        "testRuntimeOnly"(catalog.findLibrary("junit-platform-launcher").get())
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 }

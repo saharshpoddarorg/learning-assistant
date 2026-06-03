@@ -1,0 +1,54 @@
+# ============================================================
+# Gradle Version Catalog — centralized dependency versions
+# All external dependency versions are declared here.
+# Reference: https://docs.gradle.org/current/userguide/version_catalogs.html
+# ============================================================
+
+# ----- versions -------------------------------------------
+# Bump a version here to upgrade it across ALL modules.
+
+[versions]
+junit-bom   = "6.1.0"
+mockito     = "5.18.0"
+assertj     = "3.27.3"
+awaitility  = "4.3.0"
+hamcrest    = "3.0"
+
+# ----- libraries ------------------------------------------
+# Format: alias = { module = "group:artifact", version.ref = "<key>" }
+# Access in build scripts as: libs.<alias>
+# Dots in alias names become camelCase accessors: junit-bom → libs.junit.bom
+
+[libraries]
+# Testing — JUnit 6 (Jupiter)
+junit-bom               = { module = "org.junit:junit-bom",                          version.ref = "junit-bom" }
+junit-jupiter           = { module = "org.junit.jupiter:junit-jupiter",               version.ref = "junit-bom" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher",    version.ref = "junit-bom" }
+
+# Testing — Mockito
+mockito-core            = { module = "org.mockito:mockito-core",                      version.ref = "mockito" }
+mockito-junit-jupiter   = { module = "org.mockito:mockito-junit-jupiter",             version.ref = "mockito" }
+
+# Testing — AssertJ (fluent assertions)
+assertj-core            = { module = "org.assertj:assertj-core",                      version.ref = "assertj" }
+
+# Testing — Awaitility (async assertions)
+awaitility              = { module = "org.awaitility:awaitility",                     version.ref = "awaitility" }
+
+# Testing — Hamcrest (matchers)
+hamcrest                = { module = "org.hamcrest:hamcrest",                         version.ref = "hamcrest" }
+
+# ----- bundles --------------------------------------------
+# A bundle groups commonly used libs into a single reference.
+# Add to deps as: "testImplementation"(libs.bundles.testing)
+
+[bundles]
+# The full test stack — import this bundle in any module that needs all test frameworks
+testing = [
+    "junit-jupiter",
+    "mockito-core",
+    "mockito-junit-jupiter",
+    "assertj-core",
+    "awaitility",
+    "hamcrest",
+]
