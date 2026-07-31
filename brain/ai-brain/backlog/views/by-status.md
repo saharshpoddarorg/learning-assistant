@@ -21,7 +21,7 @@
 
 ---
 
-## Todo (83)
+## Todo (85)
 
 > Items ready to be picked up. Ordered by priority (high → low), then by ID.
 
@@ -105,6 +105,8 @@
 | BLI-083 | Search engine — metadata index and faceted search | feature | EPIC-006 | 2026-05-29 | search, metadata, faceted-search |
 | BLI-084 | Search engine — auto-classification and entity extraction | feature | EPIC-006 | 2026-05-29 | search, auto-classification, nlp |
 | BLI-086 | Resume & LinkedIn skill — auto-update from work history | feature | EPIC-006 | 2026-06-02 | skill, resume, linkedin, career, atlassian |
+| BLI-088 | Define output format rules — response structure, density, and format-by-intent | feature | — | 2026-07-31 | copilot-customization, output-format, instructions, response-structure |
+| BLI-089 | Backlog item workspace — BLI-local content sub-folder, cross-index view, and promotion path | feature | — | 2026-07-31 | backlog, brain, workspace, cross-linking, indexing, promotion-path |
 
 ### Low Priority
 
