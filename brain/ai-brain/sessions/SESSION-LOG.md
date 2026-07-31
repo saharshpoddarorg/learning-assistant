@@ -19,3 +19,4 @@
 | 2026-04-21 | 04:00 PM | personal | learning | copilot-customization-prompt-composition-superset | v1 | high | draft | [View](personal/personal-work/learning/copilot-customization/2026-04-21_04-00pm_prompt-composition-superset.md) |
 | 2026-07-31 | 09:33 PM | personal | design | copilot-output-format-primitive | v1 | medium | draft | [View](personal/personal-work/software-dev/design/2026-07-31_09-33pm_design_copilot-output-format-primitive.md) |
 | 2026-07-31 | 09:48 PM | personal | design | backlog-workspace-cross-index-framework | v1 | high | draft | [View](personal/personal-work/software-dev/design/2026-07-31_09-48pm_design_backlog-workspace-cross-index-framework.md) |
+| 2026-07-31 | 11:10 PM | work | requirements | atlassian-multi-account-profile-strategy | v1 | high | draft | [View](work/requirements/2026-07-31_11-10pm_requirements_atlassian-multi-account-profile-strategy.md) |
