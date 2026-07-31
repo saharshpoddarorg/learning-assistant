@@ -138,11 +138,11 @@ Use `atlassian-common/bitbucket-cross-account.js` to mirror PRs between instance
 ```powershell
 # Mirror a PR to another Bitbucket instance
 $env:CLI_JSON_ARGS = '{"sourceAccount":"work.primary","targetAccount":"personal-work.primary","sourceProject":"PROJ","sourceRepo":"my-repo","prId":42,"targetProject":"MYPROJ","targetRepo":"my-repo"}'
-node "skills/atlassian-common/bitbucket-cross-account.js" mirror_pr
+node "skills/_modular/atlassian-common/bitbucket-cross-account.js" mirror_pr
 
 # Copy PR review comments to the mirrored PR
 $env:CLI_JSON_ARGS = '{"sourceAccount":"work.primary","targetAccount":"personal-work.primary","sourceProject":"PROJ","sourceRepo":"my-repo","sourcePrId":42,"targetProject":"MYPROJ","targetRepo":"my-repo","targetPrId":1}'
-node "skills/atlassian-common/bitbucket-cross-account.js" copy_pr_comments
+node "skills/_modular/atlassian-common/bitbucket-cross-account.js" copy_pr_comments
 ```
 
 ### Account selection priority

@@ -34,7 +34,7 @@ const __dirname = dirname(__filename);
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function findWorkspaceRoot() {
-  // account-manager.js lives at .github/skills/atlassian-common/
+  // account-manager.js lives at .github/skills/_modular/atlassian-common/
   // workspace root is 3 levels up
   const candidates = [
     resolve(__dirname, '..', '..', '..'),        // <workspace>/ (standard)

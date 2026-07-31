@@ -166,11 +166,11 @@ Use `atlassian-common/confluence-cross-account.js` to migrate pages between inst
 ```powershell
 # Migrate a single page
 $env:CLI_JSON_ARGS = '{"sourceAccount":"work.primary","targetAccount":"personal-work.primary","pageId":"12345","targetSpaceKey":"MYSPACE"}'
-node "skills/atlassian-common/confluence-cross-account.js" migrate_page
+node "skills/_modular/atlassian-common/confluence-cross-account.js" migrate_page
 
 # Migrate a page and all its children recursively
 $env:CLI_JSON_ARGS = '{"sourceAccount":"work.primary","targetAccount":"personal-work.primary","pageId":"12345","targetSpaceKey":"MYSPACE","targetParentId":"67890"}'
-node "skills/atlassian-common/confluence-cross-account.js" migrate_page_tree
+node "skills/_modular/atlassian-common/confluence-cross-account.js" migrate_page_tree
 ```
 
 ### Account selection priority

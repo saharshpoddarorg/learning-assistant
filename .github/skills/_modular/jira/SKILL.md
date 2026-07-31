@@ -138,11 +138,11 @@ Use `atlassian-common/jira-cross-account.js` to copy issues between accounts:
 ```powershell
 # Copy a single issue
 $env:CLI_JSON_ARGS = '{"sourceAccount":"work.primary","targetAccount":"personal-work.primary","issueKey":"PROJ-123","targetProjectKey":"MYPROJ"}'
-node "skills/atlassian-common/jira-cross-account.js" copy_issue
+node "skills/_modular/atlassian-common/jira-cross-account.js" copy_issue
 
 # Bulk copy via JQL
 $env:CLI_JSON_ARGS = '{"sourceAccount":"work.primary","targetAccount":"personal-work.primary","jql":"project=PROJ AND sprint in openSprints()","targetProjectKey":"MYPROJ"}'
-node "skills/atlassian-common/jira-cross-account.js" copy_issues_by_jql
+node "skills/_modular/atlassian-common/jira-cross-account.js" copy_issues_by_jql
 ```
 
 ### Account selection priority
