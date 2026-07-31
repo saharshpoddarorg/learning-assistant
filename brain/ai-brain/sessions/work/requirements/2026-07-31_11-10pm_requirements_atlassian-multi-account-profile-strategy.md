@@ -7,7 +7,7 @@ category: requirements
 project: iesd-26
 subject: atlassian-multi-account-profile-strategy
 tags: [project:iesd-26, requirements, atlassian, multi-account, pat-auth, profile-resolution, cross-account]
-status: draft
+status: final
 version: 1
 parent: null
 complexity: high
@@ -282,6 +282,58 @@ session note captures full context + decision trail + requirement framing.
 - [ ] Confirm session-profile persistence behavior
 - [ ] Provide personal-work base URLs and PAT tokens (securely, not in logs)
 - [ ] Start implementation in `E:\mgcnoscan\iesd-26` after explicit green signal
+
+---
+
+## Green Signal Kickoff Checklist
+
+User provided green signal to proceed. Use the following sequence in `E:\mgcnoscan\iesd-26`.
+
+### Phase 0 — Setup and Safety
+
+1. Create a feature branch for multi-account extrapolation.
+2. Backup existing single-account `.env` and keep it as `work` baseline.
+3. Add/verify gitignore rules for profile env files (`.env.*`) while preserving templates.
+4. Validate no PAT tokens are printed by current scripts/CLI logs.
+
+### Phase 1 — Common Profile Foundation
+
+1. Add profile resolver module with runtime order:
+  `override -> session -> default -> work`.
+2. Add default-profile config source (env var or defaults file).
+3. Add optional session-profile setter/getter helper.
+4. Add fail-fast validation for missing service variables per requested service.
+
+### Phase 2 — Jira Integration First
+
+1. Route Jira calls through profile resolver.
+2. Add/verify identity command (`get_current_jira_user`) with active profile diagnostics.
+3. Validate one read flow and one safe write/update flow.
+
+### Phase 3 — Bitbucket Integration
+
+1. Route Bitbucket calls through same profile resolver.
+2. Validate one read flow and one comment/update-safe flow.
+
+### Phase 4 — Confluence Integration
+
+1. Route Confluence calls through same profile resolver.
+2. Validate one read flow and one create/update flow.
+3. Re-check content encoding behavior where applicable.
+
+### Phase 5 — Cross-Account Guardrails
+
+1. Require explicit `source-profile` and `target-profile` for cross-account actions.
+2. Print only profile name + base URL (never token values).
+3. Block execution when either source or target profile is missing.
+
+### Exit Criteria
+
+1. `work` profile passes Jira/Bitbucket/Confluence checks.
+2. `personal-work` profile passes Jira/Bitbucket/Confluence checks.
+3. Fallback order verified.
+4. Command-level override verified.
+5. Cross-account safety checks verified.
 
 ---
 
