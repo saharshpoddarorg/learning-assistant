@@ -155,8 +155,7 @@ GitHub Copilot in VS Code supports exactly **6 customization primitives**. Every
 │   │   ├── copilot-customization.prompt.md /copilot-customization (primitives guide)
 │   │   ├── create-agent.prompt.md          /create-agent (agent scaffolding)
 │   │   └── mcp-to-skill.prompt.md          /mcp-to-skill (MCP→skill conversion)
-│   ├── tools/                               Tool-specific operations (6 commands)
-│   │   ├── atlassian-tools.prompt.md       /atlassian-tools (Jira/Confluence/Bitbucket)
+│   ├── tools/                               Tool-specific operations (5 commands)
 │   │   ├── git-vcs.prompt.md               /git-vcs (Git commands & workflows)
 │   │   ├── github-workflow.prompt.md       /github-workflow (PRs, issues, gh CLI)
 │   │   ├── build-tools.prompt.md           /build-tools (Maven, Gradle, npm)
@@ -193,7 +192,7 @@ GitHub Copilot in VS Code supports exactly **6 customization primitives**. Every
 │
 ├── skills/                              ← Agent skills (auto by task match)
 │   ├── 🛠️ README.md                         Guide: how skills work
-│   ├── TAXONOMY.md                          Full taxonomy tree — 8 categories, 23 skills
+│   ├── TAXONOMY.md                          Full taxonomy tree — 8 categories, 22 skills
 │   ├── languages-platforms/                 Java, JVM, macOS (6 skills)
 │   │   ├── java-build/SKILL.md              Compile & run Java
 │   │   ├── java-debugging/SKILL.md          Exception patterns & debug techniques
@@ -208,11 +207,10 @@ GitHub Copilot in VS Code supports exactly **6 customization primitives**. Every
 │   │   ├── deep-research/SKILL.md           Investigation, spike stories, RCA, trade-off analysis
 │   │   ├── requirements-research/SKILL.md   User stories, BDD, acceptance criteria, MoSCoW
 │   │   └── github-workflow/SKILL.md         PRs, issues, GitHub CLI, branch protection
-│   ├── devops-tooling/                      DevOps & developer tools (5 skills)
+│   ├── devops-tooling/                      DevOps & developer tools (4 skills)
 │   │   ├── git-vcs/SKILL.md                 Git workflows, branching, commits, semver
 │   │   ├── mcp-development/SKILL.md         MCP: build servers, configure agents, project structure
 │   │   ├── copilot-customization/SKILL.md   Copilot 6 primitives — create, review, fix
-│   │   ├── atlassian-tools/SKILL.md         Jira/Confluence/Bitbucket PAT CLI (89 actions)
 │   │   └── web-reader/SKILL.md              Webpage reading, content extraction
 │   ├── knowledge-management/                Brain & PKM (3 skills)
 │   │   ├── brain-management/SKILL.md        brain/ai-brain/ tier routing, naming, frontmatter
@@ -310,7 +308,6 @@ This learning project includes working samples of each primitive, organized into
 | `/explain` | [`explain.prompt.md`](prompts/code/explain.prompt.md) | Beginner-friendly file explanation |
 | `/check-standards` | [`check-standards.prompt.md`](prompts/code/check-standards.prompt.md) | Audit file/folder against best practices |
 | **Tools & Platforms** | | |
-| `/atlassian-tools` | [`atlassian-tools.prompt.md`](prompts/tools/atlassian-tools.prompt.md) | Jira, Confluence, Bitbucket CLI workflows |
 | `/git-vcs` | [`git-vcs.prompt.md`](prompts/tools/git-vcs.prompt.md) | Git workflows, branching, conventions |
 | `/github-workflow` | [`github-workflow.prompt.md`](prompts/tools/github-workflow.prompt.md) | GitHub PRs, issues, gh CLI, Actions |
 | `/build-tools` | [`build-tools.prompt.md`](prompts/tools/build-tools.prompt.md) | Maven, Gradle, Make, Bazel, npm |
@@ -398,7 +395,6 @@ This learning project includes working samples of each primitive, organized into
 | `git-vcs` | [`devops-tooling/git-vcs/`](skills/devops-tooling/git-vcs/SKILL.md) | Git workflows, branching, commits, semver |
 | `mcp-development` | [`devops-tooling/mcp-development/`](skills/devops-tooling/mcp-development/SKILL.md) | MCP protocol, building servers, agent patterns |
 | `copilot-customization` | [`devops-tooling/copilot-customization/`](skills/devops-tooling/copilot-customization/SKILL.md) | Copilot 6 primitives — create, review, fix |
-| `atlassian-tools` | [`devops-tooling/atlassian-tools/`](skills/devops-tooling/atlassian-tools/SKILL.md) | Jira/Confluence/Bitbucket PAT CLI (89 actions) |
 | `web-reader` | [`devops-tooling/web-reader/`](skills/devops-tooling/web-reader/SKILL.md) | Webpage reading, content extraction |
 | **Knowledge Management** | | |
 | `brain-management` | [`knowledge-management/brain-management/`](skills/knowledge-management/brain-management/SKILL.md) | brain/ai-brain/ tier routing, naming, frontmatter |

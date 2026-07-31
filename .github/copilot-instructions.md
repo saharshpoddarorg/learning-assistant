@@ -209,6 +209,9 @@ path separators, tool names) or ask if unclear.
 | **Any** | `java-formatting` | Java code formatting, style, inspections — **opt-in only** (invoke when asked) |
 | **Any** | `github-workflow` | PR management, issues, GitHub CLI (`gh`), PR titles/descriptions, branch ops |
 | **Any** | `git-vcs` | Git commands, branching strategies, Conventional Commits, SemVer |
+| **Any** | `jira` | Jira tickets, JQL queries, sprint/board/issue operations, labels, watchers, transitions, bulk actions |
+| **Any** | `confluence` | Confluence pages, CQL search, templates, comments, labels, PDF export, content workflows |
+| **Any** | `bitbucket` | Bitbucket PRs, diffs, comments, tasks, file lookups, branch and repository analysis |
 | **Any** | `design-patterns` | Design patterns, SOLID, GoF — pattern decision guide |
 | **Any** | `mcp-development` | MCP architecture, building MCP servers, transport, testing |
 | **Any** | `copilot-customization` | Copilot 6 primitives — instructions, prompts, agents, skills, MCP |
@@ -218,7 +221,6 @@ path separators, tool names) or ask if unclear.
 | **Any** | `software-engineering-resources` | SE/CS resource index — DSA, system design, OS, networking, DevOps |
 | **Any** | `java-learning-resources` | Java-specific docs, tutorials, blogs, OSS projects |
 | **Any** | `java-debugging` | Exception diagnosis, fix patterns, debugger usage |
-| **Any** | `atlassian-tools` | Jira tickets, JQL, sprints, Confluence pages, CQL, Bitbucket PRs, PAT-based Atlassian CLI, cross-account migration, resume/work analysis, repo migration — universal handler for ALL Atlassian tasks |
 | **Any** | `web-reader` | Read, extract, summarize webpage content from any URL pasted by the user |
 
 **Key rule:** Never give a macOS-only command (e.g., `brew install`) without noting

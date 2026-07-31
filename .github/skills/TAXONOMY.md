@@ -4,15 +4,15 @@
 > Skills are organized into category subdirectories (`.github/skills/<category>/<name>/SKILL.md`),
 > and this taxonomy provides the hierarchical view for discovery and navigation.
 >
-> **Total skills:** 23 | **Domains:** 4 | **Categories:** 10
+> **Total skills:** 22 | **Domains:** 4 | **Categories:** 10
 
 ---
 
 ## Taxonomy Tree
 
 ```text
-Skills Library (23 skills)
-├── 1. Software Engineering                           [16 skills]
+Skills Library (22 skills)
+├── 1. Software Engineering                           [15 skills]
 │   ├── 1.1 Languages & Platforms                     [6 skills]
 │   │   ├── java-build
 │   │   ├── java-debugging
@@ -27,11 +27,10 @@ Skills Library (23 skills)
 │   │   ├── deep-research
 │   │   ├── requirements-research
 │   │   └── github-workflow
-│   ├── 1.4 DevOps & Tooling                          [5 skills]
+│   ├── 1.4 DevOps & Tooling                          [4 skills]
 │   │   ├── git-vcs
 │   │   ├── mcp-development
 │   │   ├── copilot-customization
-│   │   ├── atlassian-tools
 │   │   └── web-reader
 │   └── 1.5 Learning Resources                        [2 skills]  (discovery layer)
 │       ├── learning-resources-vault
@@ -93,7 +92,6 @@ Skills for version control, CI/CD tooling, MCP servers, and AI assistant configu
 | [`git-vcs`](devops-tooling/git-vcs/SKILL.md) | `devops-tooling/git-vcs/` | Git commands, branching, merge, rebase, GitFlow | Git cheatsheet, branching strategies, Conventional Commits |
 | [`mcp-development`](devops-tooling/mcp-development/SKILL.md) | `devops-tooling/mcp-development/` | MCP, Model Context Protocol, MCP server, tools | MCP architecture, building servers, transport, testing |
 | [`copilot-customization`](devops-tooling/copilot-customization/SKILL.md) | `devops-tooling/copilot-customization/` | Copilot instructions, prompts, agents, skills, `.github` | 6 customization primitives, activation rules, stacking |
-| [`atlassian-tools`](devops-tooling/atlassian-tools/SKILL.md) | `devops-tooling/atlassian-tools/` | Jira, Confluence, Bitbucket, JQL, CQL, PAT CLI, sprints | 89-action CLI, JQL/CQL cheatsheet, workflow playbooks |
 | [`web-reader`](devops-tooling/web-reader/SKILL.md) | `devops-tooling/web-reader/` | URL, webpage, fetch, read page, summarize article, extract content | Webpage reading, content extraction, article summarization |
 
 ### 1.5 Learning Resources
@@ -166,7 +164,6 @@ Shows which skills relate to or complement each other:
 | `digital-notetaking` | `brain-management`, `pkm-management` | PKM tools |
 | `career-resources` | `software-development-roles` | role descriptions |
 | `daily-assistant-resources` | — | — |
-| `atlassian-tools` | `github-workflow`, `software-development-roles` | — |
 | `web-reader` | `deep-research`, `learning-resources-vault` | — |
 
 ---
