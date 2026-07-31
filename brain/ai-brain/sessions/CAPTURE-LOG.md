@@ -15,3 +15,5 @@
 | 2026-04-21 | 04:20 PM | capture | New session: copilot-customization-framework-evolution-guide | 1 file created |
 | 2026-04-21 | 04:20 PM | capture | New session: copilot-customization-prompt-composition-superset | 1 file created |
 | 2026-04-21 | 04:20 PM | escalation:pattern-1 | Created `copilot-customization/` sub-package in `learning/` (3 files, same subject prefix) | 3 files placed in sub-package |
+| 2026-07-31 | 09:33 PM | capture | New session: copilot-output-format-primitive (design, project: learning-assistant) | 1 file created |
+| 2026-07-31 | 10:01 PM | capture | New session: backlog-workspace-cross-index-framework (design, project: learning-assistant) | 1 file created |
