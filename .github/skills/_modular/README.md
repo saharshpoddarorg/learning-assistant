@@ -45,7 +45,6 @@ Every modular skill follows this internal layout:
 | 12 | `git-vcs` | `devops-tooling/git-vcs/` | migrated | ~57% trimmed — kept branching strategies, SemVer, conventional commits ref; removed basic commands, aliases, learning path |
 | 13 | `mcp-development` | `devops-tooling/mcp-development/` | migrated | ~14% trimmed — Protocol Lifecycle JSON → phase table; TS `create_item` removed; Schema Reference extracted to `references/mcp-json-schema.md`; all 5 languages kept equal |
 | 14 | `copilot-customization` | `devops-tooling/copilot-customization/` | migrated | ~28% trimmed — removed stale model name lists, ROI % stats, star counts from curated repos; kept Quick Templates inline; multi-glob stub cleaned |
-| 15 | `atlassian-tools` | `devops-tooling/atlassian-tools/` | pending | Complex (scripts, config, refs) |
 | 16 | `web-reader` | `devops-tooling/web-reader/` | migrated | 67% trimmed; workflow patterns routed to prompt-backlog |
 | 17 | `brain-management` | `knowledge-management/brain-management/` | pending | |
 | 18 | `pkm-management` | `knowledge-management/pkm-management/` | pending | |
@@ -99,7 +98,6 @@ Remove-Item -Recurse .github/skills/_modular
 
 | Before | After |
 |---|---|
-| `skills/devops-tooling/atlassian-tools/SKILL.md` | `skills/atlassian-tools/SKILL.md` |
 | `skills/languages-platforms/java-build/SKILL.md` | `skills/java-build/SKILL.md` |
 | 8 category folders + 23 skill folders | 28 skill folders (flat) |
 | TAXONOMY.md references category paths | TAXONOMY.md references flat paths |

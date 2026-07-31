@@ -1782,36 +1782,36 @@ git blame src/path/to/TargetClass.java
 git log --since="2 weeks ago" --format="%H %s" -- src/path/to/TargetClass.java
 ```
 
-**Bitbucket commands for PR-based analysis** (read `atlassian-tools` skill):
+**Bitbucket commands for PR-based analysis** (read `_modular/bitbucket`, `_modular/jira`, and `_modular/confluence` skills):
 
 ```powershell
 # Fetch PR details (title, description, branches — description often contains Jira keys)
 $env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","prId":42}'
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_bitbucket_pr
+node "<workspace>/.github/skills/_modular/bitbucket/scripts/bitbucket_cli.js" fetch_bitbucket_pr
 
 # Get full PR diff or file-specific diff
 $env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","prId":42,"filePath":"src/path/to/TargetClass.java","contextLines":5}'
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_bitbucket_pr_diff
+node "<workspace>/.github/skills/_modular/bitbucket/scripts/bitbucket_cli.js" fetch_bitbucket_pr_diff
 
 # List all files changed in a PR
 $env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","prId":42}'
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_bitbucket_pr_files
+node "<workspace>/.github/skills/_modular/bitbucket/scripts/bitbucket_cli.js" fetch_bitbucket_pr_files
 
 # Get file diff with commit range
 $env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","filePath":"src/path/to/TargetClass.java","since":"abc123","until":"HEAD","contextLines":5}'
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" get_bitbucket_file_diff
+node "<workspace>/.github/skills/_modular/bitbucket/scripts/bitbucket_cli.js" get_bitbucket_file_diff
 
 # Fetch file content at specific branch/revision
 $env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","filePath":"src/path/to/TargetClass.java","branch":"feature/my-branch"}'
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_bitbucket_file
+node "<workspace>/.github/skills/_modular/bitbucket/scripts/bitbucket_cli.js" fetch_bitbucket_file
 
 # Get PR activity feed (status changes, approvals, updates)
 $env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","prId":42}'
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_bitbucket_pr_activities
+node "<workspace>/.github/skills/_modular/bitbucket/scripts/bitbucket_cli.js" fetch_bitbucket_pr_activities
 
 # Get PR comments (review feedback — often explains WHY changes were made)
 $env:CLI_JSON_ARGS = '{"project":"PROJ","repo":"my-repo","prId":42}'
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" get_bitbucket_pr_comments
+node "<workspace>/.github/skills/_modular/bitbucket/scripts/bitbucket_cli.js" get_bitbucket_pr_comments
 ```
 
 ##### Step 2 — Extract Jira Keys from Commits
@@ -1851,16 +1851,16 @@ a business-context-enriched analysis.
 | No Jira keys found anywhere | Skip — proceed with commit message context only |
 | Multiple Jira keys in one commit | Fetch all — they may represent different aspects of the change |
 
-**Jira commands** (read `atlassian-tools` skill):
+**Jira commands** (read `_modular/bitbucket`, `_modular/jira`, and `_modular/confluence` skills):
 
 ```powershell
 # Fetch full Jira issue (summary, description, acceptance criteria, status, comments)
 $env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123"}'
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_jira_issue
+node "<workspace>/.github/skills/_modular/jira/scripts/jira_cli.js" fetch_jira_issue
 
 # Fetch issue links (to find linked Confluence pages, parent epics, related issues)
 $env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123"}'
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" get_jira_issue_links
+node "<workspace>/.github/skills/_modular/jira/scripts/jira_cli.js" get_jira_issue_links
 ```
 
 **What to extract from the Jira issue:**
@@ -1895,16 +1895,16 @@ behind the code changes. This is especially valuable when:
 | User mentions a design doc or Confluence page | Fetch by title search or page ID |
 | No Confluence links found | Skip — proceed with Jira context only |
 
-**Confluence commands** (read `atlassian-tools` skill):
+**Confluence commands** (read `_modular/bitbucket`, `_modular/jira`, and `_modular/confluence` skills):
 
 ```powershell
 # Fetch a Confluence page by ID (get full design doc content)
 $env:CLI_JSON_ARGS = '{"pageId":"12345678"}'
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_confluence_page
+node "<workspace>/.github/skills/_modular/confluence/scripts/confluence_cli.js" fetch_confluence_page
 
 # Search for related design docs by CQL
 $env:CLI_JSON_ARGS = '{"cql":"type = page AND label = \"design\" AND title ~ \"order-service\"","maxResults":5}'
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" search_confluence_cql
+node "<workspace>/.github/skills/_modular/confluence/scripts/confluence_cli.js" search_confluence_cql
 ```
 
 **What to extract from Confluence pages:**
@@ -2112,13 +2112,13 @@ Recent Changes Impact Analysis enriches the entire deep-dive:
 
 If the `recent-changes` source involves Bitbucket, Jira, or Confluence:
 
-1. **Read `atlassian-tools/SKILL.md`** — for setup, execution contract, and defaults
-2. **Read `atlassian-tools/references/action-catalog.md`** — for exact argument shapes
+1. **Read `_modular/bitbucket/SKILL.md`, `_modular/jira/SKILL.md`, and `_modular/confluence/SKILL.md`** — for setup, execution contract, and defaults
+2. **Read each domain's `references/action-catalog.md`** — for exact argument shapes
    of `fetch_bitbucket_pr_diff`, `fetch_jira_issue`, `get_jira_issue_links`,
    `fetch_confluence_page`, `search_confluence_cql`, etc.
-3. **Use `atlassian-tools/references/workflow-playbooks.md` Playbook 5** — Code Review
-   Documentation workflow for structured PR analysis
-4. **Read `atlassian-tools/references/jql-cql-cheatsheet.md`** — if searching for related
+3. **Use domain-specific `references/usage-recipes.md` files** — for copy-paste workflows
+  for structured PR analysis
+4. **Use Jira JQL and Confluence CQL examples from modular skills** — if searching for related
    Jira issues or Confluence pages beyond the directly linked ones
 
 ### Output Rules
@@ -2174,7 +2174,7 @@ If the `recent-changes` source involves Bitbucket, Jira, or Confluence:
   changes to target code (diff + annotation), impact assessment matrix, variable/field
   impact, flow impact, and regression risks. Every change must be cross-referenced to
   its affected B-ref from the Method Tree. When using Bitbucket, read the
-  `atlassian-tools` skill and its `references/action-catalog.md` for exact CLI syntax.
+  modular Atlassian skills and their `references/action-catalog.md` files for exact CLI syntax.
   When the user expresses concern about specific impact dimensions (algorithm, variables,
   fields, data, flow), emphasise those sub-sections in the analysis
 - End with one "what to deep-dive next" recommendation

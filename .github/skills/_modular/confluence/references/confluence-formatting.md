@@ -15,7 +15,7 @@ $env:CLI_CONTENT = @'
 <h2>Section Title</h2><p>Content here</p>
 '@
 $env:CLI_JSON_ARGS = '{"pageId":"123456","contentFromEnv":true}'
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" append_to_confluence_page
+node "<workspace>/.github/skills/_modular/confluence/scripts/confluence_cli.js" append_to_confluence_page
 ```
 
 ### Pattern B — workspace scratch file
@@ -28,7 +28,7 @@ New-Item -ItemType Directory -Path $workspaceTempDir -Force | Out-Null
 $htmlFile = Join-Path $workspaceTempDir "cli_content.html"
 '<h2>Section</h2><p>Content</p>' | Set-Content $htmlFile -Encoding UTF8
 $env:CLI_JSON_ARGS = "{`"pageId`":`"123456`",`"contentFile`":`"$htmlFile`"}"
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" update_confluence_page
+node "<workspace>/.github/skills/_modular/confluence/scripts/confluence_cli.js" update_confluence_page
 ```
 
 ## Windows PowerShell UTF-8 Warning
@@ -38,7 +38,7 @@ If you fetch Confluence page JSON from the CLI and then round-trip it through Wi
 Typical bad path:
 
 ```powershell
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" fetch_confluence_page | Out-File -Encoding utf8 page.json
+node "<workspace>/.github/skills/_modular/confluence/scripts/confluence_cli.js" fetch_confluence_page | Out-File -Encoding utf8 page.json
 $page = Get-Content page.json -Raw | ConvertFrom-Json
 $page.data.body.storage.value | Set-Content page.html -Encoding UTF8
 ```
@@ -172,7 +172,7 @@ flowchart TD
 '@ | Set-Content -Path $htmlFile -Encoding UTF8
 
 $env:CLI_JSON_ARGS = "{\"title\":\"Mermaid Demo\",\"spaceKey\":\"ENG\",\"parentPageId\":\"602112114\",\"contentFile\":\"$htmlFile\"}"
-node "<workspace>/.github/skills/atlassian-tools/scripts/atlassian_cli.js" create_confluence_page
+node "<workspace>/.github/skills/_modular/confluence/scripts/confluence_cli.js" create_confluence_page
 ```
 
 ## Special Characters in Content

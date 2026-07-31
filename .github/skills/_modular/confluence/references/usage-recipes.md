@@ -9,7 +9,7 @@ Load this file when you need concrete examples, CQL recipes, pagination, or trou
 ### Fetch a page
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"pageId":"602112114"}'; node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" fetch_confluence_page
+$env:CLI_JSON_ARGS = '{"pageId":"602112114"}'; node "<workspace>/skills/_modular/confluence/scripts/confluence_cli.js" fetch_confluence_page
 ```
 
 ### Create a page with env-var content
@@ -20,13 +20,13 @@ $env:CLI_CONTENT = @'
 <table><tr><th>Decision</th><th>Status</th></tr><tr><td>Adopt gRPC</td><td>Approved</td></tr></table>
 '@
 $env:CLI_JSON_ARGS = '{"title":"Sprint 24 Review","spaceKey":"ENG","parentPageId":"602112114","contentFromEnv":true}'
-node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" create_confluence_page
+node "<workspace>/skills/_modular/confluence/scripts/confluence_cli.js" create_confluence_page
 ```
 
 ### Search via CQL
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"cql":"type = page AND space = ENG ORDER BY lastmodified DESC","maxResults":10}'; node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" search_confluence_cql
+$env:CLI_JSON_ARGS = '{"cql":"type = page AND space = ENG ORDER BY lastmodified DESC","maxResults":10}'; node "<workspace>/skills/_modular/confluence/scripts/confluence_cli.js" search_confluence_cql
 ```
 
 ---
@@ -49,7 +49,7 @@ CQL has no `lastmodifier` field. Use `contributor` and filter client-side:
 
 ```powershell
 $env:CLI_JSON_ARGS = '{"cql":"type = page AND contributor = currentUser() ORDER BY lastmodified DESC","maxResults":20}'
-$result = (node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" search_confluence_cql) | ConvertFrom-Json
+$result = (node "<workspace>/skills/_modular/confluence/scripts/confluence_cli.js" search_confluence_cql) | ConvertFrom-Json
 $myPages = $result.data.results | Where-Object { $_.version.by.username -eq 'your.username@company.com' }
 $myPages | Select-Object -First 5 | ForEach-Object { "$($_.title) - $($_.version.when)" }
 ```
@@ -60,7 +60,7 @@ Over-fetch (`maxResults=20`) to compensate for filtered-out results.
 
 ```powershell
 $env:CLI_JSON_ARGS = '{"cql":"type = page AND creator = currentUser() ORDER BY created DESC","maxResults":10}'
-node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" search_confluence_cql
+node "<workspace>/skills/_modular/confluence/scripts/confluence_cli.js" search_confluence_cql
 ```
 
 ### CQL Fields That Do NOT Exist

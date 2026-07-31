@@ -9,25 +9,25 @@ Load this file when you need concrete examples, bulk-operation patterns, or trou
 ### Fetch a Jira issue
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123"}'; node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" fetch_jira_issue
+$env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123"}'; node "<workspace>/skills/_modular/jira/scripts/jira_cli.js" fetch_jira_issue
 ```
 
 ### Search via JQL
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"jql":"project = PROJ AND status = Open AND assignee = currentUser()","maxResults":50}'; node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" search_jira_issues
+$env:CLI_JSON_ARGS = '{"jql":"project = PROJ AND status = Open AND assignee = currentUser()","maxResults":50}'; node "<workspace>/skills/_modular/jira/scripts/jira_cli.js" search_jira_issues
 ```
 
 ### Create an issue
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"projectKey":"PROJ","issueType":"Task","summary":"Implement login flow","description":"Add OAuth2 login","assignee":"john.doe"}'; node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" create_jira_issue
+$env:CLI_JSON_ARGS = '{"projectKey":"PROJ","issueType":"Task","summary":"Implement login flow","description":"Add OAuth2 login","assignee":"john.doe"}'; node "<workspace>/skills/_modular/jira/scripts/jira_cli.js" create_jira_issue
 ```
 
 ### Transition an issue
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123","transition":"In Progress"}'; node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" transition_jira_issue
+$env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123","transition":"In Progress"}'; node "<workspace>/skills/_modular/jira/scripts/jira_cli.js" transition_jira_issue
 ```
 
 ---
@@ -63,13 +63,13 @@ For `search_jira_issues` and `list_jira_issues_by_project`:
 
 ```powershell
 $env:CLI_JSON_ARGS = '{"jql":"project = PROJ AND status = Open AND assignee = currentUser()","maxResults":50}'
-$result = (node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" search_jira_issues) | ConvertFrom-Json
+$result = (node "<workspace>/skills/_modular/jira/scripts/jira_cli.js" search_jira_issues) | ConvertFrom-Json
 
 if ($result.success) {
     foreach ($issue in $result.data.issues) {
         $key = $issue.key
         $env:CLI_JSON_ARGS = "{`"issueKey`":`"$key`",`"comment`":`"Triaged in sprint planning`"}"
-        node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" add_jira_comment | Out-Null
+        node "<workspace>/skills/_modular/jira/scripts/jira_cli.js" add_jira_comment | Out-Null
     }
 }
 ```

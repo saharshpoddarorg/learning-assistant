@@ -9,25 +9,25 @@ Load this file when you need concrete examples, workflow patterns, or troublesho
 ### Fetch a PR
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","prId":"17905"}'; node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" fetch_bitbucket_pr
+$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","prId":"17905"}'; node "<workspace>/skills/_modular/bitbucket/scripts/bitbucket_cli.js" fetch_bitbucket_pr
 ```
 
 ### Get PR diff for a specific file
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","prId":"17905","filePath":"src/main/java/App.java","contextLines":5}'; node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" fetch_bitbucket_pr_diff
+$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","prId":"17905","filePath":"src/main/java/App.java","contextLines":5}'; node "<workspace>/skills/_modular/bitbucket/scripts/bitbucket_cli.js" fetch_bitbucket_pr_diff
 ```
 
 ### Add an inline comment
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","prId":"17905","comment":"This null check is missing","filePath":"src/main/java/App.java","line":42,"lineType":"ADDED"}'; node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" add_bitbucket_pr_comment
+$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","prId":"17905","comment":"This null check is missing","filePath":"src/main/java/App.java","line":42,"lineType":"ADDED"}'; node "<workspace>/skills/_modular/bitbucket/scripts/bitbucket_cli.js" add_bitbucket_pr_comment
 ```
 
 ### Search open PRs by author
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","state":"OPEN","author":"john.doe","maxResults":20}'; node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" search_bitbucket_prs
+$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","state":"OPEN","author":"john.doe","maxResults":20}'; node "<workspace>/skills/_modular/bitbucket/scripts/bitbucket_cli.js" search_bitbucket_prs
 ```
 
 ---
@@ -49,7 +49,7 @@ $env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","state":"OPEN","author"
 ### Check if a file was modified in a PR
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","prId":"17905","filePath":"build.gradle"}'; node "<workspace>/skills/shared/atlassian-cli/atlassian_cli.js" check_file_in_bitbucket_pr
+$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","prId":"17905","filePath":"build.gradle"}'; node "<workspace>/skills/_modular/bitbucket/scripts/bitbucket_cli.js" check_file_in_bitbucket_pr
 ```
 
 ---
