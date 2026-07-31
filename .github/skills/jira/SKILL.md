@@ -1,6 +1,6 @@
 ---
 name: jira
-description: "Jira operations via PAT-authenticated REST APIs. Use whenever the user asks about Jira tickets, JQL queries, sprints, boards, worklogs, issue transitions, labels, watchers, or bulk issue operations."
+description: "Jira operations via PAT-authenticated REST APIs. Use whenever the user asks about Jira tickets, JQL queries, sprints, boards, worklogs, issue transitions, labels, watchers, bulk issue operations, or cross-account Jira operations (copying issues between accounts/instances)."
 metadata:
   allowed-tools:
     - run_in_terminal
@@ -103,3 +103,60 @@ When publishing Jira comments or descriptions, read `references/tone-and-disclai
 - Default `maxResults` is 25; set intentionally for larger result sets.
 - If action names or args are unclear, read `references/action-catalog.md`.
 - If you need examples or troubleshooting, read `references/usage-recipes.md`.
+
+## Multi-Account Support
+
+This skill supports multiple Jira accounts/instances via profile-scoped credentials.
+
+### Profile setup
+
+Create a `.env.{profileId}` file at the workspace root for each account:
+
+```
+# .env.work.primary
+JIRA_PAT_TOKEN=your-work-token
+JIRA_BASE_URL=https://work-jira.example.com
+
+# .env.personal-work.primary
+JIRA_PAT_TOKEN=your-personal-work-token
+JIRA_BASE_URL=https://personal-jira.example.com
+```
+
+See `.env.example.work.primary` for a full template.
+
+### Single-account with explicit profile
+
+```powershell
+$env:CLI_JSON_ARGS = '{"account":"work.primary","issueKey":"PROJ-123"}'
+node "skills/jira/scripts/jira_cli.js" fetch_jira_issue
+```
+
+### Cross-account operations
+
+Use `atlassian-common/jira-cross-account.js` to copy issues between accounts:
+
+```powershell
+# Copy a single issue
+$env:CLI_JSON_ARGS = '{"sourceAccount":"work.primary","targetAccount":"personal-work.primary","issueKey":"PROJ-123","targetProjectKey":"MYPROJ"}'
+node "skills/atlassian-common/jira-cross-account.js" copy_issue
+
+# Bulk copy via JQL
+$env:CLI_JSON_ARGS = '{"sourceAccount":"work.primary","targetAccount":"personal-work.primary","jql":"project=PROJ AND sprint in openSprints()","targetProjectKey":"MYPROJ"}'
+node "skills/atlassian-common/jira-cross-account.js" copy_issues_by_jql
+```
+
+### Account selection priority
+
+1. `account` arg in `CLI_JSON_ARGS` (highest)
+2. `SESSION_ACTIVE_PROFILE` env var (set by `switchProfile()`)
+3. `DEFAULT_ATLASSIAN_PROFILE` in `.env` (defaults to `work`)
+
+### Profile naming convention
+
+| Shorthand | Resolves to | Credentials file |
+|---|---|---|
+| `work` | `work.primary` | `.env.work.primary` |
+| `work.secondary` | `work.secondary` | `.env.work.secondary` |
+| `work.client-acme` | `work.client-acme` | `.env.work.client-acme` |
+| `personal-work` | `personal-work.primary` | `.env.personal-work.primary` |
+| `personal` | `personal.primary` | `.env.personal.primary` |

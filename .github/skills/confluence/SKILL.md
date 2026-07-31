@@ -1,6 +1,6 @@
 ---
 name: confluence
-description: "Confluence operations via PAT-authenticated REST APIs. Use whenever the user asks about Confluence pages, wiki content, blogs, templates, PDF export, page labels, comments, CQL search, or content management."
+description: "Confluence operations via PAT-authenticated REST APIs. Use whenever the user asks about Confluence pages, wiki content, blogs, templates, PDF export, page labels, comments, CQL search, content management, or cross-account Confluence operations (migrating pages between instances)."
 metadata:
   allowed-tools:
     - run_in_terminal
@@ -131,3 +131,50 @@ When creating or updating any Confluence page, always read `references/confluenc
 - Complete full bulk-operation loops and then summarize successes and failures.
 - If action names or args are unclear, read `references/action-catalog.md`.
 - If you need CQL recipes or troubleshooting, read `references/usage-recipes.md`.
+
+## Multi-Account Support
+
+This skill supports multiple Confluence instances via profile-scoped credentials.
+
+### Profile setup
+
+Create a `.env.{profileId}` file at the workspace root for each account:
+
+```
+# .env.work.primary
+CONFLUENCE_PAT_TOKEN=your-work-token
+CONFLUENCE_BASE_URL=https://work-confluence.example.com
+
+# .env.personal-work.primary
+CONFLUENCE_PAT_TOKEN=your-personal-work-token
+CONFLUENCE_BASE_URL=https://personal-confluence.example.com
+```
+
+See `.env.example.work.primary` for a full template.
+
+### Single-account with explicit profile
+
+```powershell
+$env:CLI_JSON_ARGS = '{"account":"work.primary","pageId":"12345"}'
+node "skills/confluence/scripts/confluence_cli.js" fetch_confluence_page
+```
+
+### Cross-account operations
+
+Use `atlassian-common/confluence-cross-account.js` to migrate pages between instances:
+
+```powershell
+# Migrate a single page
+$env:CLI_JSON_ARGS = '{"sourceAccount":"work.primary","targetAccount":"personal-work.primary","pageId":"12345","targetSpaceKey":"MYSPACE"}'
+node "skills/atlassian-common/confluence-cross-account.js" migrate_page
+
+# Migrate a page and all its children recursively
+$env:CLI_JSON_ARGS = '{"sourceAccount":"work.primary","targetAccount":"personal-work.primary","pageId":"12345","targetSpaceKey":"MYSPACE","targetParentId":"67890"}'
+node "skills/atlassian-common/confluence-cross-account.js" migrate_page_tree
+```
+
+### Account selection priority
+
+1. `account` arg in `CLI_JSON_ARGS` (highest)
+2. `SESSION_ACTIVE_PROFILE` env var
+3. `DEFAULT_ATLASSIAN_PROFILE` in `.env` (defaults to `work`)

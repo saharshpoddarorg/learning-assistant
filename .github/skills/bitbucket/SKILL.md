@@ -1,6 +1,6 @@
 ---
 name: bitbucket
-description: "Bitbucket Server operations via PAT-authenticated REST APIs. Use whenever the user asks about Bitbucket pull requests, PR diffs, code review comments, inline comments, PR tasks, file lookups, branch operations, or contribution summaries."
+description: "Bitbucket Server operations via PAT-authenticated REST APIs. Use whenever the user asks about Bitbucket pull requests, PR diffs, code review comments, inline comments, PR tasks, file lookups, branch operations, contribution summaries, or cross-account Bitbucket operations (mirroring PRs between instances)."
 metadata:
   allowed-tools:
     - run_in_terminal
@@ -103,3 +103,50 @@ When publishing Bitbucket comments, read `references/tone-and-disclaimer.md`. Su
 - Retry once with adjusted parameters before asking the user on transient failures.
 - If action names or args are unclear, read `references/action-catalog.md`.
 - If you need examples or troubleshooting, read `references/usage-recipes.md`.
+
+## Multi-Account Support
+
+This skill supports multiple Bitbucket instances via profile-scoped credentials.
+
+### Profile setup
+
+Create a `.env.{profileId}` file at the workspace root for each account:
+
+```
+# .env.work.primary
+BITBUCKET_PAT_TOKEN=your-work-token
+BITBUCKET_BASE_URL=https://work-bitbucket.example.com
+
+# .env.personal-work.primary
+BITBUCKET_PAT_TOKEN=your-personal-work-token
+BITBUCKET_BASE_URL=https://personal-bitbucket.example.com
+```
+
+See `.env.example.work.primary` for a full template.
+
+### Single-account with explicit profile
+
+```powershell
+$env:CLI_JSON_ARGS = '{"account":"work.primary","project":"PROJ","repo":"my-repo","prId":42}'
+node "skills/bitbucket/scripts/bitbucket_cli.js" fetch_bitbucket_pr
+```
+
+### Cross-account operations
+
+Use `atlassian-common/bitbucket-cross-account.js` to mirror PRs between instances:
+
+```powershell
+# Mirror a PR to another Bitbucket instance
+$env:CLI_JSON_ARGS = '{"sourceAccount":"work.primary","targetAccount":"personal-work.primary","sourceProject":"PROJ","sourceRepo":"my-repo","prId":42,"targetProject":"MYPROJ","targetRepo":"my-repo"}'
+node "skills/atlassian-common/bitbucket-cross-account.js" mirror_pr
+
+# Copy PR review comments to the mirrored PR
+$env:CLI_JSON_ARGS = '{"sourceAccount":"work.primary","targetAccount":"personal-work.primary","sourceProject":"PROJ","sourceRepo":"my-repo","sourcePrId":42,"targetProject":"MYPROJ","targetRepo":"my-repo","targetPrId":1}'
+node "skills/atlassian-common/bitbucket-cross-account.js" copy_pr_comments
+```
+
+### Account selection priority
+
+1. `account` arg in `CLI_JSON_ARGS` (highest)
+2. `SESSION_ACTIVE_PROFILE` env var
+3. `DEFAULT_ATLASSIAN_PROFILE` in `.env` (defaults to `work`)
