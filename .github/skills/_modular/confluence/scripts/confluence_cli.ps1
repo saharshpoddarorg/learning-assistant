@@ -6,7 +6,7 @@
 
 .USAGE
   $env:CLI_JSON_ARGS = '{"pageId":"123456"}'
-  & "skills/confluence/scripts/confluence_cli.ps1" fetch_confluence_page
+  & "skills/_modular/confluence/scripts/confluence_cli.ps1" fetch_confluence_page
 #>
 param([string]$Action)
 

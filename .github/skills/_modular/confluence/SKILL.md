@@ -85,13 +85,13 @@ $nodeAvailable = $null -ne (Get-Command node -ErrorAction SilentlyContinue)
 ### Node CLI (preferred - required for write operations)
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"pageId":"123456"}'; node "<workspace>/skills/confluence/scripts/confluence_cli.js" fetch_confluence_page
+$env:CLI_JSON_ARGS = '{"pageId":"123456"}'; node "<workspace>/skills/_modular/confluence/scripts/confluence_cli.js" fetch_confluence_page
 ```
 
 ### PowerShell CLI (fallback - read operations only)
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"pageId":"123456"}'; & "<workspace>/skills/confluence/scripts/confluence_cli.ps1" fetch_confluence_page
+$env:CLI_JSON_ARGS = '{"pageId":"123456"}'; & "<workspace>/skills/_modular/confluence/scripts/confluence_cli.ps1" fetch_confluence_page
 ```
 
 ### Content delivery
@@ -156,7 +156,7 @@ See `.env.example.work.primary` for a full template.
 
 ```powershell
 $env:CLI_JSON_ARGS = '{"account":"work.primary","pageId":"12345"}'
-node "skills/confluence/scripts/confluence_cli.js" fetch_confluence_page
+node "skills/_modular/confluence/scripts/confluence_cli.js" fetch_confluence_page
 ```
 
 ### Cross-account operations

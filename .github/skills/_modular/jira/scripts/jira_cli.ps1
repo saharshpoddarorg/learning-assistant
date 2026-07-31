@@ -5,7 +5,7 @@
 
 .USAGE
   $env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123"}'
-  & "skills/jira/scripts/jira_cli.ps1" fetch_jira_issue
+  & "skills/_modular/jira/scripts/jira_cli.ps1" fetch_jira_issue
 #>
 param([string]$Action)
 

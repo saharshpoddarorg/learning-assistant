@@ -5,7 +5,7 @@
 
 .USAGE
   $env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","prId":"17905"}'
-  & "skills/bitbucket/scripts/bitbucket_cli.ps1" fetch_bitbucket_pr
+  & "skills/_modular/bitbucket/scripts/bitbucket_cli.ps1" fetch_bitbucket_pr
 #>
 param([string]$Action)
 

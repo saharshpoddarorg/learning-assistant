@@ -73,13 +73,13 @@ $nodeAvailable = $null -ne (Get-Command node -ErrorAction SilentlyContinue)
 ### Node CLI (preferred)
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","prId":"17905"}'; node "<workspace>/skills/bitbucket/scripts/bitbucket_cli.js" fetch_bitbucket_pr
+$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","prId":"17905"}'; node "<workspace>/skills/_modular/bitbucket/scripts/bitbucket_cli.js" fetch_bitbucket_pr
 ```
 
 ### PowerShell CLI (fallback)
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","prId":"17905"}'; & "<workspace>/skills/bitbucket/scripts/bitbucket_cli.ps1" fetch_bitbucket_pr
+$env:CLI_JSON_ARGS = '{"project":"IESD","repo":"iesd-26","prId":"17905"}'; & "<workspace>/skills/_modular/bitbucket/scripts/bitbucket_cli.ps1" fetch_bitbucket_pr
 ```
 
 ### Rules
@@ -128,7 +128,7 @@ See `.env.example.work.primary` for a full template.
 
 ```powershell
 $env:CLI_JSON_ARGS = '{"account":"work.primary","project":"PROJ","repo":"my-repo","prId":42}'
-node "skills/bitbucket/scripts/bitbucket_cli.js" fetch_bitbucket_pr
+node "skills/_modular/bitbucket/scripts/bitbucket_cli.js" fetch_bitbucket_pr
 ```
 
 ### Cross-account operations

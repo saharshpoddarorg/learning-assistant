@@ -73,13 +73,13 @@ $nodeAvailable = $null -ne (Get-Command node -ErrorAction SilentlyContinue)
 ### Node CLI (preferred)
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123"}'; node "<workspace>/skills/jira/scripts/jira_cli.js" fetch_jira_issue
+$env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123"}'; node "<workspace>/skills/_modular/jira/scripts/jira_cli.js" fetch_jira_issue
 ```
 
 ### PowerShell CLI (fallback)
 
 ```powershell
-$env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123"}'; & "<workspace>/skills/jira/scripts/jira_cli.ps1" fetch_jira_issue
+$env:CLI_JSON_ARGS = '{"issueKey":"PROJ-123"}'; & "<workspace>/skills/_modular/jira/scripts/jira_cli.ps1" fetch_jira_issue
 ```
 
 ### Rules
@@ -128,7 +128,7 @@ See `.env.example.work.primary` for a full template.
 
 ```powershell
 $env:CLI_JSON_ARGS = '{"account":"work.primary","issueKey":"PROJ-123"}'
-node "skills/jira/scripts/jira_cli.js" fetch_jira_issue
+node "skills/_modular/jira/scripts/jira_cli.js" fetch_jira_issue
 ```
 
 ### Cross-account operations
