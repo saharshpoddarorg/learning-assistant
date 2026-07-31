@@ -2238,22 +2238,27 @@ repository. Resolve the brain path as follows:
 ```mermaid
 flowchart TD
     A[Deep-dive analysis complete] --> B[1. Query system clock]
-    B --> C[2. Classify domain]
-    C --> D{Work or Personal?}
-    D -->|Work| E[sessions/work/code-analysis/deep-dive/]
-    D -->|Personal| F[sessions/personal/personal-work/software-dev/code-review/deep-dive/]
-    E --> G[3. Build filename]
-    F --> G
-    G --> H[4. Read template]
-    I --> J[5. Populate frontmatter + all 4 phases]
-    I --> J[6. Write file]
-    J --> K{7. Escalation check}
-    K -->|3+ same class prefix| L[Create class sub-package]
-    K -->|< 3| M[Keep flat]
-    L --> N[8. Append SESSION-LOG.md]
-    M --> N
-    N --> O[9. Append CAPTURE-LOG.md]
-    O --> P[10. Report to user]
+  B --> C{2. Scratchpad requested?}
+  C -->|Yes| D[sessions/scratchpad/]
+  C -->|No| E[3. Classify domain]
+  E --> F{Work or Personal?}
+  F -->|Work| G[sessions/work/code-analysis/deep-dive/]
+  F -->|Personal| H[sessions/personal/personal-work/software-dev/code-review/deep-dive/]
+  D --> I[4. Build filename]
+  G --> I
+  H --> I
+  I --> J[5. Read template if persistent]
+  J --> K[6. Populate content]
+  K --> L[7. Write file]
+  L --> M{8. Scratchpad capture?}
+  M -->|Yes| N[9. Report to user]
+  M -->|No| O{9. Escalation check}
+  O -->|3+ same class prefix| P[Create class sub-package]
+  O -->|< 3| Q[Keep flat]
+  P --> R[10. Append SESSION-LOG.md]
+  Q --> R
+  R --> S[11. Append CAPTURE-LOG.md]
+  S --> T[12. Report to user]
 ```
 
 #### Step-by-Step Protocol
@@ -2280,26 +2285,36 @@ flowchart TD
    This gives you the workspace root (e.g., `E:/mgcnoscan/iesd-26`). The brain
    session path is `<workspace-root>/brain/ai-brain/sessions/`.
 
-3. **Determine the domain** from the code being analysed:
-   - Code in a work project → `work`
-   - Code in a personal/side project → `personal`
+3. **Determine the destination** from the code being analysed:
+  - User explicitly requests temporary or scratchpad capture → `scratchpad`
+  - Code in a work project → `work`
+  - Code in a personal/side project → `personal`
 
 4. **Build the absolute file path** — deep-dive sessions go to a **permanent
    `deep-dive/` sub-folder** (not subject to de-escalation):
+  - Scratchpad: `<workspace-root>/brain/ai-brain/sessions/scratchpad/`
    - Work: `<workspace-root>/brain/ai-brain/sessions/work/code-analysis/deep-dive/`
    - Personal: `<workspace-root>/brain/ai-brain/sessions/personal/personal-work/software-dev/code-review/deep-dive/`
-   - If a class sub-package already exists (e.g., `deep-dive/order-service/`), place
-     the file inside it
+  - Scratchpad files stay flat, skip escalation, and are not logged
+  - If a class sub-package already exists (e.g., `deep-dive/order-service/`), place
+    the file inside it for persistent captures
    - **If the directory does not exist, create it** (the `create_file` tool creates
      parent directories automatically)
 
-5. **Build the filename** following the naming convention. Files inside `deep-dive/`
-   carry rich descriptive metadata because the category is implied by the folder path:
+5. **Build the filename** following the naming convention:
+
+  ```text
+  # Scratchpad capture (temporary)
+  <date>_<time>_scratchpad_<subject-slug>.md
+
+  # Persistent deep-dive capture (category implied by folder)
+  <date>_<time>_<subject-slug>.md
+  ```
+
+  Files inside `deep-dive/` carry rich descriptive metadata because the category is
+  implied by the folder path. Scratchpad files remain flat and temporary:
 
    ```text
-   # Naming formula for deep-dive/ (no category prefix — implied by folder)
-   <date>_<time>_<subject-slug>.md
-
    Subject slug composition (order matters — most identifying first):
      <class-kebab>-<method-kebab>[-<focus>][-<context>]
 
@@ -2391,7 +2406,7 @@ flowchart TD
      (drop class prefix — implied by folder)
    - If **2 files** and a multi-part deep-dive is planned, apply early escalation
 
-10. **Append to SESSION-LOG.md** — use `replace_string_in_file` or `editFiles` to
+10. **Append to SESSION-LOG.md** for persistent captures only — use `replace_string_in_file` or `editFiles` to
     append a row to `<workspace-root>/brain/ai-brain/sessions/SESSION-LOG.md`
     (create the file with headers if it doesn't exist):
 
@@ -2399,7 +2414,7 @@ flowchart TD
    | 2026-04-20 | 09:21 PM | work | code-analysis | order-service-calculate-total | v1 | high | draft | [View](work/code-analysis/deep-dive/2026-04-20_09-21pm_order-service-calculate-total.md) |
    ```
 
-11. **Append to CAPTURE-LOG.md** — log the capture operation in
+11. **Append to CAPTURE-LOG.md** for persistent captures only — log the capture operation in
     `<workspace-root>/brain/ai-brain/sessions/CAPTURE-LOG.md`
     (create the file with headers if it doesn't exist):
 
@@ -2415,6 +2430,8 @@ flowchart TD
 
 12. **Report** — tell the user: "Deep-dive captured to `<absolute-path>`"
     Include the full path so the user can open the file directly.
+
+  Scratchpad captures should report the `sessions/scratchpad/...` path and stop there.
 
 #### Content Quality Rules
 

@@ -6,6 +6,7 @@ description: >
   PKM (personal knowledge management) industry standards, and structural decisions.
   Use when asked about: where to put a note, how to name a file, what frontmatter to add,
   when to use notes/ vs library/ vs sessions/ vs backlog/ vs pkm/, how to structure the brain workspace,
+  when to use sessions/scratchpad/ for temporary recordings,
   whether to create a new tier/folder, brain naming conventions, prefix/suffix usage, how to timestamp
   notes, chat session capture, session scoping (global/project/feature scope levels, widening/narrowing),
   software-dev umbrella structure (requirements/design/implementation/testing/devops activities),
@@ -36,6 +37,7 @@ management infrastructure (source inventory, access control, logging).
 | `notes/` | Your authored writing — insights, decisions, how-tos | ✅ |
 | `library/` | Imported external sources — docs, decks, references | ✅ |
 | `sessions/` | Captured AI conversations — research, analysis, learning | ✅ |
+| `sessions/scratchpad/` | Temporary session recordings — not logged or committed | ❌ |
 | `backlog/` | Personal agile board — todos, features, sprints, ideas | ✅ |
 | `pkm/` | PKM infrastructure — source inventory, access policy, logging | ✅ |
 
@@ -269,6 +271,7 @@ research, code analysis, complex debugging, learning deep-dives, architecture di
 sessions/
   SESSION-LOG.md                      ← append-only index
   CAPTURE-LOG.md                      ← structural operations log
+  scratchpad/                         ← temporary captures, gitignored
   work/                               ← corporate / job-specific
     code-analysis/
       deep-dive/                      ← permanent sub-folder for code deep-dives
@@ -307,6 +310,10 @@ sessions/
 
 Every folder has a `README.md` with navigation links to parent and children.
 Every capture template includes a **Cross-References** section for bidirectional links.
+
+`scratchpad/` is the exception: it is a temporary holding area for session recordings that
+should not yet live in `work/`, `personal/`, or `_templates/`. Scratchpad files skip
+append-only logging, escalation, and template requirements.
 
 ### Session Naming Convention
 

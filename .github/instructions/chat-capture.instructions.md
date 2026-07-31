@@ -60,6 +60,8 @@ silently when criteria are met.
 - **Starts simple, becomes complex:** Begin capture mid-conversation when complexity emerges.
   Retroactively include the earlier exchanges that led to the complex discussion.
 - **User explicitly requests capture:** Always honour `/capture` or "capture this session."
+- **User explicitly requests scratchpad capture:** Route to `sessions/scratchpad/` and treat
+  it as temporary, non-persistent recording.
 - **User explicitly declines capture:** Always honour "don't capture" or "skip session log."
 
 ### Capture Gate — Visual Decision Flow
@@ -82,9 +84,35 @@ flowchart TD
 
 ---
 
+## Scratchpad Override
+
+Temporary session recordings that should **not** persist in `sessions/work/`,
+`sessions/personal/`, or `sessions/_templates/` use a dedicated override path:
+`sessions/scratchpad/`.
+
+| Trigger | Examples |
+|---|---|
+| **Explicit temporary capture request** | "capture this to scratchpad", "temporary session record only" |
+| **Non-persistent working record** | "save a scratch note for this analysis", "record this without logging it" |
+
+### Scratchpad Rules
+
+1. **Scratchpad is explicit** — do not silently route normal auto-captures there.
+2. **Path** — write the file to `brain/ai-brain/sessions/scratchpad/`.
+3. **No permanent taxonomy** — skip domain/category classification, project routing, and
+  `_templates/` selection.
+4. **No capture logs** — do not append entries to `SESSION-LOG.md` or `CAPTURE-LOG.md`.
+5. **No escalation** — scratchpad files stay flat and temporary.
+6. **Filename pattern** — use `YYYY-MM-DD_HH-MMtt_scratchpad_<subject>.md`.
+7. **Promotion later is allowed** — if the file becomes worth keeping, move/classify it
+  into `work/` or `personal/` and then apply the normal capture rules.
+
+---
+
 ## Domain Classification
 
-Every captured session belongs to exactly **one domain**:
+Every persisted captured session belongs to exactly **one domain**. Scratchpad captures
+bypass domain classification:
 
 | Domain | Folder | When to use |
 |---|---|---|
@@ -160,30 +188,32 @@ kebab-case naming and add a README.md to the new folder.
 
 ```mermaid
 flowchart TD
-    A[Session captured] --> B{Work or Personal?}
-    B -->|Work context| C[sessions/work/]
-    B -->|Personal context| D{Software dev project?}
-    D -->|Yes| E[sessions/personal/personal-work/software-dev/]
-    D -->|No| F{Learning / concept?}
-    F -->|Yes| G[personal/personal-work/learning/]
-    F -->|No| H{Financial?}
-    H -->|Yes| I[personal/financial/]
-    H -->|No| J{Research non-SW?}
-    J -->|Yes| K[personal/research/]
-    J -->|No| L[personal/general/]
+  A[Session captured] --> B{Scratchpad requested?}
+  B -->|Yes| C[sessions/scratchpad/]
+  B -->|No| D{Work or Personal?}
+  D -->|Work context| E[sessions/work/]
+  D -->|Personal context| F{Software dev project?}
+  F -->|Yes| G[sessions/personal/personal-work/software-dev/]
+  F -->|No| H{Learning / concept?}
+  H -->|Yes| I[personal/personal-work/learning/]
+  H -->|No| J{Financial?}
+  J -->|Yes| K[personal/financial/]
+  J -->|No| L{Research non-SW?}
+  L -->|Yes| M[personal/research/]
+  L -->|No| N[personal/general/]
 
-    C --> M{Select work category}
-    M --> M1[code-analysis]
-    M --> M2[debugging]
-    M --> M3[requirements]
-    M --> M4[feature-exploration]
-    M --> M5[research / documentation / general]
+  E --> O{Select work category}
+  O --> O1[code-analysis]
+  O --> O2[debugging]
+  O --> O3[requirements]
+  O --> O4[feature-exploration]
+  O --> O5[research / documentation / general]
 
-    E --> N{Select activity phase}
-    N --> N1[requirements]
-    N --> N2[design]
-    N --> N3[implementation]
-    N --> N4[testing / code-review / devops]
+  G --> P{Select activity phase}
+  P --> P1[requirements]
+  P --> P2[design]
+  P --> P3[implementation]
+  P --> P4[testing / code-review / devops]
 ```
 
 ---
@@ -1680,6 +1710,8 @@ For sessions with multiple distinct exchanges (Q&A pairs), use numbered sections
 Every captured session is logged in `brain/ai-brain/sessions/SESSION-LOG.md`.
 Append a new row to the table after creating each session file.
 
+Scratchpad files are excluded from this log.
+
 ```markdown
 | Date | Time | Domain | Category | Subject | Ver | Complexity | File |
 |---|---|---|---|---|---|---|---|
@@ -1692,37 +1724,45 @@ Append a new row to the table after creating each session file.
 
 When the Capture Gate triggers, execute these steps:
 
-1. **Classify** — determine domain + category from conversation context
-2. **Select template** — choose the most specific template (see Template Selection Guide)
+1. **Classify** — determine whether this is a scratchpad capture or a persisted capture
+2. **Select template** — choose the most specific template for persisted captures;
+  scratchpad captures skip `_templates/`
 3. **Name** — construct filename using the naming protocol
 4. **Timestamp** — obtain the **actual current local time** (see Timestamp Accuracy below)
-5. **Create directory** — ensure the category folder exists under the domain
-6. **Escalation check** — check if this file triggers sub-package escalation
-   (Pattern 1, 2, or 3 — see Automatic Escalation Protocol)
-7. **Write file** — create the session capture file with frontmatter + content structure
-8. **Log** — append entry to SESSION-LOG.md AND CAPTURE-LOG.md (see Logging below)
+5. **Create directory** — ensure the target directory exists
+6. **Escalation check** — persisted captures only; scratchpad stays flat
+7. **Write file** — create the session capture file with the appropriate structure
+8. **Log** — persisted captures append to SESSION-LOG.md and CAPTURE-LOG.md; scratchpad does not
 9. **Notify** — briefly inform the user: "Session captured to `sessions/<path>`"
 
 ### Capture Execution — Visual Flow
 
 ```mermaid
 flowchart TD
-    A[Capture Gate triggers] --> B[1. Classify domain + category]
-    B --> C[2. Select template]
-    C --> D[3. Construct filename]
-    D --> E[4. Query system clock]
-    E --> F[5. Ensure directory exists]
-    F --> G{6. Escalation needed?}
-    G -->|Yes| H[Execute escalation<br/>Move files, truncate names]
-    G -->|No| I[7. Write session file]
-    H --> I
-    I --> J[8. Log to SESSION-LOG + CAPTURE-LOG]
-    J --> K[9. Notify user]
+  A[Capture Gate triggers] --> B{1. Scratchpad capture?}
+  B -->|Yes| C[2. Build scratchpad filename]
+  C --> D[3. Query system clock]
+  D --> E[4. Ensure sessions/scratchpad exists]
+  E --> F[5. Write scratchpad file]
+  F --> G[6. Notify user]
+  B -->|No| H[2. Classify domain + category]
+  H --> I[3. Select template]
+  I --> J[4. Construct filename]
+  J --> K[5. Query system clock]
+  K --> L[6. Ensure directory exists]
+  L --> M{7. Escalation needed?}
+  M -->|Yes| N[Execute escalation<br/>Move files, truncate names]
+  M -->|No| O[8. Write session file]
+  N --> O
+  O --> P[9. Log to SESSION-LOG + CAPTURE-LOG]
+  P --> Q[10. Notify user]
 ```
 
 ### Logging Mechanism
 
 Two logs track session capture operations:
+
+Scratchpad captures do not participate in either log.
 
 #### SESSION-LOG.md — Append-Only Session Index
 
@@ -1815,6 +1855,7 @@ local time when the file is created.** Never guess, estimate, or use a placehold
 |---|---|
 | "capture this session" or `/capture` | Force capture regardless of gate criteria |
 | "don't capture this" or "no session log" | Suppress capture for this conversation |
+| "capture to scratchpad" or "temporary session record" | Write a temporary file to `sessions/scratchpad/` without permanent logging |
 | "capture to work/research" | Force capture to a specific domain/category |
 | "capture to personal/learning" | Force capture to a specific domain/category |
 
@@ -1829,7 +1870,7 @@ ai-brain/
   inbox/       TEMP       raw capture — gitignored
   notes/       YOURS      your distilled writing — tracked
   library/     SOURCES    imported materials — tracked
-  sessions/    CAPTURED   AI conversation captures — tracked
+  sessions/    CAPTURED   AI conversation captures — tracked (except scratchpad/)
   backlog/     TRACKED    todos, features, ideas, sprints — tracked
   pkm/         INFRA      capture sources, access policy, logging — tracked
 ```
@@ -1839,6 +1880,7 @@ ai-brain/
 > **Did you write it yourself?** → notes/
 > **Did you import it?** → library/
 > **Was it a captured AI conversation worth preserving?** → sessions/
+> **Do you need a temporary AI session record only?** → sessions/scratchpad/
 > **Is it work to track or plan?** → backlog/
 > **Is it about where/how I capture knowledge?** → pkm/
 > **Not ready yet?** → inbox/
@@ -1855,7 +1897,8 @@ Captured sessions can be **promoted** to notes/ when you distil them:
 
 ## Git Tracking
 
-The `sessions/` tier is **git-tracked** (like notes/ and library/).
+The `sessions/` tier is **git-tracked** (like notes/ and library/), except for the
+temporary `scratchpad/` sub-folder which is intentionally gitignored.
 Captured sessions are committed as part of normal workflow.
 
 ### Commit Convention

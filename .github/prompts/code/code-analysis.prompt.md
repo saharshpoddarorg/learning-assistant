@@ -106,22 +106,27 @@ After completing the analysis, **automatically capture** the full output as a se
 ```mermaid
 flowchart TD
     A[Code analysis complete] --> B[1. Query system clock]
-    B --> C[2. Classify domain]
-    C --> D{Work or Personal?}
-    D -->|Work| E[sessions/work/code-analysis/]
-    D -->|Personal| F[sessions/personal/personal-work/software-dev/code-review/]
-    E --> G[3. Build filename]
-    F --> G
-    G --> H[4. Check for existing versions]
-    H --> I[5. Read template + populate]
-    I --> J[6. Write file]
-    J --> K{7. Escalation check}
-    K -->|3+ same class prefix| L[Create class sub-package]
-    K -->|< 3| M[Keep flat]
-    L --> N[8. Append SESSION-LOG.md]
-    M --> N
-    N --> O[9. Append CAPTURE-LOG.md]
-    O --> P[10. Report to user]
+   B --> C{2. Scratchpad requested?}
+   C -->|Yes| D[sessions/scratchpad/]
+   C -->|No| E[3. Classify domain]
+   E --> F{Work or Personal?}
+   F -->|Work| G[sessions/work/code-analysis/]
+   F -->|Personal| H[sessions/personal/personal-work/software-dev/code-review/]
+   D --> I[4. Build filename]
+   G --> I
+   H --> I
+   I --> J[5. Check for existing versions if persistent]
+   J --> K[6. Read template if persistent]
+   K --> L[7. Write file]
+   L --> M{8. Scratchpad capture?}
+   M -->|Yes| N[9. Report to user]
+   M -->|No| O{9. Escalation check}
+   O -->|3+ same class prefix| P[Create class sub-package]
+   O -->|< 3| Q[Keep flat]
+   P --> R[10. Append SESSION-LOG.md]
+   Q --> R
+   R --> S[11. Append CAPTURE-LOG.md]
+   S --> T[12. Report to user]
 ```
 
 #### Step-by-Step Protocol
@@ -148,25 +153,35 @@ flowchart TD
    This gives you the workspace root (e.g., `E:/mgcnoscan/iesd-26`). The brain
    session path is `<workspace-root>/brain/ai-brain/sessions/`.
 
-3. **Determine the domain** from the code being analysed:
+3. **Determine the destination** from the code being analysed:
+   - User explicitly requests temporary or scratchpad capture → `scratchpad`
    - Code in a work project → `work`
    - Code in a personal/side project → `personal`
 
 4. **Build the absolute file path:**
+   - Scratchpad: `<workspace-root>/brain/ai-brain/sessions/scratchpad/`
    - Work: `<workspace-root>/brain/ai-brain/sessions/work/code-analysis/`
    - Personal: `<workspace-root>/brain/ai-brain/sessions/personal/personal-work/software-dev/code-review/`
+   - Scratchpad files stay flat, skip escalation, and are not logged
    - If a class sub-package already exists (e.g., `code-analysis/order-service/`),
-     place the file inside it
+     place the file inside it for persistent captures
    - **If the directory does not exist, create it** (the `create_file` tool creates
      parent directories automatically)
 
-5. **Build the filename** following the naming convention. Files at the top level of
-   `code-analysis/` include the category prefix; files inside sub-packages drop it:
+5. **Build the filename** following the naming convention:
 
    ```text
-   # At top level (flat — includes category prefix)
-   <date>_<time>_code-analysis_<subject-slug>.md
+   # Scratchpad capture (temporary)
+   <date>_<time>_scratchpad_<subject-slug>.md
 
+   # Persistent top-level capture (flat — includes category prefix)
+   <date>_<time>_code-analysis_<subject-slug>.md
+   ```
+
+   Files inside sub-packages drop the category prefix; scratchpad files never enter
+   sub-packages:
+
+   ```text
    Subject slug composition (order matters — most identifying first):
      <class-kebab>-<method-kebab>[-<goal>]
 
@@ -254,7 +269,7 @@ flowchart TD
      `code-analysis_<class-kebab>-` prefix — implied by folder path)
    - If **2 files** and more analysis is planned, consider early escalation
 
-10. **Append to SESSION-LOG.md** — use `replace_string_in_file` or `editFiles` to
+10. **Append to SESSION-LOG.md** for persistent captures only — use `replace_string_in_file` or `editFiles` to
     append a row to `<workspace-root>/brain/ai-brain/sessions/SESSION-LOG.md`
     (create the file with headers if it doesn't exist):
 
@@ -262,7 +277,7 @@ flowchart TD
    | 2026-04-20 | 09:21 PM | work | code-analysis | order-service-calculate-total-review | v1 | medium | draft | [View](work/code-analysis/2026-04-20_09-21pm_code-analysis_order-service-calculate-total-review.md) |
    ```
 
-11. **Append to CAPTURE-LOG.md** — log the capture operation in
+11. **Append to CAPTURE-LOG.md** for persistent captures only — log the capture operation in
     `<workspace-root>/brain/ai-brain/sessions/CAPTURE-LOG.md`
     (create the file with headers if it doesn't exist):
 
@@ -278,6 +293,8 @@ flowchart TD
 
 12. **Report** — tell the user: "Analysis captured to `<absolute-path>`"
     Include the full path so the user can open the file directly.
+
+   Scratchpad captures should report the `sessions/scratchpad/...` path and stop there.
 
 #### Content Quality Rules
 

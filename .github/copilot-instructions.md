@@ -137,6 +137,11 @@ Sessions are captured to `<brain-root>/sessions/` by default. To use a different
 within the brain workspace (or outside it), set the `SESSION_CAPTURE_PATH` environment
 variable relative to the brain root, or as an absolute path.
 
+Within that root, `scratchpad/` is reserved for temporary session recordings that should
+not be committed into the permanent `work/`, `personal/`, or `_templates/` structure.
+In this repo, `sessions/scratchpad/` is gitignored and excluded from the append-only
+session logs.
+
 ```powershell
 # Relative to brain root (custom sub-folder)
 $env:SESSION_CAPTURE_PATH = "captured-sessions"
