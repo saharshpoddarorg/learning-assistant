@@ -137,6 +137,7 @@ Session captures are organised by **domain** (work / personal) and **category**:
 sessions/
   README.md
   SESSION-LOG.md              ← append-only index of all captures
+  scratchpad/                 ← temporary session recordings (gitignored, not logged)
   work/
     code-analysis/
     debugging/
@@ -160,6 +161,11 @@ Sessions are **auto-captured** by Copilot when conversations involve research, a
 complex debugging, learning deep-dives, or other substantive exchanges. Simple refactoring
 and routine tasks are not captured. See `.github/instructions/chat-capture.instructions.md`
 for the full capture policy.
+
+When you need a temporary session recording that should not persist in the permanent
+`work/`, `personal/`, or `_templates/` structure, use `sessions/scratchpad/` instead.
+Scratchpad captures are intentionally gitignored and skipped by `SESSION-LOG.md` and
+`CAPTURE-LOG.md`.
 
 ### Session naming
 

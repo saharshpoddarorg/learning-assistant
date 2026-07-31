@@ -278,6 +278,8 @@ modules/app/build.env.local
 
 #   sessions/ → TRACKED     (captured AI conversations — research, analysis)
 
+#     except scratchpad/    (temporary session recordings — gitignored)
+
 #   backlog/  → TRACKED     (todos, ideas, features, brainstorming — kanban board)
 
 #   pkm/      → TRACKED     (capture sources, access policy, sensitivity)

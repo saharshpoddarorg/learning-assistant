@@ -11,6 +11,9 @@ The `sessions/` tier captures AI chat conversations that produce substantive, re
 content. Unlike `notes/` (your distilled writing) or `library/` (imported sources), sessions
 preserve the **request → response** flow of AI-assisted exploration.
 
+For temporary recordings that are useful during the current work but do not belong in the
+permanent `work/`, `personal/`, or `_templates/` hierarchy, use `sessions/scratchpad/`.
+
 ---
 
 ## Routing — How Sessions Differ from Other Tiers
@@ -41,6 +44,7 @@ sessions/
 ├── README.md                           ← This file
 ├── SESSION-LOG.md                      ← Append-only index of all captured sessions
 ├── CAPTURE-LOG.md                      ← Escalation & structural operations log
+├── scratchpad/                         ← Temporary recordings (gitignored, no logs/templates)
 ├── work/                               ← Corporate / job-specific sessions
 │   ├── README.md
 │   ├── code-analysis/                  ← Code review, architecture analysis
@@ -82,6 +86,31 @@ sessions/
 
 Category folders are created **on demand** — only when the first session of that category
 is captured. You never create folders manually.
+
+## Scratchpad
+
+Use `sessions/scratchpad/` for temporary session recordings that should not become part of
+the permanent work/personal taxonomy yet.
+
+Scratchpad files follow these rules:
+
+- They are **gitignored** and intended for short-lived working notes.
+- They do **not** append rows to `SESSION-LOG.md` or `CAPTURE-LOG.md`.
+- They do **not** participate in domain/category routing, escalation, or template selection.
+- They can be promoted later by moving the file into `work/` or `personal/` and then
+  applying the normal capture frontmatter and logging rules.
+
+### Scratchpad Naming
+
+```text
+YYYY-MM-DD_HH-MMtt_scratchpad_<subject>.md
+```
+
+Example:
+
+```text
+sessions/scratchpad/2026-07-31_09-45am_scratchpad_temp-api-review.md
+```
 
 ---
 
