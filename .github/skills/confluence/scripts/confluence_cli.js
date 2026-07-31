@@ -20,9 +20,9 @@
  *   { "success": false, "error": "..." }
  */
 
-import { readFileSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
-import { dirname, join, resolve } from 'path';
+import { dirname, resolve } from 'path';
+import { loadProfileCredentials } from '../../atlassian-common/account-manager.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -36,42 +36,7 @@ const __dirname = dirname(__filename);
   }
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// .env Loader
-// ═══════════════════════════════════════════════════════════════════════════════
-
-function findEnvFiles() {
-  const candidates = [
-    resolve(__dirname, '..', '..', '..', '..', '.env'),   // <workspace>/.env
-    resolve(__dirname, '..', '.env'),                // <skill>/.env
-  ];
-  if (process.env.ENV_FILE && existsSync(process.env.ENV_FILE)) {
-    candidates.push(process.env.ENV_FILE);
-  }
-  return candidates.filter(f => existsSync(f));
-}
-
-function loadEnv() {
-  const envFiles = findEnvFiles();
-  if (envFiles.length === 0) return {};
-  const env = {};
-  for (const envPath of envFiles) {
-    const lines = readFileSync(envPath, 'utf8').split('\n');
-    for (const line of lines) {
-      const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('#')) continue;
-      const eqIdx = trimmed.indexOf('=');
-      if (eqIdx === -1) continue;
-      const key = trimmed.substring(0, eqIdx).trim();
-      let value = trimmed.substring(eqIdx + 1).trim();
-      if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-        value = value.slice(1, -1);
-      }
-      if (value) env[key] = value;
-    }
-  }
-  return env;
-}
+// .env loading is handled by account-manager.js (supports multi-account profiles)
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // REST Client
@@ -618,17 +583,24 @@ async function main() {
     }
   }
 
-  const env = loadEnv();
-  if (!env.CONFLUENCE_PAT_TOKEN) {
-    console.log(JSON.stringify({ success: false, error: 'Missing CONFLUENCE_PAT_TOKEN in .env file.' }));
+  // args.account selects the profile; falls back to active/default profile
+  let creds;
+  try {
+    creds = loadProfileCredentials(args.account || null);
+  } catch (e) {
+    console.log(JSON.stringify({ success: false, error: e.message }));
     process.exit(1);
   }
-  if (!env.CONFLUENCE_BASE_URL) {
-    console.log(JSON.stringify({ success: false, error: 'Missing CONFLUENCE_BASE_URL in .env file.' }));
+  if (!creds.confluenceToken) {
+    console.log(JSON.stringify({ success: false, error: `Missing CONFLUENCE_PAT_TOKEN in .env.${creds.profileId}` }));
+    process.exit(1);
+  }
+  if (!creds.confluenceUrl) {
+    console.log(JSON.stringify({ success: false, error: `Missing CONFLUENCE_BASE_URL in .env.${creds.profileId}` }));
     process.exit(1);
   }
 
-  const client = new RestClient(env.CONFLUENCE_BASE_URL, env.CONFLUENCE_PAT_TOKEN);
+  const client = new RestClient(creds.confluenceUrl, creds.confluenceToken);
 
   try {
     const result = await ACTION_ROUTER[action](client, args);
