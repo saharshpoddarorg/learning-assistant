@@ -118,6 +118,7 @@ fully functional MCP server with real Jira and Confluence integration, proper au
 
 | Date | Time | Actor | Action | Details |
 |---|---|---|---|---|
+| 2026-07-31 | 11:20 PM | user+copilot | progressed | Green signal received; prepared execution-ready kickoff checklist for iesd-26 implementation (profile resolver foundation, service-by-service rollout, cross-account guardrails) |
 | 2026-07-31 | 11:10 PM | user+copilot | linked | Added bidirectional cross-reference to work requirements session capture for Atlassian multi-account planning continuity |
 | 2026-07-31 | 10:20 PM | user+copilot | refined | Captured multi-account Atlassian migration decisions: session-level profile selection, configurable default fallback, per-service adapters, iterative rollout (Jira → Bitbucket → Confluence), and cross-account guardrails |
 | 2026-04-11 | 10:08 PM | system | noted | IMP-001: "atlassian" mentioned in source file — already covered by this BLI, no changes needed |
