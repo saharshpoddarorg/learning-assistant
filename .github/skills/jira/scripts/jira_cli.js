@@ -23,107 +23,12 @@
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
 import { loadProfileCredentials } from '../../atlassian-common/account-manager.js';
+import { RestClient, enc } from '../../atlassian-common/rest-client.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// TLS Configuration - handle corporate/self-signed certificates
-// ═══════════════════════════════════════════════════════════════════════════════
-{
-  if (!process.env.NODE_EXTRA_CA_CERTS && !process.env.NODE_TLS_REJECT_UNAUTHORIZED) {
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  }
-}
-
-// .env loading is handled by account-manager.js (supports multi-account profiles)
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// REST Client
-// ═══════════════════════════════════════════════════════════════════════════════
-
-class RestClient {
-  constructor(baseUrl, patToken) {
-    this.baseUrl = baseUrl.replace(/\/+$/, '');
-    this.patToken = patToken;
-  }
-
-  _headers(contentType = null) {
-    const h = {
-      'Authorization': `Bearer ${this.patToken}`,
-      'Accept': 'application/json',
-      'X-Atlassian-Token': 'no-check',
-    };
-    if (contentType) h['Content-Type'] = contentType;
-    return h;
-  }
-
-  async get(path) {
-    const url = `${this.baseUrl}${path}`;
-    console.error(`GET ${url}`);
-    const resp = await fetch(url, { headers: this._headers() });
-    return this._handleResponse(resp);
-  }
-
-  async post(path, body) {
-    const url = `${this.baseUrl}${path}`;
-    console.error(`POST ${url}`);
-    const resp = await fetch(url, {
-      method: 'POST',
-      headers: this._headers('application/json'),
-      body: JSON.stringify(body),
-    });
-    return this._handleResponse(resp);
-  }
-
-  async put(path, body) {
-    const url = `${this.baseUrl}${path}`;
-    console.error(`PUT ${url}`);
-    const resp = await fetch(url, {
-      method: 'PUT',
-      headers: this._headers('application/json'),
-      body: JSON.stringify(body),
-    });
-    return this._handleResponse(resp);
-  }
-
-  async del(path) {
-    const url = `${this.baseUrl}${path}`;
-    console.error(`DELETE ${url}`);
-    const resp = await fetch(url, {
-      method: 'DELETE',
-      headers: this._headers(),
-    });
-    if (resp.status === 204) return { deleted: true };
-    return this._handleResponse(resp);
-  }
-
-  async _handleResponse(resp) {
-    const text = await resp.text();
-    if (!resp.ok) {
-      let detail = text;
-      try {
-        const j = JSON.parse(text);
-        const msgs = [];
-        if (Array.isArray(j.errorMessages)) msgs.push(...j.errorMessages.filter(Boolean));
-        if (j.errors && typeof j.errors === 'object') {
-          for (const [k, v] of Object.entries(j.errors)) { if (v) msgs.push(`${k}: ${v}`); }
-        }
-        if (j.message) msgs.push(j.message);
-        if (msgs.length) detail = msgs.join(' | ');
-      } catch { /* use raw text */ }
-      throw new Error(`HTTP ${resp.status}: ${detail}`);
-    }
-    if (!text.trim()) return {};
-    try { return JSON.parse(text); } catch { return { rawText: text }; }
-  }
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// Helpers
-// ═══════════════════════════════════════════════════════════════════════════════
-
-function enc(s) { return encodeURIComponent(s); }
+// TLS config and RestClient are provided by rest-client.js
 
 function normalizeJql(jql) {
   if (typeof jql !== 'string') return jql;
