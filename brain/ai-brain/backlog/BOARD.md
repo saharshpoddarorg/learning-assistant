@@ -16,13 +16,13 @@
 │  BACKLOG DASHBOARD                                        2026-06-02   │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  Items     ██████████████████████████████████████░░░░  86 total         │
-│  todo      ████████████████████████████████████░░░░░░  84               │
+│  Items     ██████████████████████████████████████░░░░  88 total         │
+│  todo      ████████████████████████████████████░░░░░░  86               │
 │  progress  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │  blocked   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0               │
 │  done      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1               │
 │                                                                         │
-│  Priority  critical: 4 | high: 23 | medium: 33 | low: 20               │
+│  Priority  critical: 4 | high: 23 | medium: 35 | low: 20               │
 │  Epics     3 draft | 2 active | 1 draft (EPIC-005) | 0 done            │
 │  Ideas     1 raw | 0 refining | 0 promoted                             │
 │  Sprints   0 active | 0 completed                                       │
@@ -36,7 +36,7 @@
 |---|---|---|
 | Features | 79 | `features/` — learning-assistant enhancements (34 existing + 34 EPIC-005 + 11 EPIC-006) |
 | Projects | 7 | `projects/` — standalone personal software projects |
-| Items | 1 | `items/` — general (BLI-006, done) |
+| Items | 3 | `items/` — BLI-006 (done), BLI-099 resume-builder, BLI-100 self-appraisal |
 | Ideas | 1 | `ideas/` |
 | Epics | 6 | `epics/` — EPIC-001 through EPIC-006 |
 | Guides | 0 | `guides/` |
@@ -58,7 +58,7 @@
 ```text
 ┌──────────────┬──────────────┬──────────────┬──────────────┬──────────────┐
 │   BACKLOG    │  IN PROGRESS │   BLOCKED    │   IN REVIEW  │     DONE     │
-│   (86)       │   (1)        │   (0)        │   (0)        │     (1)      │
+│   (88)       │   (1)        │   (0)        │   (0)        │     (1)      │
 ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
 │ BLI-028 crit │ BLI-026 high │              │              │ BLI-006 med  │
 │ BLI-029 crit │              │              │              │              │
@@ -147,6 +147,17 @@
 │ BLI-087 high │              │              │              │              │
 │ BLI-088 med  │              │              │              │              │
 │ BLI-089 med  │              │              │              │              │
+│ BLI-090 high │              │              │              │              │
+│ BLI-091 med  │              │              │              │              │
+│ BLI-092 med  │              │              │              │              │
+│ BLI-093 med  │              │              │              │              │
+│ BLI-094 med  │              │              │              │              │
+│ BLI-095 med  │              │              │              │              │
+│ BLI-096 med  │              │              │              │              │
+│ BLI-097 med  │              │              │              │              │
+│ BLI-098 high │              │              │              │              │
+│ BLI-099 med  │              │              │              │              │
+│ BLI-100 med  │              │              │              │              │
 └──────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
 ```
 
