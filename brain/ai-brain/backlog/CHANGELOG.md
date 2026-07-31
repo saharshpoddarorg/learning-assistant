@@ -15,6 +15,15 @@ and **details** (context). Entries are newest-first within each month.
 
 ---
 
+## 2026-07
+
+| Date | Time | ID | Action | From | To | Details |
+|---|---|---|---|---|---|---|
+| 2026-07-31 | 09:48 PM | BLI-089 | created | — | todo | Backlog item workspace — type-scoped workspace, two-way cross-index, promotion rules, and structured lifecycle checklist |
+| 2026-07-31 | 09:33 PM | BLI-088 | created | — | todo | Define output format rules — response structure, density, and format-by-intent (copilot customization) |
+
+---
+
 ## 2026-06
 
 | Date | Time | ID | Action | From | To | Details |
