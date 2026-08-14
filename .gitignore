@@ -300,6 +300,22 @@ brain/ai-brain/inbox/
 
 # =============================================================================
 
+# Self-Appraisal — private reference documents (personal HR data, never committed)
+
+# =============================================================================
+
+# Past growth-talk and self-appraisal submissions (docx/pdf originals and their
+
+# converted text) are personal HR data, not project source. They live under the
+
+# skill's references/private/ folder so Phase 3 can read them locally, but must
+
+# never enter git history.
+
+.github/skills/_modular/self-appraisal/references/private/
+
+# =============================================================================
+
 # OS Generated Files
 
 # =============================================================================
