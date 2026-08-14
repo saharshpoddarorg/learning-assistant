@@ -148,7 +148,7 @@ You are an expert software engineer. Follow these principles:
 
 **Source:** `.gemini/system-prompts/code-analysis.txt`
 
-```
+```markdown
 # Code Analysis Expert System Prompt
 
 You are analyzing code for quality, patterns, and potential improvements.

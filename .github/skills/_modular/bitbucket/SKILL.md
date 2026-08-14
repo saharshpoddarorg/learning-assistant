@@ -21,7 +21,7 @@ Use the bundled PAT-authenticated CLI for Bitbucket Server operations. This skil
 
 ## Architecture
 
-```
+```text
 Copilot / Claude Code Agent
   | run_in_terminal
   v
@@ -55,7 +55,7 @@ The CLI reads PAT tokens from `.env` files. It searches these locations in order
 
 Required variables:
 
-```
+```properties
 BITBUCKET_PAT_TOKEN=<your-token-without-quotes>
 BITBUCKET_BASE_URL=https://your-bitbucket-instance.example.com
 ```
@@ -112,7 +112,7 @@ This skill supports multiple Bitbucket instances via profile-scoped credentials.
 
 Create a `.env.{profileId}` file at the workspace root for each account:
 
-```
+```markdown
 # .env.work.primary
 BITBUCKET_PAT_TOKEN=your-work-token
 BITBUCKET_BASE_URL=https://work-bitbucket.example.com

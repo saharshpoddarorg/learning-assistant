@@ -41,6 +41,7 @@ scope-refs: []
 ## Final Architecture Decisions (Locked In)
 
 ### Q1: Account Profiles ✅
+
 **User:** 3 types (work/personal-work/personal), design for unbounded accounts per type if easy
 **Decision:** ✅ **Go with 3 types + unbounded support**
 - Most users have 1 account per type
@@ -50,16 +51,20 @@ scope-refs: []
 ---
 
 ### Q2: Profile Activation & Switching ✅
+
 **User:** Option C (hybrid) + priority hierarchy
 **Decision:** ✅ **Option C — Hybrid with Priority Order**
-```
+
+```text
 Account Selection Priority (highest to lowest):
   1. Command-specific override    ("fetch issue from work-acme")
   2. Chat session context override ("switch to personal-work")
   3. DEFAULT_ATLASSIAN_PROFILE    ("work" by default)
 ```
+
 **Example:**
-```
+
+```markdown
 # Scenario 1: Command override wins
 User: "List issues from personal-work"
 Even if session is "work" → uses personal-work
@@ -71,52 +76,64 @@ Session becomes "personal-work" → all ops use it until switched
 # Scenario 3: Default fallback
 No override, no session switch → uses DEFAULT_ATLASSIAN_PROFILE=work
 ```
+
 **Rationale:** Removes friction for single-account work, flexibility for advanced ops, clear priority eliminates ambiguity
 
 ---
 
 ### Q3: Environment Variable Naming ✅
+
 **User:** Unsure — noted A is hard to maintain, B could confuse, C seems good
 **Recommendation:** **Option C (Profile-scoped .env files)** ✅
-```
+
+```text
 .env                       ← Global defaults + DEFAULT_ATLASSIAN_PROFILE=work
 .env.work                  ← Profile-specific: JIRA_PAT_TOKEN, JIRA_BASE_URL, BITBUCKET_PAT_TOKEN, etc.
 .env.personal-work         ← Personal work account credentials
 .env.personal              ← Personal account credentials
 .env.work.client-a         ← (Optional) Secondary work account
 ```
+
 **Why:** Clean separation, GitIgnore-friendly (ignore `.env.local` and profile overrides), mirrors Rails/Django conventions
 
 ---
 
 ### Q4: Cross-Account Operations ✅
+
 **User:** YES — support copying/migrating from account X to Y
 **Decision:** ✅ **Full cross-account support**
-```
+
+```text
 Example commands:
 - Copy Jira issue PROJ-123 from work → personal-work
 - Mirror Bitbucket PR from work to personal-work
 - Migrate Confluence page tree from work-cloud to work-server
 ```
+
 **CLI signature:** `--source-account work --target-account personal-work`
 
 ---
 
 ### Q5: Default Profile Behavior ✅
+
 **User:** Unsure — A (global default) is simpler, B (context-aware) good but risky
 **Recommendation:** **Option A (Global default) for MVP** ✅
-```
+
+```text
 DEFAULT_ATLASSIAN_PROFILE=work  (in .env)
 → Can be changed later to Option B if inference proves useful
 ```
+
 **Why:** Simpler, configurable, less error-prone. Context-aware inference → v2
 
 ---
 
 ### Q6: File Organization ✅
+
 **User:** Noted iesd-26 has separate skill folders
 **Decision:** ✅ **Option C — Hybrid (Separate Skills + Shared Account Manager)**
-```
+
+```text
 learning-assistant/.github/skills/
 ├── bitbucket/
 │   ├── SKILL.md
@@ -144,11 +161,13 @@ learning-assistant/.github/skills/
     ├── env-loader.js                     (profile-scoped .env reading)
     └── shared-utils.js                   (common helpers)
 ```
+
 **Why:** Mirrors iesd-26 structure, shared multi-account logic, no duplication, cross-account ops easy
 
 ---
 
 ### Q7: CLI/Account Management Commands ✅
+
 **User:** Env vars sound good, don't overcomplicate
 **Decision:** ✅ **Env vars only (no new CLI commands)**
 - Account selection via `CLI_JSON_ARGS --account work`
@@ -158,6 +177,7 @@ learning-assistant/.github/skills/
 ---
 
 ### Q8: Backwards Compatibility 🤔
+
 **User:** Not sure
 **Recommendation:** **NOT for MVP** ✅
 - Provide migration helper script: `./migrate-single-to-multi.ps1`
@@ -184,12 +204,14 @@ learning-assistant/.github/skills/
 ## Implementation Roadmap
 
 ### Phase 0: Architecture & Design (Now)
+
 - [ ] Define profile structure and naming
 - [ ] Design CLI JSON schema for multi-account params
 - [ ] Create .env structure + sample files
 - [ ] Design account-manager.js API
 
 ### Phase 1: MVP (v0.1)
+
 - [ ] Copy iesd-26 scripts, refactor for multi-account
 - [ ] Implement profile-scoped .env reading
 - [ ] Add `account-manager.js` (profile selection logic)
@@ -197,11 +219,13 @@ learning-assistant/.github/skills/
 - [ ] Create `.env.example.work`, `.env.example.personal-work`
 
 ### Phase 2: Enhancement (v0.2)
+
 - [ ] Cross-account action recipes (copy, migrate)
 - [ ] Setup wizard script (interactive account config)
 - [ ] Migration helper (single → multi)
 
 ### Phase 3: Polish (v1.0)
+
 - [ ] Integration tests for profile switching
 - [ ] Documentation overhaul
 - [ ] Optional: Context-aware inference (Q5 Option B)
@@ -220,7 +244,8 @@ learning-assistant/.github/skills/
 
 **User:** Hierarchical sounds good
 **Decision:** ✅ **Option A1-i — Type-based hierarchical naming**
-```
+
+```text
 work.primary              ← Main work account (default for "work" type)
 work.secondary            ← Secondary work account (e.g., different Jira instance)
 work.client-acme          ← Named secondary (client-specific)
@@ -232,12 +257,15 @@ personal-work.secondary   ← Secondary personal-work account
 personal.primary          ← Main personal account
 personal.secondary        ← Secondary personal account (if needed)
 ```
+
 **Usage in conversation:**
-```
+
+```text
 "Fetch from work.primary"
 "Copy from work.client-acme to personal-work.primary"
 "Switch to personal-work.secondary"
 ```
+
 **Default resolution:** `work` → `work.primary`, `personal-work` → `personal-work.primary`, `personal` → `personal.primary`
 
 ---
@@ -246,7 +274,8 @@ personal.secondary        ← Secondary personal account (if needed)
 
 **User:** Can have multiple, e.g., work.primary, work.secondary, personal-work.secondary
 **Decision:** ✅ **Full support for multiple accounts per type**
-```
+
+```text
 Profile structure:
 ├── work
 │   ├── .primary       (Jira: work.atlassian.net, Bitbucket: work repo)
@@ -258,6 +287,7 @@ Profile structure:
 └── personal
     └── .primary       (personal Jira Cloud, hobby projects)
 ```
+
 **Account lookup:** If user says "work" → resolves to "work.primary". If they say "work.client-acme" → uses that exact account.
 
 ---
@@ -270,7 +300,8 @@ Profile structure:
 
 **User:** Profile-agnostic variables make sense (same vars across all profiles, only different files for different accounts)
 **Recommendation:** ✅ **Option B1-ii — Profile-agnostic variables**
-```
+
+```markdown
 # .env.work, .env.personal-work, .env.personal all use the SAME variable names:
 JIRA_PAT_TOKEN=abc123...
 JIRA_BASE_URL=https://work-jira.atlassian.net
@@ -284,7 +315,8 @@ JIRA_PAT_TOKEN=different-token...
 JIRA_BASE_URL=https://secondary-jira.atlassian.net
 ...
 ```
-**Why:** 
+
+**Why:**
 - Cleaner code in `account-manager.js` — load `.env.{profile}` once, get all creds
 - No special naming per tool (not `JIRA_PAT_TOKEN_WORK` vs `BITBUCKET_PAT_TOKEN_WORK`)
 - Easy to duplicate structure when adding new account
@@ -296,7 +328,8 @@ JIRA_BASE_URL=https://secondary-jira.atlassian.net
 
 **User:** Comprehensive approach with default and hierarchical, aligning with earlier discussion
 **Recommendation:** ✅ **Option B2-ii — Comprehensive global .env + profile-scoped credentials**
-```
+
+```markdown
 # .env (global defaults at workspace root)
 DEFAULT_ATLASSIAN_PROFILE=work                   ← Default account type
 DEFAULT_ACCOUNT_FOR_TYPE_work=primary            ← Default for work type
@@ -329,6 +362,7 @@ JIRA_BASE_URL=https://personal-jira.example.com
 JIRA_PAT_TOKEN=personal-jira-token...
 ...
 ```
+
 **Why:**
 - Secrets stay in profile files (never in root .env)
 - Configuration hierarchy clear and maintainable
@@ -336,7 +370,8 @@ JIRA_PAT_TOKEN=personal-jira-token...
 - GitIgnore: ignore all `.env.*` files to protect secrets
 
 **GitIgnore rule:**
-```
+
+```text
 .env
 .env.work
 .env.personal-work
@@ -419,7 +454,8 @@ Why? Each one is used by the CLIs or setup wizard for different purposes. Simple
 **User:** Didn't understand the options — here are 3 scenarios with recommendations:
 
 **Scenario 1: Profile doesn't exist**
-```
+
+```text
 User says: "Fetch issue from work.nonexistent"
 → account-manager.js doesn't find .env.work.nonexistent
 
@@ -435,6 +471,7 @@ Option C2-iii (Interactive):
   Launch setup wizard → "Profile not found. Set up now? [Y/n]"
   → User configures it on-the-fly
 ```
+
 **Recommendation:** ✅ **C2-i (Fail fast) for MVP**
 - User explicitly configured wrong account name
 - Clear error message helps debug
@@ -443,7 +480,8 @@ Option C2-iii (Interactive):
 ---
 
 **Scenario 2: Credentials are invalid (wrong token, expired)**
-```
+
+```yaml
 User: "Fetch issue PROJ-123 from work.primary"
 → account-manager loads .env.work
 → Tries to call Jira API
@@ -459,6 +497,7 @@ Option C2-ii (Fallback):
 Option C2-iii (Interactive):
   Prompt user → "Credentials invalid. Re-enter token? [Y/n]"
 ```
+
 **Recommendation:** ✅ **C2-i (Fail fast) with helpful message**
 - Tell user exactly which profile failed and which variable to check
 - User updates .env and retries
@@ -474,6 +513,7 @@ Option C2-iii (Interactive):
 **D1: Who reads .env files? (Responsibility division)**
 
 **Current iesd-26 (single-account):**
+
 ```javascript
 // jira_cli.js
 const token = process.env.JIRA_PAT_TOKEN;      // reads from .env directly
@@ -486,6 +526,7 @@ const issue = await jiraApi.getIssue(url, token, issueKey);
 ---
 
 **Option D1-i: account-manager handles all .env reading (recommended) ✅**
+
 ```javascript
 // jira_cli.js (cleaner)
 const accountMgr = require('../atlassian-common/account-manager.js');
@@ -494,7 +535,7 @@ const creds = accountMgr.loadProfileCredentials(profileId); // loads .env.work
 const issue = await jiraApi.getIssue(creds.jiraUrl, creds.jiraToken, issueKey);
 ```
 
-**Pros:** 
+**Pros:**
 - jira_cli.js doesn't care about .env structure or profile logic
 - account-manager is the ONLY place that reads .env files
 - DRY: three CLIs don't repeat the same .env loading code
@@ -502,6 +543,7 @@ const issue = await jiraApi.getIssue(creds.jiraUrl, creds.jiraToken, issueKey);
 ---
 
 **Option D1-ii: account-manager handles only profile selection**
+
 ```javascript
 // jira_cli.js (more manual)
 const accountMgr = require('../atlassian-common/account-manager.js');
@@ -512,7 +554,7 @@ const url = process.env.JIRA_BASE_URL;
 const issue = await jiraApi.getIssue(url, token, issueKey);
 ```
 
-**Cons:** 
+**Cons:**
 - Each CLI needs to know how to read .env files
 - Duplication across jira_cli.js, bitbucket_cli.js, confluence_cli.js
 - Changes to .env loading logic need updates in 3 places
@@ -538,6 +580,7 @@ The user would say: "Copy issue PROJ-123 from work.primary to personal-work.prim
 ---
 
 **Option D2-i: Separate CLI calls (user orchestrates)**
+
 ```javascript
 // Step 1: Fetch issue from work account
 cli_output: jira_cli.js fetch_issue --account work.primary --key PROJ-123
@@ -549,11 +592,13 @@ cli_output: jira_cli.js create_issue --account personal-work.primary --title "..
 
 // Issue: User has to manually transform data between formats
 ```
+
 **Cons:** Tedious, error-prone, users have to do the work
 
 ---
 
 **Option D2-ii: Dedicated cross-account action in jira_cli.js**
+
 ```javascript
 // Single CLI call handles source + target account
 jira_cli.js copy_issue \
@@ -562,7 +607,7 @@ jira_cli.js copy_issue \
   --target-account personal-work.primary \
   --target-project MYPROJ
 
-→ CLI: 
+→ CLI:
     1. Loads work.primary creds
     2. Fetches PROJ-123 from work Jira
     3. Loads personal-work.primary creds
@@ -571,7 +616,7 @@ jira_cli.js copy_issue \
     6. Returns: "Issue created: MYPROJ-456"
 ```
 
-**Pros:** 
+**Pros:**
 - Single command, handles everything
 - CLI knows how to map fields between Jira instances
 - User-friendly
@@ -579,6 +624,7 @@ jira_cli.js copy_issue \
 ---
 
 **Option D2-iii: account-manager handles cross-account routing (breaks SRP?)**
+
 ```javascript
 // account-manager tries to do too much:
 accountMgr.copyIssueAcrossAccounts({
@@ -587,7 +633,8 @@ accountMgr.copyIssueAcrossAccounts({
   issueKey: "PROJ-123"
 })
 ```
-**Cons:** 
+
+**Cons:**
 - account-manager becomes "copy business logic" — not just "manage accounts"
 - Breaks Single Responsibility Principle
 - Couples account management to Jira-specific operations
@@ -603,6 +650,7 @@ accountMgr.copyIssueAcrossAccounts({
 - Cleaner responsibility boundaries
 
 **Example with account-manager:**
+
 ```javascript
 // jira_cli.js: copy_issue action
 const accountMgr = require('../atlassian-common/account-manager.js');
@@ -611,19 +659,19 @@ async function copyIssue(sourceAccount, sourceKey, targetAccount, targetProject)
   // Load source and target credentials
   const sourceCreds = accountMgr.loadProfileCredentials(sourceAccount);
   const targetCreds = accountMgr.loadProfileCredentials(targetAccount);
-  
+
   // Fetch from source
   const issue = await jiraApi.getIssue(sourceCreds.jiraUrl, sourceCreds.jiraToken, sourceKey);
-  
+
   // Map fields intelligently (Jira-specific logic)
   const mappedFields = mapJiraFields(issue);
-  
+
   // Create in target
   const newIssue = await jiraApi.createIssue(targetCreds.jiraUrl, targetCreds.jiraToken, {
     project: targetProject,
     ...mappedFields
   });
-  
+
   return { sourceKey, newKey: newIssue.key };
 }
 ```
@@ -649,7 +697,7 @@ async function copyIssue(sourceAccount, sourceKey, targetAccount, targetProject)
 
 ## Architecture Summary Diagram
 
-```
+```text
 User Chat
     ↓
 Copilot/Copilot detects intent: "Copy issue from work.primary to personal-work"
@@ -657,7 +705,7 @@ Copilot/Copilot detects intent: "Copy issue from work.primary to personal-work"
 Invokes: jira_cli.js copy_issue --source-account work.primary --source-key PROJ-123 --target-account personal-work.primary
     ↓
 jira_cli.js
-    ├─ account-manager.loadProfileCredentials("work.primary") 
+    ├─ account-manager.loadProfileCredentials("work.primary")
     │  └─ reads .env.work, returns {jiraToken, jiraUrl, bitbucketToken, ...}
     ├─ account-manager.loadProfileCredentials("personal-work.primary")
     │  └─ reads .env.personal-work, returns {jiraToken, jiraUrl, ...}
@@ -674,16 +722,17 @@ Result: "Issue copied: PROJ-123 → MYPROJ-456"
 
 ## Implementation Strategy: Two-Phase Approach ✅
 
-**User Preference:** 
+**User Preference:**
 - **Q1:** Option A — Copy iesd-26 as-is first to understand existing code (ensures no regression)
 - **Q2:** Option B — Refactor immediately BUT want to ensure it works properly like iesd-26
 
 **Recommendation:** Hybrid two-phase to satisfy both concerns:
 
 ### **Phase 1a: Copy & Baseline (Days 1-2)**
+
 Goal: Verify iesd-26 code works in learning-assistant without changes
 
-```
+```text
 ✅ Copy .github/skills/bitbucket to learning-assistant
 ✅ Copy .github/skills/jira to learning-assistant
 ✅ Copy .github/skills/confluence to learning-assistant
@@ -696,14 +745,15 @@ Goal: Verify iesd-26 code works in learning-assistant without changes
 ---
 
 ### **Phase 1b: Build account-manager.js & Integrate (Days 3-5)**
+
 Goal: Refactor CLIs to use multi-account infrastructure
 
-```
+```text
 ✅ Create atlassian-common/ folder with:
    ├─ account-manager.js (6 core functions)
    ├─ env-loader.js (profile-scoped .env reading)
    └─ shared-utils.js (common helpers)
-   
+
 ✅ Refactor jira_cli.js to use account-manager.js
 ✅ Refactor bitbucket_cli.js to use account-manager.js
 ✅ Refactor confluence_cli.js to use account-manager.js
@@ -718,9 +768,10 @@ Goal: Refactor CLIs to use multi-account infrastructure
 ---
 
 ### **Phase 1c: Cross-Account Operations & SKILL.md (Days 6-7)**
+
 Goal: Add cross-account copy/migrate actions
 
-```
+```text
 ✅ Add copy_issue action to jira_cli.js (work → personal-work)
 ✅ Add mirror_pr action to bitbucket_cli.js
 ✅ Add migrate_page action to confluence_cli.js
@@ -754,22 +805,26 @@ Goal: Add cross-account copy/migrate actions
 ## Complete Architecture Summary (All Decisions Finalized)
 
 ### Profile & Account Management ✅
+
 - 3 types + unbounded per type (hierarchical IDs: `work.primary`, `work.secondary`, `work.client-acme`)
 - Multiple accounts per type fully supported
 - Priority order: **command override > session context > global default**
 
 ### Credentials & Configuration ✅
+
 - Profile-scoped `.env` files (`.env.work`, `.env.personal-work`, `.env.personal`, `.env.work.secondary`, etc.)
 - Profile-agnostic variables in each file (same `JIRA_PAT_TOKEN` across profiles, only env file differs)
 - Comprehensive global `.env` with defaults + hierarchical settings
 
 ### Architecture ✅
+
 - Hybrid structure: separate skills (`bitbucket/`, `jira/`, `confluence/`) + shared `atlassian-common/`
 - `account-manager.js`: 6 core functions (getActiveProfile, loadProfileCredentials, switchProfile, validateProfileCredentials, listAvailableProfiles, getProfileInfo)
 - Error handling: Fail fast with clear messages
 - Cross-account operations: Dedicated actions in each CLI (copy_issue, mirror_pr, migrate_page, etc.)
 
 ### Refactoring Approach ✅
+
 - **Phase 1a:** Copy iesd-26 as-is, verify baseline (zero regression risk)
 - **Phase 1b:** Build account-manager.js, refactor CLIs to use it (clean architecture)
 - **Phase 1c:** Add cross-account operations, update SKILL.md docs

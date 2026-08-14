@@ -97,6 +97,7 @@ Key questions to answer:
 **Instruction Adaptation (YAML → Claude XML):**
 
 From:
+
 ```yaml
 ---
 applyTo: "**/*.java"
@@ -107,6 +108,7 @@ Follow these rules...
 ```
 
 To:
+
 ```markdown
 # Java Code Style
 

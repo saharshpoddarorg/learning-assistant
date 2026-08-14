@@ -97,7 +97,7 @@ For each file being synced:
 
 **Output:**
 
-```
+```text
 Sync Report
 ===========
 Source: .github/
@@ -173,7 +173,7 @@ For each tool directory, validate:
 
 **Output:**
 
-```
+```text
 Validation Report
 =================
 
@@ -251,7 +251,7 @@ EXAMPLES:
 
 **Output:**
 
-```
+```text
 Drift Report
 ============
 Generated: 2026-07-31 15:30:00
@@ -308,6 +308,7 @@ EXAMPLES:
 **Transformation Examples:**
 
 **Input (GitHub/Copilot format):**
+
 ```markdown
 ---
 applyTo: "**/*.java"
@@ -320,6 +321,7 @@ Follow Google Java Style Guide...
 ```
 
 **Output (Claude format):**
+
 ```markdown
 # Java Code Style
 

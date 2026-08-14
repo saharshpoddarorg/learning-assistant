@@ -10,11 +10,13 @@ Complete reference of all CLI actions, their parameters, and response shapes.
 ## Meta Actions
 
 ### `health`
+
 Check if the PSI Tools server and inspection server are reachable. Sends an echo round-trip to each server.
 
 **Args:** none (`'{}'`)
 
 **Response:**
+
 ```json
 {
   "psiServer": { "status": "up", "port": 3000 },
@@ -26,6 +28,7 @@ Check if the PSI Tools server and inspection server are reachable. Sends an echo
 ---
 
 ### `help`
+
 Show available actions, version, and current configuration.
 
 **Args:** none (`'{}'`)
@@ -33,6 +36,7 @@ Show available actions, version, and current configuration.
 ---
 
 ### `ping`
+
 Quick liveness check — sends an echo round-trip to the PSI Tools server.
 
 **Args:** none
@@ -40,6 +44,7 @@ Quick liveness check — sends an echo round-trip to the PSI Tools server.
 ---
 
 ### `list_tools`
+
 List all registered tools on the server.
 
 **Args:** none
@@ -51,6 +56,7 @@ List all registered tools on the server.
 ## Diagnostic Actions
 
 ### `echo`
+
 Echo back a message. Useful for testing connectivity.
 
 | Parameter | Type | Required | Default | Description |
@@ -60,6 +66,7 @@ Echo back a message. Useful for testing connectivity.
 ---
 
 ### `server_info`
+
 Get PSI Tools server and IntelliJ IDE information.
 
 **Args:** none
@@ -69,6 +76,7 @@ Get PSI Tools server and IntelliJ IDE information.
 ## Search Actions
 
 ### `symbol_search`
+
 Search for symbols (classes, methods, fields) by name. Supports partial matching.
 
 | Parameter | Type | Required | Default | Description |
@@ -80,6 +88,7 @@ Search for symbols (classes, methods, fields) by name. Supports partial matching
 ---
 
 ### `file_search`
+
 Search for files by name or glob pattern.
 
 | Parameter | Type | Required | Default | Description |
@@ -92,6 +101,7 @@ Search for files by name or glob pattern.
 ---
 
 ### `text_search`
+
 Full-text search across project files using IntelliJ's indexed search.
 
 | Parameter | Type | Required | Default | Description |
@@ -108,6 +118,7 @@ Full-text search across project files using IntelliJ's indexed search.
 ## Structure Actions
 
 ### `get_class_structure`
+
 Get complete class structure: fields, methods, constructors, inner classes, annotations, superclass, interfaces, modifiers.
 
 | Parameter | Type | Required | Default | Description |
@@ -117,6 +128,7 @@ Get complete class structure: fields, methods, constructors, inner classes, anno
 ---
 
 ### `get_method_body`
+
 Get full source code of a method (signature, annotations, body).
 
 | Parameter | Type | Required | Default | Description |
@@ -126,6 +138,7 @@ Get full source code of a method (signature, annotations, body).
 ---
 
 ### `get_imports`
+
 Get all import statements from a Java file.
 
 | Parameter | Type | Required | Default | Description |
@@ -137,6 +150,7 @@ Get all import statements from a Java file.
 ---
 
 ### `get_annotations`
+
 Get all annotations on a class and optionally its members.
 
 | Parameter | Type | Required | Default | Description |
@@ -149,6 +163,7 @@ Get all annotations on a class and optionally its members.
 ## Usage Actions
 
 ### `find_usages`
+
 Find all references/usages of a symbol. Understands semantic references.
 
 | Parameter | Type | Required | Default | Description |
@@ -164,6 +179,7 @@ Find all references/usages of a symbol. Understands semantic references.
 ## Call Graph & Hierarchy Actions
 
 ### `get_call_graph`
+
 Get call graph for a method — callers, callees, or both.
 
 | Parameter | Type | Required | Default | Description |
@@ -176,6 +192,7 @@ Get call graph for a method — callers, callees, or both.
 ---
 
 ### `get_method_hierarchy`
+
 Get override hierarchy — base declarations and overriders.
 
 | Parameter | Type | Required | Default | Description |
@@ -186,6 +203,7 @@ Get override hierarchy — base declarations and overriders.
 ---
 
 ### `show_subclasses`
+
 Find all classes extending or implementing a class/interface.
 
 | Parameter | Type | Required | Default | Description |
@@ -197,6 +215,7 @@ Find all classes extending or implementing a class/interface.
 ---
 
 ### `show_superclasses`
+
 Get inheritance chain (superclasses and interfaces).
 
 | Parameter | Type | Required | Default | Description |
@@ -206,6 +225,7 @@ Get inheritance chain (superclasses and interfaces).
 ---
 
 ### `find_implementations`
+
 Find concrete implementations of an interface or abstract class.
 
 | Parameter | Type | Required | Default | Description |
@@ -217,6 +237,7 @@ Find concrete implementations of an interface or abstract class.
 ---
 
 ### `get_type_hierarchy`
+
 Get complete type hierarchy tree (both ancestors and descendants).
 
 | Parameter | Type | Required | Default | Description |
@@ -229,6 +250,7 @@ Get complete type hierarchy tree (both ancestors and descendants).
 ## Dependency Actions
 
 ### `explore_class_dependencies`
+
 Explore dependency relationships: what a class uses and what uses it.
 
 | Parameter | Type | Required | Default | Description |
@@ -247,6 +269,7 @@ Explore dependency relationships: what a class uses and what uses it.
 ## Git Actions
 
 ### `get_changed_line_ranges`
+
 Get changed files and line ranges from a git diff.
 
 | Parameter | Type | Required | Default | Description |
@@ -266,6 +289,7 @@ Get changed files and line ranges from a git diff.
 > These actions use the inspection server (port 3001) — the CLI routes automatically.
 
 ### `get_file_inspections`
+
 Get IntelliJ inspection warnings/errors for a single file.
 
 | Parameter | Type | Required | Default | Description |
@@ -278,6 +302,7 @@ Get IntelliJ inspection warnings/errors for a single file.
 ---
 
 ### `get_changeset_inspections`
+
 Get inspections for all changed lines in a git changeset. Automatically computes files/ranges via git diff. Processes up to 50 files in batches of 10.
 
 | Parameter | Type | Required | Default | Description |

@@ -80,6 +80,7 @@ produces:
    - Benefits: consistency, maintainability, flexibility
 
 2. **Quick Comparison Table** (visual)
+
    ```markdown
    | Tool | Free/Paid | Integration | Customization | Learning Curve |
    |---|---|---|---|---|
@@ -417,7 +418,7 @@ For developers who want to add support for a new AI tool:
 
 ## Deliverables Summary
 
-```
+```text
 .github/docs/
 ├── universal-framework-overview.md           (new)
 ├── tool-setup-guides/                        (new)

@@ -22,7 +22,7 @@ Use the bundled PAT-authenticated CLI for Confluence operations. This skill cove
 
 ## Architecture
 
-```
+```text
 Copilot / Claude Code Agent
   | run_in_terminal
   v
@@ -58,7 +58,7 @@ The CLI reads PAT tokens from `.env` files. It searches these locations in order
 
 Required variables:
 
-```
+```properties
 CONFLUENCE_PAT_TOKEN=<your-token-without-quotes>
 CONFLUENCE_BASE_URL=https://your-confluence-instance.example.com
 ```
@@ -140,7 +140,7 @@ This skill supports multiple Confluence instances via profile-scoped credentials
 
 Create a `.env.{profileId}` file at the workspace root for each account:
 
-```
+```markdown
 # .env.work.primary
 CONFLUENCE_PAT_TOKEN=your-work-token
 CONFLUENCE_BASE_URL=https://work-confluence.example.com

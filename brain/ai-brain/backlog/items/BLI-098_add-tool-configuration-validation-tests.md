@@ -107,10 +107,10 @@ applyTo: "**/*.java"
 # Java Style
 Follow this style...
 "@
-      
+
       # Act
       $output = Transform-for-Tool -InputFile $input -TargetTool 'claude'
-      
+
       # Assert
       $output | Should -Match '<claude-config>'
       $output | Should -Match '<applies-to>'
@@ -332,7 +332,7 @@ Describe 'Cross-Tool Consistency: Completeness' {
 
 Create sample configurations in `fixtures/`:
 
-```
+```text
 fixtures/
 ├── valid-github/                    (passing validation)
 │   ├── .github/
@@ -405,7 +405,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Install PowerShell
         run: |
           sudo apt-get update
@@ -418,7 +418,7 @@ jobs:
       - name: Run Validation Scripts
         run: |
           pwsh -Command "& { .\tools\validate-customization.ps1 -All -Strict }"
-      
+
       - name: Upload Test Results
         if: always()
         uses: actions/upload-artifact@v3
@@ -443,11 +443,11 @@ jobs:
 #!/bin/bash
 # Run validation before allowing commit
 
-pwsh -Command "& { 
+pwsh -Command "& {
     .\tools\validate-customization.ps1 -All -Strict
-    if ($LASTEXITCODE -ne 0) { 
-        exit 1 
-    } 
+    if ($LASTEXITCODE -ne 0) {
+        exit 1
+    }
 }"
 
 if [ $? -ne 0 ]; then
