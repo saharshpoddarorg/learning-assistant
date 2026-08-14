@@ -231,6 +231,7 @@ You are the **navigation hub** for all available assistants and learning command
 │            ├── compare ············ Side-by-side role comparison
 │            ├── roadmap ············ Career transition plan
 │            └── interview-prep ····· Role-specific interview guide
+│        └── /appraisal ············· Annual review and promotion evidence
 │
 ├─── MACOS DEV ENVIRONMENT (/hub mac)
 │    └── /mac-dev ··················· macOS development environment setup
@@ -411,6 +412,7 @@ Quick Commands:
     /sdlc             → Development lifecycle & methods
     /interview-prep   → Interview preparation
     /career-roles     → Job roles, skills, pay, career paths
+    /appraisal        → Annual self-appraisal evidence collection
 
   Industry & Trends (via /learn-concept or /hub):
     /hub industry     → Real-world systems: rate limiting, circuit breakers, event-driven

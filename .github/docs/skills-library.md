@@ -75,7 +75,8 @@ Software Engineering (broadest domain)
 │   ├── MCP Development (mcp-development)
 │   ├── macOS Dev (mac-dev)
 │   ├── Copilot Customization (copilot-customization)
-│   └── Web Reader (web-reader)
+│   ├── Web Reader (web-reader)
+│   └── Document Converter (document-converter)
 │
 ├── Learning Resources
 │   ├── Learning Resources Vault (learning-resources-vault)
@@ -88,7 +89,8 @@ Software Engineering (broadest domain)
 │   └── Digital Notetaking (digital-notetaking)
 │
 ├── Career & Professional Development
-│   └── Career Resources (career-resources)
+│   ├── Career Resources (career-resources)
+│   └── Self-Appraisal (self-appraisal)
 │
 └── Daily Life & Productivity
     └── Daily Assistant (daily-assistant-resources)
@@ -153,8 +155,10 @@ Copilot Customization
 | 21 | `daily-assistant-resources` | Daily Life & Productivity | Productivity/Finance | Active | ~300 |
 | 22 | `atlassian-tools` | SE > DevOps & Tooling | Atlassian | Active | ~350 |
 | 23 | `web-reader` | SE > DevOps & Tooling | Utility | Active | ~150 |
+| 24 | `self-appraisal` | Career & Professional Dev | Performance evidence | Active | ~150 |
+| 25 | `document-converter` | SE > DevOps & Tooling | Utility | Active | ~100 |
 
-**Total: 23 skills** — see [TAXONOMY.md](../skills/TAXONOMY.md) for the full hierarchical index.
+**Total: 25 skills** — see [TAXONOMY.md](../skills/TAXONOMY.md) for the full hierarchical index.
 
 ---
 

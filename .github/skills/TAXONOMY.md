@@ -4,7 +4,7 @@
 > Skills are organized into category subdirectories (`.github/skills/<category>/<name>/SKILL.md`),
 > and this taxonomy provides the hierarchical view for discovery and navigation.
 >
-> **Total skills:** 22 | **Domains:** 4 | **Categories:** 10
+> **Total skills:** 24 | **Domains:** 4 | **Categories:** 10
 
 ---
 
@@ -27,11 +27,12 @@ Skills Library (22 skills)
 │   │   ├── deep-research
 │   │   ├── requirements-research
 │   │   └── github-workflow
-│   ├── 1.4 DevOps & Tooling                          [4 skills]
+│   ├── 1.4 DevOps & Tooling                          [5 skills]
 │   │   ├── git-vcs
 │   │   ├── mcp-development
 │   │   ├── copilot-customization
-│   │   └── web-reader
+│   │   ├── web-reader
+│   │   └── document-converter
 │   └── 1.5 Learning Resources                        [2 skills]  (discovery layer)
 │       ├── learning-resources-vault
 │       └── software-engineering-resources
@@ -39,8 +40,9 @@ Skills Library (22 skills)
 │   ├── brain-management
 │   ├── pkm-management
 │   └── digital-notetaking
-├── 3. Career & Professional Development              [1 skill]
-│   └── career-resources
+├── 3. Career & Professional Development              [2 skills]
+│   ├── career-resources
+│   └── self-appraisal
 └── 4. Daily Life & Productivity                      [1 skill]
     └── daily-assistant-resources
 ```
@@ -93,6 +95,7 @@ Skills for version control, CI/CD tooling, MCP servers, and AI assistant configu
 | [`mcp-development`](devops-tooling/mcp-development/SKILL.md) | `devops-tooling/mcp-development/` | MCP, Model Context Protocol, MCP server, tools | MCP architecture, building servers, transport, testing |
 | [`copilot-customization`](devops-tooling/copilot-customization/SKILL.md) | `devops-tooling/copilot-customization/` | Copilot instructions, prompts, agents, skills, `.github` | 6 customization primitives, activation rules, stacking |
 | [`web-reader`](devops-tooling/web-reader/SKILL.md) | `devops-tooling/web-reader/` | URL, webpage, fetch, read page, summarize article, extract content | Webpage reading, content extraction, article summarization |
+| [`document-converter`](_modular/document-converter/SKILL.md) | `_modular/document-converter/` | Convert docx, doc, rtf, pdf, html, md, txt, Notion, Google Keep, Apple Notes, Confluence, Google Docs | Any-format-to-any-format conversion, preserving headings/bold/lists/tables |
 
 ### 1.5 Learning Resources
 
@@ -124,6 +127,7 @@ Skills for career planning, role transitions, and professional growth.
 | Skill | Folder | Triggers On | What It Provides |
 |---|---|---|---|
 | [`career-resources`](career/career-resources/SKILL.md) | `career/career-resources/` | Job roles, salary, career roadmap, interview, tech career | Role hierarchies, skills matrices, compensation data |
+| [`self-appraisal`](_modular/self-appraisal/SKILL.md) | `_modular/self-appraisal/` | Appraisal, self-review, performance review, achievements, promotion evidence, growth talk | Builds growth-talk.md and self-appraisal.md from delivery evidence, matching real portal fields |
 
 ---
 
@@ -163,8 +167,10 @@ Shows which skills relate to or complement each other:
 | `pkm-management` | `brain-management`, `digital-notetaking` | capture sources |
 | `digital-notetaking` | `brain-management`, `pkm-management` | PKM tools |
 | `career-resources` | `software-development-roles` | role descriptions |
+| `self-appraisal` | `career-resources`, `jira`, `bitbucket`, `confluence`, `document-converter` | performance evidence collection |
 | `daily-assistant-resources` | — | — |
 | `web-reader` | `deep-research`, `learning-resources-vault` | — |
+| `document-converter` | `self-appraisal` | — |
 
 ---
 

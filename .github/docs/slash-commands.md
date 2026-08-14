@@ -117,6 +117,7 @@ Result:      Full binary search lesson with Python code, complexity analysis, pr
 | 64 | `/ship` | Shipping | Commit, push, or both — with lint, build, PR suggestion, Conventional Commits | Agent |
 | 65 | `/github-push` | Shipping | Cohesive commits, push, and PR creation — full shipping workflow to a GitHub repo | Agent |
 | 66 | `/code-analysis` | Code Quality | Analyse code structure, patterns, smells — with auto session capture | Copilot |
+| 67 | `/appraisal` | Career | Collect annual self-appraisal and promotion evidence | Agent |
 
 > **What's New (March 2026 — Open Preview):** GitHub Copilot MCP is now in **open preview** for all subscribers.
 > VS Code also gained a **built-in `/create-agent` wizard** in Copilot Chat. See [copilot-mcp-preview.md](copilot-mcp-preview.md) for the full changelog.
@@ -779,6 +780,16 @@ Agent:    Learning-Mentor
 Tools:    codebase, fetch
 Example:  /interview-prep → DSA → sliding-window → Google
 Output:   Patterns → template solutions → company-specific tips → mock questions
+```
+
+#### `/appraisal` — Self-Appraisal Evidence
+
+```yaml
+Inputs:   review period, Jira/Bitbucket/Confluence identities, repositories/spaces, optional links
+Agent:    Agent
+Tools:    run_in_terminal, read_file
+Example:  /appraisal → FY2025-26 → identities → live discovery
+Output:   Read-only evidence ledger, competency coverage, duplicate candidates, and evidence gaps
 ```
 
 ---
