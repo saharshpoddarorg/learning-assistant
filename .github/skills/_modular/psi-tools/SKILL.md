@@ -46,7 +46,7 @@ Load these only when you need parameter details or concrete examples:
 
 ## Architecture
 
-```
+```text
 Copilot Agent
   ↓ run_in_terminal (sets CLI_JSON_ARGS, invokes PowerShell CLI)
 psi_tools_cli.ps1  (PowerShell 5.1+, zero dependencies)
@@ -85,6 +85,7 @@ $env:CLI_JSON_ARGS = '{}'; & "<skill>/scripts/psi_tools_cli.ps1" health
 ```
 
 Expected response when everything is working:
+
 ```json
 {
   "success": true,
@@ -114,12 +115,14 @@ Defaults match the PSI Tools plugin defaults. No `.env` file needed.
 ## Defaults and Guardrails
 
 ### Symbol Resolution
+
 - Always use **fully qualified class names** (e.g., `com.example.MyClass`, not `MyClass`).
 - If the user gives a simple name, use `symbol_search` first to resolve the FQN.
 - For overloaded methods, append parameter types: `com.example.MyClass.process(String, int)`.
 - Use **simple type names** inside parentheses (not fully qualified).
 
 ### Action Selection
+
 | User Intent | Action | Key Parameter |
 |-------------|--------|---------------|
 | "What calls this method?" | `get_call_graph` | `direction: "callers"` |
@@ -140,6 +143,7 @@ Defaults match the PSI Tools plugin defaults. No `.env` file needed.
 | "Code inspections / warnings" | `get_file_inspections` or `get_changeset_inspections` | — |
 
 ### Limits and Defaults
+
 - `find_usages` caps at **500 results**. If `truncated: true`, inform the user and suggest narrowing the scope.
 - `get_call_graph` depth is exponential — **start at 2**, only go higher if explicitly asked.
 - `explore_class_dependencies` max depth is **3**. Start at **1** for immediate dependencies.
@@ -151,25 +155,30 @@ Defaults match the PSI Tools plugin defaults. No `.env` file needed.
 ## Multi-Step Workflows
 
 ### Understand a class before modifying it
+
 1. `get_class_structure` — fields, methods, modifiers
 2. `find_usages` — who references it
 3. `explore_class_dependencies` — what it depends on and what depends on it
 
 ### Navigate a method's ecosystem
+
 1. `get_method_body` — read the source
 2. `get_call_graph` — callers and callees
 3. `get_method_hierarchy` — overrides and base declarations
 4. `find_usages` — all call sites
 
 ### Find usages when only a simple name is known
+
 1. `symbol_search` with the simple name — resolve the FQN
 2. `find_usages` with the resolved FQN — get all call sites
 
 ### Find all implementations of a pattern
+
 1. `symbol_search` with `kind: "interface"` — find the interface
 2. `find_implementations` — find all concrete classes
 3. `get_class_structure` on each — inspect their structure
 
 ### Inspect only changed code
+
 1. `get_changed_line_ranges` — discover changed files and line ranges
 2. `get_file_inspections` with `changedLineRanges` — get warnings scoped to changes only

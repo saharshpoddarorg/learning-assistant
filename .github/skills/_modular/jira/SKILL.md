@@ -21,7 +21,7 @@ Use the bundled PAT-authenticated CLI for Jira operations. This skill covers iss
 
 ## Architecture
 
-```
+```text
 Copilot / Claude Code Agent
   | run_in_terminal
   v
@@ -55,7 +55,7 @@ The CLI reads PAT tokens from `.env` files. It searches these locations in order
 
 Required variables:
 
-```
+```properties
 JIRA_PAT_TOKEN=<your-token-without-quotes>
 JIRA_BASE_URL=https://your-jira-instance.example.com
 ```
@@ -112,7 +112,7 @@ This skill supports multiple Jira accounts/instances via profile-scoped credenti
 
 Create a `.env.{profileId}` file at the workspace root for each account:
 
-```
+```markdown
 # .env.work.primary
 JIRA_PAT_TOKEN=your-work-token
 JIRA_BASE_URL=https://work-jira.example.com

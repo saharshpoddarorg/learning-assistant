@@ -163,6 +163,7 @@ Migrate to Option A later if the volume of multi-tool content justifies it.
 ### Rule 1 — Instructions
 
 **Abstract (Tool-Agnostic):**
+
 ```markdown
 ---
 applyTo: "**/*.java"
@@ -175,6 +176,7 @@ Content that applies universally...
 **Copilot (.github/):** Kept as-is (YAML frontmatter + Markdown)
 
 **Claude (.claude/):** Convert YAML to Markdown metadata block + Claude XML structure:
+
 ```markdown
 # My Instruction
 
@@ -187,6 +189,7 @@ Content that applies universally...
 ```
 
 **Gemini (.gemini/):** JSON format:
+
 ```json
 {
   "id": "my-instruction",
@@ -197,7 +200,8 @@ Content that applies universally...
 ```
 
 **ChatGPT (.chatgpt/):** Custom Instructions (plain text):
-```
+
+```markdown
 # My Instruction
 
 Content that applies universally...
