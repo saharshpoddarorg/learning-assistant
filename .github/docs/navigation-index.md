@@ -133,10 +133,12 @@
 | `pkm-management` | PKM capture sources, git-inspired content ops, brain consolidation, access control | 10 git-inspired commands, consolidation workflows, access policy |
 | `digital-notetaking` | PKM, PARA, Obsidian, Notion, Logseq, Zettelkasten, second brain, note-taking | Tool comparison, note templates (ADR, sprint log, snippet), migration guides |
 | `career-resources` | Job roles, salaries, career | Career data and roadmaps |
+| `self-appraisal` | Appraisal, self-review, performance review, achievements, promotion evidence, growth talk | Builds growth-talk.md and self-appraisal.md from delivery evidence |
 | `daily-assistant-resources` | Finance, productivity, news | Daily life resources |
 | `mac-dev` | Homebrew, JDK on Mac, nvm, Docker Desktop, zsh, dotfiles | macOS dev environment cheatsheets |
 | `atlassian-tools` | Jira, Confluence, Bitbucket, JQL, CQL, sprints, PAT CLI | 89-action CLI, JQL/CQL cheatsheet, workflow playbooks |
 | `web-reader` | URL, webpage, fetch page, summarize article, extract content, read link | Webpage reading, content extraction, article summarization |
+| `document-converter` | Convert docx, doc, rtf, pdf, html, md, txt, Notion, Google Keep, Apple Notes, Confluence, Google Docs | Any-format-to-any-format conversion, preserving headings/bold/lists/tables |
 
 ---
 
@@ -247,7 +249,10 @@
 │
 ├── skills/
 │   ├── README.md                        👤 How skills work
-│   ├── TAXONOMY.md                      👤 Full taxonomy tree — 8 categories, 23 skills
+│   ├── TAXONOMY.md                      👤 Full taxonomy tree — 8 categories, 24 skills
+│   ├── _modular/
+│   │   ├── self-appraisal/SKILL.md      🤖 Builds growth-talk.md and self-appraisal.md from delivery evidence
+│   │   └── document-converter/SKILL.md  🤖 Any-format-to-any-format conversion (Word object-model bridge for max fidelity)
 │   ├── languages-platforms/
 │   │   ├── java-build/SKILL.md          🤖 Compile & run
 │   │   ├── java-debugging/SKILL.md      🤖 Exception diagnosis

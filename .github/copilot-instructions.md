@@ -216,12 +216,14 @@ path separators, tool names) or ask if unclear.
 | **Any** | `mcp-development` | MCP architecture, building MCP servers, transport, testing |
 | **Any** | `copilot-customization` | Copilot 6 primitives — instructions, prompts, agents, skills, MCP |
 | **Any** | `career-resources` | Tech career paths, roles, skills matrices, compensation, interviews |
+| **Any** | `self-appraisal` | Builds growth-talk.md and self-appraisal.md from Jira/Bitbucket/Confluence delivery evidence, matching real portal fields |
 | **Any** | `daily-assistant-resources` | Personal finance, productivity, time management, news sources |
 | **Any** | `learning-resources-vault` | 176 curated resources — master discovery index across 10+ domains |
 | **Any** | `software-engineering-resources` | SE/CS resource index — DSA, system design, OS, networking, DevOps |
 | **Any** | `java-learning-resources` | Java-specific docs, tutorials, blogs, OSS projects |
 | **Any** | `java-debugging` | Exception diagnosis, fix patterns, debugger usage |
 | **Any** | `web-reader` | Read, extract, summarize webpage content from any URL pasted by the user |
+| **Windows** | `document-converter` | Convert any doc/note format (docx/pdf/html/md/txt, Notion/Keep/Confluence/Google Docs exports) to any other, preserving formatting |
 
 **Key rule:** Never give a macOS-only command (e.g., `brew install`) without noting
 it is macOS-specific, and always provide the Windows/Linux equivalent or reference

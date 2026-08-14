@@ -9,8 +9,8 @@
 ## 📑 Table of Contents
 
 - [What Are Agent Skills?](#-what-are-agent-skills)
-- [Skills in This Project](#-skills-in-this-project) (21 skills, 4 domains)
-  - [Software Engineering](#1-software-engineering-14-skills)
+- [Skills in This Project](#-skills-in-this-project) (22 skills, 4 domains)
+  - [Software Engineering](#1-software-engineering-15-skills)
   - [Knowledge Management](#2-knowledge-management-3-skills)
   - [Career & Professional Development](#3-career--professional-development-1-skill)
   - [Daily Life & Productivity](#4-daily-life--productivity-1-skill)
@@ -62,7 +62,7 @@ Skills are also an **open standard** ([agentskills.io](https://agentskills.io/))
 
 > **22 skills** across 4 domains — see [TAXONOMY.md](TAXONOMY.md) for the full hierarchical index.
 
-### 1. Software Engineering (14 skills)
+### 1. Software Engineering (15 skills)
 
 #### Languages & Platforms
 
@@ -98,6 +98,7 @@ Skills are also an **open standard** ([agentskills.io](https://agentskills.io/))
 | [`mcp-development`](devops-tooling/mcp-development/SKILL.md) | MCP, Model Context Protocol, MCP server, tools | MCP architecture, building servers, transport, testing |
 | [`copilot-customization`](devops-tooling/copilot-customization/SKILL.md) | Copilot instructions, prompts, agents, skills, `.github` | 6 customization primitives, activation rules, stacking |
 | [`web-reader`](devops-tooling/web-reader/SKILL.md) | URL, webpage, fetch page, summarize article, extract content | Webpage reading, content extraction, article summarization |
+| [`document-converter`](_modular/document-converter/SKILL.md) | Convert docx, doc, rtf, pdf, html, md, txt, Notion, Google Keep, Apple Notes, Confluence, Google Docs | Any-format-to-any-format conversion, preserving headings/bold/lists/tables |
 
 #### Learning Resources
 
@@ -114,11 +115,12 @@ Skills are also an **open standard** ([agentskills.io](https://agentskills.io/))
 | [`pkm-management`](knowledge-management/pkm-management/SKILL.md) | PKM, capture sources, consolidation, access control | Git-inspired content ops, brain consolidation, access policy |
 | [`digital-notetaking`](knowledge-management/digital-notetaking/SKILL.md) | Notion, Obsidian, Logseq, PARA, Zettelkasten, notes | Tool comparison, PARA/CODE methods, migration guide |
 
-### 3. Career & Professional Development (1 skill)
+### 3. Career & Professional Development (2 skills)
 
 | Skill | Triggers On | What It Provides |
 |---|---|---|
 | [`career-resources`](career/career-resources/SKILL.md) | Job roles, salary, career roadmap, interview, tech career | Role hierarchies, skills matrices, compensation data |
+| [`self-appraisal`](_modular/self-appraisal/SKILL.md) | Appraisal, self-review, performance review, achievements, promotion evidence, growth talk | Builds growth-talk.md and self-appraisal.md from delivery evidence, matching real portal fields |
 
 ### 4. Daily Life & Productivity (1 skill)
 
