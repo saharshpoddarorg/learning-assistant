@@ -216,7 +216,7 @@ path separators, tool names) or ask if unclear.
 | **Any** | `mcp-development` | MCP architecture, building MCP servers, transport, testing |
 | **Any** | `copilot-customization` | Copilot 6 primitives — instructions, prompts, agents, skills, MCP |
 | **Any** | `career-resources` | Tech career paths, roles, skills matrices, compensation, interviews |
-| **Any** | `self-appraisal` | Builds growth-talk.md and self-appraisal.md from Jira/Bitbucket/Confluence delivery evidence, matching real portal fields |
+| **Any** | `self-appraisal` | Builds growth-talk.md and self-appraisal.md from Jira/Bitbucket/Confluence/Git delivery evidence, matching real portal fields |
 | **Any** | `daily-assistant-resources` | Personal finance, productivity, time management, news sources |
 | **Any** | `learning-resources-vault` | 176 curated resources — master discovery index across 10+ domains |
 | **Any** | `software-engineering-resources` | SE/CS resource index — DSA, system design, OS, networking, DevOps |

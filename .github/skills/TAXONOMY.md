@@ -167,7 +167,7 @@ Shows which skills relate to or complement each other:
 | `pkm-management` | `brain-management`, `digital-notetaking` | capture sources |
 | `digital-notetaking` | `brain-management`, `pkm-management` | PKM tools |
 | `career-resources` | `software-development-roles` | role descriptions |
-| `self-appraisal` | `career-resources`, `jira`, `bitbucket`, `confluence`, `document-converter` | performance evidence collection |
+| `self-appraisal` | `career-resources`, `jira`, `bitbucket`, `confluence`, `git-vcs`, `document-converter` | performance evidence collection |
 | `daily-assistant-resources` | — | — |
 | `web-reader` | `deep-research`, `learning-resources-vault` | — |
 | `document-converter` | `self-appraisal` | — |
