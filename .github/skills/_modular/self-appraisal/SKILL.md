@@ -2,19 +2,19 @@
 name: self-appraisal
 description: >
   Builds two Markdown reference/draft files — growth-talk.md and self-appraisal.md — from
-  a developer's Jira, Bitbucket, and Confluence delivery evidence, matching the real
-  company-portal fields. Use for appraisal, self-review, performance review, growth talk,
-  achievements, impact statement, self-assessment, promotion evidence, or annual review
-  requests.
+  a developer's Jira, Bitbucket, Confluence, and Git commit-history evidence (local and
+  remote-tracking branches), matching the real company-portal fields. Use for appraisal,
+  self-review, performance review, growth talk, achievements, impact statement,
+  self-assessment, promotion evidence, or annual review requests.
 ---
 
 # Self-Appraisal & Growth Talk Builder
 
 ## Purpose
 
-Gather a developer's delivery evidence from Jira, Bitbucket, and Confluence, actively
-surface quantifiable impact, and render two Markdown files that mirror the real
-company-portal fields:
+Gather a developer's delivery evidence from Jira, Bitbucket, Confluence, and Git history
+— across both local and remote-tracking branches — actively surface quantifiable impact,
+and render two Markdown files that mirror the real company-portal fields:
 
 - **`growth-talk.md`** — Goals-Behaviors, Goals-Results (each a list of Goal + Comment /
   Continuous-Dialogue pairs), and a flat-bullet Year End Summary.
@@ -28,8 +28,9 @@ back to any source system or the company portal.
 
 ## Workflow
 
-1. **Gather evidence** from Jira/Bitbucket/Confluence into a working ledger; confirm it
-   with the developer before drafting anything.
+1. **Gather evidence** from Jira/Bitbucket/Confluence and Git history (local and
+   remote-tracking branches) into a working ledger; confirm it with the developer before
+   drafting anything.
 2. **Draft each output section** from the ledger, leading with quantified impact wherever
    the evidence supports it, following the section-specific rules below.
 3. **Ask the developer directly** for the sections that can't come from past evidence —
@@ -41,6 +42,9 @@ Use the existing [`jira`](../jira/SKILL.md),
 [`bitbucket`](../bitbucket/SKILL.md), and
 [`confluence`](../confluence/SKILL.md) skills for their authenticated CLI
 contracts. Do not build a separate client or duplicate their credentials handling.
+Use [`git-vcs`](../git-vcs/SKILL.md) for local Git command semantics; this skill only
+adds the read-only traversal queries needed for evidence gathering across local and
+remote-tracking refs.
 
 ## Inputs
 
@@ -52,8 +56,11 @@ Collect these inputs before querying. Ask only for values that are missing.
 | Jira identity | Yes for Jira discovery | Account ID, username, or email used to find assigned work. |
 | Bitbucket identity | Yes for Bitbucket discovery | Author name or account identifier used by the configured Bitbucket instance. |
 | Confluence identity | Yes for Confluence discovery | Username or account identifier used in page version metadata. |
+| Git identity | Yes for Git traversal | Commit author name and/or email as it appears in `git log`. Ask for every alias the developer has used (work email, personal email, renamed accounts). |
+| Repository working copies | Yes for Git traversal | Absolute paths to the clones to traverse. Confirm each path is a Git repository, and confirm which remotes (`origin`, forks, mirrors) are in scope. |
+| Remote refresh approval | Yes when remote branches matter | Explicit approval before running `git fetch --all --tags --prune` so remote-tracking refs are current. Without it, state that remote evidence may be stale as of the last local fetch. |
 | Repositories / spaces | Conditional | Ask when the configured profile covers more than one relevant repository or Confluence space. |
-| Evidence links | Optional | Jira issue, Bitbucket PR, or Confluence page links supplied by the developer. |
+| Evidence links | Optional | Jira issue, Bitbucket PR, Confluence page links, or commit SHAs supplied by the developer. |
 
 ### Financial-Year Convention
 
@@ -85,23 +92,134 @@ search a wider period than the approved date range.
    `summarize_bitbucket_contributions`.
 4. Query Confluence with `search_confluence_cql` or `search_confluence`, then filter
    results using page metadata such as `version.by.username` and review dates.
-5. Fetch detail only for selected PRs and pages, and add verified facts to the ledger.
+5. Traverse each approved repository's Git history — local branches and remote-tracking
+   branches alike — for the resolved date range and confirmed author aliases (see Git
+   History Traversal below).
+6. Fetch detail only for selected PRs and pages, and add verified facts to the ledger.
    While fetching detail, actively look for quantifiable impact facts specifically —
    before/after numbers, percentages, counts (coverage, complexity, defect/backlog counts,
    latency, duration) — in PR descriptions, commit messages, code review comments, and
    Confluence pages, not only whatever surfaces passively. Quantified impact is
    especially persuasive to a promotion committee, so treat finding it as a priority, not
    an afterthought — while never inventing a number a source doesn't support.
-6. Deduplicate artefacts linked across systems, such as Jira work referenced by a PR.
-7. Present the working ledger, coverage, and evidence gaps, and confirm with the developer
+7. Deduplicate artefacts linked across systems, such as Jira work referenced by a PR, or
+   commits that were merged through a PR already in the ledger.
+8. Present the working ledger, coverage, and evidence gaps, and confirm with the developer
    before drafting any output file.
+
+## Git History Traversal
+
+Git history is the highest-fidelity evidence source available: it survives after a
+Bitbucket instance is decommissioned, covers repositories that were never mirrored to a
+queryable remote, and exposes churn metrics that PR search never returns. Traverse it in
+addition to — never instead of — the Atlassian sources.
+
+### Local vs. Remote Refs
+
+`--all` covers every ref the clone knows about: local branches, remote-tracking branches
+(`refs/remotes/*`), and tags. That is the default for evidence gathering, but the two
+kinds of ref carry different evidential weight, so keep them distinguishable.
+
+| Ref kind | Selector | Evidential meaning |
+|---|---|---|
+| Local-only | `--branches` minus what remotes contain | Work never pushed — real, but unreviewed and unshared |
+| Remote-tracking | `--remotes` | Work pushed to a shared remote — visible to the team, usually PR-backed |
+| Both | `--all` | Full picture; the default traversal scope |
+
+Before traversing, refresh remote-tracking refs so remote evidence isn't stale — but only
+with the developer's explicit approval, since it touches the network:
+
+```sh
+git remote -v                       # confirm which remotes are in scope
+git fetch --all --tags --prune      # refresh remote-tracking refs (needs approval)
+```
+
+If approval is withheld or the remote is unreachable, still traverse, and record
+"remote-tracking refs last updated <date>" in the ledger's **Evidence gaps**.
+
+### Traversal Queries
+
+Run every command from inside the approved repository, bounded by both the resolved review
+dates and the confirmed author aliases.
+
+```sh
+# 1. Commit inventory across all refs (local + remote-tracking + tags)
+git log --all --author="<alias>" --since=<from> --until=<to> \
+  --date=short --pretty=format:"%h|%ad|%an|%d|%s"
+
+# 2. Remote-only view — work that reached a shared remote
+git log --remotes --author="<alias>" --since=<from> --until=<to> --oneline
+
+# 3. Local-only view — commits on no remote-tracking branch (flag as unreviewed)
+git log --branches --not --remotes --author="<alias>" \
+  --since=<from> --until=<to> --oneline
+
+# 4. Volume and churn totals — the raw quantification inputs
+git log --all --author="<alias>" --since=<from> --until=<to> --shortstat
+git log --all --author="<alias>" --since=<from> --until=<to> --numstat
+
+# 5. Commit-type mix (Conventional Commits: feat/fix/refactor/test/perf/docs)
+git log --all --author="<alias>" --since=<from> --until=<to> --pretty=format:"%s"
+
+# 6. Areas of ownership — which modules the work concentrated in
+git log --all --author="<alias>" --since=<from> --until=<to> --name-only --pretty=format:
+
+# 7. Merge and release participation
+git log --all --author="<alias>" --since=<from> --until=<to> --merges --oneline
+git branch --remotes --contains <sha>   # which shared branches carry the work
+git tag --contains <sha>                # which releases shipped it
+
+# 8. Collaboration signals — co-authored and jointly-touched work
+git log --all --since=<from> --until=<to> --grep="Co-authored-by: <alias>" --oneline
+
+# 9. Detail for a selected commit only
+git show --stat <sha>
+```
+
+Repeat the whole set once per confirmed alias and once per approved repository, then merge
+the results and de-duplicate by commit SHA before adding anything to the ledger. A commit
+reachable from both a local branch and a remote-tracking branch is one commit, not two.
+
+### What Git Evidence Yields Per Competency
+
+| Competency | Git signal |
+|---|---|
+| Delivery | Commit count, `feat:`/`fix:` mix, merge commits, remote branches and tags containing the commit |
+| Technical quality | `refactor:`/`test:`/`perf:` commits, test-file churn, files deleted vs. added |
+| Collaboration | `Co-authored-by:` trailers, files co-owned with other authors, commits pushed to shared branches |
+| Influence | Commits touching shared/core modules, config or convention changes adopted repo-wide, work merged into release branches |
+| Innovation | Spike/prototype branches, first commits introducing a new tool or module |
+
+### Git Interpretation Rules
+
+- **Never treat commit count or lines changed as a standalone achievement.** Volume is
+  context for a claim, not a claim. "Delivered X — 42 commits across 3 modules" is valid;
+  "wrote 12,000 lines" is not.
+- **Exclude non-authored churn** from any number quoted in output: vendored dependencies,
+  generated code, bulk formatting/import-reordering commits, and merge-conflict resolutions.
+  State the exclusion in the ledger when it materially changed a count.
+- **Prefer the merged artefact over the raw commit.** When commits belong to a PR already
+  in the ledger, keep the PR as the ledger entry and attach the commit metrics to it
+  rather than creating duplicate entries.
+- **Distinguish pushed from unpushed work.** Commits reachable only from local branches are
+  still evidence, but flag them — they were never shared or peer-reviewed, so they cannot
+  support a collaboration or review-contribution claim. Commits on remote-tracking branches
+  can.
+- **Remote-tracking refs are only as fresh as the last fetch.** If the refresh was skipped
+  or failed, say so in the ledger rather than presenting the remote view as complete.
+- **Rewritten history is a gap, not a fact.** If a repository was squash-merged or
+  force-pushed, the surviving history under-reports the work; record this in the ledger's
+  **Evidence gaps** rather than quoting a number you know is depressed.
+- **All Git operations are read-only.** `fetch` (with approval) is the only command that
+  touches the network, and it updates remote-tracking refs only. Never check out, reset,
+  rebase, stash, clean, pull, commit, or push in the developer's working copies.
 
 ## Evidence Interpretation Rules
 
 - State facts only when a source directly supports them.
-- Quantify delivery using available counts, story points, dates, merged PRs, files changed,
-  comments, or pages. Do not invent business, revenue, availability, quality, or time-saving
-  outcomes.
+- Quantify delivery using available counts, story points, dates, merged PRs, commits,
+  files changed, comments, or pages. Do not invent business, revenue, availability,
+  quality, or time-saving outcomes.
 - **Actively search for quantifiable impact, don't just record what happens to surface.**
   Before/after metrics (test coverage, cyclomatic complexity, defect counts, performance
   numbers, backlog size) are the evidence most likely to persuade a promotion committee —
@@ -120,11 +238,11 @@ Use this default map until the developer supplies an organization-specific frame
 
 | Competency | Source signals | Do not claim without evidence |
 |---|---|---|
-| Delivery | Completed Jira work, story points, sprints, merged feature or hotfix PRs | On-time delivery, business value, or ownership beyond the artefacts |
-| Technical quality | Tests, review discussion, defect fixes, refactoring, design decisions | Defect reduction, reliability improvement, or maintainability outcomes without measurements |
-| Collaboration | Review comments, shared issue work, co-authored documents, feedback | Mentoring, stakeholder alignment, or team-wide influence without explicit evidence |
-| Influence | ADRs, design documents, cross-team work, adopted decisions | Organization-wide impact or technical leadership without evidence of adoption |
-| Innovation | Spikes, prototypes, research tickets, new tooling, experiments | Production adoption or value of an experiment without follow-on evidence |
+| Delivery | Completed Jira work, story points, sprints, merged feature or hotfix PRs, `feat:`/`fix:` commits, release tags | On-time delivery, business value, or ownership beyond the artefacts |
+| Technical quality | Tests, review discussion, defect fixes, refactoring, design decisions, `refactor:`/`test:`/`perf:` commits, test-file churn | Defect reduction, reliability improvement, or maintainability outcomes without measurements |
+| Collaboration | Review comments, shared issue work, co-authored documents, feedback, `Co-authored-by:` trailers, co-owned files | Mentoring, stakeholder alignment, or team-wide influence without explicit evidence |
+| Influence | ADRs, design documents, cross-team work, adopted decisions, commits to shared/core modules or repo-wide conventions | Organization-wide impact or technical leadership without evidence of adoption |
+| Innovation | Spikes, prototypes, research tickets, new tooling, experiments, first commits introducing a new module or tool | Production adoption or value of an experiment without follow-on evidence |
 
 The map is a working default, not a performance framework. Ask for the organization's
 competency headings before drafting output content if they are available. This grouping
@@ -134,17 +252,25 @@ section headers (see Output Files below).
 ## Working Ledger
 
 Return a Markdown table using this schema. Keep source URLs intact so the developer can
-verify every claim later.
+verify every claim later. For Git evidence, put the short SHA (or SHA range) plus the
+repository in the **Source** column, note whether the work is on a remote-tracking branch
+or local-only, and use the browsable remote commit URL when one exists.
 
 | ID | Competency | Source | Date | Verified fact | Quantified evidence | Inference | URL |
 |---|---|---|---|---|---|---|---|
 | E-001 | Delivery | Jira `PROJ-123` | 2026-02-14 | Completed the migration story | 8 story points | — | `https://...` |
+| E-002 | Technical quality | Git `a1b2c3d..e4f5g6h` (`core-svc`, `origin/main`) | 2026-03-02 | Extracted the shared validator and backfilled its tests | 14 commits, 9 test files added, 3 duplicated blocks removed | — | `https://.../commits/e4f5g6h` |
+| E-003 | Innovation | Git `9f8e7d6` (`core-svc`, local-only) | 2026-04-11 | Prototyped the batch importer; never pushed | 6 commits, 1 new module | — | `local: e:\repos\core-svc` |
 
 Follow the table with these sections:
 
-- **Coverage:** evidence count per competency and source.
-- **Potential duplicates:** artefacts that appear to describe the same delivery outcome.
-- **Evidence gaps:** claims that need links, metrics, or context before drafting.
+- **Coverage:** evidence count per competency and source, reported per repository for Git,
+  split between remote-tracking and local-only commits.
+- **Potential duplicates:** artefacts that appear to describe the same delivery outcome,
+  including commits already represented by a merged PR entry.
+- **Evidence gaps:** claims that need links, metrics, or context before drafting, plus any
+  repository whose history was squashed, rewritten, or unavailable for the period, and any
+  remote whose tracking refs could not be refreshed.
 
 Once the developer approves the ledger, draft the output files below directly from it.
 
@@ -326,26 +452,35 @@ of scope (see Guardrails).
 
 ### Newbie
 
-Ask for the review period, identities, repositories/spaces, and whether supplied links
-should be used alone or combined with live discovery. Explain the resolved date range and
-return the working ledger with gaps. Once approved, draft each output section straight
+Ask for the review period, identities (including every Git author alias), repositories/
+spaces, repository working copies, and whether remote-tracking refs may be refreshed with
+a fetch. Also ask whether supplied links should be used alone or combined with live
+discovery. Explain the resolved date range and return the working
+ledger with gaps. Once approved, draft each output section straight
 from the ledger and flag anything that needs a style or density decision. If reference
 documents are available under `references/private/converted/`, use the Style Reference
 patterns rather than guessing.
 
 ### Amateur
 
-Use targeted Jira JQL, repository-specific Bitbucket searches, and Confluence CQL/text
-search. Group the normalized ledger by the five default competency dimensions and identify
+Use targeted Jira JQL, repository-specific Bitbucket searches, Confluence CQL/text
+search, and date-and-author-bounded `git log` traversals per repository across both local
+and remote-tracking refs. Group the
+normalized ledger by the five default competency dimensions and identify
 where the evidence is too weak for an impact statement. Balance evidence density per
 output section and surface any quantification that needs the developer to confirm a
 number before it is stated.
 
 ### Pro
 
-Run approved source queries in sequence, inspect selected PR and page details, cross-link
-artefacts, deduplicate outcomes, and build a traceable working ledger. Keep all operations
-read-only and preserve raw source URLs. Mine `growth-talk` and `self-appraisal-form`
+Run approved source queries in sequence, inspect selected PR, page, and commit details,
+cross-link artefacts, deduplicate outcomes (commits against their merged PRs, local refs
+against remote-tracking refs, aliases against each other), and build a traceable working
+ledger. Derive churn and
+commit-type-mix metrics from `--shortstat`/`--numstat` output, excluding generated,
+vendored, and bulk-formatting churn, and separate pushed from unpushed work. Keep all
+operations read-only and preserve raw source URLs. Mine `growth-talk` and
+`self-appraisal-form`
 references separately for structure, bullet style, and quantification conventions, and
 render both `growth-talk.md` and `self-appraisal.md` from the same evidence base, keeping
 evidence-derived and developer-supplied sections clearly separated and never inferring the
@@ -365,6 +500,14 @@ latter.
   anything under `references/private/` — it is git-ignored because the source documents
   are personal HR data.
 - Do not expose credentials, tokens, or unrelated work artefacts.
-- Do not use an inferred account identity when the developer has not confirmed it.
+- Do not use an inferred account identity when the developer has not confirmed it — this
+  includes Git author aliases, which must be confirmed rather than guessed from
+  `git config user.name`.
+- Git traversal is strictly read-only: `log`, `show`, `shortlog`, `blame`, `branch`,
+  `tag`, `remote`, and `diff --stat`. `fetch --all --tags --prune` is permitted only with
+  the developer's explicit approval, to refresh remote-tracking refs. Never check out,
+  reset, rebase, stash, clean, pull, commit, or push in the developer's working copies.
+- Never quote raw commit counts or line-change totals as an achievement on their own —
+  they are supporting context for a named outcome only.
 - If a query returns incomplete data, report the limitation and ask for a narrower query,
   an additional repository/space, or direct evidence links.

@@ -785,11 +785,11 @@ Output:   Patterns → template solutions → company-specific tips → mock que
 #### `/appraisal` — Self-Appraisal Evidence
 
 ```yaml
-Inputs:   review period, Jira/Bitbucket/Confluence identities, repositories/spaces, optional links
+Inputs:   review period, Jira/Bitbucket/Confluence identities, Git author aliases, repositories/spaces, optional links
 Agent:    Agent
 Tools:    run_in_terminal, read_file
 Example:  /appraisal → FY2025-26 → identities → live discovery
-Output:   Read-only evidence ledger, competency coverage, duplicate candidates, and evidence gaps
+Output:   Read-only evidence ledger (Atlassian + Git commits), competency coverage, duplicate candidates, and evidence gaps
 ```
 
 ---
