@@ -36,7 +36,8 @@ back to any source system or the company portal.
 3. **Ask the developer directly** for the sections that can't come from past evidence —
    Growth Talk Goal statements, Areas for Growth, Professional Challenges, Action for Next
    Review — never infer these.
-4. **Render** `growth-talk.md` and `self-appraisal.md` with the real section headers.
+4. **Render** `growth-talk.md` and `self-appraisal.md` with the real section headers, then
+   audit that every ledger item landed in at least one section before presenting them.
 
 Use the existing [`jira`](../jira/SKILL.md),
 [`bitbucket`](../bitbucket/SKILL.md), and
@@ -74,6 +75,14 @@ querying, and confirm explicitly if the developer's own organization/locale migh
 the April–March convention instead. Explicit `from` and `to` dates always override this
 convention.
 
+**Check the label against prior-cycle references before naming any output.** Organizations
+frequently label a cycle by its *ending* year, so a document named `FY2025-26` may describe
+work completed by September 2025. Compare the dates of work described in the most recent
+reference against its filename; if they disagree with the assumed convention, say so and
+ask. Name output folders and file titles explicitly — `US-FY2025-26 (Oct 2025 – Sept 2026)`
+rather than a bare `FY2025-26` — so the window is unambiguous regardless of local
+convention.
+
 ### Evidence-Source Choice
 
 Live discovery is the default. When the developer supplies links, ask one question before
@@ -87,9 +96,12 @@ search a wider period than the approved date range.
 ## Gathering Evidence
 
 1. Confirm the identities, repositories/spaces, review dates, and evidence-source choice.
-2. Query Jira for work completed in the resolved period using `search_jira_issues`.
+2. Query Jira using **every** involvement signal, not just current assignee — see
+   Multi-Signal Involvement Discovery below. A single-signal query systematically
+   undercounts anyone who works inside epics owned by other people.
 3. Query Bitbucket per approved repository with `search_bitbucket_prs` and, where useful,
-   `summarize_bitbucket_contributions`.
+   `summarize_bitbucket_contributions`. Both have known defects — read Known Tool Defects
+   below before trusting a zero or a suspiciously round result.
 4. Query Confluence with `search_confluence_cql` or `search_confluence`, then filter
    results using page metadata such as `version.by.username` and review dates.
 5. Traverse each approved repository's Git history — local branches and remote-tracking
@@ -106,6 +118,67 @@ search a wider period than the approved date range.
    commits that were merged through a PR already in the ledger.
 8. Present the working ledger, coverage, and evidence gaps, and confirm with the developer
    before drafting any output file.
+
+## Multi-Signal Involvement Discovery
+
+**`assignee = <user>` is never sufficient on its own.** Senior engineers routinely
+implement child scope inside epics owned by other people, hand issues off mid-flight, and
+raise work that someone else finishes. A current-assignee query sees none of that. In one
+real run this single-signal approach reported 24 issues where the true involvement set was
+130 — a 5x undercount that would have made a strong year look ordinary.
+
+Always build the involvement set as the **union of all five signals**, deduplicated by
+issue key.
+
+| # | Signal | Query | Catches |
+|---|---|---|---|
+| 1 | Current assignee | `assignee = "<user>"` | Work still owned today |
+| 2 | **Historical assignee** | `assignee WAS "<user>"` | Work carried then handed off — usually the largest hidden bucket |
+| 3 | Reporter | `reporter = "<user>"` | Backlog shaping, decomposition, debt raised |
+| 4 | Code-referenced | Jira keys parsed from authored PR titles, branch names, and commit messages | Implementation under someone else's ticket |
+| 5 | Changelog actor | Issues whose changelog contains an entry authored by the user | Issues driven through the workflow without ever being assigned |
+
+Supporting queries worth running once each: `worklogAuthor = "<user>"` and
+`comment ~ "<user>"`.
+
+### Protocol
+
+1. Run signals 1–3 as JQL; export each result set.
+2. Extract every `[A-Z]+-\d+` token from authored PR titles, source branch names, and
+   commit subjects/bodies, then resolve each key via `fetch_jira_issue`.
+3. For each issue in the union, pull `get_jira_issue_changelog` and record: date first
+   assigned to the user, status transitions the user performed, and how many the user
+   moved to a resolved/closed state.
+4. Deduplicate by issue key and record which signals produced each issue.
+5. Publish an **Involvement Reconciliation** table (see Working Ledger) so the developer
+   can see the union and its components side by side.
+
+### Interpreting the Signals
+
+- **Handoffs are collaboration evidence, not abandonment.** Report who received the work.
+  A large handoff count across many named engineers reads as shared ownership and
+  knowledge transfer.
+- **"Ever assigned" alone does not prove completion.** Only issues the user personally
+  transitioned to Resolved/Closed are unambiguous — count those separately and prefer them
+  for delivery claims.
+- **Epic-child mapping understates contribution.** Branch names and PR titles frequently
+  carry the *epic* key rather than a child key, so a child-coverage ratio can read 0-of-14
+  for an epic with a dozen merged PRs. Report both the child ratio and the raw
+  PR/commit reference count, and never present the child ratio alone.
+- **Not every referenced token is a Jira key.** Static-analysis defect IDs (Coverity
+  `CID-…`), build IDs, and release tags share the shape. Resolve each key; unresolvable
+  prefixes are a finding in their own right (see Recognising Non-Jira Identifiers).
+
+### Recognising Non-Jira Identifiers
+
+When a referenced key fails to resolve in Jira, classify it before discarding it — it is
+often the quantified metric the ledger is missing.
+
+| Prefix pattern | Usually means | Evidence value |
+|---|---|---|
+| `CID-<6-9 digits>` | Coverity static-analysis defect | Count **distinct** CIDs remediated, and group by defect category quoted in the commit message |
+| `V<digits>.<digits>…` | Release/build tag | Release reach — pair with `git tag --contains` |
+| Unknown project prefix | Another tracker, or a false regex match | Record in Evidence gaps; do not silently drop |
 
 ## Git History Traversal
 
@@ -198,6 +271,14 @@ reachable from both a local branch and a remote-tracking branch is one commit, n
 - **Exclude non-authored churn** from any number quoted in output: vendored dependencies,
   generated code, bulk formatting/import-reordering commits, and merge-conflict resolutions.
   State the exclusion in the ledger when it materially changed a count.
+- **Rank churn per file before quoting a total.** Exported test fixtures, data dumps, and
+  schema files routinely dwarf hand-written code by one to two orders of magnitude — in one
+  run a single 59,700-line `SymbolLibrary.xml` appeared seven times and inflated the raw
+  total to 1.57M insertions against ~44k lines of actual Java. Always list the top churn
+  files first, exclude the non-authored bulk, and say which extensions the quoted figure
+  covers (for example "Java only").
+- **Split production from test churn** and report the test share as a percentage. A high
+  test share is a defensible quality claim that a single combined number hides.
 - **Prefer the merged artefact over the raw commit.** When commits belong to a PR already
   in the ledger, keep the PR as the ledger entry and attach the commit metrics to it
   rather than creating duplicate entries.
@@ -214,6 +295,51 @@ reachable from both a local branch and a remote-tracking branch is one commit, n
   touches the network, and it updates remote-tracking refs only. Never check out, reset,
   rebase, stash, clean, pull, commit, or push in the developer's working copies.
 
+## Known Tool Defects
+
+Verified against a live Bitbucket Server instance. Check these before accepting a zero or
+an implausibly small result — a silently wrong answer is more dangerous than an error,
+because it looks like a valid finding.
+
+| Tool | Defect | Symptom | Workaround |
+|---|---|---|---|
+| `search_bitbucket_prs` | Sends `author=<user>`; Bitbucket Server requires `role.1=AUTHOR&username.1=<user>` | Filter silently ignored — returns everyone's PRs | Call the REST endpoint directly with `role.1`/`username.1`, or filter client-side on `author.user.name` |
+| `search_bitbucket_prs` | `getPaginated(path, 3)` caps at 3 pages | Large result sets truncated with no warning | Page manually using `start` / `nextPageStart` until `isLastPage` |
+| `summarize_bitbucket_contributions` | Inherits the `author` defect | Reported **0 PRs** for a 158-PR year | Do not use for appraisal counts; derive totals from a corrected PR scan |
+
+**Sanity rule:** if any source returns zero contributions for a period in which the
+developer demonstrably shipped work, treat it as a tool failure until proven otherwise,
+and say so in the ledger rather than recording "no evidence".
+
+### Cross-Fork Commit Deduplication
+
+Where repositories are forks of one another (a per-release fork chain such as
+`repo-24 → repo-25 → repo-26` is common), the same commit SHA appears in several clones.
+Always deduplicate by SHA across all clones before quoting a commit count, and state the
+raw-versus-unique figures.
+
+## PR Work-Mix Classification
+
+Raw PR counts hide what kind of engineer someone was that year. Classify authored PRs by
+title and branch into these buckets, and report the mix as percentages.
+
+| Bucket | Signals in title/branch | Why it matters |
+|---|---|---|
+| `feature/fix` | Story/bug key, feature name | Visible delivery |
+| `test/automation` | `UT`, `test`, `coverage`, `AutoFlow` | Quality investment |
+| `refactoring` | `refactor`, `cleanup`, `javadoc`, `redundant` | Maintainability |
+| `static-analysis` | `Coverity`, `CID-` | Defect prevention |
+| `integration/rebase` | `rebase`, `merge conflict`, `DEV to INT`, `sync` | **Branch stewardship** |
+
+**Branch stewardship is real work that no other source records.** Keeping parallel epic
+branches mergeable leaves no Jira ticket and no Confluence page — only PRs. When it is a
+material share of the PR mix, it belongs in the ledger as a delivery item.
+
+Combine `test/automation + refactoring + static-analysis` into a single
+**quality-directed share** — a mix weighted toward quality is a stronger claim than a raw
+PR count, and it is defensible from the titles alone.
+
+
 ## Evidence Interpretation Rules
 
 - State facts only when a source directly supports them.
@@ -228,9 +354,28 @@ reachable from both a local branch and a remote-tracking branch is one commit, n
 - A technical interpretation is allowed only when clearly labelled `inference` and paired
   with the source facts it relies on.
 - Missing metrics are gaps, not negative evidence.
+- **An undercount is as wrong as an overstatement.** Understating verified contribution is
+  a failure of the gathering process, not caution. If a query returns fewer artefacts than
+  the developer's own account suggests, widen the signals and re-run before presenting the
+  ledger.
+- **Separate diagnosis from improvement.** A root-cause analysis that names bottlenecks
+  with measured costs is a strong claim on its own. It is *not* a performance improvement
+  unless a post-change measurement exists. Never let a baseline number ("a 632 s save")
+  imply a fix that was never measured.
+- **Distinguish being listed from acting.** Reviewer lists, watcher lists, and epic
+  membership record association, not contribution. Claim only entries with an explicit
+  action — an approval, a change request, a comment, a transition, or a commit.
 - Do not infer that a PR review was given by the developer from a PR they authored. Review
   contribution requires explicit comment, activity, or supplied-PR evidence.
 - Never assign a self-score.
+
+### Review Depth, Not Just Review Count
+
+Approval counts overstate engagement on their own — an approval can be a rubber stamp.
+Pull each acted-on PR's activity feed and count comments authored by the developer, then
+report both figures: PRs acted on, and comments across how many of them. Report the
+denominator too (PRs merely listed as reviewer) so the ratio is visible and honest.
+
 
 ## Competency Map
 
@@ -238,11 +383,11 @@ Use this default map until the developer supplies an organization-specific frame
 
 | Competency | Source signals | Do not claim without evidence |
 |---|---|---|
-| Delivery | Completed Jira work, story points, sprints, merged feature or hotfix PRs, `feat:`/`fix:` commits, release tags | On-time delivery, business value, or ownership beyond the artefacts |
-| Technical quality | Tests, review discussion, defect fixes, refactoring, design decisions, `refactor:`/`test:`/`perf:` commits, test-file churn | Defect reduction, reliability improvement, or maintainability outcomes without measurements |
-| Collaboration | Review comments, shared issue work, co-authored documents, feedback, `Co-authored-by:` trailers, co-owned files | Mentoring, stakeholder alignment, or team-wide influence without explicit evidence |
-| Influence | ADRs, design documents, cross-team work, adopted decisions, commits to shared/core modules or repo-wide conventions | Organization-wide impact or technical leadership without evidence of adoption |
-| Innovation | Spikes, prototypes, research tickets, new tooling, experiments, first commits introducing a new module or tool | Production adoption or value of an experiment without follow-on evidence |
+| Delivery | Completed Jira work, story points, sprints, merged feature or hotfix PRs, `feat:`/`fix:` commits, release tags, **branch-integration PRs**, **issues personally transitioned to Resolved/Closed** | On-time delivery, business value, or ownership beyond the artefacts |
+| Technical quality | Tests, review discussion, defect fixes, refactoring, design decisions, `refactor:`/`test:`/`perf:` commits, test-file churn, **static-analysis defects remediated**, **refactoring done to enable testing** | Defect reduction, reliability improvement, or maintainability outcomes without measurements |
+| Collaboration | Review comments, shared issue work, co-authored documents, feedback, `Co-authored-by:` trailers, co-owned files, **issues handed off to named owners** | Mentoring, stakeholder alignment, or team-wide influence without explicit evidence |
+| Influence | ADRs, design documents, cross-team work, adopted decisions, commits to shared/core modules or repo-wide conventions, **issues raised and decomposed for others**, **work landing in another team's epic** | Organization-wide impact or technical leadership without evidence of adoption |
+| Innovation | Spikes, prototypes, research tickets, new tooling, experiments, first commits introducing a new module or tool, **reusable test frameworks**, **analysis not traceable to an assigned ticket** | Production adoption or value of an experiment without follow-on evidence |
 
 The map is a working default, not a performance framework. Ask for the organization's
 competency headings before drafting output content if they are available. This grouping
@@ -251,8 +396,21 @@ section headers (see Output Files below).
 
 ## Working Ledger
 
-Return a Markdown table using this schema. Keep source URLs intact so the developer can
-verify every claim later. For Git evidence, put the short SHA (or SHA range) plus the
+The ledger opens with an **Involvement Reconciliation** table, so the developer can see
+the union of signals and challenge any component before the evidence table is read.
+
+| Signal | Count | Why it matters |
+|---|---|---|
+| Union of all signals | 130 issues across 9 projects | True involvement footprint |
+| Ever assigned (`assignee WAS`) | 95 | Includes work since handed off |
+| Still assigned today | 34 | What a naive query would have found |
+| Handed off to teammates | 61 | Shared ownership, not abandonment |
+| Raised by the developer | 18 | Backlog shaping |
+| Reached only via PR/commit | 23 | Implemented under someone else's ticket |
+| Personally moved to Resolved/Closed | 30 | Actioned, not merely held |
+
+Then return the evidence table using this schema. Keep source URLs intact so the developer
+can verify every claim later. For Git evidence, put the short SHA (or SHA range) plus the
 repository in the **Source** column, note whether the work is on a remote-tracking branch
 or local-only, and use the browsable remote commit URL when one exists.
 
@@ -407,8 +565,76 @@ directly, never inferred) — see the Evidence-Derived vs. Developer-Supplied ta
    coupling by 2%"); Goals-Behaviors Comments stay method/practice-focused.
 3. Draft **Year End Summary** as a flat bullet list of outcomes — no Goal/Comment pairing;
    include a number when the ledger supports one, but don't force it.
-4. Treat any "Tasks worked on"-style content supplied alongside references as optional
-   extra evidence context only, never as a section to render.
+4. A **"Tasks worked on"** pre-section appears in some reference cycles as a raw list of
+   tickets. Never treat it as a fourth scored section. It may, however, be rendered as an
+   optional trim-before-entry appendix when the involvement set is large — group it by
+   epics, stories/tasks, defects, technical debt, investigations and cross-project work so
+   the developer can lift whichever items the conversation needs.
+
+### Carried-Forward Goals
+
+Goal statements repeat near-verbatim across cycles. When prior-cycle references are
+available, pre-fill each Goal with the previous wording and tag it
+`[CARRIED FORWARD — confirm or replace]` rather than leaving a blank. This gives the
+developer something to edit instead of something to compose, while keeping authorship
+with them. Never silently reuse a Goal without the tag.
+
+### Goals With No Supporting Evidence
+
+Some Goals — training attendance, solution demos, verbal knowledge sharing — leave no
+trace in Jira, Bitbucket, Confluence or Git. When a Goal has no evidence:
+
+- **Write the placeholder, not a plausible sentence.** State plainly that the activity is
+  not recorded in any accessible system and ask for specifics.
+- **Draft the part that is evidenced** where a Goal is partially covered, and mark only
+  the unevidenced remainder.
+- **Never pad an unevidenced Goal with adjacent evidence** to make it look complete. A
+  visible gap the developer can fill is more useful than prose they must fact-check.
+
+This is a structural limitation of the sources, not a gap in the developer's performance —
+say so, so the blank is not read as a weakness.
+
+### Evidence Placement Audit
+
+Before presenting the rendered files, verify that **every ledger evidence item appears in
+at least one output section**. Walk the ledger IDs in order and confirm each one is
+represented; list any that are deliberately omitted and why (usually because they
+duplicate a stronger item). An item gathered but never placed is wasted evidence — and
+silent omission is the most common way a strong year gets under-reported at the final
+step, after the gathering was done correctly.
+
+Where a single item legitimately supports several sections — a test-coverage build-out
+belongs in both a Behaviors Comment and Major Results — place it in each, phrased for
+that section's purpose rather than copied verbatim.
+
+### Talking Points vs. Portal Content
+
+The two files have different destinations, and meta-commentary must follow the right one:
+
+| File | Destination | May contain |
+|---|---|---|
+| `self-appraisal.md` | **Uploaded directly** to the portal | Portal sections only. No notes, no commentary, no explanation of method. Placeholders must be clearly marked for removal before upload. |
+| `growth-talk.md` | **Read by the developer** while typing into portal fields by hand | Portal sections, plus a clearly fenced *Talking points — not for portal entry* section. |
+
+Put anything the portal has no field for into that talking-points section, each item backed
+by the ledger. Useful categories:
+
+- **Growth areas visibly closed** — where this cycle's evidence answers a previous cycle's
+  stated Area for Growth. No form field exists for this, and it is easily the most
+  persuasive thing a developer can say out loud in the conversation.
+- **Work invisible in the tracker** — branch stewardship, integration, and contribution
+  under other people's tickets, which will not appear in any Jira-derived report.
+- **Scope a naive query would miss** — the single-signal count versus the true involvement
+  set, so a low number circulating elsewhere can be explained rather than defended.
+- **Diagnosis awaiting capacity** — root-cause work with proposed remediations, framed as a
+  concrete ask for the next cycle rather than an unfinished item.
+- **Blanks caused by source limits** — so an empty Comment is not read as inactivity.
+- **Numbers that could not be obtained** — surfaced deliberately, so their absence is not
+  mistaken for an oversight.
+
+Never place these in `self-appraisal.md`. A reviewer opening the uploaded form should see
+achievements, not the process that produced them.
+
 
 ### `self-appraisal.md`
 
@@ -463,9 +689,10 @@ patterns rather than guessing.
 
 ### Amateur
 
-Use targeted Jira JQL, repository-specific Bitbucket searches, Confluence CQL/text
-search, and date-and-author-bounded `git log` traversals per repository across both local
-and remote-tracking refs. Group the
+Use targeted Jira JQL across **all five involvement signals**, repository-specific
+Bitbucket searches corrected for the known `role.1`/`username.1` and pagination defects,
+Confluence CQL/text search, and date-and-author-bounded `git log` traversals per repository
+across both local and remote-tracking refs. Group the
 normalized ledger by the five default competency dimensions and identify
 where the evidence is too weak for an impact statement. Balance evidence density per
 output section and surface any quantification that needs the developer to confirm a
@@ -475,10 +702,12 @@ number before it is stated.
 
 Run approved source queries in sequence, inspect selected PR, page, and commit details,
 cross-link artefacts, deduplicate outcomes (commits against their merged PRs, local refs
-against remote-tracking refs, aliases against each other), and build a traceable working
-ledger. Derive churn and
+against remote-tracking refs, aliases against each other, SHAs across forked clones), and
+build a traceable working ledger. Reconcile the five involvement signals into one union
+and publish the reconciliation. Derive churn and
 commit-type-mix metrics from `--shortstat`/`--numstat` output, excluding generated,
-vendored, and bulk-formatting churn, and separate pushed from unpushed work. Keep all
+vendored, and bulk-formatting churn, and separate pushed from unpushed work. Classify the
+PR mix to surface branch stewardship and the quality-directed share. Keep all
 operations read-only and preserve raw source URLs. Mine `growth-talk` and
 `self-appraisal-form`
 references separately for structure, bullet style, and quantification conventions, and
@@ -509,5 +738,15 @@ latter.
   reset, rebase, stash, clean, pull, commit, or push in the developer's working copies.
 - Never quote raw commit counts or line-change totals as an achievement on their own —
   they are supporting context for a named outcome only.
+- Never present an involvement set built from `assignee =` alone. All five signals must be
+  run, and the reconciliation published, before the ledger is shown to the developer.
+- Never report a baseline measurement in a way that implies an improvement that was never
+  measured.
+- Never present rendered output files without first auditing that every ledger evidence
+  item is represented, and never invent prose for a Goal that has no supporting evidence —
+  leave a labelled placeholder instead.
+- Never put method commentary, talking points, or process notes into `self-appraisal.md` —
+  it is uploaded as-is. Those belong in the fenced talking-points section of
+  `growth-talk.md`, which the developer reads rather than submits.
 - If a query returns incomplete data, report the limitation and ask for a narrower query,
   an additional repository/space, or direct evidence links.
