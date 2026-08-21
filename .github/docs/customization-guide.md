@@ -77,13 +77,16 @@ copilot-instructions.md          ← Base layer (always on)
 java.instructions.md             ← When editing *.java
      +
 clean-code.instructions.md       ← When editing *.java (stacks!)
+query-aliases.instructions.md    ← Always-on request shorthand expansion
      =
 Combined coding standards        ← What Copilot follows
 ```
 
-**Role:** Define *how* code should be written — naming, structure, patterns, style.
+**Role:** Define *how* code should be written or interpreted — naming, structure,
+patterns, style, and lightweight request vocabulary.
 **Activation:** Automatic, based on the file being edited.
 **Docs:** [Instructions Guide](../instructions/README.md)
+**Alias reference:** [Query Alias Bank](alias-bank.md)
 
 ### 2. Agents — The Specialists
 
@@ -391,6 +394,7 @@ These files are **never loaded by Copilot**. They exist as reference material fo
 |---|---|---|
 | `README.md` | Every subfolder | Guide explaining that folder's primitive |
 | `getting-started.md` | `docs/` | Hands-on tutorial |
+| `alias-bank.md` | `docs/` | Query shorthand dictionary used by `query-aliases.instructions.md` |
 | `customization-guide.md` | `docs/` | Architecture deep-dive (this file) |
 | `file-reference.md` | `docs/` | Complete breakdown of who reads what |
 | `slash-commands.md` | `docs/` | All 36 slash commands: aliases, inputs, composition |

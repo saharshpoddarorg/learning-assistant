@@ -101,7 +101,8 @@ GitHub Copilot in VS Code supports exactly **6 customization primitives**. Every
 ├── instructions/                        ← Path-specific (auto-loaded by glob)
 │   ├── 📋 README.md                         Guide: how instructions work
 │   ├── java.instructions.md                 applyTo: "**/*.java"
-│   └── clean-code.instructions.md           applyTo: "**/*.java"
+│   ├── clean-code.instructions.md           applyTo: "**/*.java"
+│   └── query-aliases.instructions.md        applyTo: "**" — query shorthand expansion
 │
 ├── agents/                              ← Custom agents (select from dropdown)
 │   ├── 🤖 README.md                         Guide: how agents work
@@ -228,6 +229,7 @@ GitHub Copilot in VS Code supports exactly **6 customization primitives**. Every
     ├── mcp-server-setup.md                 Newbie MCP guide: install, build, credentials, use, copy to other projects
     ├── getting-started.md                  Step-by-step tutorial
     ├── customization-guide.md              Architecture deep-dive
+     ├── alias-bank.md                       Query shorthand dictionary used by Copilot
     ├── file-reference.md                   Who reads what (Copilot vs developer)
     ├── navigation-index.md                 Master index of all commands & files
     └── slash-commands.md                   Developer slash command reference
@@ -364,6 +366,7 @@ This learning project includes working samples of each primitive, organized into
 | [`steering-modes.instructions.md`](instructions/steering-modes.instructions.md) | `**` | Steering mode profiles (completeness, beast, learning, design, debug, focused) |
 | [`chat-capture.instructions.md`](instructions/chat-capture.instructions.md) | `**` | Session capture auto-policy and protocol |
 | [`session-scoping.instructions.md`](instructions/session-scoping.instructions.md) | `**` | Session scope management (global/project/feature) |
+| [`query-aliases.instructions.md`](instructions/query-aliases.instructions.md) | `**` | Query shorthand expansion using the [Query Alias Bank](docs/alias-bank.md) |
 | [`backlog.instructions.md`](instructions/backlog.instructions.md) | `brain/ai-brain/backlog/**` | Backlog/task management protocol |
 | [`build.instructions.md`](instructions/build.instructions.md) | `**/*.gradle` | Gradle build commands & patterns |
 
