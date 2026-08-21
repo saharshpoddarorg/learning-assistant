@@ -156,6 +156,7 @@
 │   ├── java.instructions.md         🤖 Java coding standards
 │   ├── clean-code.instructions.md   🤖 Clean code practices
 │   ├── change-completeness.instructions.md  🤖 Completeness checklist — DEFAULT steering mode (applyTo: **)
+│   ├── query-aliases.instructions.md  🤖 Query shorthand expansion — dev, se, pp, hld, lld, etc.
 │   └── steering-modes.instructions.md  🤖 All steering modes — completeness | beast | learning | design | debug | focused
 │
 ├── agents/
@@ -288,6 +289,7 @@
 └── docs/
     ├── getting-started.md           👤 Hands-on tutorial
     ├── customization-guide.md       👤 Architecture deep-dive
+    ├── alias-bank.md                👤 Query shorthand dictionary used by query-aliases.instructions.md
     ├── mcp-server-setup.md          👤 Complete MCP setup guide (newbie-friendly, install → verify → copy to other project)
     ├── file-reference.md            👤 Who reads what (🤖 vs 👤)
     ├── navigation-index.md          👤 This file — master index
@@ -410,6 +412,7 @@ brain/
 | **Capture current AI session as a structured note** | `/brain-capture-session` | Brain |
 | **Understand how session capture works** | [Session Capture Guide](session-capture-guide.md) | Doc |
 | **Audit a file or folder against best practices** | `/check-standards` → target → domain | Prompt |
+| **Add or understand request shorthand** | [alias-bank.md](alias-bank.md) | Doc |
 | **Decide whether to keep MCP or migrate to skill** | [docs/mcp-vs-skills.md](mcp-vs-skills.md) | Doc |
 | **Migrate an MCP tool to a Copilot Skill** | `/mcp-to-skill` → server → full | Prompt |
 | **Understand Copilot context window & todo processing** | [docs/copilot-internals.md](copilot-internals.md) | Doc |
