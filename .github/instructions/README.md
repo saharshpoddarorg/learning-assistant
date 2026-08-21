@@ -50,9 +50,10 @@ Custom instructions are **path-scoped coding standards**. They tell Copilot *how
 | [`clean-code.instructions.md`](clean-code.instructions.md) | `**/*.java` | Code smells, SOLID hints, refactoring cues |
 | [`change-completeness.instructions.md`](change-completeness.instructions.md) | `**` | Iterative completeness — never add in isolation; cross-file ripple checklist |
 | [`steering-modes.instructions.md`](steering-modes.instructions.md) | `**` | Defines all available steering modes; establishes `completeness` as DEFAULT |
+| [`query-aliases.instructions.md`](query-aliases.instructions.md) | `**` | Expands common query shorthand using the [Query Alias Bank](../docs/alias-bank.md) |
 
 > `java.instructions.md` and `clean-code.instructions.md` apply to `**/*.java` — they **stack together** when you edit any `.java` file.
-> `change-completeness.instructions.md` and `steering-modes.instructions.md` apply to `**` — they are always active.
+> `change-completeness.instructions.md`, `steering-modes.instructions.md`, and `query-aliases.instructions.md` apply to `**` — they are always active.
 
 ---
 
@@ -244,6 +245,7 @@ Examples:
 4. **Use concrete examples** — "Use `Objects.requireNonNull(param, "param must not be null")`" beats "Validate parameters"
 5. **Don't duplicate `copilot-instructions.md`** — path-specific files add to it, not replace it
 6. **Test after creating** — verify with the tests above
+7. **Keep always-on instructions tiny** — put long reference tables in docs, like the [Query Alias Bank](../docs/alias-bank.md)
 
 ---
 
