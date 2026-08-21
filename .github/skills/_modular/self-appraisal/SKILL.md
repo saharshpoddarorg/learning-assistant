@@ -36,7 +36,8 @@ back to any source system or the company portal.
 3. **Ask the developer directly** for the sections that can't come from past evidence —
    Growth Talk Goal statements, Areas for Growth, Professional Challenges, Action for Next
    Review — never infer these.
-4. **Render** `growth-talk.md` and `self-appraisal.md` with the real section headers.
+4. **Render** `growth-talk.md` and `self-appraisal.md` with the real section headers, then
+   audit that every ledger item landed in at least one section before presenting them.
 
 Use the existing [`jira`](../jira/SKILL.md),
 [`bitbucket`](../bitbucket/SKILL.md), and
@@ -72,6 +73,14 @@ For any other financial-year label, resolve the first year as the October start 
 second year as the September end. Repeat the resolved dates back to the developer before
 querying, and confirm explicitly if the developer's own organization/locale might expect
 the April–March convention instead. Explicit `from` and `to` dates always override this
+convention.
+
+**Check the label against prior-cycle references before naming any output.** Organizations
+frequently label a cycle by its *ending* year, so a document named `FY2025-26` may describe
+work completed by September 2025. Compare the dates of work described in the most recent
+reference against its filename; if they disagree with the assumed convention, say so and
+ask. Name output folders and file titles explicitly — `US-FY2025-26 (Oct 2025 – Sept 2026)`
+rather than a bare `FY2025-26` — so the window is unambiguous regardless of local
 convention.
 
 ### Evidence-Source Choice
@@ -556,8 +565,75 @@ directly, never inferred) — see the Evidence-Derived vs. Developer-Supplied ta
    coupling by 2%"); Goals-Behaviors Comments stay method/practice-focused.
 3. Draft **Year End Summary** as a flat bullet list of outcomes — no Goal/Comment pairing;
    include a number when the ledger supports one, but don't force it.
-4. Treat any "Tasks worked on"-style content supplied alongside references as optional
-   extra evidence context only, never as a section to render.
+4. A **"Tasks worked on"** pre-section appears in some reference cycles as a raw list of
+   tickets. Never treat it as a fourth scored section. It may, however, be rendered as an
+   optional trim-before-entry appendix when the involvement set is large — group it by
+   epics, stories/tasks, defects, technical debt, investigations and cross-project work so
+   the developer can lift whichever items the conversation needs.
+
+### Carried-Forward Goals
+
+Goal statements repeat near-verbatim across cycles. When prior-cycle references are
+available, pre-fill each Goal with the previous wording and tag it
+`[CARRIED FORWARD — confirm or replace]` rather than leaving a blank. This gives the
+developer something to edit instead of something to compose, while keeping authorship
+with them. Never silently reuse a Goal without the tag.
+
+### Goals With No Supporting Evidence
+
+Some Goals — training attendance, solution demos, verbal knowledge sharing — leave no
+trace in Jira, Bitbucket, Confluence or Git. When a Goal has no evidence:
+
+- **Write the placeholder, not a plausible sentence.** State plainly that the activity is
+  not recorded in any accessible system and ask for specifics.
+- **Draft the part that is evidenced** where a Goal is partially covered, and mark only
+  the unevidenced remainder.
+- **Never pad an unevidenced Goal with adjacent evidence** to make it look complete. A
+  visible gap the developer can fill is more useful than prose they must fact-check.
+
+This is a structural limitation of the sources, not a gap in the developer's performance —
+say so, so the blank is not read as a weakness.
+
+### Evidence Placement Audit
+
+Before presenting the rendered files, verify that **every ledger evidence item appears in
+at least one output section**. Walk the ledger IDs in order and confirm each one is
+represented; list any that are deliberately omitted and why (usually because they
+duplicate a stronger item). An item gathered but never placed is wasted evidence — and
+silent omission is the most common way a strong year gets under-reported at the final
+step, after the gathering was done correctly.
+
+Where a single item legitimately supports several sections — a test-coverage build-out
+belongs in both a Behaviors Comment and Major Results — place it in each, phrased for
+that section's purpose rather than copied verbatim.
+
+### Talking Points vs. Portal Content
+
+The two files have different destinations, and meta-commentary must follow the right one:
+
+| File | Destination | May contain |
+|---|---|---|
+| `self-appraisal.md` | **Uploaded directly** to the portal | Portal sections only. No notes, no commentary, no explanation of method. Placeholders must be clearly marked for removal before upload. |
+| `growth-talk.md` | **Read by the developer** while typing into portal fields by hand | Portal sections, plus a clearly fenced *Talking points — not for portal entry* section. |
+
+Put anything the portal has no field for into that talking-points section, each item backed
+by the ledger. Useful categories:
+
+- **Growth areas visibly closed** — where this cycle's evidence answers a previous cycle's
+  stated Area for Growth. No form field exists for this, and it is easily the most
+  persuasive thing a developer can say out loud in the conversation.
+- **Work invisible in the tracker** — branch stewardship, integration, and contribution
+  under other people's tickets, which will not appear in any Jira-derived report.
+- **Scope a naive query would miss** — the single-signal count versus the true involvement
+  set, so a low number circulating elsewhere can be explained rather than defended.
+- **Diagnosis awaiting capacity** — root-cause work with proposed remediations, framed as a
+  concrete ask for the next cycle rather than an unfinished item.
+- **Blanks caused by source limits** — so an empty Comment is not read as inactivity.
+- **Numbers that could not be obtained** — surfaced deliberately, so their absence is not
+  mistaken for an oversight.
+
+Never place these in `self-appraisal.md`. A reviewer opening the uploaded form should see
+achievements, not the process that produced them.
 
 
 ### `self-appraisal.md`
@@ -666,5 +742,11 @@ latter.
   run, and the reconciliation published, before the ledger is shown to the developer.
 - Never report a baseline measurement in a way that implies an improvement that was never
   measured.
+- Never present rendered output files without first auditing that every ledger evidence
+  item is represented, and never invent prose for a Goal that has no supporting evidence —
+  leave a labelled placeholder instead.
+- Never put method commentary, talking points, or process notes into `self-appraisal.md` —
+  it is uploaded as-is. Those belong in the fenced talking-points section of
+  `growth-talk.md`, which the developer reads rather than submits.
 - If a query returns incomplete data, report the limitation and ask for a narrower query,
   an additional repository/space, or direct evidence links.
