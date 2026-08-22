@@ -36,7 +36,7 @@
 |---|---|---|
 | Features | 79 | `features/` — learning-assistant enhancements (34 existing + 34 EPIC-005 + 11 EPIC-006) |
 | Projects | 7 | `projects/` — standalone personal software projects |
-| Items | 3 | `items/` — BLI-006 (done), BLI-099 resume-builder, BLI-100 self-appraisal |
+| Items | 8 | `items/` — BLI-006 (done), BLI-097 scripts framework, BLI-099 resume-builder, BLI-100 self-appraisal, BLI-101..105 script sub-items |
 | Ideas | 1 | `ideas/` |
 | Epics | 6 | `epics/` — EPIC-001 through EPIC-006 |
 | Guides | 0 | `guides/` |
@@ -158,6 +158,11 @@
 │ BLI-098 high │              │              │              │              │
 │ BLI-099 med  │              │              │              │              │
 │ BLI-100 med  │              │              │              │              │
+| BLI-101 med  │              │              │              │              │
+| BLI-102 med  │              │              │              │              │
+| BLI-103 med  │              │              │              │              │
+| BLI-104 med  │              │              │              │              │
+| BLI-105 med  │              │              │              │              │
 └──────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
 ```
 
@@ -341,6 +346,12 @@
 |---|---|---|---|---|---|---|---|
 | BLI-001 | Build production Atlassian MCP server | feature | high | todo | 2026-03-26 | — | — |
 | BLI-006 | Create code formatting instructions and skill | feature | medium | done | 2026-03-26 | 2026-03-27 | 2026-03-27 |
+| BLI-097 | Implement validation and sync scripts for universal framework consistency | feature | high | todo | 2026-07-31 | — | — |
+| BLI-101 | Build validation core engine for cross-agent customization profiles | feature | medium | todo | 2026-08-22 | — | — |
+| BLI-102 | Implement drift detection and reporting for customization artifacts | feature | medium | todo | 2026-08-22 | — | — |
+| BLI-103 | Implement deterministic sync pipeline with profile adapters | feature | medium | todo | 2026-08-22 | — | — |
+| BLI-104 | Define tool profile specs and Antigravity mapping contract | design | medium | todo | 2026-08-22 | — | — |
+| BLI-105 | Wire CI and pre-commit compliance gates for customization scripts | feature | medium | todo | 2026-08-22 | — | — |
 | BLI-020 | Build GitHub MCP server | feature | high | todo | 2026-04-11 | — | — |
 | BLI-027 | Build code analysis context enhancement chain | feature | high | todo | 2026-04-21 | — | — |
 
@@ -405,6 +416,8 @@
 
 | Date | Time | ID | Action | Details |
 |---|---|---|---|---|
+| 2026-08-22 | 10:47 PM | BLI-101–105 | created | Added 5 BLI-097 sub-items for validation core, drift reporting, deterministic sync, profile specs (incl. Antigravity), and CI/pre-commit gates |
+| 2026-08-22 | 10:47 PM | BLI-097 | decomposed | Added sub-items BLI-101..105 to make script rollout executable |
 | 2026-06-03 | 08:35 PM | BLI-087 | created | Taxonomy enum single-source-of-truth (@TaxonomyTerm) + query-model enrichment (EPIC-001) |
 | 2026-06-02 | 05:00 PM | BLI-086 | created | Resume & LinkedIn skill — auto-update from work history, composes atlassian/github skills (EPIC-006) |
 | 2026-06-02 | 04:49 PM | BLI-085 | created | Skill-importer versioning + cross-repo re-import enhancements |
@@ -427,4 +440,4 @@
 
 ---
 
-> **Last updated:** 2026-06-02
+> **Last updated:** 2026-08-22

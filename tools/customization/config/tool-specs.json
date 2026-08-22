@@ -1,0 +1,50 @@
+{
+  "targets": [
+    {
+      "key": "github-copilot",
+      "name": "GitHub Copilot",
+      "directory": ".github",
+      "artifactDirs": ["instructions", "prompts", "skills", "agents"],
+      "requireFrontmatter": true,
+      "maxFileSizeKB": 100,
+      "isSource": true
+    },
+    {
+      "key": "claude-family",
+      "name": "Claude Family (Cursor + Claude)",
+      "directory": ".claude",
+      "artifactDirs": ["instructions", "prompts", "skills", "agents"],
+      "requireFrontmatter": false,
+      "maxFileSizeKB": 50,
+      "isSource": false
+    },
+    {
+      "key": "gemini",
+      "name": "Google Gemini",
+      "directory": ".gemini",
+      "artifactDirs": ["instructions", "prompts", "skills", "agents"],
+      "requireFrontmatter": false,
+      "maxFileSizeKB": 20,
+      "isSource": false
+    },
+    {
+      "key": "chatgpt",
+      "name": "ChatGPT / OpenAI",
+      "directory": ".chatgpt",
+      "artifactDirs": ["instructions", "prompts", "skills", "agents"],
+      "requireFrontmatter": false,
+      "maxFileSizeKB": 50,
+      "isSource": false
+    },
+    {
+      "key": "antigravity",
+      "name": "Antigravity",
+      "directory": ".antigravity",
+      "artifactDirs": ["instructions", "prompts", "skills", "agents"],
+      "requireFrontmatter": false,
+      "maxFileSizeKB": 50,
+      "isSource": false,
+      "validationOnly": true
+    }
+  ]
+}

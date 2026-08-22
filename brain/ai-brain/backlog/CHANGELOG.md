@@ -15,6 +15,19 @@ and **details** (context). Entries are newest-first within each month.
 
 ---
 
+## 2026-08
+
+| Date | Time | ID | Action | From | To | Details |
+|---|---|---|---|---|---|---|
+| 2026-08-22 | 10:47 PM | BLI-101 | created | — | todo | Validation core engine for cross-agent customization profiles (child of BLI-097) |
+| 2026-08-22 | 10:47 PM | BLI-102 | created | — | todo | Drift detection and reporting implementation (child of BLI-097) |
+| 2026-08-22 | 10:47 PM | BLI-103 | created | — | todo | Deterministic sync pipeline and profile adapters (child of BLI-097) |
+| 2026-08-22 | 10:47 PM | BLI-104 | created | — | todo | Tool profile specs and Antigravity mapping contract (child of BLI-097) |
+| 2026-08-22 | 10:47 PM | BLI-105 | created | — | todo | CI and pre-commit compliance gates for customization scripts (child of BLI-097) |
+| 2026-08-22 | 10:47 PM | BLI-097 | decomposed | — | — | Added sub-items BLI-101..105 to execute validation-first rollout |
+
+---
+
 ## 2026-07
 
 | Date | Time | ID | Action | From | To | Details |
@@ -123,6 +136,7 @@ and **details** (context). Entries are newest-first within each month.
 
 | Month | Changes | Items Created | Items Completed | Sprint Completions |
 |---|---|---|---|---|
+| 2026-08 | 6 | 5 | 0 | 0 |
 | 2026-05 | 12 | 52 | 0 | 0 |
 | 2026-04 | 17 | 9 | 0 | 0 |
 | 2026-03 | 7 | 21 | 1 | 0 |
@@ -130,7 +144,7 @@ and **details** (context). Entries are newest-first within each month.
 ### Cumulative
 
 ```text
-Total items created:     82
+Total items created:     87
 Total items completed:    1
 Completion rate:          1%
 Active sprints:           0
@@ -139,4 +153,4 @@ Completed sprints:        0
 
 ---
 
-> **Last updated:** 2026-05-29
+> **Last updated:** 2026-08-22
