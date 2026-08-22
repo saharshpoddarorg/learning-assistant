@@ -1,0 +1,54 @@
+name: Customization Compliance
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - saharsh1
+  workflow_dispatch:
+
+jobs:
+  compliance:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Validate Source Profile
+        shell: pwsh
+        run: |
+          .\tools\customization\validate-customization.ps1 -Tool github-copilot -Deep -Report .\out\customization-validate-github.json
+
+      - name: Validate All Profiles (non-strict)
+        shell: pwsh
+        run: |
+          .\tools\customization\validate-customization.ps1 -All -Deep -Report .\out\customization-validate-all.json
+
+      - name: Drift Report
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          .\tools\customization\check-drift.ps1 -Days 14 -Report .\out\customization-drift.json
+
+      - name: Sync Dry Run
+        shell: pwsh
+        run: |
+          .\tools\customization\sync-customization.ps1 -DryRun
+
+      - name: Upload Compliance Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: customization-compliance-reports
+          path: |
+            out/customization-validate-github.json
+            out/customization-validate-all.json
+            out/customization-drift.json

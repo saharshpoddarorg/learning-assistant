@@ -1,0 +1,22 @@
+{
+  "sourceProfile": "github-copilot",
+  "includeExtensions": [".md", ".prompt.md", ".instructions.md", ".agent.md", ".txt", ".json", ".yaml", ".yml", ".ps1"],
+  "excludePathContains": [
+    "/references/private/",
+    "/references/private/output/",
+    "/references/private/raw/",
+    "/.git/",
+    "/build/",
+    "/out/"
+  ],
+  "pathMappings": [
+    { "from": "instructions", "to": "instructions" },
+    { "from": "prompts", "to": "prompts" },
+    { "from": "skills", "to": "skills" },
+    { "from": "agents", "to": "agents" }
+  ],
+  "unsupportedPrimitivePolicy": {
+    "default": "warn",
+    "antigravity": "warn"
+  }
+}
