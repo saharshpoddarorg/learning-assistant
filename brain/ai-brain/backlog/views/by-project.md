@@ -347,7 +347,13 @@
 | ID | Title | Priority | Status | Created | Completed |
 |---|---|---|---|---|---|
 | BLI-006 | Create code formatting instructions and skill | medium | done | 2026-03-26 | 2026-03-27 |
+| BLI-097 | Implement validation and sync scripts for universal framework consistency | high | todo | 2026-07-31 | — |
+| BLI-101 | Build validation core engine for cross-agent customization profiles | medium | todo | 2026-08-22 | — |
+| BLI-102 | Implement drift detection and reporting for customization artifacts | medium | todo | 2026-08-22 | — |
+| BLI-103 | Implement deterministic sync pipeline with profile adapters | medium | todo | 2026-08-22 | — |
+| BLI-104 | Define tool profile specs and Antigravity mapping contract | medium | todo | 2026-08-22 | — |
+| BLI-105 | Wire CI and pre-commit compliance gates for customization scripts | medium | todo | 2026-08-22 | — |
 
 ---
 
-> **Last updated:** 2026-05-29
+> **Last updated:** 2026-08-22

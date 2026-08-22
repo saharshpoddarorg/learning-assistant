@@ -5,7 +5,7 @@ status: todo
 priority: high
 type: design
 created: 2026-07-31
-updated: 2026-07-31
+updated: 2026-08-22
 started: null
 completed: null
 blocked-since: null
@@ -17,7 +17,7 @@ sub-items: []
 origin: null
 estimated-effort: L
 actual-effort: null
-tags: [design, architecture, abstraction-layer, tool-agnostic, primitives, mapping, schema]
+tags: [design, architecture, abstraction-layer, tool-agnostic, primitives, mapping, schema, cross-agent-compliance, canonical-source]
 origin-type: manual
 import-batch: null
 source-file: null
@@ -42,6 +42,78 @@ This BLI produces an **architectural design document** that defines:
 3. Support future tools with minimal new code (extensibility)
 4. Provide clear mapping rules so humans can add content without scripts
 5. Ensure cross-tool consistency (same instruction doesn't contradict itself in different tools)
+
+---
+
+## Pair-Brainstorm Capture (2026-08-22)
+
+This BLI was enhanced from a pair-programming brainstorm focused on cross-agent
+compliance for existing GHCP-native skills, prompts, and related primitives.
+
+### Discussion Context Captured
+
+- Current state: customizations are primarily authored in GHCP-native conventions.
+- Desired state: one maintainable approach that works across GHCP, Claude-family
+  tools, Antigravity, and future assistants.
+- Main decision: whether a script is mandatory now, or if staged automation is better.
+
+### Q&A Captured from Discussion
+
+1. Which target agents/tools are in scope immediately vs later?
+2. Which parts are shared content vs platform-specific metadata?
+3. Should the team use manual sync, templated generation, or full transpilation?
+4. Where should enforcement happen: local scripts, pre-commit hooks, or CI?
+5. How should unsupported primitives be handled per tool profile?
+
+### Compliance Dimensions to Design For
+
+| Dimension | Why it matters |
+|---|---|
+| Config/frontmatter shape | Each tool expects different metadata structure |
+| Tool/capability references | Tool identifiers and invocation style differ |
+| Activation model | Trigger and loading behavior varies by platform |
+| Directory conventions | File/folder layouts are platform-specific |
+| Validation constraints | Token/size/format limits differ across tools |
+
+---
+
+## Strategy Options Evaluated
+
+| Option | Description | Benefits | Trade-offs |
+|---|---|---|---|
+| Manual sync + review | Maintain separate files per tool, review drift manually | Lowest startup effort | Highest long-term drift risk |
+| Canonical source + templates | Neutral source with generated platform outputs | Good balance of speed and consistency | Requires template and schema maintenance |
+| Full transpiler/compiler | Rich source model compiled to every tool format | Strong long-term scale | Highest complexity and maintenance overhead |
+| Validation-only scripts | Keep manual authoring, add strict parity checks | Fastest quality improvement | Does not remove duplication |
+
+### Script Decision (Captured Outcome)
+
+A script is not mandatory on day one, but a staged script path is recommended:
+
+1. Start with validation and drift checks.
+2. Add generation for high-repetition artifact types.
+3. Adopt a full transpiler only if growth and churn justify it.
+
+---
+
+## Recommended Incremental Plan
+
+### Phase A — Immediate
+
+- Define a neutral metadata contract for instructions, prompts, skills, and agents.
+- Build a validation report across GHCP, Claude-family targets, and Antigravity profile.
+- Record unsupported features explicitly as adapter gaps.
+
+### Phase B — Near Term
+
+- Generate high-friction artifacts from canonical source.
+- Keep generated files in git for review visibility.
+- Add regenerate + validate checks in pre-commit and CI.
+
+### Phase C — Scale Option
+
+- Move to full compile/transpile architecture if maintenance cost remains high.
+- Add a "new platform onboarding" checklist with adapter acceptance tests.
 
 ---
 
@@ -299,6 +371,10 @@ This guides implementation (BLI-097).
 - [ ] Adapter pseudocode written for all tools
 - [ ] Design reviewed by codebase maintainers
 - [ ] Design used as basis for BLI-093 (first implementation)
+- [ ] Pair-brainstorm Q&A fully captured with explicit decisions and open questions
+- [ ] Compliance matrix includes GHCP, Claude-family target, and Antigravity target profile
+- [ ] Staged automation path documented (validation first, generation second, transpiler optional)
+- [ ] At least one "author once, adapt many" reference workflow documented end-to-end
 
 ---
 
@@ -309,9 +385,17 @@ This guides implementation (BLI-097).
 
 ---
 
+## Related
+
+- BLI-097 — implementation scripts that operationalize this design and rollout sequence
+
+---
+
 ## Notes & Assumptions
 
 - Design assumes all tools support text-based customization (not UI-only)
 - Transformations are lossy in some cases (Copilot has more features than some tools)
 - Design should be tool-agnostic; implementation is tool-specific
 - Future tools can be added by creating a new adapter (extension point)
+- Antigravity specifics may require a dedicated adapter profile once concrete config
+  conventions are confirmed

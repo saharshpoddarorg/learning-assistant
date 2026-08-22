@@ -5,7 +5,7 @@ status: todo
 priority: high
 type: feature
 created: 2026-07-31
-updated: 2026-07-31
+updated: 2026-08-22
 started: null
 completed: null
 blocked-since: null
@@ -13,11 +13,16 @@ review-since: null
 epic: BLI-090
 sprint: null
 parent: null
-sub-items: []
+sub-items:
+  - BLI-101
+  - BLI-102
+  - BLI-103
+  - BLI-104
+  - BLI-105
 origin: null
 estimated-effort: L
 actual-effort: null
-tags: [automation, scripting, validation, sync, consistency, powershell, cli-tools]
+tags: [automation, scripting, validation, sync, consistency, powershell, cli-tools, cross-agent-compliance, antigravity]
 origin-type: manual
 import-batch: null
 source-file: null
@@ -42,6 +47,41 @@ Create automation scripts that:
 3. Enable automated validation in CI/CD pipeline
 4. Provide clear feedback when something is wrong
 5. Support both one-time sync and continuous monitoring
+
+---
+
+## Execution Input from Pair-Brainstorm (2026-08-22)
+
+This implementation item is now aligned to the expanded design discussion captured in
+`BLI-092`.
+
+### Captured outcomes to implement
+
+1. Platform scope coverage must include GHCP, Claude-family targets, and an
+  Antigravity profile.
+2. Reports must separate shared-content parity issues from platform-specific
+  adaptation issues.
+3. Enforcement must support both local execution and CI mode.
+4. Unsupported primitive mappings must be explicit warnings/errors, never silent skips.
+
+### Recommended rollout sequence
+
+1. Validation-first: stabilize `validate-customization.ps1` and `check-drift.ps1`.
+2. Generation-second: implement deterministic `sync-customization.ps1` with adapter
+  contracts.
+3. Full transpiler optional: only adopt if maintenance metrics justify the complexity.
+
+---
+
+## Sub-Items
+
+| ID | Title | Priority | Status |
+|---|---|---|---|
+| BLI-101 | Build validation core engine for cross-agent customization profiles | medium | todo |
+| BLI-102 | Implement drift detection and reporting for customization artifacts | medium | todo |
+| BLI-103 | Implement deterministic sync pipeline with profile adapters | medium | todo |
+| BLI-104 | Define tool profile specs and Antigravity mapping contract | medium | todo |
+| BLI-105 | Wire CI and pre-commit compliance gates for customization scripts | medium | todo |
 
 ---
 
@@ -446,6 +486,26 @@ tools/
 
 ---
 
+## Cross-Agent Profile Requirements
+
+The scripts must support profile-driven validation and adaptation for:
+
+- `github-copilot`
+- `claude-family` (Cursor + Claude-compatible formats)
+- `gemini`
+- `chatgpt`
+- `antigravity` (validation-only profile is acceptable in first pass)
+
+Minimum profile contract for each target:
+
+1. expected directory roots
+2. required artifact classes (instructions/prompts/skills/agents)
+3. metadata requirements
+4. format and lint constraints
+5. unsupported primitive policy (warn/error)
+
+---
+
 ## Acceptance Criteria
 
 - [ ] `sync-customization.ps1` implemented and tested
@@ -476,11 +536,14 @@ tools/
 - [ ] `lib/Transformers.ps1` — all transformation functions
 - [ ] `lib/Validators.ps1` — all validation functions
 - [ ] `tool-specs.json` — configuration for all tools
+- [ ] Antigravity profile entry included in `tool-specs.json` (validation-only allowed)
 - [ ] `tools/README.md` — script documentation
 - [ ] All scripts have built-in help (`-Help` flag)
 - [ ] All scripts are idempotent (safe to run multiple times)
 - [ ] Error handling is comprehensive (no silent failures)
 - [ ] Logging is clear and actionable
+- [ ] Reports distinguish shared-content parity failures from platform adaptation failures
+- [ ] CI mode and fail policy documented (`error` fail, optional `warning` fail in strict mode)
 
 ---
 
@@ -503,6 +566,10 @@ tools/
 
 - **Blocked by:** BLI-091, BLI-092, BLI-093, BLI-094, BLI-095 (tool directories must exist)
 - **Unblocks:** BLI-098 (testing) and CI/CD integration
+
+## Related
+
+- BLI-092 — design decisions and Q&A capture that define scope and rollout order
 
 ---
 

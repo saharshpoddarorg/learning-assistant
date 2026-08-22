@@ -21,7 +21,7 @@
 
 ---
 
-## Todo (85)
+## Todo (90)
 
 > Items ready to be picked up. Ordered by priority (high → low), then by ID.
 
@@ -107,6 +107,11 @@
 | BLI-086 | Resume & LinkedIn skill — auto-update from work history | feature | EPIC-006 | 2026-06-02 | skill, resume, linkedin, career, atlassian |
 | BLI-088 | Define output format rules — response structure, density, and format-by-intent | feature | — | 2026-07-31 | copilot-customization, output-format, instructions, response-structure |
 | BLI-089 | Backlog item workspace — BLI-local content sub-folder, cross-index view, and promotion path | feature | — | 2026-07-31 | backlog, brain, workspace, cross-linking, indexing, promotion-path |
+| BLI-101 | Build validation core engine for cross-agent customization profiles | feature | BLI-090 | 2026-08-22 | validation, automation, scripts, cross-agent-compliance |
+| BLI-102 | Implement drift detection and reporting for customization artifacts | feature | BLI-090 | 2026-08-22 | drift-detection, reporting, automation |
+| BLI-103 | Implement deterministic sync pipeline with profile adapters | feature | BLI-090 | 2026-08-22 | sync, adapters, generation |
+| BLI-104 | Define tool profile specs and Antigravity mapping contract | design | BLI-090 | 2026-08-22 | tool-profiles, schema, antigravity |
+| BLI-105 | Wire CI and pre-commit compliance gates for customization scripts | feature | BLI-090 | 2026-08-22 | ci, pre-commit, quality-gates |
 
 ### Low Priority
 
@@ -196,7 +201,7 @@ This month:       1
 ## Status Distribution
 
 ```text
-Todo         ████████████████████████████████████████████  83  (98%)
+Todo         ████████████████████████████████████████████  88  (98%)
 In Progress  █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   1   (1%)
 Blocked      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0   (0%)
 In Review    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   0   (0%)
@@ -205,4 +210,4 @@ Done         █░░░░░░░░░░░░░░░░░░░░░�
 
 ---
 
-> **Last updated:** 2026-06-02
+> **Last updated:** 2026-08-22

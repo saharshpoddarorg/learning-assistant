@@ -15,6 +15,11 @@ Items created through direct chat input (origin-type: manual).
 |---|---|---|---|---|
 | BLI-027 | Build code analysis context enhancement chain | todo | high | 2026-04-21 |
 | BLI-086 | Resume & LinkedIn skill — auto-update from work history | todo | medium | 2026-06-02 |
+| BLI-101 | Build validation core engine for cross-agent customization profiles | todo | medium | 2026-08-22 |
+| BLI-102 | Implement drift detection and reporting for customization artifacts | todo | medium | 2026-08-22 |
+| BLI-103 | Implement deterministic sync pipeline with profile adapters | todo | medium | 2026-08-22 |
+| BLI-104 | Define tool profile specs and Antigravity mapping contract | todo | medium | 2026-08-22 |
+| BLI-105 | Wire CI and pre-commit compliance gates for customization scripts | todo | medium | 2026-08-22 |
 
 ---
 
@@ -143,8 +148,12 @@ Items extracted from external files, grouped by import batch.
 ## Summary
 
 ```text
-Manual items:     2
+Manual items:     7
 AI session items: 47 items across 2 epics (EPIC-004: 13 + EPIC-005: 34)
 File imports:     14 items across 1 batch (8 new + 4 merged + 2 noted)
-Total:            63
+Total:            68
 ```
+
+---
+
+> **Last updated:** 2026-08-22

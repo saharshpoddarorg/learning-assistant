@@ -70,7 +70,7 @@ In Prog.  ██░░░░░░░░░░░░░░░░░░░░░�
 
 ---
 
-## Medium (33)
+## Medium (38)
 
 > Standard priority — schedule in upcoming sprints.
 
@@ -111,6 +111,11 @@ In Prog.  ██░░░░░░░░░░░░░░░░░░░░░�
 | BLI-083 | Search engine — metadata index and faceted search | feature | EPIC-006 | todo | features/ | 2026-05-29 |
 | BLI-084 | Search engine — auto-classification and entity extraction | feature | EPIC-006 | todo | features/ | 2026-05-29 |
 | BLI-086 | Resume & LinkedIn skill — auto-update from work history | feature | EPIC-006 | todo | features/ | 2026-06-02 |
+| BLI-101 | Build validation core engine for cross-agent customization profiles | feature | BLI-090 | todo | items/ | 2026-08-22 |
+| BLI-102 | Implement drift detection and reporting for customization artifacts | feature | BLI-090 | todo | items/ | 2026-08-22 |
+| BLI-103 | Implement deterministic sync pipeline with profile adapters | feature | BLI-090 | todo | items/ | 2026-08-22 |
+| BLI-104 | Define tool profile specs and Antigravity mapping contract | design | BLI-090 | todo | items/ | 2026-08-22 |
+| BLI-105 | Wire CI and pre-commit compliance gates for customization scripts | feature | BLI-090 | todo | items/ | 2026-08-22 |
 
 ---
 
@@ -151,4 +156,4 @@ In Prog.  ██░░░░░░░░░░░░░░░░░░░░░�
 
 ---
 
-> **Last updated:** 2026-06-02
+> **Last updated:** 2026-08-22
