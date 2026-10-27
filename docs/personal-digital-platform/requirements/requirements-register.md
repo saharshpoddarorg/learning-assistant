@@ -15,7 +15,8 @@ No new-platform implementation or test coverage is claimed.
 | U05 | Learn software engineering through iterative architecture discussion and pair programming. | User preference |
 | U06 | Existing repo is reference and evidence, not approved architecture; intentional review of retained/removed/rebuilt ideas. | Explicit user instruction |
 | U07 | Complete extraction -> user confirms coverage -> further brainstorming/questions -> starting draft design -> authorization before new repo/IntelliJ/implementation. | Explicit user sequence |
-| U08 | Save extraction and decision references for future design. | Current request; this documentation pack only |
+| U08 | Save extraction and decision references for future design. | Documentation stored in learning-assistant; PR #91 merged |
+| U09 | User will later create a separate repository named personal-digital-platform for the reviewed redesign. learning-assistant remains reference material, not an inherited architecture. | Explicit clarification, 2026-10-27; creation/implementation not yet authorized |
 
 ## Traceability
 
@@ -29,7 +30,7 @@ No new-platform implementation or test coverage is claimed.
 
 - Initial concrete use cases and success criteria; product scope versus adjacent experiments.
 - Agent count and orchestration; skill composition versus delegation; PKM/Learning overlap.
-- Storage/vault ownership, repository topology, deployment and technology stack.
+- Storage/vault ownership, internal module organization, deployment and technology stack. The separate successor repository name is confirmed; any additional vault repositories remain open.
 - Manual editing, source retention, provenance, re-import, contradiction handling and cross-device concurrency.
 - Granular review dependencies, rollback, interrupted/failed application and review persistence.
 - Privacy boundaries, local/cloud processing and integration feasibility.
