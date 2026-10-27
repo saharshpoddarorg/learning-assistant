@@ -1,5 +1,7 @@
 # Learning Assistant
 
+> **Personal Digital Platform planning:** [Discovery, requirements and decision records](docs/personal-digital-platform/README.md) — successor-platform planning; inventory completeness and architecture approval are still pending.
+
 > **New to this repo?** → Start at [**.github/docs/START-HERE.md**](.github/docs/START-HERE.md) — it tells you exactly what to read based on your experience level.
 > **Want everything in one place?** → [**USAGE.md**](USAGE.md) — comprehensive guide covering all features, all levels, all commands.
 
