@@ -14,8 +14,9 @@ PKM and Learning are initial priorities; Productivity and Planning are future ca
 3. [Audit coverage](discovery/audit-coverage.md) — inspection scope, findings and limits.
 4. [Requirements register](requirements/requirements-register.md) — accepted direction and open questions.
 5. [Import-review decision](design/decisions/001-import-review.md) — provisionally accepted behavior.
-6. [Historical alternatives](design/explorations/historical-alternatives.md) — options to reconsider.
-7. [Evidence guide](discovery/evidence/README.md) — source index and recovery instructions.
+6. [Vault/platform boundaries](design/decisions/002-vault-platform-boundaries.md) — accepted direction with explicit open points.
+7. [Historical alternatives](design/explorations/historical-alternatives.md) — options to reconsider.
+8. [Evidence guide](discovery/evidence/README.md) — source index and recovery instructions.
 
 ## Authority and record types
 
@@ -38,4 +39,4 @@ Connect requirements, inventory IDs, decisions and later implementation/tests.
 Record retain/refactor/merge/redesign/migrate/defer/remove dispositions with rationale and user review.
 
 This is repository-level documentation, not a Java package.
-Its location does not decide the future repository, module or knowledge-vault architecture.
+Its location does not determine implementation organization. Decision 002 records the subsequently accepted separate platform/vault repository direction; detailed architecture remains open.

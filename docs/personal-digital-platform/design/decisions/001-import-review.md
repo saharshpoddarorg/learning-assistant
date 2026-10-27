@@ -23,7 +23,7 @@ inspect differences and iterate selected changes before applying them.
 | R09 | Later changes to applied content are new proposed amendments showing what/why, not silent overwrites. | Agreed |
 | R10 | Track pending review, revision requested, approved, applied, deferred and rejected; retain feedback/history. | Provisional workflow vocabulary, not a finalized state-machine implementation |
 
-The proposal workspace may change during iteration. Accepted knowledge changes only on explicit application authorization.
+The proposal workspace may change during iteration. Applying proposed changes to accepted knowledge requires explicit application authorization. Manual edits may change the local working copy directly; see the clarification below.
 No data model, storage mechanism, UI, transactional behavior or multi-device conflict strategy has yet been chosen.
 
 ## Rationale and alternatives
@@ -41,3 +41,7 @@ This record accepts behavior in principle, not an implementation architecture.
 
 Related: [requirements](../../requirements/requirements-register.md), G08 and K03–K05 in
 [inventory](../../discovery/source-inventory.md).
+
+## Clarification accepted on resume, 2026-10-27
+
+[Decision 002](002-vault-platform-boundaries.md) makes the editing rules mechanism-independent, including deterministic code/API calls and configured flows as well as AI agents. Manual local edits are allowed; proposed application retains the version-specific authorization above. Commit/push requires review and explicit approval; permission to edit or apply does not imply permission to commit/push. Storage details and the provisional workflow vocabulary remain open.

@@ -24,3 +24,7 @@ For original wording and evidence links, see the [evidence guide](../../discover
 Every inventory entry currently has disposition: **undecided**.
 No old feature has been approved for silent removal; no old architectural claim is carried forward as binding.
 Record future dispositions against inventory IDs with reason, replacement, affected data/dependencies, and user review.
+
+## Subsequent user decision
+
+[Decision 002](../decisions/002-vault-platform-boundaries.md) records the user's accepted separate platform/vault Git repository direction and independent knowledge access. It narrows current exploration related to H06/H09 without adopting their historical tier structures or tool choices. Inventory migration/removal dispositions remain undecided.
